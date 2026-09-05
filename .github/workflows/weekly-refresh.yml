@@ -29,4 +29,16 @@ jobs:
           python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Publish validated snapshot
         run: python3 scripts/sync_supabase.py data/seoul_types.json
-
+      - name: Preserve refresh artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kb-refresh-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            data/seoul_snapshot.json
+            data/seoul_snapshot.csv
+            data/seoul_types.json
+            data/price_changes.json
+            dist/seoul_types.json
