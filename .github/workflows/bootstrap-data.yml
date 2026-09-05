@@ -32,4 +32,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json dist/seoul_types.json
           git commit -m 'Bootstrap 4-district KB snapshot' || exit 0
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
