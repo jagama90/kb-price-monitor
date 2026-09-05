@@ -4,3 +4,24 @@
 .ghost:disabled{opacity:.45;cursor:default}@media(max-width:800px){.ghost{display:inline-block;font-size:13px;padding:10px}}
 .table-wrap table{table-layout:fixed;min-width:1040px;width:100%}.table-wrap th,.table-wrap td{padding:9px 8px;line-height:1.35}.table-wrap th:nth-child(1){width:150px}.table-wrap th:nth-child(2){width:90px}.table-wrap th:nth-child(3){width:100px}.table-wrap th:nth-child(4),.table-wrap th:nth-child(5){width:90px}.table-wrap th:nth-child(6){width:140px}.table-wrap th:nth-child(7){width:90px}.table-wrap th:nth-child(8){width:70px}.table-wrap th:nth-child(9){width:120px}.table-wrap td{overflow-wrap:anywhere}.table-wrap td strong{font-size:14px}.table-wrap td small{font-size:12px;margin-top:3px;font-weight:400}.table-wrap .sort-btn{padding:3px 0;font-size:14px}.table-wrap .sort-btn i{margin-left:2px}.table-wrap .chip{padding:4px 7px}.table-wrap .link{font-size:14px}
 .group-controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:16px 20px;font-size:14px}.group-controls label{display:flex;align-items:center;gap:8px;cursor:pointer}.group-controls input{width:18px;height:18px;accent-color:var(--blue)}.group-controls select{font:inherit;border:1px solid var(--line);border-radius:8px;padding:8px;background:#fff}.group-expand{border:0;background:transparent;color:inherit;font:inherit;font-weight:700;text-align:left;padding:5px 0;cursor:pointer}.group-expand:focus-visible{outline:2px solid var(--blue);outline-offset:3px}.group-row{background:#f5f8ff}.type-detail td:first-child{padding-left:20px;border-left:3px solid #ccdaff}.group-row .link{color:var(--blue)}
+
+/* compact household + similar-area controls */
+.controls{grid-template-columns:minmax(220px,1fr) 170px 225px minmax(330px,auto) auto auto;align-items:center}
+.compact-options{display:flex;align-items:center;gap:10px;min-width:0}
+.compact-options>#householdFilter{width:132px;min-height:40px!important;height:40px;padding:0 28px 0 10px;font-size:14px;border-radius:9px;flex:0 0 auto}
+.compact-options .group-controls{margin:0;gap:8px;flex-wrap:nowrap;white-space:nowrap}
+.group-switch{display:inline-flex!important;align-items:center;gap:7px!important;font-weight:700;cursor:pointer;user-select:none}
+.group-switch>input{position:absolute;opacity:0;pointer-events:none;width:1px!important;height:1px!important}
+.switch-track{position:relative;width:34px;height:20px;border-radius:999px;background:#cfd5df;transition:.18s ease;flex:0 0 auto}
+.switch-track i{position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.22);transition:.18s ease}
+.group-switch>input:checked+.switch-track{background:var(--blue)}
+.group-switch>input:checked+.switch-track i{transform:translateX(14px)}
+.group-switch>input:focus-visible+.switch-track{outline:3px solid rgba(36,91,215,.18);outline-offset:2px}
+.compact-options .group-controls select{min-height:36px!important;height:36px;padding:0 24px 0 9px;font-size:13px;border-radius:8px}
+.help-dot{position:relative;width:20px;height:20px;padding:0;border:1px solid #c9d0db;border-radius:50%;background:#fff;color:#6d7684;font:700 12px/18px system-ui,-apple-system,sans-serif;cursor:help;flex:0 0 auto}
+.help-dot:hover,.help-dot:focus-visible{border-color:var(--blue);color:var(--blue);outline:0}
+.help-dot::after{content:attr(data-tooltip);position:absolute;z-index:30;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);width:330px;max-width:min(330px,80vw);padding:10px 12px;border-radius:9px;background:#202635;color:#fff;font:400 12px/1.55 system-ui,-apple-system,sans-serif;text-align:left;white-space:normal;box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;visibility:hidden;pointer-events:none;transition:.12s ease}
+.help-dot:hover::after,.help-dot:focus-visible::after{opacity:1;visibility:visible}
+@media(max-width:1250px){.controls{grid-template-columns:1fr 1fr 1fr}.compact-options{grid-column:1/-1}.budget,.toggle{grid-column:auto}}
+@media(max-width:800px){.controls{grid-template-columns:1fr 1fr}.compact-options{grid-column:1/-1;flex-wrap:wrap}.compact-options .group-controls{flex-wrap:wrap}.budget,.toggle{grid-column:auto}.help-dot::after{left:auto;right:-10px;transform:none}}
+@media(max-width:420px){.compact-options{align-items:flex-start}.compact-options>#householdFilter{width:124px}.compact-options .group-controls{gap:7px}.group-switch{font-size:13px}.budget,.toggle{grid-column:1/-1}}
