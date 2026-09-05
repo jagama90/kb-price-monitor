@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="여러 아파트 단지의 KB 일반 시세를 한 화면에서 비교하고 조건별로 찾습니다.">
+  <title>KB 시세 모아보기</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="seoul.css">
+  <link rel="stylesheet" href="enhancements.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="KB 시세 모아보기 홈"><span class="brand-mark">K</span><span>KB 시세 모아보기</span></a>
+    <div class="top-actions"><span class="update"><i></i> 서울 25개 구 연결</span><button class="ghost" id="exportBtn" disabled>검색 결과 CSV</button></div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">MY KB PRICE BOARD</p><h1>단지마다 누르지 말고,<br><em>한 번에 비교하세요.</em></h1></div>
+      <p class="intro-copy">비슷한 평형은 모아 보고, 펼쳐서 타입마다 다른 정확한 면적과 KB 일반가를 비교하세요.</p>
+    </section>
+
+    <section class="stats" aria-label="시세 요약">
+      <article><span>평형 자료가 있는 단지</span><strong id="countStat">—</strong><small>개 단지</small></article>
+      <article><span>전체 평형 중 15억 이하</span><strong id="underStat">—</strong><small>개 평형</small></article>
+      <article><span>KB 일반가 제공 평형</span><strong id="avgStat">—</strong><small>개 평형</small></article>
+      <article class="accent"><span>최근 수집</span><strong id="minStat">-</strong><small id="minName">KB부동산 기준</small></article>
+    </section>
+
+    <section class="workspace">
+      <div class="controls">
+        <label class="search"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="단지명 또는 지역 검색" aria-label="단지명 또는 지역 검색"></label>
+        <div class="multi-select" id="districtFilter"><button class="multi-trigger" id="districtTrigger" type="button" aria-haspopup="true" aria-expanded="false"><span>전체 자치구</span><b>⌄</b></button><div class="multi-menu" id="districtMenu" hidden></div></div>
+        <div class="area-range" role="group" aria-label="공급면적 범위"><span>공급</span><input id="areaMin" type="number" min="0.01" step="0.01" placeholder="최소" aria-label="최소 공급평수"><span>~</span><input id="areaMax" type="number" min="0.01" step="0.01" placeholder="최대" aria-label="최대 공급평수"><b>평</b></div>
+        <select id="householdFilter" aria-label="단지 전체 세대수 선택"><option value="0">전체 단지 세대수</option><option value="50">단지 50세대 이상</option><option value="100">단지 100세대 이상</option><option value="300" selected>단지 300세대 이상</option><option value="500">단지 500세대 이상</option><option value="1000">단지 1,000세대 이상</option></select>
+        <label class="budget"><span>예산</span><input id="budgetInput" type="number" value="15" min="1" step="0.1"><b>억 이하</b></label>
+        <button class="toggle" id="budgetToggle" aria-pressed="false"><span></span>예산 이하만</button>
+      </div>
+      <p class="filter-help">공급평수는 소수점 포함 실제 값으로 비교합니다. 24~32평 입력 시 32.01평 이상은 제외됩니다. 빈칸은 제한 없음입니다.</p>
+      <div class="group-controls"><label><input type="checkbox" id="groupToggle" checked> 비슷한 평형 모아보기</label><select id="groupTolerance" aria-label="비슷한 평형 면적 차이"><option value="1">최대 1평 차이</option><option value="2" selected>최대 2평 차이</option></select></div>
+      <p class="filter-help">같은 단지에서 공급·전용면적 차이가 각각 선택한 범위 이내인 타입을 묶습니다. 구조가 같다는 뜻은 아닙니다. 검색 조건에 맞는 타입만 표시하며, 묶음의 가격·면적 정렬은 최솟값 기준입니다. CSV는 원래 타입별로 저장됩니다.</p>
+      <p id="filterError" class="filter-error" role="alert" hidden></p>
+
+      <div class="table-head"><div><h2>KB 일반 시세</h2><span id="resultCount">자료를 불러오는 중</span></div><small>컬럼명을 누르면 정렬됩니다</small></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th><button class="sort-btn" data-sort="name">단지·평형 <i>↕</i></button></th><th><button class="sort-btn" data-sort="district">지역 <i>↕</i></button></th><th><button class="sort-btn" data-sort="households">단지 세대수 <i>↕</i></button></th><th><button class="sort-btn" data-sort="area">공급면적 <i>↕</i></button></th><th><button class="sort-btn" data-sort="exclusive">전용면적 <i>↕</i></button></th><th><button class="sort-btn" data-sort="price">KB 시세 일반가 <i>↕</i></button></th><th><button class="sort-btn" data-sort="budget">예산 비교 <i>↕</i></button></th><th><button class="sort-btn" data-sort="collected">조회일 <i>↕</i></button></th><th>원문 확인</th></tr></thead>
+          <tbody id="priceBody"></tbody>
+        </table>
+        <div class="empty" id="emptyState" hidden><b>조건에 맞는 시세가 없어요</b><span>지역·평형·세대수 또는 예산 조건을 바꿔 보세요.</span></div>
+      </div>
+      <div class="pager"><button id="prevPage" disabled>이전</button><span id="pageInfo">1 / 1</span><button id="nextPage" disabled>다음</button></div>
+      <p class="source-note" id="coverageNote">평형별 수집 내역을 확인 중입니다.</p>
+      <p class="source-note">KB 단지 ID·평형 ID로 연결한 해당 평형의 매매 일반가입니다. 단지 최저가·AI시세·실거래가로 대체하지 않습니다. 조회일은 수집일이며 시세 기준일과 다릅니다. 평형 자료가 없는 단지는 표에서 제외됩니다. 예산 이하 표시는 대출 가능 여부를 보장하지 않으며, 원문과 금융기관의 심사 기준을 별도로 확인해 주세요.</p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="config.js"></script>
+  <script src="price-core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
