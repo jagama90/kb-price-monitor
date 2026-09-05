@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+data/type_runs/
+data/*.json
+data/*.csv
+dist/seoul_types.json
+
