@@ -1,0 +1,32 @@
+name: Weekly KB price refresh
+
+on:
+  schedule:
+    - cron: '0 1 * * 6' # Saturday 10:00 KST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      KB_TARGET_DISTRICTS: 강남구,서초구,송파구,성동구
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect fresh KB data
+        run: python3 scripts/collect_seoul.py
+      - name: Validate snapshot
+        run: |
+          node scripts/test_price_core.cjs data/seoul_types.json
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Publish validated snapshot
+        run: python3 scripts/sync_supabase.py data/seoul_types.json
+
