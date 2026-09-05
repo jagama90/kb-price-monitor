@@ -1,0 +1,35 @@
+name: Bootstrap KB data
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/bootstrap-data.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      KB_TARGET_DISTRICTS: 강남구,서초구,송파구,성동구
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect 4-district KB snapshot
+        run: python3 scripts/collect_seoul.py
+      - name: Validate snapshot
+        run: |
+          node scripts/test_price_core.cjs data/seoul_types.json
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Commit validated bootstrap snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json dist/seoul_types.json
+          git commit -m 'Bootstrap 4-district KB snapshot' || exit 0
+          git push
