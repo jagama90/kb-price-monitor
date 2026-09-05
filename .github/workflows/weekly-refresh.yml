@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   refresh:
@@ -14,8 +14,6 @@ jobs:
     timeout-minutes: 120
     env:
       KB_TARGET_DISTRICTS: 강남구,서초구,송파구,성동구
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,8 +25,14 @@ jobs:
         run: |
           node scripts/test_price_core.cjs data/seoul_types.json
           python3 -m unittest discover -s scripts -p 'test_*.py'
-      - name: Publish validated snapshot
-        run: python3 scripts/sync_supabase.py data/seoul_types.json
+      - name: Commit validated snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json dist/seoul_types.json
+          git commit -m 'Weekly KB snapshot refresh' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
       - name: Preserve refresh artifacts
         if: always()
         uses: actions/upload-artifact@v4
