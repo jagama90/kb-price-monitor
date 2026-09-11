@@ -1,7 +1,9 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const core=require('../dist/price-core.js');
-const full=JSON.parse(fs.readFileSync(process.argv[2]||'tests/fixtures/reference-types-20260904.json','utf8'));
+const livePath=process.argv[2];
+if(livePath) core.validateSnapshot(JSON.parse(fs.readFileSync(livePath,'utf8')));
+const full=JSON.parse(fs.readFileSync('tests/fixtures/reference-types-20260904.json','utf8'));
 core.validateSnapshot(full);
 const sample={...full,items:full.items.filter(r=>[1913,15758].includes(r.complex_id))};
 const filters={q:'',districts:null,areaMin:24,areaMax:32,households:0,budget:150000,budgetOnly:true};
@@ -38,7 +40,7 @@ assert.throws(()=>core.validateSnapshot({...full,errors:[{complex_id:1,error:'fa
 assert.throws(()=>core.validateSnapshot({...full,successful_complex_count:full.target_complex_count-1}));
 const csv=core.toCSV([swan30]);assert(csv.includes('"30.85"'));assert(csv.includes('"162000"'));assert(!csv.includes('66000'));
 assert(core.toCSV([{...swan30,name:'=formula,"test"'}]).includes('"\'=formula,""test"""'));
-console.log('PASS: exact type identity, price mapping, numeric bounds, budgets, districts, null sorting, CSV, schema guards');
+console.log('PASS: live snapshot validation + exact type identity, price mapping, numeric bounds, budgets, districts, null sorting, CSV, schema guards');
 const variants=[0,1,2,3].map((n)=>({...swan30,area_id:n+1,supply_pyeong:30+n,exclusive_pyeong:24+n,general_price_manwon:149000+n*1000}));
 const untouched=JSON.stringify(variants),groups=core.groupSimilar(variants,2);
 assert.deepEqual(groups.map(g=>g.members.length),[3,1]);
