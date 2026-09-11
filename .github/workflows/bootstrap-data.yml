@@ -1,5 +1,5 @@
 name: Bootstrap KB data
-# automation-trigger: 2026-09-11
+# automation-trigger: 2026-09-11-retry
 
 on:
   push:
