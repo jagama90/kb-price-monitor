@@ -2,8 +2,11 @@ name: Weekly KB price refresh
 
 on:
   schedule:
-    - cron: '0 1 * * 6' # Saturday 10:00 KST
+    - cron: '5 12 * * 5' # Friday 21:05 KST
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/weekly-refresh.yml'
 
 permissions:
   contents: write
