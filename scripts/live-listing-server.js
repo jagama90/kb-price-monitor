@@ -1,5 +1,8 @@
 'use strict';
 const http=require('http');
+const fs=require('fs');
+const path=require('path');
+const ROOT=path.resolve(__dirname,'../dist');
 const {chromium}=require('playwright-core');
 const API='https://fin.land.naver.com/front-api/v1/complex/article/list';
 let browser,page,primed=false;
@@ -30,8 +33,16 @@ async function query(cid,area){
  return {ok:true,complexNo:cid,area,listingCount:near.length,lowest:arr[0]?{priceManwon:arr[0].p,articleNo:arr[0].x.articleNo||arr[0].x.atclNo}:null};
 }
 http.createServer(async(req,res)=>{
- Object.entries(cors).forEach(([k,v])=>res.setHeader(k,v));res.setHeader('Content-Type','application/json');
- if(req.method==='OPTIONS'){res.statusCode=204;return res.end()}
- try{const u=new URL(req.url,'http://127.0.0.1');if(u.pathname!='/live-listing')throw new Error('not found');res.end(JSON.stringify(await query(u.searchParams.get('complexNo')||'9330',Number(u.searchParams.get('area')||0))))}
- catch(e){res.statusCode=502;res.end(JSON.stringify({ok:false,error:String(e.message||e)}))}
-}).listen(17330,'127.0.0.1',()=>console.log('KB live listing helper: http://127.0.0.1:17330'));
+ const u=new URL(req.url,'http://127.0.0.1');
+ if(u.pathname==='/live-listing'){
+  Object.entries(cors).forEach(([k,v])=>res.setHeader(k,v));res.setHeader('Content-Type','application/json');
+  if(req.method==='OPTIONS'){res.statusCode=204;return res.end()}
+  try{return res.end(JSON.stringify(await query(u.searchParams.get('complexNo')||'9330',Number(u.searchParams.get('area')||0))))}
+  catch(e){res.statusCode=502;return res.end(JSON.stringify({ok:false,error:String(e.message||e)}))}
+ }
+ const rel=u.pathname==='/'?'index.html':decodeURIComponent(u.pathname.slice(1));
+ const file=path.resolve(ROOT,rel);
+ if(!file.startsWith(ROOT)||!fs.existsSync(file)||fs.statSync(file).isDirectory()){res.statusCode=404;return res.end('Not found')}
+ const ext=path.extname(file);const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml'};
+ res.setHeader('Content-Type',types[ext]||'application/octet-stream');fs.createReadStream(file).pipe(res);
+}).listen(17330,'127.0.0.1',()=>console.log('KB live monitor: http://127.0.0.1:17330'));
