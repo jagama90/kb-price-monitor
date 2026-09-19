@@ -24,7 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Sync purchase watchlist data
-        run: cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
+        run: |
+          cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
+          cp data/buy_watchlist_targets.json dist/buy_watchlist_targets.json
       - uses: actions/configure-pages@v5
         with:
           enablement: true
