@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-19",
+  "source": "user watchlist + KB matching",
+  "count": 39,
+  "items": [
+    {
+      "district": "송파구",
+      "user_name": "가락금호",
+      "complex_id": 1960,
+      "kb_name": "가락금호",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "올림픽훼밀리타운",
+      "complex_id": 1985,
+      "kb_name": "올림픽훼밀리타운",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "문정동 건영아파트",
+      "complex_id": 1986,
+      "kb_name": "건영",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파파인타운 2단지",
+      "complex_id": 15738,
+      "kb_name": "송파파인타운2단지",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파파인타운 3단지",
+      "complex_id": 15663,
+      "kb_name": "송파파인타운3단지",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파파인타운 7단지",
+      "complex_id": 15308,
+      "kb_name": "송파파인타운7단지",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파파인타운 8단지",
+      "complex_id": 15813,
+      "kb_name": "송파파인타운8단지",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파파인타운 9단지",
+      "complex_id": 15309,
+      "kb_name": "송파파인타운9단지",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파파인타운 10단지",
+      "complex_id": 15041,
+      "kb_name": "송파파인타운10단지",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "힐스테이트e편한세상문정",
+      "complex_id": 1082473,
+      "kb_name": "힐스테이트e편한세상문정",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "삼환가락",
+      "complex_id": 1945,
+      "kb_name": "삼환가락",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "미륭아파트",
+      "complex_id": 1944,
+      "kb_name": "미륭",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "가락쌍용1차",
+      "complex_id": 1947,
+      "kb_name": "가락쌍용(1차)",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "잠실한솔",
+      "complex_id": 1984,
+      "kb_name": "잠실한솔",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파더센트레",
+      "complex_id": 25766,
+      "kb_name": "송파더센트레",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파꿈에그린위례24단지",
+      "complex_id": 25769,
+      "kb_name": "위례24단지(꿈에그린)",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파시그니처롯데캐슬",
+      "complex_id": 46734,
+      "kb_name": "송파시그니처롯데캐슬",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "E편한세상송파파크센트럴",
+      "complex_id": 40111,
+      "kb_name": "e편한세상송파파크센트럴",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "금호타운아파트 (마천역)",
+      "complex_id": 1896,
+      "kb_name": "마천금호(금호타운)",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "풍납극동",
+      "complex_id": 1868,
+      "kb_name": "극동",
+      "status": "matched_high_confidence"
+    },
+    {
+      "district": "송파구",
+      "user_name": "풍납현대",
+      "complex_id": 1873,
+      "kb_name": "현대(풍납)",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "송파레이크힐",
+      "complex_id": 323275,
+      "kb_name": "송파레이크힐",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "포레나송파",
+      "complex_id": 323274,
+      "kb_name": "포레나송파",
+      "status": "matched"
+    },
+    {
+      "district": "송파구",
+      "user_name": "가락대림",
+      "complex_id": 1941,
+      "kb_name": "가락대림",
+      "status": "matched"
+    },
+    {
+      "district": "광진구",
+      "user_name": "현대프라임",
+      "complex_id": 716,
+      "kb_name": "현대프라임",
+      "status": "matched"
+    },
+    {
+      "district": "광진구",
+      "user_name": "현대6단지",
+      "complex_id": 717,
+      "kb_name": "현대(6단지)",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "행당한진타운",
+      "complex_id": 1758,
+      "kb_name": "행당한진타운",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "행당대림",
+      "complex_id": 1757,
+      "kb_name": "행당동대림",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "행당두산위브",
+      "complex_id": 16047,
+      "kb_name": "두산위브",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "왕십리금호어울림",
+      "complex_id": 12530,
+      "kb_name": "금호어울림",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "성동자이리버뷰",
+      "complex_id": null,
+      "kb_name": "성동자이리버뷰",
+      "status": "needs_kb_id"
+    },
+    {
+      "district": "성동구",
+      "user_name": "금호대우",
+      "complex_id": 1771,
+      "kb_name": "금호동대우",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "금호두산",
+      "complex_id": 1767,
+      "kb_name": "두산",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "금호동한신휴플러스",
+      "complex_id": 13487,
+      "kb_name": "금호동한신휴플러스",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "서울숲행당푸르지오",
+      "complex_id": 16151,
+      "kb_name": "서울숲행당푸르지오",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "서울숲한신더휴",
+      "complex_id": 1759,
+      "kb_name": "서울숲한신더휴",
+      "status": "matched"
+    },
+    {
+      "district": "성동구",
+      "user_name": "서울숲리버그린아파트",
+      "complex_id": 12024,
+      "kb_name": "서울숲리버그린동아",
+      "status": "matched"
+    },
+    {
+      "district": "중구",
+      "user_name": "남산타운",
+      "complex_id": 2538,
+      "kb_name": "남산타운",
+      "status": "matched"
+    },
+    {
+      "district": "강남구",
+      "user_name": "강남자곡아이파크",
+      "complex_id": 31944,
+      "kb_name": "강남자곡아이파크",
+      "status": "matched"
+    }
+  ]
+}
