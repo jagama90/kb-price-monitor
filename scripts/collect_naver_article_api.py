@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import argparse,asyncio,json,re
+import argparse,asyncio,json,re,urllib.parse,urllib.request
 from datetime import datetime,timezone
 from pathlib import Path
 from urllib.parse import urlencode
 from playwright.async_api import async_playwright
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[1]\nUA='Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 Chrome/153 Mobile Safari/537.36'\n\ndef resolve_complex(name):\n    url='https://m.land.naver.com/search/result/'+urllib.parse.quote(str(name))\n    req=urllib.request.Request(url,headers={'User-Agent':UA,'Referer':'https://m.land.naver.com/','Accept':'application/json'})\n    with urllib.request.urlopen(req,timeout=20) as r:data=json.loads(r.read())\n    found=[]\n    def walk(x):\n      if isinstance(x,dict):\n        if x.get('hscpNo') and x.get('hscpNm'):found.append(x)\n        for v in x.values():walk(v)\n      elif isinstance(x,list):\n        for v in x:walk(v)\n    walk(data)\n    key=re.sub(r'[^0-9a-z가-힣]','',str(name).lower())\n    ranked=[]\n    for x in found:\n      n=re.sub(r'[^0-9a-z가-힣]','',str(x.get('hscpNm','')).lower())\n      score=100 if n==key else 80 if key and (key in n or n in key) else 0\n      if score:ranked.append((score,x))\n    return max(ranked,key=lambda z:z[0])[1] if ranked else None
 
 def price_to_manwon(v):
     s=str(v or '').replace(',','').strip()
@@ -62,7 +62,7 @@ def normalize(a):
       'building':a.get('buildingName') or a.get('bildNm'),'floor':a.get('floorInfo') or a.get('floor'),'confirm_ymd':a.get('articleConfirmYmd') or a.get('atclCfmYmd')}
 
 async def main():
-    ap=argparse.ArgumentParser();ap.add_argument('--naver-complex-no',required=True);ap.add_argument('--kb-complex-id',type=int,default=1947);ap.add_argument('--publish',action='store_true')
+    ap=argparse.ArgumentParser();ap.add_argument('--naver-complex-no');ap.add_argument('--kb-complex-id',type=int,default=1947);ap.add_argument('--publish',action='store_true')
     a=ap.parse_args()
     master=json.loads((ROOT/'data/buy_watchlist_master.json').read_text())
     c=next(x for x in master['items'] if x.get('complex_id')==a.kb_complex_id)
@@ -78,7 +78,7 @@ async def main():
       outtypes.append({'kb_area_id':t['area_id'],'type_label':t['type_label'],'supply_m2':t['supply_m2'],'exclusive_m2':t['exclusive_m2'],
         'lowest_ask_manwon':low['price_manwon'] if low else None,'listing_count':len(near),'lowest_listing':low})
     snap={'schema_version':2,'source':'Naver new.land Article API auth-capture','collected_at':datetime.now(timezone.utc).isoformat(),
-      'items':[{'complex_id':c['complex_id'],'name':c['user_name'],'naver_complex_no':str(a.naver_complex_no),'authorization_captured':auth,'article_count':len(arts),'types':outtypes}],'errors':[]}
+      'items':[{'complex_id':c['complex_id'],'name':c['user_name'],'naver_complex_no':str(a.naver_complex_no),'naver_name':(resolved or {}).get('hscpNm'),'authorization_captured':auth,'article_count':len(arts),'types':outtypes}],'errors':[]}
     path=ROOT/'data/naver_listing_asks_probe.json';path.write_text(json.dumps(snap,ensure_ascii=False,indent=2))
     if a.publish:(ROOT/'data/buy_watchlist_listings.json').write_text(json.dumps(snap,ensure_ascii=False,indent=2))
     print(json.dumps(snap,ensure_ascii=False,indent=2))
