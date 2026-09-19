@@ -177,14 +177,16 @@
       "user_name": "현대프라임",
       "complex_id": 716,
       "kb_name": "현대프라임",
-      "status": "matched"
+      "status": "matched",
+      "address": "서울 광진구 광나루로56길 29"
     },
     {
       "district": "광진구",
       "user_name": "현대6단지",
       "complex_id": 717,
       "kb_name": "현대(6단지)",
-      "status": "matched"
+      "status": "matched",
+      "address": "서울 광진구 구의강변로 94"
     },
     {
       "district": "성동구",
@@ -274,7 +276,8 @@
       "user_name": "남산타운",
       "complex_id": 2538,
       "kb_name": "남산타운",
-      "status": "matched"
+      "status": "matched",
+      "address": "서울 중구 다산로 32"
     },
     {
       "district": "강남구",
