@@ -4,7 +4,7 @@ on:
     inputs:
       naver_complex_no:
         description: "Naver complexNo"
-        required: true
+        required: false
       kb_complex_id:
         description: "KB complex id"
         required: false
@@ -30,7 +30,7 @@ jobs:
       - run: playwright install --with-deps chromium
       - name: Collect
         run: |
-          args=(--naver-complex-no "${{ inputs.naver_complex_no }}" --kb-complex-id "${{ inputs.kb_complex_id }}")
+          args=(--kb-complex-id "${{ inputs.kb_complex_id || '1947' }}")\n          if [[ -n "${{ inputs.naver_complex_no }}" ]]; then args+=(--naver-complex-no "${{ inputs.naver_complex_no }}"); fi
           if [[ "${{ inputs.publish }}" == "true" ]]; then args+=(--publish); fi
           python scripts/collect_naver_article_api.py "${args[@]}"
       - name: Commit result
