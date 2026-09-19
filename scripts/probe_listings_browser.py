@@ -10,8 +10,35 @@ async def main():
   async with async_playwright() as p:
     browser=await p.chromium.launch(headless=True)
     page=await browser.new_page()
+    captured=[]
+    async def on_response(resp):
+      if '/land-property/propList/main' in resp.url:
+        try:
+          txt=await resp.text()
+          captured.append((resp.status,txt,resp.request.headers,resp.request.post_data))
+          print('APP_MAIN',resp.status,'bytes',len(txt))
+          print(txt[:12000])
+        except Exception as e: print('APP_MAIN_ERR',repr(e))
+    page.on('response',on_response)
     await page.goto('https://kbland.kr/se/c/1947',wait_until='domcontentloaded',timeout=60000)
-    await page.wait_for_timeout(3000)
+    await page.wait_for_timeout(4000)
+    # Trigger the site's own listing UI so KB's own JS creates the request/auth context.
+    for label in ['매물','매매']:
+      try:
+        loc=page.get_by_text(label,exact=True)
+        if await loc.count():
+          await loc.first.click(timeout=3000)
+          await page.wait_for_timeout(5000)
+      except Exception as e: print('CLICK',label,repr(e))
+    if captured:
+      for status,txt,h,pd in captured:
+        if txt:
+          try:
+            d=json.loads(txt); rows=((d.get('dataBody') or {}).get('data') or {}).get('propertyList') or []
+            if rows:
+              print('APP_ROWS',len(rows))
+              break
+          except: pass
     ts=dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).strftime('%Y%m%d%H%M%S%f')[:17]
     result=await page.evaluate("""async ({payload,token,trace,ts}) => {
       const r=await fetch('https://api.kbland.kr/land-property/propList/main',{method:'POST',headers:{
