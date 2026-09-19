@@ -24,7 +24,7 @@ def connection():
     return http.client.HTTPSConnection(API_HOST,timeout=35)
 
 def post(payload, token=None):
-    cookie=os.getenv('KB_COOKIE','').strip()
+    cookie=os.getenv('KB_COOKIE','').strip() or (('WMONID='+os.getenv('KB_WMONID','').strip()) if os.getenv('KB_WMONID','').strip() else '')
     # Match the request headers used by the KB Land web client.
     kst=dt.timezone(dt.timedelta(hours=9))
     timestamp=dt.datetime.now(kst).strftime('%Y%m%d%H%M%S%f')[:17]
