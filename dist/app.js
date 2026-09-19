@@ -177,14 +177,14 @@ Promise.all([loadData().then(core.validateSnapshot),loadWatchlist()]).then(([dat
   $('#exportBtn').disabled=true;
 });
 
-const NAVER_COMPLEX_MAP={1947:"9330"};
+const NAVER_COMPLEX_MAP={};
 async function loadLiveAsk(btn){
  const kb=Number(btn.dataset.liveComplex),cid=NAVER_COMPLEX_MAP[kb];
- if(!cid){btn.textContent='실시간 매핑 준비중';return}
+ const name=btn.dataset.liveName||'';
  const old=btn.textContent;btn.disabled=true;btn.textContent='현재 매물 조회중…';
  try{
   const area=Math.round(Number(btn.dataset.liveArea)||0);
-  const urls=['http://127.0.0.1:17330/live-listing?complexNo='+encodeURIComponent(cid)+'&area='+encodeURIComponent(area),'https://iefzffwydvqnleukmljj.supabase.co/functions/v1/live-listing?complexNo='+encodeURIComponent(cid)+'&area='+encodeURIComponent(area)];
+  const urls=['http://127.0.0.1:17330/live-listing?complexNo='+encodeURIComponent(cid||'')+'&area='+encodeURIComponent(area)+'&name='+encodeURIComponent(name),'https://iefzffwydvqnleukmljj.supabase.co/functions/v1/live-listing?complexNo='+encodeURIComponent(cid)+'&area='+encodeURIComponent(area)];
   let d=null,last=null;
   for(const u of urls){try{const r=await fetch(u,{cache:'no-store'});const x=await r.json();if(r.ok&&x.ok){d=x;break}last=new Error(x.error||x.upstream||('HTTP '+r.status))}catch(e){last=e}}
   if(!d)throw last||new Error('실시간 조회 실패');
