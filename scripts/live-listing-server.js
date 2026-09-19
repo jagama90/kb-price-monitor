@@ -17,6 +17,18 @@ async function ensure(){
   return route.continue();
  });
 }
+async function resolveComplex(name){
+ await ensure();primed=false;
+ await page.goto('https://fin.land.naver.com/map?search='+encodeURIComponent(name),{waitUntil:'commit',timeout:25000});
+ await page.waitForTimeout(1800);
+ const found=await page.evaluate(n=>{
+  const links=[...document.querySelectorAll('a[href*="/complexes/"]')].map(a=>({href:a.href,text:(a.textContent||'').trim()}));
+  const exact=links.find(x=>x.text.includes(n))||links[0];
+  const m=exact&&exact.href.match(/\/complexes\/(\d+)/);return m?m[1]:'';
+ },name).catch(()=> '');
+ if(!found)throw new Error('단지 검색 실패: '+name);
+ return found;
+}
 async function prime(cid){primed=false;await page.goto('https://fin.land.naver.com/complexes/'+cid,{waitUntil:'commit',timeout:25000});primed=true}
 function price(v){
  if(typeof v==='number')return v;
@@ -24,8 +36,8 @@ function price(v){
  const n=s.match(/\d+/);return n?+n[0]:null;
 }
 function walk(o,out=[]){if(Array.isArray(o))o.forEach(x=>walk(x,out));else if(o&&typeof o==='object'){if(o.articleNo||o.atclNo)out.push(o);Object.values(o).forEach(x=>walk(x,out))}return out}
-async function query(cid,area){
- await ensure();if(!primed)await prime(cid);
+async function query(cid,area,name){
+ await ensure();if(name)cid=await resolveComplex(name);if(!primed)await prime(cid);
  const r=await page.evaluate(async a=>{const res=await fetch(a.api,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({complexNumber:a.cid,tradeTypes:['A1'],size:30,userChannelType:'MOBILE',articleSortType:'PRICE_ASC',lastInfo:[]})});return {status:res.status,text:await res.text()}},{api:API,cid});
  if(r.status!==200)throw new Error('Naver HTTP '+r.status);
  const data=JSON.parse(r.text),all=walk(data),near=all.filter(x=>{const a=Number(x.area1||x.spc1||x.supplyArea||x.articleArea||0);return !area||!a||Math.abs(a-area)<=2});
@@ -37,7 +49,7 @@ http.createServer(async(req,res)=>{
  if(u.pathname==='/live-listing'){
   Object.entries(cors).forEach(([k,v])=>res.setHeader(k,v));res.setHeader('Content-Type','application/json');
   if(req.method==='OPTIONS'){res.statusCode=204;return res.end()}
-  try{return res.end(JSON.stringify(await query(u.searchParams.get('complexNo')||'9330',Number(u.searchParams.get('area')||0))))}
+  try{return res.end(JSON.stringify(await query(u.searchParams.get('complexNo')||'',Number(u.searchParams.get('area')||0),u.searchParams.get('name')||'')))}
   catch(e){res.statusCode=502;return res.end(JSON.stringify({ok:false,error:String(e.message||e)}))}
  }
  const rel=u.pathname==='/'?'index.html':decodeURIComponent(u.pathname.slice(1));
