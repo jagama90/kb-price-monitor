@@ -23,12 +23,12 @@ async def main():
     await page.goto('https://kbland.kr/se/c/1947',wait_until='domcontentloaded',timeout=60000)
     await page.wait_for_timeout(4000)
     # Trigger the site's own listing UI so KB's own JS creates the request/auth context.
-    for label in ['매물','매매']:
+    for label in ['전체 매물 521개 보기','전체 매물','매물','매매']:
       try:
         loc=page.get_by_text(label,exact=True)
         if await loc.count():
-          await loc.first.click(timeout=3000)
-          await page.wait_for_timeout(5000)
+          await loc.first.click(timeout=1500)
+          await page.wait_for_timeout(2500)
       except Exception as e: print('CLICK',label,repr(e))
     if captured:
       for status,txt,h,pd in captured:
