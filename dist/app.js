@@ -1,7 +1,7 @@
 'use strict';
 const $=s=>document.querySelector(s),core=globalThis.KBPriceCore,pageSize=50;
 let ready=false,rows=[],filtered=[],page=1,districts=[],selectedDistricts=new Set(),sortState={key:'price',direction:'asc'};
-let displayed=[],expanded=new Set();
+let displayed=[],expanded=new Set(),watchlistIds=new Set(),watchlistMode=false;
 const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=n=>n===null||n===undefined?'—':Number(n).toLocaleString('ko-KR',{maximumFractionDigits:2});
 function won(n) {
@@ -26,7 +26,7 @@ function apply() {
   if (!ready) return;
   const f=filters(),error=validFilters(f);
   $('#filterError').textContent=error;$('#filterError').hidden=!error;
-  filtered=error?[]:rows.filter(r=>core.matches(r,f)).sort((a,b)=>core.compareRows(a,b,sortState,f.budget));
+  filtered=error?[]:rows.filter(r=>(!watchlistMode||watchlistIds.has(r.complex_id))&&core.matches(r,f)).sort((a,b)=>core.compareRows(a,b,sortState,f.budget));
   displayed=($('#groupToggle').checked?core.groupSimilar(filtered,Number($('#groupTolerance').value)):filtered).sort((a,b)=>core.compareRows(a,b,sortState,f.budget));
   expanded.clear();
   page=1;render();
@@ -113,6 +113,12 @@ function closeDistricts() {$('#districtMenu').hidden=true;$('#districtTrigger').
 document.addEventListener('click',e=>{if(!$('#districtFilter').contains(e.target))closeDistricts();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#districtMenu').hidden){closeDistricts();$('#districtTrigger').focus();}});
 document.querySelectorAll('.sort-btn').forEach(btn=>btn.onclick=()=>{const key=btn.dataset.sort;sortState=sortState.key===key?{key,direction:sortState.direction==='asc'?'desc':'asc'}:{key,direction:['price','households'].includes(key)?'desc':'asc'};apply();});
+$('#watchlistToggle').onclick=e=>{
+  watchlistMode=!watchlistMode;
+  e.currentTarget.setAttribute('aria-pressed',String(watchlistMode));
+  e.currentTarget.textContent=watchlistMode?'★ 내 매수 관심단지':'☆ 내 매수 관심단지';
+  apply();
+};
 $('#budgetToggle').onclick=e=>{e.currentTarget.setAttribute('aria-pressed',String(e.currentTarget.getAttribute('aria-pressed')!=='true'));apply();};
 function changePage(delta) {page+=delta;render();document.querySelector('.table-head').scrollIntoView({behavior:'smooth',block:'start'});}
 $('#prevPage').onclick=()=>{if(page>1)changePage(-1);};$('#nextPage').onclick=()=>{if(page*pageSize<displayed.length)changePage(1);};
@@ -143,12 +149,25 @@ async function fetchSupabase(config) {
     districts:[...new Set(items.map(r=>r.district))].sort((a,b)=>a.localeCompare(b,'ko')),
     empty_complex_ids:Array(c.empty_complex_count||0).fill(null),errors:[],items};
 }
+async function loadWatchlist() {
+  try {
+    const response=await fetch('buy_watchlist_master.json',{cache:'no-store'});
+    if(!response.ok) throw new Error('관심단지 조회 실패');
+    const data=await response.json();
+    watchlistIds=new Set((data.items||[]).map(x=>x.complex_id).filter(Number.isInteger));
+    const button=$('#watchlistToggle');
+    button.disabled=false;
+    button.title=`관심단지 ${data.complex_count||39}개 중 현재 KB 매칭 ${watchlistIds.size}개`;
+  } catch (_) {
+    $('#watchlistToggle').disabled=true;
+  }
+}
 function loadData() {
   const config=globalThis.KB_PRICE_CONFIG;
   if(config && config.supabaseAnonKey && !config.supabaseAnonKey.startsWith('REPLACE_')) return fetchSupabase(config);
   return fetch('seoul_types.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('조회 실패');return r.json();});
 }
-loadData().then(core.validateSnapshot).then(data=>{rows=data.items;populate(data);stats(data);ready=true;apply();}).catch(()=>{
+Promise.all([loadData().then(core.validateSnapshot),loadWatchlist()]).then(([data])=>{rows=data.items;populate(data);stats(data);ready=true;apply();}).catch(()=>{
   $('#resultCount').textContent='평형별 자료를 불러오지 못했습니다';
   $('#filterError').hidden=false;$('#filterError').textContent='자료를 다시 확인해 주세요. 단지 최저가로 대신 표시하지 않습니다.';
   $('#exportBtn').disabled=true;
