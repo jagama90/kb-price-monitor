@@ -20,6 +20,8 @@ jobs:
       - name: Test Garak Ssangyong 24p
         env:
           KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
+          KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
+          KB_WMONID: ${{ secrets.KB_WMONID }}
         run: python3 scripts/collect_listings.py --complex-id 1947 --area-id 1835
       - if: always()
         uses: actions/upload-artifact@v4
