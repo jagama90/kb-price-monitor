@@ -51,29 +51,25 @@ def api_url(cid,page):
 async def collect(cid,max_pages=50):
     async with async_playwright() as pw:
       browser=await pw.chromium.launch(headless=True,args=['--disable-blink-features=AutomationControlled'])
-      ctx=await browser.new_context(locale='ko-KR')
-      page=await ctx.new_page(); cap={}; event=asyncio.Event()
-      def onreq(req):
-        if '/api/articles/complex/'+str(cid) in req.url and not event.is_set():
-          cap['url']=req.url;cap['headers']=dict(req.headers);event.set()
-      page.on('request',onreq)
-      await page.goto('https://new.land.naver.com/complexes/'+str(cid),wait_until='domcontentloaded',timeout=30000)
-      try:await asyncio.wait_for(event.wait(),8)
-      except:pass
-      headers={'accept':'application/json, text/plain, */*','accept-language':'ko-KR,ko;q=0.9','referer':'https://new.land.naver.com/complexes/'+str(cid)}
-      auth=(cap.get('headers') or {}).get('authorization')
-      if auth:headers['authorization']=auth
+      ctx=await browser.new_context(locale='ko-KR',user_agent=UA)
+      headers={'accept':'application/json, text/plain, */*','accept-language':'ko-KR,ko;q=0.9','referer':'https://m.land.naver.com/complex/info/'+str(cid)}
       rows=[]
+      # Mobile API does not require the new.land SPA page to finish loading.
       for n in range(1,max_pages+1):
-        url=api_url(cid,n) if n>1 or not cap.get('url') else cap['url']
-        r=await ctx.request.get(url,headers=headers,timeout=15000)
-        if r.status>=400:raise RuntimeError('article api HTTP '+str(r.status))
-        p=await r.json(); arr=p.get('articleList') or p.get('articles') or []
-        if not isinstance(arr,list):raise RuntimeError('article list missing')
+        u='https://m.land.naver.com/api/complex/getComplexArticleList?'+urlencode({'complexNo':str(cid),'tradeType':'A1','order':'prc','showR1':'N','page':str(n)})
+        r=await ctx.request.get(u,headers=headers,timeout=20000)
+        if r.status>=400: raise RuntimeError('mobile article api HTTP '+str(r.status))
+        p=await r.json()
+        result=p.get('result') or {}
+        arr=result.get('list') or p.get('articleList') or p.get('articles') or []
+        if not isinstance(arr,list): raise RuntimeError('mobile article list missing')
         rows.extend(arr)
-        if not bool(p.get('isMoreData',p.get('moreData',len(arr)>=20))):break
+        more=result.get('more') if isinstance(result,dict) else None
+        if more is None: more=p.get('isMoreData',p.get('moreData',len(arr)>=20))
+        if not bool(more) or not arr: break
         await asyncio.sleep(.25)
-      await browser.close();return rows,bool(auth)
+      await browser.close()
+      return rows,False
 
 def normalize(a):
     price=price_to_manwon(a.get('dealOrWarrantPrc') or a.get('price') or a.get('priceText'))
