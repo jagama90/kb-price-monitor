@@ -22,3 +22,5 @@ jobs:
           KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
           KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
         run: python3 scripts/probe_listings_browser.py
+
+# trigger
