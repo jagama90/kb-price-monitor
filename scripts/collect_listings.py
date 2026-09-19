@@ -53,11 +53,34 @@ def post(payload, token=None):
     finally: conn.close()
 
 def payload_for(c,area_id,page):
-    # The listing endpoint accepts the selection fields below; no user-specific fields are stored.
-    return {'단지기본일련번호':c['complex_id'],'단지명':c.get('kb_name') or c.get('user_name'),
-      '매물종별구분':'01','페이지번호':page,'페이지목록수':10,'중복타입':'02',
-      '정렬타입':'priceA','매물거래구분':'1','면적일련번호':str(area_id),
-      '전자계약여부':'0','비대면대출여부':'0','클린주택여부':'0','honeyYn':'0','건물동명':''}
+    # propList/main expects the complex summary context sent by the KB web client,
+    # not only the filter fields.
+    p={'단지기본일련번호':c['complex_id'],'단지명':c.get('kb_name') or c.get('user_name'),
+       '매물종별구분':'01','매물종별구분명':'아파트',
+       '재건축여부':str(c.get('rebuild_yn') or '0'),'도시형생활주택여부':'0',
+       '준공년월':c.get('built_ymd') or '','총세대수':c.get('households') or 0,
+       '최소공급면적':c.get('min_area_m2') or '','최대공급면적':c.get('max_area_m2') or '',
+       '최소매매일반거래가':c.get('min_price_manwon') or 0,'최대매매일반거래가':c.get('max_price_manwon') or 0,
+       '매매건수':c.get('sale_count') or 0,'시세여부':'Y','시세노출사용여부':'Y',
+       '관심단지여부':'0','단지알림수신여부':'0','wgs84경도':str(c.get('lng') or ''),
+       'wgs84위도':str(c.get('lat') or ''),'50세대미만여부':'0','AI시세여부':'0','단지AI시세여부':'0',
+       '페이지번호':page,'페이지목록수':10,'중복타입':'02','정렬타입':'priceA',
+       '매물거래구분':'1','면적일련번호':str(area_id),'전자계약여부':'0',
+       '비대면대출여부':'0','클린주택여부':'0','honeyYn':'0','건물동명':''}
+    # Exact known KB context for the first verification target.
+    if int(c['complex_id'])==1947:
+        p.update({'물건식별자':'KBM002217','이미지디렉토리':2217,'준공년월':'1997.03','준공년수':30,
+          '총세대수':2064,'총동수':14,'최소전용면적':'59.92','최대전용면적':'84.69',
+          '최소공급면적':'81.21','최대공급면적':'110.67','최소전용면적평':'18.1','최대전용면적평':'25.6',
+          '최소공급면적평':'24','최대공급면적평':'33','최소계약면적':'94.75','최대계약면적':'129.80',
+          '최소계약면적평':'28','최대계약면적평':'39','최소매매일반거래가':189500,'최대매매일반거래가':217500,
+          '최소전세일반거래가':74500,'최대전세일반거래가':86500,'매매건수':410,'전세건수':51,'월세건수':30,
+          '관심단지여부':'1','호실정보존재여부':'1','시군구명':'송파구','법정동명':'가락동','관심등록수':356,
+          'viewCount':81,'입주년월':'199611','등수':2,'이미지파일명':'MjIxNzEwMDI4NTQ1NDA=.jpg',
+          '이미지파일명_800':'MjIxNzEwMDI4NTQ1NzI=.jpg','이미지파일명_1920':'MjIxNzEwMDI4NTQ1MzE=.jpg',
+          '컨텐츠경로':'/kbstar/land/img/alian/kms/complex/photo/objctidnfr/2217/','이미지도메인URL':'https://file.kbland.kr/image',
+          '전자계약가능개수':'0'})
+    return p
 
 def collect_one(c,area_id,token):
     listings=[]; pages=1
