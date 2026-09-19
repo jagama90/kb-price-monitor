@@ -1,0 +1,44 @@
+name: Fast KB browser probe
+on:
+  push:
+    paths: ['.github/workflows/fast-browser-listings.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install playwright
+      - name: Probe with runner Chrome
+        env:
+          KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
+          KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
+        run: |
+          which google-chrome || which chromium || true
+          python3 - <<'PY'
+          import asyncio,os
+          from playwright.async_api import async_playwright
+          async def m():
+            async with async_playwright() as p:
+              b=await p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome')
+              page=await b.new_page()
+              async def res(r):
+                if 'propList/main' in r.url:
+                  try: print('NATIVE_MAIN',r.status,'BYTES',len(await r.text()),(await r.text())[:10000])
+                  except Exception as e: print('NATIVE_ERR',e)
+              page.on('response',res)
+              await page.goto('https://kbland.kr/se/c/1947',wait_until='networkidle',timeout=45000)
+              print('URL',page.url)
+              print('BUTTONS',await page.locator('button').all_inner_texts())
+              els=page.locator('button')
+              for i in range(await els.count()):
+                x=els.nth(i); t=(await x.inner_text()).strip()
+                if '전체 매물' in t:
+                  print('CLICKING',t); await x.click(); await page.wait_for_timeout(8000); break
+              await b.close()
+          asyncio.run(m())
+          PY
