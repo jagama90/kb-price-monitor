@@ -28,7 +28,7 @@ def post(payload, token=None):
     # Match the request headers used by the KB Land web client.
     kst=dt.timezone(dt.timedelta(hours=9))
     timestamp=dt.datetime.now(kst).strftime('%Y%m%d%H%M%S%f')[:17]
-    traceid='user_'+timestamp[2:14]+str(random.randint(1000,9999))
+    traceid=os.getenv('KB_TRACE_ID','').strip() or ('user_'+timestamp[2:14]+str(random.randint(1000,9999)))
     headers={'Accept':'application/json, text/plain, */*','Accept-Language':'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
              'Content-Type':'application/json','Origin':'https://kbland.kr','Referer':'https://kbland.kr/',
              'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36',
