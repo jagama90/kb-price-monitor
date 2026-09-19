@@ -184,9 +184,10 @@ async function loadLiveAsk(btn){
  const old=btn.textContent;btn.disabled=true;btn.textContent='현재 매물 조회중…';
  try{
   const area=Math.round(Number(btn.dataset.liveArea)||0);
-  const u='https://iefzffwydvqnleukmljj.supabase.co/functions/v1/live-listing?complexNo='+encodeURIComponent(cid)+'&area='+encodeURIComponent(area);
-  const r=await fetch(u,{cache:'no-store'});const d=await r.json();
-  if(!r.ok||!d.ok)throw new Error(d.error||d.upstream||('HTTP '+r.status));
+  const urls=['http://127.0.0.1:17330/live-listing?complexNo='+encodeURIComponent(cid)+'&area='+encodeURIComponent(area),'https://iefzffwydvqnleukmljj.supabase.co/functions/v1/live-listing?complexNo='+encodeURIComponent(cid)+'&area='+encodeURIComponent(area)];
+  let d=null,last=null;
+  for(const u of urls){try{const r=await fetch(u,{cache:'no-store'});const x=await r.json();if(r.ok&&x.ok){d=x;break}last=new Error(x.error||x.upstream||('HTTP '+r.status))}catch(e){last=e}}
+  if(!d)throw last||new Error('실시간 조회 실패');
   btn.textContent=d.lowest?('최저 '+won(d.lowest.priceManwon)+' · '+num(d.listingCount)+'건'):'현재 매물 없음';
  }catch(e){btn.textContent='조회 실패 · 다시 시도';btn.title=String(e)}
  finally{btn.disabled=false}
