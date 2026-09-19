@@ -1,0 +1,24 @@
+name: Browser KB listing probe
+on:
+  push:
+    paths:
+      - 'scripts/probe_listings_browser.py'
+      - '.github/workflows/browser-listings.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install playwright
+      - run: playwright install --with-deps chromium
+      - name: Probe through Chromium
+        env:
+          KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
+          KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
+        run: python3 scripts/probe_listings_browser.py
