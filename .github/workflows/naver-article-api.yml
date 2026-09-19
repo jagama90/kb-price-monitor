@@ -1,9 +1,14 @@
 name: Naver Article API smoke
 on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/collect_naver_article_api.py"
+      - ".github/workflows/naver-article-api.yml"
   workflow_dispatch:
     inputs:
       naver_complex_no:
-        description: "Naver complexNo"
+        description: "Naver complexNo (blank = auto resolve)"
         required: false
       kb_complex_id:
         description: "KB complex id"
@@ -14,7 +19,7 @@ on:
         required: false
         default: "false"
         type: choice
-        options: ["false","true"]
+        options: ["false", "true"]
 permissions:
   contents: write
 jobs:
@@ -29,9 +34,15 @@ jobs:
       - run: pip install playwright
       - run: playwright install --with-deps chromium
       - name: Collect
+        shell: bash
         run: |
-          args=(--kb-complex-id "${{ inputs.kb_complex_id || '1947' }}")\n          if [[ -n "${{ inputs.naver_complex_no }}" ]]; then args+=(--naver-complex-no "${{ inputs.naver_complex_no }}"); fi
-          if [[ "${{ inputs.publish }}" == "true" ]]; then args+=(--publish); fi
+          args=(--kb-complex-id "${{ inputs.kb_complex_id || '1947' }}")
+          if [[ -n "${{ inputs.naver_complex_no }}" ]]; then
+            args+=(--naver-complex-no "${{ inputs.naver_complex_no }}")
+          fi
+          if [[ "${{ inputs.publish }}" == "true" ]]; then
+            args+=(--publish)
+          fi
           python scripts/collect_naver_article_api.py "${args[@]}"
       - name: Commit result
         if: always()
