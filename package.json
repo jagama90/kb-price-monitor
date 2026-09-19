@@ -1,0 +1,6 @@
+{
+  "name":"kb-price-monitor-browser-helper",
+  "version":"1.0.0",
+  "private":true,
+  "dependencies":{"playwright-core":"^1.61.1"}
+}
