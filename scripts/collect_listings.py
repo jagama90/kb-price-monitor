@@ -31,7 +31,7 @@ def post(payload, token=None):
     headers={'Accept':'application/json, text/plain, */*','Accept-Language':'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
              'Content-Type':'application/json','Origin':'https://kbland.kr','Referer':'https://kbland.kr/',
              'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36',
-             'Timestamp':timestamp,'Traceid':traceid,'Webservice':'1'}
+             'Timestamp':timestamp,'Traceid':traceid,'Webservice':'1','Cookie':os.getenv('KB_COOKIE','')}
     if token: headers['Authorization']='bearer '+token.removeprefix('bearer ').removeprefix('Bearer ')
     conn=connection()
     try:
