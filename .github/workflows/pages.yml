@@ -3,7 +3,7 @@ name: Deploy website
 on:
   push:
     branches: [main]
-    paths: ['dist/**', '.github/workflows/pages.yml']
+    paths: ['dist/**', 'data/buy_watchlist_master.json', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Sync purchase watchlist data
+        run: cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
       - uses: actions/configure-pages@v5
         with:
           enablement: true
