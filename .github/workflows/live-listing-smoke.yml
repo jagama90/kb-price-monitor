@@ -1,0 +1,17 @@
+name: Live listing endpoint smoke
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/live-listing-smoke.yml"]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call live endpoint
+        shell: bash
+        run: |
+          set -o pipefail
+          curl -sS --max-time 45 -D /tmp/headers.txt "https://iefzffwydvqnleukmljj.supabase.co/functions/v1/live-listing?complexNo=9330&area=79" | tee /tmp/body.txt
+          echo
+          cat /tmp/headers.txt
