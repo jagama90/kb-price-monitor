@@ -1,14 +1,241 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "updated_at": "2026-09-20",
+  "purpose": "매수 대시보드 목표 평형",
   "items": [
     {
-      "district": "송파구",
+      "name": "가락금호",
+      "selection": "24평 전체",
+      "min_pyeong": 24,
+      "max_pyeong": 24
+    },
+    {
+      "name": "올림픽훼밀리타운",
+      "selection": "31평 전체",
+      "min_pyeong": 31,
+      "max_pyeong": 31
+    },
+    {
+      "name": "문정동 건영",
+      "selection": "전체",
+      "min_pyeong": null,
+      "max_pyeong": null
+    },
+    {
+      "name": "송파파인타운 2단지",
+      "selection": "전체",
+      "min_pyeong": null,
+      "max_pyeong": null
+    },
+    {
+      "name": "송파파인타운 3단지",
+      "selection": "전체",
+      "min_pyeong": null,
+      "max_pyeong": null
+    },
+    {
+      "name": "송파파인타운 7단지",
+      "selection": "34평 전체",
+      "min_pyeong": 34,
+      "max_pyeong": 34
+    },
+    {
+      "name": "송파파인타운 8단지",
+      "selection": "25평 전체",
+      "min_pyeong": 25,
+      "max_pyeong": 25
+    },
+    {
+      "name": "송파파인타운 9단지",
+      "selection": "25평 전체",
+      "min_pyeong": 25,
+      "max_pyeong": 25
+    },
+    {
+      "name": "송파파인타운 10단지",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "힐스테이트e편한세상문정",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "삼환가락",
+      "selection": "28평",
+      "min_pyeong": 28,
+      "max_pyeong": 28
+    },
+    {
+      "name": "미륭아파트",
+      "selection": "전체",
+      "min_pyeong": null,
+      "max_pyeong": null
+    },
+    {
       "name": "가락쌍용1차",
-      "complex_id": 1947,
       "selection": "24평",
-      "area_ids": [
-        1835
-      ]
+      "min_pyeong": 24,
+      "max_pyeong": 24
+    },
+    {
+      "name": "잠실한솔",
+      "selection": "23평",
+      "min_pyeong": 23,
+      "max_pyeong": 23
+    },
+    {
+      "name": "송파더센트레",
+      "selection": "25~26평",
+      "min_pyeong": 25,
+      "max_pyeong": 26
+    },
+    {
+      "name": "송파꿈에그린위례24단지",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "송파시그니처롯데캐슬",
+      "selection": "25~26평",
+      "min_pyeong": 25,
+      "max_pyeong": 26
+    },
+    {
+      "name": "E편한세상송파파크센트럴",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "금호타운아파트(마천역)",
+      "selection": "전체",
+      "min_pyeong": null,
+      "max_pyeong": null
+    },
+    {
+      "name": "풍납극동",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "풍납현대",
+      "selection": "26~27평",
+      "min_pyeong": 26,
+      "max_pyeong": 27
+    },
+    {
+      "name": "송파레이크힐",
+      "selection": "25~26평",
+      "min_pyeong": 25,
+      "max_pyeong": 26
+    },
+    {
+      "name": "포레나송파",
+      "selection": "전체",
+      "min_pyeong": null,
+      "max_pyeong": null
+    },
+    {
+      "name": "가락대림",
+      "selection": "26~36평",
+      "min_pyeong": 26,
+      "max_pyeong": 36
+    },
+    {
+      "name": "현대프라임",
+      "selection": "24~32평",
+      "min_pyeong": 24,
+      "max_pyeong": 32
+    },
+    {
+      "name": "현대6단지",
+      "selection": "31평",
+      "min_pyeong": 31,
+      "max_pyeong": 31
+    },
+    {
+      "name": "행당한진타운",
+      "selection": "26평",
+      "min_pyeong": 26,
+      "max_pyeong": 26
+    },
+    {
+      "name": "행당대림",
+      "selection": "25평",
+      "min_pyeong": 25,
+      "max_pyeong": 25
+    },
+    {
+      "name": "행당두산위브",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "왕십리금호어울림",
+      "selection": "24~33평",
+      "min_pyeong": 24,
+      "max_pyeong": 33
+    },
+    {
+      "name": "성동자이리버뷰",
+      "selection": "20평대",
+      "min_pyeong": 20,
+      "max_pyeong": 29.99
+    },
+    {
+      "name": "금호대우",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "금호두산",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "금호동한신휴플러스",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "서울숲행당푸르지오",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "서울숲한신더휴",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "서울숲리버그린아파트",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
+    },
+    {
+      "name": "남산타운",
+      "selection": "25~26평",
+      "min_pyeong": 25,
+      "max_pyeong": 26
+    },
+    {
+      "name": "강남자곡아이파크",
+      "selection": "24~25평",
+      "min_pyeong": 24,
+      "max_pyeong": 25
     }
   ]
 }
