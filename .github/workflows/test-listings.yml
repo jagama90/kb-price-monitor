@@ -1,0 +1,28 @@
+name: Test KB listing collector
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/collect_listings.py'
+      - 'data/buy_watchlist_targets.json'
+      - '.github/workflows/test-listings.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test Garak Ssangyong 24p
+        env:
+          KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
+        run: python3 scripts/collect_listings.py --complex-id 1947 --area-id 1835
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: listing-probe
+          path: data/listing_asks_probe.json
