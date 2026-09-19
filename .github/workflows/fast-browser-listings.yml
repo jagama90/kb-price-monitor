@@ -42,3 +42,4 @@ jobs:
               await b.close()
           asyncio.run(m())
           PY
+# run
