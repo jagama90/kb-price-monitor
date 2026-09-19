@@ -95,10 +95,15 @@ async def main():
     if a.naver_complex_no:
       naver_complex_no=str(a.naver_complex_no)
     else:
-      resolved=resolve_complex(c['user_name'])
-      if not resolved:
-        raise RuntimeError('Naver complex resolve failed: '+str(c['user_name']))
-      naver_complex_no=str(resolved['hscpNo'])
+      known={'가락쌍용1차':'9330'}
+      if c['user_name'] in known:
+        naver_complex_no=known[c['user_name']]
+        resolved={'hscpNo':naver_complex_no,'hscpNm':c['user_name']}
+      else:
+        resolved=resolve_complex(c['user_name'])
+        if not resolved:
+          raise RuntimeError('Naver complex resolve failed: '+str(c['user_name']))
+        naver_complex_no=str(resolved['hscpNo'])
     raw,auth=await collect(naver_complex_no); arts=[normalize(x) for x in raw]
     outtypes=[]
     for t in types:
