@@ -22,6 +22,16 @@ async def main():
     page.on('response',on_response)
     await page.goto('https://kbland.kr/se/c/1947',wait_until='domcontentloaded',timeout=60000)
     await page.wait_for_timeout(4000)
+    # Inspect and trigger the site's own listing UI.
+    try:
+      els=await page.locator("a,button").all()
+      for el in els:
+        try:
+          txt=(await el.inner_text()).strip()
+          if '매물' in txt:
+            print('LISTING_EL',txt[:120],await el.get_attribute('href'))
+        except: pass
+    except Exception as e: print('INSPECT_ERR',repr(e))
     # Trigger the site's own listing UI so KB's own JS creates the request/auth context.
     for label in ['전체 매물 521개 보기','전체 매물','매물','매매']:
       try:
