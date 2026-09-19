@@ -1,7 +1,7 @@
 'use strict';
 const $=s=>document.querySelector(s),core=globalThis.KBPriceCore,pageSize=50;
 let ready=false,rows=[],filtered=[],page=1,districts=[],selectedDistricts=new Set(),sortState={key:'price',direction:'asc'};
-let displayed=[],expanded=new Set(),watchlistIds=new Set(),watchlistMode=false;
+let displayed=[],expanded=new Set(),watchlistIds=new Set(),watchlistMode=true;
 const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=n=>n===null||n===undefined?'—':Number(n).toLocaleString('ko-KR',{maximumFractionDigits:2});
 function won(n) {
@@ -113,12 +113,19 @@ function closeDistricts() {$('#districtMenu').hidden=true;$('#districtTrigger').
 document.addEventListener('click',e=>{if(!$('#districtFilter').contains(e.target))closeDistricts();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#districtMenu').hidden){closeDistricts();$('#districtTrigger').focus();}});
 document.querySelectorAll('.sort-btn').forEach(btn=>btn.onclick=()=>{const key=btn.dataset.sort;sortState=sortState.key===key?{key,direction:sortState.direction==='asc'?'desc':'asc'}:{key,direction:['price','households'].includes(key)?'desc':'asc'};apply();});
-$('#watchlistToggle').onclick=e=>{
-  watchlistMode=!watchlistMode;
-  e.currentTarget.setAttribute('aria-pressed',String(watchlistMode));
-  e.currentTarget.textContent=watchlistMode?'★ 내 매수 관심단지':'☆ 내 매수 관심단지';
+function setView(mode) {
+  watchlistMode=mode!=='all';
+  $('#brandText').textContent=watchlistMode?'내 매수 관심단지':'KB 시세 모아보기';
+  $('#eyebrow').textContent=watchlistMode?'MY BUY WATCHLIST':'MY KB PRICE BOARD';
+  $('#pageTitle').innerHTML=watchlistMode?'내가 보는 단지만,<br><em>한눈에 비교하세요.</em>':'단지마다 누르지 말고,<br><em>한 번에 비교하세요.</em>';
+  $('#introCopy').textContent=watchlistMode?'내 매수 관심단지 39개의 평형별 KB 일반 시세를 바로 비교합니다.':'비슷한 평형은 모아 보고, 펼쳐서 타입마다 다른 정확한 면적과 KB 일반가를 비교하세요.';
+  document.querySelectorAll('#siteMenu [data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===(watchlistMode?'watchlist':'all')));
   apply();
-};
+}
+$('#menuButton').onclick=e=>{const open=$('#siteMenu').hidden;$('#siteMenu').hidden=!open;e.currentTarget.setAttribute('aria-expanded',String(open));};
+$('#siteMenu').onclick=e=>{const b=e.target.closest('[data-view]');if(!b)return;setView(b.dataset.view);$('#siteMenu').hidden=true;$('#menuButton').setAttribute('aria-expanded','false');};
+$('#homeLink').onclick=e=>{e.preventDefault();setView('watchlist');};
+document.addEventListener('click',e=>{if(!e.target.closest('.site-menu')){$('#siteMenu').hidden=true;$('#menuButton').setAttribute('aria-expanded','false');}});
 $('#budgetToggle').onclick=e=>{e.currentTarget.setAttribute('aria-pressed',String(e.currentTarget.getAttribute('aria-pressed')!=='true'));apply();};
 function changePage(delta) {page+=delta;render();document.querySelector('.table-head').scrollIntoView({behavior:'smooth',block:'start'});}
 $('#prevPage').onclick=()=>{if(page>1)changePage(-1);};$('#nextPage').onclick=()=>{if(page*pageSize<displayed.length)changePage(1);};
@@ -155,9 +162,6 @@ async function loadWatchlist() {
     if(!response.ok) throw new Error('관심단지 조회 실패');
     const data=await response.json();
     watchlistIds=new Set((data.items||[]).map(x=>x.complex_id).filter(Number.isInteger));
-    const button=$('#watchlistToggle');
-    button.disabled=false;
-    button.title=`관심단지 ${data.complex_count||39}개 중 현재 KB 매칭 ${watchlistIds.size}개`;
   } catch (_) {
     $('#watchlistToggle').disabled=true;
   }
@@ -167,7 +171,7 @@ function loadData() {
   if(config && config.supabaseAnonKey && !config.supabaseAnonKey.startsWith('REPLACE_')) return fetchSupabase(config);
   return fetch('seoul_types.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('조회 실패');return r.json();});
 }
-Promise.all([loadData().then(core.validateSnapshot),loadWatchlist()]).then(([data])=>{rows=data.items;populate(data);stats(data);ready=true;apply();}).catch(()=>{
+Promise.all([loadData().then(core.validateSnapshot),loadWatchlist()]).then(([data])=>{rows=data.items;populate(data);stats(data);ready=true;setView('watchlist');}).catch(()=>{
   $('#resultCount').textContent='평형별 자료를 불러오지 못했습니다';
   $('#filterError').hidden=false;$('#filterError').textContent='자료를 다시 확인해 주세요. 단지 최저가로 대신 표시하지 않습니다.';
   $('#exportBtn').disabled=true;
