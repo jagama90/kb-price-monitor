@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/collect_listings.py'
       - 'data/buy_watchlist_targets.json'
+      - 'scripts/collect_listings.py'
       - '.github/workflows/test-listings.yml'
 permissions:
   contents: read
