@@ -26,6 +26,7 @@ jobs:
         run: |
           python3 scripts/collect_seoul.py
           python3 scripts/build_buy_watchlist_master.py
+          cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
       - name: Validate snapshot
         run: |
           node scripts/test_price_core.cjs data/seoul_types.json
@@ -34,7 +35,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json
+          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json
           git commit -m 'Weekly KB snapshot refresh' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
@@ -53,3 +54,4 @@ jobs:
             data/buy_watchlist_master.json
             data/buy_watchlist_types.json
             dist/seoul_types.json
+            dist/buy_watchlist_master.json
