@@ -5,6 +5,7 @@ on:
     paths:
       - "scripts/collect_naver_article_api.py"
       - ".github/workflows/naver-article-api.yml"
+      - ".github/workflows/naver-article-api.yml"
   workflow_dispatch:
     inputs:
       naver_complex_no:
