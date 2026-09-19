@@ -1,9 +1,9 @@
 {
-  "schema_version": 1,
-  "snapshot_collected_at": "2026-09-18T16:24:52+00:00",
+  "schema_version": 2,
+  "snapshot_collected_at": "2026-09-19T14:43:04+00:00",
   "complex_count": 39,
-  "matched_type_complex_count": 35,
-  "type_row_count": 222,
+  "matched_type_complex_count": 38,
+  "type_row_count": 234,
   "items": [
     {
       "district": "송파구",
@@ -11,7 +11,11 @@
       "complex_id": 1960,
       "kb_name": "가락금호",
       "status": "matched",
+      "dong": "가락동",
+      "households": 915,
+      "built_ymd": "199708",
       "type_count": 5,
+      "priced_type_count": 5,
       "types": [
         {
           "area_id": 128782,
@@ -19,9 +23,9 @@
           "supply_m2": 80.77,
           "exclusive_m2": 59.66,
           "type_households": 19,
-          "general_price_manwon": 185500,
+          "general_price_manwon": 185500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:23+00:00"
+          "price_date": null
         },
         {
           "area_id": 1847,
@@ -29,9 +33,9 @@
           "supply_m2": 81.11,
           "exclusive_m2": 59.91,
           "type_households": 322,
-          "general_price_manwon": 181500,
+          "general_price_manwon": 181500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:23+00:00"
+          "price_date": null
         },
         {
           "area_id": 94771,
@@ -39,9 +43,9 @@
           "supply_m2": 81.11,
           "exclusive_m2": 59.91,
           "type_households": 117,
-          "general_price_manwon": 180000,
+          "general_price_manwon": 180000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:23+00:00"
+          "price_date": null
         },
         {
           "area_id": 153760,
@@ -49,19 +53,19 @@
           "supply_m2": 107.98,
           "exclusive_m2": 84.85,
           "type_households": 52,
-          "general_price_manwon": 207500,
+          "general_price_manwon": 207500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:23+00:00"
+          "price_date": null
         },
         {
           "area_id": 51147,
           "type_label": "32A",
           "supply_m2": 108.14,
-          "exclusive_m2": 85,
+          "exclusive_m2": 85.0,
           "type_households": 405,
-          "general_price_manwon": 207500,
+          "general_price_manwon": 207500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:23+00:00"
+          "price_date": null
         }
       ]
     },
@@ -71,7 +75,11 @@
       "complex_id": 1985,
       "kb_name": "올림픽훼밀리타운",
       "status": "matched",
+      "dong": "문정동",
+      "households": 4494,
+      "built_ymd": "198812",
       "type_count": 6,
+      "priced_type_count": 6,
       "types": [
         {
           "area_id": 51171,
@@ -79,9 +87,9 @@
           "supply_m2": 103.12,
           "exclusive_m2": 84.7,
           "type_households": 900,
-          "general_price_manwon": 257500,
+          "general_price_manwon": 257500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:07+00:00"
+          "price_date": null
         },
         {
           "area_id": 1871,
@@ -89,9 +97,9 @@
           "supply_m2": 104.39,
           "exclusive_m2": 84.75,
           "type_households": 600,
-          "general_price_manwon": 262500,
+          "general_price_manwon": 262500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:07+00:00"
+          "price_date": null
         },
         {
           "area_id": 94789,
@@ -99,9 +107,9 @@
           "supply_m2": 138.73,
           "exclusive_m2": 117.58,
           "type_households": 900,
-          "general_price_manwon": 277500,
+          "general_price_manwon": 277500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:07+00:00"
+          "price_date": null
         },
         {
           "area_id": 128799,
@@ -109,9 +117,9 @@
           "supply_m2": 158.84,
           "exclusive_m2": 136.32,
           "type_households": 1416,
-          "general_price_manwon": 300000,
+          "general_price_manwon": 300000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:07+00:00"
+          "price_date": null
         },
         {
           "area_id": 153774,
@@ -119,9 +127,9 @@
           "supply_m2": 182.8,
           "exclusive_m2": 158.7,
           "type_households": 558,
-          "general_price_manwon": 327500,
+          "general_price_manwon": 327500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:07+00:00"
+          "price_date": null
         },
         {
           "area_id": 171553,
@@ -129,9 +137,9 @@
           "supply_m2": 219.66,
           "exclusive_m2": 192.23,
           "type_households": 120,
-          "general_price_manwon": 367500,
+          "general_price_manwon": 367500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:07+00:00"
+          "price_date": null
         }
       ]
     },
@@ -141,7 +149,11 @@
       "complex_id": 1986,
       "kb_name": "건영",
       "status": "matched",
+      "dong": "문정동",
+      "households": 545,
+      "built_ymd": "199301",
       "type_count": 6,
+      "priced_type_count": 6,
       "types": [
         {
           "area_id": 1872,
@@ -149,9 +161,9 @@
           "supply_m2": 94.03,
           "exclusive_m2": 77.68,
           "type_households": 60,
-          "general_price_manwon": 155000,
+          "general_price_manwon": 155000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         },
         {
           "area_id": 1173322,
@@ -159,9 +171,9 @@
           "supply_m2": 103.61,
           "exclusive_m2": 84.17,
           "type_households": 1,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         },
         {
           "area_id": 51172,
@@ -169,9 +181,9 @@
           "supply_m2": 103.86,
           "exclusive_m2": 84.39,
           "type_households": 424,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         },
         {
           "area_id": 1173323,
@@ -179,9 +191,9 @@
           "supply_m2": 103.87,
           "exclusive_m2": 84.42,
           "type_households": 14,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         },
         {
           "area_id": 1173324,
@@ -189,9 +201,9 @@
           "supply_m2": 103.91,
           "exclusive_m2": 84.47,
           "type_households": 30,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         },
         {
           "area_id": 1173325,
@@ -199,9 +211,9 @@
           "supply_m2": 104.42,
           "exclusive_m2": 84.87,
           "type_households": 16,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         }
       ]
     },
@@ -211,7 +223,11 @@
       "complex_id": 15738,
       "kb_name": "송파파인타운2단지",
       "status": "matched",
+      "dong": "장지동",
+      "households": 374,
+      "built_ymd": "200810",
       "type_count": 2,
+      "priced_type_count": 2,
       "types": [
         {
           "area_id": 15478,
@@ -219,9 +235,9 @@
           "supply_m2": 113.98,
           "exclusive_m2": 84.95,
           "type_households": 81,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 63253,
@@ -229,9 +245,9 @@
           "supply_m2": 114.58,
           "exclusive_m2": 84.94,
           "type_households": 30,
-          "general_price_manwon": 171500,
+          "general_price_manwon": 171500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         }
       ]
     },
@@ -241,7 +257,11 @@
       "complex_id": 15663,
       "kb_name": "송파파인타운3단지",
       "status": "matched",
+      "dong": "장지동",
+      "households": 625,
+      "built_ymd": "200808",
       "type_count": 3,
+      "priced_type_count": 3,
       "types": [
         {
           "area_id": 63187,
@@ -249,29 +269,29 @@
           "supply_m2": 104.77,
           "exclusive_m2": 84.93,
           "type_households": 204,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:35+00:00"
+          "price_date": null
         },
         {
           "area_id": 15406,
           "type_label": "31A",
-          "supply_m2": 105,
+          "supply_m2": 105.0,
           "exclusive_m2": 84.94,
           "type_households": 214,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:35+00:00"
+          "price_date": null
         },
         {
           "area_id": 103493,
           "type_label": "31T2",
-          "supply_m2": 105,
+          "supply_m2": 105.0,
           "exclusive_m2": 84.98,
           "type_households": 207,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:35+00:00"
+          "price_date": null
         }
       ]
     },
@@ -281,7 +301,11 @@
       "complex_id": 15308,
       "kb_name": "송파파인타운7단지",
       "status": "matched",
+      "dong": "장지동",
+      "households": 537,
+      "built_ymd": "200801",
       "type_count": 3,
+      "priced_type_count": 3,
       "types": [
         {
           "area_id": 15059,
@@ -289,9 +313,9 @@
           "supply_m2": 114.7,
           "exclusive_m2": 84.94,
           "type_households": 153,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         },
         {
           "area_id": 62880,
@@ -299,9 +323,9 @@
           "supply_m2": 114.83,
           "exclusive_m2": 84.9,
           "type_households": 12,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         },
         {
           "area_id": 103241,
@@ -309,9 +333,9 @@
           "supply_m2": 115.19,
           "exclusive_m2": 84.93,
           "type_households": 72,
-          "general_price_manwon": 185000,
+          "general_price_manwon": 185000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         }
       ]
     },
@@ -321,7 +345,11 @@
       "complex_id": 15813,
       "kb_name": "송파파인타운8단지",
       "status": "matched",
+      "dong": "장지동",
+      "households": 700,
+      "built_ymd": "200810",
       "type_count": 2,
+      "priced_type_count": 2,
       "types": [
         {
           "area_id": 15550,
@@ -329,9 +357,9 @@
           "supply_m2": 83.44,
           "exclusive_m2": 59.97,
           "type_households": 80,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:32+00:00"
+          "price_date": null
         },
         {
           "area_id": 63321,
@@ -339,9 +367,9 @@
           "supply_m2": 83.77,
           "exclusive_m2": 59.97,
           "type_households": 78,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:32+00:00"
+          "price_date": null
         }
       ]
     },
@@ -351,7 +379,11 @@
       "complex_id": 15309,
       "kb_name": "송파파인타운9단지",
       "status": "matched",
+      "dong": "장지동",
+      "households": 796,
+      "built_ymd": "200801",
       "type_count": 3,
+      "priced_type_count": 3,
       "types": [
         {
           "area_id": 62881,
@@ -359,9 +391,9 @@
           "supply_m2": 83.75,
           "exclusive_m2": 59.99,
           "type_households": 14,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:27+00:00"
+          "price_date": null
         },
         {
           "area_id": 15060,
@@ -369,9 +401,9 @@
           "supply_m2": 84.03,
           "exclusive_m2": 59.95,
           "type_households": 86,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:27+00:00"
+          "price_date": null
         },
         {
           "area_id": 103242,
@@ -379,9 +411,9 @@
           "supply_m2": 85.2,
           "exclusive_m2": 59.93,
           "type_households": 60,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:27+00:00"
+          "price_date": null
         }
       ]
     },
@@ -391,7 +423,11 @@
       "complex_id": 15041,
       "kb_name": "송파파인타운10단지",
       "status": "matched",
+      "dong": "장지동",
+      "households": 545,
+      "built_ymd": "200708",
       "type_count": 2,
+      "priced_type_count": 2,
       "types": [
         {
           "area_id": 62634,
@@ -399,9 +435,9 @@
           "supply_m2": 82.14,
           "exclusive_m2": 59.95,
           "type_households": 50,
-          "general_price_manwon": 167500,
+          "general_price_manwon": 167500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         },
         {
           "area_id": 103044,
@@ -409,9 +445,9 @@
           "supply_m2": 82.83,
           "exclusive_m2": 59.96,
           "type_households": 139,
-          "general_price_manwon": 167500,
+          "general_price_manwon": 167500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:41+00:00"
+          "price_date": null
         }
       ]
     },
@@ -421,7 +457,11 @@
       "complex_id": 1082473,
       "kb_name": "힐스테이트e편한세상문정",
       "status": "matched",
+      "dong": "문정동",
+      "households": 1265,
+      "built_ymd": "202409",
       "type_count": 14,
+      "priced_type_count": 0,
       "types": [
         {
           "area_id": 1703283,
@@ -431,7 +471,7 @@
           "type_households": 144,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1703284,
@@ -441,7 +481,7 @@
           "type_households": 136,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1703285,
@@ -451,7 +491,7 @@
           "type_households": 135,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1703286,
@@ -461,7 +501,7 @@
           "type_households": 370,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1710755,
@@ -471,7 +511,7 @@
           "type_households": 57,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1703287,
@@ -481,7 +521,7 @@
           "type_households": 131,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1703288,
@@ -491,7 +531,7 @@
           "type_households": 15,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1703289,
@@ -501,7 +541,7 @@
           "type_households": 34,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1703290,
@@ -511,7 +551,7 @@
           "type_households": 43,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1703291,
@@ -521,7 +561,7 @@
           "type_households": 27,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1710754,
@@ -531,7 +571,7 @@
           "type_households": 12,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1710761,
@@ -541,7 +581,7 @@
           "type_households": 23,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1710759,
@@ -551,7 +591,7 @@
           "type_households": 41,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1710760,
@@ -561,7 +601,7 @@
           "type_households": 27,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         }
       ]
     },
@@ -571,7 +611,11 @@
       "complex_id": 1945,
       "kb_name": "삼환가락",
       "status": "matched",
+      "dong": "가락동",
+      "households": 648,
+      "built_ymd": "198411",
       "type_count": 5,
+      "priced_type_count": 5,
       "types": [
         {
           "area_id": 1833,
@@ -579,9 +623,9 @@
           "supply_m2": 93.44,
           "exclusive_m2": 72.7,
           "type_households": 96,
-          "general_price_manwon": 195000,
+          "general_price_manwon": 195000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:34+00:00"
+          "price_date": null
         },
         {
           "area_id": 51136,
@@ -589,9 +633,9 @@
           "supply_m2": 93.68,
           "exclusive_m2": 72.88,
           "type_households": 96,
-          "general_price_manwon": 195000,
+          "general_price_manwon": 195000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:34+00:00"
+          "price_date": null
         },
         {
           "area_id": 94763,
@@ -599,9 +643,9 @@
           "supply_m2": 107.97,
           "exclusive_m2": 84.7,
           "type_households": 96,
-          "general_price_manwon": 211000,
+          "general_price_manwon": 211000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:34+00:00"
+          "price_date": null
         },
         {
           "area_id": 128775,
@@ -609,9 +653,9 @@
           "supply_m2": 108.31,
           "exclusive_m2": 84.97,
           "type_households": 96,
-          "general_price_manwon": 211000,
+          "general_price_manwon": 211000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:34+00:00"
+          "price_date": null
         },
         {
           "area_id": 153758,
@@ -619,9 +663,9 @@
           "supply_m2": 143.74,
           "exclusive_m2": 121.04,
           "type_households": 264,
-          "general_price_manwon": 225000,
+          "general_price_manwon": 225000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:34+00:00"
+          "price_date": null
         }
       ]
     },
@@ -631,17 +675,21 @@
       "complex_id": 1944,
       "kb_name": "미륭",
       "status": "matched",
+      "dong": "가락동",
+      "households": 435,
+      "built_ymd": "198611",
       "type_count": 4,
+      "priced_type_count": 4,
       "types": [
         {
           "area_id": 1832,
           "type_label": "20",
           "supply_m2": 67.92,
-          "exclusive_m2": 50,
+          "exclusive_m2": 50.0,
           "type_households": 75,
-          "general_price_manwon": 163500,
+          "general_price_manwon": 163500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:49+00:00"
+          "price_date": null
         },
         {
           "area_id": 51135,
@@ -649,9 +697,9 @@
           "supply_m2": 80.82,
           "exclusive_m2": 60.72,
           "type_households": 105,
-          "general_price_manwon": 177000,
+          "general_price_manwon": 177000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:49+00:00"
+          "price_date": null
         },
         {
           "area_id": 94762,
@@ -659,9 +707,9 @@
           "supply_m2": 87.28,
           "exclusive_m2": 64.26,
           "type_households": 75,
-          "general_price_manwon": 183500,
+          "general_price_manwon": 183500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:49+00:00"
+          "price_date": null
         },
         {
           "area_id": 128774,
@@ -669,9 +717,9 @@
           "supply_m2": 100.02,
           "exclusive_m2": 83.58,
           "type_households": 180,
-          "general_price_manwon": 192500,
+          "general_price_manwon": 192500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:49+00:00"
+          "price_date": null
         }
       ]
     },
@@ -681,7 +729,11 @@
       "complex_id": 1947,
       "kb_name": "가락쌍용(1차)",
       "status": "matched",
+      "dong": "가락동",
+      "households": 2064,
+      "built_ymd": "199611",
       "type_count": 2,
+      "priced_type_count": 2,
       "types": [
         {
           "area_id": 1835,
@@ -689,9 +741,9 @@
           "supply_m2": 81.21,
           "exclusive_m2": 59.92,
           "type_households": 1032,
-          "general_price_manwon": 189500,
+          "general_price_manwon": 189500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 51138,
@@ -699,9 +751,9 @@
           "supply_m2": 110.67,
           "exclusive_m2": 84.69,
           "type_households": 1032,
-          "general_price_manwon": 217500,
+          "general_price_manwon": 217500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         }
       ]
     },
@@ -711,7 +763,11 @@
       "complex_id": 1984,
       "kb_name": "잠실한솔",
       "status": "matched",
+      "dong": "석촌동",
+      "households": 393,
+      "built_ymd": "200010",
       "type_count": 5,
+      "priced_type_count": 5,
       "types": [
         {
           "area_id": 1870,
@@ -719,9 +775,9 @@
           "supply_m2": 77.33,
           "exclusive_m2": 59.86,
           "type_households": 70,
-          "general_price_manwon": 175000,
+          "general_price_manwon": 175000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 94788,
@@ -729,9 +785,9 @@
           "supply_m2": 77.37,
           "exclusive_m2": 59.88,
           "type_households": 16,
-          "general_price_manwon": 175000,
+          "general_price_manwon": 175000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 128798,
@@ -739,9 +795,9 @@
           "supply_m2": 109.63,
           "exclusive_m2": 84.86,
           "type_households": 18,
-          "general_price_manwon": 195000,
+          "general_price_manwon": 195000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 51170,
@@ -749,9 +805,9 @@
           "supply_m2": 109.65,
           "exclusive_m2": 84.87,
           "type_households": 219,
-          "general_price_manwon": 195000,
+          "general_price_manwon": 195000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 153773,
@@ -759,9 +815,9 @@
           "supply_m2": 109.73,
           "exclusive_m2": 84.94,
           "type_households": 70,
-          "general_price_manwon": 195000,
+          "general_price_manwon": 195000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         }
       ]
     },
@@ -771,7 +827,11 @@
       "complex_id": 25766,
       "kb_name": "송파더센트레",
       "status": "matched",
+      "dong": "장지동",
+      "households": 1139,
+      "built_ymd": "201312",
       "type_count": 10,
+      "priced_type_count": 10,
       "types": [
         {
           "area_id": 24694,
@@ -779,39 +839,39 @@
           "supply_m2": 73.93,
           "exclusive_m2": 51.77,
           "type_households": 455,
-          "general_price_manwon": 150000,
+          "general_price_manwon": 150000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 71563,
           "type_label": "22A1",
-          "supply_m2": 74,
+          "supply_m2": 74.0,
           "exclusive_m2": 51.82,
           "type_households": 75,
-          "general_price_manwon": 150000,
+          "general_price_manwon": 150000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 110476,
           "type_label": "22B",
-          "supply_m2": 74,
+          "supply_m2": 74.0,
           "exclusive_m2": 51.82,
           "type_households": 21,
-          "general_price_manwon": 150000,
+          "general_price_manwon": 150000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 161824,
           "type_label": "22A1N",
-          "supply_m2": 74,
+          "supply_m2": 74.0,
           "exclusive_m2": 51.82,
           "type_households": 23,
-          "general_price_manwon": 150000,
+          "general_price_manwon": 150000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 140125,
@@ -819,9 +879,9 @@
           "supply_m2": 74.2,
           "exclusive_m2": 51.96,
           "type_households": 98,
-          "general_price_manwon": 150000,
+          "general_price_manwon": 150000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 177499,
@@ -829,9 +889,9 @@
           "supply_m2": 77.28,
           "exclusive_m2": 54.12,
           "type_households": 12,
-          "general_price_manwon": 150000,
+          "general_price_manwon": 150000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 197216,
@@ -839,9 +899,9 @@
           "supply_m2": 85.3,
           "exclusive_m2": 59.73,
           "type_households": 100,
-          "general_price_manwon": 176000,
+          "general_price_manwon": 176000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 203451,
@@ -849,9 +909,9 @@
           "supply_m2": 85.47,
           "exclusive_m2": 59.85,
           "type_households": 214,
-          "general_price_manwon": 176000,
+          "general_price_manwon": 176000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 188912,
@@ -859,9 +919,9 @@
           "supply_m2": 85.63,
           "exclusive_m2": 59.96,
           "type_households": 121,
-          "general_price_manwon": 176000,
+          "general_price_manwon": 176000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         },
         {
           "area_id": 208183,
@@ -869,9 +929,9 @@
           "supply_m2": 85.63,
           "exclusive_m2": 59.96,
           "type_households": 20,
-          "general_price_manwon": 176000,
+          "general_price_manwon": 176000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:18+00:00"
+          "price_date": null
         }
       ]
     },
@@ -881,7 +941,11 @@
       "complex_id": 25769,
       "kb_name": "위례24단지(꿈에그린)",
       "status": "matched",
+      "dong": "장지동",
+      "households": 1810,
+      "built_ymd": "201312",
       "type_count": 21,
+      "priced_type_count": 21,
       "types": [
         {
           "area_id": 24697,
@@ -889,9 +953,9 @@
           "supply_m2": 70.87,
           "exclusive_m2": 51.77,
           "type_households": 549,
-          "general_price_manwon": 160000,
+          "general_price_manwon": 160000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 140127,
@@ -899,9 +963,9 @@
           "supply_m2": 70.87,
           "exclusive_m2": 51.77,
           "type_households": 36,
-          "general_price_manwon": 160000,
+          "general_price_manwon": 160000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 110478,
@@ -909,9 +973,9 @@
           "supply_m2": 70.88,
           "exclusive_m2": 51.78,
           "type_households": 57,
-          "general_price_manwon": 160000,
+          "general_price_manwon": 160000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 71566,
@@ -919,9 +983,9 @@
           "supply_m2": 70.93,
           "exclusive_m2": 51.82,
           "type_households": 48,
-          "general_price_manwon": 160000,
+          "general_price_manwon": 160000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 161826,
@@ -929,9 +993,9 @@
           "supply_m2": 74.08,
           "exclusive_m2": 54.12,
           "type_households": 24,
-          "general_price_manwon": 160500,
+          "general_price_manwon": 160500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 177501,
@@ -939,9 +1003,9 @@
           "supply_m2": 81.63,
           "exclusive_m2": 59.63,
           "type_households": 231,
-          "general_price_manwon": 184250,
+          "general_price_manwon": 184250.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 225543,
@@ -949,9 +1013,9 @@
           "supply_m2": 81.67,
           "exclusive_m2": 59.66,
           "type_households": 103,
-          "general_price_manwon": 184250,
+          "general_price_manwon": 184250.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 197218,
@@ -959,9 +1023,9 @@
           "supply_m2": 81.93,
           "exclusive_m2": 59.85,
           "type_households": 78,
-          "general_price_manwon": 184250,
+          "general_price_manwon": 184250.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 188914,
@@ -969,9 +1033,9 @@
           "supply_m2": 82.08,
           "exclusive_m2": 59.96,
           "type_households": 63,
-          "general_price_manwon": 184250,
+          "general_price_manwon": 184250.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 203452,
@@ -979,9 +1043,9 @@
           "supply_m2": 82.08,
           "exclusive_m2": 59.96,
           "type_households": 21,
-          "general_price_manwon": 184250,
+          "general_price_manwon": 184250.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 214669,
@@ -989,9 +1053,9 @@
           "supply_m2": 103.93,
           "exclusive_m2": 75.92,
           "type_households": 48,
-          "general_price_manwon": 194500,
+          "general_price_manwon": 194500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 208184,
@@ -999,9 +1063,9 @@
           "supply_m2": 103.99,
           "exclusive_m2": 75.97,
           "type_households": 71,
-          "general_price_manwon": 194500,
+          "general_price_manwon": 194500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 211827,
@@ -1009,9 +1073,9 @@
           "supply_m2": 103.99,
           "exclusive_m2": 75.97,
           "type_households": 16,
-          "general_price_manwon": 194500,
+          "general_price_manwon": 194500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 216946,
@@ -1019,9 +1083,9 @@
           "supply_m2": 103.99,
           "exclusive_m2": 75.97,
           "type_households": 16,
-          "general_price_manwon": 194500,
+          "general_price_manwon": 194500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 218818,
@@ -1029,9 +1093,9 @@
           "supply_m2": 106.98,
           "exclusive_m2": 78.15,
           "type_households": 12,
-          "general_price_manwon": 194500,
+          "general_price_manwon": 194500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 222684,
@@ -1039,9 +1103,9 @@
           "supply_m2": 116.26,
           "exclusive_m2": 84.93,
           "type_households": 151,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 224333,
@@ -1049,9 +1113,9 @@
           "supply_m2": 116.26,
           "exclusive_m2": 84.93,
           "type_households": 62,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 220363,
@@ -1059,9 +1123,9 @@
           "supply_m2": 116.3,
           "exclusive_m2": 84.96,
           "type_households": 120,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 223570,
@@ -1069,9 +1133,9 @@
           "supply_m2": 116.3,
           "exclusive_m2": 84.96,
           "type_households": 42,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 224985,
@@ -1079,9 +1143,9 @@
           "supply_m2": 116.3,
           "exclusive_m2": 84.96,
           "type_households": 20,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         },
         {
           "area_id": 221618,
@@ -1089,9 +1153,9 @@
           "supply_m2": 116.33,
           "exclusive_m2": 84.98,
           "type_households": 42,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:12+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1101,7 +1165,11 @@
       "complex_id": 46734,
       "kb_name": "송파시그니처롯데캐슬",
       "status": "matched",
+      "dong": "거여동",
+      "households": 1945,
+      "built_ymd": "202201",
       "type_count": 9,
+      "priced_type_count": 8,
       "types": [
         {
           "area_id": 89945,
@@ -1109,9 +1177,9 @@
           "supply_m2": 84.98,
           "exclusive_m2": 59.98,
           "type_households": 245,
-          "general_price_manwon": 181000,
+          "general_price_manwon": 181000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 45465,
@@ -1119,9 +1187,9 @@
           "supply_m2": 85.49,
           "exclusive_m2": 59.98,
           "type_households": 53,
-          "general_price_manwon": 181000,
+          "general_price_manwon": 181000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 125083,
@@ -1129,9 +1197,9 @@
           "supply_m2": 85.72,
           "exclusive_m2": 59.98,
           "type_households": 254,
-          "general_price_manwon": 181000,
+          "general_price_manwon": 181000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 151080,
@@ -1139,9 +1207,9 @@
           "supply_m2": 110.75,
           "exclusive_m2": 84.98,
           "type_households": 322,
-          "general_price_manwon": 210000,
+          "general_price_manwon": 210000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 169717,
@@ -1149,9 +1217,9 @@
           "supply_m2": 110.95,
           "exclusive_m2": 84.98,
           "type_households": 210,
-          "general_price_manwon": 210000,
+          "general_price_manwon": 210000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 183203,
@@ -1159,9 +1227,9 @@
           "supply_m2": 111.62,
           "exclusive_m2": 84.98,
           "type_households": 86,
-          "general_price_manwon": 210000,
+          "general_price_manwon": 210000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 192968,
@@ -1169,9 +1237,9 @@
           "supply_m2": 111.88,
           "exclusive_m2": 84.98,
           "type_households": 331,
-          "general_price_manwon": 210000,
+          "general_price_manwon": 210000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 200231,
@@ -1179,9 +1247,9 @@
           "supply_m2": 112.29,
           "exclusive_m2": 84.98,
           "type_households": 38,
-          "general_price_manwon": 210000,
+          "general_price_manwon": 210000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         },
         {
           "area_id": 205730,
@@ -1191,7 +1259,7 @@
           "type_households": 38,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:11+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1201,7 +1269,11 @@
       "complex_id": 40111,
       "kb_name": "e편한세상송파파크센트럴",
       "status": "matched",
+      "dong": "거여동",
+      "households": 1199,
+      "built_ymd": "202006",
       "type_count": 18,
+      "priced_type_count": 14,
       "types": [
         {
           "area_id": 38911,
@@ -1209,9 +1281,9 @@
           "supply_m2": 81.42,
           "exclusive_m2": 59.94,
           "type_households": 32,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 84160,
@@ -1219,9 +1291,9 @@
           "supply_m2": 81.76,
           "exclusive_m2": 59.93,
           "type_households": 33,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 120514,
@@ -1229,9 +1301,9 @@
           "supply_m2": 82.65,
           "exclusive_m2": 59.94,
           "type_households": 56,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 147705,
@@ -1239,9 +1311,9 @@
           "supply_m2": 82.67,
           "exclusive_m2": 59.96,
           "type_households": 184,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 167371,
@@ -1249,9 +1321,9 @@
           "supply_m2": 111.02,
           "exclusive_m2": 84.94,
           "type_households": 47,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 181606,
@@ -1259,9 +1331,9 @@
           "supply_m2": 111.05,
           "exclusive_m2": 84.96,
           "type_households": 28,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 191836,
@@ -1269,9 +1341,9 @@
           "supply_m2": 111.22,
           "exclusive_m2": 84.96,
           "type_households": 233,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 199400,
@@ -1279,9 +1351,9 @@
           "supply_m2": 111.44,
           "exclusive_m2": 84.96,
           "type_households": 31,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 205121,
@@ -1289,9 +1361,9 @@
           "supply_m2": 111.48,
           "exclusive_m2": 84.96,
           "type_households": 31,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 209459,
@@ -1299,9 +1371,9 @@
           "supply_m2": 111.49,
           "exclusive_m2": 84.95,
           "type_households": 50,
-          "general_price_manwon": 187500,
+          "general_price_manwon": 187500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 212810,
@@ -1309,9 +1381,9 @@
           "supply_m2": 111.77,
           "exclusive_m2": 84.97,
           "type_households": 94,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 215449,
@@ -1319,9 +1391,9 @@
           "supply_m2": 112.87,
           "exclusive_m2": 84.98,
           "type_households": 28,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 217579,
@@ -1331,7 +1403,7 @@
           "type_households": 2,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 219350,
@@ -1339,9 +1411,9 @@
           "supply_m2": 137.68,
           "exclusive_m2": 113.18,
           "type_households": 59,
-          "general_price_manwon": 204000,
+          "general_price_manwon": 204000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 220795,
@@ -1349,9 +1421,9 @@
           "supply_m2": 139.21,
           "exclusive_m2": 113.63,
           "type_households": 60,
-          "general_price_manwon": 204000,
+          "general_price_manwon": 204000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 223833,
@@ -1361,7 +1433,7 @@
           "type_households": 2,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 222990,
@@ -1371,7 +1443,7 @@
           "type_households": 1,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 221982,
@@ -1381,7 +1453,7 @@
           "type_households": 1,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1391,7 +1463,11 @@
       "complex_id": 1896,
       "kb_name": "마천금호(금호타운)",
       "status": "matched",
+      "dong": "마천동",
+      "households": 199,
+      "built_ymd": "199805",
       "type_count": 4,
+      "priced_type_count": 4,
       "types": [
         {
           "area_id": 1786,
@@ -1399,9 +1475,9 @@
           "supply_m2": 78.94,
           "exclusive_m2": 59.93,
           "type_households": 100,
-          "general_price_manwon": 116500,
+          "general_price_manwon": 116500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:21+00:00"
+          "price_date": null
         },
         {
           "area_id": 153743,
@@ -1409,9 +1485,9 @@
           "supply_m2": 96.93,
           "exclusive_m2": 73.92,
           "type_households": 2,
-          "general_price_manwon": 121500,
+          "general_price_manwon": 121500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:21+00:00"
+          "price_date": null
         },
         {
           "area_id": 51090,
@@ -1419,9 +1495,9 @@
           "supply_m2": 111.69,
           "exclusive_m2": 84.79,
           "type_households": 36,
-          "general_price_manwon": 126500,
+          "general_price_manwon": 126500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:21+00:00"
+          "price_date": null
         },
         {
           "area_id": 94730,
@@ -1429,9 +1505,9 @@
           "supply_m2": 111.86,
           "exclusive_m2": 84.92,
           "type_households": 61,
-          "general_price_manwon": 126500,
+          "general_price_manwon": 126500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:21+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1441,7 +1517,11 @@
       "complex_id": 1868,
       "kb_name": "극동",
       "status": "matched_high_confidence",
+      "dong": "풍납동",
+      "households": 415,
+      "built_ymd": "198712",
       "type_count": 3,
+      "priced_type_count": 3,
       "types": [
         {
           "area_id": 1758,
@@ -1449,9 +1529,9 @@
           "supply_m2": 81.74,
           "exclusive_m2": 59.97,
           "type_households": 147,
-          "general_price_manwon": 140000,
+          "general_price_manwon": 140000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:51+00:00"
+          "price_date": null
         },
         {
           "area_id": 94711,
@@ -1459,9 +1539,9 @@
           "supply_m2": 82.43,
           "exclusive_m2": 58.11,
           "type_households": 36,
-          "general_price_manwon": 140000,
+          "general_price_manwon": 140000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:51+00:00"
+          "price_date": null
         },
         {
           "area_id": 51063,
@@ -1469,9 +1549,9 @@
           "supply_m2": 96.95,
           "exclusive_m2": 79.94,
           "type_households": 232,
-          "general_price_manwon": 166000,
+          "general_price_manwon": 166000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:51+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1481,7 +1561,11 @@
       "complex_id": 1873,
       "kb_name": "현대(풍납)",
       "status": "matched",
+      "dong": "풍납동",
+      "households": 708,
+      "built_ymd": "199511",
       "type_count": 3,
+      "priced_type_count": 3,
       "types": [
         {
           "area_id": 1763,
@@ -1489,9 +1573,9 @@
           "supply_m2": 88.59,
           "exclusive_m2": 71.17,
           "type_households": 78,
-          "general_price_manwon": 149000,
+          "general_price_manwon": 149000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 51068,
@@ -1499,19 +1583,19 @@
           "supply_m2": 101.17,
           "exclusive_m2": 83.02,
           "type_households": 532,
-          "general_price_manwon": 180000,
+          "general_price_manwon": 180000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 94715,
           "type_label": "31S",
           "supply_m2": 102.85,
-          "exclusive_m2": 84,
+          "exclusive_m2": 84.0,
           "type_households": 98,
-          "general_price_manwon": 181000,
+          "general_price_manwon": 181000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1521,7 +1605,11 @@
       "complex_id": 323275,
       "kb_name": "송파레이크힐",
       "status": "matched",
+      "dong": "거여동",
+      "households": 394,
+      "built_ymd": "202108",
       "type_count": 9,
+      "priced_type_count": 0,
       "types": [
         {
           "area_id": 1125047,
@@ -1531,7 +1619,7 @@
           "type_households": 84,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125048,
@@ -1541,7 +1629,7 @@
           "type_households": 20,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125049,
@@ -1551,7 +1639,7 @@
           "type_households": 24,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125050,
@@ -1561,7 +1649,7 @@
           "type_households": 30,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125108,
@@ -1571,7 +1659,7 @@
           "type_households": 47,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125109,
@@ -1581,7 +1669,7 @@
           "type_households": 33,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125110,
@@ -1591,7 +1679,7 @@
           "type_households": 134,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125111,
@@ -1601,7 +1689,7 @@
           "type_households": 3,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125112,
@@ -1611,7 +1699,7 @@
           "type_households": 19,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:55+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1621,7 +1709,11 @@
       "complex_id": 323274,
       "kb_name": "포레나송파",
       "status": "matched",
+      "dong": "거여동",
+      "households": 1282,
+      "built_ymd": "202108",
       "type_count": 15,
+      "priced_type_count": 0,
       "types": [
         {
           "area_id": 1125182,
@@ -1631,7 +1723,7 @@
           "type_households": 183,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125183,
@@ -1641,7 +1733,7 @@
           "type_households": 60,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125184,
@@ -1651,7 +1743,7 @@
           "type_households": 13,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125185,
@@ -1661,7 +1753,7 @@
           "type_households": 60,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125186,
@@ -1671,7 +1763,7 @@
           "type_households": 15,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125187,
@@ -1681,7 +1773,7 @@
           "type_households": 167,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125191,
@@ -1691,7 +1783,7 @@
           "type_households": 56,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125192,
@@ -1701,7 +1793,7 @@
           "type_households": 66,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125193,
@@ -1711,7 +1803,7 @@
           "type_households": 48,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125194,
@@ -1721,7 +1813,7 @@
           "type_households": 86,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125195,
@@ -1731,7 +1823,7 @@
           "type_households": 48,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125196,
@@ -1741,7 +1833,7 @@
           "type_households": 41,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125188,
@@ -1751,7 +1843,7 @@
           "type_households": 43,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125189,
@@ -1761,7 +1853,7 @@
           "type_households": 297,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 1125190,
@@ -1771,7 +1863,7 @@
           "type_households": 99,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1781,7 +1873,11 @@
       "complex_id": 1941,
       "kb_name": "가락대림",
       "status": "matched",
+      "dong": "가락동",
+      "households": 443,
+      "built_ymd": "198811",
       "type_count": 9,
+      "priced_type_count": 9,
       "types": [
         {
           "area_id": 1829,
@@ -1789,9 +1885,9 @@
           "supply_m2": 73.93,
           "exclusive_m2": 59.24,
           "type_households": 30,
-          "general_price_manwon": 140000,
+          "general_price_manwon": 140000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         },
         {
           "area_id": 51132,
@@ -1799,9 +1895,9 @@
           "supply_m2": 88.85,
           "exclusive_m2": 68.78,
           "type_households": 45,
-          "general_price_manwon": 150000,
+          "general_price_manwon": 150000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         },
         {
           "area_id": 94760,
@@ -1809,9 +1905,9 @@
           "supply_m2": 90.09,
           "exclusive_m2": 69.74,
           "type_households": 30,
-          "general_price_manwon": 150000,
+          "general_price_manwon": 150000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         },
         {
           "area_id": 128772,
@@ -1819,9 +1915,9 @@
           "supply_m2": 95.45,
           "exclusive_m2": 76.49,
           "type_households": 30,
-          "general_price_manwon": 155000,
+          "general_price_manwon": 155000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         },
         {
           "area_id": 153757,
@@ -1829,9 +1925,9 @@
           "supply_m2": 101.02,
           "exclusive_m2": 84.11,
           "type_households": 56,
-          "general_price_manwon": 160000,
+          "general_price_manwon": 160000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         },
         {
           "area_id": 171544,
@@ -1839,9 +1935,9 @@
           "supply_m2": 101.59,
           "exclusive_m2": 84.11,
           "type_households": 112,
-          "general_price_manwon": 160000,
+          "general_price_manwon": 160000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         },
         {
           "area_id": 184496,
@@ -1849,9 +1945,9 @@
           "supply_m2": 118.07,
           "exclusive_m2": 99.38,
           "type_households": 56,
-          "general_price_manwon": 180000,
+          "general_price_manwon": 180000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         },
         {
           "area_id": 193844,
@@ -1859,9 +1955,9 @@
           "supply_m2": 133.27,
           "exclusive_m2": 113.08,
           "type_households": 28,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         },
         {
           "area_id": 200865,
@@ -1869,9 +1965,9 @@
           "supply_m2": 141.31,
           "exclusive_m2": 120.96,
           "type_households": 56,
-          "general_price_manwon": 200000,
+          "general_price_manwon": 200000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:48+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1881,9 +1977,64 @@
       "complex_id": 716,
       "kb_name": "현대프라임",
       "status": "matched",
-      "type_count": 0,
-      "types": [],
-      "address": "서울 광진구 광나루로56길 29"
+      "address": "서울 광진구 광나루로56길 29",
+      "dong": "구의동",
+      "households": 1592,
+      "built_ymd": "199702",
+      "type_count": 5,
+      "priced_type_count": 5,
+      "types": [
+        {
+          "area_id": 691,
+          "type_label": "24",
+          "supply_m2": 81.84,
+          "exclusive_m2": 59.82,
+          "type_households": 300,
+          "general_price_manwon": 175000.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 50021,
+          "type_label": "25",
+          "supply_m2": 85.67,
+          "exclusive_m2": 59.82,
+          "type_households": 354,
+          "general_price_manwon": 175000.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 93862,
+          "type_label": "31",
+          "supply_m2": 104.38,
+          "exclusive_m2": 84.99,
+          "type_households": 542,
+          "general_price_manwon": 215000.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 128133,
+          "type_label": "46",
+          "supply_m2": 153.73,
+          "exclusive_m2": 126.66,
+          "type_households": 168,
+          "general_price_manwon": 285000.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 153335,
+          "type_label": "66",
+          "supply_m2": 220.03,
+          "exclusive_m2": 183.87,
+          "type_households": 228,
+          "general_price_manwon": 295000.0,
+          "price_status": "kb_general",
+          "price_date": null
+        }
+      ]
     },
     {
       "district": "광진구",
@@ -1891,9 +2042,54 @@
       "complex_id": 717,
       "kb_name": "현대(6단지)",
       "status": "matched",
-      "type_count": 0,
-      "types": [],
-      "address": "서울 광진구 구의강변로 94"
+      "address": "서울 광진구 구의강변로 94",
+      "dong": "구의동",
+      "households": 421,
+      "built_ymd": "199404",
+      "type_count": 4,
+      "priced_type_count": 4,
+      "types": [
+        {
+          "area_id": 692,
+          "type_label": "31A",
+          "supply_m2": 103.31,
+          "exclusive_m2": 84.78,
+          "type_households": 18,
+          "general_price_manwon": 192500.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 50022,
+          "type_label": "31B",
+          "supply_m2": 103.39,
+          "exclusive_m2": 84.84,
+          "type_households": 47,
+          "general_price_manwon": 192500.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 93863,
+          "type_label": "31C",
+          "supply_m2": 103.5,
+          "exclusive_m2": 84.92,
+          "type_households": 331,
+          "general_price_manwon": 192500.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 128134,
+          "type_label": "31D",
+          "supply_m2": 103.55,
+          "exclusive_m2": 84.93,
+          "type_households": 25,
+          "general_price_manwon": 192500.0,
+          "price_status": "kb_general",
+          "price_date": null
+        }
+      ]
     },
     {
       "district": "성동구",
@@ -1901,7 +2097,11 @@
       "complex_id": 1758,
       "kb_name": "행당한진타운",
       "status": "matched",
+      "dong": "행당동",
+      "households": 2123,
+      "built_ymd": "200011",
       "type_count": 3,
+      "priced_type_count": 3,
       "types": [
         {
           "area_id": 50959,
@@ -1909,9 +2109,9 @@
           "supply_m2": 86.96,
           "exclusive_m2": 59.96,
           "type_households": 748,
-          "general_price_manwon": 162500,
+          "general_price_manwon": 162500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:10+00:00"
+          "price_date": null
         },
         {
           "area_id": 94627,
@@ -1919,9 +2119,9 @@
           "supply_m2": 108.47,
           "exclusive_m2": 84.71,
           "type_households": 805,
-          "general_price_manwon": 186500,
+          "general_price_manwon": 186500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:10+00:00"
+          "price_date": null
         },
         {
           "area_id": 128675,
@@ -1929,9 +2129,9 @@
           "supply_m2": 144.37,
           "exclusive_m2": 114.62,
           "type_households": 570,
-          "general_price_manwon": 191500,
+          "general_price_manwon": 191500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:10+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1941,7 +2141,11 @@
       "complex_id": 1757,
       "kb_name": "행당동대림",
       "status": "matched",
+      "dong": "행당동",
+      "households": 3404,
+      "built_ymd": "200101",
       "type_count": 3,
+      "priced_type_count": 3,
       "types": [
         {
           "area_id": 50958,
@@ -1949,9 +2153,9 @@
           "supply_m2": 83.76,
           "exclusive_m2": 59.96,
           "type_households": 705,
-          "general_price_manwon": 159250,
+          "general_price_manwon": 159250.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:08+00:00"
+          "price_date": null
         },
         {
           "area_id": 94626,
@@ -1959,9 +2163,9 @@
           "supply_m2": 104.58,
           "exclusive_m2": 84.87,
           "type_households": 1034,
-          "general_price_manwon": 172500,
+          "general_price_manwon": 172500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:08+00:00"
+          "price_date": null
         },
         {
           "area_id": 128674,
@@ -1969,9 +2173,9 @@
           "supply_m2": 137.26,
           "exclusive_m2": 114.94,
           "type_households": 660,
-          "general_price_manwon": 188500,
+          "general_price_manwon": 188500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:08+00:00"
+          "price_date": null
         }
       ]
     },
@@ -1981,7 +2185,11 @@
       "complex_id": 16047,
       "kb_name": "두산위브",
       "status": "matched",
+      "dong": "행당동",
+      "households": 465,
+      "built_ymd": "200912",
       "type_count": 5,
+      "priced_type_count": 5,
       "types": [
         {
           "area_id": 63539,
@@ -1989,9 +2197,9 @@
           "supply_m2": 82.55,
           "exclusive_m2": 59.99,
           "type_households": 181,
-          "general_price_manwon": 173000,
+          "general_price_manwon": 173000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:46+00:00"
+          "price_date": null
         },
         {
           "area_id": 103808,
@@ -1999,9 +2207,9 @@
           "supply_m2": 99.14,
           "exclusive_m2": 70.76,
           "type_households": 12,
-          "general_price_manwon": 178000,
+          "general_price_manwon": 178000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:46+00:00"
+          "price_date": null
         },
         {
           "area_id": 134782,
@@ -2009,9 +2217,9 @@
           "supply_m2": 107.62,
           "exclusive_m2": 84.99,
           "type_households": 15,
-          "general_price_manwon": 190500,
+          "general_price_manwon": 190500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:46+00:00"
+          "price_date": null
         },
         {
           "area_id": 157556,
@@ -2019,9 +2227,9 @@
           "supply_m2": 110.6,
           "exclusive_m2": 84.99,
           "type_households": 114,
-          "general_price_manwon": 189500,
+          "general_price_manwon": 189500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:46+00:00"
+          "price_date": null
         },
         {
           "area_id": 174106,
@@ -2029,9 +2237,9 @@
           "supply_m2": 143.33,
           "exclusive_m2": 114.99,
           "type_households": 29,
-          "general_price_manwon": 195000,
+          "general_price_manwon": 195000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:46+00:00"
+          "price_date": null
         }
       ]
     },
@@ -2041,7 +2249,11 @@
       "complex_id": 12530,
       "kb_name": "금호어울림",
       "status": "matched",
+      "dong": "마장동",
+      "households": 367,
+      "built_ymd": "200611",
       "type_count": 7,
+      "priced_type_count": 6,
       "types": [
         {
           "area_id": 12331,
@@ -2049,9 +2261,9 @@
           "supply_m2": 80.45,
           "exclusive_m2": 59.97,
           "type_households": 37,
-          "general_price_manwon": 126000,
+          "general_price_manwon": 126000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 60443,
@@ -2059,9 +2271,9 @@
           "supply_m2": 96.29,
           "exclusive_m2": 74.46,
           "type_households": 24,
-          "general_price_manwon": 135000,
+          "general_price_manwon": 135000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 132922,
@@ -2069,9 +2281,9 @@
           "supply_m2": 106.66,
           "exclusive_m2": 83.65,
           "type_households": 1,
-          "general_price_manwon": 155000,
+          "general_price_manwon": 155000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 101346,
@@ -2079,9 +2291,9 @@
           "supply_m2": 107.68,
           "exclusive_m2": 84.97,
           "type_households": 221,
-          "general_price_manwon": 155000,
+          "general_price_manwon": 155000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 156245,
@@ -2091,7 +2303,7 @@
           "type_households": 1,
           "general_price_manwon": null,
           "price_status": "unavailable",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 185584,
@@ -2099,9 +2311,9 @@
           "supply_m2": 136.35,
           "exclusive_m2": 114.97,
           "type_households": 1,
-          "general_price_manwon": 167500,
+          "general_price_manwon": 167500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 173183,
@@ -2109,9 +2321,9 @@
           "supply_m2": 137.75,
           "exclusive_m2": 114.97,
           "type_households": 82,
-          "general_price_manwon": 167500,
+          "general_price_manwon": 167500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         }
       ]
     },
@@ -2128,6 +2340,7 @@
       "households": 1670,
       "move_in": "2027-02 예정",
       "type_count": 0,
+      "priced_type_count": 0,
       "types": []
     },
     {
@@ -2136,7 +2349,11 @@
       "complex_id": 1771,
       "kb_name": "금호동대우",
       "status": "matched",
+      "dong": "금호동4가",
+      "households": 1181,
+      "built_ymd": "200010",
       "type_count": 8,
+      "priced_type_count": 8,
       "types": [
         {
           "area_id": 50972,
@@ -2144,9 +2361,9 @@
           "supply_m2": 79.74,
           "exclusive_m2": 59.97,
           "type_households": 192,
-          "general_price_manwon": 167500,
+          "general_price_manwon": 167500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 94637,
@@ -2154,9 +2371,9 @@
           "supply_m2": 81.46,
           "exclusive_m2": 59.97,
           "type_households": 76,
-          "general_price_manwon": 167500,
+          "general_price_manwon": 167500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 128683,
@@ -2164,9 +2381,9 @@
           "supply_m2": 81.46,
           "exclusive_m2": 59.97,
           "type_households": 116,
-          "general_price_manwon": 167500,
+          "general_price_manwon": 167500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 153701,
@@ -2174,9 +2391,9 @@
           "supply_m2": 109.27,
           "exclusive_m2": 84.71,
           "type_households": 308,
-          "general_price_manwon": 192500,
+          "general_price_manwon": 192500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 171512,
@@ -2184,9 +2401,9 @@
           "supply_m2": 112.97,
           "exclusive_m2": 84.96,
           "type_households": 192,
-          "general_price_manwon": 193500,
+          "general_price_manwon": 193500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 200854,
@@ -2194,9 +2411,9 @@
           "supply_m2": 145.58,
           "exclusive_m2": 114.6,
           "type_households": 110,
-          "general_price_manwon": 224000,
+          "general_price_manwon": 224000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 184476,
@@ -2204,9 +2421,9 @@
           "supply_m2": 145.72,
           "exclusive_m2": 114.71,
           "type_households": 105,
-          "general_price_manwon": 224000,
+          "general_price_manwon": 224000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         },
         {
           "area_id": 193828,
@@ -2214,9 +2431,9 @@
           "supply_m2": 145.72,
           "exclusive_m2": 114.71,
           "type_households": 82,
-          "general_price_manwon": 224000,
+          "general_price_manwon": 224000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:17+00:00"
+          "price_date": null
         }
       ]
     },
@@ -2226,7 +2443,11 @@
       "complex_id": 1767,
       "kb_name": "두산",
       "status": "matched",
+      "dong": "금호동3가",
+      "households": 1267,
+      "built_ymd": "199409",
       "type_count": 6,
+      "priced_type_count": 6,
       "types": [
         {
           "area_id": 1667,
@@ -2234,9 +2455,9 @@
           "supply_m2": 82.29,
           "exclusive_m2": 59.97,
           "type_households": 335,
-          "general_price_manwon": 157000,
+          "general_price_manwon": 157000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 50968,
@@ -2244,9 +2465,9 @@
           "supply_m2": 96.92,
           "exclusive_m2": 79.08,
           "type_households": 270,
-          "general_price_manwon": 162500,
+          "general_price_manwon": 162500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 94634,
@@ -2254,9 +2475,9 @@
           "supply_m2": 104.52,
           "exclusive_m2": 84.99,
           "type_households": 265,
-          "general_price_manwon": 174000,
+          "general_price_manwon": 174000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 128681,
@@ -2264,9 +2485,9 @@
           "supply_m2": 136.35,
           "exclusive_m2": 116.81,
           "type_households": 267,
-          "general_price_manwon": 190000,
+          "general_price_manwon": 190000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 153699,
@@ -2274,9 +2495,9 @@
           "supply_m2": 144.3,
           "exclusive_m2": 124.19,
           "type_households": 78,
-          "general_price_manwon": 195000,
+          "general_price_manwon": 195000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         },
         {
           "area_id": 171510,
@@ -2284,9 +2505,9 @@
           "supply_m2": 145.16,
           "exclusive_m2": 124.98,
           "type_households": 52,
-          "general_price_manwon": 195000,
+          "general_price_manwon": 195000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:16+00:00"
+          "price_date": null
         }
       ]
     },
@@ -2296,7 +2517,11 @@
       "complex_id": 13487,
       "kb_name": "금호동한신휴플러스",
       "status": "matched",
+      "dong": "금호동3가",
+      "households": 323,
+      "built_ymd": "200507",
       "type_count": 5,
+      "priced_type_count": 5,
       "types": [
         {
           "area_id": 13270,
@@ -2304,19 +2529,19 @@
           "supply_m2": 80.96,
           "exclusive_m2": 59.99,
           "type_households": 153,
-          "general_price_manwon": 153500,
+          "general_price_manwon": 153500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:03+00:00"
+          "price_date": null
         },
         {
           "area_id": 61253,
           "type_label": "32A",
-          "supply_m2": 107,
+          "supply_m2": 107.0,
           "exclusive_m2": 84.96,
           "type_households": 84,
-          "general_price_manwon": 162500,
+          "general_price_manwon": 162500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:03+00:00"
+          "price_date": null
         },
         {
           "area_id": 101966,
@@ -2324,9 +2549,9 @@
           "supply_m2": 108.21,
           "exclusive_m2": 84.49,
           "type_households": 28,
-          "general_price_manwon": 162500,
+          "general_price_manwon": 162500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:03+00:00"
+          "price_date": null
         },
         {
           "area_id": 133376,
@@ -2334,9 +2559,9 @@
           "supply_m2": 134.47,
           "exclusive_m2": 114.76,
           "type_households": 29,
-          "general_price_manwon": 171500,
+          "general_price_manwon": 171500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:03+00:00"
+          "price_date": null
         },
         {
           "area_id": 156554,
@@ -2344,9 +2569,9 @@
           "supply_m2": 154.11,
           "exclusive_m2": 130.92,
           "type_households": 29,
-          "general_price_manwon": 177500,
+          "general_price_manwon": 177500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:20:03+00:00"
+          "price_date": null
         }
       ]
     },
@@ -2356,7 +2581,11 @@
       "complex_id": 16151,
       "kb_name": "서울숲행당푸르지오",
       "status": "matched",
+      "dong": "행당동",
+      "households": 457,
+      "built_ymd": "201105",
       "type_count": 5,
+      "priced_type_count": 5,
       "types": [
         {
           "area_id": 63641,
@@ -2364,9 +2593,9 @@
           "supply_m2": 79.53,
           "exclusive_m2": 59.68,
           "type_households": 143,
-          "general_price_manwon": 160500,
+          "general_price_manwon": 160500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:47+00:00"
+          "price_date": null
         },
         {
           "area_id": 103905,
@@ -2374,9 +2603,9 @@
           "supply_m2": 82.97,
           "exclusive_m2": 59.81,
           "type_households": 48,
-          "general_price_manwon": 162500,
+          "general_price_manwon": 162500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:47+00:00"
+          "price_date": null
         },
         {
           "area_id": 134867,
@@ -2384,9 +2613,9 @@
           "supply_m2": 111.11,
           "exclusive_m2": 84.81,
           "type_households": 50,
-          "general_price_manwon": 187000,
+          "general_price_manwon": 187000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:47+00:00"
+          "price_date": null
         },
         {
           "area_id": 157632,
@@ -2394,9 +2623,9 @@
           "supply_m2": 111.38,
           "exclusive_m2": 84.74,
           "type_households": 165,
-          "general_price_manwon": 185000,
+          "general_price_manwon": 185000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:47+00:00"
+          "price_date": null
         },
         {
           "area_id": 174170,
@@ -2404,9 +2633,9 @@
           "supply_m2": 143.75,
           "exclusive_m2": 114.33,
           "type_households": 51,
-          "general_price_manwon": 203500,
+          "general_price_manwon": 203500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:47+00:00"
+          "price_date": null
         }
       ]
     },
@@ -2416,7 +2645,11 @@
       "complex_id": 1759,
       "kb_name": "서울숲한신더휴",
       "status": "matched",
+      "dong": "행당동",
+      "households": 1410,
+      "built_ymd": "200312",
       "type_count": 4,
+      "priced_type_count": 4,
       "types": [
         {
           "area_id": 94628,
@@ -2424,9 +2657,9 @@
           "supply_m2": 80.99,
           "exclusive_m2": 59.94,
           "type_households": 188,
-          "general_price_manwon": 163000,
+          "general_price_manwon": 163000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:14+00:00"
+          "price_date": null
         },
         {
           "area_id": 50960,
@@ -2434,9 +2667,9 @@
           "supply_m2": 81.27,
           "exclusive_m2": 59.91,
           "type_households": 282,
-          "general_price_manwon": 169000,
+          "general_price_manwon": 169000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:14+00:00"
+          "price_date": null
         },
         {
           "area_id": 128676,
@@ -2444,9 +2677,9 @@
           "supply_m2": 108.56,
           "exclusive_m2": 84.95,
           "type_households": 630,
-          "general_price_manwon": 191000,
+          "general_price_manwon": 191000.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:14+00:00"
+          "price_date": null
         },
         {
           "area_id": 153696,
@@ -2454,9 +2687,9 @@
           "supply_m2": 142.42,
           "exclusive_m2": 114.97,
           "type_households": 310,
-          "general_price_manwon": 198500,
+          "general_price_manwon": 198500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:14+00:00"
+          "price_date": null
         }
       ]
     },
@@ -2466,7 +2699,11 @@
       "complex_id": 12024,
       "kb_name": "서울숲리버그린동아",
       "status": "matched",
+      "dong": "응봉동",
+      "households": 375,
+      "built_ymd": "200306",
       "type_count": 4,
+      "priced_type_count": 4,
       "types": [
         {
           "area_id": 11833,
@@ -2474,9 +2711,9 @@
           "supply_m2": 81.69,
           "exclusive_m2": 59.98,
           "type_households": 162,
-          "general_price_manwon": 162500,
+          "general_price_manwon": 162500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 60007,
@@ -2484,9 +2721,9 @@
           "supply_m2": 107.97,
           "exclusive_m2": 84.65,
           "type_households": 46,
-          "general_price_manwon": 183500,
+          "general_price_manwon": 183500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 101006,
@@ -2494,9 +2731,9 @@
           "supply_m2": 108.21,
           "exclusive_m2": 84.83,
           "type_households": 96,
-          "general_price_manwon": 183500,
+          "general_price_manwon": 183500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         },
         {
           "area_id": 132686,
@@ -2504,9 +2741,9 @@
           "supply_m2": 141.57,
           "exclusive_m2": 114.86,
           "type_households": 71,
-          "general_price_manwon": 186500,
+          "general_price_manwon": 186500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:58+00:00"
+          "price_date": null
         }
       ]
     },
@@ -2516,9 +2753,44 @@
       "complex_id": 2538,
       "kb_name": "남산타운",
       "status": "matched",
-      "type_count": 0,
-      "types": [],
-      "address": "서울 중구 다산로 32"
+      "address": "서울 중구 다산로 32",
+      "dong": "신당동",
+      "households": 5150,
+      "built_ymd": "200205",
+      "type_count": 3,
+      "priced_type_count": 3,
+      "types": [
+        {
+          "area_id": 51672,
+          "type_label": "25",
+          "supply_m2": 85.9,
+          "exclusive_m2": 59.94,
+          "type_households": 864,
+          "general_price_manwon": 150000.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 95196,
+          "type_label": "32",
+          "supply_m2": 106.63,
+          "exclusive_m2": 84.88,
+          "type_households": 1298,
+          "general_price_manwon": 172500.0,
+          "price_status": "kb_general",
+          "price_date": null
+        },
+        {
+          "area_id": 129098,
+          "type_label": "42",
+          "supply_m2": 139.94,
+          "exclusive_m2": 114.88,
+          "type_households": 954,
+          "general_price_manwon": 187500.0,
+          "price_status": "kb_general",
+          "price_date": null
+        }
+      ]
     },
     {
       "district": "강남구",
@@ -2526,7 +2798,11 @@
       "complex_id": 31944,
       "kb_name": "강남자곡아이파크",
       "status": "matched",
+      "dong": "자곡동",
+      "households": 716,
+      "built_ymd": "201410",
       "type_count": 9,
+      "priced_type_count": 9,
       "types": [
         {
           "area_id": 1068067,
@@ -2534,9 +2810,9 @@
           "supply_m2": 81.53,
           "exclusive_m2": 59.96,
           "type_households": 192,
-          "general_price_manwon": 182500,
+          "general_price_manwon": 182500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 1107548,
@@ -2544,9 +2820,9 @@
           "supply_m2": 101.83,
           "exclusive_m2": 74.89,
           "type_households": 60,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 1133016,
@@ -2554,9 +2830,9 @@
           "supply_m2": 101.83,
           "exclusive_m2": 74.89,
           "type_households": 14,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 1047800,
@@ -2564,9 +2840,9 @@
           "supply_m2": 101.94,
           "exclusive_m2": 74.97,
           "type_households": 99,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 1068068,
@@ -2574,9 +2850,9 @@
           "supply_m2": 101.94,
           "exclusive_m2": 74.97,
           "type_households": 154,
-          "general_price_manwon": 212500,
+          "general_price_manwon": 212500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 1133017,
@@ -2584,9 +2860,9 @@
           "supply_m2": 115.35,
           "exclusive_m2": 84.83,
           "type_households": 40,
-          "general_price_manwon": 227500,
+          "general_price_manwon": 227500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 179535,
@@ -2594,9 +2870,9 @@
           "supply_m2": 115.47,
           "exclusive_m2": 84.92,
           "type_households": 74,
-          "general_price_manwon": 227500,
+          "general_price_manwon": 227500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 1068070,
@@ -2604,9 +2880,9 @@
           "supply_m2": 115.47,
           "exclusive_m2": 84.92,
           "type_households": 53,
-          "general_price_manwon": 227500,
+          "general_price_manwon": 227500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         },
         {
           "area_id": 1107550,
@@ -2614,9 +2890,9 @@
           "supply_m2": 115.52,
           "exclusive_m2": 84.96,
           "type_households": 23,
-          "general_price_manwon": 227500,
+          "general_price_manwon": 227500.0,
           "price_status": "kb_general",
-          "collected_at": "2026-09-18T16:19:31+00:00"
+          "price_date": null
         }
       ]
     }
