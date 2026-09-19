@@ -24,6 +24,7 @@ def connection():
     return http.client.HTTPSConnection(API_HOST,timeout=35)
 
 def post(payload, token=None):
+    cookie=os.getenv('KB_COOKIE','').strip()
     # Match the request headers used by the KB Land web client.
     kst=dt.timezone(dt.timedelta(hours=9))
     timestamp=dt.datetime.now(kst).strftime('%Y%m%d%H%M%S%f')[:17]
@@ -31,11 +32,12 @@ def post(payload, token=None):
     headers={'Accept':'application/json, text/plain, */*','Accept-Language':'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
              'Content-Type':'application/json','Origin':'https://kbland.kr','Referer':'https://kbland.kr/',
              'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36',
-             'Timestamp':timestamp,'Traceid':traceid,'Webservice':'1','Cookie':os.getenv('KB_COOKIE','')}
+             'Timestamp':timestamp,'Traceid':traceid,'Webservice':'1'}
+    if cookie: headers['Cookie']=cookie
     if token: headers['Authorization']='bearer '+token.removeprefix('bearer ').removeprefix('Bearer ')
     conn=connection()
     try:
-        body=json.dumps(payload,ensure_ascii=False).encode()
+        body=json.dumps(payload,ensure_ascii=False,separators=(',',':')).encode('utf-8')
         conn.request('POST',API_PATH,body=body,headers=headers)
         r=conn.getresponse(); raw=r.read()
         if r.status!=200: raise RuntimeError(f'HTTP {r.status}')
