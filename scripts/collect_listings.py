@@ -39,7 +39,12 @@ def post(payload, token=None):
         conn.request('POST',API_PATH,body=body,headers=headers)
         r=conn.getresponse(); raw=r.read()
         if r.status!=200: raise RuntimeError(f'HTTP {r.status}')
-        data=json.loads(raw)
+        try:
+            data=json.loads(raw)
+        except Exception:
+            ctype=r.getheader('Content-Type')
+            preview=raw[:800].decode('utf-8','replace').replace('\n',' ')
+            raise RuntimeError(f'non-JSON HTTP {r.status} content-type={ctype!r} bytes={len(raw)} body={preview!r}')
         h=data.get('dataHeader') or {}
         if str(h.get('resultCode'))!='10000': raise RuntimeError(f"KB result {h.get('resultCode')}: {h.get('message')}")
         return (data.get('dataBody') or {}).get('data') or {}
