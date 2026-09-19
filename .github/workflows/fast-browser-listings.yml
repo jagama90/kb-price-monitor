@@ -37,7 +37,7 @@ jobs:
               els=page.locator('button')
               for i in range(await els.count()):
                 x=els.nth(i); t=(await x.inner_text()).strip()
-                if '전체 매물' in t:
+                if ('전체 매물' in t) or (t == '매매' and i == 0):
                   print('CLICKING',t); await x.click(); await page.wait_for_timeout(8000); break
               await b.close()
           asyncio.run(m())
