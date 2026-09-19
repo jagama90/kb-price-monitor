@@ -11,14 +11,14 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="KB 시세 모아보기 홈"><span class="brand-mark">K</span><span>KB 시세 모아보기</span></a>
-    <div class="top-actions"><span class="update"><i></i> 서울 25개 구 연결</span><button class="ghost" id="exportBtn" disabled>검색 결과 CSV</button></div>
+    <a class="brand" href="#" id="homeLink" aria-label="내 매수 관심단지 홈"><span class="brand-mark">K</span><span id="brandText">내 매수 관심단지</span></a>
+    <div class="top-actions"><span class="update"><i></i> KB 시세 연결</span><button class="ghost" id="exportBtn" disabled>검색 결과 CSV</button><div class="site-menu"><button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="siteMenu">메뉴 ☰</button><div class="site-menu-panel" id="siteMenu" hidden><button type="button" data-view="watchlist">내 매수 관심단지</button><button type="button" data-view="all">KB 시세 모아보기</button></div></div></div>
   </header>
 
   <main>
     <section class="intro">
-      <div><p class="eyebrow">MY KB PRICE BOARD</p><h1>단지마다 누르지 말고,<br><em>한 번에 비교하세요.</em></h1></div>
-      <p class="intro-copy">비슷한 평형은 모아 보고, 펼쳐서 타입마다 다른 정확한 면적과 KB 일반가를 비교하세요.</p>
+      <div><p class="eyebrow" id="eyebrow">MY BUY WATCHLIST</p><h1 id="pageTitle">내가 보는 단지만,<br><em>한눈에 비교하세요.</em></h1></div>
+      <p class="intro-copy" id="introCopy">내 매수 관심단지 39개의 평형별 KB 일반 시세를 바로 비교합니다.</p>
     </section>
 
     <section class="stats" aria-label="시세 요약">
@@ -29,7 +29,6 @@
     </section>
 
     <section class="workspace">
-      <div class="view-switch"><button id="watchlistToggle" class="watchlist-toggle" type="button" aria-pressed="false" disabled>☆ 내 매수 관심단지</button><span>확정한 39개 단지만 빠르게 보기 · KB 미등록/일반가 미제공 단지는 원문 가격을 임의로 대체하지 않습니다.</span></div>
       <div class="controls">
         <label class="search"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="단지명 또는 지역 검색" aria-label="단지명 또는 지역 검색"></label>
         <div class="multi-select" id="districtFilter"><button class="multi-trigger" id="districtTrigger" type="button" aria-haspopup="true" aria-expanded="false"><span>전체 자치구</span><b>⌄</b></button><div class="multi-menu" id="districtMenu" hidden></div></div>
