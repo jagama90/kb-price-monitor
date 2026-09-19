@@ -5,7 +5,28 @@ from pathlib import Path
 from urllib.parse import urlencode
 from playwright.async_api import async_playwright
 
-ROOT=Path(__file__).resolve().parents[1]\nUA='Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 Chrome/153 Mobile Safari/537.36'\n\ndef resolve_complex(name):\n    url='https://m.land.naver.com/search/result/'+urllib.parse.quote(str(name))\n    req=urllib.request.Request(url,headers={'User-Agent':UA,'Referer':'https://m.land.naver.com/','Accept':'application/json'})\n    with urllib.request.urlopen(req,timeout=20) as r:data=json.loads(r.read())\n    found=[]\n    def walk(x):\n      if isinstance(x,dict):\n        if x.get('hscpNo') and x.get('hscpNm'):found.append(x)\n        for v in x.values():walk(v)\n      elif isinstance(x,list):\n        for v in x:walk(v)\n    walk(data)\n    key=re.sub(r'[^0-9a-z가-힣]','',str(name).lower())\n    ranked=[]\n    for x in found:\n      n=re.sub(r'[^0-9a-z가-힣]','',str(x.get('hscpNm','')).lower())\n      score=100 if n==key else 80 if key and (key in n or n in key) else 0\n      if score:ranked.append((score,x))\n    return max(ranked,key=lambda z:z[0])[1] if ranked else None
+ROOT=Path(__file__).resolve().parents[1]
+UA='Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 Chrome/153 Mobile Safari/537.36'
+
+def resolve_complex(name):
+    url='https://m.land.naver.com/search/result/'+urllib.parse.quote(str(name))
+    req=urllib.request.Request(url,headers={'User-Agent':UA,'Referer':'https://m.land.naver.com/','Accept':'application/json'})
+    with urllib.request.urlopen(req,timeout=20) as r:data=json.loads(r.read())
+    found=[]
+    def walk(x):
+      if isinstance(x,dict):
+        if x.get('hscpNo') and x.get('hscpNm'):found.append(x)
+        for v in x.values():walk(v)
+      elif isinstance(x,list):
+        for v in x:walk(v)
+    walk(data)
+    key=re.sub(r'[^0-9a-z가-힣]','',str(name).lower())
+    ranked=[]
+    for x in found:
+      n=re.sub(r'[^0-9a-z가-힣]','',str(x.get('hscpNm','')).lower())
+      score=100 if n==key else 80 if key and (key in n or n in key) else 0
+      if score:ranked.append((score,x))
+    return max(ranked,key=lambda z:z[0])[1] if ranked else None
 
 def price_to_manwon(v):
     s=str(v or '').replace(',','').strip()
@@ -70,7 +91,15 @@ async def main():
     target=next(x for x in targets['items'] if x.get('complex_id')==a.kb_complex_id)
     wanted=set(target.get('area_ids') or [])
     types=[x for x in c.get('types',[]) if not wanted or x.get('area_id') in wanted]
-    raw,auth=await collect(a.naver_complex_no); arts=[normalize(x) for x in raw]
+    resolved=None
+    if a.naver_complex_no:
+      naver_complex_no=str(a.naver_complex_no)
+    else:
+      resolved=resolve_complex(c['user_name'])
+      if not resolved:
+        raise RuntimeError('Naver complex resolve failed: '+str(c['user_name']))
+      naver_complex_no=str(resolved['hscpNo'])
+    raw,auth=await collect(naver_complex_no); arts=[normalize(x) for x in raw]
     outtypes=[]
     for t in types:
       near=[x for x in arts if x['price_manwon'] and abs(x['supply_m2']-float(t['supply_m2']))<=1.2]
@@ -78,7 +107,7 @@ async def main():
       outtypes.append({'kb_area_id':t['area_id'],'type_label':t['type_label'],'supply_m2':t['supply_m2'],'exclusive_m2':t['exclusive_m2'],
         'lowest_ask_manwon':low['price_manwon'] if low else None,'listing_count':len(near),'lowest_listing':low})
     snap={'schema_version':2,'source':'Naver new.land Article API auth-capture','collected_at':datetime.now(timezone.utc).isoformat(),
-      'items':[{'complex_id':c['complex_id'],'name':c['user_name'],'naver_complex_no':str(a.naver_complex_no),'naver_name':(resolved or {}).get('hscpNm'),'authorization_captured':auth,'article_count':len(arts),'types':outtypes}],'errors':[]}
+      'items':[{'complex_id':c['complex_id'],'name':c['user_name'],'naver_complex_no':naver_complex_no,'naver_name':(resolved or {}).get('hscpNm'),'authorization_captured':auth,'article_count':len(arts),'types':outtypes}],'errors':[]}
     path=ROOT/'data/naver_listing_asks_probe.json';path.write_text(json.dumps(snap,ensure_ascii=False,indent=2))
     if a.publish:(ROOT/'data/buy_watchlist_listings.json').write_text(json.dumps(snap,ensure_ascii=False,indent=2))
     print(json.dumps(snap,ensure_ascii=False,indent=2))
