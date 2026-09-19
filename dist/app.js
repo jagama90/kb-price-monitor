@@ -42,7 +42,7 @@ function render() {
       <td><strong>${num(r.households)}세대</strong><small>이 평형 ${num(r.type_households)}세대</small></td>
       <td><strong>${num(r.supply_pyeong)}평</strong><small>${num(r.supply_m2)}㎡</small></td>
       <td>${num(r.exclusive_pyeong)}평<small>${num(r.exclusive_m2)}㎡</small></td>
-      <td><strong>${won(p)}</strong>${p===null?`<small>${state}</small>`:''}</td>
+      <td><strong>${won(p)}</strong>${p===null?`<small>${state}</small>`:'' }<small><button class="live-ask link" data-live-complex="${r.complex_id}" data-live-area="${r.supply_m2}" data-live-name="${escapeHTML(r.name)}">현재 최저호가 조회</button></small></td>
       <td><span class="chip ${ok?'ok':'over'}">${state}</span></td>
       <td title="${escapeHTML(r.collected_at)}">${date(r.collected_at)}</td>
       <td><a class="link" href="https://kbland.kr/c/${r.complex_id}" target="_blank" rel="noopener">KB에서 보기 ↗</a><small>KB에서 ${escapeHTML(r.type_label)}평형 선택</small></td></tr>`;
@@ -176,3 +176,19 @@ Promise.all([loadData().then(core.validateSnapshot),loadWatchlist()]).then(([dat
   $('#filterError').hidden=false;$('#filterError').textContent='자료를 다시 확인해 주세요. 단지 최저가로 대신 표시하지 않습니다.';
   $('#exportBtn').disabled=true;
 });
+
+const NAVER_COMPLEX_MAP={1947:"9330"};
+async function loadLiveAsk(btn){
+ const kb=Number(btn.dataset.liveComplex),cid=NAVER_COMPLEX_MAP[kb];
+ if(!cid){btn.textContent='실시간 매핑 준비중';return}
+ const old=btn.textContent;btn.disabled=true;btn.textContent='현재 매물 조회중…';
+ try{
+  const area=Math.round(Number(btn.dataset.liveArea)||0);
+  const u='https://iefzffwydvqnleukmljj.supabase.co/functions/v1/live-listing?complexNo='+encodeURIComponent(cid)+'&area='+encodeURIComponent(area);
+  const r=await fetch(u,{cache:'no-store'});const d=await r.json();
+  if(!r.ok||!d.ok)throw new Error(d.error||d.upstream||('HTTP '+r.status));
+  btn.textContent=d.lowest?('최저 '+won(d.lowest.priceManwon)+' · '+num(d.listingCount)+'건'):'현재 매물 없음';
+ }catch(e){btn.textContent='조회 실패 · 다시 시도';btn.title=String(e)}
+ finally{btn.disabled=false}
+}
+$('#priceBody').addEventListener('click',e=>{const b=e.target.closest('.live-ask');if(b){e.preventDefault();e.stopPropagation();loadLiveAsk(b)}});
