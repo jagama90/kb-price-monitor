@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "district": "송파구",
+      "name": "가락쌍용1차",
+      "complex_id": 1947,
+      "selection": "24평",
+      "area_ids": [
+        1835
+      ]
+    }
+  ]
+}
