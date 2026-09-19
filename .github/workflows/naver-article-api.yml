@@ -54,3 +54,5 @@ jobs:
           git commit -m 'Probe Naver Article API' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
+
+# probe-trigger: 9330
