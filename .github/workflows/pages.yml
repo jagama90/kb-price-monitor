@@ -3,7 +3,7 @@ name: Deploy website
 on:
   push:
     branches: [main]
-    paths: ['dist/**', 'data/buy_watchlist_master.json', '.github/workflows/pages.yml']
+    paths: ['dist/**', 'data/buy_watchlist_master.json', 'data/buy_watchlist_targets.json', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
