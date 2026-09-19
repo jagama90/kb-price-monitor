@@ -1820,7 +1820,8 @@
       "built_ymd": null,
       "type_count": 0,
       "priced_type_count": 0,
-      "types": []
+      "types": [],
+      "address": "서울 광진구 광나루로56길 29"
     },
     {
       "district": "광진구",
@@ -1833,7 +1834,8 @@
       "built_ymd": null,
       "type_count": 0,
       "priced_type_count": 0,
-      "types": []
+      "types": [],
+      "address": "서울 광진구 구의강변로 94"
     },
     {
       "district": "성동구",
@@ -2454,7 +2456,8 @@
       "built_ymd": null,
       "type_count": 0,
       "priced_type_count": 0,
-      "types": []
+      "types": [],
+      "address": "서울 중구 다산로 32"
     },
     {
       "district": "강남구",
