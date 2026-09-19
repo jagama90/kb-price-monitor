@@ -1,0 +1,17 @@
+name: Validate live helper
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/live-listing-server.js"
+      - "dist/app.js"
+      - ".github/workflows/validate-live-helper.yml"
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: node --check scripts/live-listing-server.js
+      - run: node --check dist/app.js
