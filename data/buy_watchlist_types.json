@@ -1882,7 +1882,8 @@
       "kb_name": "현대프라임",
       "status": "matched",
       "type_count": 0,
-      "types": []
+      "types": [],
+      "address": "서울 광진구 광나루로56길 29"
     },
     {
       "district": "광진구",
@@ -1891,7 +1892,8 @@
       "kb_name": "현대(6단지)",
       "status": "matched",
       "type_count": 0,
-      "types": []
+      "types": [],
+      "address": "서울 광진구 구의강변로 94"
     },
     {
       "district": "성동구",
@@ -2515,7 +2517,8 @@
       "kb_name": "남산타운",
       "status": "matched",
       "type_count": 0,
-      "types": []
+      "types": [],
+      "address": "서울 중구 다산로 32"
     },
     {
       "district": "강남구",
