@@ -84,7 +84,7 @@ async def main():
     master=json.loads((ROOT/'data/buy_watchlist_master.json').read_text())
     c=next(x for x in master['items'] if x.get('complex_id')==a.kb_complex_id)
     targets=json.loads((ROOT/'data/buy_watchlist_targets.json').read_text())
-    target=next(x for x in targets['items'] if x.get('complex_id')==a.kb_complex_id)
+    target=next(x for x in targets['items'] if x.get('complex_id')==a.kb_complex_id or x.get('name')==c.get('user_name'))
     wanted=set(target.get('area_ids') or [])
     types=[x for x in c.get('types',[]) if not wanted or x.get('area_id') in wanted]
     resolved=None
