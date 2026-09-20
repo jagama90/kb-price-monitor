@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Collect KB lowest asking prices for configured buy-watchlist area IDs."""
-import argparse, datetime as dt, http.client, json, os, random, urllib.parse, urllib.request
+import argparse, datetime as dt, http.client, json, os, random, re, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -107,14 +107,22 @@ def main():
     master=json.loads((ROOT/'data/buy_watchlist_master.json').read_text(encoding='utf-8'))
     targets=json.loads((ROOT/'data/buy_watchlist_targets.json').read_text(encoding='utf-8'))
     cmap={x.get('complex_id'):x for x in master['items'] if x.get('complex_id')}
+    nmap={x.get('user_name'):x for x in master['items']}
     rows=[]; errors=[]
     for t in targets['items']:
-        cid=t.get('complex_id')
+        c=cmap.get(t.get('complex_id')) or nmap.get(t.get('name'))
+        if not c or not c.get('complex_id'): continue
+        cid=c['complex_id']
         if a.complex_id and cid!=a.complex_id: continue
-        c=cmap.get(cid)
-        if not c: continue
-        for aid in t.get('area_ids',[]):
-            if a.area_id and aid!=a.area_id: continue
+        aids=t.get('area_ids') or []
+        if not aids:
+            lo=t.get('min_pyeong'); hi=t.get('max_pyeong')
+            for typ in c.get('types',[]):
+                try: p=float(re.search(r'\\d+(?:\\.\\d+)?',str(typ.get('type_label',''))).group())
+                except Exception: continue
+                if (lo is None or p>=float(lo)) and (hi is None or p<=float(hi)): aids.append(typ.get('area_id'))
+        for aid in aids:
+            if not aid or (a.area_id and aid!=a.area_id): continue
             try:
                 r=collect_one(c,aid,token); r.update({'complex_id':cid,'area_id':aid,'name':c['user_name'],'collected_at':now()}); rows.append(r)
                 print(json.dumps(r,ensure_ascii=False),flush=True)
