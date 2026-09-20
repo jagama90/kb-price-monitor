@@ -118,7 +118,7 @@ def main():
         if not aids:
             lo=t.get('min_pyeong'); hi=t.get('max_pyeong')
             for typ in c.get('types',[]):
-                try: p=float(re.search(r'\\d+(?:\\.\\d+)?',str(typ.get('type_label',''))).group())
+                try: p=float(re.search(r'\d+(?:\.\d+)?',str(typ.get('type_label',''))).group())
                 except Exception: continue
                 if (lo is None or p>=float(lo)) and (hi is None or p<=float(hi)): aids.append(typ.get('area_id'))
         for aid in aids:
