@@ -1,0 +1,311 @@
+{
+  "collected_at": "2026-09-22T00:46:03.750135+09:00",
+  "source": "KB public complex page",
+  "items": [
+    {
+      "complex_id": 1960,
+      "name": "가락금호",
+      "sale_listing_count": 132,
+      "avg_ask_manwon": 190000,
+      "recent_trade_manwon": 181000,
+      "recent_trade_date": "26.08.11"
+    },
+    {
+      "complex_id": 1985,
+      "name": "올림픽훼밀리타운",
+      "sale_listing_count": 608,
+      "avg_ask_manwon": 270000,
+      "recent_trade_manwon": 268500,
+      "recent_trade_date": "26.08.14"
+    },
+    {
+      "complex_id": 1986,
+      "name": "문정동 건영아파트",
+      "sale_listing_count": 42,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 184500,
+      "recent_trade_date": "26.08.12"
+    },
+    {
+      "complex_id": 15738,
+      "name": "송파파인타운 2단지",
+      "sale_listing_count": 60,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 172500,
+      "recent_trade_date": "26.07.11"
+    },
+    {
+      "complex_id": 15663,
+      "name": "송파파인타운 3단지",
+      "sale_listing_count": 180,
+      "avg_ask_manwon": 190000,
+      "recent_trade_manwon": 183000,
+      "recent_trade_date": "26.07.26"
+    },
+    {
+      "complex_id": 15308,
+      "name": "송파파인타운 7단지",
+      "sale_listing_count": 41,
+      "avg_ask_manwon": 210000,
+      "recent_trade_manwon": 175000,
+      "recent_trade_date": "26.06.15"
+    },
+    {
+      "complex_id": 15813,
+      "name": "송파파인타운 8단지",
+      "sale_listing_count": 15,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 171500,
+      "recent_trade_date": "26.05.23"
+    },
+    {
+      "complex_id": 15309,
+      "name": "송파파인타운 9단지",
+      "sale_listing_count": 15,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 167000,
+      "recent_trade_date": "26.06.27"
+    },
+    {
+      "complex_id": 15041,
+      "name": "송파파인타운 10단지",
+      "sale_listing_count": 66,
+      "avg_ask_manwon": 170000,
+      "recent_trade_manwon": 167000,
+      "recent_trade_date": "26.05.22"
+    },
+    {
+      "complex_id": 1082473,
+      "name": "힐스테이트e편한세상문정",
+      "sale_listing_count": 132,
+      "avg_ask_manwon": 190000,
+      "recent_trade_manwon": 189000,
+      "recent_trade_date": "26.07.18"
+    },
+    {
+      "complex_id": 1945,
+      "name": "삼환가락",
+      "sale_listing_count": 28,
+      "avg_ask_manwon": 230000,
+      "recent_trade_manwon": 235000,
+      "recent_trade_date": "26.05.20"
+    },
+    {
+      "complex_id": 1944,
+      "name": "미륭아파트",
+      "sale_listing_count": 14,
+      "avg_ask_manwon": null,
+      "recent_trade_manwon": 191000,
+      "recent_trade_date": "26.07.27"
+    },
+    {
+      "complex_id": 1947,
+      "name": "가락쌍용1차",
+      "sale_listing_count": 333,
+      "avg_ask_manwon": 190000,
+      "recent_trade_manwon": 194000,
+      "recent_trade_date": "26.08.18"
+    },
+    {
+      "complex_id": 1984,
+      "name": "잠실한솔",
+      "sale_listing_count": 9,
+      "avg_ask_manwon": 220000,
+      "recent_trade_manwon": 202000,
+      "recent_trade_date": "26.03.28"
+    },
+    {
+      "complex_id": 25766,
+      "name": "송파더센트레",
+      "sale_listing_count": 220,
+      "avg_ask_manwon": 150000,
+      "recent_trade_manwon": 156000,
+      "recent_trade_date": "26.07.31"
+    },
+    {
+      "complex_id": 25769,
+      "name": "송파꿈에그린위례24단지",
+      "sale_listing_count": 375,
+      "avg_ask_manwon": 160000,
+      "recent_trade_manwon": 162800,
+      "recent_trade_date": "26.08.25"
+    },
+    {
+      "complex_id": 46734,
+      "name": "송파시그니처롯데캐슬",
+      "sale_listing_count": 551,
+      "avg_ask_manwon": 230000,
+      "recent_trade_manwon": 204000,
+      "recent_trade_date": "26.08.24"
+    },
+    {
+      "complex_id": 40111,
+      "name": "E편한세상송파파크센트럴",
+      "sale_listing_count": 308,
+      "avg_ask_manwon": 210000,
+      "recent_trade_manwon": 195000,
+      "recent_trade_date": "26.03.11"
+    },
+    {
+      "complex_id": 1896,
+      "name": "금호타운아파트 (마천역)",
+      "sale_listing_count": 3,
+      "avg_ask_manwon": null,
+      "recent_trade_manwon": 123000,
+      "recent_trade_date": "26.07.15"
+    },
+    {
+      "complex_id": 1868,
+      "name": "풍납극동",
+      "sale_listing_count": 30,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 177500,
+      "recent_trade_date": "26.06.29"
+    },
+    {
+      "complex_id": 1873,
+      "name": "풍납현대",
+      "sale_listing_count": 12,
+      "avg_ask_manwon": 190000,
+      "recent_trade_manwon": 200000,
+      "recent_trade_date": "26.09.17"
+    },
+    {
+      "complex_id": 323275,
+      "name": "송파레이크힐",
+      "sale_listing_count": 121,
+      "avg_ask_manwon": 200000,
+      "recent_trade_manwon": 110100,
+      "recent_trade_date": "26.08.26"
+    },
+    {
+      "complex_id": 323274,
+      "name": "포레나송파",
+      "sale_listing_count": 479,
+      "avg_ask_manwon": 220000,
+      "recent_trade_manwon": null,
+      "recent_trade_date": null
+    },
+    {
+      "complex_id": 1941,
+      "name": "가락대림",
+      "sale_listing_count": 22,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 130000,
+      "recent_trade_date": "26.04.07"
+    },
+    {
+      "complex_id": 716,
+      "name": "현대프라임",
+      "sale_listing_count": 127,
+      "avg_ask_manwon": 210000,
+      "recent_trade_manwon": 206000,
+      "recent_trade_date": "26.06.09"
+    },
+    {
+      "complex_id": 717,
+      "name": "현대6단지",
+      "sale_listing_count": 69,
+      "avg_ask_manwon": 200000,
+      "recent_trade_manwon": 196000,
+      "recent_trade_date": "26.07.27"
+    },
+    {
+      "complex_id": 1758,
+      "name": "행당한진타운",
+      "sale_listing_count": 429,
+      "avg_ask_manwon": 190000,
+      "recent_trade_manwon": 192700,
+      "recent_trade_date": "26.07.07"
+    },
+    {
+      "complex_id": 1757,
+      "name": "행당대림",
+      "sale_listing_count": 495,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 165000,
+      "recent_trade_date": "26.08.04"
+    },
+    {
+      "complex_id": 16047,
+      "name": "행당두산위브",
+      "sale_listing_count": 59,
+      "avg_ask_manwon": 170000,
+      "recent_trade_manwon": 166000,
+      "recent_trade_date": "26.06.13"
+    },
+    {
+      "complex_id": 12530,
+      "name": "왕십리금호어울림",
+      "sale_listing_count": 5,
+      "avg_ask_manwon": 170000,
+      "recent_trade_manwon": 166000,
+      "recent_trade_date": "26.06.13"
+    },
+    {
+      "complex_id": 1771,
+      "name": "금호대우",
+      "sale_listing_count": 78,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 162000,
+      "recent_trade_date": "26.07.21"
+    },
+    {
+      "complex_id": 1767,
+      "name": "금호두산",
+      "sale_listing_count": 119,
+      "avg_ask_manwon": 160000,
+      "recent_trade_manwon": 177000,
+      "recent_trade_date": "26.07.12"
+    },
+    {
+      "complex_id": 13487,
+      "name": "금호동한신휴플러스",
+      "sale_listing_count": 32,
+      "avg_ask_manwon": 170000,
+      "recent_trade_manwon": 164000,
+      "recent_trade_date": "26.05.20"
+    },
+    {
+      "complex_id": 16151,
+      "name": "서울숲행당푸르지오",
+      "sale_listing_count": 49,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 200000,
+      "recent_trade_date": "26.07.28"
+    },
+    {
+      "complex_id": 1759,
+      "name": "서울숲한신더휴",
+      "sale_listing_count": 278,
+      "avg_ask_manwon": 190000,
+      "recent_trade_manwon": 195000,
+      "recent_trade_date": "26.08.01"
+    },
+    {
+      "complex_id": 12024,
+      "name": "서울숲리버그린아파트",
+      "sale_listing_count": 81,
+      "avg_ask_manwon": 160000,
+      "recent_trade_manwon": 170000,
+      "recent_trade_date": "26.06.19"
+    },
+    {
+      "complex_id": 2538,
+      "name": "남산타운",
+      "sale_listing_count": 212,
+      "avg_ask_manwon": 180000,
+      "recent_trade_manwon": 183000,
+      "recent_trade_date": "26.08.16"
+    },
+    {
+      "complex_id": 31944,
+      "name": "강남자곡아이파크",
+      "sale_listing_count": 63,
+      "avg_ask_manwon": 230000,
+      "recent_trade_manwon": 165000,
+      "recent_trade_date": "26.01.05"
+    }
+  ],
+  "errors": []
+}
