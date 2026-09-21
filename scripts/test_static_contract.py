@@ -15,7 +15,9 @@ class StaticContract(unittest.TestCase):
     def test_assets_and_selectors(self):
         page=Page();page.feed((ROOT/'dist/index.html').read_text())
         self.assertEqual(len(page.ids),len(set(page.ids)))
-        for asset in page.assets:self.assertTrue((ROOT/'dist'/asset).is_file(),asset)
+        for asset in page.assets:
+            clean=asset.split('?',1)[0]
+            self.assertTrue((ROOT/'dist'/clean).is_file(),asset)
         code=(ROOT/'dist/app.js').read_text()
         for selector in re.findall(r"\$\('#([A-Za-z][\w-]*)",code):self.assertIn(selector,page.ids)
         self.assertNotIn('seoul_snapshot.json',code)
