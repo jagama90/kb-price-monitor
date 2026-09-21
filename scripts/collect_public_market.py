@@ -32,7 +32,7 @@ def parse(page,cid,name):
  if m: recent=money(m.group(1)); date=m.group(2)
  m=re.search(r'매물평균가\s*([\d억만,\.\s]+?)(?:\s|$)',sec)
  if m: avg=money(m.group(1))
- return {'complex_id':cid,'name':name,'sale_listing_count':cnt,'avg_ask_manwon':avg,'recent_trade_manwon':recent,'recent_trade_date':date}
+ return {'complex_id':cid,'name':name,'sale_listing_count':cnt,'avg_ask_manwon':avg,'recent_trade_manwon':recent,'recent_trade_date':date,'market_scope':'public_page_default_type'}
 def main():
  d=json.loads(MASTER.read_text()); old={}
  if OUT.exists():
