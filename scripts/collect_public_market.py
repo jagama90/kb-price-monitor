@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import json,re,urllib.request,datetime,pathlib,time
+import json,re,datetime,pathlib,time
+from playwright.sync_api import sync_playwright
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 MASTER=ROOT/'data/buy_watchlist_master.json'; TARGETS=ROOT/'data/buy_watchlist_targets.json'
 OUT=ROOT/'data/buy_watchlist_market.json'; DIST=ROOT/'dist/buy_watchlist_market.json'
@@ -13,14 +14,15 @@ def money(s):
   m3=re.search(r'(\d+)만',s)
   if m3: total+=float(m3.group(1))
  return round(total) if total else None
-def text(cid):
- req=urllib.request.Request(f'https://kbland.kr/se/c/{cid}',headers={'User-Agent':'Mozilla/5.0','Accept-Language':'ko-KR,ko;q=0.9'})
- with urllib.request.urlopen(req,timeout=20) as r: return r.read().decode('utf-8','ignore')
+def text(page,cid):
+ page.goto(f'https://kbland.kr/se/c/{cid}',wait_until='domcontentloaded',timeout=30000)
+ page.wait_for_timeout(1200)
+ return page.locator('body').inner_text()
 def striphtml(s):
  s=re.sub(r'<script[\s\S]*?</script>|<style[\s\S]*?</style>',' ',s,flags=re.I)
  s=re.sub(r'<[^>]+>',' ',s); return re.sub(r'\s+',' ',s)
-def parse(cid,name):
- raw=text(cid); t=striphtml(raw)
+def parse(page,cid,name):
+ t=text(page,cid)
  cnt=None
  m=re.search(r'매매\s*([\d,]+)\s*전세',t)
  if m: cnt=int(m.group(1).replace(',',''))
@@ -37,18 +39,20 @@ def main():
   try: old={str(x['complex_id']):x for x in json.loads(OUT.read_text()).get('items',[])}
   except: pass
  items=[]; errors=[]
+ pw=sync_playwright().start(); browser=pw.chromium.launch(headless=True); page=browser.new_page(locale='ko-KR')
  for x in d['items']:
   cid=x.get('complex_id')
   if not cid: continue
   try:
-   v=parse(cid,x.get('user_name') or x.get('kb_name')); prev=old.get(str(cid),{})
+   v=parse(page,cid,x.get('user_name') or x.get('kb_name')); prev=old.get(str(cid),{})
    if prev:
     if v['avg_ask_manwon'] is not None and prev.get('avg_ask_manwon') is not None:v['avg_ask_week_delta_manwon']=v['avg_ask_manwon']-prev['avg_ask_manwon']
     if v['sale_listing_count'] is not None and prev.get('sale_listing_count') is not None:v['sale_listing_week_delta']=v['sale_listing_count']-prev['sale_listing_count']
    items.append(v); time.sleep(.15)
   except Exception as e: errors.append({'complex_id':cid,'name':x.get('user_name'),'error':str(e)})
+ browser.close(); pw.stop()
  out={'collected_at':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat(),'source':'KB public complex page','items':items,'errors':errors}
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)); DIST.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  print(json.dumps({'items':len(items),'errors':len(errors),'with_avg':sum(x['avg_ask_manwon'] is not None for x in items),'with_trade':sum(x['recent_trade_manwon'] is not None for x in items)},ensure_ascii=False))
- if len(items)<30: raise SystemExit(2)
+ if len(items)<30 or sum(x['avg_ask_manwon'] is not None for x in items)<20 or sum(x['recent_trade_manwon'] is not None for x in items)<20: raise SystemExit(2)
 if __name__=='__main__':main()
