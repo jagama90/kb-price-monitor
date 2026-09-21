@@ -24,12 +24,12 @@ jobs:
           python-version: '3.12'
       - name: Collect fresh KB data
         run: |
+          pip install playwright
+          playwright install chromium
           python3 scripts/collect_seoul.py
           python3 scripts/build_buy_watchlist_master.py
           python3 scripts/collect_public_market.py
           cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
-            data/buy_watchlist_market.json
-            dist/buy_watchlist_market.json
       - name: Validate snapshot
         run: |
           node scripts/test_price_core.cjs data/seoul_types.json
@@ -58,3 +58,5 @@ jobs:
             data/buy_watchlist_types.json
             dist/seoul_types.json
             dist/buy_watchlist_master.json
+            data/buy_watchlist_market.json
+            dist/buy_watchlist_market.json
