@@ -8,6 +8,7 @@ on:
     paths:
       - '.github/workflows/weekly-refresh.yml'
       - 'scripts/test_static_contract.py'
+      - 'scripts/collect_public_market.py'
 
 permissions:
   contents: write
