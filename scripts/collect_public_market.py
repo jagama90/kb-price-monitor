@@ -51,22 +51,29 @@ def current_type_text(t):
 
 def select_type(page,label):
     wanted=str(label).upper()
-    t=body(page)
-    if current_type_text(t)==wanted: return
-    # Open the currently selected area dropdown (e.g. "24A평/18.12평").
-    cur=page.get_by_text(re.compile(r'^\d+[A-Za-z]?평/\d'),exact=False)
-    if cur.count()==0: raise RuntimeError('type dropdown not found')
-    cur.first.click()
-    page.wait_for_timeout(250)
-    # Choose the requested supply-area label. Prefer text beginning with "24A평/".
-    opt=page.get_by_text(re.compile(r'^'+re.escape(wanted)+r'평(?:/|\s|$)',re.I),exact=False)
-    if opt.count()==0:
-        opt=page.get_by_text(re.compile(r'^'+re.escape(wanted)+r'평',re.I),exact=False)
-    if opt.count()==0: raise RuntimeError(f'type option not found: {wanted}')
-    opt.last.click()
-    page.wait_for_timeout(700)
-    got=current_type_text(body(page))
-    if got!=wanted: raise RuntimeError(f'type selection mismatch: wanted={wanted}, got={got}')
+    # KB renders the closed selector as a simple "평" button; options mount after opening.
+    buttons=page.locator('button:visible')
+    opener=None
+    for i in range(buttons.count()):
+        txt=(buttons.nth(i).inner_text() or '').strip()
+        if txt=='평' or ('평/' in txt and re.search(r'\\d',txt)):
+            opener=buttons.nth(i); break
+    if opener is None: raise RuntimeError('type selector opener not found')
+    opener.click()
+    page.wait_for_timeout(350)
+    candidates=page.locator('button:visible, [role="option"]:visible, li:visible')
+    chosen=None
+    pat=re.compile(r'^\\s*'+re.escape(wanted)+r'평(?:/|\\s|$)',re.I)
+    for i in range(candidates.count()):
+        txt=(candidates.nth(i).inner_text() or '').strip()
+        if pat.search(txt):
+            chosen=candidates.nth(i); break
+    if chosen is None:
+        txtloc=page.get_by_text(re.compile(r'^\\s*'+re.escape(wanted)+r'평',re.I),exact=False)
+        if txtloc.count(): chosen=txtloc.last
+    if chosen is None: raise RuntimeError(f'type option not found: {wanted}')
+    chosen.click()
+    page.wait_for_timeout(850)
 
 def field_money(t,label):
     # Keep the whole price line so "19억 4,500만" is never truncated at the space.
