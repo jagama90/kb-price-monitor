@@ -8,7 +8,7 @@ on:
     paths:
       - '.github/workflows/weekly-refresh.yml'
       - 'scripts/test_static_contract.py'
-      - 'scripts/collect_public_market.py'
+      - 'scripts/collect_public_market.py'\n      - 'scripts/collect_seoul.py'
 
 permissions:
   contents: write
