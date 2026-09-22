@@ -122,7 +122,7 @@ def main():
     for x in d['items']:
         cid=x.get('complex_id')
         if not cid: continue
-        areas=target_types(x,target_for(x,targets))
+        areas=target_types(x,target_for(x,targets))\n        # Dashboard renders one row per complex: collect the same target type it displays (lowest KB general price).\n        priced=[a for a in areas if a.get('general_price_manwon') is not None]\n        if priced: areas=[min(priced,key=lambda a:a['general_price_manwon'])]\n        elif areas: areas=[areas[0]]
         if not areas: continue
         try:
             page.goto(f'https://kbland.kr/se/c/{cid}',wait_until='domcontentloaded',timeout=30000)
