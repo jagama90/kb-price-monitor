@@ -1,0 +1,32 @@
+name: Validate market samples
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/collect_public_market.py'
+      - '.github/workflows/market-sample.yml'
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax check
+        run: python3 -m py_compile scripts/collect_public_market.py
+      - name: Validate two known target types
+        run: |
+          pip install playwright
+          playwright install chromium
+          python3 scripts/collect_public_market.py --sample
+      - name: Preserve sample result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: market-sample-${{ github.run_id }}
+          path: data/market_sample_validation.json
+          if-no-files-found: warn
