@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json,re,datetime,pathlib,time
+import json,re,datetime,pathlib,time,argparse
 from playwright.sync_api import sync_playwright
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -115,7 +115,7 @@ def main():
     if OUT.exists():
         try: old={(str(x['complex_id']),str(x.get('area_id'))):x for x in json.loads(OUT.read_text()).get('items',[])}
         except Exception: pass
-    items=[]; errors=[]; validated=0
+    items=[]; errors=[]; validated=0\n    sample_pairs={(1960,1847),(1947,1835)}
     pw=sync_playwright().start()
     browser=pw.chromium.launch(headless=True)
     page=browser.new_page(locale='ko-KR')
@@ -152,7 +152,7 @@ def main():
     browser.close(); pw.stop()
     out={'collected_at':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat(),
          'source':'KB public complex page / explicitly selected target type','items':items,'errors':errors}
-    OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)); DIST.write_text(json.dumps(out,ensure_ascii=False,indent=2))
+    if args.sample:\n        (ROOT/'data/market_sample_validation.json').write_text(json.dumps(out,ensure_ascii=False,indent=2))\n    else:\n        OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)); DIST.write_text(json.dumps(out,ensure_ascii=False,indent=2))
     stats={'items':len(items),'errors':len(errors),'validated_type_price':validated,
            'with_avg':sum(x['avg_ask_manwon'] is not None for x in items),
            'with_trade':sum(x['recent_trade_manwon'] is not None for x in items)}
