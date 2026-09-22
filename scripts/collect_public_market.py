@@ -51,29 +51,35 @@ def current_type_text(t):
 
 def select_type(page,label):
     wanted=str(label).upper()
-    # KB renders the closed selector as a simple "평" button; options mount after opening.
-    buttons=page.locator('button:visible')
-    opener=None
-    for i in range(buttons.count()):
-        txt=(buttons.nth(i).inner_text() or '').strip()
-        if txt=='평' or ('평/' in txt and re.search(r'\\d',txt)):
-            opener=buttons.nth(i); break
-    if opener is None: raise RuntimeError('type selector opener not found')
-    opener.click()
-    page.wait_for_timeout(350)
-    candidates=page.locator('button:visible, [role="option"]:visible, li:visible')
+    page.wait_for_timeout(250)
+    # Find selector by rendered Korean text, not by tag/role.
+    area=page.locator("text=/\\d+[A-Za-z0-9]*평\\s*\\/\\s*\\d/").first
+    if area.count()==0:
+        area=page.get_by_text("평",exact=True).first
+    if area.count()==0: raise RuntimeError("type selector text not found")
+    area.click(force=True)
+    page.wait_for_timeout(450)
+    # KB option text can contain spaces/newlines; inspect all visible text nodes.
+    loc=page.locator("body *:visible")
     chosen=None
-    pat=re.compile(r'^\\s*'+re.escape(wanted)+r'평(?:/|\\s|$)',re.I)
-    for i in range(candidates.count()):
-        txt=(candidates.nth(i).inner_text() or '').strip()
-        if pat.search(txt):
-            chosen=candidates.nth(i); break
+    pat=re.compile(r"^\\s*"+re.escape(wanted)+r"평(?:\\s*/|\\s|$)",re.I)
+    for i in range(loc.count()):
+        try:
+            txt=(loc.nth(i).inner_text() or "").strip()
+            if pat.search(txt) and len(txt)<80:
+                chosen=loc.nth(i)
+                # prefer the smallest matching element
+        except Exception: pass
     if chosen is None:
-        txtloc=page.get_by_text(re.compile(r'^\\s*'+re.escape(wanted)+r'평',re.I),exact=False)
-        if txtloc.count(): chosen=txtloc.last
-    if chosen is None: raise RuntimeError(f'type option not found: {wanted}')
-    chosen.click()
-    page.wait_for_timeout(850)
+        samples=[]
+        for i in range(min(loc.count(),1000)):
+            try:
+                txt=(loc.nth(i).inner_text() or "").strip()
+                if "평" in txt and len(txt)<80: samples.append(txt)
+            except Exception: pass
+        raise RuntimeError("type option not found: "+wanted+" samples="+repr(samples[-30:]))
+    chosen.click(force=True)
+    page.wait_for_timeout(900)
 
 def field_money(t,label):
     # Keep the whole price line so "19억 4,500만" is never truncated at the space.
