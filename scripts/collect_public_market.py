@@ -15,7 +15,7 @@ def money(s):
     if m:
         total+=float(m.group(1))*10000
         tail=s[m.end():]
-        m2=re.search(r'(\d+)\s*만?',tail)
+        m2=re.search(r'(\d+)\s*만',tail)
         if m2: total+=float(m2.group(1))
     else:
         m3=re.search(r'(\d+)\s*만',s)
@@ -51,7 +51,7 @@ def current_type_text(t):
 
 def select_type(page,label):
     # KB public page groups API variants such as 24A/24B/24C under the visible "24평" tab.
-    m=re.search(r'\\d+(?:\\.\\d+)?',str(label or ''))
+    m=re.search(r'\d+(?:\.\d+)?',str(label or ''))
     if not m: raise RuntimeError(f'invalid type label: {label}')
     wanted=m.group(0)+'평'
     page.wait_for_timeout(250)
