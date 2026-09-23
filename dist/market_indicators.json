@@ -1,0 +1,63 @@
+{
+  "updated_at": "2026-09-23",
+  "sources": [
+    {
+      "name": "서울특별시",
+      "url": "https://www.seoul.go.kr/news/news_report.do?nttNo=466727"
+    },
+    {
+      "name": "한국은행",
+      "url": "https://www.bok.or.kr/portal/submain/submain/sts.do?menuNo=201659"
+    }
+  ],
+  "seoul_apt_trade_count": [
+    [
+      "2026-03",
+      5515,
+      false
+    ],
+    [
+      "2026-04",
+      8661,
+      false
+    ],
+    [
+      "2026-05",
+      8972,
+      false
+    ],
+    [
+      "2026-06",
+      5303,
+      false
+    ],
+    [
+      "2026-07",
+      5838,
+      false
+    ],
+    [
+      "2026-08",
+      3143,
+      true
+    ]
+  ],
+  "under15_share": [
+    [
+      "2026-05",
+      72.4,
+      false
+    ],
+    [
+      "2026-08",
+      79.9,
+      true
+    ]
+  ],
+  "m2": {
+    "period": "2026-07",
+    "mom_pct": 0.3,
+    "yoy_pct": 5.8,
+    "household_nonprofit_change_trillion_krw": -11.6
+  }
+}
