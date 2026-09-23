@@ -151,7 +151,20 @@ jobs:
           # Do not use `git add -A` here: data_sources is intentionally ignored and
           # must stay force-added, while unrelated generated files should not dirty the rebase.
           git diff --cached --quiet && exit 0
+          # Rebase BEFORE creating the generated-data commit. The old flow committed,
+          # reset it, then rebased; that allowed the checked-in old snapshot to overwrite
+          # the freshly generated market_indicators.json.
+          git reset
+          cp dist/market_indicators.json /tmp/market_indicators.json
+          [ -f data_sources/kb_sentiment_score.json ] && cp data_sources/kb_sentiment_score.json /tmp/kb_sentiment_score.json || true
+          git pull --rebase --autostash origin main
+          cp /tmp/market_indicators.json dist/market_indicators.json
+          [ -f /tmp/kb_sentiment_score.json ] && cp /tmp/kb_sentiment_score.json data_sources/kb_sentiment_score.json || true
+          git add -f dist/market_indicators.json
+          for f in data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json; do [ -f "$f" ] && git add -f "$f"; done
           git commit -m 'Daily parallel market data refresh'
+          git push origin HEAD:main
+          exit 0
           # Rebase once before creating the generated-data commit to avoid add/add
           # conflicts when an older run overlaps a newer workflow revision.
           git reset
