@@ -10,7 +10,7 @@ def get(params):
 def main():
  # HT04 is KB DataHub's market-trend/survey menu; 02 = weekly.
  responses=[]
- for menu,kind in [('01','매수우위'),('02','매매거래활발')]:
+ for menu,kind in [('01','매수우위'),('02','매매거래활발'),('03','전세수급'),('04','전세거래활발')]:
   raw=get({'메뉴코드':menu,'기간':'2','월간주간구분코드':'02'});responses.append((kind,raw))
  rows=[]
  for expected,raw in responses:
