@@ -35,8 +35,10 @@ jobs:
         run: |
           python3 scripts/collect_kb_sentiment.py
           python3 scripts/collect_kb_statusboard_live.py
-          python3 scripts/collect_kb_datahub_batch.py
-          python3 scripts/collect_kb_weekly_sale_index.py
+          python3 scripts/collect_kb_datahub_batch.py || true
+          python3 scripts/parse_kb_weekly_indices.py
+          python3 scripts/build_kb_value_score.py
+          python3 scripts/collect_kb_weekly_sale_index.py || true
       - uses: actions/upload-artifact@v4
         with:
           name: source-kb-sentiment-${{ github.run_id }}
@@ -45,6 +47,8 @@ jobs:
             data_sources/kb_statusboard_live.json
             data_sources/kb_datahub_batch.json
             data_sources/kb_weekly_sale_index.json
+            data_sources/kb_weekly_rent_index.json
+            data_sources/kb_value_score.json
   molit:
     name: A · MOLIT trades
     runs-on: ubuntu-latest
@@ -102,7 +106,7 @@ jobs:
   aggregate:
     name: E · Aggregate and validate
     if: always()
-    needs: [ecos, kb_sentiment]
+    needs: [molit, ecos, kb_sentiment]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
