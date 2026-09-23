@@ -100,7 +100,7 @@ jobs:
   aggregate:
     name: E · Aggregate and validate
     if: always()
-    needs: [ecos, kb_sentiment]
+    needs: [ecos, kb_sentiment, molit]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
