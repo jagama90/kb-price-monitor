@@ -110,5 +110,17 @@ jobs:
           # must stay force-added, while unrelated generated files should not dirty the rebase.
           git diff --cached --quiet && exit 0
           git commit -m 'Daily parallel market data refresh'
+          # Rebase once before creating the generated-data commit to avoid add/add
+          # conflicts when an older run overlaps a newer workflow revision.
+          git reset
           git pull --rebase --autostash origin main
+          git add -f dist/market_indicators.json
+          [ -f dist/m2_history.json ] && git add -f dist/m2_history.json
+          [ -f dist/condition_index_history.json ] && git add -f dist/condition_index_history.json
+          [ -f dist/index_audit.json ] && git add -f dist/index_audit.json
+          [ -f dist/validation_report.json ] && git add -f dist/validation_report.json
+          [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
+          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json; do [ -f "$f" ] && git add -f "$f"; done
+          git diff --cached --quiet && exit 0
+          git commit --amend --no-edit
           git push origin HEAD:main
