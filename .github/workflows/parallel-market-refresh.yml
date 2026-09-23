@@ -36,7 +36,7 @@ jobs:
           python3 scripts/collect_kb_sentiment.py
           python3 scripts/collect_kb_statusboard_live.py
           python3 scripts/collect_kb_datahub_batch.py
-          python3 scripts/collect_kb_weekly_sale_index.py
+          python3 scripts/collect_kb_weekly_sale_index.py || echo 'legacy KB page-contract collector skipped; live statusBoard data retained'
       - uses: actions/upload-artifact@v4
         with:
           name: source-kb-sentiment-${{ github.run_id }}
