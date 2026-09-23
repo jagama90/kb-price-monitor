@@ -92,6 +92,8 @@ jobs:
           for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json; do
             [ -f "$f" ] && git add -f "$f"
           done
-          git commit -m 'Daily parallel market data refresh' || exit 0
-          git pull --rebase origin main
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m 'Daily parallel market data refresh'
+          git pull --rebase --autostash origin main
           git push origin HEAD:main
