@@ -2,8 +2,7 @@ name: Weekly KB price refresh
 
 on:
   schedule:
-    - cron: '5 22 * * *' # Daily 07:05 KST for matched-period MOLIT/ECOS signals
-    - cron: '5 12 * * 5' # Friday 21:05 KST full weekly checkpoint
+    - cron: '5 12 * * 5' # Friday 21:05 KST full KB checkpoint
   workflow_dispatch:
   push:
     paths:
@@ -21,7 +20,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: market-refresh-main
+  group: kb-weekly-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -46,15 +45,9 @@ jobs:
           python3 scripts/build_buy_watchlist_master.py
           python3 scripts/collect_public_market.py || echo 'KB public-market enrichment failed; continuing with independent official API collectors'
           cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
-      - name: Collect official market indicators independently
-        if: always()
-        run: |
-          python3 scripts/refresh_market_indicators.py
-          if [ -n "$MOLIT_SERVICE_KEY" ]; then python3 scripts/collect_molit_trades.py; else echo 'MOLIT_SERVICE_KEY not configured'; fi
-          if [ -n "$BOK_ECOS_KEY" ]; then python3 scripts/collect_ecos_m2.py; else echo 'BOK_ECOS_KEY not configured'; fi
-          python3 scripts/backfill_kb_history.py
+      - name: Probe official KB history UI
+        run: python3 scripts/backfill_kb_history.py
       - name: Validate snapshot
-        continue-on-error: true
         run: |
           node scripts/test_price_core.cjs data/seoul_types.json
           python3 -m unittest discover -s scripts -p 'test_*.py'
@@ -62,7 +55,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json data/buy_watchlist_market.json dist/buy_watchlist_market.json dist/market_indicators.json dist/m2_history.json dist/kb_history_status.json
+          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json data/buy_watchlist_market.json dist/buy_watchlist_market.json data_sources/kb_history_status.json
           git commit -m 'Weekly KB snapshot refresh' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
@@ -84,6 +77,4 @@ jobs:
             dist/buy_watchlist_master.json
             data/buy_watchlist_market.json
             dist/buy_watchlist_market.json
-            dist/market_indicators.json
-            dist/m2_history.json
-            dist/kb_history_status.json
+            data_sources/kb_history_status.json

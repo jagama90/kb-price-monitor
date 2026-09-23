@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+"""Merge independent source adapters into the dashboard contract, retaining last-good values."""
+import json,pathlib,datetime
+from zoneinfo import ZoneInfo
+ROOT=pathlib.Path(__file__).resolve().parents[1];SRC=ROOT/'data_sources';OUT=ROOT/'dist/market_indicators.json'
+def read(name):
+ p=SRC/name
+ return json.loads(p.read_text()) if p.exists() else None
+def main():
+ d=json.loads(OUT.read_text()) if OUT.exists() else {}
+ m=read('molit.json')
+ if m:
+  for k in ('seoul_apt_trade_count','price_bands','matched_period'):d[k]=m[k]
+  d.setdefault('data_status',{})['molit']='connected'
+ e=read('ecos_m2.json')
+ if e and e.get('series'):
+  x=e['series'][-1];d['m2_official']={'period':x['period'],'mom_pct':x['mom_pct'],'yoy_pct':x['yoy_pct'],'source':'한국은행 ECOS 101Y003','definition':e.get('definition'),'selected_item':e.get('selected_item')}
+  d.setdefault('data_status',{})['m2']='connected'
+ kb=read('kb_history_status.json')
+ if kb:d.setdefault('data_status',{})['kb_history']=kb.get('status')
+ d['updated_at']=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date().isoformat();OUT.write_text(json.dumps(d,ensure_ascii=False,indent=2))
+ if e:(ROOT/'dist/m2_history.json').write_text(json.dumps(e,ensure_ascii=False,indent=2))
+ if kb:(ROOT/'dist/kb_history_status.json').write_text(json.dumps(kb,ensure_ascii=False,indent=2))
+ print(json.dumps({'built':str(OUT),'sources':{'molit':bool(m),'ecos_m2':bool(e),'kb_history':bool(kb)}},ensure_ascii=False))
+if __name__=='__main__':main()
