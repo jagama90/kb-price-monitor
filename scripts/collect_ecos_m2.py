@@ -3,14 +3,14 @@ import os,json,urllib.request,pathlib,datetime,time,random
 ROOT=pathlib.Path(__file__).resolve().parents[1];OUT=ROOT/'data_sources/ecos_m2.json'
 def get(url):
  last=None
- for attempt in range(5):
+ for attempt in range(8):
   try:
    req=urllib.request.Request(url,headers={'User-Agent':'kb-price-monitor/1.0'})
-   return json.load(urllib.request.urlopen(req,timeout=60))
+   return json.load(urllib.request.urlopen(req,timeout=35))
   except Exception as e:
    last=e
-   if attempt==4: break
-   time.sleep(min(20,2**attempt+random.random()))
+   if attempt==7: break
+   time.sleep(min(30,2**attempt+random.random()*2))
  raise last
 def main():
  key=os.getenv('BOK_ECOS_KEY')
