@@ -10,6 +10,7 @@ on:
       - 'scripts/smoke_ecos_sources.py'
       - 'scripts/sample_ecos_finance.py'
       - 'scripts/collect_kb_sentiment.py'
+      - 'scripts/collect_kb_datahub_batch.py'
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/build_market_snapshot.py'
       - 'scripts/test_static_contract.py'
@@ -31,12 +32,15 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Collect KB weekly sentiment
-        run: python3 scripts/collect_kb_sentiment.py
+        run: |
+          python3 scripts/collect_kb_sentiment.py
           python3 scripts/collect_kb_datahub_batch.py
       - uses: actions/upload-artifact@v4
         with:
           name: source-kb-sentiment-${{ github.run_id }}
-          path: data_sources/kb_sentiment.json
+          path: |
+            data_sources/kb_sentiment.json
+            data_sources/kb_datahub_batch.json
   molit:
     name: A · MOLIT trades
     runs-on: ubuntu-latest
