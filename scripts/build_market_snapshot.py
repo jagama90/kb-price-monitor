@@ -26,8 +26,13 @@ def main():
  if s and s.get('score_0_100') is not None:
   d['kb_sentiment']=s;d.setdefault('data_status',{})['kb_sentiment']='connected'
   if s.get('jeonse_score_0_100') is not None: d.setdefault('data_status',{})['kb_jeonse_supply']='connected'
+ sale=read('kb_weekly_sale_index.json');rent=read('kb_weekly_rent_index.json')
+ if sale and sale.get('status')=='connected':
+  d['kb_weekly_sale_index']=sale;d.setdefault('data_status',{})['kb_weekly_sale_index']='connected';d.setdefault('data_status',{})['kb_history']='connected'
+ if rent and rent.get('status')=='connected':
+  d['kb_weekly_rent_index']=rent;d.setdefault('data_status',{})['kb_weekly_rent_index']='connected'
  kb=read('kb_history_status.json')
- if kb:d.setdefault('data_status',{})['kb_history']=kb.get('status')
+ if kb and not sale:d.setdefault('data_status',{})['kb_history']=kb.get('status')
  d['updated_at']=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date().isoformat();OUT.write_text(json.dumps(d,ensure_ascii=False,indent=2))
  if e:(ROOT/'dist/m2_history.json').write_text(json.dumps(e,ensure_ascii=False,indent=2))
  if kb:(ROOT/'dist/kb_history_status.json').write_text(json.dumps(kb,ensure_ascii=False,indent=2))

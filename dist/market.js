@@ -8,12 +8,14 @@ async function loadMarketIndicators(){
   if(latest){setText('snapUnder15',latest.under15_share+'%');const ids={'b9':'<=9eok','b15':'9-15eok','b25':'15-25eok','b25p':'25eok+'};Object.entries(ids).forEach(([id,k])=>setText(id,Number(latest.counts?.[k]||0).toLocaleString('ko-KR')+'건'))}
   const m=d.m2_official||d.m2;if(m){setText('snapM2',m.yoy_pct==null?'—':m.yoy_pct+'%');setText('snapM2Period',m.period+' · 한국은행 ECOS');setText('m2Detail','ECOS 동일 M2 수준계열 기준 · 전월비 '+(m.mom_pct??'—')+'% · 전년비 '+(m.yoy_pct??'—')+'%')}
   if(d.matched_period){const x=d.matched_period,c=x.current,p=x.previous,fmt=v=>v==null?'—':Number(v).toLocaleString('ko-KR');setText('matchedRange',p.period+' '+p.range+' ↔ '+c.period+' '+c.range+' · 계약일 기준');setText('matchedVolume',fmt(p.total)+' → '+fmt(c.total)+'건');setText('matchedVolumeDelta',x.changes?.trade_count_pct==null?'증감 계산 대기':signed(x.changes.trade_count_pct,'%')+' · 당월 신고 진행');setText('matchedUnder15',(p.under15_share??'—')+' → '+(c.under15_share??'—')+'%');setText('matchedUnder15Delta',x.changes?.under15_share_pp==null?'증감 계산 대기':signed(x.changes.under15_share_pp,'%p'))}
+  renderKbOfficial(d);
   renderConditionIndex(d);
  }catch(e){console.error(e)}
 }
 const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
 const signed=(v,s='')=>(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
 const clamp=v=>Math.max(0,Math.min(100,v));
+function renderKbOfficial(d){const s=d.kb_weekly_sale_index,r=d.kb_weekly_rent_index,m=d.mortgage_rate_official,v=d.kb_value;const box=document.getElementById('kbOfficialData');if(!box)return;const f=x=>x?.latest?Number(x.latest.value).toFixed(2)+' <small>'+esc(x.latest.date)+'</small>':'수집 대기';box.innerHTML='<div><span>KB 주간 매매가격지수</span><b>'+f(s)+'</b></div><div><span>KB 주간 전세가격지수</span><b>'+f(r)+'</b></div><div><span>ECOS 주담대금리</span><b>'+(m?.rate_pct!=null?m.rate_pct+'% <small>'+esc(m.period)+'</small>':'수집 대기')+'</b></div><div><span>가격·Value</span><b>'+(v?.score_0_100!=null?v.score_0_100+'/100':'52주 검증 대기')+'</b></div>'}
 function renderConditionIndex(d){
  const bands=d.price_bands?.months||[],latest=bands[bands.length-1],prev=bands[bands.length-2],m=d.m2_official||d.m2,matched=d.matched_period;
  const components={finance:null,sentiment:null,demand:null,value:null,supply:null};
@@ -21,7 +23,8 @@ function renderConditionIndex(d){
  if(m?.mom_pct!=null&&m?.yoy_pct!=null)components.finance=clamp(50+Number(m.mom_pct)*8+Number(m.yoy_pct)*1.5);
  if(matched?.changes?.trade_count_pct!=null&&matched?.changes?.under15_share_pp!=null)components.demand=clamp(50+Number(matched.changes.trade_count_pct)*.35+Number(matched.changes.under15_share_pp)*1.5);
  else if(latest&&prev)components.demand=clamp(50+((latest.total/prev.total)-1)*35+(latest.under15_share-prev.under15_share)*1.5);
- // Price/value, sentiment and supply remain unscored until comparable official history is connected.
+ if(d.kb_value?.score_0_100!=null)components.value=Number(d.kb_value.score_0_100);
+ if(d.kb_sentiment?.jeonse_score_0_100!=null)components.supply=Number(d.kb_sentiment.jeonse_score_0_100);
  const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},labels={finance:'scoreFinance',sentiment:'scoreSentiment',demand:'scoreDemand',value:'scoreValue',supply:'scoreSupply'};
  Object.entries(labels).forEach(([k,id])=>setText(id,components[k]==null?'미연결':Math.round(components[k])+'/100'));
  const available=Object.keys(components).filter(k=>components[k]!=null),covered=available.reduce((a,k)=>a+weights[k],0);
