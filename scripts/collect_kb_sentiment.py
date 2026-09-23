@@ -9,18 +9,20 @@ def get(params):
  with urllib.request.urlopen(req,timeout=30) as r:return json.load(r)
 def main():
  # HT04 is KB DataHub's market-trend/survey menu; 02 = weekly.
- raw=get({'메뉴코드':'HT04','기간':'2','월간주간구분코드':'02'})
- data=((raw.get('dataBody') or {}).get('data') or {}).get('데이터리스트') or []
- wanted={'매수우위','매매거래활발'}; rows=[]
- for region in data:
-  name=region.get('지역명');code=region.get('지역코드')
-  for z in region.get('dataList') or []:
-   kind=z.get('설문종류')
-   if kind not in wanted: continue
-   date=z.get('기준날짜')
-   # API shapes may expose the index as one of several named result fields.
-   vals={k:v for k,v in z.items() if k not in ('설문종류','기준날짜') and isinstance(v,(int,float))}
-   rows.append({'region':name,'region_code':code,'date':date,'kind':kind,'values':vals})
+ responses=[]
+ for menu,kind in [('01','매수우위'),('02','매매거래활발')]:
+  raw=get({'메뉴코드':menu,'기간':'2','월간주간구분코드':'02'});responses.append((kind,raw))
+ rows=[]
+ for expected,raw in responses:
+  data=((raw.get('dataBody') or {}).get('data') or {}).get('데이터리스트') or []
+  for region in data:
+   name=region.get('지역명');code=region.get('지역코드')
+   for z in region.get('dataList') or []:
+    kind=expected
+    date=z.get('기준날짜')
+    # API shapes may expose the index as one of several named result fields.
+    vals={k:v for k,v in z.items() if k not in ('설문종류','기준날짜') and isinstance(v,(int,float))}
+    rows.append({'region':name,'region_code':code,'date':date,'kind':kind,'values':vals})
  # Keep Seoul and national rows; retain raw response shape for audit.
  keep=[x for x in rows if x['region'] in ('서울','전국')]
  payload={'source':'KB부동산 데이터허브','endpoint':'weekMnthlyHuseTrnd/maktTrnd','frequency':'weekly','rows':keep,'row_count':len(keep),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
