@@ -10,6 +10,7 @@ async function loadMarketIndicators(){
   if(d.matched_period){const x=d.matched_period,c=x.current,p=x.previous,fmt=v=>v==null?'—':Number(v).toLocaleString('ko-KR');setText('matchedRange',p.period+' '+p.range+' ↔ '+c.period+' '+c.range+' · 계약일 기준');setText('matchedVolume',fmt(p.total)+' → '+fmt(c.total)+'건');setText('matchedVolumeDelta',x.changes?.trade_count_pct==null?'증감 계산 대기':signed(x.changes.trade_count_pct,'%')+' · 당월 신고 진행');setText('matchedUnder15',(p.under15_share??'—')+' → '+(c.under15_share??'—')+'%');setText('matchedUnder15Delta',x.changes?.under15_share_pp==null?'증감 계산 대기':signed(x.changes.under15_share_pp,'%p'))}
   renderKbOfficial(d);
   renderConditionIndex(d);
+  setupScoreDetails(d,window.__conditionComponents||{});
  }catch(e){console.error(e)}
 }
 const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
@@ -25,6 +26,7 @@ function renderConditionIndex(d){
  else if(latest&&prev)components.demand=clamp(50+((latest.total/prev.total)-1)*35+(latest.under15_share-prev.under15_share)*1.5);
  if(d.kb_value?.score_0_100!=null)components.value=Number(d.kb_value.score_0_100);
  if(d.kb_sentiment?.jeonse_score_0_100!=null)components.supply=Number(d.kb_sentiment.jeonse_score_0_100);
+ window.__conditionComponents=components;
  const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},labels={finance:'scoreFinance',sentiment:'scoreSentiment',demand:'scoreDemand',value:'scoreValue',supply:'scoreSupply'};
  Object.entries(labels).forEach(([k,id])=>setText(id,components[k]==null?'미연결':Math.round(components[k])+'/100'));
  const available=Object.keys(components).filter(k=>components[k]!=null),covered=available.reduce((a,k)=>a+weights[k],0);
@@ -51,3 +53,20 @@ async function loadEcosFinanceSamples(){
  }catch(e){console.warn('ECOS finance sample not published yet',e)}
 }
 loadEcosFinanceSamples();
+
+let SCORE_DETAIL_DATA={};
+function scoreDetailRows(k,d,c){
+ const m=d.m2_official||d.m2, x=d.matched_period, ks=d.kb_sentiment||{}, v=d.kb_value||{};
+ if(k==='finance')return [['M2 전월비',m?.mom_pct==null?'미연결':signed(m.mom_pct,'%'),'50 + M2 전월비×8 + M2 전년비×1.5'],['M2 전년비',m?.yoy_pct==null?'미연결':signed(m.yoy_pct,'%'),'유동성의 중기 방향'],['현재 산출값',c.finance==null?'미연결':Math.round(c.finance)+'/100','연결된 ECOS 값으로 계산']];
+ if(k==='sentiment')return [['KB 매수우위',ks.latest?.['매수우위']?.value==null?'미연결':Number(ks.latest['매수우위'].value).toFixed(1),'매수자와 매도자 압력'],['KB 거래활발',ks.latest?.['매매거래활발']?.value==null?'미연결':Number(ks.latest['매매거래활발'].value).toFixed(1),'실제 거래심리 보조'],['현재 산출값',c.sentiment==null?'미연결':Math.round(c.sentiment)+'/100','KB 공식 심리지표 조합']];
+ if(k==='demand')return [['동일기간 거래량 변화',x?.changes?.trade_count_pct==null?'미연결':signed(x.changes.trade_count_pct,'%'),'신고일 차이를 줄인 전월 동일기간 비교'],['15억 이하 비중 변화',x?.changes?.under15_share_pp==null?'미연결':signed(x.changes.under15_share_pp,'%p'),'사용자 예산대의 실제 수요 이동'],['현재 산출값',c.demand==null?'미연결':Math.round(c.demand)+'/100','50 + 거래량 변화×0.35 + 비중 변화×1.5']];
+ if(k==='value')return [['KB 가격 위치',d.kb_weekly_sale_index?.latest?.value==null?'미연결':Number(d.kb_weekly_sale_index.latest.value).toFixed(2),'가격 하락만으로 점수를 높이지 않고 장기 가격 위치를 평가'],['필요 이력',v.observations==null?'52주 이상':v.observations+'주','충분한 실제 주간 이력 확보 후 연결'],['현재 산출값',c.value==null?'미연결':Math.round(c.value)+'/100',v.status==='connected'?'검증된 이력 기반':'과거 이력 검증 대기']];
+ return [['KB 전세수급',ks.latest?.['전세수급']?.value==null?'미연결':Number(ks.latest['전세수급'].value).toFixed(1),'전세 수요·공급 압력'],['전세거래활발',ks.latest?.['전세거래활발']?.value==null?'미연결':Number(ks.latest['전세거래활발'].value).toFixed(1),'전세시장 거래 강도'],['현재 산출값',c.supply==null?'미연결':Math.round(c.supply)+'/100','현재는 KB 전세 신호 연결, 입주·미분양은 검증 후 추가']];
+}
+function setupScoreDetails(d,c){
+ SCORE_DETAIL_DATA={d,c};
+ const meta={finance:['금융여건','25%','금리·유동성·신용이 실제 자금조달 여건을 얼마나 개선했는지 봅니다.'],sentiment:['시장심리','20%','KB 매수우위와 거래활발 지수로 매수·매도 압력을 봅니다.'],demand:['실수요·거래','20%','동일기간 거래량과 15억 이하 거래비중으로 실제 수요 확인 여부를 봅니다.'],value:['가격·밸류','20%','현재 가격의 장기 위치를 보되 가격 하락 자체를 매수 호재로 간주하지 않습니다.'],supply:['공급·전세','15%','전세수급·거래와 향후 입주·미분양을 통해 공급 부담을 검증합니다.']};
+ const open=k=>{const [title,w,desc]=meta[k], rows=scoreDetailRows(k,d,c), el=document.getElementById('scoreExplanation');setText('scoreExplainTitle',title+' 점수 산정 근거');setText('scoreExplainWeight','매수여건 지수 가중치 '+w);document.getElementById('scoreExplainBody').innerHTML='<p class="score-rule">'+esc(desc)+'</p><div class="score-detail-rows">'+rows.map(r=>'<div><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b><small>'+esc(r[2])+'</small></div>').join('')+'</div><p class="score-note">미연결 데이터는 50점으로 임의 대체하지 않고 전체 신뢰도에서 제외합니다.</p>';el.hidden=false;el.scrollIntoView({behavior:'smooth',block:'nearest'})};
+ document.querySelectorAll('.score-component').forEach(el=>{el.onclick=()=>open(el.dataset.score);el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(el.dataset.score)}}});
+ document.getElementById('closeScoreExplain')?.addEventListener('click',()=>document.getElementById('scoreExplanation').hidden=true);
+}
