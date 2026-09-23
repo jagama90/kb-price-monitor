@@ -49,8 +49,7 @@ jobs:
           cp data_sources/kb_value_sample.json dist/kb_value_sample.json
           python3 scripts/collect_public_market.py || echo 'KB public-market enrichment failed; continuing with independent official API collectors'
           cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
-      - name: Probe official KB history UI
-        run: python3 scripts/backfill_kb_history.py
+      - name: Probe official KB history UI and endpoint\n        run: |\n          python3 scripts/backfill_kb_history.py\n          python3 scripts/probe_kb_history_endpoint.py
       - name: Validate snapshot
         run: |
           node scripts/test_price_core.cjs data/seoul_types.json
@@ -59,7 +58,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json data/buy_watchlist_market.json dist/buy_watchlist_market.json data_sources/kb_history_status.json data_sources/kb_value_sample.json dist/kb_value_sample.json
+          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json data/buy_watchlist_market.json dist/buy_watchlist_market.json data_sources/kb_history_status.json data_sources/kb_history_probe.json data_sources/kb_value_sample.json dist/kb_value_sample.json
           git commit -m 'Weekly KB snapshot refresh' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
@@ -81,6 +80,5 @@ jobs:
             dist/buy_watchlist_master.json
             data/buy_watchlist_market.json
             dist/buy_watchlist_market.json
-            data_sources/kb_history_status.json
-            data_sources/kb_value_sample.json
+            data_sources/kb_history_status.json\n            data_sources/kb_history_probe.json\n            data_sources/kb_value_sample.json
             dist/kb_value_sample.json
