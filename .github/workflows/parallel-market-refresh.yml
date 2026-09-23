@@ -8,6 +8,7 @@ on:
       - '.github/workflows/parallel-market-refresh.yml'
       - 'scripts/collect_molit_trades.py'
       - 'scripts/smoke_ecos_sources.py'
+      - 'scripts/sample_ecos_finance.py'
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/build_market_snapshot.py'
       - 'scripts/test_static_contract.py'
@@ -60,6 +61,8 @@ jobs:
         run: |
           test -n "$BOK_ECOS_KEY"
           python3 scripts/smoke_ecos_sources.py
+      - name: Sample real ECOS finance values
+        run: python3 scripts/sample_ecos_finance.py
       - name: Collect ECOS M2
         run: python3 scripts/collect_ecos_m2.py
       - uses: actions/upload-artifact@v4
@@ -68,6 +71,7 @@ jobs:
           path: |
             data_sources/ecos_m2.json
             data_sources/ecos_smoke.json
+            data_sources/ecos_finance_sample.json
   aggregate:
     name: E · Aggregate and validate
     if: always()
@@ -110,7 +114,7 @@ jobs:
           [ -f dist/index_audit.json ] && git add -f dist/index_audit.json
           [ -f dist/validation_report.json ] && git add -f dist/validation_report.json
           [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
-          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json; do
+          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json; do
             [ -f "$f" ] && git add -f "$f"
           done
           # Do not use `git add -A` here: data_sources is intentionally ignored and
