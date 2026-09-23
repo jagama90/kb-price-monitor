@@ -83,6 +83,8 @@ jobs:
           python3 scripts/smoke_ecos_sources.py
       - name: Sample real ECOS finance values
         run: python3 scripts/sample_ecos_finance.py
+      - name: Collect ECOS mortgage rate
+        run: python3 scripts/collect_ecos_mortgage_rate.py
       - name: Collect ECOS M2
         run: python3 scripts/collect_ecos_m2.py
       - uses: actions/upload-artifact@v4
@@ -92,6 +94,7 @@ jobs:
             data_sources/ecos_m2.json
             data_sources/ecos_smoke.json
             data_sources/ecos_finance_sample.json
+            data_sources/ecos_mortgage_rate.json
   aggregate:
     name: E · Aggregate and validate
     if: always()
@@ -150,7 +153,7 @@ jobs:
           [ -f data_sources/molit_vintage_comparison.json ] && cp data_sources/molit_vintage_comparison.json dist/molit_vintage_comparison.json
           [ -f dist/molit_vintage_comparison.json ] && git add -f dist/molit_vintage_comparison.json
           [ -f data_sources/molit_vintage_comparison.json ] && git add -f data_sources/molit_vintage_comparison.json
-          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_datahub_batch.json; do
+          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json data_sources/ecos_mortgage_rate.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_datahub_batch.json; do
             [ -f "$f" ] && git add -f "$f"
           done
           # Do not use `git add -A` here: data_sources is intentionally ignored and
