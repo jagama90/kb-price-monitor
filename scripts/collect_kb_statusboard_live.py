@@ -2,8 +2,8 @@
 import json,urllib.request,urllib.parse,pathlib,datetime
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 BASE='https://data-api.kbland.kr/bfmstat/statusBoard/'
-TARGETS={'sale':'weeklyAptPrcIndx','rent':'weeklyAptYrpayPrcIndx'}
-def mondays(n=12):
+TARGETS={'sale':'weeklyAptPrcIndx','rent':'weeklyAptYrpayPrcIndx','sale_price':'weeklyAptPrice','rent_price':'weeklyAptYrpayPrice','dctr':'weeklyAptDctr'}
+def mondays(n=60):
  d=datetime.date.today()
  d-=datetime.timedelta(days=d.weekday())
  return [(d-datetime.timedelta(days=7*i)).strftime('%Y%m%d') for i in range(n)]
@@ -18,15 +18,14 @@ def numeric_count(x):
 def main():
  out={}
  for k,ep in TARGETS.items():
-  hit=None
+  rows=[]
   for dt in mondays():
    try:
     data=fetch(ep,dt)
-    if numeric_count(data)>0:
-     hit={'date':dt,'endpoint':BASE+ep,'numeric_fields':numeric_count(data),'payload':data};break
+    if numeric_count(data)>0: rows.append({'date':dt,'endpoint':BASE+ep,'numeric_fields':numeric_count(data),'payload':data})
    except Exception:pass
-  if not hit:raise SystemExit(f'no live numeric payload: {k}')
-  out[k]=hit
+  if not rows:raise SystemExit(f'no live numeric payload: {k}')
+  out[k]={'observations':rows,'latest':rows[0],'count':len(rows)}
  p=ROOT/'data_sources/kb_statusboard_live.json';p.parent.mkdir(exist_ok=True);p.write_text(json.dumps({'status':'connected','source':'KB부동산 데이터허브','query':{'법정동코드':'0000000000'},'targets':out,'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()},ensure_ascii=False,indent=2))
- print(json.dumps({k:{'date':v['date'],'numeric_fields':v['numeric_fields']} for k,v in out.items()},ensure_ascii=False))
+ print(json.dumps({k:{'count':v['count'],'latest':v['latest']['date']} for k,v in out.items()},ensure_ascii=False))
 if __name__=='__main__':main()
