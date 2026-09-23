@@ -16,6 +16,9 @@ def main():
  if e and e.get('series'):
   x=e['series'][-1];d['m2_official']={'period':x['period'],'mom_pct':x['mom_pct'],'yoy_pct':x['yoy_pct'],'source':'한국은행 ECOS 101Y003','definition':e.get('definition'),'selected_item':e.get('selected_item')}
   d.setdefault('data_status',{})['m2']='connected'
+ s=read('kb_sentiment_score.json')
+ if s and s.get('score_0_100') is not None:
+  d['kb_sentiment']=s;d.setdefault('data_status',{})['kb_sentiment']='connected'
  kb=read('kb_history_status.json')
  if kb:d.setdefault('data_status',{})['kb_history']=kb.get('status')
  d['updated_at']=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date().isoformat();OUT.write_text(json.dumps(d,ensure_ascii=False,indent=2))
