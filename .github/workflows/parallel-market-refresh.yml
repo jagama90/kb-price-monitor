@@ -116,7 +116,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: source-kb-sentiment-${{ github.run_id }}
-          path: .
+          path: data_sources
       - name: Build KB sentiment component
         if: needs.kb_sentiment.result == 'success'
         run: python3 scripts/build_kb_sentiment_score.py
