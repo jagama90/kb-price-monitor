@@ -3,7 +3,7 @@ import json,urllib.request,urllib.parse,pathlib,datetime
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 BASE='https://data-api.kbland.kr/bfmstat/statusBoard/'
 TARGETS={'sale':'weeklyAptPrcIndx','rent':'weeklyAptYrpayPrcIndx'}
-def mondays(n=12):
+def mondays(n=60):
  d=datetime.date.today()
  d-=datetime.timedelta(days=d.weekday())
  return [(d-datetime.timedelta(days=7*i)).strftime('%Y%m%d') for i in range(n)]
