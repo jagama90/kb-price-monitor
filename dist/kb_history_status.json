@@ -1,0 +1,5 @@
+{
+  "status": "blocked_source",
+  "requested_years": 3,
+  "reason": "No verified public KB historical price endpoint/source is configured; current DB begins 2026-09."
+}

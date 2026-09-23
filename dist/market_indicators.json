@@ -2,51 +2,48 @@
   "updated_at": "2026-09-23",
   "sources": [
     {
-      "name": "서울특별시",
+      "name": "서울특별시/국토교통부 실거래가",
       "url": "https://www.seoul.go.kr/news/news_report.do?nttNo=466727"
     },
     {
-      "name": "한국은행",
-      "url": "https://www.bok.or.kr/portal/submain/submain/sts.do?menuNo=201659"
-    },
-    {
-      "name": "금융위원회",
-      "url": "https://www.fsc.go.kr/po010102/79514"
-    },
-    {
-      "name": "금융위원회",
-      "url": "https://www.fsc.go.kr/po010102/82526"
+      "name": "한국은행 통계공표일정",
+      "url": "https://www.bok.or.kr/portal/stats/statsPublictSchdul/listCldr.do?menuNo=200775"
     }
   ],
   "seoul_apt_trade_count": [
     [
       "2026-03",
-      5515,
+      5717,
       false
     ],
     [
       "2026-04",
-      8661,
+      8921,
       false
     ],
     [
       "2026-05",
-      8972,
+      9262,
       false
     ],
     [
       "2026-06",
-      5303,
+      5473,
       false
     ],
     [
       "2026-07",
-      5838,
+      5992,
       false
     ],
     [
       "2026-08",
-      3143,
+      3514,
+      false
+    ],
+    [
+      "2026-09",
+      1235,
       true
     ]
   ],
@@ -68,255 +65,91 @@
     "yoy_pct": 5.8,
     "household_nonprofit_change_trillion_krw": -11.6
   },
-  "base_rate": {
-    "source": "한국은행",
-    "current": 3,
-    "history": [
-      [
-        "2016-06-09",
-        1.25
-      ],
-      [
-        "2017-11-30",
-        1.5
-      ],
-      [
-        "2018-11-30",
-        1.75
-      ],
-      [
-        "2019-07-18",
-        1.5
-      ],
-      [
-        "2019-10-16",
-        1.25
-      ],
-      [
-        "2020-03-17",
-        0.75
-      ],
-      [
-        "2020-05-28",
-        0.5
-      ],
-      [
-        "2021-08-26",
-        0.75
-      ],
-      [
-        "2021-11-25",
-        1
-      ],
-      [
-        "2022-01-14",
-        1.25
-      ],
-      [
-        "2022-04-14",
-        1.5
-      ],
-      [
-        "2022-05-26",
-        1.75
-      ],
-      [
-        "2022-07-13",
-        2.25
-      ],
-      [
-        "2022-08-25",
-        2.5
-      ],
-      [
-        "2022-10-12",
-        3
-      ],
-      [
-        "2022-11-24",
-        3.25
-      ],
-      [
-        "2023-01-13",
-        3.5
-      ],
-      [
-        "2024-10-11",
-        3.25
-      ],
-      [
-        "2024-11-28",
-        3
-      ],
-      [
-        "2025-02-25",
-        2.75
-      ],
-      [
-        "2025-05-29",
-        2.5
-      ],
-      [
-        "2026-07-16",
-        2.75
-      ],
-      [
-        "2026-08-27",
-        3
-      ]
-    ]
-  },
-  "korea_m2_yoy": {
-    "current": 8,
-    "period": "2026-07",
-    "release_date": "2026-09-15",
-    "source": "한국은행",
-    "monitor": "monthly"
-  },
-  "fed_funds_target": {
-    "lower": 3.75,
-    "upper": 4,
-    "effective_date": "2026-09-17",
-    "source": "Federal Reserve",
-    "monitor": "FOMC",
-    "history": [
-      [
-        "2024-09-19",
-        4.75,
-        5
-      ],
-      [
-        "2024-11-08",
-        4.5,
-        4.75
-      ],
-      [
-        "2024-12-19",
-        4.25,
-        4.5
-      ],
-      [
-        "2025-09-18",
-        4,
-        4.25
-      ],
-      [
-        "2025-10-30",
-        3.75,
-        4
-      ],
-      [
-        "2025-12-11",
-        3.5,
-        3.75
-      ],
-      [
-        "2026-09-17",
-        3.75,
-        4
-      ]
-    ]
-  },
   "release_calendar": {
-    "korea_m2": [
-      {
-        "date": "2026-10-15",
-        "time": "12:00",
-        "label": "2026년 8월 통화 및 유동성"
-      },
-      {
-        "date": "2026-11-13",
-        "time": "12:00",
-        "label": "2026년 9월 통화 및 유동성"
-      }
-    ],
-    "fed_fomc": [
-      {
-        "date": "2026-10-28",
-        "label": "FOMC policy decision"
-      },
-      {
-        "date": "2026-12-09",
-        "label": "FOMC policy decision"
-      }
-    ],
-    "roll_forward": true
+    "mortgage_rate_next": "2026-09-30",
+    "m2_next": "2026-10-15"
   },
-  "comparisons": {
-    "seoul_apt_trade_count": {
-      "current_period": "2026-08",
-      "baseline_period": "2026-07",
-      "change_pct": -46.2,
-      "note": "8월 계약분은 신고 진행 중"
-    },
-    "under15_share": {
-      "current_period": "2026-08",
-      "baseline_period": "2026-05",
-      "change_pp": 7.5,
-      "note": "서울시 비교 보도자료 기준"
-    }
-  },
-  "data_status": {
-    "transactions": "raw API adapter not yet connected",
-    "kb_history": "DB collection starts 2026-09; 3-year backfill requires historical KB source",
-    "m2_history": "official ECOS 10-year backfill pending; no synthetic values used"
-  },
-  "validation_framework": {
-    "principle": "정책·수요·공급을 단일 원인으로 단정하지 않고 전달경로와 시차를 검증",
-    "policy_timeline": [
+  "price_bands": {
+    "status": "connected",
+    "source": "MOLIT apartment trade OpenAPI",
+    "months": [
       {
-        "date": "2023-03-02",
-        "event": "주담대 규제 완화",
-        "facts": [
-          "다주택자 규제지역 LTV 0→30%",
-          "임대·매매사업자 주담대 허용",
-          "생활안정자금 주담대 별도 2억원 한도 폐지"
-        ],
-        "source": "금융위원회"
+        "period": "2026-03",
+        "total": 5717,
+        "counts": {
+          "<=9eok": 3156,
+          "9-15eok": 1607,
+          "15-25eok": 694,
+          "25eok+": 260
+        },
+        "under15_share": 83.3
       },
       {
-        "date": "2024-02-26",
-        "event": "스트레스 DSR 1단계 시행",
-        "source": "금융위원회"
+        "period": "2026-04",
+        "total": 8921,
+        "counts": {
+          "<=9eok": 4342,
+          "9-15eok": 2413,
+          "15-25eok": 1387,
+          "25eok+": 779
+        },
+        "under15_share": 75.7
       },
       {
-        "date": "2024-09-01",
-        "event": "스트레스 DSR 2단계 시행",
-        "note": "당초 2024-07-01에서 연기; 당시 스트레스 금리 0.75%",
-        "source": "금융위원회"
-      }
-    ],
-    "demand_chain": [
-      "정책·규제",
-      "실제 주담대금리",
-      "가계·주담대 증감",
-      "KB 매수우위·거래활발",
-      "거래량·가격대",
-      "KB·실거래가격"
-    ],
-    "supply_chain": [
-      "서울·송파 입주물량",
-      "전세 실거래가격",
-      "전세·월세 거래량",
-      "매매가격"
-    ],
-    "current_checks": {
-      "seoul_sale_price_mom_pct": {
+        "period": "2026-05",
+        "total": 9262,
+        "counts": {
+          "<=9eok": 4132,
+          "9-15eok": 2559,
+          "15-25eok": 1642,
+          "25eok+": 929
+        },
+        "under15_share": 72.2
+      },
+      {
+        "period": "2026-06",
+        "total": 5473,
+        "counts": {
+          "<=9eok": 2529,
+          "9-15eok": 1632,
+          "15-25eok": 917,
+          "25eok+": 395
+        },
+        "under15_share": 76.0
+      },
+      {
         "period": "2026-07",
-        "value": 1.93
+        "total": 5992,
+        "counts": {
+          "<=9eok": 2979,
+          "9-15eok": 1781,
+          "15-25eok": 879,
+          "25eok+": 353
+        },
+        "under15_share": 79.4
       },
-      "seoul_jeonse_price_mom_pct": {
-        "period": "2026-07",
-        "value": 0.5
-      },
-      "rental_transactions": {
+      {
         "period": "2026-08",
-        "provisional": true,
-        "jeonse": 7263,
-        "jeonse_mom_pct": -18,
-        "monthly_rent": 7347,
-        "monthly_rent_mom_pct": -20.7
+        "total": 3514,
+        "counts": {
+          "<=9eok": 1848,
+          "9-15eok": 954,
+          "15-25eok": 527,
+          "25eok+": 185
+        },
+        "under15_share": 79.7
+      },
+      {
+        "period": "2026-09",
+        "total": 1235,
+        "counts": {
+          "<=9eok": 758,
+          "9-15eok": 256,
+          "15-25eok": 165,
+          "25eok+": 56
+        },
+        "under15_share": 82.1
       }
-    }
+    ]
   }
 }
