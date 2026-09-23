@@ -31,9 +31,11 @@ header nav a{color:inherit;text-decoration:none;margin:0 12px}.hero{margin-top:0
 
 .garak-history{overflow:hidden}
 .garak-chart-wrap{position:relative;width:100%;height:260px;overflow:hidden;margin-top:10px}
-#garakHistoryChart{display:block;width:100%!important;height:260px!important;max-width:100%;touch-action:pan-y}
-@media(max-width:640px){.garak-history{padding:18px 14px}.garak-history .title{align-items:flex-start;gap:8px}.garak-history .title h2{font-size:20px}.garak-history .title p{font-size:14px}.garak-chart-wrap{height:230px;margin-top:8px}#garakHistoryChart{height:230px!important}.garak-history .chart-note{font-size:12px;white-space:normal;line-height:1.5}}
+#garakHistoryChart{display:block;width:100%;height:260px;max-width:100%;overflow:hidden}
+@media(max-width:640px){.garak-history{padding:18px 14px}.garak-history .title{align-items:flex-start;gap:8px}.garak-history .title h2{font-size:20px}.garak-history .title p{font-size:14px}.garak-chart-wrap{height:230px;margin-top:8px}#garakHistoryChart{display:block;width:100%;height:260px;max-width:100%;overflow:hidden}.garak-history .chart-note{font-size:12px;white-space:normal;line-height:1.5}}
 
 .standalone-history{margin:16px 14px 22px!important;border-radius:18px!important;border:1px solid var(--line)!important;background:#fff!important;box-shadow:0 4px 18px #1b47700b!important}
 .standalone-history+.watch{margin-top:0!important}
 @media(max-width:800px){.standalone-history{margin:14px 8px 22px!important}.standalone-history+.watch{margin:0 8px 8px!important}}
+
+#garakHistoryChart svg{display:block;width:100%;height:100%;overflow:visible}.garak-axis{font-size:10px;fill:#738096}.garak-grid{stroke:#e8edf3;stroke-width:1}.garak-sale{fill:none;stroke:#1769e0;stroke-width:2.5;vector-effect:non-scaling-stroke}.garak-rent{fill:none;stroke:#f08a24;stroke-width:2.2;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
