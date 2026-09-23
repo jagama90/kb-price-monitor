@@ -15,6 +15,8 @@ on:
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/backfill_kb_history.py'
       - 'dist/market.html'
+      - 'dist/index.html'
+      - 'dist/market.js'
 
 permissions:
   contents: write
@@ -37,7 +39,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: Collect fresh KB data
-        continue-on-error: true
         run: |
           pip install playwright
           playwright install chromium
