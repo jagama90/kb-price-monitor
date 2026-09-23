@@ -81,6 +81,8 @@ jobs:
           path: .
       - name: Build last-good snapshot
         run: python3 scripts/build_market_snapshot.py
+      - name: Build condition-index history
+        run: python3 scripts/build_condition_history.py
       - name: Validate dashboard contract
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Commit source snapshots
@@ -89,6 +91,8 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -f dist/market_indicators.json
           [ -f dist/m2_history.json ] && git add -f dist/m2_history.json
+          [ -f dist/condition_index_history.json ] && git add -f dist/condition_index_history.json
+          [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
           for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json; do
             [ -f "$f" ] && git add -f "$f"
           done
