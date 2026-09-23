@@ -102,7 +102,7 @@ jobs:
   aggregate:
     name: E · Aggregate and validate
     if: always()
-    needs: [ecos, kb_sentiment]
+    needs: [molit, ecos, kb_sentiment]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -128,7 +128,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: source-kb-sentiment-${{ github.run_id }}
-          path: data_sources
+          path: .
+      - name: Parse KB weekly indices
+        if: needs.kb_sentiment.result == 'success'
+        run: python3 scripts/parse_kb_weekly_indices.py
       - name: Build KB value component
         run: python3 scripts/build_kb_value_score.py
       - name: Build KB sentiment component
@@ -148,56 +151,24 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f dist/market_indicators.json
-          [ -f dist/m2_history.json ] && git add -f dist/m2_history.json
-          [ -f dist/condition_index_history.json ] && git add -f dist/condition_index_history.json
-          [ -f dist/index_audit.json ] && git add -f dist/index_audit.json
-          [ -f dist/validation_report.json ] && git add -f dist/validation_report.json
-          [ -f data_sources/ecos_finance_sample.json ] && cp data_sources/ecos_finance_sample.json dist/ecos_finance_sample.json
-          [ -f dist/ecos_finance_sample.json ] && git add -f dist/ecos_finance_sample.json
-          [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
-          [ -f data_sources/molit_vintage_comparison.json ] && cp data_sources/molit_vintage_comparison.json dist/molit_vintage_comparison.json
-          [ -f dist/molit_vintage_comparison.json ] && git add -f dist/molit_vintage_comparison.json
-          [ -f data_sources/molit_vintage_comparison.json ] && git add -f data_sources/molit_vintage_comparison.json
-          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json data_sources/ecos_mortgage_rate.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_datahub_batch.json data_sources/kb_weekly_sale_index.json; do
-            [ -f "$f" ] && git add -f "$f"
+          mkdir -p /tmp/market-refresh
+          cp dist/market_indicators.json /tmp/market-refresh/
+          for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json data_sources/ecos_mortgage_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json; do
+            [ -f "$f" ] && cp "$f" /tmp/market-refresh/$(basename "$f")
           done
-          # Do not use `git add -A` here: data_sources is intentionally ignored and
-          # must stay force-added, while unrelated generated files should not dirty the rebase.
-          git diff --cached --quiet && exit 0
-          # Rebase BEFORE creating the generated-data commit. The old flow committed,
-          # reset it, then rebased; that allowed the checked-in old snapshot to overwrite
-          # the freshly generated market_indicators.json.
-          git reset
-          cp dist/market_indicators.json /tmp/market_indicators.json
-          [ -f data_sources/kb_sentiment.json ] && cp data_sources/kb_sentiment.json /tmp/kb_sentiment.json || true
-          [ -f data_sources/kb_sentiment_score.json ] && cp data_sources/kb_sentiment_score.json /tmp/kb_sentiment_score.json || true
-          rm -f data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json
-          git pull --rebase --autostash origin main
-          cp /tmp/market_indicators.json dist/market_indicators.json
-          [ -f /tmp/kb_sentiment.json ] && cp /tmp/kb_sentiment.json data_sources/kb_sentiment.json || true
-          [ -f /tmp/kb_sentiment_score.json ] && cp /tmp/kb_sentiment_score.json data_sources/kb_sentiment_score.json || true
+          git reset --hard
+          git pull --rebase origin main
+          cp /tmp/market-refresh/market_indicators.json dist/market_indicators.json
+          [ -f /tmp/market-refresh/m2_history.json ] && cp /tmp/market-refresh/m2_history.json dist/m2_history.json
+          [ -f /tmp/market-refresh/condition_index_history.json ] && cp /tmp/market-refresh/condition_index_history.json dist/condition_index_history.json
+          [ -f /tmp/market-refresh/index_audit.json ] && cp /tmp/market-refresh/index_audit.json dist/index_audit.json
+          [ -f /tmp/market-refresh/validation_report.json ] && cp /tmp/market-refresh/validation_report.json dist/validation_report.json
+          for n in ecos_mortgage_rate.json ecos_m2.json kb_sentiment.json kb_sentiment_score.json kb_statusboard_live.json kb_weekly_sale_index.json kb_weekly_rent_index.json kb_value_score.json molit.json molit_daily_history.json; do
+            [ -f /tmp/market-refresh/$n ] && cp /tmp/market-refresh/$n data_sources/$n
+          done
           git add -f dist/market_indicators.json
-          for f in data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json; do [ -f "$f" ] && git add -f "$f"; done
+          for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json; do [ -f "$f" ] && git add -f "$f"; done
+          for f in data_sources/ecos_mortgage_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json; do [ -f "$f" ] && git add -f "$f"; done
+          git diff --cached --quiet && exit 0
           git commit -m 'Daily parallel market data refresh'
-          git push origin HEAD:main
-          exit 0
-          # Rebase once before creating the generated-data commit to avoid add/add
-          # conflicts when an older run overlaps a newer workflow revision.
-          git reset
-          # Preserve generated snapshot across the rebase; otherwise reset/autostash can restore the old dist file.
-          cp dist/market_indicators.json /tmp/market_indicators.json
-          [ -f data_sources/kb_sentiment_score.json ] && cp data_sources/kb_sentiment_score.json /tmp/kb_sentiment_score.json || true
-          git pull --rebase --autostash origin main
-          cp /tmp/market_indicators.json dist/market_indicators.json
-          [ -f /tmp/kb_sentiment_score.json ] && cp /tmp/kb_sentiment_score.json data_sources/kb_sentiment_score.json || true
-          git add -f dist/market_indicators.json
-          [ -f dist/m2_history.json ] && git add -f dist/m2_history.json
-          [ -f dist/condition_index_history.json ] && git add -f dist/condition_index_history.json
-          [ -f dist/index_audit.json ] && git add -f dist/index_audit.json
-          [ -f dist/validation_report.json ] && git add -f dist/validation_report.json
-          [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
-          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json; do [ -f "$f" ] && git add -f "$f"; done
-          git diff --cached --quiet && exit 0
-          git commit --amend --no-edit
           git push origin HEAD:main
