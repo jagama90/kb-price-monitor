@@ -103,5 +103,30 @@
     "effective_date": "2026-09-17",
     "source": "Federal Reserve",
     "monitor": "FOMC"
+  },
+  "release_calendar": {
+    "korea_m2": [
+      {
+        "date": "2026-10-15",
+        "time": "12:00",
+        "label": "2026년 8월 통화 및 유동성"
+      },
+      {
+        "date": "2026-11-13",
+        "time": "12:00",
+        "label": "2026년 9월 통화 및 유동성"
+      }
+    ],
+    "fed_fomc": [
+      {
+        "date": "2026-10-28",
+        "label": "FOMC policy decision"
+      },
+      {
+        "date": "2026-12-09",
+        "label": "FOMC policy decision"
+      }
+    ],
+    "roll_forward": true
   }
 }
