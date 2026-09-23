@@ -92,7 +92,8 @@ jobs:
           for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json; do
             [ -f "$f" ] && git add -f "$f"
           done
-          git add -A
+          # Do not use `git add -A` here: data_sources is intentionally ignored and
+          # must stay force-added, while unrelated generated files should not dirty the rebase.
           git diff --cached --quiet && exit 0
           git commit -m 'Daily parallel market data refresh'
           git pull --rebase --autostash origin main
