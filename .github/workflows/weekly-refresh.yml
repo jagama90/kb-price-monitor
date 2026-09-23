@@ -11,6 +11,9 @@ on:
       - 'scripts/collect_public_market.py'
       - 'scripts/collect_seoul.py'
       - 'scripts/refresh_market_indicators.py'
+      - 'scripts/collect_molit_trades.py'
+      - 'scripts/collect_ecos_m2.py'
+      - 'scripts/backfill_kb_history.py'
 
 permissions:
   contents: write
@@ -20,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
+      MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
+      BOK_ECOS_KEY: ${{ secrets.BOK_ECOS_KEY }}
       KB_TARGET_DISTRICTS: 강남구,서초구,송파구,성동구,광진구,중구
     steps:
       - uses: actions/checkout@v4
@@ -34,6 +39,9 @@ jobs:
           python3 scripts/build_buy_watchlist_master.py
           python3 scripts/collect_public_market.py
           python3 scripts/refresh_market_indicators.py
+          if [ -n "$MOLIT_SERVICE_KEY" ]; then python3 scripts/collect_molit_trades.py; else echo 'MOLIT_SERVICE_KEY not configured'; fi
+          if [ -n "$BOK_ECOS_KEY" ]; then python3 scripts/collect_ecos_m2.py; else echo 'BOK_ECOS_KEY not configured'; fi
+          python3 scripts/backfill_kb_history.py
           cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
       - name: Validate snapshot
         run: |
@@ -43,7 +51,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json data/buy_watchlist_market.json dist/buy_watchlist_market.json dist/market_indicators.json
+          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json data/buy_watchlist_market.json dist/buy_watchlist_market.json dist/market_indicators.json dist/m2_history.json dist/kb_history_status.json
           git commit -m 'Weekly KB snapshot refresh' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
