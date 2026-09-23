@@ -154,7 +154,8 @@
   },
   "data_status": {
     "kb_history": "official_ui_verified_endpoint_pending",
-    "kb_sentiment": "connected"
+    "kb_sentiment": "connected",
+    "kb_jeonse_supply": "connected"
   },
   "kb_sentiment": {
     "status": "connected",
@@ -169,11 +170,22 @@
         "date": "20260914",
         "value": 14.11817566,
         "field": "매매거래지수"
+      },
+      "전세수급": {
+        "date": "20260914",
+        "value": 177.56295886,
+        "field": "전세수급지수"
+      },
+      "전세거래활발": {
+        "date": "20260914",
+        "value": 17.36413004,
+        "field": "전세거래지수"
       }
     },
     "score_0_100": 22.8,
+    "jeonse_score_0_100": 48.7,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-23T13:51:51.238360+00:00"
+    "generated_at": "2026-09-23T14:55:21.803687+00:00"
   }
 }
