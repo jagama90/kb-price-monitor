@@ -23,7 +23,6 @@ function renderConditionIndex(d){
  if(d.kb_sentiment?.score_0_100!=null)components.sentiment=Number(d.kb_sentiment.score_0_100);
  if(m?.mom_pct!=null&&m?.yoy_pct!=null)components.finance=clamp(50+Number(m.mom_pct)*8+Number(m.yoy_pct)*1.5);
  if(matched?.changes?.trade_count_pct!=null&&matched?.changes?.under15_share_pp!=null)components.demand=clamp(50+Number(matched.changes.trade_count_pct)*.35+Number(matched.changes.under15_share_pp)*1.5);
- else if(latest&&prev)components.demand=clamp(50+((latest.total/prev.total)-1)*35+(latest.under15_share-prev.under15_share)*1.5);
  if(d.kb_value?.score_0_100!=null)components.value=Number(d.kb_value.score_0_100);
  if(d.kb_sentiment?.jeonse_score_0_100!=null)components.supply=Number(d.kb_sentiment.jeonse_score_0_100);
  window.__conditionComponents=components;
@@ -59,7 +58,7 @@ function scoreDetailRows(k,d,c){
  const m=d.m2_official||d.m2, x=d.matched_period, ks=d.kb_sentiment||{}, v=d.kb_value||{};
  if(k==='finance')return [['M2 전월비',m?.mom_pct==null?'미연결':signed(m.mom_pct,'%'),'50 + M2 전월비×8 + M2 전년비×1.5'],['M2 전년비',m?.yoy_pct==null?'미연결':signed(m.yoy_pct,'%'),'유동성의 중기 방향'],['현재 산출값',c.finance==null?'미연결':Math.round(c.finance)+'/100','연결된 ECOS 값으로 계산']];
  if(k==='sentiment')return [['KB 매수우위',ks.latest?.['매수우위']?.value==null?'미연결':Number(ks.latest['매수우위'].value).toFixed(1),'매수자와 매도자 압력'],['KB 거래활발',ks.latest?.['매매거래활발']?.value==null?'미연결':Number(ks.latest['매매거래활발'].value).toFixed(1),'실제 거래심리 보조'],['현재 산출값',c.sentiment==null?'미연결':Math.round(c.sentiment)+'/100','KB 공식 심리지표 조합']];
- if(k==='demand')return [['동일기간 거래량 변화',x?.changes?.trade_count_pct==null?'미연결':signed(x.changes.trade_count_pct,'%'),'신고일 차이를 줄인 전월 동일기간 비교'],['15억 이하 비중 변화',x?.changes?.under15_share_pp==null?'미연결':signed(x.changes.under15_share_pp,'%p'),'사용자 예산대의 실제 수요 이동'],['현재 산출값',c.demand==null?'미연결':Math.round(c.demand)+'/100','50 + 거래량 변화×0.35 + 비중 변화×1.5']];
+ if(k==='demand')return [['동일기간 거래량 변화',x?.changes?.trade_count_pct==null?'미연결':signed(x.changes.trade_count_pct,'%'),'신고일 차이를 줄인 전월 동일기간 비교'],['15억 이하 비중 변화',x?.changes?.under15_share_pp==null?'미연결':signed(x.changes.under15_share_pp,'%p'),'사용자 예산대의 실제 수요 이동'],['현재 산출값',c.demand==null?'산출 보류':Math.round(c.demand)+'/100',c.demand==null?'두 입력값이 모두 연결된 뒤 산출':'50 + 거래량 변화×0.35 + 비중 변화×1.5']];
  if(k==='value')return [['KB 가격 위치',d.kb_weekly_sale_index?.latest?.value==null?'미연결':Number(d.kb_weekly_sale_index.latest.value).toFixed(2),'가격 하락만으로 점수를 높이지 않고 장기 가격 위치를 평가'],['필요 이력',v.observations==null?'52주 이상':v.observations+'주','충분한 실제 주간 이력 확보 후 연결'],['현재 산출값',c.value==null?'미연결':Math.round(c.value)+'/100',v.status==='connected'?'검증된 이력 기반':'과거 이력 검증 대기']];
  return [['KB 전세수급',ks.latest?.['전세수급']?.value==null?'미연결':Number(ks.latest['전세수급'].value).toFixed(1),'전세 수요·공급 압력'],['전세거래활발',ks.latest?.['전세거래활발']?.value==null?'미연결':Number(ks.latest['전세거래활발'].value).toFixed(1),'전세시장 거래 강도'],['현재 산출값',c.supply==null?'미연결':Math.round(c.supply)+'/100','현재는 KB 전세 신호 연결, 입주·미분양은 검증 후 추가']];
 }
