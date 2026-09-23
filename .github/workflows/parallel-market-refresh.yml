@@ -155,7 +155,12 @@ jobs:
           # Rebase once before creating the generated-data commit to avoid add/add
           # conflicts when an older run overlaps a newer workflow revision.
           git reset
+          # Preserve generated snapshot across the rebase; otherwise reset/autostash can restore the old dist file.
+          cp dist/market_indicators.json /tmp/market_indicators.json
+          [ -f data_sources/kb_sentiment_score.json ] && cp data_sources/kb_sentiment_score.json /tmp/kb_sentiment_score.json || true
           git pull --rebase --autostash origin main
+          cp /tmp/market_indicators.json dist/market_indicators.json
+          [ -f /tmp/kb_sentiment_score.json ] && cp /tmp/kb_sentiment_score.json data_sources/kb_sentiment_score.json || true
           git add -f dist/market_indicators.json
           [ -f dist/m2_history.json ] && git add -f dist/m2_history.json
           [ -f dist/condition_index_history.json ] && git add -f dist/condition_index_history.json
