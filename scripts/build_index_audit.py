@@ -12,6 +12,7 @@ def main():
  vals={'finance':None,'sentiment':None,'demand':None,'value':None,'supply':None}
  s=d.get('kb_sentiment') or {}
  if s.get('score_0_100') is not None: vals['sentiment']=clamp(float(s['score_0_100']))
+ if s.get('jeonse_score_0_100') is not None: vals['supply']=clamp(float(s['jeonse_score_0_100']))
  if m.get('mom_pct') is not None and m.get('yoy_pct') is not None: vals['finance']=clamp(50+float(m['mom_pct'])*8+float(m['yoy_pct'])*1.5)
  if mp and mp.get('changes',{}).get('trade_count_pct') is not None and mp.get('changes',{}).get('under15_share_pp') is not None:
   c=mp['changes']; vals['demand']=clamp(50+float(c['trade_count_pct'])*.35+float(c['under15_share_pp'])*1.5)
