@@ -1,0 +1,10 @@
+{
+  "status": "official_ui_verified_endpoint_pending",
+  "requested_years": 3,
+  "verified_download_ui_count": 0,
+  "watchlist_count": 39,
+  "verified_pages": [],
+  "errors": [],
+  "reason": "KB complex pages expose 과거 KB시세 보기/KB시세 다운로드, but a stable public file endpoint is not yet verified. No synthetic backfill is used.",
+  "collected_at": "2026-09-23T09:45:25.797160+00:00"
+}
