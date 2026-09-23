@@ -17,6 +17,7 @@ const clamp=v=>Math.max(0,Math.min(100,v));
 function renderConditionIndex(d){
  const bands=d.price_bands?.months||[],latest=bands[bands.length-1],prev=bands[bands.length-2],m=d.m2_official||d.m2,matched=d.matched_period;
  const components={finance:null,sentiment:null,demand:null,value:null,supply:null};
+ if(d.kb_sentiment?.score_0_100!=null)components.sentiment=Number(d.kb_sentiment.score_0_100);
  if(m?.mom_pct!=null&&m?.yoy_pct!=null)components.finance=clamp(50+Number(m.mom_pct)*8+Number(m.yoy_pct)*1.5);
  if(matched?.changes?.trade_count_pct!=null&&matched?.changes?.under15_share_pp!=null)components.demand=clamp(50+Number(matched.changes.trade_count_pct)*.35+Number(matched.changes.under15_share_pp)*1.5);
  else if(latest&&prev)components.demand=clamp(50+((latest.total/prev.total)-1)*35+(latest.under15_share-prev.under15_share)*1.5);
