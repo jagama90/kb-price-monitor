@@ -38,7 +38,7 @@ jobs:
           playwright install chromium
           python3 scripts/collect_seoul.py
           python3 scripts/build_buy_watchlist_master.py
-          python3 scripts/collect_public_market.py
+          python3 scripts/collect_public_market.py || echo 'KB public-market enrichment failed; continuing with independent official API collectors'
           python3 scripts/refresh_market_indicators.py
           if [ -n "$MOLIT_SERVICE_KEY" ]; then python3 scripts/collect_molit_trades.py; else echo 'MOLIT_SERVICE_KEY not configured'; fi
           if [ -n "$BOK_ECOS_KEY" ]; then python3 scripts/collect_ecos_m2.py; else echo 'BOK_ECOS_KEY not configured'; fi
