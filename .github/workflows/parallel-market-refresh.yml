@@ -32,6 +32,7 @@ jobs:
         with: {python-version: '3.12'}
       - name: Collect KB weekly sentiment
         run: python3 scripts/collect_kb_sentiment.py
+          python3 scripts/collect_kb_datahub_batch.py
       - uses: actions/upload-artifact@v4
         with:
           name: source-kb-sentiment-${{ github.run_id }}
@@ -145,7 +146,7 @@ jobs:
           [ -f data_sources/molit_vintage_comparison.json ] && cp data_sources/molit_vintage_comparison.json dist/molit_vintage_comparison.json
           [ -f dist/molit_vintage_comparison.json ] && git add -f dist/molit_vintage_comparison.json
           [ -f data_sources/molit_vintage_comparison.json ] && git add -f data_sources/molit_vintage_comparison.json
-          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json; do
+          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_datahub_batch.json; do
             [ -f "$f" ] && git add -f "$f"
           done
           # Do not use `git add -A` here: data_sources is intentionally ignored and
