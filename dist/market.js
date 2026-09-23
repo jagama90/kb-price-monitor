@@ -74,20 +74,14 @@ function setupScoreDetails(d,c){
 }
 
 async function renderGarakGeumho24A(){
- const label=document.getElementById('garakHistoryLatest'),cv=document.getElementById('garakHistoryChart');
- if(!cv)return;
- try{
-  const r=await fetch('./garak_geumho_24a_history.json?v=20260924-94',{cache:'no-store'}); if(!r.ok)throw Error('HTTP '+r.status);
-  const d=await r.json(), rows=(d.series||[]).filter(x=>Number(x.sale)).slice(-96); if(!rows.length)throw Error('empty series');
-  const latest=rows[rows.length-1]; label.textContent=latest.ym.slice(0,4)+'.'+latest.ym.slice(4)+' · '+(latest.sale/10000).toFixed(2)+'억';
-  const draw=()=>{const wrap=cv.parentElement,W=Math.floor(wrap.getBoundingClientRect().width),H=window.innerWidth<=640?230:260;if(W<100){requestAnimationFrame(draw);return}
-   const D=Math.min(window.devicePixelRatio||1,2),ctx=cv.getContext('2d');cv.width=Math.floor(W*D);cv.height=Math.floor(H*D);cv.style.width=W+'px';cv.style.height=H+'px';ctx.setTransform(D,0,0,D,0,0);ctx.clearRect(0,0,W,H);
-   const vals=rows.flatMap(x=>[Number(x.sale),Number(x.rent)]).filter(v=>v>0),min=Math.min(...vals)*.94,max=Math.max(...vals)*1.04,p={l:38,r:8,t:12,b:26},X=i=>p.l+i*(W-p.l-p.r)/(rows.length-1),Y=v=>p.t+(max-v)/(max-min)*(H-p.t-p.b);
-   ctx.font='10px sans-serif';ctx.fillStyle='#738096';ctx.strokeStyle='#e8edf3';ctx.lineWidth=1;
-   for(let k=0;k<4;k++){const v=min+(max-min)*k/3,y=Y(v);ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(W-p.r,y);ctx.stroke();ctx.fillText((v/10000).toFixed(1),2,y+3)}
-   const line=(key,dash,color)=>{ctx.beginPath();ctx.setLineDash(dash);ctx.strokeStyle=color;ctx.lineWidth=2;let begun=false;rows.forEach((q,i)=>{const v=Number(q[key]);if(!v)return;if(!begun){ctx.moveTo(X(i),Y(v));begun=true}else ctx.lineTo(X(i),Y(v))});ctx.stroke();ctx.setLineDash([])};
-   line('sale',[],'#1769e0');line('rent',[5,4],'#f08a24');ctx.fillStyle='#738096';const every=W<420?24:12;rows.forEach((q,i)=>{if(i%every===0||i===rows.length-1){const t=q.ym.slice(2,4)+'.'+q.ym.slice(4);ctx.fillText(t,Math.min(W-28,Math.max(p.l-4,X(i)-9)),H-7)}})
-  }; requestAnimationFrame(()=>requestAnimationFrame(draw));
- }catch(e){label.textContent='데이터 연결 실패'; console.error('garak chart',e)}
+ const label=document.getElementById('garakHistoryLatest'),host=document.getElementById('garakHistoryChart'); if(!host)return;
+ try{const r=await fetch('garak_geumho_24a_history.json?v=95',{cache:'no-store'});if(!r.ok)throw Error(r.status);const d=await r.json(),rows=(d.series||[]).filter(x=>Number(x.sale)).slice(-96);if(!rows.length)throw Error('empty');
+ const latest=rows.at(-1);label.textContent=latest.ym.slice(0,4)+'.'+latest.ym.slice(4)+' · '+(latest.sale/10000).toFixed(2)+'억';
+ const W=420,H=230,p={l:38,r:8,t:12,b:26},vals=rows.flatMap(x=>[+x.sale,+x.rent]).filter(v=>v>0),lo=Math.min(...vals)*.94,hi=Math.max(...vals)*1.04,X=i=>p.l+i*(W-p.l-p.r)/(rows.length-1),Y=v=>p.t+(hi-v)/(hi-lo)*(H-p.t-p.b);
+ const poly=k=>rows.map((q,i)=>q[k]?X(i).toFixed(1)+','+Y(+q[k]).toFixed(1):'').filter(Boolean).join(' ');let g='',ticks='';
+ for(let k=0;k<4;k++){const v=lo+(hi-lo)*k/3,y=Y(v);g+='<line class="garak-grid" x1="'+p.l+'" y1="'+y+'" x2="'+(W-p.r)+'" y2="'+y+'"/><text class="garak-axis" x="2" y="'+(y+3)+'">'+(v/10000).toFixed(1)+'</text>'}
+ rows.forEach((q,i)=>{if(i%24===0||i===rows.length-1)ticks+='<text class="garak-axis" text-anchor="middle" x="'+X(i)+'" y="'+(H-7)+'">'+q.ym.slice(2,4)+'.'+q.ym.slice(4)+'</text>'});
+ host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="가락금호 24A KB 월별 매매 전세 시세">'+g+'<polyline class="garak-sale" points="'+poly('sale')+'"/><polyline class="garak-rent" points="'+poly('rent')+'"/>'+ticks+'</svg>';
+ }catch(e){label.textContent='데이터 연결 실패';host.innerHTML='<div class="chart-error">차트 데이터를 불러오지 못했습니다.</div>'}
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',renderGarakGeumho24A,{once:true});else renderGarakGeumho24A();
+renderGarakGeumho24A();
