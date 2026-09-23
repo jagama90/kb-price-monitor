@@ -1,11 +1,11 @@
 {
   "status": "sample_connected",
   "scope": "송파구 KB 단지 최소시세 cross-section",
-  "as_of": "2026-09-23T16:44:22Z",
+  "as_of": "2026-09-23T17:39:59Z",
   "complex_count": 331,
   "median_min_price_manwon": 95000.0,
   "score_0_100": 50,
   "score_status": "neutral_sample_only",
   "note": "Historical drawdown/peak-distance is not yet available; neutral 50 is sample-only and is NOT eligible for production index contribution.",
-  "generated_at": "2026-09-23T16:51:10.842631+00:00"
+  "generated_at": "2026-09-23T17:46:47.640295+00:00"
 }
