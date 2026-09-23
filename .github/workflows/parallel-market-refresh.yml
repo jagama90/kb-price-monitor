@@ -157,6 +157,7 @@ jobs:
           git reset
           cp dist/market_indicators.json /tmp/market_indicators.json
           [ -f data_sources/kb_sentiment_score.json ] && cp data_sources/kb_sentiment_score.json /tmp/kb_sentiment_score.json || true
+          rm -f data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json
           git pull --rebase --autostash origin main
           cp /tmp/market_indicators.json dist/market_indicators.json
           [ -f /tmp/kb_sentiment_score.json ] && cp /tmp/kb_sentiment_score.json data_sources/kb_sentiment_score.json || true
