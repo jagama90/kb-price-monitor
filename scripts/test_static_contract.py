@@ -23,7 +23,9 @@ class StaticContract(unittest.TestCase):
         # the legacy app.js used by the separate watchlist UI.
         scripts=[a.split('?',1)[0] for a in page.assets if a.split('?',1)[0].endswith('.js')]
         code='\n'.join((ROOT/'dist'/s).read_text() for s in scripts)
-        for selector in re.findall(r"(?:querySelector\(|\$\()['\"]#([A-Za-z][\w-]*)",code):self.assertIn(selector,page.ids)
+        generated=set(re.findall(r'''id=["']([A-Za-z][\w-]*)''',code))
+        for selector in re.findall(r"(?:querySelector\(|\$\()['\"]#([A-Za-z][\w-]*)",code):
+            self.assertTrue(selector in page.ids or selector in generated,selector)
         self.assertNotIn('seoul_snapshot.json',code)
         self.assertNotIn('min_price_manwon',code)
 if __name__=='__main__':unittest.main()
