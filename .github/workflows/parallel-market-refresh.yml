@@ -34,6 +34,7 @@ jobs:
       - name: Collect KB weekly sentiment
         run: |
           python3 scripts/collect_kb_sentiment.py
+          python3 scripts/collect_kb_statusboard_live.py
           python3 scripts/collect_kb_datahub_batch.py
           python3 scripts/collect_kb_weekly_sale_index.py
       - uses: actions/upload-artifact@v4
@@ -41,6 +42,7 @@ jobs:
           name: source-kb-sentiment-${{ github.run_id }}
           path: |
             data_sources/kb_sentiment.json
+            data_sources/kb_statusboard_live.json
             data_sources/kb_datahub_batch.json
             data_sources/kb_weekly_sale_index.json
   molit:
