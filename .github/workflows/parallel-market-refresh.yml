@@ -9,6 +9,10 @@ on:
       - 'scripts/collect_molit_trades.py'
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/build_market_snapshot.py'
+      - 'scripts/test_static_contract.py'
+      - 'dist/index.html'
+      - 'dist/market.html'
+      - 'dist/market.js'
 permissions:
   contents: write
 concurrency:
