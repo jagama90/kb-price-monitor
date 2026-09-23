@@ -49,14 +49,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - name: Collect ECOS M2
+      - name: Smoke-test ECOS finance sources
         run: |
           test -n "$BOK_ECOS_KEY"
-          python3 scripts/collect_ecos_m2.py
+          python3 scripts/smoke_ecos_sources.py
+      - name: Collect ECOS M2
+        run: python3 scripts/collect_ecos_m2.py
       - uses: actions/upload-artifact@v4
         with:
           name: source-ecos-${{ github.run_id }}
-          path: data_sources/ecos_m2.json
+          path: |
+            data_sources/ecos_m2.json
+            data_sources/ecos_smoke.json
   aggregate:
     name: E · Aggregate and validate
     if: always()
@@ -99,7 +103,7 @@ jobs:
           [ -f dist/index_audit.json ] && git add -f dist/index_audit.json
           [ -f dist/validation_report.json ] && git add -f dist/validation_report.json
           [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
-          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json; do
+          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json; do
             [ -f "$f" ] && git add -f "$f"
           done
           # Do not use `git add -A` here: data_sources is intentionally ignored and
