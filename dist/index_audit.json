@@ -9,24 +9,23 @@
   },
   "components": {
     "finance": 61.099999999999994,
-    "sentiment": null,
+    "sentiment": 22.8,
     "demand": 30.900796812748993,
     "value": null,
     "supply": null
   },
   "contribution_vs_neutral": {
     "finance": 2.77,
-    "sentiment": null,
+    "sentiment": -5.44,
     "demand": -3.82,
     "value": null,
     "supply": null
   },
-  "coverage_weight": 45,
+  "coverage_weight": 65,
   "freshness_score": 100,
   "provisional_input": true,
-  "confidence_pct": 40.5,
+  "confidence_pct": 58.5,
   "missing": [
-    "sentiment",
     "value",
     "supply"
   ],
