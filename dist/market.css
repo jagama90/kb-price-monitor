@@ -11,3 +11,6 @@ header nav a{color:inherit;text-decoration:none;margin:0 12px}.hero{margin-top:0
 /* v24: keep KB x-axis labels clear of the DB history note */
 .kbchart{margin-bottom:14px}.kb-plot{padding-bottom:30px}.kb-x{bottom:2px}.chartcard #kbHistoryNote{display:block;margin-top:8px;line-height:1.5}
 @media(max-width:800px){.kbchart{height:190px;margin-bottom:16px}.kb-plot{padding-bottom:32px}.chartcard #kbHistoryNote{margin-top:10px}}
+
+/* decision-flow v75 */
+.compact-components{margin-top:14px}.decision-brief{margin-top:18px}.decision-brief details{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}.evidence-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.evidence-strip>div{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:14px}.evidence-strip span,.evidence-strip small{display:block;color:var(--muted);font-size:12px}.evidence-strip b{display:block;margin:7px 0;font-size:18px}.backtest-pending{display:flex;justify-content:space-between;gap:20px;align-items:center}.backtest-pending span{color:var(--muted)}@media(max-width:760px){.evidence-strip{grid-template-columns:1fr 1fr}.backtest-pending{display:block}.backtest-pending span{display:block;margin-top:8px}}
