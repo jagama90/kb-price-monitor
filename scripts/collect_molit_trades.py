@@ -1,21 +1,31 @@
 #!/usr/bin/env python3
-import os,json,datetime,urllib.parse,urllib.request,xml.etree.ElementTree as ET,pathlib,calendar
+import os,json,datetime,urllib.parse,urllib.request,xml.etree.ElementTree as ET,pathlib,calendar,time,random
 from zoneinfo import ZoneInfo
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/molit.json'; VINTAGE=ROOT/'data_sources/molit_daily_history.json'
 SEOUL=['11110','11140','11170','11200','11215','11230','11260','11290','11305','11320','11350','11380','11410','11440','11470','11500','11530','11545','11560','11590','11620','11650','11680','11710','11740']
 def request_page(code,ym,key,page):
  q=urllib.parse.urlencode({'serviceKey':key,'LAWD_CD':code,'DEAL_YMD':ym,'numOfRows':1000,'pageNo':page},safe='%')
- return ET.fromstring(urllib.request.urlopen('https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev?'+q,timeout=30).read())
+ url='https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev?'+q
+ last=None
+ for attempt in range(5):
+  try:
+   req=urllib.request.Request(url,headers={'User-Agent':'kb-price-monitor/1.0'})
+   return ET.fromstring(urllib.request.urlopen(req,timeout=60).read())
+  except Exception as e:
+   last=e
+   if attempt==4: break
+   time.sleep(min(20,2**attempt+random.random()))
+ raise last
 def item_value(it,*names):
  for n in names:
   v=it.findtext(n)
   if v is not None and str(v).strip():return str(v).strip()
  return ''
 def fetch_all(code,ym,key):
- rows=[];page=1
+ rows=[];page=1;fetched=0
  while True:
-  root=request_page(code,ym,key,page);items=root.findall('.//item')
+  root=request_page(code,ym,key,page);items=root.findall('.//item');fetched+=len(items)
   for it in items:
    s=item_value(it,'dealAmount','거래금액').replace(',','').strip();day=item_value(it,'dealDay','일')
    if s.isdigit():
@@ -23,7 +33,7 @@ def fetch_all(code,ym,key):
     except:dd=0
     rows.append((dd,int(s)))
   total=int(root.findtext('.//totalCount') or len(rows))
-  if not items or len(rows)>=total:break
+  if not items or fetched>=total:break
   page+=1
   if page>100:raise RuntimeError(f'pagination guard {code} {ym}')
  return rows
