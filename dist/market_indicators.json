@@ -151,5 +151,8 @@
         "under15_share": 82.1
       }
     ]
+  },
+  "data_status": {
+    "kb_history": "official_ui_verified_endpoint_pending"
   }
 }

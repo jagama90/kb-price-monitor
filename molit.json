@@ -1,0 +1,211 @@
+{
+  "source": "MOLIT apartment trade OpenAPI",
+  "collected_at": "2026-09-23T19:29:55.899179+09:00",
+  "seoul_apt_trade_count": [
+    [
+      "2026-03",
+      5717,
+      false
+    ],
+    [
+      "2026-04",
+      8921,
+      false
+    ],
+    [
+      "2026-05",
+      9262,
+      false
+    ],
+    [
+      "2026-06",
+      5473,
+      false
+    ],
+    [
+      "2026-07",
+      5992,
+      false
+    ],
+    [
+      "2026-08",
+      3514,
+      false
+    ],
+    [
+      "2026-09",
+      1235,
+      true
+    ]
+  ],
+  "price_bands": {
+    "status": "connected",
+    "months": [
+      {
+        "period": "2026-03",
+        "total": 5717,
+        "counts": {
+          "<=9eok": 3156,
+          "9-15eok": 1607,
+          "15-25eok": 694,
+          "25eok+": 260
+        },
+        "boundary_counts": {
+          "13-15eok": 401,
+          "15-17eok": 265,
+          "23-25eok": 62,
+          "25-27eok": 29
+        },
+        "under15_share": 83.3
+      },
+      {
+        "period": "2026-04",
+        "total": 8921,
+        "counts": {
+          "<=9eok": 4342,
+          "9-15eok": 2413,
+          "15-25eok": 1387,
+          "25eok+": 779
+        },
+        "boundary_counts": {
+          "13-15eok": 628,
+          "15-17eok": 474,
+          "23-25eok": 146,
+          "25-27eok": 109
+        },
+        "under15_share": 75.7
+      },
+      {
+        "period": "2026-05",
+        "total": 9262,
+        "counts": {
+          "<=9eok": 4132,
+          "9-15eok": 2559,
+          "15-25eok": 1642,
+          "25eok+": 929
+        },
+        "boundary_counts": {
+          "13-15eok": 640,
+          "15-17eok": 574,
+          "23-25eok": 174,
+          "25-27eok": 147
+        },
+        "under15_share": 72.2
+      },
+      {
+        "period": "2026-06",
+        "total": 5473,
+        "counts": {
+          "<=9eok": 2529,
+          "9-15eok": 1632,
+          "15-25eok": 917,
+          "25eok+": 395
+        },
+        "boundary_counts": {
+          "13-15eok": 440,
+          "15-17eok": 319,
+          "23-25eok": 71,
+          "25-27eok": 53
+        },
+        "under15_share": 76.0
+      },
+      {
+        "period": "2026-07",
+        "total": 5992,
+        "counts": {
+          "<=9eok": 2979,
+          "9-15eok": 1781,
+          "15-25eok": 879,
+          "25eok+": 353
+        },
+        "boundary_counts": {
+          "13-15eok": 493,
+          "15-17eok": 308,
+          "23-25eok": 79,
+          "25-27eok": 47
+        },
+        "under15_share": 79.4
+      },
+      {
+        "period": "2026-08",
+        "total": 3514,
+        "counts": {
+          "<=9eok": 1848,
+          "9-15eok": 954,
+          "15-25eok": 527,
+          "25eok+": 185
+        },
+        "boundary_counts": {
+          "13-15eok": 242,
+          "15-17eok": 181,
+          "23-25eok": 55,
+          "25-27eok": 29
+        },
+        "under15_share": 79.7
+      },
+      {
+        "period": "2026-09",
+        "total": 1235,
+        "counts": {
+          "<=9eok": 758,
+          "9-15eok": 256,
+          "15-25eok": 165,
+          "25eok+": 56
+        },
+        "boundary_counts": {
+          "13-15eok": 54,
+          "15-17eok": 56,
+          "23-25eok": 14,
+          "25-27eok": 4
+        },
+        "under15_share": 82.1
+      }
+    ]
+  },
+  "matched_period": {
+    "as_of": "2026-09-23",
+    "cutoff_day": 23,
+    "basis": "contract_date_equal_calendar_days",
+    "current": {
+      "period": "2026-09",
+      "range": "1~23일",
+      "total": 1235,
+      "counts": {
+        "<=9eok": 758,
+        "9-15eok": 256,
+        "15-25eok": 165,
+        "25eok+": 56
+      },
+      "boundary_counts": {
+        "13-15eok": 54,
+        "15-17eok": 56,
+        "23-25eok": 14,
+        "25-27eok": 4
+      },
+      "under15_share": 82.1
+    },
+    "previous": {
+      "period": "2026-08",
+      "range": "1~23일",
+      "total": 2685,
+      "counts": {
+        "<=9eok": 1357,
+        "9-15eok": 767,
+        "15-25eok": 412,
+        "25eok+": 149
+      },
+      "boundary_counts": {
+        "13-15eok": 194,
+        "15-17eok": 141,
+        "23-25eok": 44,
+        "25-27eok": 25
+      },
+      "under15_share": 79.1
+    },
+    "changes": {
+      "trade_count_pct": -54.0,
+      "under15_share_pp": 3.0
+    },
+    "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+  }
+}

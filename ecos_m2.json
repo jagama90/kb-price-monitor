@@ -1,0 +1,10 @@
+{
+  "source": "한국은행 ECOS",
+  "table": "101Y003",
+  "definition": "광의통화(M2) 동일 수준계열에서 MoM/YoY 계산",
+  "selected_item": null,
+  "series": [],
+  "candidate_item_count": 0,
+  "raw_row_count": 0,
+  "collected_at": "2026-09-23T10:26:35.464021+00:00"
+}
