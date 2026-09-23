@@ -18,8 +18,12 @@ class StaticContract(unittest.TestCase):
         for asset in page.assets:
             clean=asset.split('?',1)[0]
             self.assertTrue((ROOT/'dist'/clean).is_file(),asset)
-        code=(ROOT/'dist/app.js').read_text()
-        for selector in re.findall(r"\$\('#([A-Za-z][\w-]*)",code):self.assertIn(selector,page.ids)
+        # index.html is the market dashboard and is driven by market.js. Validate
+        # selectors against the script actually referenced by the page rather than
+        # the legacy app.js used by the separate watchlist UI.
+        scripts=[a.split('?',1)[0] for a in page.assets if a.split('?',1)[0].endswith('.js')]
+        code='\n'.join((ROOT/'dist'/s).read_text() for s in scripts)
+        for selector in re.findall(r"(?:querySelector\(|\$\()['\"]#([A-Za-z][\w-]*)",code):self.assertIn(selector,page.ids)
         self.assertNotIn('seoul_snapshot.json',code)
         self.assertNotIn('min_price_manwon',code)
 if __name__=='__main__':unittest.main()
