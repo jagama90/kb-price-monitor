@@ -49,7 +49,8 @@ jobs:
           cp data_sources/kb_value_sample.json dist/kb_value_sample.json
           python3 scripts/collect_public_market.py || echo 'KB public-market enrichment failed; continuing with independent official API collectors'
           cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
-      - name: Probe official KB history UI and endpoint\n        run: |\n          python3 scripts/backfill_kb_history.py\n          python3 scripts/probe_kb_history_endpoint.py
+      - name: Probe official KB history endpoint
+        run: python3 scripts/probe_kb_history_endpoint.py
       - name: Validate snapshot
         run: |
           node scripts/test_price_core.cjs data/seoul_types.json
@@ -71,14 +72,9 @@ jobs:
           retention-days: 30
           path: |
             data/seoul_snapshot.json
-            data/seoul_snapshot.csv
             data/seoul_types.json
-            data/price_changes.json
             data/buy_watchlist_master.json
-            data/buy_watchlist_types.json
-            dist/seoul_types.json
+            data_sources/kb_history_probe.json
+            data_sources/kb_value_sample.json
             dist/buy_watchlist_master.json
-            data/buy_watchlist_market.json
-            dist/buy_watchlist_market.json
-            data_sources/kb_history_status.json\n            data_sources/kb_history_probe.json\n            data_sources/kb_value_sample.json
             dist/kb_value_sample.json
