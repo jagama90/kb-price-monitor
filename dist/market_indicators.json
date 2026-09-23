@@ -65,6 +65,10 @@
     "current": 3,
     "history": [
       [
+        "2023-01-13",
+        3.5
+      ],
+      [
         "2024-10-11",
         3.25
       ],
@@ -102,7 +106,44 @@
     "upper": 4,
     "effective_date": "2026-09-17",
     "source": "Federal Reserve",
-    "monitor": "FOMC"
+    "monitor": "FOMC",
+    "history": [
+      [
+        "2024-09-19",
+        4.75,
+        5
+      ],
+      [
+        "2024-11-08",
+        4.5,
+        4.75
+      ],
+      [
+        "2024-12-19",
+        4.25,
+        4.5
+      ],
+      [
+        "2025-09-18",
+        4,
+        4.25
+      ],
+      [
+        "2025-10-30",
+        3.75,
+        4
+      ],
+      [
+        "2025-12-11",
+        3.5,
+        3.75
+      ],
+      [
+        "2026-09-17",
+        3.75,
+        4
+      ]
+    ]
   },
   "release_calendar": {
     "korea_m2": [
@@ -128,5 +169,19 @@
       }
     ],
     "roll_forward": true
+  },
+  "comparisons": {
+    "seoul_apt_trade_count": {
+      "current_period": "2026-08",
+      "baseline_period": "2026-07",
+      "change_pct": -46.2,
+      "note": "8월 계약분은 신고 진행 중"
+    },
+    "under15_share": {
+      "current_period": "2026-08",
+      "baseline_period": "2026-05",
+      "change_pp": 7.5,
+      "note": "서울시 비교 보도자료 기준"
+    }
   }
 }
