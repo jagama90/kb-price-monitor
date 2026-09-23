@@ -14,6 +14,7 @@ on:
       - 'scripts/collect_molit_trades.py'
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/backfill_kb_history.py'
+      - 'dist/market.html'
 
 permissions:
   contents: write
