@@ -1,0 +1,23 @@
+name: Remaining KB sources
+on:
+  workflow_dispatch:
+  push:
+    paths: ['scripts/collect_kb_remaining_sources.py','scripts/build_kb_backtest_target.py','.github/workflows/kb-remaining-five.yml']
+permissions: {contents: write}
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 scripts/collect_kb_remaining_sources.py
+      - run: python3 scripts/build_kb_backtest_target.py
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data_sources/kb_remaining_sources.json dist/kb_remaining_sources.json dist/kb_price_backtest_target.json
+          git commit -m 'Refresh remaining KB sources and backtest target' || exit 0
+          git pull --rebase origin main || true
+          git push origin HEAD:main || true
