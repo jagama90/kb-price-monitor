@@ -1,0 +1,21 @@
+name: Garak Geumho 24A history
+on:
+  workflow_dispatch:
+  push:
+    paths: ['scripts/collect_garak_geumho_24a.py','.github/workflows/garak-geumho-history.yml']
+permissions: {contents: write}
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 scripts/collect_garak_geumho_24a.py
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f dist/garak_geumho_24a_history.json
+          git commit -m 'Refresh Garak Geumho 24A history' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
