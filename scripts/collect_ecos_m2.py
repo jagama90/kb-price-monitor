@@ -1,7 +1,17 @@
 #!/usr/bin/env python3
-import os,json,urllib.request,pathlib,datetime
+import os,json,urllib.request,pathlib,datetime,time,random
 ROOT=pathlib.Path(__file__).resolve().parents[1];OUT=ROOT/'data_sources/ecos_m2.json'
-def get(url): return json.load(urllib.request.urlopen(url,timeout=30))
+def get(url):
+ last=None
+ for attempt in range(5):
+  try:
+   req=urllib.request.Request(url,headers={'User-Agent':'kb-price-monitor/1.0'})
+   return json.load(urllib.request.urlopen(req,timeout=60))
+  except Exception as e:
+   last=e
+   if attempt==4: break
+   time.sleep(min(20,2**attempt+random.random()))
+ raise last
 def main():
  key=os.getenv('BOK_ECOS_KEY')
  if not key: raise SystemExit('BOK_ECOS_KEY secret is required')
