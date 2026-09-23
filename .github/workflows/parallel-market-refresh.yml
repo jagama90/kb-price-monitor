@@ -113,6 +113,8 @@ jobs:
           [ -f dist/condition_index_history.json ] && git add -f dist/condition_index_history.json
           [ -f dist/index_audit.json ] && git add -f dist/index_audit.json
           [ -f dist/validation_report.json ] && git add -f dist/validation_report.json
+          [ -f data_sources/ecos_finance_sample.json ] && cp data_sources/ecos_finance_sample.json dist/ecos_finance_sample.json
+          [ -f dist/ecos_finance_sample.json ] && git add -f dist/ecos_finance_sample.json
           [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
           for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json; do
             [ -f "$f" ] && git add -f "$f"
