@@ -28,6 +28,9 @@ function renderConditionIndex(d){
  window.__conditionComponents=components;
  const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},labels={finance:'scoreFinance',sentiment:'scoreSentiment',demand:'scoreDemand',value:'scoreValue',supply:'scoreSupply'};
  Object.entries(labels).forEach(([k,id])=>setText(id,components[k]==null?'미연결':Math.round(components[k])+'/100'));
+ const historyKey='marketConditionPreviousComponents', previous=(()=>{try{return JSON.parse(localStorage.getItem(historyKey)||'{}')}catch(e){return {}}})();
+ Object.entries(labels).forEach(([k,id])=>{const card=document.querySelector('[data-score="'+k+'"]'),old=previous[k],now=components[k];card?.querySelector('.score-change-badge')?.remove();if(old!=null&&now!=null&&Math.round(Number(old))!==Math.round(Number(now))){const delta=Math.round(Number(now))-Math.round(Number(old)),badge=document.createElement('span');badge.className='score-change-badge '+(delta>0?'score-up':'score-down');badge.textContent=(delta>0?'↑ +':'↓ ')+delta;badge.title='이전 확인값 '+Math.round(Number(old))+' → 현재 '+Math.round(Number(now));card?.appendChild(badge)}});
+ try{localStorage.setItem(historyKey,JSON.stringify(components))}catch(e){}
  const available=Object.keys(components).filter(k=>components[k]!=null),covered=available.reduce((a,k)=>a+weights[k],0);
  setText('confidenceScore',covered+'% 가중치 연결');
  if(covered<60){setText('conditionScore','산출 보류');document.querySelector('#scoreRing strong').textContent='—';document.querySelector('#scoreRing span').textContent='신뢰도 부족'}
