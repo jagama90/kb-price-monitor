@@ -117,6 +117,9 @@ jobs:
         with:
           name: source-kb-sentiment-${{ github.run_id }}
           path: .
+      - name: Build KB sentiment component
+        if: needs.kb_sentiment.result == 'success'
+        run: python3 scripts/build_kb_sentiment_score.py
       - name: Build last-good snapshot
         run: python3 scripts/build_market_snapshot.py
       - name: Build condition-index history
@@ -142,7 +145,7 @@ jobs:
           [ -f data_sources/molit_vintage_comparison.json ] && cp data_sources/molit_vintage_comparison.json dist/molit_vintage_comparison.json
           [ -f dist/molit_vintage_comparison.json ] && git add -f dist/molit_vintage_comparison.json
           [ -f data_sources/molit_vintage_comparison.json ] && git add -f data_sources/molit_vintage_comparison.json
-          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json data_sources/kb_sentiment.json; do
+          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json; do
             [ -f "$f" ] && git add -f "$f"
           done
           # Do not use `git add -A` here: data_sources is intentionally ignored and
