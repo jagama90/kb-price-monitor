@@ -85,6 +85,8 @@ jobs:
         run: python3 scripts/build_condition_history.py
       - name: Build index contribution and confidence audit
         run: python3 scripts/build_index_audit.py
+      - name: Run condition-index validation engine
+        run: python3 scripts/validate_condition_index.py
       - name: Validate dashboard contract
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Commit source snapshots
@@ -95,6 +97,7 @@ jobs:
           [ -f dist/m2_history.json ] && git add -f dist/m2_history.json
           [ -f dist/condition_index_history.json ] && git add -f dist/condition_index_history.json
           [ -f dist/index_audit.json ] && git add -f dist/index_audit.json
+          [ -f dist/validation_report.json ] && git add -f dist/validation_report.json
           [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
           for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json; do
             [ -f "$f" ] && git add -f "$f"
