@@ -19,6 +19,7 @@ def main():
  s=read('kb_sentiment_score.json')
  if s and s.get('score_0_100') is not None:
   d['kb_sentiment']=s;d.setdefault('data_status',{})['kb_sentiment']='connected'
+  if s.get('jeonse_score_0_100') is not None: d.setdefault('data_status',{})['kb_jeonse_supply']='connected'
  kb=read('kb_history_status.json')
  if kb:d.setdefault('data_status',{})['kb_history']=kb.get('status')
  d['updated_at']=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date().isoformat();OUT.write_text(json.dumps(d,ensure_ascii=False,indent=2))
