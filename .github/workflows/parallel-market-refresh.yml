@@ -9,6 +9,7 @@ on:
       - 'scripts/collect_molit_trades.py'
       - 'scripts/smoke_ecos_sources.py'
       - 'scripts/sample_ecos_finance.py'
+      - 'scripts/collect_kb_sentiment.py'
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/build_market_snapshot.py'
       - 'scripts/test_static_contract.py'
@@ -21,6 +22,20 @@ concurrency:
   group: market-data-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  kb_sentiment:
+    name: C · KB sentiment
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Collect KB weekly sentiment
+        run: python3 scripts/collect_kb_sentiment.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-kb-sentiment-${{ github.run_id }}
+          path: data_sources/kb_sentiment.json
   molit:
     name: A · MOLIT trades
     runs-on: ubuntu-latest
@@ -75,7 +90,7 @@ jobs:
   aggregate:
     name: E · Aggregate and validate
     if: always()
-    needs: [molit, ecos]
+    needs: [molit, ecos, kb_sentiment]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -96,6 +111,12 @@ jobs:
           path: .
       - name: Compare MOLIT reporting vintages
         run: python3 scripts/compare_molit_vintages.py
+      - name: Download KB sentiment artifact
+        if: needs.kb_sentiment.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: source-kb-sentiment-${{ github.run_id }}
+          path: .
       - name: Build last-good snapshot
         run: python3 scripts/build_market_snapshot.py
       - name: Build condition-index history
@@ -121,7 +142,7 @@ jobs:
           [ -f data_sources/molit_vintage_comparison.json ] && cp data_sources/molit_vintage_comparison.json dist/molit_vintage_comparison.json
           [ -f dist/molit_vintage_comparison.json ] && git add -f dist/molit_vintage_comparison.json
           [ -f data_sources/molit_vintage_comparison.json ] && git add -f data_sources/molit_vintage_comparison.json
-          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json; do
+          for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json data_sources/kb_sentiment.json; do
             [ -f "$f" ] && git add -f "$f"
           done
           # Do not use `git add -A` here: data_sources is intentionally ignored and
