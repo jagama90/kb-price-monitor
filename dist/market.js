@@ -72,3 +72,20 @@ function setupScoreDetails(d,c){
  document.querySelectorAll('.score-component').forEach(el=>{el.onclick=()=>open(el.dataset.score);el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(el.dataset.score)}}});
  document.getElementById('closeScoreExplain')?.addEventListener('click',()=>document.getElementById('scoreExplanation').hidden=true);
 }
+
+async function renderGarakGeumho24A(){
+ try{
+  const d=await fetch('garak_geumho_24a_history.json?'+Date.now()).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});
+  const rows=(d.series||[]).filter(x=>x.sale).slice(-96), cv=document.getElementById('garakHistoryChart'); if(!cv||!rows.length)return;
+  const latest=rows[rows.length-1]; document.getElementById('garakHistoryLatest').textContent=latest.ym.slice(0,4)+'.'+latest.ym.slice(4)+' · '+(latest.sale/10000).toFixed(2)+'억';
+  const ctx=cv.getContext('2d'); const W=cv.clientWidth||700,H=210,D=devicePixelRatio||1; cv.width=W*D;cv.height=H*D;ctx.scale(D,D);
+  const vals=rows.flatMap(x=>[x.sale,x.rent]).filter(Boolean), min=Math.min(...vals)*.94,max=Math.max(...vals)*1.04,p={l:42,r:10,t:14,b:28};
+  const X=i=>p.l+i*(W-p.l-p.r)/(rows.length-1),Y=v=>p.t+(max-v)/(max-min)*(H-p.t-p.b);
+  ctx.font='10px sans-serif';ctx.fillStyle='#738096';ctx.strokeStyle='#e8edf3';ctx.lineWidth=1;
+  for(let k=0;k<4;k++){let v=min+(max-min)*k/3,y=Y(v);ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(W-p.r,y);ctx.stroke();ctx.fillText((v/10000).toFixed(1),4,y+3)}
+  function line(key,dash){ctx.beginPath();ctx.setLineDash(dash);ctx.strokeStyle=key==='sale'?'#1769e0':'#f08a24';ctx.lineWidth=2;rows.forEach((r,i)=>{if(!r[key])return; i?ctx.lineTo(X(i),Y(r[key])):ctx.moveTo(X(i),Y(r[key]))});ctx.stroke();ctx.setLineDash([])}
+  line('sale',[]);line('rent',[5,4]);ctx.fillStyle='#738096';
+  rows.forEach((r,i)=>{if(i%12===0||i===rows.length-1){const y=r.ym.slice(2,4)+'.'+r.ym.slice(4);ctx.fillText(y,X(i)-10,H-8)}})
+ }catch(e){const x=document.getElementById('garakHistoryLatest');if(x)x.textContent='데이터 연결 대기'}
+}
+renderGarakGeumho24A();
