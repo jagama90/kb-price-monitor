@@ -127,6 +127,8 @@ jobs:
         with:
           name: source-kb-sentiment-${{ github.run_id }}
           path: data_sources
+      - name: Build KB value component
+        run: python3 scripts/build_kb_value_score.py
       - name: Build KB sentiment component
         if: needs.kb_sentiment.result == 'success'
         run: python3 scripts/build_kb_sentiment_score.py
