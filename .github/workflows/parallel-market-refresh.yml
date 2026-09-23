@@ -1,0 +1,89 @@
+name: Parallel market data refresh
+on:
+  schedule:
+    - cron: '5 22 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/parallel-market-refresh.yml'
+      - 'scripts/collect_molit_trades.py'
+      - 'scripts/collect_ecos_m2.py'
+      - 'scripts/build_market_snapshot.py'
+permissions:
+  contents: write
+concurrency:
+  group: market-data-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  molit:
+    name: A · MOLIT trades
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Collect MOLIT
+        run: |
+          test -n "$MOLIT_SERVICE_KEY"
+          python3 scripts/collect_molit_trades.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-molit-${{ github.run_id }}
+          path: |
+            data_sources/molit.json
+            data_sources/molit_daily_history.json
+  ecos:
+    name: B · BOK ECOS
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      BOK_ECOS_KEY: ${{ secrets.BOK_ECOS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Collect ECOS M2
+        run: |
+          test -n "$BOK_ECOS_KEY"
+          python3 scripts/collect_ecos_m2.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-ecos-${{ github.run_id }}
+          path: data_sources/ecos_m2.json
+  aggregate:
+    name: E · Aggregate and validate
+    if: always()
+    needs: [molit, ecos]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Download MOLIT artifact
+        if: needs.molit.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: source-molit-${{ github.run_id }}
+          path: .
+      - name: Download ECOS artifact
+        if: needs.ecos.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: source-ecos-${{ github.run_id }}
+          path: .
+      - name: Build last-good snapshot
+        run: python3 scripts/build_market_snapshot.py
+      - name: Validate dashboard contract
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Commit source snapshots
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json dist/market_indicators.json dist/m2_history.json
+          git commit -m 'Daily parallel market data refresh' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
