@@ -20,6 +20,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: market-refresh-main
+  cancel-in-progress: true
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -34,18 +38,23 @@ jobs:
         with:
           python-version: '3.12'
       - name: Collect fresh KB data
+        continue-on-error: true
         run: |
           pip install playwright
           playwright install chromium
           python3 scripts/collect_seoul.py
           python3 scripts/build_buy_watchlist_master.py
           python3 scripts/collect_public_market.py || echo 'KB public-market enrichment failed; continuing with independent official API collectors'
+          cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
+      - name: Collect official market indicators independently
+        if: always()
+        run: |
           python3 scripts/refresh_market_indicators.py
           if [ -n "$MOLIT_SERVICE_KEY" ]; then python3 scripts/collect_molit_trades.py; else echo 'MOLIT_SERVICE_KEY not configured'; fi
           if [ -n "$BOK_ECOS_KEY" ]; then python3 scripts/collect_ecos_m2.py; else echo 'BOK_ECOS_KEY not configured'; fi
           python3 scripts/backfill_kb_history.py
-          cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
       - name: Validate snapshot
+        continue-on-error: true
         run: |
           node scripts/test_price_core.cjs data/seoul_types.json
           python3 -m unittest discover -s scripts -p 'test_*.py'
