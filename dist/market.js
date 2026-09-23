@@ -5,6 +5,15 @@ async function loadMarketIndicators(){
   if(d.seoul_apt_trade_count?.length){
    SEOUL_VOLUME=d.seoul_apt_trade_count.map(x=>({m:Number(x[0].slice(5))+'월',v:x[1],p:x[2]}));renderVolume();
   }
+  if(d.matched_period){
+   const x=d.matched_period,c=x.current,p=x.previous,fmt=v=>v==null?'—':Number(v).toLocaleString('ko-KR');
+   const rg=document.querySelector('#matchedRange'),vv=document.querySelector('#matchedVolume'),vd=document.querySelector('#matchedVolumeDelta'),uv=document.querySelector('#matchedUnder15'),ud=document.querySelector('#matchedUnder15Delta');
+   if(rg)rg.textContent=p.period+' '+p.range+' ↔ '+c.period+' '+c.range+' · 계약일 기준';
+   if(vv)vv.textContent=fmt(p.total)+'건 → '+fmt(c.total)+'건';
+   if(vd)vd.textContent=x.changes?.trade_count_pct==null?'증감 계산 대기':((x.changes.trade_count_pct>0?'+':'')+x.changes.trade_count_pct+'% · 당월 신고 진행');
+   if(uv)uv.textContent=(p.under15_share??'—')+'% → '+(c.under15_share??'—')+'%';
+   if(ud)ud.textContent=x.changes?.under15_share_pp==null?'증감 계산 대기':((x.changes.under15_share_pp>0?'+':'')+x.changes.under15_share_pp+'%p · 동일기간');
+  }
   const fresh=document.querySelector('.fresh');
   if(fresh&&d.updated_at) fresh.insertAdjacentHTML('beforeend','<div><b>시장지표 파일</b><span>'+d.updated_at+' 갱신</span></div>');
  }catch(e){}
