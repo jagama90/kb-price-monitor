@@ -94,6 +94,8 @@ jobs:
         with:
           name: source-ecos-${{ github.run_id }}
           path: .
+      - name: Compare MOLIT reporting vintages
+        run: python3 scripts/compare_molit_vintages.py
       - name: Build last-good snapshot
         run: python3 scripts/build_market_snapshot.py
       - name: Build condition-index history
@@ -116,6 +118,9 @@ jobs:
           [ -f data_sources/ecos_finance_sample.json ] && cp data_sources/ecos_finance_sample.json dist/ecos_finance_sample.json
           [ -f dist/ecos_finance_sample.json ] && git add -f dist/ecos_finance_sample.json
           [ -f data_sources/condition_index_history.json ] && git add -f data_sources/condition_index_history.json
+          [ -f data_sources/molit_vintage_comparison.json ] && cp data_sources/molit_vintage_comparison.json dist/molit_vintage_comparison.json
+          [ -f dist/molit_vintage_comparison.json ] && git add -f dist/molit_vintage_comparison.json
+          [ -f data_sources/molit_vintage_comparison.json ] && git add -f data_sources/molit_vintage_comparison.json
           for f in data_sources/molit.json data_sources/molit_daily_history.json data_sources/ecos_m2.json data_sources/ecos_smoke.json data_sources/ecos_finance_sample.json; do
             [ -f "$f" ] && git add -f "$f"
           done
