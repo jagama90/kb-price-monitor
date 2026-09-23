@@ -89,5 +89,19 @@
         3
       ]
     ]
+  },
+  "korea_m2_yoy": {
+    "current": 8,
+    "period": "2026-07",
+    "release_date": "2026-09-15",
+    "source": "한국은행",
+    "monitor": "monthly"
+  },
+  "fed_funds_target": {
+    "lower": 3.75,
+    "upper": 4,
+    "effective_date": "2026-09-17",
+    "source": "Federal Reserve",
+    "monitor": "FOMC"
   }
 }
