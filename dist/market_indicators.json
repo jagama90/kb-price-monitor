@@ -155,7 +155,8 @@
   "data_status": {
     "kb_history": "official_ui_verified_endpoint_pending",
     "kb_sentiment": "connected",
-    "kb_jeonse_supply": "connected"
+    "kb_jeonse_supply": "connected",
+    "kb_value": "connected"
   },
   "kb_sentiment": {
     "status": "connected",
@@ -186,6 +187,20 @@
     "jeonse_score_0_100": 48.7,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-23T14:57:14.055290+00:00"
+    "generated_at": "2026-09-24T10:44:14.218788+00:00"
+  },
+  "kb_value": {
+    "status": "connected",
+    "score_0_100": 25,
+    "method": "trailing_36m_price_position_inverse_capped_25_75",
+    "observations": 273,
+    "window_months": 36,
+    "current_manwon": 181500.0,
+    "window_low_manwon": 110500.0,
+    "window_high_manwon": 181500.0,
+    "current_position_0_1": 1.0,
+    "source": "KB부동산 가락금호 24A 월별 일반거래가",
+    "period": "202609",
+    "generated_at": "2026-09-24T10:44:14.170827+00:00"
   }
 }

@@ -11,22 +11,20 @@
     "finance": 61.099999999999994,
     "sentiment": 22.8,
     "demand": 30.900796812748993,
-    "value": null,
+    "value": 25.0,
     "supply": 48.7
   },
   "contribution_vs_neutral": {
     "finance": 2.77,
     "sentiment": -5.44,
     "demand": -3.82,
-    "value": null,
+    "value": -5.0,
     "supply": -0.19
   },
-  "coverage_weight": 80,
+  "coverage_weight": 100,
   "freshness_score": 100,
   "provisional_input": true,
-  "confidence_pct": 72.0,
-  "missing": [
-    "value"
-  ],
+  "confidence_pct": 90.0,
+  "missing": [],
   "method": "confidence = connected weight × freshness × provisional penalty; missing components are never imputed"
 }
