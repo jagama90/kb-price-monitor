@@ -43,8 +43,8 @@ function renderConditionIndex(d){
  try{localStorage.setItem(historyKey,JSON.stringify(components))}catch(e){}
  const available=Object.keys(components).filter(k=>components[k]!=null),covered=available.reduce((a,k)=>a+weights[k],0);
  setText('confidenceScore',covered+'% 가중치 연결');
- if(covered<60){setText('conditionScore','산출 보류');document.querySelector('#scoreRing strong').textContent='—';document.querySelector('#scoreRing span').textContent='신뢰도 부족'}
- else {const score=Math.round(available.reduce((a,k)=>a+components[k]*weights[k],0)/covered);setText('conditionScore',score+'/100');document.querySelector('#scoreRing strong').textContent=score;document.querySelector('#scoreRing span').textContent='/100'}
+ if(covered<60){setText('conditionScore','산출 보류');setText('heroMeterValue','—');const meter=document.getElementById('heroMeterFill');if(meter)meter.style.width='0%'}
+ else {const score=Math.round(available.reduce((a,k)=>a+components[k]*weights[k],0)/covered);setText('conditionScore',score+'/100');setText('heroMeterValue',score+'/100');const meter=document.getElementById('heroMeterFill');if(meter)meter.style.width=score+'%'}
  const finance=components.finance,sent=components.sentiment,demand=components.demand,value=components.value;
  const trade=matched?.changes?.trade_count_pct,under=matched?.changes?.under15_share_pp,mom=m?.mom_pct;
  const state=(v)=>v==null?['미연결','neutral']:v>=55?['우호적','good']:v<45?['제약','bad']:['중립','neutral'];
