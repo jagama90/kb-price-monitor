@@ -1,0 +1,14 @@
+{
+  "status": "connected",
+  "score_0_100": 25,
+  "method": "trailing_36m_price_position_inverse_capped_25_75",
+  "observations": 273,
+  "window_months": 36,
+  "current_manwon": 181500.0,
+  "window_low_manwon": 110500.0,
+  "window_high_manwon": 181500.0,
+  "current_position_0_1": 1.0,
+  "source": "KB부동산 가락금호 24A 월별 일반거래가",
+  "period": "202609",
+  "generated_at": "2026-09-24T02:14:44.541116+00:00"
+}
