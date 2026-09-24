@@ -10,7 +10,7 @@ on:
       - 'scripts/smoke_ecos_sources.py'
       - 'scripts/sample_ecos_finance.py'
       - 'scripts/collect_kb_sentiment.py'
-      - 'scripts/collect_kb_datahub_batch.py'
+      - 'scripts/collect_kb_datahub_batch.py'\n      - 'scripts/collect_garak_geumho_24a.py'\n      - 'scripts/build_kb_value_live.py'
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/build_market_snapshot.py'
       - 'scripts/test_static_contract.py'
@@ -129,12 +129,7 @@ jobs:
         with:
           name: source-kb-sentiment-${{ github.run_id }}
           path: .
-      - name: Parse KB weekly indices
-        if: needs.kb_sentiment.result == 'success'
-        run: python3 scripts/parse_kb_weekly_indices.py
-      - name: Build KB value component
-        run: python3 scripts/build_kb_value_score.py
-      - name: Build KB sentiment component
+      - name: Build connected KB value component\n        run: |\n          python3 scripts/collect_garak_geumho_24a.py\n          python3 scripts/build_kb_value_live.py\n      - name: Build KB sentiment component
         if: needs.kb_sentiment.result == 'success'
         run: python3 scripts/build_kb_sentiment_score.py
       - name: Build last-good snapshot
