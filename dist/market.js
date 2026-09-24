@@ -48,7 +48,12 @@ function renderConditionIndex(d){
  const finance=components.finance,sent=components.sentiment,demand=components.demand,value=components.value;
  const trade=matched?.changes?.trade_count_pct,under=matched?.changes?.under15_share_pp,mom=m?.mom_pct;
  const state=(v)=>v==null?['미연결','neutral']:v>=55?['우호적','good']:v<45?['제약','bad']:['중립','neutral'];
- const fs=state(finance),ss=state(sent),ds=state(demand),vs=state(value);
+ const fs=state(finance),ss=state(sent),ds=state(demand),vs=state(value),sup=state(components.supply);
+ const stateLabel=s=>s[0]==='우호적'?'개선 신호':s[0]==='제약'?'제약 신호':s[0]==='중립'?'중립 구간':'미연결';
+ [['Finance',fs],['Sentiment',ss],['Demand',ds],['Value',vs],['Supply',sup]].forEach(([id,s])=>{setText('state'+id,stateLabel(s));const el=document.getElementById('state'+id);if(el)el.className='component-state '+s[1]});
+ const connected=[finance,sent,demand,value,components.supply].filter(v=>v!=null);
+ const weak=connected.filter(v=>v<45).length,strong=connected.filter(v=>v>=55).length;
+ setText('heroVerdict',weak>=3?'아직은 제약 신호가 우세합니다. 반전 확인이 필요한 구간입니다.':strong>=3?'개선 신호가 여러 단계에서 확인되고 있습니다. 지속성을 확인할 구간입니다.':'개선과 제약 신호가 엇갈립니다. 다음 단계로의 전달을 확인할 구간입니다.');
  [['Finance',fs],['Sentiment',ss],['Demand',ds],['Value',vs]].forEach(([id,s])=>{setText('path'+id,s[0]);const el=document.getElementById('node'+id);if(el)el.className='signal-node '+s[1]});
  setText('pathFinanceNote',mom==null?'금리·유동성':('M2 전월비 '+signed(mom,'%')));
  setText('pathDemandNote',trade==null?'거래량·자금 이동':('동일기간 거래 '+signed(trade,'%')));
