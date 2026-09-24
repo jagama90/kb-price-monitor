@@ -11,7 +11,7 @@ def main():
  # HT04 is KB DataHub's market-trend/survey menu; 02 = weekly.
  responses=[]
  for menu,kind in [('01','매수우위'),('02','매매거래활발'),('03','전세수급'),('04','전세거래활발')]:
-  raw=get({'메뉴코드':menu,'기간':'2','월간주간구분코드':'02'});responses.append((kind,raw))
+  raw=get({'메뉴코드':menu,'기간':'5','월간주간구분코드':'02'});responses.append((kind,raw))
  rows=[]
  for expected,raw in responses:
   data=((raw.get('dataBody') or {}).get('data') or {}).get('데이터리스트') or []
