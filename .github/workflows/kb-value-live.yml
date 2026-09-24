@@ -1,0 +1,23 @@
+name: KB Value score
+on:
+  workflow_dispatch:
+  push:
+    paths: ['scripts/build_kb_value_live.py','scripts/collect_garak_geumho_24a.py','.github/workflows/kb-value-live.yml']
+permissions: {contents: write}
+jobs:
+  value:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 scripts/collect_garak_geumho_24a.py
+      - run: python3 scripts/build_kb_value_live.py
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f dist/garak_geumho_24a_history.json dist/kb_value_score.json
+          git commit -m 'Refresh connected KB Value score' || exit 0
+          git pull --rebase origin main || true
+          git push origin HEAD:main || true
