@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "source": "KB부동산 + user purchase watchlist",
-  "kb_collected_at": "2026-09-24T15:56:14+00:00",
-  "generated_at": "2026-09-24T15:56:15+00:00",
+  "kb_collected_at": "2026-09-24T16:11:14+00:00",
+  "generated_at": "2026-09-24T16:11:14+00:00",
   "complex_count": 39,
   "matched_in_snapshot": 38,
   "priced_complex_count": 35,
