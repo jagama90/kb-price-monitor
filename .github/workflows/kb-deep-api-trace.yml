@@ -1,0 +1,22 @@
+name: Deep KB statistic API trace
+on:
+  workflow_dispatch:
+  push:
+    paths: ['scripts/trace_kb_stat_apis.py','.github/workflows/kb-deep-api-trace.yml']
+permissions: {contents: write}
+jobs:
+  trace:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 scripts/trace_kb_stat_apis.py
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data_sources/kb_deep_api_trace.json
+          git commit -m 'Trace KB statistic APIs' || exit 0
+          git pull --rebase origin main || true
+          git push origin HEAD:main || true
