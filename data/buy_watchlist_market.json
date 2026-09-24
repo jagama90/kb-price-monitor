@@ -1,19 +1,7 @@
 {
-  "collected_at": "2026-09-24T20:55:32.800466+09:00",
+  "collected_at": "2026-09-25T00:58:59.481721+09:00",
   "source": "KB public complex page / explicitly selected target type",
   "items": [
-    {
-      "complex_id": 1985,
-      "area_id": 51171,
-      "type_label": "31B",
-      "name": "올림픽훼밀리타운",
-      "sale_listing_count": 593,
-      "avg_ask_manwon": null,
-      "recent_trade_manwon": null,
-      "recent_trade_date": null,
-      "kb_general_check_manwon": null,
-      "market_scope": "target_area_id"
-    },
     {
       "complex_id": 1986,
       "area_id": 1872,
@@ -26,18 +14,6 @@
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0
-    },
-    {
-      "complex_id": 15738,
-      "area_id": 63253,
-      "type_label": "34D",
-      "name": "송파파인타운 2단지",
-      "sale_listing_count": 60,
-      "avg_ask_manwon": null,
-      "recent_trade_manwon": null,
-      "recent_trade_date": null,
-      "kb_general_check_manwon": null,
-      "market_scope": "target_area_id"
     },
     {
       "complex_id": 15663,
@@ -109,13 +85,13 @@
       "area_id": 1833,
       "type_label": "28A1",
       "name": "삼환가락",
-      "sale_listing_count": 25,
+      "sale_listing_count": 26,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": 0
+      "sale_listing_week_delta": 1
     },
     {
       "complex_id": 1944,
@@ -161,13 +137,13 @@
       "area_id": 177501,
       "type_label": "24A",
       "name": "송파꿈에그린위례24단지",
-      "sale_listing_count": 386,
+      "sale_listing_count": 373,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": 3
+      "sale_listing_week_delta": -13
     },
     {
       "complex_id": 40111,
@@ -235,19 +211,6 @@
       "sale_listing_week_delta": 0
     },
     {
-      "complex_id": 323274,
-      "area_id": 1125182,
-      "type_label": "26A",
-      "name": "포레나송파",
-      "sale_listing_count": 498,
-      "avg_ask_manwon": null,
-      "recent_trade_manwon": null,
-      "recent_trade_date": null,
-      "kb_general_check_manwon": null,
-      "market_scope": "target_area_id",
-      "sale_listing_week_delta": 0
-    },
-    {
       "complex_id": 1941,
       "area_id": 51132,
       "type_label": "26",
@@ -291,13 +254,13 @@
       "area_id": 12331,
       "type_label": "24",
       "name": "왕십리금호어울림",
-      "sale_listing_count": 5,
+      "sale_listing_count": 6,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": 0
+      "sale_listing_week_delta": 1
     },
     {
       "complex_id": 1771,
@@ -311,19 +274,6 @@
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0
-    },
-    {
-      "complex_id": 1767,
-      "area_id": 1667,
-      "type_label": "24",
-      "name": "금호두산",
-      "sale_listing_count": 127,
-      "avg_ask_manwon": null,
-      "recent_trade_manwon": null,
-      "recent_trade_date": null,
-      "kb_general_check_manwon": null,
-      "market_scope": "target_area_id",
-      "sale_listing_week_delta": -1
     },
     {
       "complex_id": 13487,
@@ -349,7 +299,7 @@
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": -1
+      "sale_listing_week_delta": 0
     },
     {
       "complex_id": 1759,
@@ -361,45 +311,21 @@
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
-      "market_scope": "target_area_id"
-    },
-    {
-      "complex_id": 12024,
-      "area_id": 11833,
-      "type_label": "24",
-      "name": "서울숲리버그린아파트",
-      "sale_listing_count": 92,
-      "avg_ask_manwon": null,
-      "recent_trade_manwon": null,
-      "recent_trade_date": null,
-      "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0
-    },
-    {
-      "complex_id": 2538,
-      "area_id": 51672,
-      "type_label": "25",
-      "name": "남산타운",
-      "sale_listing_count": 211,
-      "avg_ask_manwon": null,
-      "recent_trade_manwon": null,
-      "recent_trade_date": null,
-      "kb_general_check_manwon": null,
-      "market_scope": "target_area_id"
     },
     {
       "complex_id": 31944,
       "area_id": 1068067,
       "type_label": "24A",
       "name": "강남자곡아이파크",
-      "sale_listing_count": 60,
+      "sale_listing_count": 61,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": -1
+      "sale_listing_week_delta": 1
     }
   ],
   "errors": [
@@ -409,6 +335,20 @@
       "type_label": "24B",
       "name": "가락금호",
       "error": "visible type tab not found: 24평"
+    },
+    {
+      "complex_id": 1985,
+      "area_id": 51171,
+      "type_label": "31B",
+      "name": "올림픽훼밀리타운",
+      "error": "visible type tab not found: 31평"
+    },
+    {
+      "complex_id": 15738,
+      "area_id": 63253,
+      "type_label": "34D",
+      "name": "송파파인타운 2단지",
+      "error": "visible type tab not found: 34평"
     },
     {
       "complex_id": 1082473,
@@ -423,6 +363,13 @@
       "type_label": "25A",
       "name": "송파시그니처롯데캐슬",
       "error": "visible type tab not found: 25평"
+    },
+    {
+      "complex_id": 323274,
+      "area_id": 1125182,
+      "type_label": "26A",
+      "name": "포레나송파",
+      "error": "visible type tab not found: 26평"
     },
     {
       "complex_id": 1758,
@@ -444,6 +391,27 @@
       "type_label": "24",
       "name": "행당두산위브",
       "error": "visible type tab not found: 24평"
+    },
+    {
+      "complex_id": 1767,
+      "area_id": 1667,
+      "type_label": "24",
+      "name": "금호두산",
+      "error": "visible type tab not found: 24평"
+    },
+    {
+      "complex_id": 12024,
+      "area_id": 11833,
+      "type_label": "24",
+      "name": "서울숲리버그린아파트",
+      "error": "visible type tab not found: 24평"
+    },
+    {
+      "complex_id": 2538,
+      "area_id": 51672,
+      "type_label": "25",
+      "name": "남산타운",
+      "error": "visible type tab not found: 25평"
     }
   ]
 }
