@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-09-24T02:17:20.122460+00:00",
+  "pages": {
+    "sale_median": {
+      "url": "https://data.kbland.kr/kbstats/wmh?tIdx=HT10&tsIdx=aptSaleMedianPrice",
+      "script_count": 53,
+      "hits": [
+        "ice:ja,aptSaleVsRentRatio:Na,weekBuyAdvIdx:qa,sqrmsrPriceInx:Ba,sqrmsrAvgPrice:xa,aptSaleAvgPrice:Ga,aptRentAvgPrice:Ha,aptSaleMedianPrice:Va,house:Za,houseSupply:za,aptHuseLnPir:Xa,apt5PorelaPrice:et,pir:Ja,kbAptMortgageLoanPir:Wa,hai:Ka,hoi:$a,kbHusePurcPotenStrthIndx:Qa,ranking:pa,starbanking:ga},plugins:[Object(s"
+      ]
+    },
+    "rent_median": {
+      "url": "https://data.kbland.kr/kbstats/wmh?tIdx=HT10&tsIdx=aptRentMedianPrice",
+      "script_count": 53,
+      "hits": [
+        "ice:ja,aptSaleVsRentRatio:Na,weekBuyAdvIdx:qa,sqrmsrPriceInx:Ba,sqrmsrAvgPrice:xa,aptSaleAvgPrice:Ga,aptRentAvgPrice:Ha,aptSaleMedianPrice:Va,house:Za,houseSupply:za,aptHuseLnPir:Xa,apt5PorelaPrice:et,pir:Ja,kbAptMortgageLoanPir:Wa,hai:Ka,hoi:$a,kbHusePurcPotenStrthIndx:Qa,ranking:pa,starbanking:ga},plugins:[Object(s"
+      ]
+    },
+    "leading50": {
+      "url": "https://data.kbland.kr/kbstats/wmh?tIdx=HT01&tsIdx=leadingApt50PriceInx",
+      "script_count": 53,
+      "hits": [
+        "ice:ja,aptSaleVsRentRatio:Na,weekBuyAdvIdx:qa,sqrmsrPriceInx:Ba,sqrmsrAvgPrice:xa,aptSaleAvgPrice:Ga,aptRentAvgPrice:Ha,aptSaleMedianPrice:Va,house:Za,houseSupply:za,aptHuseLnPir:Xa,apt5PorelaPrice:et,pir:Ja,kbAptMortgageLoanPir:Wa,hai:Ka,hoi:$a,kbHusePurcPotenStrthIndx:Qa,ranking:pa,starbanking:ga},plugins:[Object(s"
+      ]
+    }
+  }
+}
