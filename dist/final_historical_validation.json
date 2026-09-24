@@ -1,0 +1,3480 @@
+{
+  "status": "validated_core_history",
+  "method": "no-future-leakage trailing-only historical core",
+  "note": "Finance and KB survey sentiment are excluded where historical vintages are not available; they are not imputed. This validates the historical core, not a fabricated full five-component series.",
+  "observations": 238,
+  "oos_observations": 68,
+  "late_2022_early_2023": {
+    "detected_improvement": true,
+    "rows": [
+      {
+        "ym": "202210",
+        "score": 27.9,
+        "components": {
+          "value": 32.8,
+          "supply": 28.6,
+          "demand_proxy": 22.4
+        },
+        "sale": 128500.0,
+        "fwd_1m_pct": -6.61,
+        "fwd_3m_pct": -10.51,
+        "fwd_6m_pct": -19.84,
+        "fwd_12m_pct": -14.01
+      },
+      {
+        "ym": "202211",
+        "score": 24.9,
+        "components": {
+          "value": 43.4,
+          "supply": 33.5,
+          "demand_proxy": 0
+        },
+        "sale": 120000.0,
+        "fwd_1m_pct": -2.08,
+        "fwd_3m_pct": -9.58,
+        "fwd_6m_pct": -14.17,
+        "fwd_12m_pct": -7.92
+      },
+      {
+        "ym": "202212",
+        "score": 25.0,
+        "components": {
+          "value": 47.3,
+          "supply": 28.6,
+          "demand_proxy": 0
+        },
+        "sale": 117500.0,
+        "fwd_1m_pct": -2.13,
+        "fwd_3m_pct": -11.06,
+        "fwd_6m_pct": -11.91,
+        "fwd_12m_pct": -5.96
+      },
+      {
+        "ym": "202301",
+        "score": 26.3,
+        "components": {
+          "value": 50.6,
+          "supply": 29.0,
+          "demand_proxy": 0
+        },
+        "sale": 115000.0,
+        "fwd_1m_pct": -5.65,
+        "fwd_3m_pct": -10.43,
+        "fwd_6m_pct": -7.39,
+        "fwd_12m_pct": -3.91
+      },
+      {
+        "ym": "202302",
+        "score": 29.5,
+        "components": {
+          "value": 60.3,
+          "supply": 25.0,
+          "demand_proxy": 2.1
+        },
+        "sale": 108500.0,
+        "fwd_1m_pct": -3.69,
+        "fwd_3m_pct": -5.07,
+        "fwd_6m_pct": 0.92,
+        "fwd_12m_pct": 1.84
+      },
+      {
+        "ym": "202303",
+        "score": 32.4,
+        "components": {
+          "value": 65.4,
+          "supply": 31.6,
+          "demand_proxy": 0
+        },
+        "sale": 104500.0,
+        "fwd_1m_pct": -1.44,
+        "fwd_3m_pct": -0.96,
+        "fwd_6m_pct": 5.74,
+        "fwd_12m_pct": 5.74
+      },
+      {
+        "ym": "202304",
+        "score": 31.6,
+        "components": {
+          "value": 67.3,
+          "supply": 26.2,
+          "demand_proxy": 0
+        },
+        "sale": 103000.0,
+        "fwd_1m_pct": 0.0,
+        "fwd_3m_pct": 3.4,
+        "fwd_6m_pct": 7.28,
+        "fwd_12m_pct": 7.52
+      },
+      {
+        "ym": "202305",
+        "score": 40.9,
+        "components": {
+          "value": 69.0,
+          "supply": 25.0,
+          "demand_proxy": 24.7
+        },
+        "sale": 103000.0,
+        "fwd_1m_pct": 0.49,
+        "fwd_3m_pct": 6.31,
+        "fwd_6m_pct": 7.28,
+        "fwd_12m_pct": 7.52
+      },
+      {
+        "ym": "202306",
+        "score": 50.6,
+        "components": {
+          "value": 74.2,
+          "supply": 26.1,
+          "demand_proxy": 45.2
+        },
+        "sale": 103500.0,
+        "fwd_1m_pct": 2.9,
+        "fwd_3m_pct": 6.76,
+        "fwd_6m_pct": 6.76,
+        "fwd_12m_pct": 7.0
+      }
+    ]
+  },
+  "oos_12m": {
+    "median_score": 50.0,
+    "high_score_n": 37,
+    "low_score_n": 31,
+    "high_score_avg_fwd_12m_pct": 16.72,
+    "low_score_avg_fwd_12m_pct": 2.16
+  },
+  "rows": [
+    {
+      "ym": "200612",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.06,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 0.0
+    },
+    {
+      "ym": "200701",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.06,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 0.0
+    },
+    {
+      "ym": "200702",
+      "score": 38.0,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 60.9
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 1.06,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 0.0
+    },
+    {
+      "ym": "200703",
+      "score": 36.1,
+      "components": {
+        "value": 25,
+        "supply": 25.4,
+        "demand_proxy": 55.3
+      },
+      "sale": 47500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -1.05,
+      "fwd_6m_pct": -1.05,
+      "fwd_12m_pct": -1.05
+    },
+    {
+      "ym": "200704",
+      "score": 36.1,
+      "components": {
+        "value": 25,
+        "supply": 25.4,
+        "demand_proxy": 55.3
+      },
+      "sale": 47500.0,
+      "fwd_1m_pct": -1.05,
+      "fwd_3m_pct": -1.05,
+      "fwd_6m_pct": -1.05,
+      "fwd_12m_pct": -1.05
+    },
+    {
+      "ym": "200705",
+      "score": 35.2,
+      "components": {
+        "value": 26.5,
+        "supply": 27.1,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 0.0
+    },
+    {
+      "ym": "200706",
+      "score": 33.3,
+      "components": {
+        "value": 26.5,
+        "supply": 27.1,
+        "demand_proxy": 44.7
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 0.0
+    },
+    {
+      "ym": "200707",
+      "score": 32.7,
+      "components": {
+        "value": 26.5,
+        "supply": 25.0,
+        "demand_proxy": 44.7
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 0.0
+    },
+    {
+      "ym": "200708",
+      "score": 34.6,
+      "components": {
+        "value": 26.5,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 0.0
+    },
+    {
+      "ym": "200709",
+      "score": 34.6,
+      "components": {
+        "value": 26.5,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -1.06
+    },
+    {
+      "ym": "200710",
+      "score": 34.6,
+      "components": {
+        "value": 26.5,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -4.26
+    },
+    {
+      "ym": "200711",
+      "score": 34.6,
+      "components": {
+        "value": 26.5,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -4.26
+    },
+    {
+      "ym": "200712",
+      "score": 34.6,
+      "components": {
+        "value": 26.5,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -11.7
+    },
+    {
+      "ym": "200801",
+      "score": 34.6,
+      "components": {
+        "value": 26.5,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -12.77
+    },
+    {
+      "ym": "200802",
+      "score": 34.7,
+      "components": {
+        "value": 26.6,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -10.64
+    },
+    {
+      "ym": "200803",
+      "score": 34.7,
+      "components": {
+        "value": 26.6,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -1.06,
+      "fwd_12m_pct": -12.77
+    },
+    {
+      "ym": "200804",
+      "score": 36.5,
+      "components": {
+        "value": 26.7,
+        "supply": 31.5,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -4.26,
+      "fwd_12m_pct": -12.77
+    },
+    {
+      "ym": "200805",
+      "score": 36.5,
+      "components": {
+        "value": 26.8,
+        "supply": 31.5,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -4.26,
+      "fwd_12m_pct": -10.64
+    },
+    {
+      "ym": "200806",
+      "score": 36.5,
+      "components": {
+        "value": 26.8,
+        "supply": 31.5,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -1.06,
+      "fwd_6m_pct": -11.7,
+      "fwd_12m_pct": -4.79
+    },
+    {
+      "ym": "200807",
+      "score": 36.5,
+      "components": {
+        "value": 26.8,
+        "supply": 31.5,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -4.26,
+      "fwd_6m_pct": -12.77,
+      "fwd_12m_pct": -4.79
+    },
+    {
+      "ym": "200808",
+      "score": 36.0,
+      "components": {
+        "value": 26.8,
+        "supply": 29.4,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": -1.06,
+      "fwd_3m_pct": -4.26,
+      "fwd_6m_pct": -10.64,
+      "fwd_12m_pct": -2.66
+    },
+    {
+      "ym": "200809",
+      "score": 33.5,
+      "components": {
+        "value": 28.6,
+        "supply": 25.0,
+        "demand_proxy": 44.7
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": -3.23,
+      "fwd_3m_pct": -10.75,
+      "fwd_6m_pct": -11.83,
+      "fwd_12m_pct": 1.08
+    },
+    {
+      "ym": "200810",
+      "score": 31.0,
+      "components": {
+        "value": 34.1,
+        "supply": 29.8,
+        "demand_proxy": 28.7
+      },
+      "sale": 45000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -8.89,
+      "fwd_6m_pct": -8.89,
+      "fwd_12m_pct": 4.44
+    },
+    {
+      "ym": "200811",
+      "score": 31.0,
+      "components": {
+        "value": 34.3,
+        "supply": 29.8,
+        "demand_proxy": 28.7
+      },
+      "sale": 45000.0,
+      "fwd_1m_pct": -7.78,
+      "fwd_3m_pct": -6.67,
+      "fwd_6m_pct": -6.67,
+      "fwd_12m_pct": 4.44
+    },
+    {
+      "ym": "200812",
+      "score": 24.0,
+      "components": {
+        "value": 47.2,
+        "supply": 25.0,
+        "demand_proxy": 0
+      },
+      "sale": 41500.0,
+      "fwd_1m_pct": -1.2,
+      "fwd_3m_pct": -1.2,
+      "fwd_6m_pct": 7.83,
+      "fwd_12m_pct": 13.25
+    },
+    {
+      "ym": "200901",
+      "score": 26.8,
+      "components": {
+        "value": 49.5,
+        "supply": 25.0,
+        "demand_proxy": 5.6
+      },
+      "sale": 41000.0,
+      "fwd_1m_pct": 2.44,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 9.15,
+      "fwd_12m_pct": 14.63
+    },
+    {
+      "ym": "200902",
+      "score": 33.4,
+      "components": {
+        "value": 46.6,
+        "supply": 38.0,
+        "demand_proxy": 16.7
+      },
+      "sale": 42000.0,
+      "fwd_1m_pct": -2.38,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 8.93,
+      "fwd_12m_pct": 13.1
+    },
+    {
+      "ym": "200903",
+      "score": 51.1,
+      "components": {
+        "value": 53.9,
+        "supply": 56.7,
+        "demand_proxy": 44.0
+      },
+      "sale": 41000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 9.15,
+      "fwd_6m_pct": 14.63,
+      "fwd_12m_pct": 16.46
+    },
+    {
+      "ym": "200904",
+      "score": 57.8,
+      "components": {
+        "value": 59.2,
+        "supply": 66.5,
+        "demand_proxy": 50.0
+      },
+      "sale": 41000.0,
+      "fwd_1m_pct": 2.44,
+      "fwd_3m_pct": 9.15,
+      "fwd_6m_pct": 14.63,
+      "fwd_12m_pct": 16.46
+    },
+    {
+      "ym": "200905",
+      "score": 54.4,
+      "components": {
+        "value": 53.9,
+        "supply": 60.8,
+        "demand_proxy": 50.0
+      },
+      "sale": 42000.0,
+      "fwd_1m_pct": 6.55,
+      "fwd_3m_pct": 8.93,
+      "fwd_6m_pct": 11.9,
+      "fwd_12m_pct": 12.5
+    },
+    {
+      "ym": "200906",
+      "score": 61.9,
+      "components": {
+        "value": 39.5,
+        "supply": 46.6,
+        "demand_proxy": 95.7
+      },
+      "sale": 44750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 5.03,
+      "fwd_6m_pct": 5.03,
+      "fwd_12m_pct": 4.47
+    },
+    {
+      "ym": "200907",
+      "score": 61.9,
+      "components": {
+        "value": 39.5,
+        "supply": 46.6,
+        "demand_proxy": 95.7
+      },
+      "sale": 44750.0,
+      "fwd_1m_pct": 2.23,
+      "fwd_3m_pct": 5.03,
+      "fwd_6m_pct": 5.03,
+      "fwd_12m_pct": 4.47
+    },
+    {
+      "ym": "200908",
+      "score": 61.0,
+      "components": {
+        "value": 34.7,
+        "supply": 51.1,
+        "demand_proxy": 94.6
+      },
+      "sale": 45750.0,
+      "fwd_1m_pct": 2.73,
+      "fwd_3m_pct": 2.73,
+      "fwd_6m_pct": 3.83,
+      "fwd_12m_pct": 2.19
+    },
+    {
+      "ym": "200909",
+      "score": 54.2,
+      "components": {
+        "value": 28.8,
+        "supply": 59.9,
+        "demand_proxy": 75.1
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.6,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "200910",
+      "score": 54.2,
+      "components": {
+        "value": 28.8,
+        "supply": 59.9,
+        "demand_proxy": 75.1
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.6,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "200911",
+      "score": 51.1,
+      "components": {
+        "value": 28.8,
+        "supply": 64.0,
+        "demand_proxy": 63.7
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.06,
+      "fwd_6m_pct": 0.53,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "200912",
+      "score": 46.1,
+      "components": {
+        "value": 28.8,
+        "supply": 64.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.6,
+      "fwd_6m_pct": -0.53,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201001",
+      "score": 46.1,
+      "components": {
+        "value": 28.8,
+        "supply": 64.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 47000.0,
+      "fwd_1m_pct": 1.06,
+      "fwd_3m_pct": 1.6,
+      "fwd_6m_pct": -0.53,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201002",
+      "score": 46.9,
+      "components": {
+        "value": 25,
+        "supply": 64.7,
+        "demand_proxy": 55.3
+      },
+      "sale": 47500.0,
+      "fwd_1m_pct": 0.53,
+      "fwd_3m_pct": -0.53,
+      "fwd_6m_pct": -1.58,
+      "fwd_12m_pct": -1.58
+    },
+    {
+      "ym": "201003",
+      "score": 48.4,
+      "components": {
+        "value": 25,
+        "supply": 66.8,
+        "demand_proxy": 58.0
+      },
+      "sale": 47750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -2.09,
+      "fwd_6m_pct": -2.09,
+      "fwd_12m_pct": -2.09
+    },
+    {
+      "ym": "201004",
+      "score": 50.6,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 58.0
+      },
+      "sale": 47750.0,
+      "fwd_1m_pct": -1.05,
+      "fwd_3m_pct": -2.09,
+      "fwd_6m_pct": -2.09,
+      "fwd_12m_pct": -2.09
+    },
+    {
+      "ym": "201005",
+      "score": 48.1,
+      "components": {
+        "value": 28.7,
+        "supply": 75.0,
+        "demand_proxy": 47.4
+      },
+      "sale": 47250.0,
+      "fwd_1m_pct": -1.06,
+      "fwd_3m_pct": -1.06,
+      "fwd_6m_pct": -1.06,
+      "fwd_12m_pct": -1.06
+    },
+    {
+      "ym": "201006",
+      "score": 46.6,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 39.5
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201007",
+      "score": 46.6,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 39.5
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201008",
+      "score": 48.5,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 44.7
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201009",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201010",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201011",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201012",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -0.53,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201101",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -0.53,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201102",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -0.53,
+      "fwd_12m_pct": -0.53
+    },
+    {
+      "ym": "201103",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -0.53,
+      "fwd_6m_pct": -0.53,
+      "fwd_12m_pct": -5.35
+    },
+    {
+      "ym": "201104",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -0.53,
+      "fwd_6m_pct": -0.53,
+      "fwd_12m_pct": -6.42
+    },
+    {
+      "ym": "201105",
+      "score": 50.4,
+      "components": {
+        "value": 32.4,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46750.0,
+      "fwd_1m_pct": -0.53,
+      "fwd_3m_pct": -0.53,
+      "fwd_6m_pct": -0.53,
+      "fwd_12m_pct": -6.42
+    },
+    {
+      "ym": "201106",
+      "score": 50.1,
+      "components": {
+        "value": 34.3,
+        "supply": 75.0,
+        "demand_proxy": 47.3
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -5.91
+    },
+    {
+      "ym": "201107",
+      "score": 50.1,
+      "components": {
+        "value": 34.3,
+        "supply": 75.0,
+        "demand_proxy": 47.3
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -6.45
+    },
+    {
+      "ym": "201108",
+      "score": 50.1,
+      "components": {
+        "value": 34.3,
+        "supply": 75.0,
+        "demand_proxy": 47.3
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": -6.45
+    },
+    {
+      "ym": "201109",
+      "score": 51.1,
+      "components": {
+        "value": 34.3,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -4.84,
+      "fwd_12m_pct": -7.53
+    },
+    {
+      "ym": "201110",
+      "score": 51.1,
+      "components": {
+        "value": 34.3,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -5.91,
+      "fwd_12m_pct": -7.53
+    },
+    {
+      "ym": "201111",
+      "score": 50.3,
+      "components": {
+        "value": 34.3,
+        "supply": 72.1,
+        "demand_proxy": 50.0
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -5.91,
+      "fwd_12m_pct": -7.53
+    },
+    {
+      "ym": "201112",
+      "score": 51.1,
+      "components": {
+        "value": 34.3,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -4.84,
+      "fwd_6m_pct": -5.91,
+      "fwd_12m_pct": -7.53
+    },
+    {
+      "ym": "201201",
+      "score": 51.1,
+      "components": {
+        "value": 34.3,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -5.91,
+      "fwd_6m_pct": -6.45,
+      "fwd_12m_pct": -9.68
+    },
+    {
+      "ym": "201202",
+      "score": 51.1,
+      "components": {
+        "value": 34.3,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 46500.0,
+      "fwd_1m_pct": -4.84,
+      "fwd_3m_pct": -5.91,
+      "fwd_6m_pct": -6.45,
+      "fwd_12m_pct": -9.68
+    },
+    {
+      "ym": "201203",
+      "score": 48.4,
+      "components": {
+        "value": 50.9,
+        "supply": 75.0,
+        "demand_proxy": 25.8
+      },
+      "sale": 44250.0,
+      "fwd_1m_pct": -1.13,
+      "fwd_3m_pct": -1.13,
+      "fwd_6m_pct": -2.82,
+      "fwd_12m_pct": -5.08
+    },
+    {
+      "ym": "201204",
+      "score": 49.6,
+      "components": {
+        "value": 59.8,
+        "supply": 75.0,
+        "demand_proxy": 20.4
+      },
+      "sale": 43750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -0.57,
+      "fwd_6m_pct": -1.71,
+      "fwd_12m_pct": -2.86
+    },
+    {
+      "ym": "201205",
+      "score": 55.2,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 20.4
+      },
+      "sale": 43750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -0.57,
+      "fwd_6m_pct": -1.71,
+      "fwd_12m_pct": -2.86
+    },
+    {
+      "ym": "201206",
+      "score": 63.9,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 44.4
+      },
+      "sale": 43750.0,
+      "fwd_1m_pct": -0.57,
+      "fwd_3m_pct": -1.71,
+      "fwd_6m_pct": -1.71,
+      "fwd_12m_pct": -2.86
+    },
+    {
+      "ym": "201207",
+      "score": 64.9,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 47.1
+      },
+      "sale": 43500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -1.15,
+      "fwd_6m_pct": -3.45,
+      "fwd_12m_pct": -2.3
+    },
+    {
+      "ym": "201208",
+      "score": 64.9,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 47.1
+      },
+      "sale": 43500.0,
+      "fwd_1m_pct": -1.15,
+      "fwd_3m_pct": -1.15,
+      "fwd_6m_pct": -3.45,
+      "fwd_12m_pct": -2.3
+    },
+    {
+      "ym": "201209",
+      "score": 62.8,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 41.4
+      },
+      "sale": 43000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -2.33,
+      "fwd_12m_pct": -1.16
+    },
+    {
+      "ym": "201210",
+      "score": 63.8,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 44.3
+      },
+      "sale": 43000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -2.33,
+      "fwd_6m_pct": -1.16,
+      "fwd_12m_pct": -1.16
+    },
+    {
+      "ym": "201211",
+      "score": 63.8,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 44.3
+      },
+      "sale": 43000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -2.33,
+      "fwd_6m_pct": -1.16,
+      "fwd_12m_pct": -1.16
+    },
+    {
+      "ym": "201212",
+      "score": 65.9,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 43000.0,
+      "fwd_1m_pct": -2.33,
+      "fwd_3m_pct": -2.33,
+      "fwd_6m_pct": -1.16,
+      "fwd_12m_pct": -1.16
+    },
+    {
+      "ym": "201301",
+      "score": 61.7,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 38.4
+      },
+      "sale": 42000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.19,
+      "fwd_6m_pct": 1.19,
+      "fwd_12m_pct": 1.19
+    },
+    {
+      "ym": "201302",
+      "score": 61.7,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 38.4
+      },
+      "sale": 42000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.19,
+      "fwd_6m_pct": 1.19,
+      "fwd_12m_pct": 2.38
+    },
+    {
+      "ym": "201303",
+      "score": 61.7,
+      "components": {
+        "value": 75,
+        "supply": 75.0,
+        "demand_proxy": 38.4
+      },
+      "sale": 42000.0,
+      "fwd_1m_pct": 1.19,
+      "fwd_3m_pct": 1.19,
+      "fwd_6m_pct": 1.19,
+      "fwd_12m_pct": 2.98
+    },
+    {
+      "ym": "201304",
+      "score": 66.3,
+      "components": {
+        "value": 70.2,
+        "supply": 74.8,
+        "demand_proxy": 56.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 2.94
+    },
+    {
+      "ym": "201305",
+      "score": 66.1,
+      "components": {
+        "value": 69.7,
+        "supply": 74.8,
+        "demand_proxy": 56.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 2.94
+    },
+    {
+      "ym": "201306",
+      "score": 66.1,
+      "components": {
+        "value": 69.7,
+        "supply": 74.8,
+        "demand_proxy": 56.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 2.94
+    },
+    {
+      "ym": "201307",
+      "score": 63.9,
+      "components": {
+        "value": 69.7,
+        "supply": 74.7,
+        "demand_proxy": 50.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 2.94
+    },
+    {
+      "ym": "201308",
+      "score": 64.0,
+      "components": {
+        "value": 69.7,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.18,
+      "fwd_12m_pct": 2.94
+    },
+    {
+      "ym": "201309",
+      "score": 64.0,
+      "components": {
+        "value": 69.7,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.76,
+      "fwd_12m_pct": 4.71
+    },
+    {
+      "ym": "201310",
+      "score": 64.0,
+      "components": {
+        "value": 69.7,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 2.94,
+      "fwd_12m_pct": 4.71
+    },
+    {
+      "ym": "201311",
+      "score": 64.0,
+      "components": {
+        "value": 69.7,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.18,
+      "fwd_6m_pct": 2.94,
+      "fwd_12m_pct": 4.71
+    },
+    {
+      "ym": "201312",
+      "score": 64.0,
+      "components": {
+        "value": 69.7,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.76,
+      "fwd_6m_pct": 2.94,
+      "fwd_12m_pct": 4.71
+    },
+    {
+      "ym": "201401",
+      "score": 64.0,
+      "components": {
+        "value": 69.7,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 42500.0,
+      "fwd_1m_pct": 1.18,
+      "fwd_3m_pct": 2.94,
+      "fwd_6m_pct": 2.94,
+      "fwd_12m_pct": 4.71
+    },
+    {
+      "ym": "201402",
+      "score": 64.2,
+      "components": {
+        "value": 64.5,
+        "supply": 75.0,
+        "demand_proxy": 55.9
+      },
+      "sale": 43000.0,
+      "fwd_1m_pct": 0.58,
+      "fwd_3m_pct": 1.74,
+      "fwd_6m_pct": 1.74,
+      "fwd_12m_pct": 4.07
+    },
+    {
+      "ym": "201403",
+      "score": 64.3,
+      "components": {
+        "value": 61.8,
+        "supply": 75.0,
+        "demand_proxy": 58.8
+      },
+      "sale": 43250.0,
+      "fwd_1m_pct": 1.16,
+      "fwd_3m_pct": 1.16,
+      "fwd_6m_pct": 2.89,
+      "fwd_12m_pct": 4.05
+    },
+    {
+      "ym": "201404",
+      "score": 64.0,
+      "components": {
+        "value": 56.6,
+        "supply": 73.1,
+        "demand_proxy": 64.7
+      },
+      "sale": 43750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.71,
+      "fwd_12m_pct": 2.86
+    },
+    {
+      "ym": "201405",
+      "score": 61.5,
+      "components": {
+        "value": 55.6,
+        "supply": 73.0,
+        "demand_proxy": 58.7
+      },
+      "sale": 43750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.71,
+      "fwd_12m_pct": 3.43
+    },
+    {
+      "ym": "201406",
+      "score": 60.4,
+      "components": {
+        "value": 55.6,
+        "supply": 72.9,
+        "demand_proxy": 55.8
+      },
+      "sale": 43750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.71,
+      "fwd_6m_pct": 1.71,
+      "fwd_12m_pct": 3.43
+    },
+    {
+      "ym": "201407",
+      "score": 58.3,
+      "components": {
+        "value": 55.6,
+        "supply": 72.9,
+        "demand_proxy": 50.0
+      },
+      "sale": 43750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.71,
+      "fwd_6m_pct": 1.71,
+      "fwd_12m_pct": 4.57
+    },
+    {
+      "ym": "201408",
+      "score": 58.3,
+      "components": {
+        "value": 55.6,
+        "supply": 72.9,
+        "demand_proxy": 50.0
+      },
+      "sale": 43750.0,
+      "fwd_1m_pct": 1.71,
+      "fwd_3m_pct": 1.71,
+      "fwd_6m_pct": 2.29,
+      "fwd_12m_pct": 10.29
+    },
+    {
+      "ym": "201409",
+      "score": 57.9,
+      "components": {
+        "value": 47.2,
+        "supply": 71.3,
+        "demand_proxy": 58.6
+      },
+      "sale": 44500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.12,
+      "fwd_12m_pct": 8.43
+    },
+    {
+      "ym": "201410",
+      "score": 58.3,
+      "components": {
+        "value": 47.2,
+        "supply": 72.6,
+        "demand_proxy": 58.6
+      },
+      "sale": 44500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.12,
+      "fwd_12m_pct": 8.99
+    },
+    {
+      "ym": "201411",
+      "score": 58.2,
+      "components": {
+        "value": 47.2,
+        "supply": 72.5,
+        "demand_proxy": 58.6
+      },
+      "sale": 44500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.56,
+      "fwd_6m_pct": 1.69,
+      "fwd_12m_pct": 8.99
+    },
+    {
+      "ym": "201412",
+      "score": 55.1,
+      "components": {
+        "value": 47.2,
+        "supply": 72.5,
+        "demand_proxy": 50.0
+      },
+      "sale": 44500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.12,
+      "fwd_6m_pct": 1.69,
+      "fwd_12m_pct": 8.99
+    },
+    {
+      "ym": "201501",
+      "score": 55.8,
+      "components": {
+        "value": 47.2,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 44500.0,
+      "fwd_1m_pct": 0.56,
+      "fwd_3m_pct": 1.12,
+      "fwd_6m_pct": 2.81,
+      "fwd_12m_pct": 8.99
+    },
+    {
+      "ym": "201502",
+      "score": 48.7,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 52.8
+      },
+      "sale": 44750.0,
+      "fwd_1m_pct": 0.56,
+      "fwd_3m_pct": 1.12,
+      "fwd_6m_pct": 7.82,
+      "fwd_12m_pct": 8.38
+    },
+    {
+      "ym": "201503",
+      "score": 49.8,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 55.6
+      },
+      "sale": 45000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.56,
+      "fwd_6m_pct": 7.22,
+      "fwd_12m_pct": 7.78
+    },
+    {
+      "ym": "201504",
+      "score": 49.8,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 55.6
+      },
+      "sale": 45000.0,
+      "fwd_1m_pct": 0.56,
+      "fwd_3m_pct": 1.67,
+      "fwd_6m_pct": 7.78,
+      "fwd_12m_pct": 7.78
+    },
+    {
+      "ym": "201505",
+      "score": 49.8,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 55.6
+      },
+      "sale": 45250.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 6.63,
+      "fwd_6m_pct": 7.18,
+      "fwd_12m_pct": 8.29
+    },
+    {
+      "ym": "201506",
+      "score": 48.7,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 52.8
+      },
+      "sale": 45250.0,
+      "fwd_1m_pct": 1.1,
+      "fwd_3m_pct": 6.63,
+      "fwd_6m_pct": 7.18,
+      "fwd_12m_pct": 8.29
+    },
+    {
+      "ym": "201507",
+      "score": 50.8,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 58.3
+      },
+      "sale": 45750.0,
+      "fwd_1m_pct": 5.46,
+      "fwd_3m_pct": 6.01,
+      "fwd_6m_pct": 6.01,
+      "fwd_12m_pct": 7.65
+    },
+    {
+      "ym": "201508",
+      "score": 59.8,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 83.1
+      },
+      "sale": 48250.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.52,
+      "fwd_6m_pct": 0.52,
+      "fwd_12m_pct": 2.59
+    },
+    {
+      "ym": "201509",
+      "score": 59.8,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 83.1
+      },
+      "sale": 48250.0,
+      "fwd_1m_pct": 0.52,
+      "fwd_3m_pct": 0.52,
+      "fwd_6m_pct": 0.52,
+      "fwd_12m_pct": 3.63
+    },
+    {
+      "ym": "201510",
+      "score": 58.3,
+      "components": {
+        "value": 25,
+        "supply": 73.8,
+        "demand_proxy": 80.1
+      },
+      "sale": 48500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 5.15
+    },
+    {
+      "ym": "201511",
+      "score": 48.4,
+      "components": {
+        "value": 25,
+        "supply": 73.8,
+        "demand_proxy": 52.6
+      },
+      "sale": 48500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.03,
+      "fwd_12m_pct": 5.15
+    },
+    {
+      "ym": "201512",
+      "score": 47.4,
+      "components": {
+        "value": 25,
+        "supply": 70.3,
+        "demand_proxy": 52.6
+      },
+      "sale": 48500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.03,
+      "fwd_12m_pct": 5.15
+    },
+    {
+      "ym": "201601",
+      "score": 46.2,
+      "components": {
+        "value": 25,
+        "supply": 69.5,
+        "demand_proxy": 50.0
+      },
+      "sale": 48500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.55,
+      "fwd_12m_pct": 5.15
+    },
+    {
+      "ym": "201602",
+      "score": 47.7,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 48500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.03,
+      "fwd_6m_pct": 2.06,
+      "fwd_12m_pct": 5.15
+    },
+    {
+      "ym": "201603",
+      "score": 47.7,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 48500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.03,
+      "fwd_6m_pct": 3.09,
+      "fwd_12m_pct": 7.22
+    },
+    {
+      "ym": "201604",
+      "score": 47.7,
+      "components": {
+        "value": 25,
+        "supply": 75.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 48500.0,
+      "fwd_1m_pct": 1.03,
+      "fwd_3m_pct": 1.55,
+      "fwd_6m_pct": 5.15,
+      "fwd_12m_pct": 7.22
+    },
+    {
+      "ym": "201605",
+      "score": 48.9,
+      "components": {
+        "value": 25,
+        "supply": 72.4,
+        "demand_proxy": 55.2
+      },
+      "sale": 49000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.02,
+      "fwd_6m_pct": 4.08,
+      "fwd_12m_pct": 8.16
+    },
+    {
+      "ym": "201606",
+      "score": 48.9,
+      "components": {
+        "value": 25,
+        "supply": 72.4,
+        "demand_proxy": 55.2
+      },
+      "sale": 49000.0,
+      "fwd_1m_pct": 0.51,
+      "fwd_3m_pct": 2.04,
+      "fwd_6m_pct": 4.08,
+      "fwd_12m_pct": 10.2
+    },
+    {
+      "ym": "201607",
+      "score": 49.4,
+      "components": {
+        "value": 25,
+        "supply": 70.7,
+        "demand_proxy": 57.7
+      },
+      "sale": 49250.0,
+      "fwd_1m_pct": 0.51,
+      "fwd_3m_pct": 3.55,
+      "fwd_6m_pct": 3.55,
+      "fwd_12m_pct": 15.23
+    },
+    {
+      "ym": "201608",
+      "score": 47.9,
+      "components": {
+        "value": 25,
+        "supply": 68.8,
+        "demand_proxy": 55.1
+      },
+      "sale": 49500.0,
+      "fwd_1m_pct": 1.01,
+      "fwd_3m_pct": 3.03,
+      "fwd_6m_pct": 3.03,
+      "fwd_12m_pct": 14.65
+    },
+    {
+      "ym": "201609",
+      "score": 48.9,
+      "components": {
+        "value": 25,
+        "supply": 65.7,
+        "demand_proxy": 60.2
+      },
+      "sale": 50000.0,
+      "fwd_1m_pct": 2.0,
+      "fwd_3m_pct": 2.0,
+      "fwd_6m_pct": 4.0,
+      "fwd_12m_pct": 13.5
+    },
+    {
+      "ym": "201610",
+      "score": 49.9,
+      "components": {
+        "value": 25,
+        "supply": 59.1,
+        "demand_proxy": 67.8
+      },
+      "sale": 51000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.96,
+      "fwd_12m_pct": 13.73
+    },
+    {
+      "ym": "201611",
+      "score": 47.9,
+      "components": {
+        "value": 25,
+        "supply": 55.3,
+        "demand_proxy": 65.2
+      },
+      "sale": 51000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 3.92,
+      "fwd_12m_pct": 17.65
+    },
+    {
+      "ym": "201612",
+      "score": 45.6,
+      "components": {
+        "value": 25,
+        "supply": 54.0,
+        "demand_proxy": 60.0
+      },
+      "sale": 51000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.96,
+      "fwd_6m_pct": 5.88,
+      "fwd_12m_pct": 19.61
+    },
+    {
+      "ym": "201701",
+      "score": 41.9,
+      "components": {
+        "value": 25,
+        "supply": 53.6,
+        "demand_proxy": 50.0
+      },
+      "sale": 51000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.96,
+      "fwd_6m_pct": 11.27,
+      "fwd_12m_pct": 27.45
+    },
+    {
+      "ym": "201702",
+      "score": 41.9,
+      "components": {
+        "value": 25,
+        "supply": 53.6,
+        "demand_proxy": 50.0
+      },
+      "sale": 51000.0,
+      "fwd_1m_pct": 1.96,
+      "fwd_3m_pct": 3.92,
+      "fwd_6m_pct": 11.27,
+      "fwd_12m_pct": 31.37
+    },
+    {
+      "ym": "201703",
+      "score": 44.8,
+      "components": {
+        "value": 25,
+        "supply": 51.4,
+        "demand_proxy": 59.8
+      },
+      "sale": 52000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 3.85,
+      "fwd_6m_pct": 9.13,
+      "fwd_12m_pct": 35.58
+    },
+    {
+      "ym": "201704",
+      "score": 44.8,
+      "components": {
+        "value": 25,
+        "supply": 51.4,
+        "demand_proxy": 59.8
+      },
+      "sale": 52000.0,
+      "fwd_1m_pct": 1.92,
+      "fwd_3m_pct": 9.13,
+      "fwd_6m_pct": 11.54,
+      "fwd_12m_pct": 36.54
+    },
+    {
+      "ym": "201705",
+      "score": 46.2,
+      "components": {
+        "value": 25,
+        "supply": 43.1,
+        "demand_proxy": 69.6
+      },
+      "sale": 53000.0,
+      "fwd_1m_pct": 1.89,
+      "fwd_3m_pct": 7.08,
+      "fwd_6m_pct": 13.21,
+      "fwd_12m_pct": 33.96
+    },
+    {
+      "ym": "201706",
+      "score": 44.1,
+      "components": {
+        "value": 25,
+        "supply": 36.0,
+        "demand_proxy": 69.2
+      },
+      "sale": 54000.0,
+      "fwd_1m_pct": 5.09,
+      "fwd_3m_pct": 5.09,
+      "fwd_6m_pct": 12.96,
+      "fwd_12m_pct": 31.48
+    },
+    {
+      "ym": "201707",
+      "score": 51.0,
+      "components": {
+        "value": 25,
+        "supply": 26.1,
+        "demand_proxy": 95.7
+      },
+      "sale": 56750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.2,
+      "fwd_6m_pct": 14.54,
+      "fwd_12m_pct": 25.99
+    },
+    {
+      "ym": "201708",
+      "score": 47.3,
+      "components": {
+        "value": 25,
+        "supply": 26.1,
+        "demand_proxy": 85.4
+      },
+      "sale": 56750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 5.73,
+      "fwd_6m_pct": 18.06,
+      "fwd_12m_pct": 31.28
+    },
+    {
+      "ym": "201709",
+      "score": 43.4,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 75.5
+      },
+      "sale": 56750.0,
+      "fwd_1m_pct": 2.2,
+      "fwd_3m_pct": 7.49,
+      "fwd_6m_pct": 24.23,
+      "fwd_12m_pct": 35.68
+    },
+    {
+      "ym": "201710",
+      "score": 38.1,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 61.0
+      },
+      "sale": 58000.0,
+      "fwd_1m_pct": 3.45,
+      "fwd_3m_pct": 12.07,
+      "fwd_6m_pct": 22.41,
+      "fwd_12m_pct": 36.21
+    },
+    {
+      "ym": "201711",
+      "score": 44.5,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 78.6
+      },
+      "sale": 60000.0,
+      "fwd_1m_pct": 1.67,
+      "fwd_3m_pct": 11.67,
+      "fwd_6m_pct": 18.33,
+      "fwd_12m_pct": 31.67
+    },
+    {
+      "ym": "201712",
+      "score": 47.7,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 87.4
+      },
+      "sale": 61000.0,
+      "fwd_1m_pct": 6.56,
+      "fwd_3m_pct": 15.57,
+      "fwd_6m_pct": 16.39,
+      "fwd_12m_pct": 29.51
+    },
+    {
+      "ym": "201801",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 65000.0,
+      "fwd_1m_pct": 3.08,
+      "fwd_3m_pct": 9.23,
+      "fwd_6m_pct": 10.0,
+      "fwd_12m_pct": 21.54
+    },
+    {
+      "ym": "201802",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 67000.0,
+      "fwd_1m_pct": 5.22,
+      "fwd_3m_pct": 5.97,
+      "fwd_6m_pct": 11.19,
+      "fwd_12m_pct": 19.4
+    },
+    {
+      "ym": "201803",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 70500.0,
+      "fwd_1m_pct": 0.71,
+      "fwd_3m_pct": 0.71,
+      "fwd_6m_pct": 9.22,
+      "fwd_12m_pct": 13.48
+    },
+    {
+      "ym": "201804",
+      "score": 50.9,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 96.2
+      },
+      "sale": 71000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.7,
+      "fwd_6m_pct": 11.27,
+      "fwd_12m_pct": 11.97
+    },
+    {
+      "ym": "201805",
+      "score": 44.9,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 79.9
+      },
+      "sale": 71000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 4.93,
+      "fwd_6m_pct": 11.27,
+      "fwd_12m_pct": 11.97
+    },
+    {
+      "ym": "201806",
+      "score": 35.4,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 53.5
+      },
+      "sale": 71000.0,
+      "fwd_1m_pct": 0.7,
+      "fwd_3m_pct": 8.45,
+      "fwd_6m_pct": 11.27,
+      "fwd_12m_pct": 12.68
+    },
+    {
+      "ym": "201807",
+      "score": 35.4,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 53.5
+      },
+      "sale": 71500.0,
+      "fwd_1m_pct": 4.2,
+      "fwd_3m_pct": 10.49,
+      "fwd_6m_pct": 10.49,
+      "fwd_12m_pct": 11.89
+    },
+    {
+      "ym": "201808",
+      "score": 43.1,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 74.6
+      },
+      "sale": 74500.0,
+      "fwd_1m_pct": 3.36,
+      "fwd_3m_pct": 6.04,
+      "fwd_6m_pct": 7.38,
+      "fwd_12m_pct": 7.38
+    },
+    {
+      "ym": "201809",
+      "score": 49.5,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 92.3
+      },
+      "sale": 77000.0,
+      "fwd_1m_pct": 2.6,
+      "fwd_3m_pct": 2.6,
+      "fwd_6m_pct": 3.9,
+      "fwd_12m_pct": 5.84
+    },
+    {
+      "ym": "201810",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 79000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.63,
+      "fwd_12m_pct": 7.59
+    },
+    {
+      "ym": "201811",
+      "score": 45.1,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 80.2
+      },
+      "sale": 79000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.27,
+      "fwd_6m_pct": 0.63,
+      "fwd_12m_pct": 11.39
+    },
+    {
+      "ym": "201812",
+      "score": 38.8,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 63.0
+      },
+      "sale": 79000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.27,
+      "fwd_6m_pct": 1.27,
+      "fwd_12m_pct": 17.09
+    },
+    {
+      "ym": "201901",
+      "score": 34.1,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 79000.0,
+      "fwd_1m_pct": 1.27,
+      "fwd_3m_pct": 0.63,
+      "fwd_6m_pct": 1.27,
+      "fwd_12m_pct": 19.62
+    },
+    {
+      "ym": "201902",
+      "score": 36.4,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 56.3
+      },
+      "sale": 80000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -0.62,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 18.75
+    },
+    {
+      "ym": "201903",
+      "score": 36.7,
+      "components": {
+        "value": 25,
+        "supply": 26.0,
+        "demand_proxy": 56.3
+      },
+      "sale": 80000.0,
+      "fwd_1m_pct": -0.62,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 1.88,
+      "fwd_12m_pct": 21.25
+    },
+    {
+      "ym": "201904",
+      "score": 36.2,
+      "components": {
+        "value": 25.8,
+        "supply": 27.5,
+        "demand_proxy": 53.2
+      },
+      "sale": 79500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.63,
+      "fwd_6m_pct": 6.92,
+      "fwd_12m_pct": 22.01
+    },
+    {
+      "ym": "201905",
+      "score": 33.9,
+      "components": {
+        "value": 25.8,
+        "supply": 27.5,
+        "demand_proxy": 46.9
+      },
+      "sale": 79500.0,
+      "fwd_1m_pct": 0.63,
+      "fwd_3m_pct": 0.63,
+      "fwd_6m_pct": 10.69,
+      "fwd_12m_pct": 22.01
+    },
+    {
+      "ym": "201906",
+      "score": 34.6,
+      "components": {
+        "value": 25,
+        "supply": 27.0,
+        "demand_proxy": 50.0
+      },
+      "sale": 80000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.88,
+      "fwd_6m_pct": 15.62,
+      "fwd_12m_pct": 23.12
+    },
+    {
+      "ym": "201907",
+      "score": 35.8,
+      "components": {
+        "value": 25,
+        "supply": 27.0,
+        "demand_proxy": 53.1
+      },
+      "sale": 80000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 6.25,
+      "fwd_6m_pct": 18.12,
+      "fwd_12m_pct": 31.25
+    },
+    {
+      "ym": "201908",
+      "score": 35.8,
+      "components": {
+        "value": 25,
+        "supply": 27.1,
+        "demand_proxy": 53.1
+      },
+      "sale": 80000.0,
+      "fwd_1m_pct": 1.88,
+      "fwd_3m_pct": 10.0,
+      "fwd_6m_pct": 18.75,
+      "fwd_12m_pct": 33.75
+    },
+    {
+      "ym": "201909",
+      "score": 38.2,
+      "components": {
+        "value": 25,
+        "supply": 27.7,
+        "demand_proxy": 59.4
+      },
+      "sale": 81500.0,
+      "fwd_1m_pct": 4.29,
+      "fwd_3m_pct": 13.5,
+      "fwd_6m_pct": 19.02,
+      "fwd_12m_pct": 33.74
+    },
+    {
+      "ym": "201910",
+      "score": 46.1,
+      "components": {
+        "value": 25,
+        "supply": 27.4,
+        "demand_proxy": 81.2
+      },
+      "sale": 85000.0,
+      "fwd_1m_pct": 3.53,
+      "fwd_3m_pct": 11.18,
+      "fwd_6m_pct": 14.12,
+      "fwd_12m_pct": 29.41
+    },
+    {
+      "ym": "201911",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 88000.0,
+      "fwd_1m_pct": 5.11,
+      "fwd_3m_pct": 7.95,
+      "fwd_6m_pct": 10.23,
+      "fwd_12m_pct": 28.98
+    },
+    {
+      "ym": "201912",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 92500.0,
+      "fwd_1m_pct": 2.16,
+      "fwd_3m_pct": 4.86,
+      "fwd_6m_pct": 6.49,
+      "fwd_12m_pct": 25.41
+    },
+    {
+      "ym": "202001",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 94500.0,
+      "fwd_1m_pct": 0.53,
+      "fwd_3m_pct": 2.65,
+      "fwd_6m_pct": 11.11,
+      "fwd_12m_pct": 23.81
+    },
+    {
+      "ym": "202002",
+      "score": 48.7,
+      "components": {
+        "value": 25,
+        "supply": 25.5,
+        "demand_proxy": 89.8
+      },
+      "sale": 95000.0,
+      "fwd_1m_pct": 2.11,
+      "fwd_3m_pct": 2.11,
+      "fwd_6m_pct": 12.63,
+      "fwd_12m_pct": 23.68
+    },
+    {
+      "ym": "202003",
+      "score": 42.9,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 74.3
+      },
+      "sale": 97000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 1.55,
+      "fwd_6m_pct": 12.37,
+      "fwd_12m_pct": 21.65
+    },
+    {
+      "ym": "202004",
+      "score": 38.9,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 63.2
+      },
+      "sale": 97000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 8.25,
+      "fwd_6m_pct": 13.4,
+      "fwd_12m_pct": 22.16
+    },
+    {
+      "ym": "202005",
+      "score": 38.7,
+      "components": {
+        "value": 25,
+        "supply": 27.7,
+        "demand_proxy": 60.5
+      },
+      "sale": 97000.0,
+      "fwd_1m_pct": 1.55,
+      "fwd_3m_pct": 10.31,
+      "fwd_6m_pct": 17.01,
+      "fwd_12m_pct": 22.68
+    },
+    {
+      "ym": "202006",
+      "score": 38.4,
+      "components": {
+        "value": 25,
+        "supply": 30.6,
+        "demand_proxy": 57.7
+      },
+      "sale": 98500.0,
+      "fwd_1m_pct": 6.6,
+      "fwd_3m_pct": 10.66,
+      "fwd_6m_pct": 17.77,
+      "fwd_12m_pct": 21.32
+    },
+    {
+      "ym": "202007",
+      "score": 49.8,
+      "components": {
+        "value": 25,
+        "supply": 27.7,
+        "demand_proxy": 91.2
+      },
+      "sale": 105000.0,
+      "fwd_1m_pct": 1.9,
+      "fwd_3m_pct": 4.76,
+      "fwd_6m_pct": 11.43,
+      "fwd_12m_pct": 15.71
+    },
+    {
+      "ym": "202008",
+      "score": 52.8,
+      "components": {
+        "value": 25,
+        "supply": 26.9,
+        "demand_proxy": 100
+      },
+      "sale": 107000.0,
+      "fwd_1m_pct": 1.87,
+      "fwd_3m_pct": 6.07,
+      "fwd_6m_pct": 9.81,
+      "fwd_12m_pct": 16.82
+    },
+    {
+      "ym": "202009",
+      "score": 52.6,
+      "components": {
+        "value": 25,
+        "supply": 26.2,
+        "demand_proxy": 100
+      },
+      "sale": 109000.0,
+      "fwd_1m_pct": 0.92,
+      "fwd_3m_pct": 6.42,
+      "fwd_6m_pct": 8.26,
+      "fwd_12m_pct": 19.72
+    },
+    {
+      "ym": "202010",
+      "score": 43.7,
+      "components": {
+        "value": 25,
+        "supply": 28.4,
+        "demand_proxy": 73.8
+      },
+      "sale": 110000.0,
+      "fwd_1m_pct": 3.18,
+      "fwd_3m_pct": 6.36,
+      "fwd_6m_pct": 7.73,
+      "fwd_12m_pct": 19.09
+    },
+    {
+      "ym": "202011",
+      "score": 50.4,
+      "components": {
+        "value": 25,
+        "supply": 44.3,
+        "demand_proxy": 80.4
+      },
+      "sale": 113500.0,
+      "fwd_1m_pct": 2.2,
+      "fwd_3m_pct": 3.52,
+      "fwd_6m_pct": 4.85,
+      "fwd_12m_pct": 15.42
+    },
+    {
+      "ym": "202012",
+      "score": 53.3,
+      "components": {
+        "value": 25,
+        "supply": 52.8,
+        "demand_proxy": 82.1
+      },
+      "sale": 116000.0,
+      "fwd_1m_pct": 0.86,
+      "fwd_3m_pct": 1.72,
+      "fwd_6m_pct": 3.02,
+      "fwd_12m_pct": 12.93
+    },
+    {
+      "ym": "202101",
+      "score": 55.1,
+      "components": {
+        "value": 25,
+        "supply": 59.8,
+        "demand_proxy": 81.8
+      },
+      "sale": 117000.0,
+      "fwd_1m_pct": 0.43,
+      "fwd_3m_pct": 1.28,
+      "fwd_6m_pct": 3.85,
+      "fwd_12m_pct": 11.97
+    },
+    {
+      "ym": "202102",
+      "score": 51.9,
+      "components": {
+        "value": 25,
+        "supply": 67.0,
+        "demand_proxy": 67.6
+      },
+      "sale": 117500.0,
+      "fwd_1m_pct": 0.43,
+      "fwd_3m_pct": 1.28,
+      "fwd_6m_pct": 6.38,
+      "fwd_12m_pct": 11.49
+    },
+    {
+      "ym": "202103",
+      "score": 48.7,
+      "components": {
+        "value": 25,
+        "supply": 67.1,
+        "demand_proxy": 58.6
+      },
+      "sale": 118000.0,
+      "fwd_1m_pct": 0.42,
+      "fwd_3m_pct": 1.27,
+      "fwd_6m_pct": 10.59,
+      "fwd_12m_pct": 13.56
+    },
+    {
+      "ym": "202104",
+      "score": 47.7,
+      "components": {
+        "value": 25,
+        "supply": 66.3,
+        "demand_proxy": 56.4
+      },
+      "sale": 118500.0,
+      "fwd_1m_pct": 0.42,
+      "fwd_3m_pct": 2.53,
+      "fwd_6m_pct": 10.55,
+      "fwd_12m_pct": 13.5
+    },
+    {
+      "ym": "202105",
+      "score": 47.5,
+      "components": {
+        "value": 25,
+        "supply": 65.6,
+        "demand_proxy": 56.4
+      },
+      "sale": 119000.0,
+      "fwd_1m_pct": 0.42,
+      "fwd_3m_pct": 5.04,
+      "fwd_6m_pct": 10.08,
+      "fwd_12m_pct": 14.29
+    },
+    {
+      "ym": "202106",
+      "score": 48.5,
+      "components": {
+        "value": 25,
+        "supply": 69.3,
+        "demand_proxy": 56.4
+      },
+      "sale": 119500.0,
+      "fwd_1m_pct": 1.67,
+      "fwd_3m_pct": 9.21,
+      "fwd_6m_pct": 9.62,
+      "fwd_12m_pct": 13.81
+    },
+    {
+      "ym": "202107",
+      "score": 50.9,
+      "components": {
+        "value": 25,
+        "supply": 69.6,
+        "demand_proxy": 62.7
+      },
+      "sale": 121500.0,
+      "fwd_1m_pct": 2.88,
+      "fwd_3m_pct": 7.82,
+      "fwd_6m_pct": 7.82,
+      "fwd_12m_pct": 11.93
+    },
+    {
+      "ym": "202108",
+      "score": 54.1,
+      "components": {
+        "value": 25,
+        "supply": 64.7,
+        "demand_proxy": 75.2
+      },
+      "sale": 125000.0,
+      "fwd_1m_pct": 4.4,
+      "fwd_3m_pct": 4.8,
+      "fwd_6m_pct": 4.8,
+      "fwd_12m_pct": 8.8
+    },
+    {
+      "ym": "202109",
+      "score": 59.4,
+      "components": {
+        "value": 25,
+        "supply": 56.2,
+        "demand_proxy": 96.0
+      },
+      "sale": 130500.0,
+      "fwd_1m_pct": 0.38,
+      "fwd_3m_pct": 0.38,
+      "fwd_6m_pct": 2.68,
+      "fwd_12m_pct": 2.3
+    },
+    {
+      "ym": "202110",
+      "score": 56.6,
+      "components": {
+        "value": 25,
+        "supply": 55.4,
+        "demand_proxy": 89.1
+      },
+      "sale": 131000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 2.67,
+      "fwd_12m_pct": -1.91
+    },
+    {
+      "ym": "202111",
+      "score": 51.1,
+      "components": {
+        "value": 25,
+        "supply": 55.4,
+        "demand_proxy": 74.0
+      },
+      "sale": 131000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 3.82,
+      "fwd_12m_pct": -8.4
+    },
+    {
+      "ym": "202112",
+      "score": 43.1,
+      "components": {
+        "value": 25,
+        "supply": 55.4,
+        "demand_proxy": 51.9
+      },
+      "sale": 131000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.29,
+      "fwd_6m_pct": 3.82,
+      "fwd_12m_pct": -10.31
+    },
+    {
+      "ym": "202201",
+      "score": 42.4,
+      "components": {
+        "value": 25,
+        "supply": 55.4,
+        "demand_proxy": 50.0
+      },
+      "sale": 131000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.67,
+      "fwd_6m_pct": 3.82,
+      "fwd_12m_pct": -12.21
+    },
+    {
+      "ym": "202202",
+      "score": 42.4,
+      "components": {
+        "value": 25,
+        "supply": 55.4,
+        "demand_proxy": 50.0
+      },
+      "sale": 131000.0,
+      "fwd_1m_pct": 2.29,
+      "fwd_3m_pct": 3.82,
+      "fwd_6m_pct": 3.82,
+      "fwd_12m_pct": -17.18
+    },
+    {
+      "ym": "202203",
+      "score": 44.2,
+      "components": {
+        "value": 25,
+        "supply": 46.9,
+        "demand_proxy": 61.5
+      },
+      "sale": 134000.0,
+      "fwd_1m_pct": 0.37,
+      "fwd_3m_pct": 1.49,
+      "fwd_6m_pct": -0.37,
+      "fwd_12m_pct": -22.01
+    },
+    {
+      "ym": "202204",
+      "score": 44.7,
+      "components": {
+        "value": 25,
+        "supply": 46.0,
+        "demand_proxy": 63.4
+      },
+      "sale": 134500.0,
+      "fwd_1m_pct": 1.12,
+      "fwd_3m_pct": 1.12,
+      "fwd_6m_pct": -4.46,
+      "fwd_12m_pct": -23.42
+    },
+    {
+      "ym": "202205",
+      "score": 46.1,
+      "components": {
+        "value": 25,
+        "supply": 43.8,
+        "demand_proxy": 69.1
+      },
+      "sale": 136000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": -11.76,
+      "fwd_12m_pct": -24.26
+    },
+    {
+      "ym": "202206",
+      "score": 41.9,
+      "components": {
+        "value": 25,
+        "supply": 43.8,
+        "demand_proxy": 57.5
+      },
+      "sale": 136000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -1.84,
+      "fwd_6m_pct": -13.6,
+      "fwd_12m_pct": -23.9
+    },
+    {
+      "ym": "202207",
+      "score": 41.2,
+      "components": {
+        "value": 25,
+        "supply": 43.8,
+        "demand_proxy": 55.6
+      },
+      "sale": 136000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": -5.51,
+      "fwd_6m_pct": -15.44,
+      "fwd_12m_pct": -21.69
+    },
+    {
+      "ym": "202208",
+      "score": 39.2,
+      "components": {
+        "value": 25,
+        "supply": 43.8,
+        "demand_proxy": 50.0
+      },
+      "sale": 136000.0,
+      "fwd_1m_pct": -1.84,
+      "fwd_3m_pct": -11.76,
+      "fwd_6m_pct": -20.22,
+      "fwd_12m_pct": -19.49
+    },
+    {
+      "ym": "202209",
+      "score": 34.2,
+      "components": {
+        "value": 27.5,
+        "supply": 34.4,
+        "demand_proxy": 40.8
+      },
+      "sale": 133500.0,
+      "fwd_1m_pct": -3.75,
+      "fwd_3m_pct": -11.99,
+      "fwd_6m_pct": -21.72,
+      "fwd_12m_pct": -17.23
+    },
+    {
+      "ym": "202210",
+      "score": 27.9,
+      "components": {
+        "value": 32.8,
+        "supply": 28.6,
+        "demand_proxy": 22.4
+      },
+      "sale": 128500.0,
+      "fwd_1m_pct": -6.61,
+      "fwd_3m_pct": -10.51,
+      "fwd_6m_pct": -19.84,
+      "fwd_12m_pct": -14.01
+    },
+    {
+      "ym": "202211",
+      "score": 24.9,
+      "components": {
+        "value": 43.4,
+        "supply": 33.5,
+        "demand_proxy": 0
+      },
+      "sale": 120000.0,
+      "fwd_1m_pct": -2.08,
+      "fwd_3m_pct": -9.58,
+      "fwd_6m_pct": -14.17,
+      "fwd_12m_pct": -7.92
+    },
+    {
+      "ym": "202212",
+      "score": 25.0,
+      "components": {
+        "value": 47.3,
+        "supply": 28.6,
+        "demand_proxy": 0
+      },
+      "sale": 117500.0,
+      "fwd_1m_pct": -2.13,
+      "fwd_3m_pct": -11.06,
+      "fwd_6m_pct": -11.91,
+      "fwd_12m_pct": -5.96
+    },
+    {
+      "ym": "202301",
+      "score": 26.3,
+      "components": {
+        "value": 50.6,
+        "supply": 29.0,
+        "demand_proxy": 0
+      },
+      "sale": 115000.0,
+      "fwd_1m_pct": -5.65,
+      "fwd_3m_pct": -10.43,
+      "fwd_6m_pct": -7.39,
+      "fwd_12m_pct": -3.91
+    },
+    {
+      "ym": "202302",
+      "score": 29.5,
+      "components": {
+        "value": 60.3,
+        "supply": 25.0,
+        "demand_proxy": 2.1
+      },
+      "sale": 108500.0,
+      "fwd_1m_pct": -3.69,
+      "fwd_3m_pct": -5.07,
+      "fwd_6m_pct": 0.92,
+      "fwd_12m_pct": 1.84
+    },
+    {
+      "ym": "202303",
+      "score": 32.4,
+      "components": {
+        "value": 65.4,
+        "supply": 31.6,
+        "demand_proxy": 0
+      },
+      "sale": 104500.0,
+      "fwd_1m_pct": -1.44,
+      "fwd_3m_pct": -0.96,
+      "fwd_6m_pct": 5.74,
+      "fwd_12m_pct": 5.74
+    },
+    {
+      "ym": "202304",
+      "score": 31.6,
+      "components": {
+        "value": 67.3,
+        "supply": 26.2,
+        "demand_proxy": 0
+      },
+      "sale": 103000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 3.4,
+      "fwd_6m_pct": 7.28,
+      "fwd_12m_pct": 7.52
+    },
+    {
+      "ym": "202305",
+      "score": 40.9,
+      "components": {
+        "value": 69.0,
+        "supply": 25.0,
+        "demand_proxy": 24.7
+      },
+      "sale": 103000.0,
+      "fwd_1m_pct": 0.49,
+      "fwd_3m_pct": 6.31,
+      "fwd_6m_pct": 7.28,
+      "fwd_12m_pct": 7.52
+    },
+    {
+      "ym": "202306",
+      "score": 50.6,
+      "components": {
+        "value": 74.2,
+        "supply": 26.1,
+        "demand_proxy": 45.2
+      },
+      "sale": 103500.0,
+      "fwd_1m_pct": 2.9,
+      "fwd_3m_pct": 6.76,
+      "fwd_6m_pct": 6.76,
+      "fwd_12m_pct": 7.0
+    },
+    {
+      "ym": "202307",
+      "score": 56.5,
+      "components": {
+        "value": 69.7,
+        "supply": 25.0,
+        "demand_proxy": 67.0
+      },
+      "sale": 106500.0,
+      "fwd_1m_pct": 2.82,
+      "fwd_3m_pct": 3.76,
+      "fwd_6m_pct": 3.76,
+      "fwd_12m_pct": 6.1
+    },
+    {
+      "ym": "202308",
+      "score": 60.2,
+      "components": {
+        "value": 65.2,
+        "supply": 25.0,
+        "demand_proxy": 81.6
+      },
+      "sale": 109500.0,
+      "fwd_1m_pct": 0.91,
+      "fwd_3m_pct": 0.91,
+      "fwd_6m_pct": 0.91,
+      "fwd_12m_pct": 3.2
+    },
+    {
+      "ym": "202309",
+      "score": 60.9,
+      "components": {
+        "value": 63.6,
+        "supply": 26.8,
+        "demand_proxy": 83.8
+      },
+      "sale": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 6.33
+    },
+    {
+      "ym": "202310",
+      "score": 56.8,
+      "components": {
+        "value": 63.6,
+        "supply": 31.8,
+        "demand_proxy": 68.8
+      },
+      "sale": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 7.69
+    },
+    {
+      "ym": "202311",
+      "score": 52.0,
+      "components": {
+        "value": 63.6,
+        "supply": 33.2,
+        "demand_proxy": 54.6
+      },
+      "sale": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202312",
+      "score": 50.4,
+      "components": {
+        "value": 63.6,
+        "supply": 33.2,
+        "demand_proxy": 50.0
+      },
+      "sale": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202401",
+      "score": 52.3,
+      "components": {
+        "value": 63.6,
+        "supply": 40.2,
+        "demand_proxy": 50.0
+      },
+      "sale": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 2.26,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202402",
+      "score": 53.2,
+      "components": {
+        "value": 63.6,
+        "supply": 43.6,
+        "demand_proxy": 50.0
+      },
+      "sale": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 2.26,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202403",
+      "score": 53.2,
+      "components": {
+        "value": 63.6,
+        "supply": 43.6,
+        "demand_proxy": 50.0
+      },
+      "sale": 110500.0,
+      "fwd_1m_pct": 0.23,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 6.33,
+      "fwd_12m_pct": 12.22
+    },
+    {
+      "ym": "202404",
+      "score": 53.4,
+      "components": {
+        "value": 63.3,
+        "supply": 43.2,
+        "demand_proxy": 51.1
+      },
+      "sale": 110750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.03,
+      "fwd_6m_pct": 7.45,
+      "fwd_12m_pct": 14.67
+    },
+    {
+      "ym": "202405",
+      "score": 53.4,
+      "components": {
+        "value": 63.3,
+        "supply": 43.2,
+        "demand_proxy": 51.1
+      },
+      "sale": 110750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.03,
+      "fwd_6m_pct": 9.26,
+      "fwd_12m_pct": 14.67
+    },
+    {
+      "ym": "202406",
+      "score": 53.7,
+      "components": {
+        "value": 63.3,
+        "supply": 44.5,
+        "demand_proxy": 51.1
+      },
+      "sale": 110750.0,
+      "fwd_1m_pct": 2.03,
+      "fwd_3m_pct": 6.09,
+      "fwd_6m_pct": 9.26,
+      "fwd_12m_pct": 17.38
+    },
+    {
+      "ym": "202407",
+      "score": 55.7,
+      "components": {
+        "value": 59.8,
+        "supply": 44.2,
+        "demand_proxy": 60.2
+      },
+      "sale": 113000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 5.31,
+      "fwd_6m_pct": 7.08,
+      "fwd_12m_pct": 16.81
+    },
+    {
+      "ym": "202408",
+      "score": 56.7,
+      "components": {
+        "value": 59.8,
+        "supply": 48.0,
+        "demand_proxy": 60.2
+      },
+      "sale": 113000.0,
+      "fwd_1m_pct": 3.98,
+      "fwd_3m_pct": 7.08,
+      "fwd_6m_pct": 7.08,
+      "fwd_12m_pct": 19.47
+    },
+    {
+      "ym": "202409",
+      "score": 61.0,
+      "components": {
+        "value": 53.0,
+        "supply": 45.8,
+        "demand_proxy": 80.5
+      },
+      "sale": 117500.0,
+      "fwd_1m_pct": 1.28,
+      "fwd_3m_pct": 2.98,
+      "fwd_6m_pct": 5.53,
+      "fwd_12m_pct": 22.98
+    },
+    {
+      "ym": "202410",
+      "score": 57.9,
+      "components": {
+        "value": 50.8,
+        "supply": 42.7,
+        "demand_proxy": 76.5
+      },
+      "sale": 119000.0,
+      "fwd_1m_pct": 1.68,
+      "fwd_3m_pct": 1.68,
+      "fwd_6m_pct": 6.72,
+      "fwd_12m_pct": 21.85
+    },
+    {
+      "ym": "202411",
+      "score": 59.1,
+      "components": {
+        "value": 47.7,
+        "supply": 39.1,
+        "demand_proxy": 85.4
+      },
+      "sale": 121000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 4.96,
+      "fwd_12m_pct": 20.66
+    },
+    {
+      "ym": "202412",
+      "score": 51.6,
+      "components": {
+        "value": 47.7,
+        "supply": 39.1,
+        "demand_proxy": 64.9
+      },
+      "sale": 121000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.48,
+      "fwd_6m_pct": 7.44,
+      "fwd_12m_pct": 21.07
+    },
+    {
+      "ym": "202501",
+      "score": 49.2,
+      "components": {
+        "value": 47.7,
+        "supply": 39.1,
+        "demand_proxy": 58.4
+      },
+      "sale": 121000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 4.96,
+      "fwd_6m_pct": 9.09,
+      "fwd_12m_pct": 28.1
+    },
+    {
+      "ym": "202502",
+      "score": 47.8,
+      "components": {
+        "value": 47.7,
+        "supply": 45.1,
+        "demand_proxy": 50.0
+      },
+      "sale": 121000.0,
+      "fwd_1m_pct": 2.48,
+      "fwd_3m_pct": 4.96,
+      "fwd_6m_pct": 11.57,
+      "fwd_12m_pct": 38.43
+    },
+    {
+      "ym": "202503",
+      "score": 51.0,
+      "components": {
+        "value": 43.2,
+        "supply": 46.3,
+        "demand_proxy": 62.4
+      },
+      "sale": 124000.0,
+      "fwd_1m_pct": 2.42,
+      "fwd_3m_pct": 4.84,
+      "fwd_6m_pct": 16.53,
+      "fwd_12m_pct": 44.35
+    },
+    {
+      "ym": "202504",
+      "score": 54.5,
+      "components": {
+        "value": 38.6,
+        "supply": 48.6,
+        "demand_proxy": 74.8
+      },
+      "sale": 127000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 3.94,
+      "fwd_6m_pct": 14.17,
+      "fwd_12m_pct": 42.91
+    },
+    {
+      "ym": "202505",
+      "score": 54.5,
+      "components": {
+        "value": 38.6,
+        "supply": 48.6,
+        "demand_proxy": 74.8
+      },
+      "sale": 127000.0,
+      "fwd_1m_pct": 2.36,
+      "fwd_3m_pct": 6.3,
+      "fwd_6m_pct": 14.96,
+      "fwd_12m_pct": 42.91
+    },
+    {
+      "ym": "202506",
+      "score": 54.4,
+      "components": {
+        "value": 34.1,
+        "supply": 55.0,
+        "demand_proxy": 74.2
+      },
+      "sale": 130000.0,
+      "fwd_1m_pct": 1.54,
+      "fwd_3m_pct": 11.15,
+      "fwd_6m_pct": 12.69,
+      "fwd_12m_pct": 39.62
+    },
+    {
+      "ym": "202507",
+      "score": 50.3,
+      "components": {
+        "value": 31.1,
+        "supply": 50.0,
+        "demand_proxy": 69.7
+      },
+      "sale": 132000.0,
+      "fwd_1m_pct": 2.27,
+      "fwd_3m_pct": 9.85,
+      "fwd_6m_pct": 17.42,
+      "fwd_12m_pct": 37.5
+    },
+    {
+      "ym": "202508",
+      "score": 56.2,
+      "components": {
+        "value": 25,
+        "supply": 64.2,
+        "demand_proxy": 81.5
+      },
+      "sale": 135000.0,
+      "fwd_1m_pct": 7.04,
+      "fwd_3m_pct": 8.15,
+      "fwd_6m_pct": 24.07,
+      "fwd_12m_pct": 34.44
+    },
+    {
+      "ym": "202509",
+      "score": 58.7,
+      "components": {
+        "value": 25,
+        "supply": 48.5,
+        "demand_proxy": 100
+      },
+      "sale": 144500.0,
+      "fwd_1m_pct": 0.35,
+      "fwd_3m_pct": 1.38,
+      "fwd_6m_pct": 23.88,
+      "fwd_12m_pct": 25.61
+    },
+    {
+      "ym": "202510",
+      "score": 60.8,
+      "components": {
+        "value": 25,
+        "supply": 57.4,
+        "demand_proxy": 99.2
+      },
+      "sale": 145000.0,
+      "fwd_1m_pct": 0.69,
+      "fwd_3m_pct": 6.9,
+      "fwd_6m_pct": 25.17,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202511",
+      "score": 59.6,
+      "components": {
+        "value": 25,
+        "supply": 64.2,
+        "demand_proxy": 90.7
+      },
+      "sale": 146000.0,
+      "fwd_1m_pct": 0.34,
+      "fwd_3m_pct": 14.73,
+      "fwd_6m_pct": 24.32,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202512",
+      "score": 47.8,
+      "components": {
+        "value": 25,
+        "supply": 66.2,
+        "demand_proxy": 56.9
+      },
+      "sale": 146500.0,
+      "fwd_1m_pct": 5.8,
+      "fwd_3m_pct": 22.18,
+      "fwd_6m_pct": 23.89,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202601",
+      "score": 51.2,
+      "components": {
+        "value": 25,
+        "supply": 41.7,
+        "demand_proxy": 84.5
+      },
+      "sale": 155000.0,
+      "fwd_1m_pct": 8.06,
+      "fwd_3m_pct": 17.1,
+      "fwd_6m_pct": 17.1,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202602",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 167500.0,
+      "fwd_1m_pct": 6.87,
+      "fwd_3m_pct": 8.36,
+      "fwd_6m_pct": 8.36,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202603",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 179000.0,
+      "fwd_1m_pct": 1.4,
+      "fwd_3m_pct": 1.4,
+      "fwd_6m_pct": 1.4,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202604",
+      "score": 52.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 100
+      },
+      "sale": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202605",
+      "score": 49.3,
+      "components": {
+        "value": 25,
+        "supply": 25.0,
+        "demand_proxy": 91.8
+      },
+      "sale": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202606",
+      "score": 38.9,
+      "components": {
+        "value": 25,
+        "supply": 33.2,
+        "demand_proxy": 57.0
+      },
+      "sale": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202607",
+      "score": 36.3,
+      "components": {
+        "value": 25,
+        "supply": 33.2,
+        "demand_proxy": 50.0
+      },
+      "sale": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202608",
+      "score": 36.3,
+      "components": {
+        "value": 25,
+        "supply": 33.2,
+        "demand_proxy": 50.0
+      },
+      "sale": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202609",
+      "score": 36.3,
+      "components": {
+        "value": 25,
+        "supply": 33.2,
+        "demand_proxy": 50.0
+      },
+      "sale": 181500.0,
+      "fwd_1m_pct": null,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    }
+  ],
+  "generated_at": "2026-09-24T06:26:31.523202+00:00"
+}
