@@ -231,7 +231,7 @@
     "jeonse_score_0_100": 48.7,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-24T11:33:00.025145+00:00"
+    "generated_at": "2026-09-24T11:34:49.933172+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -245,7 +245,7 @@
     "current_position_0_1": 1.0,
     "source": "KB부동산 가락금호 24A 월별 일반거래가",
     "period": "202609",
-    "generated_at": "2026-09-24T11:32:59.989950+00:00"
+    "generated_at": "2026-09-24T11:34:49.896321+00:00"
   },
   "matched_period": {
     "as_of": "2026-09-24",
