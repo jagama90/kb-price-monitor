@@ -9,7 +9,7 @@ import json,os,pathlib,datetime,time
 from collect_molit_trades import SEOUL,fetch_all,summarize
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-OUT=ROOT/'dist/molit_historical_backtest.json'
+OUT=ROOT/'dist/molit_historical_backtest.json'\nCACHE=ROOT/'dist/molit_historical_month_cache.json'
 START='202209'; END='202306'
 
 def months(a,b):
