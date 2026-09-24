@@ -50,16 +50,38 @@ function renderConditionIndex(d){
 }
 loadMarketIndicators();
 const BASE_RATES=[{d:'2016-06-09',v:1.25},{d:'2017-11-30',v:1.50},{d:'2018-11-30',v:1.75},{d:'2019-07-18',v:1.50},{d:'2019-10-16',v:1.25},{d:'2020-03-17',v:.75},{d:'2020-05-28',v:.50},{d:'2021-08-26',v:.75},{d:'2021-11-25',v:1.00},{d:'2022-01-14',v:1.25},{d:'2022-04-14',v:1.50},{d:'2022-05-26',v:1.75},{d:'2022-07-13',v:2.25},{d:'2022-08-25',v:2.50},{d:'2022-10-12',v:3.00},{d:'2022-11-24',v:3.25},{d:'2023-01-13',v:3.50},{d:'2024-10-11',v:3.25},{d:'2024-11-28',v:3.00},{d:'2025-02-25',v:2.75},{d:'2025-05-29',v:2.50},{d:'2026-07-16',v:2.75},{d:'2026-08-27',v:3.00}];
-function renderScrollableSeries(svgId,xId,scrollId,rows){
- const W=Math.max(760,rows.length*82),H=230,p=28,vals=rows.map(x=>+x.v),lo=Math.max(0,Math.floor((Math.min(...vals)-.35)*4)/4),hi=Math.ceil((Math.max(...vals)+.35)*4)/4,range=Math.max(.5,hi-lo),X=i=>p+i*(W-p*2)/Math.max(1,rows.length-1),Y=v=>18+(hi-v)/range*(H-48);
- const svg=document.getElementById(svgId);svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.setAttribute('width',W);svg.setAttribute('height',H);svg.innerHTML='<polyline points="'+rows.map((x,i)=>X(i)+','+Y(x.v)).join(' ')+'"/>'+rows.map((x,i)=>'<circle cx="'+X(i)+'" cy="'+Y(x.v)+'" r="5"/><text x="'+X(i)+'" y="'+(Y(x.v)-11)+'" text-anchor="middle">'+Number(x.v).toFixed(2)+'</text>').join('');
- const axis=document.getElementById(xId);axis.style.width=W+'px';axis.innerHTML=rows.map(x=>'<span>'+esc(x.d.slice(2,7).replace('-','.'))+'</span>').join('');
- const sc=document.getElementById(scrollId);requestAnimationFrame(()=>{sc.scrollLeft=sc.scrollWidth});
+let RATE_PAGE=0,MACRO_PAGE=0;
+function renderPagedSeries(svgId,xId,yId,rows,page=0,pageSize=7){
+ const end=Math.max(1,rows.length-page*pageSize),start=Math.max(0,end-pageSize),view=rows.slice(start,end);
+ const W=620,H=250,L=54,R=18,T=30,B=48,vals=view.map(x=>Number(x.v)),rawMin=Math.min(...vals),rawMax=Math.max(...vals),pad=Math.max(.25,(rawMax-rawMin)*.25),lo=Math.max(0,rawMin-pad),hi=rawMax+pad,range=Math.max(.5,hi-lo);
+ const X=i=>L+i*(W-L-R)/Math.max(1,view.length-1),Y=v=>T+(hi-v)/range*(H-T-B);
+ const ticks=5,grid=Array.from({length:ticks},(_,i)=>{const val=hi-i*range/(ticks-1),y=T+i*(H-T-B)/(ticks-1);return '<line x1="'+L+'" y1="'+y+'" x2="'+(W-R)+'" y2="'+y+'" class="gridline"/><text x="'+(L-8)+'" y="'+(y+4)+'" text-anchor="end" class="ylabel">'+val.toFixed(2)+'%</text>'}).join('');
+ const line=view.map((x,i)=>X(i)+','+Y(Number(x.v))).join(' ');
+ const marks=view.map((x,i)=>'<circle cx="'+X(i)+'" cy="'+Y(Number(x.v))+'" r="5"/><text x="'+X(i)+'" y="'+(Y(Number(x.v))-12)+'" text-anchor="middle" class="pointlabel">'+Number(x.v).toFixed(2)+'</text><text x="'+X(i)+'" y="'+(H-18)+'" text-anchor="middle" class="xlabel">'+esc(String(x.d).slice(2,7).replace('-','.'))+'</text>').join('');
+ const svg=document.getElementById(svgId);svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.removeAttribute('width');svg.removeAttribute('height');svg.innerHTML=grid+'<polyline points="'+line+'" class="seriesline"/>'+marks;
+ const axis=document.getElementById(xId);if(axis)axis.innerHTML='';const yy=document.getElementById(yId);if(yy)yy.innerHTML='';
+ return {start,end,total:rows.length};
 }
-function renderRateDetail(){renderScrollableSeries('rateSvg','rateX','rateScroll',BASE_RATES);document.getElementById('rateHistory').innerHTML='<div class="head"><span>변경일</span><b>기준금리</b><em>직전 대비</em></div>'+BASE_RATES.slice(-8).reverse().map((x,i)=>{const n=BASE_RATES.indexOf(x),p=n?BASE_RATES[n-1].v:null,delta=p==null?'—':((x.v-p)>0?'+':'')+(x.v-p).toFixed(2)+'%p';return '<div><span>'+x.d+'</span><b>'+x.v.toFixed(2)+'%</b><em>'+delta+'</em></div>'}).join('');setText('rateRange','← 좌우 스크롤 · 2016 ~ 2026')}
-const rc=document.querySelector('#rateCard'),rd=document.querySelector('#rateDetail');function openRate(){const live=window.__marketIndicators;rd.hidden=false;document.querySelector('#macroDetail').hidden=true;document.querySelector('#snapshotExplanation').hidden=true;rc.setAttribute('aria-expanded','true');renderRateDetail();rd.scrollIntoView({behavior:'smooth',block:'nearest'})}rc?.addEventListener('click',openRate);rc?.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openRate()}});document.querySelector('#closeRate')?.addEventListener('click',()=>{rd.hidden=true;rc.setAttribute('aria-expanded','false')});
+function renderRateDetail(){
+ const pg=renderPagedSeries('rateSvg','rateX','rateY',BASE_RATES,RATE_PAGE,7);setText('rateRange',BASE_RATES[pg.start].d+' ~ '+BASE_RATES[pg.end-1].d);
+ document.getElementById('rateHistory').innerHTML='<div class="head"><span>변경일</span><b>기준금리</b><em>직전 대비</em></div>'+BASE_RATES.slice(-8).reverse().map(x=>{const n=BASE_RATES.indexOf(x),p=n?BASE_RATES[n-1].v:null,delta=p==null?'—':((x.v-p)>0?'+':'')+(x.v-p).toFixed(2)+'%p';return '<div><span>'+x.d+'</span><b>'+x.v.toFixed(2)+'%</b><em>'+delta+'</em></div>'}).join('');
+ document.getElementById('ratePrev').disabled=pg.start===0;document.getElementById('rateNext').disabled=pg.end===pg.total;
+}
+const rc=document.querySelector('#rateCard'),rd=document.querySelector('#rateDetail');
+function openRate(){RATE_PAGE=0;rd.hidden=false;document.querySelector('#macroDetail').hidden=true;document.querySelector('#snapshotExplanation').hidden=true;rc.setAttribute('aria-expanded','true');renderRateDetail()}
+rc?.addEventListener('click',openRate);rc?.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openRate()}});
+document.querySelector('#closeRate')?.addEventListener('click',()=>{rd.hidden=true;rc.setAttribute('aria-expanded','false')});
+document.querySelector('#ratePrev')?.addEventListener('click',()=>{RATE_PAGE++;renderRateDetail()});document.querySelector('#rateNext')?.addEventListener('click',()=>{RATE_PAGE=Math.max(0,RATE_PAGE-1);renderRateDetail()});
 const MACRO={m2:{title:'한국 M2 통화공급 증가율',source:'한국은행 ECOS',series:[{d:'2026-03',v:7.3},{d:'2026-04',v:8.2},{d:'2026-05',v:7.0},{d:'2026-06',v:8.2}]}};
-function showMacro(k){const z=MACRO[k],live=window.__marketIndicators?.m2_official||window.__marketIndicators?.m2,rows=z.series.slice();if(live?.period&&live?.yoy_pct!=null){const pd=String(live.period).slice(0,4)+'-'+String(live.period).slice(4,6),i=rows.findIndex(x=>x.d===pd);if(i>=0)rows[i]={d:pd,v:Number(live.yoy_pct)};else rows.push({d:pd,v:Number(live.yoy_pct)})}setText('macroTitle',z.title);setText('macroSource',z.source);document.getElementById('macroCurrent').innerHTML='<div><span>현재</span><b>'+(live?.yoy_pct!=null?Number(live.yoy_pct).toFixed(1)+'%':'—')+'</b></div><small>'+(live?.period||'최신')+' · 한국은행 ECOS</small>';renderScrollableSeries('macroSvg','macroX','macroScroll',rows);document.getElementById('macroHistory').innerHTML='<div class="head"><span>기간</span><b>전년비</b><em>직전</em></div>'+rows.slice().reverse().map(x=>'<div><span>'+x.d+'</span><b>'+x.v.toFixed(1)+'%</b><em>ECOS</em></div>').join('');setText('macroRange','← 좌우 스크롤');const el=document.getElementById('macroDetail');document.querySelector('#rateDetail').hidden=true;document.querySelector('#snapshotExplanation').hidden=true;el.hidden=false;el.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function showMacro(k){
+ const z=MACRO[k],live=window.__marketIndicators?.m2_official||window.__marketIndicators?.m2,rows=z.series.slice();
+ if(live?.period&&live?.yoy_pct!=null){const pd=String(live.period).slice(0,4)+'-'+String(live.period).slice(4,6),i=rows.findIndex(x=>x.d===pd);if(i>=0)rows[i]={d:pd,v:Number(live.yoy_pct)};else rows.push({d:pd,v:Number(live.yoy_pct)})}
+ setText('macroTitle',z.title);setText('macroSource',z.source);document.getElementById('macroCurrent').innerHTML='<div><span>현재</span><b>'+(live?.yoy_pct!=null?Number(live.yoy_pct).toFixed(1)+'%':'—')+'</b></div><small>'+(live?.period||'최신')+' · 한국은행 ECOS</small>';
+ MACRO_PAGE=0;const pg=renderPagedSeries('macroSvg','macroX','macroY',rows,MACRO_PAGE,7);setText('macroRange',rows[pg.start].d+' ~ '+rows[pg.end-1].d);
+ document.getElementById('macroHistory').innerHTML='<div class="head"><span>기간</span><b>전년비</b><em>출처</em></div>'+rows.slice().reverse().map(x=>'<div><span>'+x.d+'</span><b>'+x.v.toFixed(1)+'%</b><em>ECOS</em></div>').join('');
+ const el=document.getElementById('macroDetail');document.querySelector('#rateDetail').hidden=true;document.querySelector('#snapshotExplanation').hidden=true;el.hidden=false;
+ document.getElementById('macroPrev').disabled=true;document.getElementById('macroNext').disabled=true;
+}
 document.querySelector('#m2Card')?.addEventListener('click',()=>showMacro('m2'));document.querySelector('#closeMacro')?.addEventListener('click',()=>document.querySelector('#macroDetail').hidden=true);
 
 async function loadEcosFinanceSamples(){
