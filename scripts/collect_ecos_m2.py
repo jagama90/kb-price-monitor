@@ -15,7 +15,7 @@ def get(url):
 def main():
  key=os.getenv('BOK_ECOS_KEY')
  if not key: raise SystemExit('BOK_ECOS_KEY secret is required')
- base=f'https://ecos.bok.or.kr/api/StatisticSearch/{key}/json/kr/1/10000/101Y003/M/201601/202612/'
+ base=f'https://ecos.bok.or.kr/api/StatisticSearch/{key}/json/kr/1/10000/101Y002/M/201601/202612/'
  rows=get(base).get('StatisticSearch',{}).get('row',[])
  # Never guess an ECOS item code. Identify official M2 rows by the ECOS item name,
  # and retain both raw and selected rows so schema changes are auditable.
@@ -41,7 +41,7 @@ def main():
   mom=round((x['value']/series[i-1]['value']-1)*100,2) if i>=1 and series[i-1]['value'] else None
   yoy=round((x['value']/series[i-12]['value']-1)*100,2) if i>=12 and series[i-12]['value'] else None
   enriched.append({**x,'mom_pct':mom,'yoy_pct':yoy})
- out={'source':'한국은행 ECOS','table':'101Y003','definition':'광의통화(M2) 동일 수준계열에서 MoM/YoY 계산','selected_item':selected_key,'series':enriched,'candidate_item_count':len(items),'raw_row_count':len(rows),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+ out={'source':'한국은행 ECOS','table':'101Y002','definition':'광의통화(M2) 동일 수준계열에서 MoM/YoY 계산','selected_item':selected_key,'series':enriched,'candidate_item_count':len(items),'raw_row_count':len(rows),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  print(json.dumps({'collector':'ECOS M2','raw_rows':len(rows),'candidate_items':len(items),'selected_points':len(enriched),'latest':enriched[-1] if enriched else None},ensure_ascii=False))
 if __name__=='__main__':main()
