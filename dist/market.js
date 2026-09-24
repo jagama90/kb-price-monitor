@@ -45,8 +45,26 @@ function renderConditionIndex(d){
  setText('confidenceScore',covered+'% 가중치 연결');
  if(covered<60){setText('conditionScore','산출 보류');document.querySelector('#scoreRing strong').textContent='—';document.querySelector('#scoreRing span').textContent='신뢰도 부족'}
  else {const score=Math.round(available.reduce((a,k)=>a+components[k]*weights[k],0)/covered);setText('conditionScore',score+'/100');document.querySelector('#scoreRing strong').textContent=score;document.querySelector('#scoreRing span').textContent='/100'}
- const pos=[],neg=[];if(m?.mom_pct>0)pos.push('M2 전월비 '+signed(m.mom_pct,'%'));if(m?.mom_pct<0)neg.push('M2 전월비 '+signed(m.mom_pct,'%'));if(matched?.changes?.trade_count_pct>0)pos.push('동일기간 거래량 '+signed(matched.changes.trade_count_pct,'%'));if(matched?.changes?.trade_count_pct<0)neg.push('동일기간 거래량 '+signed(matched.changes.trade_count_pct,'%'));if(matched?.changes?.under15_share_pp>0)pos.push('15억 이하 거래비중 '+signed(matched.changes.under15_share_pp,'%p'));if(matched?.changes?.under15_share_pp<0)neg.push('15억 이하 거래비중 '+signed(matched.changes.under15_share_pp,'%p'));
- document.getElementById('positiveFactors').innerHTML=(pos.length?pos:['아직 연결된 개선 신호 부족']).map(x=>'<li>'+esc(x)+'</li>').join('');document.getElementById('negativeFactors').innerHTML=(neg.length?neg:['아직 연결된 제약 신호 부족']).map(x=>'<li>'+esc(x)+'</li>').join('');
+ const finance=components.finance,sent=components.sentiment,demand=components.demand,value=components.value;
+ const trade=matched?.changes?.trade_count_pct,under=matched?.changes?.under15_share_pp,mom=m?.mom_pct;
+ const state=(v)=>v==null?['미연결','neutral']:v>=55?['우호적','good']:v<45?['제약','bad']:['중립','neutral'];
+ const fs=state(finance),ss=state(sent),ds=state(demand),vs=state(value);
+ [['Finance',fs],['Sentiment',ss],['Demand',ds],['Value',vs]].forEach(([id,s])=>{setText('path'+id,s[0]);const el=document.getElementById('node'+id);if(el)el.className='signal-node '+s[1]});
+ setText('pathFinanceNote',mom==null?'금리·유동성':('M2 전월비 '+signed(mom,'%')));
+ setText('pathDemandNote',trade==null?'거래량·자금 이동':('동일기간 거래 '+signed(trade,'%')));
+ const positives=[],negatives=[];
+ if(mom>0)positives.push(['유동성 확대','M2 전월비 '+signed(mom,'%')]);if(mom<0)negatives.push(['유동성 축소','M2 전월비 '+signed(mom,'%')]);
+ if(under>0)positives.push(['중저가 거래비중 확대','15억 이하 '+signed(under,'%p')]);if(under<0)negatives.push(['중저가 거래비중 축소','15억 이하 '+signed(under,'%p')]);
+ if(trade>0)positives.push(['거래량 증가','동일기간 '+signed(trade,'%')]);if(trade<0)negatives.push(['거래량 둔화','동일기간 '+signed(trade,'%')]);
+ const p=positives[0]||['뚜렷한 개선 신호 없음','연결 지표를 계속 확인'],n=negatives[0]||['뚜렷한 제약 신호 없음','연결 지표를 계속 확인'];
+ setText('positiveLead',p[0]);setText('positiveSub',p[1]);setText('negativeLead',n[0]);setText('negativeSub',n[1]);
+ let headline='신호가 아직 한 방향으로 연결되지 않았습니다',summary='금융·심리·거래·가격을 각각 확인하며 다음 단계로의 전달 여부를 봅니다.';
+ if(finance>=50&&sent<45){headline='금융여건과 시장심리 사이에 간극이 있습니다';summary='자금 여건이 상대적으로 나아져도 심리가 약하면 거래와 가격으로의 전달을 확인해야 합니다.'}
+ if(trade<0){headline='선행 여건보다 거래 둔화가 더 강하게 나타납니다';summary='유동성·가격대 변화만으로 반전을 판단하지 않고 실제 거래량이 회복되는지를 다음 확인 신호로 봅니다.'}
+ if(trade>0&&sent>=45){headline='심리와 거래가 함께 회복되는지 확인할 구간입니다';summary='거래 회복이 가격과 관심단지까지 이어지는지 확인하는 단계입니다.'}
+ setText('storyHeadline',headline);setText('storySummary',summary);
+ const next=[];if(trade<0)next.push('거래량 반등');if(sent<45)next.push('KB 심리 회복');next.push('15억 이하 비중 지속성');next.push('관심단지 실거래 전이');
+ document.getElementById('nextSignals').innerHTML=next.slice(0,4).map((x,i)=>'<span><b>'+(i+1)+'</b>'+esc(x)+'</span>').join('');
 }
 loadMarketIndicators();
 const BASE_RATES=[{d:'2016-06-09',v:1.25},{d:'2017-11-30',v:1.50},{d:'2018-11-30',v:1.75},{d:'2019-07-18',v:1.50},{d:'2019-10-16',v:1.25},{d:'2020-03-17',v:.75},{d:'2020-05-28',v:.50},{d:'2021-08-26',v:.75},{d:'2021-11-25',v:1.00},{d:'2022-01-14',v:1.25},{d:'2022-04-14',v:1.50},{d:'2022-05-26',v:1.75},{d:'2022-07-13',v:2.25},{d:'2022-08-25',v:2.50},{d:'2022-10-12',v:3.00},{d:'2022-11-24',v:3.25},{d:'2023-01-13',v:3.50},{d:'2024-10-11',v:3.25},{d:'2024-11-28',v:3.00},{d:'2025-02-25',v:2.75},{d:'2025-05-29',v:2.50},{d:'2026-07-16',v:2.75},{d:'2026-08-27',v:3.00}];
