@@ -1,15 +1,6 @@
 {
-  "updated_at": "2026-09-24",
-  "sources": [
-    {
-      "name": "서울특별시/국토교통부 실거래가",
-      "url": "https://www.seoul.go.kr/news/news_report.do?nttNo=466727"
-    },
-    {
-      "name": "한국은행 통계공표일정",
-      "url": "https://www.bok.or.kr/portal/stats/statsPublictSchdul/listCldr.do?menuNo=200775"
-    }
-  ],
+  "source": "MOLIT apartment trade OpenAPI",
+  "collected_at": "2026-09-24T20:01:01.664373+09:00",
   "seoul_apt_trade_count": [
     [
       "2026-03",
@@ -47,28 +38,6 @@
       true
     ]
   ],
-  "under15_share": [
-    [
-      "2026-05",
-      72.4,
-      false
-    ],
-    [
-      "2026-08",
-      79.9,
-      true
-    ]
-  ],
-  "m2": {
-    "period": "2026-07",
-    "mom_pct": 0.3,
-    "yoy_pct": 5.8,
-    "household_nonprofit_change_trillion_krw": -11.6
-  },
-  "release_calendar": {
-    "mortgage_rate_next": "2026-09-30",
-    "m2_next": "2026-10-15"
-  },
   "price_bands": {
     "status": "connected",
     "months": [
@@ -193,60 +162,6 @@
       }
     ]
   },
-  "data_status": {
-    "kb_history": "official_ui_verified_endpoint_pending",
-    "kb_sentiment": "connected",
-    "kb_jeonse_supply": "connected",
-    "kb_value": "connected",
-    "molit": "connected",
-    "ecos_mortgage_rate": "connected",
-    "m2": "connected"
-  },
-  "kb_sentiment": {
-    "status": "connected",
-    "region": "서울",
-    "latest": {
-      "매수우위": {
-        "date": "20260914",
-        "value": 77.04347331,
-        "field": "매수우위지수"
-      },
-      "매매거래활발": {
-        "date": "20260914",
-        "value": 14.11817566,
-        "field": "매매거래지수"
-      },
-      "전세수급": {
-        "date": "20260914",
-        "value": 177.56295886,
-        "field": "전세수급지수"
-      },
-      "전세거래활발": {
-        "date": "20260914",
-        "value": 17.36413004,
-        "field": "전세거래지수"
-      }
-    },
-    "score_0_100": 22.8,
-    "jeonse_score_0_100": 48.7,
-    "method": "mean(KB buyer superiority, transaction activity) / 2",
-    "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-24T11:01:16.388079+00:00"
-  },
-  "kb_value": {
-    "status": "connected",
-    "score_0_100": 25,
-    "method": "trailing_36m_price_position_inverse_capped_25_75",
-    "observations": 273,
-    "window_months": 36,
-    "current_manwon": 181500.0,
-    "window_low_manwon": 110500.0,
-    "window_high_manwon": 181500.0,
-    "current_position_0_1": 1.0,
-    "source": "KB부동산 가락금호 24A 월별 일반거래가",
-    "period": "202609",
-    "generated_at": "2026-09-24T11:01:16.356983+00:00"
-  },
   "matched_period": {
     "as_of": "2026-09-24",
     "cutoff_day": 24,
@@ -292,25 +207,5 @@
       "under15_share_pp": 2.5
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
-  },
-  "mortgage_rate_official": {
-    "period": "202602",
-    "rate_pct": 4.38,
-    "item": "변동형 주택담보대출 3)"
-  },
-  "m2_official": {
-    "period": "202607",
-    "mom_pct": 0.3,
-    "yoy_pct": 5.8,
-    "source": "한국은행 ECOS 101Y003",
-    "definition": "광의통화(M2) 동일 수준계열에서 MoM/YoY 계산",
-    "selected_item": [
-      "BBHS00",
-      "",
-      "",
-      "M2(평잔,계절조정계열)",
-      "",
-      ""
-    ]
   }
 }
