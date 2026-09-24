@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-09-25T01:30:10.358841+09:00",
+  "collected_at": "2026-09-25T02:06:31.676584+09:00",
   "source": "KB public complex page / explicitly selected target type",
   "items": [
     {
@@ -7,13 +7,13 @@
       "area_id": 51171,
       "type_label": "31B",
       "name": "올림픽훼밀리타운",
-      "sale_listing_count": 593,
+      "sale_listing_count": 589,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": 0
+      "sale_listing_week_delta": -4
     },
     {
       "complex_id": 1986,
@@ -137,13 +137,13 @@
       "area_id": 1835,
       "type_label": "24",
       "name": "가락쌍용1차",
-      "sale_listing_count": 331,
+      "sale_listing_count": 333,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": -2
+      "sale_listing_week_delta": 2
     },
     {
       "complex_id": 1984,
@@ -202,13 +202,13 @@
       "area_id": 1758,
       "type_label": "24A",
       "name": "풍납극동",
-      "sale_listing_count": 29,
+      "sale_listing_count": 28,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": 0
+      "sale_listing_week_delta": -1
     },
     {
       "complex_id": 1873,
@@ -237,19 +237,6 @@
       "sale_listing_week_delta": 0
     },
     {
-      "complex_id": 323274,
-      "area_id": 1125182,
-      "type_label": "26A",
-      "name": "포레나송파",
-      "sale_listing_count": 498,
-      "avg_ask_manwon": null,
-      "recent_trade_manwon": null,
-      "recent_trade_date": null,
-      "kb_general_check_manwon": null,
-      "market_scope": "target_area_id",
-      "sale_listing_week_delta": 4
-    },
-    {
       "complex_id": 1941,
       "area_id": 51132,
       "type_label": "26",
@@ -272,20 +259,21 @@
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
-      "market_scope": "target_area_id"
+      "market_scope": "target_area_id",
+      "sale_listing_week_delta": 0
     },
     {
       "complex_id": 717,
       "area_id": 692,
       "type_label": "31A",
       "name": "현대6단지",
-      "sale_listing_count": 66,
+      "sale_listing_count": 68,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": -2
+      "sale_listing_week_delta": 2
     },
     {
       "complex_id": 12530,
@@ -298,20 +286,19 @@
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": -1
+      "sale_listing_week_delta": 0
     },
     {
-      "complex_id": 1771,
-      "area_id": 50972,
-      "type_label": "24A",
-      "name": "금호대우",
-      "sale_listing_count": 80,
+      "complex_id": 1767,
+      "area_id": 1667,
+      "type_label": "24",
+      "name": "금호두산",
+      "sale_listing_count": 130,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
-      "market_scope": "target_area_id",
-      "sale_listing_week_delta": 0
+      "market_scope": "target_area_id"
     },
     {
       "complex_id": 13487,
@@ -325,6 +312,18 @@
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0
+    },
+    {
+      "complex_id": 16151,
+      "area_id": 63641,
+      "type_label": "24",
+      "name": "서울숲행당푸르지오",
+      "sale_listing_count": 51,
+      "avg_ask_manwon": null,
+      "recent_trade_manwon": null,
+      "recent_trade_date": null,
+      "kb_general_check_manwon": null,
+      "market_scope": "target_area_id"
     },
     {
       "complex_id": 1759,
@@ -344,13 +343,13 @@
       "area_id": 51672,
       "type_label": "25",
       "name": "남산타운",
-      "sale_listing_count": 207,
+      "sale_listing_count": 205,
       "avg_ask_manwon": null,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": 0
+      "sale_listing_week_delta": -2
     }
   ],
   "errors": [
@@ -376,6 +375,13 @@
       "error": "visible type tab not found: 25평"
     },
     {
+      "complex_id": 323274,
+      "area_id": 1125182,
+      "type_label": "26A",
+      "name": "포레나송파",
+      "error": "visible type tab not found: 26평"
+    },
+    {
       "complex_id": 1758,
       "area_id": 50959,
       "type_label": "26",
@@ -397,17 +403,10 @@
       "error": "visible type tab not found: 24평"
     },
     {
-      "complex_id": 1767,
-      "area_id": 1667,
-      "type_label": "24",
-      "name": "금호두산",
-      "error": "visible type tab not found: 24평"
-    },
-    {
-      "complex_id": 16151,
-      "area_id": 63641,
-      "type_label": "24",
-      "name": "서울숲행당푸르지오",
+      "complex_id": 1771,
+      "area_id": 50972,
+      "type_label": "24A",
+      "name": "금호대우",
       "error": "visible type tab not found: 24평"
     },
     {
