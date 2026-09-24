@@ -6,7 +6,7 @@ from collect_molit_trades import SEOUL,fetch_all,summarize
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'dist/molit_historical_backtest.json'
 CACHE=ROOT/'dist/molit_historical_month_cache.json'
-START='202209'; END='202306'
+START='202208'\n# Last completed month only; the live dashboard handles the current partial month separately.\ntoday=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).date()\nEND=f'{today.year if today.month>1 else today.year-1:04d}{today.month-1 if today.month>1 else 12:02d}'
 
 def months(a,b):
  y,m=map(int,(a[:4],a[4:])); ey,em=map(int,(b[:4],b[4:])); out=[]
@@ -42,7 +42,7 @@ def main():
     if cur['under15_share'] is not None and prev['under15_share'] is not None else None})
  payload={'status':'connected','source':'MOLIT apartment trade OpenAPI',
   'method':'completed_month_vs_previous_completed_month; same demand formula inputs as live dashboard',
-  'start':START,'end':END,'rows':out,
+  'start':all_months[1],'end':END,'rows':out,
   'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.parent.mkdir(exist_ok=True); OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2))
  print(json.dumps({'status':'connected','rows':len(out)},ensure_ascii=False))
