@@ -1,19 +1,38 @@
 name: Final historical validation
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/final_backtest.py'
+      - 'scripts/collect_historical_demand.py'
+      - '.github/workflows/final-backtest.yml'
 permissions: {contents: write}
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - run: python3 scripts/collect_garak_geumho_24a.py
-      - run: python3 scripts/final_backtest.py
-      - run: |
+      - name: Backfill KB target history
+        run: python3 scripts/collect_garak_geumho_24a.py
+      - name: Collect historical M2
+        env:
+          BOK_ECOS_KEY: ${{ secrets.BOK_ECOS_KEY }}
+        run: python3 scripts/collect_ecos_m2.py
+      - name: Backfill historical Seoul demand
+        env:
+          MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
+        run: python3 scripts/collect_historical_demand.py
+      - name: Run fail-closed five-component backtest
+        run: python3 scripts/final_backtest.py
+      - name: Persist certified validation
+        run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f dist/final_backtest.json dist/garak_geumho_24a_history.json
-          git commit -m 'Refresh historical validation' || exit 0
-          git pull --rebase origin main || true
-          git push origin HEAD:main || true
+          git add -f dist/final_backtest.json dist/garak_geumho_24a_history.json dist/molit_historical_backtest.json
+          git commit -m 'Refresh certified historical validation' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
