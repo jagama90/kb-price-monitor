@@ -109,7 +109,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - name: Download MOLIT artifact\n        if: needs.molit.result == 'success'\n        uses: actions/download-artifact@v4\n        with:\n          name: source-molit-${{ github.run_id }}\n          path: .\n      - name: Download ECOS artifact
+      - name: Download MOLIT artifact
+        if: needs.molit.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: source-molit-${{ github.run_id }}
+          path: .
+      - name: Download ECOS artifact
         if: needs.ecos.result == 'success'
         uses: actions/download-artifact@v4
         with:
