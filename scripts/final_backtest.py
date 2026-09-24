@@ -54,7 +54,18 @@ def main():
   for h in (1,3,6,12):
    k=shift(ym,h);row[f'fwd_{h}m_pct']=round((pm[k]/pm[ym]-1)*100,2) if k in pm else None
   rows.append(row)
- # Full monthly history is certified only through the latest completed demand month.\n latest_complete=max(dm) if dm else ''\n rows=[x for x in rows if x['ym']<=latest_complete]\n complete=[x for x in rows if x['score'] is not None];certified=bool(rows) and rows[0]['ym']=='202209' and len(complete)==len(rows)
+ # Full monthly history is certified only through the latest completed demand month.
+ latest_complete=max(dm) if dm else ''
+ rows=[x for x in rows if x['ym']<=latest_complete]
+ complete=[x for x in rows if x['score'] is not None]
+ expected=[]
+ k='202209'
+ while latest_complete and k<=latest_complete:
+  expected.append(k); k=shift(k,1)
+ checkpoint=[shift('202210',i) for i in range(9)]
+ actual=[x['ym'] for x in rows]
+ checkpoint_rows=[x for x in rows if x['ym'] in checkpoint]
+ certified=bool(rows) and actual==expected and len(complete)==len(rows) and all(x['coverage_weight']==100 for x in rows) and [x['ym'] for x in checkpoint_rows]==checkpoint
  metrics={}
  for h in (1,3,6,12):metrics[f'score_vs_fwd_{h}m_corr']=corr([x['score'] for x in complete],[x[f'fwd_{h}m_pct'] for x in complete])
  if complete:
@@ -65,7 +76,7 @@ def main():
   'formula':'finance25 + sentiment20 + demand20 + value20 + supply15; identical to production dashboard',
   'no_future_leakage':True,'vintage_rules':{'kb_sentiment':'latest observation dated <= month end','m2':'t-2 conservative publication lag','demand':'completed calendar month vs previous completed month','value':'trailing 36 months through score month only'},
   'target':'KB Garak Geumho 24A monthly sale general price','checkpoint':'2022-10..2023-06',
-  'checkpoint_rows':rows,'metrics':metrics,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+  'period':'2022-09..latest completed month','checkpoint_rows':checkpoint_rows,'rows':rows,'metrics':metrics,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  O.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  print(json.dumps({'status':out['status'],'certified_final':certified,'complete_rows':len(complete),'metrics':metrics},ensure_ascii=False))
  if not certified: raise SystemExit('historical validation incomplete: '+json.dumps({x['ym']:x['missing'] for x in rows if x['missing']},ensure_ascii=False))
