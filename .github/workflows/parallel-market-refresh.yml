@@ -116,13 +116,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: source-molit-${{ github.run_id }}
-          path: .
+          path: data_sources
       - name: Download ECOS artifact
         if: needs.ecos.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: source-ecos-${{ github.run_id }}
-          path: .
+          path: data_sources
       - name: Compare MOLIT reporting vintages
         run: python3 scripts/compare_molit_vintages.py
       - name: Download KB sentiment artifact
@@ -130,7 +130,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: source-kb-sentiment-${{ github.run_id }}
-          path: .
+          path: data_sources
       - name: Build connected KB value component
         run: |
           python3 scripts/collect_garak_geumho_24a.py
