@@ -18,6 +18,8 @@ jobs:
         with: {python-version: '3.12'}
       - name: Backfill KB target history
         run: python3 scripts/collect_garak_geumho_24a.py
+      - name: Collect full KB sentiment history
+        run: python3 scripts/collect_kb_sentiment.py
       - name: Collect historical M2
         env:
           BOK_ECOS_KEY: ${{ secrets.BOK_ECOS_KEY }}
