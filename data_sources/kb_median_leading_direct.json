@@ -1,0 +1,236 @@
+{
+  "generated_at": "2026-09-24T02:21:01.805496+00:00",
+  "targets": {
+    "sale_median": {
+      "status": "not_connected",
+      "tries": [
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/medianPrice",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/medianPrice",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/medianPrice",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyAptMedianPrice",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyAptMedianPrice",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyAptMedianPrice",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/weeklyAptMedianPrice",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/weeklyAptMedianPrice",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/weeklyAptMedianPrice",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        }
+      ]
+    },
+    "rent_median": {
+      "status": "not_connected",
+      "tries": [
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/medianYrpayPrice",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/medianYrpayPrice",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/medianYrpayPrice",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyAptYrpayMedianPrice",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyAptYrpayMedianPrice",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyAptYrpayMedianPrice",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/weeklyAptYrpayMedianPrice",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/weeklyAptYrpayMedianPrice",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/weeklyAptYrpayMedianPrice",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        }
+      ]
+    },
+    "leading50": {
+      "status": "not_connected",
+      "tries": [
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/leadingApt50PriceInx",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/leadingApt50PriceInx",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/weekMnthlyHuseTrnd/leadingApt50PriceInx",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyLeadingApt50PrcIndx",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyLeadingApt50PrcIndx",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/mnthlyLeadingApt50PrcIndx",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/leadingApt50PrcIndx",
+          "params": {
+            "기간": "2"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/leadingApt50PrcIndx",
+          "params": {
+            "기준년월일": "20260914",
+            "법정동코드": "0000000000"
+          },
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "endpoint": "/bfmstat/statusBoard/leadingApt50PrcIndx",
+          "params": {
+            "메뉴코드": "01",
+            "기간": "2",
+            "월간주간구분코드": "01"
+          },
+          "error": "HTTP Error 404: Not Found"
+        }
+      ]
+    }
+  }
+}
