@@ -11,10 +11,19 @@ async function loadMarketIndicators(){
   renderKbOfficial(d);
   renderConditionIndex(d);
   setupScoreDetails(d,window.__conditionComponents||{});
+  setupSnapshotEvidence(d);
   const updated=document.querySelector('#updated');if(updated&&/LOADING|DATA ERROR|관심단지 일부/.test(updated.textContent))updated.textContent='MARKET '+(d.updated_at||new Date().toLocaleDateString('ko-KR'));
  }catch(e){console.error(e)}
 }
 const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+function setupSnapshotEvidence(d){
+ const x=d.matched_period,m=d.m2_official||d.m2;
+ const open=(title,source,rows)=>{setText('snapshotExplainTitle',title);setText('snapshotExplainSource',source);document.getElementById('snapshotExplainBody').innerHTML='<div class="score-detail-rows">'+rows.map(r=>'<div><span>'+esc(r[0])+'</span><b>'+esc(String(r[1]))+'</b><small>'+esc(r[2])+'</small></div>').join('')+'</div>';const el=document.getElementById('snapshotExplanation');el.hidden=false;el.scrollIntoView({behavior:'smooth',block:'nearest'})};
+ const bind=(id,fn)=>{const el=document.getElementById(id);if(!el)return;el.onclick=fn;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn()}}};
+ bind('volumeCard',()=>open('서울 거래량','국토교통부 실거래가 · 계약일 기준',x?[['현재 동일기간',Number(x.current.total).toLocaleString('ko-KR')+'건',x.current.period+' '+x.current.range],['직전월 동일기간',Number(x.previous.total).toLocaleString('ko-KR')+'건',x.previous.period+' '+x.previous.range],['증감',signed(x.changes.trade_count_pct,'%'),'당월은 신고가 추가될 수 있어 조기신호로 사용']]:[['상태','집계 대기','동일기간 데이터 연결 대기']]));
+ bind('under15Card',()=>open('15억 이하 비중','국토교통부 실거래가 · 서울 아파트',x?[['현재 비중',x.current.under15_share+'%',x.current.period+' '+x.current.range],['직전월 비중',x.previous.under15_share+'%',x.previous.period+' '+x.previous.range],['변화',signed(x.changes.under15_share_pp,'%p'),'15억원 이하 거래건수 ÷ 전체 거래건수']]:[['상태','집계 대기','가격대 데이터 연결 대기']]));
+ document.getElementById('closeSnapshotExplain')?.addEventListener('click',()=>document.getElementById('snapshotExplanation').hidden=true);
+}
 const signed=(v,s='')=>(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
 const clamp=v=>Math.max(0,Math.min(100,v));
 function renderKbOfficial(d){const s=d.kb_weekly_sale_index,r=d.kb_weekly_rent_index,m=d.mortgage_rate_official,v=d.kb_value;const box=document.getElementById('kbOfficialData');if(!box)return;const f=x=>x?.latest?Number(x.latest.value).toFixed(2)+' <small>'+esc(x.latest.date)+'</small>':'수집 대기';box.innerHTML='<div><span>KB 주간 매매가격지수</span><b>'+f(s)+'</b></div><div><span>KB 주간 전세가격지수</span><b>'+f(r)+'</b></div><div><span>ECOS 주담대금리</span><b>'+(m?.rate_pct!=null?m.rate_pct+'% <small>'+esc(m.period)+'</small>':'수집 대기')+'</b></div><div><span>가격·Value</span><b>'+(v?.score_0_100!=null?v.score_0_100+'/100':'52주 검증 대기')+'</b></div>'}
