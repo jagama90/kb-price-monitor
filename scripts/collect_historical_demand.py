@@ -6,7 +6,10 @@ from collect_molit_trades import SEOUL,fetch_all,summarize
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'dist/molit_historical_backtest.json'
 CACHE=ROOT/'dist/molit_historical_month_cache.json'
-START='202208'\n# Last completed month only; the live dashboard handles the current partial month separately.\ntoday=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).date()\nEND=f'{today.year if today.month>1 else today.year-1:04d}{today.month-1 if today.month>1 else 12:02d}'
+START='202208'
+# Last completed month only; the live dashboard handles the current partial month separately.
+today=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).date()
+END=f'{today.year if today.month>1 else today.year-1:04d}{today.month-1 if today.month>1 else 12:02d}'
 
 def months(a,b):
  y,m=map(int,(a[:4],a[4:])); ey,em=map(int,(b[:4],b[4:])); out=[]
