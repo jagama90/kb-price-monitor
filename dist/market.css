@@ -71,3 +71,9 @@ header nav a{color:inherit;text-decoration:none;margin:0 12px}.hero{margin-top:0
 /* visually separate expanded details from the four snapshot cards */
 .snapshot-explanation,.rate-detail,.macro-detail{margin-top:18px!important}
 @media(max-width:800px){.snapshot-explanation,.rate-detail,.macro-detail{margin-top:16px!important}}
+
+.snapshot-row{grid-template-columns:1fr 1fr;margin-bottom:0}
+.snapshot-row-finance{margin-top:16px}
+.snapshot-row+.snapshot-explanation{margin-top:16px!important;margin-bottom:0}
+.snapshot-explanation+.snapshot-row-finance{margin-top:16px}
+.snapshot-row-finance+.rate-detail,.snapshot-row-finance~.macro-detail{margin-top:16px!important}
