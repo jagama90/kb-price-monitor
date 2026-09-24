@@ -51,9 +51,9 @@ function renderConditionIndex(d){
 loadMarketIndicators();
 const BASE_RATES=[{d:'2016-06-09',v:1.25},{d:'2017-11-30',v:1.50},{d:'2018-11-30',v:1.75},{d:'2019-07-18',v:1.50},{d:'2019-10-16',v:1.25},{d:'2020-03-17',v:.75},{d:'2020-05-28',v:.50},{d:'2021-08-26',v:.75},{d:'2021-11-25',v:1.00},{d:'2022-01-14',v:1.25},{d:'2022-04-14',v:1.50},{d:'2022-05-26',v:1.75},{d:'2022-07-13',v:2.25},{d:'2022-08-25',v:2.50},{d:'2022-10-12',v:3.00},{d:'2022-11-24',v:3.25},{d:'2023-01-13',v:3.50},{d:'2024-10-11',v:3.25},{d:'2024-11-28',v:3.00},{d:'2025-02-25',v:2.75},{d:'2025-05-29',v:2.50},{d:'2026-07-16',v:2.75},{d:'2026-08-27',v:3.00}];
 let RATE_PAGE=0,MACRO_PAGE=0;
-function renderPagedSeries(svgId,xId,yId,rows,page=0,pageSize=7){
+function renderPagedSeries(svgId,xId,yId,rows,page=0,pageSize=7,fixedScale=null){
  const end=Math.max(1,rows.length-page*pageSize),start=Math.max(0,end-pageSize),view=rows.slice(start,end);
- const W=620,H=250,L=54,R=18,T=30,B=48,vals=view.map(x=>Number(x.v)),rawMin=Math.min(...vals),rawMax=Math.max(...vals),pad=Math.max(.25,(rawMax-rawMin)*.25),lo=Math.max(0,rawMin-pad),hi=rawMax+pad,range=Math.max(.5,hi-lo);
+ const W=620,H=250,L=54,R=18,T=30,B=48,allVals=rows.map(x=>Number(x.v)),rawMin=fixedScale?fixedScale[0]:Math.min(...allVals),rawMax=fixedScale?fixedScale[1]:Math.max(...allVals),pad=fixedScale?0:Math.max(.25,(rawMax-rawMin)*.18),lo=Math.max(0,rawMin-pad),hi=rawMax+pad,range=Math.max(.5,hi-lo);
  const X=i=>L+i*(W-L-R)/Math.max(1,view.length-1),Y=v=>T+(hi-v)/range*(H-T-B);
  const ticks=5,grid=Array.from({length:ticks},(_,i)=>{const val=hi-i*range/(ticks-1),y=T+i*(H-T-B)/(ticks-1);return '<line x1="'+L+'" y1="'+y+'" x2="'+(W-R)+'" y2="'+y+'" class="gridline"/><text x="'+(L-8)+'" y="'+(y+4)+'" text-anchor="end" class="ylabel">'+val.toFixed(2)+'%</text>'}).join('');
  const line=view.map((x,i)=>X(i)+','+Y(Number(x.v))).join(' ');
@@ -63,7 +63,7 @@ function renderPagedSeries(svgId,xId,yId,rows,page=0,pageSize=7){
  return {start,end,total:rows.length};
 }
 function renderRateDetail(){
- const pg=renderPagedSeries('rateSvg','rateX','rateY',BASE_RATES,RATE_PAGE,7);setText('rateRange',BASE_RATES[pg.start].d+' ~ '+BASE_RATES[pg.end-1].d);
+ const pg=renderPagedSeries('rateSvg','rateX','rateY',BASE_RATES,RATE_PAGE,7,[0.50,3.75]);setText('rateRange',BASE_RATES[pg.start].d+' ~ '+BASE_RATES[pg.end-1].d);
  document.getElementById('rateHistory').innerHTML='<div class="head"><span>변경일</span><b>기준금리</b><em>직전 대비</em></div>'+BASE_RATES.slice(-8).reverse().map(x=>{const n=BASE_RATES.indexOf(x),p=n?BASE_RATES[n-1].v:null,delta=p==null?'—':((x.v-p)>0?'+':'')+(x.v-p).toFixed(2)+'%p';return '<div><span>'+x.d+'</span><b>'+x.v.toFixed(2)+'%</b><em>'+delta+'</em></div>'}).join('');
  document.getElementById('ratePrev').disabled=pg.start===0;document.getElementById('rateNext').disabled=pg.end===pg.total;
 }
