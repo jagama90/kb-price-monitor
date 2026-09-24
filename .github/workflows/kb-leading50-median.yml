@@ -1,0 +1,22 @@
+name: KB Leading50 median
+on:
+  workflow_dispatch:
+  push:
+    paths: ['scripts/collect_kb_leading50_median.py','.github/workflows/kb-leading50-median.yml']
+permissions: {contents: write}
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 scripts/collect_kb_leading50_median.py
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data_sources/kb_leading50_median.json dist/kb_leading50_median.json
+          git commit -m 'Refresh KB Leading50 and median data' || exit 0
+          git pull --rebase origin main || true
+          git push origin HEAD:main || true
