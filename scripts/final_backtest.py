@@ -28,7 +28,7 @@ def main():
  demand=json.loads((R/'dist/molit_historical_backtest.json').read_text()).get('rows',[])
  dm={x['ym']:x for x in demand}
  rows=[]
- for ym in sorted(k for k in pm if '202210'<=k<='202306'):
+ for ym in sorted(k for k in pm if '202209'<=k):
   hist=[pm[k] for k in sorted(pm) if k<=ym][-36:]
   lo,hi=min(hist),max(hist);pos=(pm[ym]-lo)/(hi-lo) if hi>lo else .5
   value=max(25,min(75,75-50*pos))
@@ -54,7 +54,7 @@ def main():
   for h in (1,3,6,12):
    k=shift(ym,h);row[f'fwd_{h}m_pct']=round((pm[k]/pm[ym]-1)*100,2) if k in pm else None
   rows.append(row)
- complete=[x for x in rows if x['score'] is not None];certified=len(rows)==9 and len(complete)==9
+ # Full monthly history is certified only through the latest completed demand month.\n latest_complete=max(dm) if dm else ''\n rows=[x for x in rows if x['ym']<=latest_complete]\n complete=[x for x in rows if x['score'] is not None];certified=bool(rows) and rows[0]['ym']=='202209' and len(complete)==len(rows)
  metrics={}
  for h in (1,3,6,12):metrics[f'score_vs_fwd_{h}m_corr']=corr([x['score'] for x in complete],[x[f'fwd_{h}m_pct'] for x in complete])
  if complete:
