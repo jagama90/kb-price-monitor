@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Fail-closed walk-forward validation of the production five-component index."""
+"""Fail-closed walk-forward validation of the production five-component index.
+The checkpoint intentionally covers the 2022 decline through the 2023 turn."""
 import json,pathlib,datetime,calendar,math
 R=pathlib.Path(__file__).resolve().parents[1];O=R/'dist/final_backtest.json'
 W={'finance':25,'sentiment':20,'demand':20,'value':20,'supply':15}
