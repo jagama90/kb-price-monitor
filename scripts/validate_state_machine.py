@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate staged entry: precision early warning -> price turn -> long-trend confirmation."""
+"""Validate staged entry: precision early warning -> price turn -> long-trend confirmation.\nTrigger final run.\n"""
 import json,pathlib,statistics
 R=pathlib.Path(__file__).resolve().parents[1];OUT=R/'dist/state_machine_validation.json'
 def pct(a,b):return (a/b-1)*100 if b else None
