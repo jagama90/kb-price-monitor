@@ -173,7 +173,7 @@
       "type_label": "24A",
       "name": "송파꿈에그린위례24단지",
       "sale_listing_count": 373,
-      "avg_ask_manwon": 163969,
+      "avg_ask_manwon": 163960,
       "recent_trade_manwon": 162800,
       "recent_trade_date": "20260825",
       "kb_general_check_manwon": 184250.0,
@@ -220,7 +220,7 @@
       "kb_general_check_manwon": 149000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260918"
+      "kb_price_date": "20260925"
     },
     {
       "complex_id": 323275,
@@ -437,6 +437,6 @@
       "error": "visible type tab not found: 25평"
     }
   ],
-  "kb_detail_collected_at": "2026-09-25T18:43:15+00:00",
+  "kb_detail_collected_at": "2026-09-25T19:17:02+00:00",
   "kb_detail_matched_rows": 23
 }

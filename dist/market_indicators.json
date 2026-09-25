@@ -28,22 +28,22 @@
     ],
     [
       "2026-06",
-      5468,
+      5467,
       false
     ],
     [
       "2026-07",
-      5994,
+      5993,
       false
     ],
     [
       "2026-08",
-      3547,
+      3546,
       false
     ],
     [
       "2026-09",
-      1363,
+      1366,
       true
     ]
   ],
@@ -125,9 +125,9 @@
       },
       {
         "period": "2026-06",
-        "total": 5468,
+        "total": 5467,
         "counts": {
-          "<=9eok": 2528,
+          "<=9eok": 2527,
           "9-15eok": 1631,
           "15-25eok": 914,
           "25eok+": 395
@@ -142,10 +142,10 @@
       },
       {
         "period": "2026-07",
-        "total": 5994,
+        "total": 5993,
         "counts": {
           "<=9eok": 2977,
-          "9-15eok": 1782,
+          "9-15eok": 1781,
           "15-25eok": 880,
           "25eok+": 355
         },
@@ -159,15 +159,15 @@
       },
       {
         "period": "2026-08",
-        "total": 3547,
+        "total": 3546,
         "counts": {
           "<=9eok": 1865,
-          "9-15eok": 960,
+          "9-15eok": 959,
           "15-25eok": 534,
           "25eok+": 188
         },
         "boundary_counts": {
-          "13-15eok": 244,
+          "13-15eok": 243,
           "15-17eok": 185,
           "23-25eok": 56,
           "25-27eok": 29
@@ -176,20 +176,20 @@
       },
       {
         "period": "2026-09",
-        "total": 1363,
+        "total": 1366,
         "counts": {
-          "<=9eok": 823,
+          "<=9eok": 824,
           "9-15eok": 292,
-          "15-25eok": 179,
-          "25eok+": 69
+          "15-25eok": 180,
+          "25eok+": 70
         },
         "boundary_counts": {
           "13-15eok": 62,
           "15-17eok": 59,
-          "23-25eok": 16,
+          "23-25eok": 17,
           "25-27eok": 6
         },
-        "under15_share": 81.8
+        "under15_share": 81.7
       }
     ]
   },
@@ -231,7 +231,7 @@
     "jeonse_score_0_100": 49.3,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-25T19:13:52.379563+00:00"
+    "generated_at": "2026-09-25T19:17:40.144798+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -245,7 +245,7 @@
     "current_position_0_1": 1.0,
     "source": "KB부동산 가락금호 24A 월별 일반거래가",
     "period": "202609",
-    "generated_at": "2026-09-25T19:13:52.344846+00:00"
+    "generated_at": "2026-09-25T19:17:40.099121+00:00"
   },
   "matched_period": {
     "as_of": "2026-09-26",
@@ -254,33 +254,33 @@
     "current": {
       "period": "2026-09",
       "range": "1~26일",
-      "total": 1363,
+      "total": 1366,
       "counts": {
-        "<=9eok": 823,
+        "<=9eok": 824,
         "9-15eok": 292,
-        "15-25eok": 179,
-        "25eok+": 69
+        "15-25eok": 180,
+        "25eok+": 70
       },
       "boundary_counts": {
         "13-15eok": 62,
         "15-17eok": 59,
-        "23-25eok": 16,
+        "23-25eok": 17,
         "25-27eok": 6
       },
-      "under15_share": 81.8
+      "under15_share": 81.7
     },
     "previous": {
       "period": "2026-08",
       "range": "1~26일",
-      "total": 2977,
+      "total": 2976,
       "counts": {
         "<=9eok": 1523,
-        "9-15eok": 841,
+        "9-15eok": 840,
         "15-25eok": 450,
         "25eok+": 163
       },
       "boundary_counts": {
-        "13-15eok": 215,
+        "13-15eok": 214,
         "15-17eok": 157,
         "23-25eok": 47,
         "25-27eok": 26
@@ -288,8 +288,8 @@
       "under15_share": 79.4
     },
     "changes": {
-      "trade_count_pct": -54.2,
-      "under15_share_pp": 2.4
+      "trade_count_pct": -54.1,
+      "under15_share_pp": 2.3
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
