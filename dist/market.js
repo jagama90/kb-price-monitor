@@ -31,12 +31,9 @@ function setupScoreDetails(d,components){
  supply:()=>'<p><b>현재 '+Math.round(components.supply)+'/100</b> · 전세수급 '+val(s.latest?.전세수급?.value)+' · 전세거래활발 '+val(s.latest?.전세거래활발?.value)+'</p><p><b>산식</b> KB 전세수급과 전세거래활발을 결합해 0~100으로 환산</p><p class="score-guide">KB 원지수 0~200 · 100이 균형 기준</p>'
  };
  const panel=document.getElementById('scoreExplanation');if(!panel)return;
- const open=k=>{if(components[k]==null)return;setText('scoreExplainTitle',titles[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');document.getElementById('scoreExplainBody').innerHTML=bodies[k]();panel.hidden=false;
- const card=document.querySelector('[data-score="'+k+'"]'),grid=document.querySelector('.score-grid');
- if(card&&grid){const cards=[...grid.querySelectorAll('[data-score]')],idx=cards.indexOf(card),cols=matchMedia('(max-width:800px)').matches?2:5,end=Math.min(cards.length-1,Math.floor(idx/cols)*cols+cols-1);cards[end].after(panel)}
- document.querySelectorAll('[data-score]').forEach(z=>z.classList.toggle('active',z.dataset.score===k));panel.scrollIntoView({behavior:'smooth',block:'nearest'})};
+ const open=k=>{if(components[k]==null)return;setText('scoreExplainTitle',titles[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');document.getElementById('scoreExplainBody').innerHTML=bodies[k]();panel.hidden=false;panel.removeAttribute('hidden');panel.style.display='block';document.querySelectorAll('[data-score]').forEach(z=>{z.classList.toggle('active',z.dataset.score===k);z.setAttribute('aria-expanded',z.dataset.score===k?'true':'false')});requestAnimationFrame(()=>panel.scrollIntoView({behavior:'smooth',block:'center'}))};
  document.querySelectorAll('[data-score]').forEach(card=>{card.onclick=()=>open(card.dataset.score);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card.dataset.score)}}});
- document.getElementById('closeScoreExplain')?.addEventListener('click',()=>{panel.hidden=true;document.querySelectorAll('[data-score]').forEach(z=>z.classList.remove('active'))});
+ document.getElementById('closeScoreExplain')?.addEventListener('click',()=>{panel.hidden=true;panel.setAttribute('hidden','');panel.style.display='none';document.querySelectorAll('[data-score]').forEach(z=>{z.classList.remove('active');z.setAttribute('aria-expanded','false')})});
 }
 function setupSnapshotEvidence(d){
  const x=d.matched_period;
