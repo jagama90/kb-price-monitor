@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate false-bottom rejection using train-only selection and untouched 2018+ holdout."""
+"""Validate false-bottom rejection using train-only selection and untouched 2018+ holdout.\nTrigger validation run.\n"""
 import json,pathlib,itertools,statistics
 R=pathlib.Path(__file__).resolve().parents[1]; OUT=R/'dist/false_bottom_validation.json'
 def pct(a,b): return (a/b-1)*100 if b else None
