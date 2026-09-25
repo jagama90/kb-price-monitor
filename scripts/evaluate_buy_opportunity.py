@@ -24,4 +24,5 @@ def main():
    stats[st][f'fwd_{h}m_positive_rate_pct']=round(100*sum(x>0 for x in v)/len(v),1) if v else None
  OUT.write_text(json.dumps({'status':'research_only','purpose':'evaluate early buy-opportunity alert quality','rows':out,'stats':stats},ensure_ascii=False,indent=2))
  print(json.dumps(stats,ensure_ascii=False))
-if __name__=='__main__':\n main()\n
+if __name__=='__main__':
+ main()
