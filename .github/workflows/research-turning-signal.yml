@@ -5,7 +5,14 @@ on:
     branches: [main]
     paths:
       - 'scripts/research_turning_signal.py'
-      - 'dist/final_backtest.json'\n      - 'scripts/collect_reb_long_cycle.py'\n      - 'scripts/build_long_cycle_readiness.py'\n      - 'scripts/build_long_cycle_master.py'\n      - 'scripts/validate_long_cycle_inputs.py'\n      - 'scripts/backtest_long_cycle_regimes.py'\n      - 'data_sources/housing_policy_events.json'
+      - 'dist/final_backtest.json'
+      - 'scripts/collect_reb_long_cycle.py'
+      - 'scripts/build_long_cycle_readiness.py'
+      - 'scripts/build_long_cycle_master.py'
+      - 'scripts/validate_long_cycle_inputs.py'
+      - 'scripts/backtest_long_cycle_regimes.py'
+      - 'scripts/evaluate_buy_opportunity.py'
+      - 'data_sources/housing_policy_events.json'
 jobs:
   research:
     runs-on: ubuntu-latest
@@ -18,7 +25,12 @@ jobs:
           python-version: '3.11'
       - name: Compare market-state and turning signals
         run: python3 scripts/research_turning_signal.py
-      - name: Run long-cycle research pipeline\n        run: |\n          python3 scripts/build_long_cycle_readiness.py\n          python3 scripts/validate_long_cycle_inputs.py\n          python3 scripts/evaluate_buy_opportunity.py\n      - name: Persist research output
+      - name: Run long-cycle research pipeline
+        run: |
+          python3 scripts/build_long_cycle_readiness.py
+          python3 scripts/validate_long_cycle_inputs.py
+          python3 scripts/evaluate_buy_opportunity.py
+      - name: Persist research output
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
