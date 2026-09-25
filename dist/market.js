@@ -3,7 +3,7 @@ async function loadMarketIndicators(){
  try{
   const d=await fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json());
   const vols=d.seoul_apt_trade_count||[];
-  if(vols.length){SEOUL_VOLUME=vols.map(x=>({m:Number(x[0].slice(5))+'월',v:x[1],p:x[2]}));renderVolume();const z=vols[vols.length-1];setText('snapVolume',Number(z[1]).toLocaleString('ko-KR')+'건');setText('snapVolumePeriod',z[0]+(z[2]?' · 신고 진행':' · 집계'))}
+  if(vols.length){const z=vols[vols.length-1];setText('snapVolume',Number(z[1]).toLocaleString('ko-KR')+'건');setText('snapVolumePeriod',z[0]+(z[2]?' · 신고 진행':' · 집계'))}
   const bands=d.price_bands?.months||[],latest=bands[bands.length-1];
   if(latest){setText('snapUnder15',latest.under15_share+'%');const ids={'b9':'<=9eok','b15':'9-15eok','b25':'15-25eok','b25p':'25eok+'};Object.entries(ids).forEach(([id,k])=>setText(id,Number(latest.counts?.[k]||0).toLocaleString('ko-KR')+'건'))}
   const m=d.m2_official||d.m2;if(m){setText('snapM2',m.yoy_pct==null?'—':m.yoy_pct+'%');setText('snapM2Period',m.period+' · 한국은행 ECOS');setText('m2Detail','ECOS 동일 M2 수준계열 기준 · 전월비 '+(m.mom_pct??'—')+'% · 전년비 '+(m.yoy_pct??'—')+'%')}
