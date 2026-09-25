@@ -33,15 +33,21 @@ def main():
                     'unit':x.get('UI_NM'),'value':x.get('DTA_VAL')}
                    for x in trade_probe_rows if '서울' in str(x.get('CLS_FULLNM') or x.get('CLS_NM') or '')]
  (R/'data_sources/reb_trade_debug.json').write_text(json.dumps({'probe':trade_probe,'seoul_candidates':trade_candidates},ensure_ascii=False,indent=2))
+ trade_params={'KEY':key,'Type':'json','STATBL_ID':'A_2024_00549','DTACYCLE_CD':'MM','CLS_ID':'500002','ITM_ID':'100001','START_WRTTIME':'2006','END_WRTTIME':'2026','pIndex':1,'pSize':1000}
+ trade_raw=get('SttsApiTblData.do',trade_params)
+ trade=[norm(x) for x in rows(trade_raw,'SttsApiTblData') if norm(x)['ym']]
+ if not trade:
+  (R/'data_sources/reb_trade_debug.json').write_text(json.dumps({'probe':trade_probe,'full_request':trade_raw,'seoul_candidates':trade_candidates},ensure_ascii=False,indent=2))
  catalog=get('SttsApiTbl.do',{'KEY':key,'Type':'json','pIndex':1,'pSize':1000})
  out={'status':'full' if key!='sample' else 'sample_limited','source':'한국부동산원 R-ONE',
       'target_start':'2006-01','price_contract':{'statbl_id':'A_2024_00045','cls_id':'500008','itm_id':'100001'},
+      'trade_contract':{'statbl_id':'A_2024_00549','cls_id':'500002','itm_id':'100001','itm_name':'동(호)수'},
       'trade_discovery':{'statbl_id':'A_2024_00549','probe_month':'202601','seoul_candidates':trade_candidates},
-      'series':{'price':price,'trade':[]},'table_catalog':catalog,
+      'series':{'price':price,'trade':trade},'table_catalog':catalog,
       'blockers':([] if key!='sample' else ['RONE_API_KEY required for full history']),
       'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2))
- print(json.dumps({'status':out['status'],'price_rows':len(price),'trade_rows':0,'blockers':out['blockers']},ensure_ascii=False))
+ print(json.dumps({'status':out['status'],'price_rows':len(price),'trade_rows':len(trade),'blockers':out['blockers']},ensure_ascii=False))
 if __name__=='__main__':main()
 
 
