@@ -15,6 +15,8 @@ on:
       - 'scripts/build_kb_value_live.py'
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/build_market_snapshot.py'
+      - 'scripts/collect_listings.py'
+      - 'scripts/merge_watchlist_details.py'
       - 'scripts/test_static_contract.py'
       - 'dist/index.html'
       - 'dist/market.html'
@@ -177,6 +179,9 @@ jobs:
       - name: Build KB sentiment component
         if: needs.kb_sentiment.result == 'success'
         run: python3 scripts/build_kb_sentiment_score.py
+      - name: Merge KB watchlist details
+        if: needs.watchlist_details.result == 'success'
+        run: python3 scripts/merge_watchlist_details.py
       - name: Build last-good snapshot
         run: python3 scripts/build_market_snapshot.py
       - name: Build condition-index history
@@ -211,6 +216,9 @@ jobs:
             [ -f /tmp/market-refresh/$n ] && cp /tmp/market-refresh/$n data_sources/$n
           done
           git add -f dist/market_indicators.json
+          [ -f data/buy_watchlist_listings.json ] && git add -f data/buy_watchlist_listings.json
+          [ -f data/buy_watchlist_market.json ] && git add -f data/buy_watchlist_market.json
+          [ -f dist/buy_watchlist_market.json ] && git add -f dist/buy_watchlist_market.json
           for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json; do [ -f "$f" ] && git add -f "$f"; done
           for f in data_sources/ecos_mortgage_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json; do [ -f "$f" ] && git add -f "$f"; done
           git diff --cached --quiet && exit 0
