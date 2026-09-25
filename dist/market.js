@@ -180,7 +180,7 @@ window.showScoreDetail=function(k){
 window.hideScoreDetail=function(){
  const p=document.getElementById('scoreExplanation');if(p){p.hidden=true;p.style.display='none'}
  document.querySelectorAll('.score-detail-btn').forEach(btn=>btn.setAttribute('aria-expanded','false'));
-};p.hidden=true;p.style.display='none'};
+};
 
 async function renderRegimeForecast(){
  const host=document.getElementById('forecastGrid'),meta=document.getElementById('forecastMeta');if(!host)return;
