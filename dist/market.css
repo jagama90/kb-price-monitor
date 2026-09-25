@@ -163,3 +163,23 @@ header{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom
  .score-grid>.score-component{height:142px!important;min-height:142px!important}
  .score-grid>.score-component:last-of-type{height:142px!important;min-height:142px!important}
 }
+
+/* v93: selected card must not inherit generic .card active/expanded sizing */
+.score-grid>.score-component,
+.score-grid>.score-component.active,
+.score-grid>.score-component[aria-expanded="true"]{
+ height:142px!important;
+ min-height:142px!important;
+ max-height:142px!important;
+ padding:15px!important;
+ margin:0!important;
+ align-self:stretch!important;
+}
+.score-grid>.score-component:last-child,
+.score-grid>.score-component:last-of-type,
+.score-grid>.score-component.active:last-child,
+.score-grid>.score-component.active:last-of-type{
+ height:142px!important;
+ min-height:142px!important;
+ max-height:142px!important;
+}
