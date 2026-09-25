@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Collect KB lowest asking prices for configured buy-watchlist area IDs."""
-import argparse, datetime as dt, html as htmlmod, http.client, json, os, random, re, urllib.parse, urllib.request
+import argparse, datetime as dt, http.client, json, os, random, re, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -89,44 +89,6 @@ def payload_for(c,area_id,page):
     return p
 
 
-
-def _kr_price_to_manwon(s):
-    s=str(s).replace(',','').strip(); total=0
-    m=re.search(r'(\d+)억',s)
-    if m: total+=int(m.group(1))*10000
-    tail=re.search(r'억\s*(\d+)',s)
-    if tail: total+=int(tail.group(1))
-    elif not m:
-        n=re.search(r'(\d+)',s)
-        if n: total=int(n.group(1))
-    return total or None
-
-def get_page_price_record(complex_id,area_id):
-    url=f'https://kbland.kr/se/c/{complex_id}'
-    req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36','Referer':'https://kbland.kr/','Accept':'text/html'})
-    with urllib.request.urlopen(req,timeout=35) as r: rawhtml=r.read().decode('utf-8','replace')
-    marker=r'{\"단지기본일련번호\":'
-    records=[]; cursor=0
-    while True:
-        start=rawhtml.find(marker,cursor)
-        if start<0: break
-        depth=0; end=start; esc=False
-        while end<len(rawhtml):
-            ch=rawhtml[end]
-            if ch=='{' and not esc: depth+=1
-            elif ch=='}' and not esc:
-                depth-=1
-                if depth==0: end+=1; break
-            esc=(ch=='\\' and not esc)
-            if ch!='\\': esc=False
-            end+=1
-        raw=rawhtml[start:end].replace(r'\"','"')
-        try: records.append(json.loads(raw))
-        except Exception: pass
-        cursor=max(end,start+1)
-    matches=[x for x in records if str(x.get('면적일련번호'))==str(area_id)]
-    rec=max(matches,key=lambda x: sum(k in x for k in ('매매일반거래가','매매평균가','시세기준년월일'))) if matches else {}
-    return rec
 
 def get_integration_chart(complex_id,area_id):
     q=urllib.parse.urlencode({'단지기본일련번호':complex_id,'면적일련번호':area_id})
