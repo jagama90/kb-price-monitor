@@ -249,3 +249,6 @@ main{max-width:1180px;padding-top:24px}
 
 .compact-method{margin:18px 0;color:#667789}.compact-method summary{font-size:11px;font-weight:800;cursor:pointer}.compact-method p{font-size:10px;line-height:1.65;margin:10px 0 0}.compact-regime{padding:18px 20px!important}.compact-regime h2{font-size:22px!important;margin:5px 0!important}.compact-regime p{font-size:11px!important;line-height:1.5!important;margin:0!important}
 @media(max-width:800px){.compact-regime{padding:16px!important}.compact-regime h2{font-size:20px!important}.compact-method{margin:14px 4px}}
+
+/* spacing + inline detail placement */
+.condition-history{margin-bottom:22px!important}.evidence-ticker{margin-top:0!important}.score-grid>.score-explanation{grid-column:1/-1;margin:2px 0 4px!important}@media(max-width:800px){.condition-history{margin-bottom:22px!important}.evidence-ticker{margin-top:0!important}.score-grid>.score-explanation{grid-column:1/-1;margin:2px 0 4px!important}}
