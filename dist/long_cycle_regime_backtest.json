@@ -1,5 +1,1302 @@
 {
   "status": "research_only",
   "thresholds_provisional": true,
-  "rows": []
+  "rows": [
+    {
+      "ym": "200601",
+      "state": "warmup",
+      "price_mom_1m": null,
+      "price_mom_3m": null
+    },
+    {
+      "ym": "200602",
+      "state": "warmup",
+      "price_mom_1m": 0.9758846146389999,
+      "price_mom_3m": null
+    },
+    {
+      "ym": "200603",
+      "state": "warmup",
+      "price_mom_1m": 1.6343971751241693,
+      "price_mom_3m": null
+    },
+    {
+      "ym": "200604",
+      "state": "recovery",
+      "price_mom_1m": 2.1328300546729073,
+      "price_mom_3m": 4.815074732314084
+    },
+    {
+      "ym": "200605",
+      "state": "recovery",
+      "price_mom_1m": 1.9313679605377887,
+      "price_mom_3m": 5.806886378115128
+    },
+    {
+      "ym": "200606",
+      "state": "recovery",
+      "price_mom_1m": 0.6949148923236725,
+      "price_mom_3m": 4.828834676000526
+    },
+    {
+      "ym": "200607",
+      "state": "recovery",
+      "price_mom_1m": 0.3118117614806515,
+      "price_mom_3m": 2.959746886140646
+    },
+    {
+      "ym": "200608",
+      "state": "recovery",
+      "price_mom_1m": 0.3037791545448254,
+      "price_mom_3m": 1.3157374428000024
+    },
+    {
+      "ym": "200609",
+      "state": "recovery",
+      "price_mom_1m": 0.746701800268279,
+      "price_mom_3m": 1.3678436367811075
+    },
+    {
+      "ym": "200610",
+      "state": "recovery",
+      "price_mom_1m": 2.1665827667268545,
+      "price_mom_3m": 3.2421407304163985
+    },
+    {
+      "ym": "200611",
+      "state": "recovery",
+      "price_mom_1m": 5.897130147031104,
+      "price_mom_3m": 8.999346841575328
+    },
+    {
+      "ym": "200612",
+      "state": "recovery",
+      "price_mom_1m": 3.8086313584749565,
+      "price_mom_3m": 12.312093720188798
+    },
+    {
+      "ym": "200701",
+      "state": "recovery",
+      "price_mom_1m": 2.31849297564668,
+      "price_mom_3m": 12.479089161939182
+    },
+    {
+      "ym": "200702",
+      "state": "recovery",
+      "price_mom_1m": 0.6888890234453049,
+      "price_mom_3m": 6.94713360371666
+    },
+    {
+      "ym": "200703",
+      "state": "recovery",
+      "price_mom_1m": 0.38484802906191273,
+      "price_mom_3m": 3.4198371894477164
+    },
+    {
+      "ym": "200704",
+      "state": "recovery",
+      "price_mom_1m": 0.3745990271820432,
+      "price_mom_3m": 1.4550193953504653
+    },
+    {
+      "ym": "200705",
+      "state": "recovery",
+      "price_mom_1m": 0.0063251120270280126,
+      "price_mom_3m": 0.7672619323062069
+    },
+    {
+      "ym": "200706",
+      "state": "recovery",
+      "price_mom_1m": 0.2512525220428774,
+      "price_mom_3m": 0.6331574960982023
+    },
+    {
+      "ym": "200707",
+      "state": "recovery",
+      "price_mom_1m": 0.432623425431955,
+      "price_mom_3m": 0.6913313614415495
+    },
+    {
+      "ym": "200708",
+      "state": "recovery",
+      "price_mom_1m": 0.3598601237457144,
+      "price_mom_3m": 1.0472879569164872
+    },
+    {
+      "ym": "200709",
+      "state": "recovery",
+      "price_mom_1m": 0.4749795040417837,
+      "price_mom_3m": 1.2727914215121316
+    },
+    {
+      "ym": "200710",
+      "state": "recovery",
+      "price_mom_1m": 0.4373832093277352,
+      "price_mom_3m": 1.2775910233272514
+    },
+    {
+      "ym": "200711",
+      "state": "recovery",
+      "price_mom_1m": 0.6782334136733015,
+      "price_mom_3m": 1.5988756465848075
+    },
+    {
+      "ym": "200712",
+      "state": "recovery",
+      "price_mom_1m": 0.40159368200674006,
+      "price_mom_3m": 1.5246689431451577
+    },
+    {
+      "ym": "200801",
+      "state": "recovery",
+      "price_mom_1m": 0.7362136868182212,
+      "price_mom_3m": 1.8267344124745621
+    },
+    {
+      "ym": "200802",
+      "state": "recovery",
+      "price_mom_1m": 0.7217091499278627,
+      "price_mom_3m": 1.8707061042581463
+    },
+    {
+      "ym": "200803",
+      "state": "recovery",
+      "price_mom_1m": 1.7844801133131805,
+      "price_mom_3m": 3.2738274298554915
+    },
+    {
+      "ym": "200804",
+      "state": "recovery",
+      "price_mom_1m": 2.496575363967546,
+      "price_mom_3m": 5.078533815041375
+    },
+    {
+      "ym": "200805",
+      "state": "recovery",
+      "price_mom_1m": 1.5097311869339602,
+      "price_mom_3m": 5.900642583462745
+    },
+    {
+      "ym": "200806",
+      "state": "recovery",
+      "price_mom_1m": 1.433765566972034,
+      "price_mom_3m": 5.535745147433735
+    },
+    {
+      "ym": "200807",
+      "state": "recovery",
+      "price_mom_1m": 0.7603031250213776,
+      "price_mom_3m": 3.74798995790373
+    },
+    {
+      "ym": "200808",
+      "state": "recovery",
+      "price_mom_1m": 0.23025433675842866,
+      "price_mom_3m": 2.440301031421077
+    },
+    {
+      "ym": "200809",
+      "state": "recovery",
+      "price_mom_1m": 0.22848429638564483,
+      "price_mom_3m": 1.2230596572469166
+    },
+    {
+      "ym": "200810",
+      "state": "observe",
+      "price_mom_1m": -0.30232600637960516,
+      "price_mom_3m": 0.1555502450544033
+    },
+    {
+      "ym": "200811",
+      "state": "observe",
+      "price_mom_1m": -0.8937121532957892,
+      "price_mom_3m": -0.967578524929158
+    },
+    {
+      "ym": "200812",
+      "state": "observe",
+      "price_mom_1m": -1.7310468859839667,
+      "price_mom_3m": -2.9037259116553193
+    },
+    {
+      "ym": "200901",
+      "state": "decline",
+      "price_mom_1m": -0.9151505797035497,
+      "price_mom_3m": -3.5005601240898354
+    },
+    {
+      "ym": "200902",
+      "state": "observe",
+      "price_mom_1m": -0.18290618620531163,
+      "price_mom_3m": -2.8084508828398302
+    },
+    {
+      "ym": "200903",
+      "state": "observe",
+      "price_mom_1m": -0.2616602938520285,
+      "price_mom_3m": -1.3551743940225514
+    },
+    {
+      "ym": "200904",
+      "state": "bottom_watch",
+      "price_mom_1m": 0.3349426247677423,
+      "price_mom_3m": -0.110632702050939
+    },
+    {
+      "ym": "200905",
+      "state": "recovery",
+      "price_mom_1m": 0.2081903682307651,
+      "price_mom_3m": 0.28074702943978735
+    },
+    {
+      "ym": "200906",
+      "state": "recovery",
+      "price_mom_1m": 0.424373757113794,
+      "price_mom_3m": 0.970511941520491
+    },
+    {
+      "ym": "200907",
+      "state": "recovery",
+      "price_mom_1m": 0.8496942623881454,
+      "price_mom_3m": 1.488524261193036
+    },
+    {
+      "ym": "200908",
+      "state": "recovery",
+      "price_mom_1m": 0.5182205745402069,
+      "price_mom_3m": 1.8025156425274025
+    },
+    {
+      "ym": "200909",
+      "state": "recovery",
+      "price_mom_1m": 1.1345086924676728,
+      "price_mom_3m": 2.522395888328277
+    },
+    {
+      "ym": "200910",
+      "state": "recovery",
+      "price_mom_1m": 0.32877220165270504,
+      "price_mom_3m": 1.9928337698876142
+    },
+    {
+      "ym": "200911",
+      "state": "recovery",
+      "price_mom_1m": 0.008064406867713814,
+      "price_mom_3m": 1.4751935559174534
+    },
+    {
+      "ym": "200912",
+      "state": "observe",
+      "price_mom_1m": -0.0017432358184632513,
+      "price_mom_3m": 0.33511401391135287
+    },
+    {
+      "ym": "201001",
+      "state": "recovery",
+      "price_mom_1m": 0.08010096078892026,
+      "price_mom_3m": 0.08642705446266774
+    },
+    {
+      "ym": "201002",
+      "state": "recovery",
+      "price_mom_1m": 0.25760168628070623,
+      "price_mom_3m": 0.33615986212636173
+    },
+    {
+      "ym": "201003",
+      "state": "observe",
+      "price_mom_1m": -0.016228499551140807,
+      "price_mom_3m": 0.32162565138551535
+    },
+    {
+      "ym": "201004",
+      "state": "observe",
+      "price_mom_1m": -0.10088343210249429,
+      "price_mom_3m": 0.14020448635783112
+    },
+    {
+      "ym": "201005",
+      "state": "observe",
+      "price_mom_1m": -0.45211092739881886,
+      "price_mom_3m": -0.5686770853638445
+    },
+    {
+      "ym": "201006",
+      "state": "observe",
+      "price_mom_1m": -0.3800179077297794,
+      "price_mom_3m": -0.9304564178965413
+    },
+    {
+      "ym": "201007",
+      "state": "observe",
+      "price_mom_1m": -0.48352549977853654,
+      "price_mom_3m": -1.3099209847750037
+    },
+    {
+      "ym": "201008",
+      "state": "observe",
+      "price_mom_1m": -0.46198356956660414,
+      "price_mom_3m": -1.3197085538003694
+    },
+    {
+      "ym": "201009",
+      "state": "observe",
+      "price_mom_1m": -0.2533892357087342,
+      "price_mom_3m": -1.1942743387158061
+    },
+    {
+      "ym": "201010",
+      "state": "observe",
+      "price_mom_1m": -0.19040889535006933,
+      "price_mom_3m": -0.9032511794914266
+    },
+    {
+      "ym": "201011",
+      "state": "observe",
+      "price_mom_1m": -0.12045880386005736,
+      "price_mom_3m": -0.5632404465383822
+    },
+    {
+      "ym": "201012",
+      "state": "bottom_watch",
+      "price_mom_1m": 0.04454596584977377,
+      "price_mom_3m": -0.2662307459291746
+    },
+    {
+      "ym": "201101",
+      "state": "recovery",
+      "price_mom_1m": 0.13995276915319543,
+      "price_mom_3m": 0.06387995438832395
+    },
+    {
+      "ym": "201102",
+      "state": "recovery",
+      "price_mom_1m": 0.2781049869159835,
+      "price_mom_3m": 0.4631793387944061
+    },
+    {
+      "ym": "201103",
+      "state": "recovery",
+      "price_mom_1m": 0.13896270234481367,
+      "price_mom_3m": 0.5579911592640929
+    },
+    {
+      "ym": "201104",
+      "state": "recovery",
+      "price_mom_1m": 0.010202828302285916,
+      "price_mom_3m": 0.42769957189858765
+    },
+    {
+      "ym": "201105",
+      "state": "recovery",
+      "price_mom_1m": 0.03437218861526148,
+      "price_mom_3m": 0.18360317371917123
+    },
+    {
+      "ym": "201106",
+      "state": "observe",
+      "price_mom_1m": -0.11715206880879014,
+      "price_mom_3m": -0.07262576961879486
+    },
+    {
+      "ym": "201107",
+      "state": "observe",
+      "price_mom_1m": -0.1614337711756786,
+      "price_mom_3m": -0.24412021941118134
+    },
+    {
+      "ym": "201108",
+      "state": "observe",
+      "price_mom_1m": -0.09376765390686215,
+      "price_mom_3m": -0.3719033248185677
+    },
+    {
+      "ym": "201109",
+      "state": "observe",
+      "price_mom_1m": -0.12176329386798246,
+      "price_mom_3m": -0.37650278894583167
+    },
+    {
+      "ym": "201110",
+      "state": "observe",
+      "price_mom_1m": -0.13174517297002142,
+      "price_mom_3m": -0.34687814496043856
+    },
+    {
+      "ym": "201111",
+      "state": "observe",
+      "price_mom_1m": -0.1838622296409187,
+      "price_mom_3m": -0.4367444678441079
+    },
+    {
+      "ym": "201112",
+      "state": "observe",
+      "price_mom_1m": -0.17319779920074163,
+      "price_mom_3m": -0.4880167666601376
+    },
+    {
+      "ym": "201201",
+      "state": "observe",
+      "price_mom_1m": -0.27050981554498366,
+      "price_mom_3m": -0.6262863780518324
+    },
+    {
+      "ym": "201202",
+      "state": "observe",
+      "price_mom_1m": -0.25308081644178637,
+      "price_mom_3m": -0.6951981610131219
+    },
+    {
+      "ym": "201203",
+      "state": "observe",
+      "price_mom_1m": -0.4321262279776694,
+      "price_mom_3m": -0.9527726374393253
+    },
+    {
+      "ym": "201204",
+      "state": "observe",
+      "price_mom_1m": -0.5664824707337202,
+      "price_mom_3m": -1.246720503986709
+    },
+    {
+      "ym": "201205",
+      "state": "observe",
+      "price_mom_1m": -0.5429379799955392,
+      "price_mom_3m": -1.5336902241609218
+    },
+    {
+      "ym": "201206",
+      "state": "observe",
+      "price_mom_1m": -0.7890282780979696,
+      "price_mom_3m": -1.8866437070006126
+    },
+    {
+      "ym": "201207",
+      "state": "observe",
+      "price_mom_1m": -0.6758501135988304,
+      "price_mom_3m": -1.9945592950033397
+    },
+    {
+      "ym": "201208",
+      "state": "observe",
+      "price_mom_1m": -0.8974086129640679,
+      "price_mom_3m": -2.3438562669375496
+    },
+    {
+      "ym": "201209",
+      "state": "observe",
+      "price_mom_1m": -0.6667886494833741,
+      "price_mom_3m": -2.223532369946346
+    },
+    {
+      "ym": "201210",
+      "state": "observe",
+      "price_mom_1m": -0.6212228871153469,
+      "price_mom_3m": -2.169756352249841
+    },
+    {
+      "ym": "201211",
+      "state": "observe",
+      "price_mom_1m": -0.5036653776430144,
+      "price_mom_3m": -1.7810682654199383
+    },
+    {
+      "ym": "201212",
+      "state": "observe",
+      "price_mom_1m": -0.6391695896462046,
+      "price_mom_3m": -1.7537590249771973
+    },
+    {
+      "ym": "201301",
+      "state": "observe",
+      "price_mom_1m": -0.6256724238207223,
+      "price_mom_3m": -1.7581578540640797
+    },
+    {
+      "ym": "201302",
+      "state": "observe",
+      "price_mom_1m": -0.38728378592493007,
+      "price_mom_3m": -1.643243651388615
+    },
+    {
+      "ym": "201303",
+      "state": "observe",
+      "price_mom_1m": -0.12275893105164748,
+      "price_mom_3m": -1.1320514933375825
+    },
+    {
+      "ym": "201304",
+      "state": "bottom_watch",
+      "price_mom_1m": 0.13724139003661318,
+      "price_mom_3m": -0.3730252387383115
+    },
+    {
+      "ym": "201305",
+      "state": "recovery",
+      "price_mom_1m": 0.23565627825010704,
+      "price_mom_3m": 0.250003992971104
+    },
+    {
+      "ym": "201306",
+      "state": "observe",
+      "price_mom_1m": -0.2205756856759722,
+      "price_mom_3m": 0.15182216559266326
+    },
+    {
+      "ym": "201307",
+      "state": "observe",
+      "price_mom_1m": -0.5308537102326372,
+      "price_mom_3m": -0.5163702146153248
+    },
+    {
+      "ym": "201308",
+      "state": "observe",
+      "price_mom_1m": -0.47442839469412634,
+      "price_mom_3m": -1.2211274172155617
+    },
+    {
+      "ym": "201309",
+      "state": "bottom_watch",
+      "price_mom_1m": 0.09083874526427671,
+      "price_mom_3m": -0.9128357367847006
+    },
+    {
+      "ym": "201310",
+      "state": "recovery",
+      "price_mom_1m": 0.5297181727783817,
+      "price_mom_3m": 0.14366333156681232
+    },
+    {
+      "ym": "201311",
+      "state": "recovery",
+      "price_mom_1m": 0.12064355975782703,
+      "price_mom_3m": 0.7424309096222714
+    },
+    {
+      "ym": "201312",
+      "state": "observe",
+      "price_mom_1m": -0.030939821684683455,
+      "price_mom_3m": 0.6198595632241011
+    },
+    {
+      "ym": "201401",
+      "state": "recovery",
+      "price_mom_1m": 0.29144713790538734,
+      "price_mom_3m": 0.3813748792652838
+    },
+    {
+      "ym": "201402",
+      "state": "recovery",
+      "price_mom_1m": 0.3413363563596672,
+      "price_mom_3m": 0.6026423977428141
+    },
+    {
+      "ym": "201403",
+      "state": "recovery",
+      "price_mom_1m": 0.3922434458620838,
+      "price_mom_3m": 1.028507709047921
+    },
+    {
+      "ym": "201404",
+      "state": "recovery",
+      "price_mom_1m": 0.03530253612928913,
+      "price_mom_3m": 0.770480652766814
+    },
+    {
+      "ym": "201405",
+      "state": "observe",
+      "price_mom_1m": -0.08652085826815759,
+      "price_mom_3m": 0.3407935593472411
+    },
+    {
+      "ym": "201406",
+      "state": "observe",
+      "price_mom_1m": -0.07063813845463729,
+      "price_mom_3m": -0.12185080340568755
+    },
+    {
+      "ym": "201407",
+      "state": "observe",
+      "price_mom_1m": -0.026488543349401095,
+      "price_mom_3m": -0.1835448104084869
+    },
+    {
+      "ym": "201408",
+      "state": "recovery",
+      "price_mom_1m": 0.1150604548506351,
+      "price_mom_3m": 0.01784075118764772
+    },
+    {
+      "ym": "201409",
+      "state": "recovery",
+      "price_mom_1m": 0.40069869653536205,
+      "price_mom_3m": 0.48959491456872506
+    },
+    {
+      "ym": "201410",
+      "state": "recovery",
+      "price_mom_1m": 0.4256913742620272,
+      "price_mom_3m": 0.9441090762422277
+    },
+    {
+      "ym": "201411",
+      "state": "recovery",
+      "price_mom_1m": 0.1414784173823902,
+      "price_mom_3m": 0.970745804814932
+    },
+    {
+      "ym": "201412",
+      "state": "recovery",
+      "price_mom_1m": 0.014037360766505635,
+      "price_mom_3m": 0.5818891140416005
+    },
+    {
+      "ym": "201501",
+      "state": "recovery",
+      "price_mom_1m": 0.13863548870503006,
+      "price_mom_3m": 0.294386754281617
+    },
+    {
+      "ym": "201502",
+      "state": "recovery",
+      "price_mom_1m": 0.30855192575254264,
+      "price_mom_3m": 0.4617153710514854
+    },
+    {
+      "ym": "201503",
+      "state": "recovery",
+      "price_mom_1m": 0.5166543759708375,
+      "price_mom_3m": 0.9665821762976812
+    },
+    {
+      "ym": "201504",
+      "state": "recovery",
+      "price_mom_1m": 0.755660001535019,
+      "price_mom_3m": 1.588708250568649
+    },
+    {
+      "ym": "201505",
+      "state": "recovery",
+      "price_mom_1m": 0.5972963019088118,
+      "price_mom_3m": 1.8811376359519238
+    },
+    {
+      "ym": "201506",
+      "state": "recovery",
+      "price_mom_1m": 0.680693813163491,
+      "price_mom_3m": 2.047403859018182
+    },
+    {
+      "ym": "201507",
+      "state": "recovery",
+      "price_mom_1m": 0.5404490240285664,
+      "price_mom_3m": 1.8294337565330165
+    },
+    {
+      "ym": "201508",
+      "state": "recovery",
+      "price_mom_1m": 0.5555681316905758,
+      "price_mom_3m": 1.7871944906558523
+    },
+    {
+      "ym": "201509",
+      "state": "recovery",
+      "price_mom_1m": 0.6780761520522205,
+      "price_mom_3m": 1.7845480609328002
+    },
+    {
+      "ym": "201510",
+      "state": "recovery",
+      "price_mom_1m": 0.6738483934499717,
+      "price_mom_3m": 1.9195981294373166
+    },
+    {
+      "ym": "201511",
+      "state": "recovery",
+      "price_mom_1m": 0.6458181553504971,
+      "price_mom_3m": 2.0110723890282456
+    },
+    {
+      "ym": "201512",
+      "state": "recovery",
+      "price_mom_1m": 0.4203811542082381,
+      "price_mom_3m": 1.7499654620379834
+    },
+    {
+      "ym": "201601",
+      "state": "recovery",
+      "price_mom_1m": 0.04600550793081304,
+      "price_mom_3m": 1.1154114747155441
+    },
+    {
+      "ym": "201602",
+      "state": "recovery",
+      "price_mom_1m": 0.0009312382310389111,
+      "price_mom_3m": 0.4675156438272321
+    },
+    {
+      "ym": "201603",
+      "state": "observe",
+      "price_mom_1m": -0.0056806136707665544,
+      "price_mom_3m": 0.041253894592419016
+    },
+    {
+      "ym": "201604",
+      "state": "recovery",
+      "price_mom_1m": 0.09692559504619336,
+      "price_mom_3m": 0.09217156329475173
+    },
+    {
+      "ym": "201605",
+      "state": "recovery",
+      "price_mom_1m": 0.21140515307254137,
+      "price_mom_3m": 0.30283751343200827
+    },
+    {
+      "ym": "201606",
+      "state": "recovery",
+      "price_mom_1m": 0.339129291229634,
+      "price_mom_3m": 0.6487112798269301
+    },
+    {
+      "ym": "201607",
+      "state": "recovery",
+      "price_mom_1m": 0.3464958704447074,
+      "price_mom_3m": 0.899657314815383
+    },
+    {
+      "ym": "201608",
+      "state": "recovery",
+      "price_mom_1m": 0.3885021210474404,
+      "price_mom_3m": 1.0779705851748478
+    },
+    {
+      "ym": "201609",
+      "state": "recovery",
+      "price_mom_1m": 0.39392021547739464,
+      "price_mom_3m": 1.1331649591799664
+    },
+    {
+      "ym": "201610",
+      "state": "recovery",
+      "price_mom_1m": 0.6897768776509716,
+      "price_mom_3m": 1.4791371271963394
+    },
+    {
+      "ym": "201611",
+      "state": "recovery",
+      "price_mom_1m": 0.5632640404696687,
+      "price_mom_3m": 1.6557976850386957
+    },
+    {
+      "ym": "201612",
+      "state": "recovery",
+      "price_mom_1m": 0.1305168208563856,
+      "price_mom_3m": 1.3890835041831862
+    },
+    {
+      "ym": "201701",
+      "state": "recovery",
+      "price_mom_1m": 0.025562461185568708,
+      "price_mom_3m": 0.720256012217213
+    },
+    {
+      "ym": "201702",
+      "state": "recovery",
+      "price_mom_1m": 0.06673042874436597,
+      "price_mom_3m": 0.22294724873557215
+    },
+    {
+      "ym": "201703",
+      "state": "recovery",
+      "price_mom_1m": 0.16584806923687356,
+      "price_mom_3m": 0.2583111113730219
+    },
+    {
+      "ym": "201704",
+      "state": "recovery",
+      "price_mom_1m": 0.27546250557530794,
+      "price_mom_3m": 0.5087926460996428
+    },
+    {
+      "ym": "201705",
+      "state": "recovery",
+      "price_mom_1m": 0.4521624196603735,
+      "price_mom_3m": 0.8959273499934195
+    },
+    {
+      "ym": "201706",
+      "state": "recovery",
+      "price_mom_1m": 0.9935981538713667,
+      "price_mom_3m": 1.7297106605036472
+    },
+    {
+      "ym": "201707",
+      "state": "recovery",
+      "price_mom_1m": 0.5024249822928262,
+      "price_mom_3m": 1.9599646679182792
+    },
+    {
+      "ym": "201708",
+      "state": "recovery",
+      "price_mom_1m": 0.6073115718509214,
+      "price_mom_3m": 2.117442632499267
+    },
+    {
+      "ym": "201709",
+      "state": "observe",
+      "price_mom_1m": -0.010445740306785911,
+      "price_mom_3m": 1.1022258599664436
+    },
+    {
+      "ym": "201710",
+      "state": "recovery",
+      "price_mom_1m": 0.2587504786201178,
+      "price_mom_3m": 0.8570971010238404
+    },
+    {
+      "ym": "201711",
+      "state": "recovery",
+      "price_mom_1m": 0.42526643234250816,
+      "price_mom_3m": 0.6745999840120476
+    },
+    {
+      "ym": "201712",
+      "state": "recovery",
+      "price_mom_1m": 0.8368275268661352,
+      "price_mom_3m": 1.5276780668310064
+    },
+    {
+      "ym": "201801",
+      "state": "recovery",
+      "price_mom_1m": 1.3422428906705308,
+      "price_mom_3m": 2.624883729911409
+    },
+    {
+      "ym": "201802",
+      "state": "recovery",
+      "price_mom_1m": 1.3851576581582092,
+      "price_mom_3m": 3.605799478928251
+    },
+    {
+      "ym": "201803",
+      "state": "recovery",
+      "price_mom_1m": 0.766178692818742,
+      "price_mom_3m": 3.533210633034778
+    },
+    {
+      "ym": "201804",
+      "state": "recovery",
+      "price_mom_1m": 0.3733239197149407,
+      "price_mom_3m": 2.5433441267792567
+    },
+    {
+      "ym": "201805",
+      "state": "recovery",
+      "price_mom_1m": 0.22341769174802906,
+      "price_mom_3m": 1.3683328735236477
+    },
+    {
+      "ym": "201806",
+      "state": "recovery",
+      "price_mom_1m": 0.21438140329905764,
+      "price_mom_3m": 0.8132381775815212
+    },
+    {
+      "ym": "201807",
+      "state": "recovery",
+      "price_mom_1m": 0.34027130376246273,
+      "price_mom_3m": 0.7800406992647169
+    },
+    {
+      "ym": "201808",
+      "state": "recovery",
+      "price_mom_1m": 0.8215166633569027,
+      "price_mom_3m": 1.381461406013318
+    },
+    {
+      "ym": "201809",
+      "state": "recovery",
+      "price_mom_1m": 1.8437859194968764,
+      "price_mom_3m": 3.029841695952973
+    },
+    {
+      "ym": "201810",
+      "state": "recovery",
+      "price_mom_1m": 0.5794688988027819,
+      "price_mom_3m": 3.2754508619522227
+    },
+    {
+      "ym": "201811",
+      "state": "recovery",
+      "price_mom_1m": 0.05222849313624156,
+      "price_mom_3m": 2.48743868705521
+    },
+    {
+      "ym": "201812",
+      "state": "observe",
+      "price_mom_1m": -0.16890118141658084,
+      "price_mom_3m": 0.46203140286267264
+    },
+    {
+      "ym": "201901",
+      "state": "observe",
+      "price_mom_1m": -0.40925451932549706,
+      "price_mom_3m": -0.525537572876178
+    },
+    {
+      "ym": "201902",
+      "state": "observe",
+      "price_mom_1m": -0.36780187730804936,
+      "price_mom_3m": -0.9431424171888358
+    },
+    {
+      "ym": "201903",
+      "state": "observe",
+      "price_mom_1m": -0.39668711496807507,
+      "price_mom_3m": -1.1691617543112542
+    },
+    {
+      "ym": "201904",
+      "state": "observe",
+      "price_mom_1m": -0.34296540352835025,
+      "price_mom_3m": -1.1033784443342354
+    },
+    {
+      "ym": "201905",
+      "state": "observe",
+      "price_mom_1m": -0.1993095191338945,
+      "price_mom_3m": -0.9361300517929938
+    },
+    {
+      "ym": "201906",
+      "state": "observe",
+      "price_mom_1m": -0.09147675905002428,
+      "price_mom_3m": -0.63257268879231
+    },
+    {
+      "ym": "201907",
+      "state": "bottom_watch",
+      "price_mom_1m": 0.0715896017688733,
+      "price_mom_3m": -0.2192223967414919
+    },
+    {
+      "ym": "201908",
+      "state": "recovery",
+      "price_mom_1m": 0.14127580083731495,
+      "price_mom_3m": 0.1212949674494812
+    },
+    {
+      "ym": "201909",
+      "state": "recovery",
+      "price_mom_1m": 0.18367072076888036,
+      "price_mom_3m": 0.3970284193398621
+    },
+    {
+      "ym": "201910",
+      "state": "recovery",
+      "price_mom_1m": 0.5990841300042016,
+      "price_mom_3m": 0.926238391451184
+    },
+    {
+      "ym": "201911",
+      "state": "recovery",
+      "price_mom_1m": 0.6918716402520175,
+      "price_mom_3m": 1.4811501049450948
+    },
+    {
+      "ym": "201912",
+      "state": "recovery",
+      "price_mom_1m": 1.237930809222565,
+      "price_mom_3m": 2.5490639227988776
+    },
+    {
+      "ym": "202001",
+      "state": "recovery",
+      "price_mom_1m": 0.4467339367034695,
+      "price_mom_3m": 2.3937606231062336
+    },
+    {
+      "ym": "202002",
+      "state": "recovery",
+      "price_mom_1m": 0.11781554571022035,
+      "price_mom_3m": 1.8100018611402646
+    },
+    {
+      "ym": "202003",
+      "state": "recovery",
+      "price_mom_1m": 0.1034912470261995,
+      "price_mom_3m": 0.6691518554619469
+    },
+    {
+      "ym": "202004",
+      "state": "observe",
+      "price_mom_1m": -0.09726520407938866,
+      "price_mom_3m": 0.12394814433662749
+    },
+    {
+      "ym": "202005",
+      "state": "observe",
+      "price_mom_1m": -0.20392680587244527,
+      "price_mom_3m": -0.1978139151940561
+    },
+    {
+      "ym": "202006",
+      "state": "bottom_watch",
+      "price_mom_1m": 0.1331480225652104,
+      "price_mom_3m": -0.16824640466921448
+    },
+    {
+      "ym": "202007",
+      "state": "recovery",
+      "price_mom_1m": 1.1221377345836725,
+      "price_mom_3m": 1.0502901444523927
+    },
+    {
+      "ym": "202008",
+      "state": "recovery",
+      "price_mom_1m": 0.5464204010226403,
+      "price_mom_3m": 1.8100675639339592
+    },
+    {
+      "ym": "202009",
+      "state": "recovery",
+      "price_mom_1m": 0.29480081019910287,
+      "price_mom_3m": 1.9744275341927242
+    },
+    {
+      "ym": "202010",
+      "state": "recovery",
+      "price_mom_1m": 0.11384579518800564,
+      "price_mom_3m": 0.9576373870432642
+    },
+    {
+      "ym": "202011",
+      "state": "recovery",
+      "price_mom_1m": 0.11741268800515847,
+      "price_mom_3m": 0.5268751087411871
+    },
+    {
+      "ym": "202012",
+      "state": "recovery",
+      "price_mom_1m": 0.28219034897007944,
+      "price_mom_3m": 0.514235467894486
+    },
+    {
+      "ym": "202101",
+      "state": "recovery",
+      "price_mom_1m": 0.3974128688053913,
+      "price_mom_3m": 0.798936623684976
+    },
+    {
+      "ym": "202102",
+      "state": "recovery",
+      "price_mom_1m": 0.6679350587639465,
+      "price_mom_3m": 1.3532065360823742
+    },
+    {
+      "ym": "202103",
+      "state": "recovery",
+      "price_mom_1m": 0.48873344395661267,
+      "price_mom_3m": 1.561955516254443
+    },
+    {
+      "ym": "202104",
+      "state": "recovery",
+      "price_mom_1m": 0.430316661469754,
+      "price_mom_3m": 1.5952409708434256
+    },
+    {
+      "ym": "202105",
+      "state": "recovery",
+      "price_mom_1m": 0.4800859625120779,
+      "price_mom_3m": 1.4056614966173386
+    },
+    {
+      "ym": "202106",
+      "state": "recovery",
+      "price_mom_1m": 0.9791644819754142,
+      "price_mom_3m": 1.9005675634403252
+    },
+    {
+      "ym": "202107",
+      "state": "recovery",
+      "price_mom_1m": 0.8116664231290205,
+      "price_mom_3m": 2.2875000998003436
+    },
+    {
+      "ym": "202108",
+      "state": "recovery",
+      "price_mom_1m": 0.9208303683238217,
+      "price_mom_3m": 2.7361725210229393
+    },
+    {
+      "ym": "202109",
+      "state": "recovery",
+      "price_mom_1m": 0.9014688759718226,
+      "price_mom_3m": 2.65712503411355
+    },
+    {
+      "ym": "202110",
+      "state": "recovery",
+      "price_mom_1m": 0.8258464469390825,
+      "price_mom_3m": 2.6715646374739777
+    },
+    {
+      "ym": "202111",
+      "state": "recovery",
+      "price_mom_1m": 0.5961006094245214,
+      "price_mom_3m": 2.3412015963767185
+    },
+    {
+      "ym": "202112",
+      "state": "recovery",
+      "price_mom_1m": 0.24515838738503604,
+      "price_mom_3m": 1.6755264107672918
+    },
+    {
+      "ym": "202201",
+      "state": "recovery",
+      "price_mom_1m": 0.004828609514984095,
+      "price_mom_3m": 0.8475896886426026
+    },
+    {
+      "ym": "202202",
+      "state": "observe",
+      "price_mom_1m": -0.08192789820921087,
+      "price_mom_3m": 0.1678661176412577
+    },
+    {
+      "ym": "202203",
+      "state": "observe",
+      "price_mom_1m": -0.07048773555714538,
+      "price_mom_3m": -0.14753663189845945
+    },
+    {
+      "ym": "202204",
+      "state": "observe",
+      "price_mom_1m": -0.009822786616631163,
+      "price_mom_3m": -0.1621657054728609
+    },
+    {
+      "ym": "202205",
+      "state": "observe",
+      "price_mom_1m": -0.011688879249516226,
+      "price_mom_3m": -0.09198309097280255
+    },
+    {
+      "ym": "202206",
+      "state": "observe",
+      "price_mom_1m": -0.07907506030979672,
+      "price_mom_3m": -0.10056856854744334
+    },
+    {
+      "ym": "202207",
+      "state": "observe",
+      "price_mom_1m": -0.22387762448679016,
+      "price_mom_3m": -0.31442914159899304
+    },
+    {
+      "ym": "202208",
+      "state": "observe",
+      "price_mom_1m": -0.45268704355222456,
+      "price_mom_3m": -0.7540920708281162
+    },
+    {
+      "ym": "202209",
+      "state": "observe",
+      "price_mom_1m": -0.7531537001013944,
+      "price_mom_3m": -1.4236169642591667
+    },
+    {
+      "ym": "202210",
+      "state": "observe",
+      "price_mom_1m": -1.2389755751472165,
+      "price_mom_3m": -2.426509059288662
+    },
+    {
+      "ym": "202211",
+      "state": "decline",
+      "price_mom_1m": -2.0629787991509607,
+      "price_mom_3m": -4.004871984017289
+    },
+    {
+      "ym": "202212",
+      "state": "decline",
+      "price_mom_1m": -2.9592855584309907,
+      "price_mom_3m": -6.138722257914653
+    },
+    {
+      "ym": "202301",
+      "state": "decline",
+      "price_mom_1m": -1.7784607584082512,
+      "price_mom_3m": -6.651442421751486
+    },
+    {
+      "ym": "202302",
+      "state": "decline",
+      "price_mom_1m": -1.0815993817948288,
+      "price_mom_3m": -5.716041774234315
+    },
+    {
+      "ym": "202303",
+      "state": "decline",
+      "price_mom_1m": -0.718832347629228,
+      "price_mom_3m": -3.5392359031150566
+    },
+    {
+      "ym": "202304",
+      "state": "observe",
+      "price_mom_1m": -0.38679565066875865,
+      "price_mom_3m": -2.1725185751638287
+    },
+    {
+      "ym": "202305",
+      "state": "bottom_watch",
+      "price_mom_1m": 0.01161739678696705,
+      "price_mom_3m": -1.0913583114348313
+    },
+    {
+      "ym": "202306",
+      "state": "bottom_watch",
+      "price_mom_1m": 0.16576807835737561,
+      "price_mom_3m": -0.21007711138064655
+    },
+    {
+      "ym": "202307",
+      "state": "recovery",
+      "price_mom_1m": 0.2677095644470606,
+      "price_mom_3m": 0.44558922696504855
+    },
+    {
+      "ym": "202308",
+      "state": "recovery",
+      "price_mom_1m": 0.48173818342016617,
+      "price_mom_3m": 0.9177499683904022
+    },
+    {
+      "ym": "202309",
+      "state": "recovery",
+      "price_mom_1m": 0.4977169936425607,
+      "price_mom_3m": 1.2521909483549587
+    },
+    {
+      "ym": "202310",
+      "state": "recovery",
+      "price_mom_1m": 0.3632461577558477,
+      "price_mom_3m": 1.3486655704469275
+    },
+    {
+      "ym": "202311",
+      "state": "recovery",
+      "price_mom_1m": 0.13291487417215198,
+      "price_mom_3m": 0.9968327145341238
+    },
+    {
+      "ym": "202312",
+      "state": "observe",
+      "price_mom_1m": -0.1255542709755253,
+      "price_mom_3m": 0.3704660115732006
+    }
+  ]
 }
