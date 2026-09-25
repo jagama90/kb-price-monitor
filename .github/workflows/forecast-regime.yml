@@ -1,0 +1,39 @@
+name: Forward regime forecast
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/forecast-regime.yml'
+      - 'scripts/forecast_market_regime.py'
+      - 'dist/turning_signal_research.json'
+      - 'dist/final_backtest.json'
+      - 'dist/market_indicators.json'
+permissions:
+  contents: write
+concurrency:
+  group: forecast-regime-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build forward regime forecast
+        run: python3 scripts/forecast_market_regime.py
+      - name: Persist forecast
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          cp dist/regime_forecast.json /tmp/regime_forecast.json
+          git reset --hard
+          git pull --ff-only origin main
+          cp /tmp/regime_forecast.json dist/regime_forecast.json
+          git add -f dist/regime_forecast.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh forward regime forecast'
+          git push origin HEAD:main
