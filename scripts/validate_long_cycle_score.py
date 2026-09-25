@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train-only selection of a score signal, then untouched 2018+ holdout validation."""
+"""Train-only selection of a score signal, then untouched 2018+ holdout validation.\nTrigger score validation run.\n"""
 import json,pathlib,statistics,itertools
 R=pathlib.Path(__file__).resolve().parents[1]; OUT=R/'dist/long_cycle_score_validation.json'
 def pct(a,b): return (a/b-1)*100 if b else None
