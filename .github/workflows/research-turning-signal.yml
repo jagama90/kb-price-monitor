@@ -1,5 +1,8 @@
 name: Research turning signal
 on:
+  workflow_run:
+    workflows: ['Final historical validation']
+    types: [completed]
   schedule:
     - cron: '45 23 4 * *' # monthly fallback: 08:45 KST on the 5th
   workflow_dispatch:
@@ -28,6 +31,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   research:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
