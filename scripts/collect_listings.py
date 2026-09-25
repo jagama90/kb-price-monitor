@@ -126,12 +126,13 @@ def get_page_price_record(complex_id,area_id):
     rec=max(matches,key=lambda x: sum(k in x for k in ('매매일반거래가','매매평균가','시세기준년월일'))) if matches else {}
     text=htmlmod.unescape(re.sub(r'<[^>]+>',' ',rawhtml))
     text=re.sub(r'\s+',' ',text)
-    sale=re.search(r'KB시세 일반가\s*([0-9억, ]+)\s*(\d{2}\.\d{2}\.\d{2}).*?최근 실거래가\s*([0-9억, ]+)\s*(\d{2}\.\d{2}\.\d{2})/(\d+)층\s*매물평균가\s*([0-9억, ]+)',text,re.S)
-    if sale:
+    sales=re.findall(r'KB시세 일반가\s*([0-9억, ]+)\s*(\d{2}\.\d{2}\.\d{2}).*?최근 실거래가\s*([0-9억, ]+)\s*(\d{2}\.\d{2}\.\d{2})/(\d+)층\s*매물평균가\s*([0-9억, ]+)',text,re.S)
+    if sales:
+        sale=max(sales,key=lambda z:z[1])
         rec=dict(rec)
-        rec.update({'매매일반거래가':_kr_price_to_manwon(sale.group(1)),'시세기준년월일':'20'+sale.group(2).replace('.',''),
-                    '최근실거래가':_kr_price_to_manwon(sale.group(3)),'최근실거래일':'20'+sale.group(4).replace('.',''),
-                    '최근실거래층':int(sale.group(5)),'매물평균가':_kr_price_to_manwon(sale.group(6))})
+        rec.update({'매매일반거래가':_kr_price_to_manwon(sale[0]),'시세기준년월일':'20'+sale[1].replace('.',''),
+                    '최근실거래가':_kr_price_to_manwon(sale[2]),'최근실거래일':'20'+sale[3].replace('.',''),
+                    '최근실거래층':int(sale[4]),'매물평균가':_kr_price_to_manwon(sale[5])})
     return rec
 
 def get_integration_chart(complex_id,area_id):
