@@ -16,7 +16,7 @@ def inspect(path):
 def main():
  out={'status':'research_only','goal':'2006+ long-cycle validation parallel to unchanged 2022+ precision model',
  'tracks':{
-  'price_trade':{'target_start':'2006-01','preferred':'REB monthly apartment real transaction price index + housing transaction volume','status':'external_backfill_required'},
+  'price_trade':{'target_start':'2006-01','preferred':'REB R-ONE monthly apartment real transaction price index + real-estate transaction status','official_api':'https://www.reb.or.kr/r-one/portal/openapi/openApiIntroPage.do','status':'collector_contract_confirmed'},
   'finance':{'target_start':'2006-01','preferred':'BOK base rate + M2','status':'inventory_ready'},
   'policy':{'target_start':'2006-01','schema':['date','category','direction','intensity','scope','announcement_or_effective','source'],'status':'timeline_backfill_required'},
   'regime_test':{'states':['decline','bottom_watch','bottom_turn','recovery','uptrend','reacceleration','slowdown'],'status':'waiting_for_long_inputs'}},
