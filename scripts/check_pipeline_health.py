@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Repository-level pipeline consistency checks. No network access required."""
 from pathlib import Path
-import json,sys,re
+import json,sys,re,datetime
 
 R=Path(__file__).resolve().parents[1]
 errors=[]
@@ -41,6 +41,27 @@ for h in fc.get('horizons') or []:
     total=sum(float(v) for v in w.values()) if w else 0
     if abs(total-100)>0.11: errors.append(f"{h.get('period')}: weights sum {total}, expected 100")
 if not mi.get('updated_at'): errors.append('market_indicators.updated_at missing')
+# Fail if last-good inputs silently become stale while the bundle keeps rebuilding.
+today=datetime.datetime.now(datetime.timezone.utc).date()
+def ymd(v):
+    z=re.sub(r'[^0-9]','',str(v or ''))
+    if len(z)>=8:
+        try:return datetime.date(int(z[:4]),int(z[4:6]),int(z[6:8]))
+        except:return None
+    return None
+def ym_age(v):
+    z=re.sub(r'[^0-9]','',str(v or ''))
+    if len(z)<6:return None
+    try:return (today.year-int(z[:4]))*12 + today.month-int(z[4:6])
+    except:return None
+trade_day=ymd((mi.get('matched_period') or {}).get('as_of'))
+if not trade_day or (today-trade_day).days>3: errors.append('MOLIT matched-period snapshot is stale')
+sent_dates=[ymd(x.get('date')) for x in ((mi.get('kb_sentiment') or {}).get('latest') or {}).values() if isinstance(x,dict)]
+sent_dates=[x for x in sent_dates if x]
+if not sent_dates or (today-max(sent_dates)).days>14: errors.append('KB sentiment snapshot is stale')
+for key,src,max_lag in [('M2',mi.get('m2_official') or mi.get('m2') or {},3),('mortgage',mi.get('mortgage_rate_official') or {},3),('KB value',mi.get('kb_value') or {},2)]:
+    age=ym_age(src.get('period'))
+    if age is None or age>max_lag: errors.append(f'{key} input is stale')
 
 # Watchlist target coverage: never silently omit a named complex or requested area.
 def norm_name(x):
