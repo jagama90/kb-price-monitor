@@ -1,5 +1,5 @@
 {
-  "status": "certified",
+  "status": "certified_with_provisional_tail",
   "certified_final": true,
   "formula": "finance25 + sentiment20 + demand20 + value20 + supply15; identical to production dashboard",
   "no_future_leakage": true,
@@ -12,6 +12,8 @@
   "target": "KB Garak Geumho 24A monthly sale general price",
   "checkpoint": "2022-10..2023-06",
   "period": "2022-09..latest completed month",
+  "certified_through": "202607",
+  "latest_available_month": "202608",
   "checkpoint_rows": [
     {
       "ym": "202210",
@@ -30,7 +32,8 @@
       "fwd_1m_pct": -6.61,
       "fwd_3m_pct": -10.51,
       "fwd_6m_pct": -19.84,
-      "fwd_12m_pct": -14.01
+      "fwd_12m_pct": -14.01,
+      "provisional": false
     },
     {
       "ym": "202211",
@@ -49,7 +52,8 @@
       "fwd_1m_pct": -2.08,
       "fwd_3m_pct": -9.58,
       "fwd_6m_pct": -14.17,
-      "fwd_12m_pct": -7.92
+      "fwd_12m_pct": -7.92,
+      "provisional": false
     },
     {
       "ym": "202212",
@@ -68,7 +72,8 @@
       "fwd_1m_pct": -2.13,
       "fwd_3m_pct": -11.06,
       "fwd_6m_pct": -11.91,
-      "fwd_12m_pct": -5.96
+      "fwd_12m_pct": -5.96,
+      "provisional": false
     },
     {
       "ym": "202301",
@@ -87,7 +92,8 @@
       "fwd_1m_pct": -5.65,
       "fwd_3m_pct": -10.43,
       "fwd_6m_pct": -7.39,
-      "fwd_12m_pct": -3.91
+      "fwd_12m_pct": -3.91,
+      "provisional": false
     },
     {
       "ym": "202302",
@@ -106,7 +112,8 @@
       "fwd_1m_pct": -3.69,
       "fwd_3m_pct": -5.07,
       "fwd_6m_pct": 0.92,
-      "fwd_12m_pct": 1.84
+      "fwd_12m_pct": 1.84,
+      "provisional": false
     },
     {
       "ym": "202303",
@@ -125,7 +132,8 @@
       "fwd_1m_pct": -1.44,
       "fwd_3m_pct": -0.96,
       "fwd_6m_pct": 5.74,
-      "fwd_12m_pct": 5.74
+      "fwd_12m_pct": 5.74,
+      "provisional": false
     },
     {
       "ym": "202304",
@@ -144,7 +152,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 3.4,
       "fwd_6m_pct": 7.28,
-      "fwd_12m_pct": 7.52
+      "fwd_12m_pct": 7.52,
+      "provisional": false
     },
     {
       "ym": "202305",
@@ -163,7 +172,8 @@
       "fwd_1m_pct": 0.49,
       "fwd_3m_pct": 6.31,
       "fwd_6m_pct": 7.28,
-      "fwd_12m_pct": 7.52
+      "fwd_12m_pct": 7.52,
+      "provisional": false
     },
     {
       "ym": "202306",
@@ -182,7 +192,8 @@
       "fwd_1m_pct": 2.9,
       "fwd_3m_pct": 6.76,
       "fwd_6m_pct": 6.76,
-      "fwd_12m_pct": 7.0
+      "fwd_12m_pct": 7.0,
+      "provisional": false
     }
   ],
   "rows": [
@@ -203,7 +214,8 @@
       "fwd_1m_pct": -3.75,
       "fwd_3m_pct": -11.99,
       "fwd_6m_pct": -21.72,
-      "fwd_12m_pct": -17.23
+      "fwd_12m_pct": -17.23,
+      "provisional": false
     },
     {
       "ym": "202210",
@@ -222,7 +234,8 @@
       "fwd_1m_pct": -6.61,
       "fwd_3m_pct": -10.51,
       "fwd_6m_pct": -19.84,
-      "fwd_12m_pct": -14.01
+      "fwd_12m_pct": -14.01,
+      "provisional": false
     },
     {
       "ym": "202211",
@@ -241,7 +254,8 @@
       "fwd_1m_pct": -2.08,
       "fwd_3m_pct": -9.58,
       "fwd_6m_pct": -14.17,
-      "fwd_12m_pct": -7.92
+      "fwd_12m_pct": -7.92,
+      "provisional": false
     },
     {
       "ym": "202212",
@@ -260,7 +274,8 @@
       "fwd_1m_pct": -2.13,
       "fwd_3m_pct": -11.06,
       "fwd_6m_pct": -11.91,
-      "fwd_12m_pct": -5.96
+      "fwd_12m_pct": -5.96,
+      "provisional": false
     },
     {
       "ym": "202301",
@@ -279,7 +294,8 @@
       "fwd_1m_pct": -5.65,
       "fwd_3m_pct": -10.43,
       "fwd_6m_pct": -7.39,
-      "fwd_12m_pct": -3.91
+      "fwd_12m_pct": -3.91,
+      "provisional": false
     },
     {
       "ym": "202302",
@@ -298,7 +314,8 @@
       "fwd_1m_pct": -3.69,
       "fwd_3m_pct": -5.07,
       "fwd_6m_pct": 0.92,
-      "fwd_12m_pct": 1.84
+      "fwd_12m_pct": 1.84,
+      "provisional": false
     },
     {
       "ym": "202303",
@@ -317,7 +334,8 @@
       "fwd_1m_pct": -1.44,
       "fwd_3m_pct": -0.96,
       "fwd_6m_pct": 5.74,
-      "fwd_12m_pct": 5.74
+      "fwd_12m_pct": 5.74,
+      "provisional": false
     },
     {
       "ym": "202304",
@@ -336,7 +354,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 3.4,
       "fwd_6m_pct": 7.28,
-      "fwd_12m_pct": 7.52
+      "fwd_12m_pct": 7.52,
+      "provisional": false
     },
     {
       "ym": "202305",
@@ -355,7 +374,8 @@
       "fwd_1m_pct": 0.49,
       "fwd_3m_pct": 6.31,
       "fwd_6m_pct": 7.28,
-      "fwd_12m_pct": 7.52
+      "fwd_12m_pct": 7.52,
+      "provisional": false
     },
     {
       "ym": "202306",
@@ -374,7 +394,8 @@
       "fwd_1m_pct": 2.9,
       "fwd_3m_pct": 6.76,
       "fwd_6m_pct": 6.76,
-      "fwd_12m_pct": 7.0
+      "fwd_12m_pct": 7.0,
+      "provisional": false
     },
     {
       "ym": "202307",
@@ -393,7 +414,8 @@
       "fwd_1m_pct": 2.82,
       "fwd_3m_pct": 3.76,
       "fwd_6m_pct": 3.76,
-      "fwd_12m_pct": 6.1
+      "fwd_12m_pct": 6.1,
+      "provisional": false
     },
     {
       "ym": "202308",
@@ -412,7 +434,8 @@
       "fwd_1m_pct": 0.91,
       "fwd_3m_pct": 0.91,
       "fwd_6m_pct": 0.91,
-      "fwd_12m_pct": 3.2
+      "fwd_12m_pct": 3.2,
+      "provisional": false
     },
     {
       "ym": "202309",
@@ -431,7 +454,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": 0.0,
-      "fwd_12m_pct": 6.33
+      "fwd_12m_pct": 6.33,
+      "provisional": false
     },
     {
       "ym": "202310",
@@ -450,7 +474,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": 0.23,
-      "fwd_12m_pct": 7.69
+      "fwd_12m_pct": 7.69,
+      "provisional": false
     },
     {
       "ym": "202311",
@@ -469,7 +494,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": 0.23,
-      "fwd_12m_pct": 9.5
+      "fwd_12m_pct": 9.5,
+      "provisional": false
     },
     {
       "ym": "202312",
@@ -488,7 +514,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": 0.23,
-      "fwd_12m_pct": 9.5
+      "fwd_12m_pct": 9.5,
+      "provisional": false
     },
     {
       "ym": "202401",
@@ -507,7 +534,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.23,
       "fwd_6m_pct": 2.26,
-      "fwd_12m_pct": 9.5
+      "fwd_12m_pct": 9.5,
+      "provisional": false
     },
     {
       "ym": "202402",
@@ -526,7 +554,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.23,
       "fwd_6m_pct": 2.26,
-      "fwd_12m_pct": 9.5
+      "fwd_12m_pct": 9.5,
+      "provisional": false
     },
     {
       "ym": "202403",
@@ -545,7 +574,8 @@
       "fwd_1m_pct": 0.23,
       "fwd_3m_pct": 0.23,
       "fwd_6m_pct": 6.33,
-      "fwd_12m_pct": 12.22
+      "fwd_12m_pct": 12.22,
+      "provisional": false
     },
     {
       "ym": "202404",
@@ -564,7 +594,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 2.03,
       "fwd_6m_pct": 7.45,
-      "fwd_12m_pct": 14.67
+      "fwd_12m_pct": 14.67,
+      "provisional": false
     },
     {
       "ym": "202405",
@@ -583,7 +614,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 2.03,
       "fwd_6m_pct": 9.26,
-      "fwd_12m_pct": 14.67
+      "fwd_12m_pct": 14.67,
+      "provisional": false
     },
     {
       "ym": "202406",
@@ -602,7 +634,8 @@
       "fwd_1m_pct": 2.03,
       "fwd_3m_pct": 6.09,
       "fwd_6m_pct": 9.26,
-      "fwd_12m_pct": 17.38
+      "fwd_12m_pct": 17.38,
+      "provisional": false
     },
     {
       "ym": "202407",
@@ -621,7 +654,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 5.31,
       "fwd_6m_pct": 7.08,
-      "fwd_12m_pct": 16.81
+      "fwd_12m_pct": 16.81,
+      "provisional": false
     },
     {
       "ym": "202408",
@@ -640,7 +674,8 @@
       "fwd_1m_pct": 3.98,
       "fwd_3m_pct": 7.08,
       "fwd_6m_pct": 7.08,
-      "fwd_12m_pct": 19.47
+      "fwd_12m_pct": 19.47,
+      "provisional": false
     },
     {
       "ym": "202409",
@@ -659,7 +694,8 @@
       "fwd_1m_pct": 1.28,
       "fwd_3m_pct": 2.98,
       "fwd_6m_pct": 5.53,
-      "fwd_12m_pct": 22.98
+      "fwd_12m_pct": 22.98,
+      "provisional": false
     },
     {
       "ym": "202410",
@@ -678,7 +714,8 @@
       "fwd_1m_pct": 1.68,
       "fwd_3m_pct": 1.68,
       "fwd_6m_pct": 6.72,
-      "fwd_12m_pct": 21.85
+      "fwd_12m_pct": 21.85,
+      "provisional": false
     },
     {
       "ym": "202411",
@@ -697,7 +734,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": 4.96,
-      "fwd_12m_pct": 20.66
+      "fwd_12m_pct": 20.66,
+      "provisional": false
     },
     {
       "ym": "202412",
@@ -716,7 +754,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 2.48,
       "fwd_6m_pct": 7.44,
-      "fwd_12m_pct": 21.07
+      "fwd_12m_pct": 21.07,
+      "provisional": false
     },
     {
       "ym": "202501",
@@ -735,7 +774,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 4.96,
       "fwd_6m_pct": 9.09,
-      "fwd_12m_pct": 28.1
+      "fwd_12m_pct": 28.1,
+      "provisional": false
     },
     {
       "ym": "202502",
@@ -754,7 +794,8 @@
       "fwd_1m_pct": 2.48,
       "fwd_3m_pct": 4.96,
       "fwd_6m_pct": 11.57,
-      "fwd_12m_pct": 38.43
+      "fwd_12m_pct": 38.43,
+      "provisional": false
     },
     {
       "ym": "202503",
@@ -773,7 +814,8 @@
       "fwd_1m_pct": 2.42,
       "fwd_3m_pct": 4.84,
       "fwd_6m_pct": 16.53,
-      "fwd_12m_pct": 44.35
+      "fwd_12m_pct": 44.35,
+      "provisional": false
     },
     {
       "ym": "202504",
@@ -792,7 +834,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 3.94,
       "fwd_6m_pct": 14.17,
-      "fwd_12m_pct": 42.91
+      "fwd_12m_pct": 42.91,
+      "provisional": false
     },
     {
       "ym": "202505",
@@ -811,7 +854,8 @@
       "fwd_1m_pct": 2.36,
       "fwd_3m_pct": 6.3,
       "fwd_6m_pct": 14.96,
-      "fwd_12m_pct": 42.91
+      "fwd_12m_pct": 42.91,
+      "provisional": false
     },
     {
       "ym": "202506",
@@ -830,7 +874,8 @@
       "fwd_1m_pct": 1.54,
       "fwd_3m_pct": 11.15,
       "fwd_6m_pct": 12.69,
-      "fwd_12m_pct": 39.62
+      "fwd_12m_pct": 39.62,
+      "provisional": false
     },
     {
       "ym": "202507",
@@ -849,7 +894,8 @@
       "fwd_1m_pct": 2.27,
       "fwd_3m_pct": 9.85,
       "fwd_6m_pct": 17.42,
-      "fwd_12m_pct": 37.5
+      "fwd_12m_pct": 37.5,
+      "provisional": false
     },
     {
       "ym": "202508",
@@ -868,7 +914,8 @@
       "fwd_1m_pct": 7.04,
       "fwd_3m_pct": 8.15,
       "fwd_6m_pct": 24.07,
-      "fwd_12m_pct": 34.44
+      "fwd_12m_pct": 34.44,
+      "provisional": false
     },
     {
       "ym": "202509",
@@ -887,7 +934,8 @@
       "fwd_1m_pct": 0.35,
       "fwd_3m_pct": 1.38,
       "fwd_6m_pct": 23.88,
-      "fwd_12m_pct": 25.61
+      "fwd_12m_pct": 25.61,
+      "provisional": false
     },
     {
       "ym": "202510",
@@ -906,7 +954,8 @@
       "fwd_1m_pct": 0.69,
       "fwd_3m_pct": 6.9,
       "fwd_6m_pct": 25.17,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202511",
@@ -925,7 +974,8 @@
       "fwd_1m_pct": 0.34,
       "fwd_3m_pct": 14.73,
       "fwd_6m_pct": 24.32,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202512",
@@ -944,7 +994,8 @@
       "fwd_1m_pct": 5.8,
       "fwd_3m_pct": 22.18,
       "fwd_6m_pct": 23.89,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202601",
@@ -963,7 +1014,8 @@
       "fwd_1m_pct": 8.06,
       "fwd_3m_pct": 17.1,
       "fwd_6m_pct": 17.1,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202602",
@@ -982,7 +1034,8 @@
       "fwd_1m_pct": 6.87,
       "fwd_3m_pct": 8.36,
       "fwd_6m_pct": 8.36,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202603",
@@ -1001,7 +1054,8 @@
       "fwd_1m_pct": 1.4,
       "fwd_3m_pct": 1.4,
       "fwd_6m_pct": 1.4,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202604",
@@ -1020,7 +1074,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202605",
@@ -1039,7 +1094,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202606",
@@ -1058,7 +1114,8 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
     },
     {
       "ym": "202607",
@@ -1077,7 +1134,28 @@
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": null,
+      "provisional": false
+    },
+    {
+      "ym": "202608",
+      "score": 40.3,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 64.57,
+        "sentiment": 23.2,
+        "demand": 36.01,
+        "value": 25,
+        "supply": 49.0
+      },
+      "target_price": 181500.0,
+      "m2_vintage_period": "202606",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null,
+      "provisional": true
     }
   ],
   "metrics": {
@@ -1088,5 +1166,5 @@
     "low_score_mean_fwd_6m_pct": 1.97,
     "high_score_mean_fwd_6m_pct": 8.39
   },
-  "generated_at": "2026-09-25T19:51:37.873665+00:00"
+  "generated_at": "2026-09-25T19:56:44.133357+00:00"
 }
