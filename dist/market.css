@@ -254,3 +254,6 @@ main{max-width:1180px;padding-top:24px}
 .condition-history{margin-bottom:22px!important}.evidence-ticker{margin-top:0!important}.score-grid>.score-explanation{grid-column:1/-1;margin:2px 0 4px!important}@media(max-width:800px){.condition-history{margin-bottom:22px!important}.evidence-ticker{margin-top:0!important}.score-grid>.score-explanation{grid-column:1/-1;margin:2px 0 4px!important}}
 
 .cycle-stage{margin:12px 0}.cycle-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.cycle-steps span{padding:10px 7px;border-radius:8px;background:#f4f7fb;color:var(--muted);font-size:11px;text-align:center;font-weight:700}.cycle-steps span.active{background:#eaf3ff;color:var(--blue);box-shadow:inset 0 0 0 1px #b9d6ff}.cycle-stage p{margin:13px 0 5px;font-size:13px;color:var(--text)}.cycle-stage>small{font-size:10px;color:var(--muted)}@media(max-width:800px){.cycle-steps{grid-template-columns:repeat(5,minmax(62px,1fr));overflow:auto}.cycle-steps span{font-size:9px;padding:9px 4px}}
+
+/* score detail regression fix */
+.score-explanation{display:block;margin-top:10px;border-left:4px solid #1677ff}.score-explanation[hidden]{display:none!important}.score-grid>.score-explanation{grid-column:1/-1;width:100%;box-sizing:border-box}
