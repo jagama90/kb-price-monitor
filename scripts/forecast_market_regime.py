@@ -78,10 +78,10 @@ def main():
     for i,r in enumerate(rows[:-1]):
       prev=rows[max(0,i-2):i]
       pp=max([n(z.get('momentum_3m_pct')) for z in prev] or [0])
-      if pp>=5 and 0<=n(r.get('momentum_3m_pct'))<=2 and 0<=n(r.get('price_mom_pct'))<=.5 and not r.get('momentum_zone'):
+      if r.get('fwd_6m_pct') is not None and pp>=5 and 0<=n(r.get('momentum_3m_pct'))<=2 and 0<=n(r.get('price_mom_pct'))<=.5 and not r.get('momentum_zone'):
         analog.append({k:r.get(k) for k in ('ym','price_mom_pct','momentum_3m_pct','fwd_3m_pct','fwd_6m_pct','fwd_12m_pct')})
 
-    latest_cert=(fb.get('rows') or [{}])[-1].get('ym')
+    latest_cert=fb.get('certified_through') or (fb.get('rows') or [{}])[-1].get('ym')
     selected=(lv.get('selected_on_pre2018') or {})
     triggers={
       'reacceleration_confirmation':['3개월 가격모멘텀 > 2%','breadth >= 45','reaccel >= 50','동일기간 거래량 감소폭이 -10% 이내로 회복'],
@@ -98,6 +98,7 @@ def main():
       'method':'transparent scenario-weight engine: certified turning-state research + freshest live market overlay; no future labels are used in current scoring',
       'as_of':m.get('updated_at'),
       'latest_research_month':x.get('ym'),
+      'latest_research_provisional':bool(x.get('source_provisional',False)),
       'latest_certified_backtest_month':latest_cert,
       'horizons':[
         {'period':'2026Q4','label':'2026년 말','weights':q4,'base_case':'consolidation'},
