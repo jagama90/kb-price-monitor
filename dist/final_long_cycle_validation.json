@@ -1,0 +1,523 @@
+{
+  "status": "research_only",
+  "no_future_leakage": true,
+  "selected_on_pre2018": {
+    "m12_min_pct": -5,
+    "above_ma12_min_pct": -3,
+    "drawdown_12m_min_pct": -4
+  },
+  "part1": {
+    "train_base": {
+      "signals": 4,
+      "fwd_6m_mean_pct": 1.32,
+      "positive_6m_pct": 75.0,
+      "renew_low_6m_pct": 25.0,
+      "fwd_12m_mean_pct": 1.54,
+      "positive_12m_pct": 75.0,
+      "renew_low_12m_pct": 50.0
+    },
+    "train_filtered": {
+      "signals": 3,
+      "fwd_6m_mean_pct": 1.88,
+      "positive_6m_pct": 100.0,
+      "renew_low_6m_pct": 0.0,
+      "fwd_12m_mean_pct": 1.8,
+      "positive_12m_pct": 66.7,
+      "renew_low_12m_pct": 33.3
+    },
+    "holdout_base": {
+      "signals": 4,
+      "fwd_6m_mean_pct": 2.35,
+      "positive_6m_pct": 100.0,
+      "renew_low_6m_pct": 0.0,
+      "fwd_12m_mean_pct": 5.32,
+      "positive_12m_pct": 100.0,
+      "renew_low_12m_pct": 0.0
+    },
+    "holdout_filtered": {
+      "signals": 2,
+      "fwd_6m_mean_pct": 2.92,
+      "positive_6m_pct": 100.0,
+      "renew_low_6m_pct": 0.0,
+      "fwd_12m_mean_pct": 5.32,
+      "positive_12m_pct": 100.0,
+      "renew_low_12m_pct": 0.0
+    }
+  },
+  "part2_walk_forward": [
+    {
+      "period": "2007-2011",
+      "base": {
+        "signals": 2,
+        "fwd_6m_mean_pct": 2.0,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 1.68,
+        "positive_12m_pct": 50.0,
+        "renew_low_12m_pct": 50.0
+      },
+      "filtered": {
+        "signals": 2,
+        "fwd_6m_mean_pct": 2.0,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 1.68,
+        "positive_12m_pct": 50.0,
+        "renew_low_12m_pct": 50.0
+      }
+    },
+    {
+      "period": "2012-2017",
+      "base": {
+        "signals": 2,
+        "fwd_6m_mean_pct": 0.64,
+        "positive_6m_pct": 50.0,
+        "renew_low_6m_pct": 50.0,
+        "fwd_12m_mean_pct": 1.4,
+        "positive_12m_pct": 100.0,
+        "renew_low_12m_pct": 50.0
+      },
+      "filtered": {
+        "signals": 1,
+        "fwd_6m_mean_pct": 1.65,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 2.03,
+        "positive_12m_pct": 100.0,
+        "renew_low_12m_pct": 0.0
+      }
+    },
+    {
+      "period": "2018-2023",
+      "base": {
+        "signals": 4,
+        "fwd_6m_mean_pct": 2.35,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 5.32,
+        "positive_12m_pct": 100.0,
+        "renew_low_12m_pct": 0.0
+      },
+      "filtered": {
+        "signals": 2,
+        "fwd_6m_mean_pct": 2.92,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 5.32,
+        "positive_12m_pct": 100.0,
+        "renew_low_12m_pct": 0.0
+      }
+    }
+  ],
+  "part3_stress": {
+    "nearby_thresholds": [
+      {
+        "delta": [
+          -1,
+          -0.5,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          -1,
+          -0.5,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          -1,
+          -0.5,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      },
+      {
+        "delta": [
+          -1,
+          0,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          -1,
+          0,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          -1,
+          0,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      },
+      {
+        "delta": [
+          -1,
+          0.5,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          -1,
+          0.5,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          -1,
+          0.5,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      },
+      {
+        "delta": [
+          0,
+          -0.5,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          0,
+          -0.5,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          0,
+          -0.5,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      },
+      {
+        "delta": [
+          0,
+          0,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          0,
+          0,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      },
+      {
+        "delta": [
+          0,
+          0.5,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          0,
+          0.5,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          0,
+          0.5,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      },
+      {
+        "delta": [
+          1,
+          -0.5,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          1,
+          -0.5,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          1,
+          -0.5,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      },
+      {
+        "delta": [
+          1,
+          0,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          1,
+          0,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          1,
+          0,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      },
+      {
+        "delta": [
+          1,
+          0.5,
+          -1
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          1,
+          0.5,
+          0
+        ],
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      {
+        "delta": [
+          1,
+          0.5,
+          1
+        ],
+        "signals": 3,
+        "fwd_6m_mean_pct": 2.11,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.42,
+        "positive_12m_pct": 66.7,
+        "renew_low_12m_pct": 33.3
+      }
+    ],
+    "entry_delay_months": {
+      "0": {
+        "signals": 5,
+        "fwd_6m_mean_pct": 2.3,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 3.21,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      "1": {
+        "signals": 5,
+        "fwd_6m_mean_pct": 1.94,
+        "positive_6m_pct": 100.0,
+        "renew_low_6m_pct": 0.0,
+        "fwd_12m_mean_pct": 2.99,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 20.0
+      },
+      "2": {
+        "signals": 5,
+        "fwd_6m_mean_pct": 1.75,
+        "positive_6m_pct": 80.0,
+        "renew_low_6m_pct": 40.0,
+        "fwd_12m_mean_pct": 2.82,
+        "positive_12m_pct": 80.0,
+        "renew_low_12m_pct": 40.0
+      }
+    }
+  }
+}
