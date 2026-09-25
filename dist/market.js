@@ -171,3 +171,14 @@ async function renderCycleStage(){ // direction-aware market phase UI
 renderCycleStage();
 
 window.showScoreDetail=function(k){const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;const w={finance:25,sentiment:20,demand:20,value:20,supply:15},t={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'},m=d.m2_official||d.m2,x=d.matched_period,s=d.kb_sentiment||{},v=d.kb_value||{},val=z=>z==null?'—':Number(z).toFixed(1),body={finance:'현재 '+Math.round(c.finance)+'/100 · M2 전월비 '+val(m?.mom_pct)+'% · 전년비 '+val(m?.yoy_pct)+'%<br><b>산식</b> 50 + M2 전월비×8 + M2 전년비×1.5',sentiment:'현재 '+Math.round(c.sentiment)+'/100 · 매수우위 '+val(s.latest?.매수우위?.value)+' · 거래활발 '+val(s.latest?.매매거래활발?.value),demand:'현재 '+Math.round(c.demand)+'/100 · 동일기간 거래 '+(x?.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 비중 '+(x?.changes?.under15_share_pp==null?'—':signed(x.changes.under15_share_pp,'%p')),value:'현재 '+Math.round(c.value)+'/100 · 현재 KB '+eok(v.current_manwon)+' · 36개월 저점 '+eok(v.window_low_manwon)+' · 고점 '+eok(v.window_high_manwon),supply:'현재 '+Math.round(c.supply)+'/100 · 전세수급 '+val(s.latest?.전세수급?.value)+' · 전세거래활발 '+val(s.latest?.전세거래활발?.value)};setText('scoreExplainTitle',t[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+w[k]+'%');document.getElementById('scoreExplainBody').innerHTML='<p>'+body[k]+'</p>';const p=document.getElementById('scoreExplanation');p.hidden=false;p.style.display='block';p.scrollIntoView({behavior:'smooth',block:'center'})};window.hideScoreDetail=function(){const p=document.getElementById('scoreExplanation');p.hidden=true;p.style.display='none'};
+
+async function renderRegimeForecast(){
+ const host=document.getElementById('forecastGrid'),meta=document.getElementById('forecastMeta');if(!host)return;
+ const labels={consolidation:'보합·조정',reacceleration:'상승 재가속',downturn:'하락 전환'};
+ try{
+  const d=await fetch('regime_forecast.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('forecast '+r.status);return r.json()});
+  host.innerHTML=(d.horizons||[]).map(h=>{const w=h.weights||{},keys=Object.keys(w),top=keys.sort((a,b)=>Number(w[b])-Number(w[a]))[0]||h.base_case||'consolidation';return '<div class="forecast-cell"><small>'+esc(h.label||h.period)+'</small><b>'+esc(labels[top]||top)+'</b><div class="forecast-bars"><span>보합·조정 '+Number(w.consolidation||0).toFixed(1)+'%</span><span>재가속 '+Number(w.reacceleration||0).toFixed(1)+'%</span><span>하락 '+Number(w.downturn||0).toFixed(1)+'%</span></div></div>'}).join('');
+  meta.textContent='기준일 '+(d.as_of||'—')+' · 연구월 '+(d.latest_research_month||'—')+(d.latest_research_provisional?' (잠정)':'')+' · 인증 '+(d.latest_certified_backtest_month||'—')+'까지';
+ }catch(e){host.innerHTML='<div class="forecast-cell"><small>전망엔진</small><b>데이터 확인 중</b></div>';meta.textContent='전망 파일 배포 후 자동 표시됩니다.'}
+}
+renderRegimeForecast();
