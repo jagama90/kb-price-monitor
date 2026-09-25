@@ -1,8 +1,56 @@
 {
-  "status":"backfill_started",
-  "method":"official-source events only; score policy action, not politician or party",
-  "events":[
-    {"date":"2018-09-13","category":"credit_tax_transaction","direction":"demand_restraint","intensity":5,"scope":"national_capital_region","announcement_or_effective":"announcement","source":"https://www.molit.go.kr/USR/NEWS/m_72/dtl.jsp?id=95081333","note":"주택시장 안정대책 발표"},
-    {"date":"2022-11-23","category":"tax","direction":"demand_support","intensity":2,"scope":"national","announcement_or_effective":"announcement","source":"https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?id=95087485","note":"2023년 보유세 부담 완화 방향 발표"}
+  "status": "backfill_in_progress",
+  "method": "official-source events only; score policy action, not politician or party",
+  "events": [
+    {
+      "date": "2017-08-02",
+      "category": "credit_transaction",
+      "direction": "demand_restraint",
+      "intensity": 5,
+      "scope": "national_capital_region",
+      "announcement_or_effective": "announcement",
+      "source": "https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?id=95079567",
+      "note": "주택시장 안정화 방안 발표"
+    },
+    {
+      "date": "2018-09-13",
+      "category": "credit_tax_transaction",
+      "direction": "demand_restraint",
+      "intensity": 5,
+      "scope": "national_capital_region",
+      "announcement_or_effective": "announcement",
+      "source": "https://www.molit.go.kr/USR/NEWS/m_72/dtl.jsp?id=95081333",
+      "note": "주택시장 안정대책 발표"
+    },
+    {
+      "date": "2020-06-17",
+      "category": "credit_transaction",
+      "direction": "demand_restraint",
+      "intensity": 5,
+      "scope": "national_capital_region",
+      "announcement_or_effective": "announcement",
+      "source": "https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?id=95084056",
+      "note": "주택시장 안정을 위한 관리방안 발표"
+    },
+    {
+      "date": "2022-11-23",
+      "category": "tax",
+      "direction": "demand_support",
+      "intensity": 2,
+      "scope": "national",
+      "announcement_or_effective": "announcement",
+      "source": "https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?id=95087485",
+      "note": "2023년 보유세 부담 완화 방향 발표"
+    },
+    {
+      "date": "2023-01-03",
+      "category": "transaction_supply",
+      "direction": "demand_support",
+      "intensity": 4,
+      "scope": "national_capital_region",
+      "announcement_or_effective": "announcement",
+      "source": "https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?id=95087770",
+      "note": "주택시장 연착륙 및 규제 정상화 관련 발표"
+    }
   ]
 }
