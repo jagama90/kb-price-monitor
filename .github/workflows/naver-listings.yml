@@ -1,11 +1,5 @@
 name: Naver watchlist lowest asks
 on:
-  schedule:
-    - cron: '20 22 * * *'
-  push:
-    paths:
-      - 'scripts/collect_naver_listings.py'
-      - '.github/workflows/naver-listings.yml'
   workflow_dispatch:
     inputs:
       complex_id:
