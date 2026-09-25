@@ -95,3 +95,4 @@ def main():
   'rows':outrows,'reference_episodes':refs,'mortgage_rate_overlay':mort,'metrics':metrics,'component_dispersion':dispersion,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)); print(json.dumps(metrics,ensure_ascii=False))
 if __name__=='__main__': main()
+
