@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/research_turning_signal.py'
-      - 'dist/final_backtest.json'\n      - 'scripts/collect_reb_long_cycle.py'\n      - 'scripts/build_long_cycle_*.py'\n      - 'scripts/validate_long_cycle_inputs.py'\n      - 'scripts/backtest_long_cycle_regimes.py'\n      - 'data_sources/housing_policy_events.json'
+      - 'dist/final_backtest.json'\n      - 'scripts/collect_reb_long_cycle.py'\n      - 'scripts/build_long_cycle_readiness.py'\n      - 'scripts/build_long_cycle_master.py'\n      - 'scripts/validate_long_cycle_inputs.py'\n      - 'scripts/backtest_long_cycle_regimes.py'\n      - 'data_sources/housing_policy_events.json'
 jobs:
   research:
     runs-on: ubuntu-latest
