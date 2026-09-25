@@ -1,15 +1,8 @@
 {
-  "status": "research_seed",
-  "purpose": "Structured housing-policy events for regime research; political identity is not scored.",
-  "schema": {
-    "date": "YYYY-MM-DD",
-    "category": "credit|tax|transaction|supply|redevelopment|rental|other",
-    "direction": "demand_support|demand_restraint|supply_support|supply_restraint|mixed",
-    "intensity": "1..5",
-    "scope": "national|capital_region|seoul|district",
-    "announcement_or_effective": "announcement|effective",
-    "source": "official URL",
-    "note": "factual policy description"
-  },
-  "events": []
+  "status":"backfill_started",
+  "method":"official-source events only; score policy action, not politician or party",
+  "events":[
+    {"date":"2018-09-13","category":"credit_tax_transaction","direction":"demand_restraint","intensity":5,"scope":"national_capital_region","announcement_or_effective":"announcement","source":"https://www.molit.go.kr/USR/NEWS/m_72/dtl.jsp?id=95081333","note":"주택시장 안정대책 발표"},
+    {"date":"2022-11-23","category":"tax","direction":"demand_support","intensity":2,"scope":"national","announcement_or_effective":"announcement","source":"https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?id=95087485","note":"2023년 보유세 부담 완화 방향 발표"}
+  ]
 }
