@@ -58,13 +58,17 @@ jobs:
           python3 scripts/final_long_cycle_validation.py
           python3 scripts/validate_integrated_model.py
           python3 scripts/validate_state_machine.py
-      - name: Refresh forward regime forecast
-        run: python3 scripts/forecast_market_regime.py
       - name: Persist research output
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add -f data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json dist/long_cycle_model_validation.json dist/long_cycle_score_validation.json dist/long_cycle_event_validation.json dist/false_bottom_validation.json dist/final_long_cycle_validation.json dist/integrated_model_validation.json dist/state_machine_validation.json dist/regime_forecast.json
-          git commit -m 'Refresh turning signal research' || exit 0
-          git pull --rebase origin main
+          files="data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json dist/long_cycle_model_validation.json dist/long_cycle_score_validation.json dist/long_cycle_event_validation.json dist/false_bottom_validation.json dist/final_long_cycle_validation.json dist/integrated_model_validation.json dist/state_machine_validation.json"
+          mkdir -p /tmp/research-refresh
+          tar -cf /tmp/research-refresh/output.tar $files
+          git reset --hard
+          git pull --ff-only origin main
+          tar -xf /tmp/research-refresh/output.tar -C .
+          git add -f $files
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh turning signal research'
           git push origin HEAD:main
