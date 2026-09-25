@@ -10,12 +10,6 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/system-health.yml'
-      - '.github/workflows/parallel-market-refresh.yml'
-      - '.github/workflows/weekly-refresh.yml'
-      - '.github/workflows/final-backtest.yml'
-      - '.github/workflows/research-turning-signal.yml'
-      - '.github/workflows/forecast-regime.yml'
-      - '.github/workflows/pages.yml'
       - 'scripts/check_dashboard_bundle.py'
       - 'scripts/check_pipeline_health.py'
 permissions:
