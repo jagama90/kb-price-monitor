@@ -153,16 +153,18 @@ async function renderConditionHistory(){
 }
 renderConditionHistory();
 
-async function renderCycleStage(){ // plain-language market phase UI
+async function renderCycleStage(){ // direction-aware market phase UI
  const badge=document.getElementById('cycleStageBadge');if(!badge)return;
- try{const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
+ try{const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],x=rows.at(-1),prev=rows.at(-2);if(!x)throw Error('no rows');
+  const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),prev3=Number(prev?.momentum_3m_pct),wasRising=Number.isFinite(prev3)&&prev3>0;
   let stage=0,label='하락 중',text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
   if(x.bottom_zone){stage=1;label='하락 둔화';text='하락 압력이 약해지고 있습니다. 다만 아직 가격이 멈췄거나 상승세로 바뀌었다고 보기는 이릅니다.'}
-  if(x.price_mom_pct>=0&&x.momentum_3m_pct<=0){stage=2;label='하락 멈춤';text='최근 가격 하락이 멈췄습니다. 과거 검증에서는 이 시점부터 매수 타이밍을 살펴볼 가치가 높아졌습니다. 다만 아직 상승세가 확인된 것은 아닙니다.'}
-  if(x.momentum_3m_pct>0){stage=3;label='상승 확인';text='최근 3개월 가격 흐름이 상승으로 돌아섰습니다. 상승 흐름이 이어지는지 확인하는 단계입니다.'}
+  if(m1>=0&&m3<=0&&!wasRising){stage=2;label='바닥 확인 중';text='하락 뒤 가격이 더 내려가지 않고 있습니다. 과거 검증상 매수 타이밍을 살펴볼 가치가 높아지는 구간이지만 아직 상승 확인 전입니다.'}
+  if(m3>0){stage=3;label='상승 확인';text='최근 3개월 가격 흐름이 상승입니다. 상승 흐름이 이어지는지 확인하는 단계입니다.'}
+  if(wasRising&&m3<=0&&m1>=0){stage=3;label='상승 후 보합';text='앞선 상승세가 멈추고 최근 가격이 보합권에 들어왔습니다. 하락 뒤 바닥 신호가 아니라 상승 모멘텀이 식은 상태입니다.'}
   if(x.momentum_zone){stage=4;label='상승 가속';text='가격 상승과 시장 수요가 함께 강해지는 구간입니다.'}
   badge.textContent=label;document.getElementById('cycleStageText').textContent=text;
-  const mom=Number(x.momentum_3m_pct),flow=mom>0?'상승 '+mom.toFixed(1)+'%':mom<0?'하락 '+Math.abs(mom).toFixed(1)+'%':'보합';
+  const flow=m3>0?'상승 '+m3.toFixed(1)+'%':m3<0?'하락 '+Math.abs(m3).toFixed(1)+'%':'보합';
   document.getElementById('cycleStageEvidence').textContent='최근 데이터 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow;
   document.querySelectorAll('#cycleSteps span').forEach((e,i)=>e.classList.toggle('active',i===stage));
  }catch(e){badge.textContent='데이터 확인 중';document.getElementById('cycleStageText').textContent='최신 가격 데이터를 확인하고 있습니다.'}}
