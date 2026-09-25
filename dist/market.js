@@ -30,7 +30,10 @@ function setupScoreDetails(d,components){
  supply:()=>'<p><b>현재 '+Math.round(components.supply)+'/100</b> · 전세수급 '+val(s.latest?.전세수급?.value)+' · 전세거래활발 '+val(s.latest?.전세거래활발?.value)+'</p><p><b>산식</b> KB 전세수급과 전세거래활발을 결합해 0~100으로 환산</p><p class="score-guide">KB 원지수 0~200 · 100이 균형 기준</p>'
  };
  const panel=document.getElementById('scoreExplanation');if(!panel)return;
- const open=k=>{if(components[k]==null)return;setText('scoreExplainTitle',titles[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');document.getElementById('scoreExplainBody').innerHTML=bodies[k]();panel.hidden=false;document.querySelector('.score-section')?.after(panel);document.querySelectorAll('[data-score]').forEach(z=>z.classList.toggle('active',z.dataset.score===k));panel.scrollIntoView({behavior:'smooth',block:'nearest'})};
+ const open=k=>{if(components[k]==null)return;setText('scoreExplainTitle',titles[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');document.getElementById('scoreExplainBody').innerHTML=bodies[k]();panel.hidden=false;
+ const card=document.querySelector('[data-score="'+k+'"]'),grid=document.querySelector('.score-grid');
+ if(card&&grid){const cards=[...grid.querySelectorAll('[data-score]')],idx=cards.indexOf(card),cols=matchMedia('(max-width:800px)').matches?2:5,end=Math.min(cards.length-1,Math.floor(idx/cols)*cols+cols-1);cards[end].after(panel)}
+ document.querySelectorAll('[data-score]').forEach(z=>z.classList.toggle('active',z.dataset.score===k));panel.scrollIntoView({behavior:'smooth',block:'nearest'})};
  document.querySelectorAll('[data-score]').forEach(card=>{card.onclick=()=>open(card.dataset.score);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card.dataset.score)}}});
  document.getElementById('closeScoreExplain')?.addEventListener('click',()=>{panel.hidden=true;document.querySelectorAll('[data-score]').forEach(z=>z.classList.remove('active'))});
 }
@@ -39,6 +42,9 @@ function setupSnapshotEvidence(d){
  const open=(title,source,current,previous,delta,note,formula)=>{setText('snapshotExplainTitle',title);setText('snapshotExplainSource',source);document.getElementById('snapshotExplainBody').innerHTML='<div class="evidence-compare"><div><small>현재 동일기간</small><b>'+esc(current[0])+'</b><span>'+esc(current[1])+'</span></div><div><small>직전월 동일기간</small><b>'+esc(previous[0])+'</b><span>'+esc(previous[1])+'</span></div></div><div class="evidence-change"><div><span>변화</span><b>'+esc(delta)+'</b></div><p>'+esc(note)+'</p></div><div class="evidence-method"><b>산출 기준</b><p>'+esc(formula)+'</p></div>';const el=document.getElementById('snapshotExplanation');el.hidden=false};
  const bind=(id,fn)=>{const el=document.getElementById(id);if(!el)return;el.onclick=fn;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn()}}};
  if(x){bind('volumeCard',()=>open('서울 거래량','국토교통부 실거래가 · 계약일 기준',[Number(x.current.total).toLocaleString('ko-KR')+'건',x.current.period+' '+x.current.range],[Number(x.previous.total).toLocaleString('ko-KR')+'건',x.previous.period+' '+x.previous.range],signed(x.changes.trade_count_pct,'%'),x.warning||'당월 신고 진행 중','현재월과 직전월을 같은 달력일 구간으로 맞춰 계약 건수를 비교합니다.'));bind('under15Card',()=>open('15억 이하 비중','국토교통부 실거래가 · 서울 아파트',[x.current.under15_share+'%',x.current.period+' '+x.current.range],[x.previous.under15_share+'%',x.previous.period+' '+x.previous.range],signed(x.changes.under15_share_pp,'%p'),'중저가 거래 비중의 월간 이동','15억원 이하 거래건수 ÷ 해당 동일기간 서울 아파트 전체 거래건수 × 100'))}
+ const m=d.m2_official||d.m2;
+ bind('rateCard',()=>open('기준금리','한국은행 기준금리',['3.00%','2026.08.27'],['3.00%','직전 결정'], '0.0%p','현재 기준금리 수준','한국은행 금융통화위원회 기준금리 결정값을 표시합니다.'));
+ if(m)bind('m2Card',()=>open('M2 통화량','한국은행 ECOS 101Y003',[Number(m.yoy_pct).toFixed(1)+'%','전년동월비 · '+m.period],[Number(m.mom_pct).toFixed(1)+'%','전월비'],signed(m.yoy_pct,'%'),'광의통화 증가율','M2 원계열의 전년동월비와 전월비를 함께 확인합니다.'));
  document.getElementById('closeSnapshotExplain')?.addEventListener('click',()=>document.getElementById('snapshotExplanation').hidden=true);
 }
 const signed=(v,s='')=>(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
