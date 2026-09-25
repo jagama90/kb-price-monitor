@@ -22,7 +22,7 @@ def main():
  for h in hits:
   code=h.get('STAT_CODE')
   try:
-   trial=get(f'https://ecos.bok.or.kr/api/StatisticSearch/{key}/json/kr/1/10000/{code}/M/201601/202612/').get('StatisticSearch',{}).get('row',[])
+   trial=get(f'https://ecos.bok.or.kr/api/StatisticSearch/{key}/json/kr/1/10000/{code}/M/200501/202612/').get('StatisticSearch',{}).get('row',[])
    if trial:
     rows=trial;selected_table={'stat_code':code,'stat_name':h.get('STAT_NAME')};break
   except Exception: pass
