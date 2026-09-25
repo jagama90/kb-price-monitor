@@ -44,7 +44,9 @@
     "precision_price": {
       "path": "dist/garak_geumho_24a_history.json",
       "exists": true,
-      "error": "Expecting value: line 1 column 1 (char 0)"
+      "rows": 273,
+      "first": "200401",
+      "last": "202609"
     },
     "m2": {
       "path": "data_sources/ecos_m2.json",
@@ -74,5 +76,5 @@
     "encode documented policy actions rather than party/person as directional score",
     "production 2022+ model remains unchanged until validation passes"
   ],
-  "generated_at": "2026-09-25T19:50:58.723863+00:00"
+  "generated_at": "2026-09-25T19:55:16.625323+00:00"
 }

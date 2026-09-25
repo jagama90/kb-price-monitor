@@ -3,16 +3,16 @@
   "weights_are_not_calibrated_probabilities": true,
   "method": "transparent scenario-weight engine: certified turning-state research + freshest live market overlay; no future labels are used in current scoring",
   "as_of": "2026-09-26",
-  "latest_research_month": "202608",
-  "latest_certified_backtest_month": "202608",
+  "latest_research_month": "202607",
+  "latest_certified_backtest_month": "202607",
   "horizons": [
     {
       "period": "2026Q4",
       "label": "2026년 말",
       "weights": {
-        "consolidation": 42.4,
-        "reacceleration": 21.2,
-        "downturn": 36.4
+        "consolidation": 41.2,
+        "reacceleration": 24.5,
+        "downturn": 34.3
       },
       "base_case": "consolidation"
     },
@@ -20,9 +20,9 @@
       "period": "2027H1",
       "label": "2027년 상반기",
       "weights": {
-        "consolidation": 38.0,
-        "reacceleration": 32.1,
-        "downturn": 29.9
+        "consolidation": 37.3,
+        "reacceleration": 33.5,
+        "downturn": 29.2
       },
       "base_case": "consolidation"
     },
@@ -30,9 +30,9 @@
       "period": "2027H2",
       "label": "2027년 하반기",
       "weights": {
-        "consolidation": 39.2,
-        "reacceleration": 36.3,
-        "downturn": 24.5
+        "consolidation": 38.8,
+        "reacceleration": 36.8,
+        "downturn": 24.4
       },
       "base_case": "consolidation"
     }
@@ -59,8 +59,8 @@
     "current_check": {
       "price_mom_pct": 0.0,
       "momentum_3m_pct": 0.0,
-      "breadth": 38.7,
-      "reaccel": 14.6,
+      "breadth": 48.2,
+      "reaccel": 35.0,
       "finance": 61.1,
       "sentiment": 22.6,
       "demand": 34.5,
@@ -95,14 +95,6 @@
       "fwd_3m_pct": 0.0,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null
-    },
-    {
-      "ym": "202607",
-      "price_mom_pct": 0.0,
-      "momentum_3m_pct": 0.0,
-      "fwd_3m_pct": null,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
     }
   ],
   "analog_warning": "small sample; analogs are diagnostic only",
@@ -114,5 +106,5 @@
     },
     "sample_is_small": true
   },
-  "generated_at": "2026-09-25T19:50:59.034375+00:00"
+  "generated_at": "2026-09-25T19:55:17.072632+00:00"
 }
