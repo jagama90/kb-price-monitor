@@ -40,7 +40,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add -f data_sources/reb_long_cycle.json data_sources/reb_price_debug.json dist/turning_signal_research.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json
+          git add -f data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json
           git commit -m 'Refresh turning signal research' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
