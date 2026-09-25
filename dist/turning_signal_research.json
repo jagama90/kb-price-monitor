@@ -1,0 +1,1018 @@
+{
+  "status": "research_only",
+  "production_formula_unchanged": true,
+  "no_future_leakage": true,
+  "method": "setup = 55% cheapness + 45% sentiment distress; turn = expanding-percentile of weighted 1m/3m improvements in demand, sentiment, finance; opportunity = setup * turn / 100",
+  "rows": [
+    {
+      "ym": "202209",
+      "market_state": 35.5,
+      "setup": 57.7,
+      "turn": 100.0,
+      "opportunity": 57.7,
+      "cheapness": 27.4,
+      "distress": 94.7,
+      "target_price": 133500.0,
+      "fwd_1m_pct": -3.75,
+      "fwd_3m_pct": -11.99,
+      "fwd_6m_pct": -21.72,
+      "fwd_12m_pct": -17.23
+    },
+    {
+      "ym": "202210",
+      "market_state": 37.1,
+      "setup": 60.9,
+      "turn": 100.0,
+      "opportunity": 60.9,
+      "cheapness": 32.8,
+      "distress": 95.3,
+      "target_price": 128500.0,
+      "fwd_1m_pct": -6.61,
+      "fwd_3m_pct": -10.51,
+      "fwd_6m_pct": -19.84,
+      "fwd_12m_pct": -14.01
+    },
+    {
+      "ym": "202211",
+      "market_state": 40.1,
+      "setup": 67.0,
+      "turn": 100.0,
+      "opportunity": 67.0,
+      "cheapness": 43.4,
+      "distress": 95.9,
+      "target_price": 120000.0,
+      "fwd_1m_pct": -2.08,
+      "fwd_3m_pct": -9.58,
+      "fwd_6m_pct": -14.17,
+      "fwd_12m_pct": -7.92
+    },
+    {
+      "ym": "202212",
+      "market_state": 40.0,
+      "setup": 68.8,
+      "turn": 50.0,
+      "opportunity": 34.4,
+      "cheapness": 47.3,
+      "distress": 95.1,
+      "target_price": 117500.0,
+      "fwd_1m_pct": -2.13,
+      "fwd_3m_pct": -11.06,
+      "fwd_6m_pct": -11.91,
+      "fwd_12m_pct": -5.96
+    },
+    {
+      "ym": "202301",
+      "market_state": 45.7,
+      "setup": 70.0,
+      "turn": 100.0,
+      "opportunity": 70.0,
+      "cheapness": 50.6,
+      "distress": 93.8,
+      "target_price": 115000.0,
+      "fwd_1m_pct": -5.65,
+      "fwd_3m_pct": -10.43,
+      "fwd_6m_pct": -7.39,
+      "fwd_12m_pct": -3.91
+    },
+    {
+      "ym": "202302",
+      "market_state": 46.4,
+      "setup": 75.1,
+      "turn": 66.7,
+      "opportunity": 50.1,
+      "cheapness": 60.3,
+      "distress": 93.2,
+      "target_price": 108500.0,
+      "fwd_1m_pct": -3.69,
+      "fwd_3m_pct": -5.07,
+      "fwd_6m_pct": 0.92,
+      "fwd_12m_pct": 1.84
+    },
+    {
+      "ym": "202303",
+      "market_state": 45.2,
+      "setup": 77.4,
+      "turn": 14.3,
+      "opportunity": 11.1,
+      "cheapness": 65.4,
+      "distress": 92.2,
+      "target_price": 104500.0,
+      "fwd_1m_pct": -1.44,
+      "fwd_3m_pct": -0.96,
+      "fwd_6m_pct": 5.74,
+      "fwd_12m_pct": 5.74
+    },
+    {
+      "ym": "202304",
+      "market_state": 43.5,
+      "setup": 78.1,
+      "turn": 12.5,
+      "opportunity": 9.8,
+      "cheapness": 67.3,
+      "distress": 91.3,
+      "target_price": 103000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 3.4,
+      "fwd_6m_pct": 7.28,
+      "fwd_12m_pct": 7.52
+    },
+    {
+      "ym": "202305",
+      "market_state": 43.1,
+      "setup": 78.1,
+      "turn": 22.2,
+      "opportunity": 17.4,
+      "cheapness": 69.0,
+      "distress": 89.3,
+      "target_price": 103000.0,
+      "fwd_1m_pct": 0.49,
+      "fwd_3m_pct": 6.31,
+      "fwd_6m_pct": 7.28,
+      "fwd_12m_pct": 7.52
+    },
+    {
+      "ym": "202306",
+      "market_state": 46.5,
+      "setup": 80.4,
+      "turn": 80.0,
+      "opportunity": 64.3,
+      "cheapness": 74.2,
+      "distress": 88.0,
+      "target_price": 103500.0,
+      "fwd_1m_pct": 2.9,
+      "fwd_3m_pct": 6.76,
+      "fwd_6m_pct": 6.76,
+      "fwd_12m_pct": 7.0
+    },
+    {
+      "ym": "202307",
+      "market_state": 44.7,
+      "setup": 77.2,
+      "turn": 36.4,
+      "opportunity": 28.1,
+      "cheapness": 69.7,
+      "distress": 86.3,
+      "target_price": 106500.0,
+      "fwd_1m_pct": 2.82,
+      "fwd_3m_pct": 3.76,
+      "fwd_6m_pct": 3.76,
+      "fwd_12m_pct": 6.1
+    },
+    {
+      "ym": "202308",
+      "market_state": 46.9,
+      "setup": 73.8,
+      "turn": 91.7,
+      "opportunity": 67.6,
+      "cheapness": 65.2,
+      "distress": 84.3,
+      "target_price": 109500.0,
+      "fwd_1m_pct": 0.91,
+      "fwd_3m_pct": 0.91,
+      "fwd_6m_pct": 0.91,
+      "fwd_12m_pct": 3.2
+    },
+    {
+      "ym": "202309",
+      "market_state": 45.6,
+      "setup": 73.7,
+      "turn": 30.8,
+      "opportunity": 22.7,
+      "cheapness": 63.6,
+      "distress": 86.1,
+      "target_price": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 6.33
+    },
+    {
+      "ym": "202310",
+      "market_state": 41.8,
+      "setup": 75.6,
+      "turn": 21.4,
+      "opportunity": 16.2,
+      "cheapness": 63.6,
+      "distress": 90.3,
+      "target_price": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 7.69
+    },
+    {
+      "ym": "202311",
+      "market_state": 41.7,
+      "setup": 77.3,
+      "turn": 40.0,
+      "opportunity": 30.9,
+      "cheapness": 63.6,
+      "distress": 93.9,
+      "target_price": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202312",
+      "market_state": 43.6,
+      "setup": 77.3,
+      "turn": 81.2,
+      "opportunity": 62.8,
+      "cheapness": 63.6,
+      "distress": 94.0,
+      "target_price": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202401",
+      "market_state": 47.3,
+      "setup": 76.5,
+      "turn": 94.1,
+      "opportunity": 72.0,
+      "cheapness": 63.6,
+      "distress": 92.3,
+      "target_price": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 2.26,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202402",
+      "market_state": 43.0,
+      "setup": 76.0,
+      "turn": 22.2,
+      "opportunity": 16.9,
+      "cheapness": 63.6,
+      "distress": 91.2,
+      "target_price": 110500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 2.26,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202403",
+      "market_state": 47.8,
+      "setup": 74.8,
+      "turn": 100.0,
+      "opportunity": 74.8,
+      "cheapness": 63.6,
+      "distress": 88.4,
+      "target_price": 110500.0,
+      "fwd_1m_pct": 0.23,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 6.33,
+      "fwd_12m_pct": 12.22
+    },
+    {
+      "ym": "202404",
+      "market_state": 45.6,
+      "setup": 74.4,
+      "turn": 10.0,
+      "opportunity": 7.4,
+      "cheapness": 63.3,
+      "distress": 88.0,
+      "target_price": 110750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.03,
+      "fwd_6m_pct": 7.45,
+      "fwd_12m_pct": 14.67
+    },
+    {
+      "ym": "202405",
+      "market_state": 47.8,
+      "setup": 73.2,
+      "turn": 76.2,
+      "opportunity": 55.8,
+      "cheapness": 63.3,
+      "distress": 85.3,
+      "target_price": 110750.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.03,
+      "fwd_6m_pct": 9.26,
+      "fwd_12m_pct": 14.67
+    },
+    {
+      "ym": "202406",
+      "market_state": 51.1,
+      "setup": 69.8,
+      "turn": 86.4,
+      "opportunity": 60.2,
+      "cheapness": 63.3,
+      "distress": 77.7,
+      "target_price": 110750.0,
+      "fwd_1m_pct": 2.03,
+      "fwd_3m_pct": 6.09,
+      "fwd_6m_pct": 9.26,
+      "fwd_12m_pct": 17.38
+    },
+    {
+      "ym": "202407",
+      "market_state": 49.8,
+      "setup": 64.8,
+      "turn": 52.2,
+      "opportunity": 33.8,
+      "cheapness": 59.9,
+      "distress": 70.9,
+      "target_price": 113000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 5.31,
+      "fwd_6m_pct": 7.08,
+      "fwd_12m_pct": 16.81
+    },
+    {
+      "ym": "202408",
+      "market_state": 46.5,
+      "setup": 65.9,
+      "turn": 12.5,
+      "opportunity": 8.2,
+      "cheapness": 59.9,
+      "distress": 73.2,
+      "target_price": 113000.0,
+      "fwd_1m_pct": 3.98,
+      "fwd_3m_pct": 7.08,
+      "fwd_6m_pct": 7.08,
+      "fwd_12m_pct": 19.47
+    },
+    {
+      "ym": "202409",
+      "market_state": 40.3,
+      "setup": 66.7,
+      "turn": 4.0,
+      "opportunity": 2.7,
+      "cheapness": 53.0,
+      "distress": 83.5,
+      "target_price": 117500.0,
+      "fwd_1m_pct": 1.28,
+      "fwd_3m_pct": 2.98,
+      "fwd_6m_pct": 5.53,
+      "fwd_12m_pct": 22.98
+    },
+    {
+      "ym": "202410",
+      "market_state": 45.3,
+      "setup": 66.8,
+      "turn": 92.3,
+      "opportunity": 61.7,
+      "cheapness": 50.8,
+      "distress": 86.4,
+      "target_price": 119000.0,
+      "fwd_1m_pct": 1.68,
+      "fwd_3m_pct": 1.68,
+      "fwd_6m_pct": 6.72,
+      "fwd_12m_pct": 21.85
+    },
+    {
+      "ym": "202411",
+      "market_state": 40.5,
+      "setup": 66.0,
+      "turn": 11.1,
+      "opportunity": 7.3,
+      "cheapness": 47.7,
+      "distress": 88.4,
+      "target_price": 121000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 4.96,
+      "fwd_12m_pct": 20.66
+    },
+    {
+      "ym": "202412",
+      "market_state": 42.0,
+      "setup": 66.4,
+      "turn": 82.1,
+      "opportunity": 54.6,
+      "cheapness": 47.7,
+      "distress": 89.3,
+      "target_price": 121000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.48,
+      "fwd_6m_pct": 7.44,
+      "fwd_12m_pct": 21.07
+    },
+    {
+      "ym": "202501",
+      "market_state": 42.0,
+      "setup": 65.9,
+      "turn": 37.9,
+      "opportunity": 25.0,
+      "cheapness": 47.7,
+      "distress": 88.1,
+      "target_price": 121000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 4.96,
+      "fwd_6m_pct": 9.09,
+      "fwd_12m_pct": 28.1
+    },
+    {
+      "ym": "202502",
+      "market_state": 49.2,
+      "setup": 61.2,
+      "turn": 100.0,
+      "opportunity": 61.2,
+      "cheapness": 47.7,
+      "distress": 77.6,
+      "target_price": 121000.0,
+      "fwd_1m_pct": 2.48,
+      "fwd_3m_pct": 4.96,
+      "fwd_6m_pct": 11.57,
+      "fwd_12m_pct": 38.43
+    },
+    {
+      "ym": "202503",
+      "market_state": 48.5,
+      "setup": 60.5,
+      "turn": 77.4,
+      "opportunity": 46.8,
+      "cheapness": 43.2,
+      "distress": 81.6,
+      "target_price": 124000.0,
+      "fwd_1m_pct": 2.42,
+      "fwd_3m_pct": 4.84,
+      "fwd_6m_pct": 16.53,
+      "fwd_12m_pct": 44.35
+    },
+    {
+      "ym": "202504",
+      "market_state": 42.8,
+      "setup": 58.1,
+      "turn": 21.9,
+      "opportunity": 12.7,
+      "cheapness": 38.6,
+      "distress": 81.8,
+      "target_price": 127000.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 3.94,
+      "fwd_6m_pct": 14.17,
+      "fwd_12m_pct": 42.91
+    },
+    {
+      "ym": "202505",
+      "market_state": 43.9,
+      "setup": 55.2,
+      "turn": 51.5,
+      "opportunity": 28.4,
+      "cheapness": 38.6,
+      "distress": 75.4,
+      "target_price": 127000.0,
+      "fwd_1m_pct": 2.36,
+      "fwd_3m_pct": 6.3,
+      "fwd_6m_pct": 14.96,
+      "fwd_12m_pct": 42.91
+    },
+    {
+      "ym": "202506",
+      "market_state": 45.2,
+      "setup": 51.3,
+      "turn": 44.1,
+      "opportunity": 22.6,
+      "cheapness": 34.1,
+      "distress": 72.4,
+      "target_price": 130000.0,
+      "fwd_1m_pct": 1.54,
+      "fwd_3m_pct": 11.15,
+      "fwd_6m_pct": 12.69,
+      "fwd_12m_pct": 39.62
+    },
+    {
+      "ym": "202507",
+      "market_state": 37.2,
+      "setup": 55.6,
+      "turn": 2.9,
+      "opportunity": 1.6,
+      "cheapness": 31.1,
+      "distress": 85.6,
+      "target_price": 132000.0,
+      "fwd_1m_pct": 2.27,
+      "fwd_3m_pct": 9.85,
+      "fwd_6m_pct": 17.42,
+      "fwd_12m_pct": 37.5
+    },
+    {
+      "ym": "202508",
+      "market_state": 42.3,
+      "setup": 51.0,
+      "turn": 91.7,
+      "opportunity": 46.8,
+      "cheapness": 25,
+      "distress": 82.8,
+      "target_price": 135000.0,
+      "fwd_1m_pct": 7.04,
+      "fwd_3m_pct": 8.15,
+      "fwd_6m_pct": 24.07,
+      "fwd_12m_pct": 34.44
+    },
+    {
+      "ym": "202509",
+      "market_state": 47.9,
+      "setup": 44.3,
+      "turn": 91.9,
+      "opportunity": 40.7,
+      "cheapness": 25,
+      "distress": 67.9,
+      "target_price": 144500.0,
+      "fwd_1m_pct": 0.35,
+      "fwd_3m_pct": 1.38,
+      "fwd_6m_pct": 23.88,
+      "fwd_12m_pct": 25.61
+    },
+    {
+      "ym": "202510",
+      "market_state": 42.6,
+      "setup": 48.3,
+      "turn": 21.1,
+      "opportunity": 10.2,
+      "cheapness": 25,
+      "distress": 76.7,
+      "target_price": 145000.0,
+      "fwd_1m_pct": 0.69,
+      "fwd_3m_pct": 6.9,
+      "fwd_6m_pct": 25.17,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202511",
+      "market_state": 37.6,
+      "setup": 48.7,
+      "turn": 7.7,
+      "opportunity": 3.7,
+      "cheapness": 25,
+      "distress": 77.7,
+      "target_price": 146000.0,
+      "fwd_1m_pct": 0.34,
+      "fwd_3m_pct": 14.73,
+      "fwd_6m_pct": 24.32,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202512",
+      "market_state": 46.3,
+      "setup": 47.8,
+      "turn": 100.0,
+      "opportunity": 47.8,
+      "cheapness": 25,
+      "distress": 75.7,
+      "target_price": 146500.0,
+      "fwd_1m_pct": 5.8,
+      "fwd_3m_pct": 22.18,
+      "fwd_6m_pct": 23.89,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202601",
+      "market_state": 43.2,
+      "setup": 44.1,
+      "turn": 17.1,
+      "opportunity": 7.5,
+      "cheapness": 25,
+      "distress": 67.5,
+      "target_price": 155000.0,
+      "fwd_1m_pct": 8.06,
+      "fwd_3m_pct": 17.1,
+      "fwd_6m_pct": 17.1,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202602",
+      "market_state": 43.9,
+      "setup": 47.5,
+      "turn": 76.2,
+      "opportunity": 36.2,
+      "cheapness": 25,
+      "distress": 75.0,
+      "target_price": 167500.0,
+      "fwd_1m_pct": 6.87,
+      "fwd_3m_pct": 8.36,
+      "fwd_6m_pct": 8.36,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202603",
+      "market_state": 43.5,
+      "setup": 48.0,
+      "turn": 32.6,
+      "opportunity": 15.6,
+      "cheapness": 25,
+      "distress": 76.0,
+      "target_price": 179000.0,
+      "fwd_1m_pct": 1.4,
+      "fwd_3m_pct": 1.4,
+      "fwd_6m_pct": 1.4,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202604",
+      "market_state": 43.5,
+      "setup": 47.5,
+      "turn": 61.4,
+      "opportunity": 29.1,
+      "cheapness": 25,
+      "distress": 75.0,
+      "target_price": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202605",
+      "market_state": 42.1,
+      "setup": 47.5,
+      "turn": 28.9,
+      "opportunity": 13.7,
+      "cheapness": 25,
+      "distress": 75.0,
+      "target_price": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202606",
+      "market_state": 42.1,
+      "setup": 46.7,
+      "turn": 45.7,
+      "opportunity": 21.3,
+      "cheapness": 25,
+      "distress": 73.2,
+      "target_price": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202607",
+      "market_state": 45.2,
+      "setup": 47.6,
+      "turn": 78.7,
+      "opportunity": 37.5,
+      "cheapness": 25,
+      "distress": 75.2,
+      "target_price": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202608",
+      "market_state": 40.3,
+      "setup": 48.3,
+      "turn": 8.3,
+      "opportunity": 4.0,
+      "cheapness": 25,
+      "distress": 76.8,
+      "target_price": 181500.0,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    }
+  ],
+  "mortgage_rate_overlay": [
+    {
+      "ym": "202209",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": -21.72
+    },
+    {
+      "ym": "202210",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": -19.84
+    },
+    {
+      "ym": "202211",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": -14.17
+    },
+    {
+      "ym": "202212",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": -11.91
+    },
+    {
+      "ym": "202301",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": -7.39
+    },
+    {
+      "ym": "202302",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 0.92
+    },
+    {
+      "ym": "202303",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 5.74
+    },
+    {
+      "ym": "202304",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 7.28
+    },
+    {
+      "ym": "202305",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 7.28
+    },
+    {
+      "ym": "202306",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 6.76
+    },
+    {
+      "ym": "202307",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 3.76
+    },
+    {
+      "ym": "202308",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 0.91
+    },
+    {
+      "ym": "202309",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 0.0
+    },
+    {
+      "ym": "202310",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 0.23
+    },
+    {
+      "ym": "202311",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 0.23
+    },
+    {
+      "ym": "202312",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 0.23
+    },
+    {
+      "ym": "202401",
+      "mortgage_rate_pct": 3.99,
+      "mom_bp": null,
+      "fwd_6m_pct": 2.26
+    },
+    {
+      "ym": "202402",
+      "mortgage_rate_pct": 3.96,
+      "mom_bp": -3.0,
+      "fwd_6m_pct": 2.26
+    },
+    {
+      "ym": "202403",
+      "mortgage_rate_pct": 3.94,
+      "mom_bp": -2.0,
+      "fwd_6m_pct": 6.33
+    },
+    {
+      "ym": "202404",
+      "mortgage_rate_pct": 3.93,
+      "mom_bp": -1.0,
+      "fwd_6m_pct": 7.45
+    },
+    {
+      "ym": "202405",
+      "mortgage_rate_pct": 3.91,
+      "mom_bp": -2.0,
+      "fwd_6m_pct": 9.26
+    },
+    {
+      "ym": "202406",
+      "mortgage_rate_pct": 3.71,
+      "mom_bp": -20.0,
+      "fwd_6m_pct": 9.26
+    },
+    {
+      "ym": "202407",
+      "mortgage_rate_pct": 3.5,
+      "mom_bp": -21.0,
+      "fwd_6m_pct": 7.08
+    },
+    {
+      "ym": "202408",
+      "mortgage_rate_pct": 3.51,
+      "mom_bp": 1.0,
+      "fwd_6m_pct": 7.08
+    },
+    {
+      "ym": "202409",
+      "mortgage_rate_pct": 3.74,
+      "mom_bp": 23.0,
+      "fwd_6m_pct": 5.53
+    },
+    {
+      "ym": "202410",
+      "mortgage_rate_pct": 4.05,
+      "mom_bp": 31.0,
+      "fwd_6m_pct": 6.72
+    },
+    {
+      "ym": "202411",
+      "mortgage_rate_pct": 4.3,
+      "mom_bp": 25.0,
+      "fwd_6m_pct": 4.96
+    },
+    {
+      "ym": "202412",
+      "mortgage_rate_pct": 4.25,
+      "mom_bp": -5.0,
+      "fwd_6m_pct": 7.44
+    },
+    {
+      "ym": "202501",
+      "mortgage_rate_pct": 4.27,
+      "mom_bp": 2.0,
+      "fwd_6m_pct": 9.09
+    },
+    {
+      "ym": "202502",
+      "mortgage_rate_pct": 4.23,
+      "mom_bp": -4.0,
+      "fwd_6m_pct": 11.57
+    },
+    {
+      "ym": "202503",
+      "mortgage_rate_pct": 4.17,
+      "mom_bp": -6.0,
+      "fwd_6m_pct": 16.53
+    },
+    {
+      "ym": "202504",
+      "mortgage_rate_pct": 3.98,
+      "mom_bp": -19.0,
+      "fwd_6m_pct": 14.17
+    },
+    {
+      "ym": "202505",
+      "mortgage_rate_pct": 3.87,
+      "mom_bp": -11.0,
+      "fwd_6m_pct": 14.96
+    },
+    {
+      "ym": "202506",
+      "mortgage_rate_pct": 3.93,
+      "mom_bp": 6.0,
+      "fwd_6m_pct": 12.69
+    },
+    {
+      "ym": "202507",
+      "mortgage_rate_pct": 3.96,
+      "mom_bp": 3.0,
+      "fwd_6m_pct": 17.42
+    },
+    {
+      "ym": "202508",
+      "mortgage_rate_pct": 3.96,
+      "mom_bp": 0.0,
+      "fwd_6m_pct": 24.07
+    },
+    {
+      "ym": "202509",
+      "mortgage_rate_pct": 3.96,
+      "mom_bp": 0.0,
+      "fwd_6m_pct": 23.88
+    },
+    {
+      "ym": "202510",
+      "mortgage_rate_pct": 3.98,
+      "mom_bp": 2.0,
+      "fwd_6m_pct": 25.17
+    },
+    {
+      "ym": "202511",
+      "mortgage_rate_pct": 4.17,
+      "mom_bp": 19.0,
+      "fwd_6m_pct": 24.32
+    },
+    {
+      "ym": "202512",
+      "mortgage_rate_pct": 4.23,
+      "mom_bp": 6.0,
+      "fwd_6m_pct": 23.89
+    },
+    {
+      "ym": "202601",
+      "mortgage_rate_pct": 4.29,
+      "mom_bp": 6.0,
+      "fwd_6m_pct": 17.1
+    },
+    {
+      "ym": "202602",
+      "mortgage_rate_pct": 4.32,
+      "mom_bp": 3.0,
+      "fwd_6m_pct": 8.36
+    },
+    {
+      "ym": "202603",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": 1.4
+    },
+    {
+      "ym": "202604",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": null
+    },
+    {
+      "ym": "202605",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": null
+    },
+    {
+      "ym": "202606",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": null
+    },
+    {
+      "ym": "202607",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": null
+    },
+    {
+      "ym": "202608",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": null
+    }
+  ],
+  "metrics": {
+    "market_state_vs_fwd_1m_corr": 0.262,
+    "opportunity_vs_fwd_1m_corr": -0.201,
+    "market_state_vs_fwd_3m_corr": 0.235,
+    "opportunity_vs_fwd_3m_corr": -0.35,
+    "market_state_vs_fwd_6m_corr": 0.309,
+    "opportunity_vs_fwd_6m_corr": -0.349,
+    "market_state_vs_fwd_12m_corr": 0.278,
+    "opportunity_vs_fwd_12m_corr": -0.307,
+    "opportunity_low_third_mean_fwd_6m_pct": 10.01,
+    "opportunity_high_third_mean_fwd_6m_pct": -0.17,
+    "mortgage_rate_available_months": 26,
+    "mortgage_rate_level_vs_fwd_6m_corr": 0.204,
+    "mortgage_rate_mom_bp_vs_fwd_6m_corr": -0.008
+  },
+  "component_dispersion": {
+    "finance": {
+      "min": 50.0,
+      "max": 73.2,
+      "stdev": 4.9,
+      "corr_fwd_6m": -0.356
+    },
+    "sentiment": {
+      "min": 4.1,
+      "max": 32.5,
+      "stdev": 8.1,
+      "corr_fwd_6m": 0.696
+    },
+    "demand": {
+      "min": 28.5,
+      "max": 76.5,
+      "stdev": 11.3,
+      "corr_fwd_6m": 0.117
+    },
+    "value": {
+      "min": 25,
+      "max": 74.2,
+      "stdev": 16.8,
+      "corr_fwd_6m": -0.308
+    },
+    "supply": {
+      "min": 12.1,
+      "max": 51.0,
+      "stdev": 10.7,
+      "corr_fwd_6m": 0.728
+    }
+  },
+  "generated_at": "2026-09-25T05:19:31.531880+00:00"
+}
