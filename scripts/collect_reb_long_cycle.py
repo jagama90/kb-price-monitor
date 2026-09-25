@@ -20,11 +20,11 @@ def norm(r):
 def main():
  key=os.getenv('RONE_API_KEY','sample')
  # Known current R-ONE Seoul real-transaction price table; trade table remains metadata-discovered.
- price_params={'KEY':key,'Type':'json','STATBL_ID':'A_2024_00034','DTACYCLE_CD':'MM','CLS_ID':'500008','ITM_ID':'100001','START_WRTTIME':'2006','END_WRTTIME':'2026','pIndex':1,'pSize':5000}
+ price_params={'KEY':key,'Type':'json','STATBL_ID':'A_2024_00045','DTACYCLE_CD':'MM','CLS_ID':'500008','ITM_ID':'100001','START_WRTTIME':'2006','END_WRTTIME':'2024','pIndex':1,'pSize':5000}
  price_raw=get('SttsApiTblData.do',price_params); price=[norm(x) for x in rows(price_raw,'SttsApiTblData') if norm(x)['ym']]
  catalog=get('SttsApiTbl.do',{'KEY':key,'Type':'json','pIndex':1,'pSize':1000})
  out={'status':'full' if key!='sample' else 'sample_limited','source':'한국부동산원 R-ONE',
-      'target_start':'2006-01','price_contract':{'statbl_id':'A_2024_00034','cls_id':'500008','itm_id':'100001'},
+      'target_start':'2006-01','price_contract':{'statbl_id':'A_2024_00045','cls_id':'500008','itm_id':'100001'},
       'series':{'price':price,'trade':[]},'table_catalog':catalog,
       'blockers':([] if key!='sample' else ['RONE_API_KEY required for full history']),
       'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
