@@ -25,6 +25,11 @@ jobs:
           python-version: '3.11'
       - name: Build forward regime forecast
         run: python3 scripts/forecast_market_regime.py
+      - name: Validate forecast and pipeline contracts
+        run: |
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_pipeline_health.py
       - name: Persist forecast
         run: |
           git config user.name 'github-actions[bot]'
