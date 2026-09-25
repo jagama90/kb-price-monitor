@@ -160,21 +160,28 @@ async function renderGarakGeumho24A(){
 renderGarakGeumho24A();
 
 async function renderConditionHistory(){
- const host=document.getElementById('conditionHistoryChart'),latestEl=document.getElementById('conditionHistoryLatest'),note=document.getElementById('conditionHistoryNote');if(!host)return;
+ const host=document.getElementById('conditionHistoryChart'),latestEl=document.getElementById('conditionHistoryLatest'),note=document.getElementById('conditionHistoryNote'),summary=document.getElementById('conditionHistorySummary'),controls=document.getElementById('conditionPeriods');if(!host)return;
  try{
   const r=await fetch('final_backtest.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);
-  const d=await r.json(),rows=(d.rows||d.checkpoint_rows||[]).filter(x=>x.score!=null);
-  if(!d.certified_final||!rows.length)throw Error('not certified');
-  const currentScore=(()=>{const t=document.getElementById('conditionScore')?.textContent||'';const n=parseFloat(t);return Number.isFinite(n)?n:null})();
-  const W=620,H=230,p={l:34,r:14,t:18,b:30},lo=0,hi=100,X=i=>p.l+i*(W-p.l-p.r)/Math.max(1,rows.length-1),Y=v=>p.t+(hi-v)/(hi-lo)*(H-p.t-p.b);
-  let grid='';[0,25,50,75,100].forEach(v=>{const y=Y(v);grid+='<line class="condition-grid" x1="'+p.l+'" y1="'+y+'" x2="'+(W-p.r)+'" y2="'+y+'"/><text class="condition-axis" x="2" y="'+(y+3)+'">'+v+'</text>'});
-  const pts=rows.map((x,i)=>X(i).toFixed(1)+','+Y(+x.score).toFixed(1)).join(' ');
-  let ticks='';rows.forEach((x,i)=>{if(i%12===0||i===rows.length-1)ticks+='<text class="condition-axis" text-anchor="middle" x="'+X(i)+'" y="'+(H-7)+'">'+x.ym.slice(2,4)+'.'+x.ym.slice(4)+'</text>'});
-  let cur='';if(currentScore!=null){const x=W-p.r,y=Y(currentScore);cur='<line class="condition-current-guide" x1="'+x+'" y1="'+p.t+'" x2="'+x+'" y2="'+(H-p.b)+'"/><circle class="condition-current-dot" cx="'+x+'" cy="'+y+'" r="5"/><text class="condition-current-label" text-anchor="end" x="'+(x-7)+'" y="'+(y-8)+'">현재 '+Math.round(currentScore)+'</text>'}
-  host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="월별 매수여건 점수">'+grid+'<polyline class="condition-line" points="'+pts+'"/>'+ticks+cur+'</svg>';
-  const last=rows.at(-1);latestEl.textContent=last.ym.slice(0,4)+'.'+last.ym.slice(4)+' · '+last.score+'/100';
-  note.textContent=rows.length+'개월 인증 완료 · 동일 5요소 공식 · 완료월은 월말 기준, 현재월은 진행 중 데이터';
+  const d=await r.json(),all=(d.rows||d.checkpoint_rows||[]).filter(x=>x.score!=null);if(!d.certified_final||!all.length)throw Error('not certified');
+  let months=60;
+  const currentScore=()=>{const n=parseFloat(document.getElementById('conditionScore')?.textContent||'');return Number.isFinite(n)?n:null};
+  const draw=()=>{
+   const rows=months?all.slice(-months):all,W=620,H=250,p={l:34,r:14,t:22,b:32},X=i=>p.l+i*(W-p.l-p.r)/Math.max(1,rows.length-1),Y=v=>p.t+(100-v)/100*(H-p.t-p.b);
+   let grid='';[0,25,50,75,100].forEach(v=>{const y=Y(v);grid+='<line class="condition-grid" x1="'+p.l+'" y1="'+y+'" x2="'+(W-p.r)+'" y2="'+y+'"/><text class="condition-axis" x="2" y="'+(y+3)+'">'+v+'</text>'});
+   const pts=rows.map((x,i)=>X(i).toFixed(1)+','+Y(+x.score).toFixed(1)).join(' ');
+   let ticks='',turns='';rows.forEach((q,i)=>{if(i%Math.max(1,Math.floor(rows.length/4))===0||i===rows.length-1)ticks+='<text class="condition-axis" text-anchor="middle" x="'+X(i)+'" y="'+(H-7)+'">'+q.ym.slice(2,4)+'.'+q.ym.slice(4)+'</text>';if(i>1&&i<rows.length-2){const s=+q.score,prev=+rows[i-1].score,next=+rows[i+1].score;if((s<=prev&&s<next&&prev-s>=1)||(s>=prev&&s>next&&s-prev>=1))turns+='<circle class="condition-turn-dot" cx="'+X(i)+'" cy="'+Y(s)+'" r="4"/>'}});
+   const cs=currentScore();let cur='';if(cs!=null){const x=W-p.r,y=Y(cs);cur='<line class="condition-current-guide" x1="'+x+'" y1="'+p.t+'" x2="'+x+'" y2="'+(H-p.b)+'"/><circle class="condition-current-dot" cx="'+x+'" cy="'+y+'" r="5"/><text class="condition-current-label" text-anchor="end" x="'+(x-7)+'" y="'+(y-8)+'">현재 '+Math.round(cs)+'</text>'}
+   host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="월별 매수여건 점수">'+grid+'<polyline class="condition-line" points="'+pts+'"/>'+turns+ticks+cur+'<line id="conditionTouchLine" class="condition-touch-line" visibility="hidden"/><circle id="conditionTouchDot" class="condition-touch-dot" r="6" visibility="hidden"/></svg><div id="conditionTooltip" class="condition-tooltip" hidden></div>';
+   const svg=host.querySelector('svg'),tip=host.querySelector('#conditionTooltip'),line=host.querySelector('#conditionTouchLine'),dot=host.querySelector('#conditionTouchDot');
+   const inspect=e=>{const rect=svg.getBoundingClientRect(),cx=(e.touches?.[0]?.clientX??e.clientX)-rect.left,xView=cx/rect.width*W,idx=Math.max(0,Math.min(rows.length-1,Math.round((xView-p.l)/(W-p.l-p.r)*(rows.length-1)))),q=rows[idx],x=X(idx),y=Y(+q.score);line.setAttribute('x1',x);line.setAttribute('x2',x);line.setAttribute('y1',p.t);line.setAttribute('y2',H-p.b);line.setAttribute('visibility','visible');dot.setAttribute('cx',x);dot.setAttribute('cy',y);dot.setAttribute('visibility','visible');tip.hidden=false;tip.innerHTML='<b>'+q.ym.slice(0,4)+'.'+q.ym.slice(4)+'</b><strong>'+q.score+'/100</strong>';tip.style.left=Math.min(78,Math.max(6,x/W*100))+'%';tip.style.top=Math.max(8,y/H*100-4)+'%'};
+   svg.addEventListener('pointerdown',inspect);svg.addEventListener('pointermove',e=>{if(e.buttons)inspect(e)});svg.addEventListener('touchstart',inspect,{passive:true});svg.addEventListener('touchmove',inspect,{passive:true});
+   const last=rows.at(-1),first=rows[0],delta=(+last.score-+first.score).toFixed(1),peak=rows.reduce((a,b)=>+a.score>+b.score?a:b),low=rows.reduce((a,b)=>+a.score<+b.score?a:b);
+   latestEl.textContent=last.ym.slice(0,4)+'.'+last.ym.slice(4)+' · '+last.score+'/100';
+   summary.innerHTML='<b>현재 '+last.score+'점</b><span>'+rows.length+'개월 전 대비 '+(+delta>=0?'+':'')+delta+'점 · 기간 저점 '+low.score+' ('+low.ym.slice(2,4)+'.'+low.ym.slice(4)+') · 고점 '+peak.score+' ('+peak.ym.slice(2,4)+'.'+peak.ym.slice(4)+')</span>';
+   note.textContent=rows.length+'개월 표시 · 점/선을 누르면 해당 월 수치 확인 · 주요 국지 고점·저점 표시';
+  };
+  controls?.querySelectorAll('button').forEach(b=>b.onclick=()=>{controls.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');months=+b.dataset.months;draw()});draw();
  }catch(e){latestEl.textContent='인증 데이터 대기';host.innerHTML='<div class="chart-error">최종 인증 파일이 배포되면 자동으로 표시됩니다.</div>'}
 }
-
 renderConditionHistory();
