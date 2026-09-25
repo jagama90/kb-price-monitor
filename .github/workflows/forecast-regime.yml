@@ -1,7 +1,7 @@
 name: Forward regime forecast
 on:
   workflow_run:
-    workflows: ['Research turning signal', 'Parallel market data refresh', 'Final historical validation']
+    workflows: ['Research turning signal', 'Parallel market data refresh']
     types: [completed]
   workflow_dispatch:
   push:
