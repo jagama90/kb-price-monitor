@@ -2,6 +2,9 @@
   "status": "research_only",
   "production_formula_unchanged": true,
   "no_future_leakage": true,
+  "source_backtest_status": "certified_with_provisional_tail",
+  "certified_through": "202607",
+  "latest_source_provisional": true,
   "method": "setup = 55% cheapness + 45% sentiment distress; turn = 30% breadth + 35% price-decline-exhaustion + 35% early turn (sentiment persistence, demand recovery, price deceleration); opportunity = setup * turn / 100",
   "rows": [
     {
@@ -1131,6 +1134,30 @@
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null
+    },
+    {
+      "ym": "202608",
+      "market_state": 40.3,
+      "setup": 48.3,
+      "turn": 30.5,
+      "opportunity": 14.8,
+      "cheapness": 25,
+      "distress": 76.8,
+      "price_turn": 65,
+      "price_mom_pct": 0.0,
+      "price_accel_pp": 0.0,
+      "early_turn": 15.1,
+      "momentum_3m_pct": 0.0,
+      "breadth": 38.7,
+      "reaccel": 14.6,
+      "bottom_zone": false,
+      "momentum_zone": false,
+      "target_price": 181500.0,
+      "source_provisional": true,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
     }
   ],
   "reference_episodes": {
@@ -1829,11 +1856,17 @@
       "mortgage_rate_pct": 4.48,
       "mom_bp": 12.0,
       "fwd_6m_pct": null
+    },
+    {
+      "ym": "202608",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": null
     }
   ],
   "metrics": {
-    "market_state_vs_fwd_1m_corr": 0.259,
-    "opportunity_vs_fwd_1m_corr": 0.102,
+    "market_state_vs_fwd_1m_corr": 0.262,
+    "opportunity_vs_fwd_1m_corr": 0.107,
     "market_state_vs_fwd_3m_corr": 0.235,
     "opportunity_vs_fwd_3m_corr": -0.024,
     "market_state_vs_fwd_6m_corr": 0.309,
@@ -1862,13 +1895,13 @@
     "demand": {
       "min": 28.5,
       "max": 76.5,
-      "stdev": 11.2,
+      "stdev": 11.3,
       "corr_fwd_6m": 0.117
     },
     "value": {
       "min": 25,
       "max": 74.2,
-      "stdev": 16.7,
+      "stdev": 16.8,
       "corr_fwd_6m": -0.308
     },
     "supply": {
@@ -1878,5 +1911,5 @@
       "corr_fwd_6m": 0.728
     }
   },
-  "generated_at": "2026-09-25T19:56:43.333935+00:00"
+  "generated_at": "2026-09-25T19:59:50.641744+00:00"
 }
