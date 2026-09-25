@@ -17,6 +17,7 @@ on:
       - 'scripts/validate_cycle_events.py'
       - 'scripts/validate_false_bottoms.py'
       - 'scripts/final_long_cycle_validation.py'
+      - 'scripts/validate_integrated_model.py'
       - 'data_sources/housing_policy_events.json'
 jobs:
   research:
@@ -47,11 +48,12 @@ jobs:
           python3 scripts/validate_cycle_events.py
           python3 scripts/validate_false_bottoms.py
           python3 scripts/final_long_cycle_validation.py
+          python3 scripts/validate_integrated_model.py
       - name: Persist research output
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add -f data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json dist/long_cycle_model_validation.json dist/long_cycle_score_validation.json dist/long_cycle_event_validation.json dist/false_bottom_validation.json dist/final_long_cycle_validation.json
+          git add -f data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json dist/long_cycle_model_validation.json dist/long_cycle_score_validation.json dist/long_cycle_event_validation.json dist/false_bottom_validation.json dist/final_long_cycle_validation.json dist/integrated_model_validation.json
           git commit -m 'Refresh turning signal research' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
