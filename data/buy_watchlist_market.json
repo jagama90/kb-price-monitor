@@ -112,7 +112,7 @@
       "kb_general_check_manwon": 192500,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260918"
+      "kb_price_date": "20260925"
     },
     {
       "complex_id": 1947,
@@ -140,7 +140,7 @@
       "kb_general_check_manwon": 195000,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260925"
+      "kb_price_date": "20260918"
     },
     {
       "complex_id": 25769,
@@ -189,13 +189,13 @@
       "type_label": "24A",
       "name": "풍납극동",
       "sale_listing_count": 28,
-      "avg_ask_manwon": 186182,
+      "avg_ask_manwon": 186300,
       "recent_trade_manwon": 177500,
       "recent_trade_date": "20260629",
       "kb_general_check_manwon": 166000,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": -1,
-      "kb_price_date": "20260918"
+      "kb_price_date": "20260925"
     },
     {
       "complex_id": 1873,
@@ -291,7 +291,7 @@
       "kb_general_check_manwon": 155000,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260918"
+      "kb_price_date": "20260925"
     },
     {
       "complex_id": 1767,
@@ -447,6 +447,6 @@
       "error": "visible type tab not found: 25평"
     }
   ],
-  "kb_detail_collected_at": "2026-09-25T10:56:18+00:00",
+  "kb_detail_collected_at": "2026-09-25T11:30:29+00:00",
   "kb_detail_matched_rows": 26
 }
