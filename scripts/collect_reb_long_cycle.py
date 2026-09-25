@@ -25,9 +25,18 @@ def main():
  price=[norm(x) for x in rows(price_raw,'SttsApiTblData') if norm(x)['ym']]
  if not price:
   (R/'data_sources/reb_price_debug.json').write_text(json.dumps(price_raw,ensure_ascii=False,indent=2))
+ # Discover valid Seoul CLS/ITM pairs for the transaction-status table from a single month.
+ trade_probe=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':'A_2024_00549','DTACYCLE_CD':'MM','WRTTIME_IDTFR_ID':'202601','pIndex':1,'pSize':1000})
+ trade_probe_rows=rows(trade_probe,'SttsApiTblData')
+ trade_candidates=[{'cls_id':x.get('CLS_ID'),'cls_name':x.get('CLS_NM'),'cls_fullname':x.get('CLS_FULLNM'),
+                    'itm_id':x.get('ITM_ID'),'itm_name':x.get('ITM_NM'),'itm_fullname':x.get('ITM_FULLNM'),
+                    'unit':x.get('UI_NM'),'value':x.get('DTA_VAL')}
+                   for x in trade_probe_rows if '서울' in str(x.get('CLS_FULLNM') or x.get('CLS_NM') or '')]
+ (R/'data_sources/reb_trade_debug.json').write_text(json.dumps({'probe':trade_probe,'seoul_candidates':trade_candidates},ensure_ascii=False,indent=2))
  catalog=get('SttsApiTbl.do',{'KEY':key,'Type':'json','pIndex':1,'pSize':1000})
  out={'status':'full' if key!='sample' else 'sample_limited','source':'한국부동산원 R-ONE',
       'target_start':'2006-01','price_contract':{'statbl_id':'A_2024_00045','cls_id':'500008','itm_id':'100001'},
+      'trade_discovery':{'statbl_id':'A_2024_00549','probe_month':'202601','seoul_candidates':trade_candidates},
       'series':{'price':price,'trade':[]},'table_catalog':catalog,
       'blockers':([] if key!='sample' else ['RONE_API_KEY required for full history']),
       'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
