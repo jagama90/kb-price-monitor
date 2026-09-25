@@ -148,3 +148,23 @@ async function renderGarakGeumho24A(){
  }catch(e){label.textContent='데이터 연결 실패';host.innerHTML='<div class="chart-error">차트 데이터를 불러오지 못했습니다.</div>'}
 }
 renderGarakGeumho24A();
+
+async function renderConditionHistory(){
+ const host=document.getElementById('conditionHistoryChart'),latestEl=document.getElementById('conditionHistoryLatest'),note=document.getElementById('conditionHistoryNote');if(!host)return;
+ try{
+  const r=await fetch('final_backtest.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);
+  const d=await r.json(),rows=(d.rows||d.checkpoint_rows||[]).filter(x=>x.score!=null);
+  if(!d.certified_final||!rows.length)throw Error('not certified');
+  const currentScore=(()=>{const t=document.getElementById('conditionScore')?.textContent||'';const n=parseFloat(t);return Number.isFinite(n)?n:null})();
+  const W=620,H=230,p={l:34,r:14,t:18,b:30},lo=0,hi=100,X=i=>p.l+i*(W-p.l-p.r)/Math.max(1,rows.length-1),Y=v=>p.t+(hi-v)/(hi-lo)*(H-p.t-p.b);
+  let grid='';[0,25,50,75,100].forEach(v=>{const y=Y(v);grid+='<line class="condition-grid" x1="'+p.l+'" y1="'+y+'" x2="'+(W-p.r)+'" y2="'+y+'"/><text class="condition-axis" x="2" y="'+(y+3)+'">'+v+'</text>'});
+  const pts=rows.map((x,i)=>X(i).toFixed(1)+','+Y(+x.score).toFixed(1)).join(' ');
+  let ticks='';rows.forEach((x,i)=>{if(i%12===0||i===rows.length-1)ticks+='<text class="condition-axis" text-anchor="middle" x="'+X(i)+'" y="'+(H-7)+'">'+x.ym.slice(2,4)+'.'+x.ym.slice(4)+'</text>'});
+  let cur='';if(currentScore!=null){const x=W-p.r,y=Y(currentScore);cur='<line class="condition-current-guide" x1="'+x+'" y1="'+p.t+'" x2="'+x+'" y2="'+(H-p.b)+'"/><circle class="condition-current-dot" cx="'+x+'" cy="'+y+'" r="5"/><text class="condition-current-label" text-anchor="end" x="'+(x-7)+'" y="'+(y-8)+'">현재 '+Math.round(currentScore)+'</text>'}
+  host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="월별 매수여건 점수">'+grid+'<polyline class="condition-line" points="'+pts+'"/>'+ticks+cur+'</svg>';
+  const last=rows.at(-1);latestEl.textContent=last.ym.slice(0,4)+'.'+last.ym.slice(4)+' · '+last.score+'/100';
+  note.textContent=rows.length+'개월 인증 완료 · 동일 5요소 공식 · 완료월은 월말 기준, 현재월은 진행 중 데이터';
+ }catch(e){latestEl.textContent='인증 데이터 대기';host.innerHTML='<div class="chart-error">최종 인증 파일이 배포되면 자동으로 표시됩니다.</div>'}
+}
+
+renderConditionHistory();
