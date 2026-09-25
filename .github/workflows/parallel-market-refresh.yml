@@ -17,9 +17,6 @@ on:
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/collect_ecos_mortgage_rate.py'
       - 'scripts/build_market_snapshot.py'
-      - 'scripts/forecast_market_regime.py'
-      - 'dist/turning_signal_research.json'
-      - 'dist/final_backtest.json'
       - 'scripts/collect_listings.py'
       - 'scripts/merge_watchlist_details.py'
       - 'data/buy_watchlist_targets.json'
@@ -191,8 +188,6 @@ jobs:
         run: python3 scripts/merge_watchlist_details.py
       - name: Build last-good snapshot
         run: python3 scripts/build_market_snapshot.py
-      - name: Refresh forward regime forecast
-        run: python3 scripts/forecast_market_regime.py
       - name: Build condition-index history
         run: python3 scripts/build_condition_history.py
       - name: Build index contribution and confidence audit
@@ -207,7 +202,6 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p /tmp/market-refresh
           cp dist/market_indicators.json /tmp/market-refresh/
-          cp dist/regime_forecast.json /tmp/market-refresh/
           [ -f data/buy_watchlist_listings.json ] && cp data/buy_watchlist_listings.json /tmp/market-refresh/
           [ -f data/buy_watchlist_market.json ] && cp data/buy_watchlist_market.json /tmp/market-refresh/
           [ -f dist/buy_watchlist_market.json ] && cp dist/buy_watchlist_market.json /tmp/market-refresh/dist_buy_watchlist_market.json
@@ -217,7 +211,6 @@ jobs:
           git reset --hard
           git pull --rebase origin main
           cp /tmp/market-refresh/market_indicators.json dist/market_indicators.json
-          cp /tmp/market-refresh/regime_forecast.json dist/regime_forecast.json
           [ -f /tmp/market-refresh/buy_watchlist_listings.json ] && cp /tmp/market-refresh/buy_watchlist_listings.json data/buy_watchlist_listings.json
           [ -f /tmp/market-refresh/buy_watchlist_market.json ] && cp /tmp/market-refresh/buy_watchlist_market.json data/buy_watchlist_market.json
           [ -f /tmp/market-refresh/dist_buy_watchlist_market.json ] && cp /tmp/market-refresh/dist_buy_watchlist_market.json dist/buy_watchlist_market.json
@@ -228,7 +221,7 @@ jobs:
           for n in ecos_mortgage_rate.json ecos_m2.json kb_sentiment.json kb_sentiment_score.json kb_statusboard_live.json kb_weekly_sale_index.json kb_weekly_rent_index.json kb_value_score.json molit.json molit_daily_history.json; do
             [ -f /tmp/market-refresh/$n ] && cp /tmp/market-refresh/$n data_sources/$n
           done
-          git add -f dist/market_indicators.json dist/regime_forecast.json
+          git add -f dist/market_indicators.json
           [ -f data/buy_watchlist_listings.json ] && git add -f data/buy_watchlist_listings.json
           [ -f data/buy_watchlist_market.json ] && git add -f data/buy_watchlist_market.json
           [ -f dist/buy_watchlist_market.json ] && git add -f dist/buy_watchlist_market.json
