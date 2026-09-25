@@ -10,6 +10,9 @@ on:
       - 'scripts/collect_historical_demand.py'
       - '.github/workflows/final-backtest.yml'
 permissions: {contents: write}
+concurrency:
+  group: final-backtest-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   validate:
     runs-on: ubuntu-latest
