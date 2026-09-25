@@ -1,11 +1,5 @@
 name: Naver Article API smoke
 on:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/collect_naver_article_api.py"
-      - ".github/workflows/naver-article-api.yml"
-      - ".github/workflows/naver-article-api.yml"
   workflow_dispatch:
     inputs:
       naver_complex_no:
@@ -50,7 +44,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/naver_listing_asks_probe.json data/buy_watchlist_listings.json 2>/dev/null || true
+          git add -f data/naver_listing_asks_probe.json
           git commit -m 'Probe Naver Article API' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
