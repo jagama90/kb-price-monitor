@@ -220,7 +220,7 @@
       "kb_general_check_manwon": 149000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260925"
+      "kb_price_date": "20260918"
     },
     {
       "complex_id": 323275,
@@ -266,7 +266,7 @@
       "type_label": "24",
       "name": "현대프라임",
       "sale_listing_count": 127,
-      "avg_ask_manwon": 216818,
+      "avg_ask_manwon": 217059,
       "recent_trade_manwon": 206000,
       "recent_trade_date": "20260609",
       "kb_general_check_manwon": 175000.0,
@@ -437,6 +437,6 @@
       "error": "visible type tab not found: 25평"
     }
   ],
-  "kb_detail_collected_at": "2026-09-25T17:44:24+00:00",
+  "kb_detail_collected_at": "2026-09-25T18:43:15+00:00",
   "kb_detail_matched_rows": 23
 }
