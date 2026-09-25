@@ -15,9 +15,7 @@ on:
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/backfill_kb_history.py'
       - 'scripts/build_kb_value_sample.py'
-      - 'dist/market.html'
-      - 'dist/index.html'
-      - 'dist/market.js'
+      - '.github/workflows/weekly-refresh.yml'
 
 permissions:
   contents: write
@@ -59,9 +57,14 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json data/buy_watchlist_market.json dist/buy_watchlist_market.json data_sources/kb_history_status.json data_sources/kb_history_probe.json data_sources/kb_value_sample.json dist/kb_value_sample.json
-          git commit -m 'Weekly KB snapshot refresh' || exit 0
+          git add -f data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json data_sources/kb_history_status.json data_sources/kb_history_probe.json data_sources/kb_value_sample.json dist/kb_value_sample.json
+          git diff --cached --quiet && exit 0
+          mkdir -p /tmp/kb-weekly
+          git diff --cached --binary > /tmp/kb-weekly/weekly.patch
+          git reset --hard
           git pull --rebase origin main
+          git apply --index /tmp/kb-weekly/weekly.patch
+          git commit -m 'Weekly KB snapshot refresh'
           git push origin HEAD:main
       - name: Preserve refresh artifacts
         if: always()
