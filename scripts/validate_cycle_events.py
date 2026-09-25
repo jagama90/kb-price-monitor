@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Event-study validation of price-only bottom signals across completed drawdown cycles."""
+"""Event-study validation of price-only bottom signals across completed drawdown cycles.\nTrigger event-study run.\n"""
 import json,pathlib,statistics
 R=pathlib.Path(__file__).resolve().parents[1]; OUT=R/'dist/long_cycle_event_validation.json'
 def pct(a,b): return (a/b-1)*100 if b else None
