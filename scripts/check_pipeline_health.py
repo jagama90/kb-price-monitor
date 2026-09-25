@@ -74,6 +74,8 @@ for t in targets.get('items') or []:
     c=by_name.get(norm_name(t.get('name'))) or by_kb.get(norm_name(t.get('name')))
     if not c:
         unresolved.append({'name':t.get('name'),'reason':'complex_not_resolved'}); continue
+    if not c.get('complex_id') and c.get('status') in ('confirmed_preoccupancy','preoccupancy'):
+        continue
     aids=t.get('area_ids') or []
     if not aids:
         lo,hi=t.get('min_pyeong'),t.get('max_pyeong')
