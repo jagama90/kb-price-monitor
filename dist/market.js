@@ -192,3 +192,10 @@ async function renderRegimeForecast(){
  }catch(e){host.innerHTML='<div class="forecast-cell"><small>전망엔진</small><b>데이터 확인 중</b></div>';meta.textContent='전망 파일 배포 후 자동 표시됩니다.'}
 }
 renderRegimeForecast();
+
+// Single delegated control path for score details; independent of async data loading.
+document.addEventListener('click',e=>{
+ const btn=e.target.closest?.('.score-detail-btn');
+ if(btn){e.preventDefault();window.showScoreDetail?.(btn.dataset.scoreKey);return}
+ if(e.target.closest?.('.score-detail-close')){e.preventDefault();window.hideScoreDetail?.()}
+});
