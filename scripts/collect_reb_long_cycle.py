@@ -20,7 +20,7 @@ def norm(r):
 def main():
  key=os.getenv('RONE_API_KEY','sample')
  # Known current R-ONE Seoul real-transaction price table; trade table remains metadata-discovered.
- price_params={'KEY':key,'Type':'json','STATBL_ID':'A_2024_00045','DTACYCLE_CD':'MM','CLS_ID':'500008','ITM_ID':'100001','START_WRTTIME':'2006','END_WRTTIME':'2024','pIndex':1,'pSize':5000}
+ price_params={'KEY':key,'Type':'json','STATBL_ID':'A_2024_00045','DTACYCLE_CD':'MM','CLS_ID':'500008','ITM_ID':'100001','START_WRTTIME':'2006','END_WRTTIME':'2024','pIndex':1,'pSize':1000}
  price_raw=get('SttsApiTblData.do',price_params)
  price=[norm(x) for x in rows(price_raw,'SttsApiTblData') if norm(x)['ym']]
  if not price:
