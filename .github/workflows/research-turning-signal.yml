@@ -8,7 +8,6 @@ on:
     paths:
       - '.github/workflows/research-turning-signal.yml'
       - 'scripts/research_turning_signal.py'
-      - 'scripts/forecast_market_regime.py'
       - 'dist/final_backtest.json'
       - 'scripts/collect_reb_long_cycle.py'
       - 'scripts/build_long_cycle_readiness.py'
@@ -26,7 +25,7 @@ on:
       - 'data_sources/housing_policy_events.json'
 concurrency:
   group: research-turning-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   research:
     runs-on: ubuntu-latest
