@@ -1,0 +1,28 @@
+{
+  "status": "research_only",
+  "no_future_leakage": true,
+  "cycle_definition": "completed running-peak drawdown >=2%, ending when prior peak is recovered",
+  "signal_rule": "price m3<=0 and m1>=0; uses t and earlier only",
+  "summary": {
+    "completed_cycles": 1,
+    "cycles_with_signal": 1,
+    "coverage_pct": 100.0,
+    "signals_before_or_at_trough": 1,
+    "avg_signal_vs_trough_months": -52.0,
+    "avg_entry_premium_to_trough_pct": 8.2,
+    "avg_max_drawdown_after_signal_12m_pct": 0.0
+  },
+  "cycles": [
+    {
+      "peak_ym": "200809",
+      "trough_ym": "201308",
+      "recovery_ym": "201611",
+      "cycle_drawdown_pct": -11.18,
+      "signal_ym": "200904",
+      "signal_vs_trough_months": -52,
+      "entry_premium_to_trough_pct": 8.2,
+      "max_drawdown_after_signal_12m_pct": 0.0,
+      "signal_before_or_at_trough": true
+    }
+  ]
+}
