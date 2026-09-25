@@ -145,9 +145,12 @@ def main():
     nmap={x.get('user_name'):x for x in master['items']}
     nnmap={norm_name(x.get('user_name')):x for x in master['items']}
     kbmap={norm_name(x.get('kb_name')):x for x in master['items'] if x.get('kb_name')}
-    rows=[]; errors=[]; warnings=[]; resolved_targets=0; unresolved_targets=[]
+    rows=[]; errors=[]; warnings=[]; resolved_targets=0; unresolved_targets=[]; known_unavailable_targets=[]
     for t in targets:
         c=cmap.get(t.get('complex_id')) or nmap.get(t.get('name')) or nnmap.get(norm_name(t.get('name'))) or kbmap.get(norm_name(t.get('name')))
+        if c and not c.get('complex_id') and c.get('status') in ('confirmed_preoccupancy','preoccupancy'):
+            known_unavailable_targets.append({'name':t.get('name'),'reason':'preoccupancy_no_kb_complex','status':c.get('status')})
+            continue
         if not c or not c.get('complex_id'):
             unresolved_targets.append({'name':t.get('name'),'reason':'complex_not_resolved'})
             continue
@@ -189,7 +192,7 @@ def main():
             except Exception as e:
                 errors.append({'complex_id':cid,'area_id':aid,'error':str(e)}); print(errors[-1],flush=True)
     coverage=round(resolved_targets*100/len(targets),1) if targets else 100.0
-    snap={'schema_version':2,'source':'KB public complex page + target mapping','collected_at':now(),'items':rows,'errors':errors,'warnings':warnings,'unresolved_targets':unresolved_targets,'target_count':len(targets),'resolved_target_count':resolved_targets,'target_resolution_pct':coverage}
+    snap={'schema_version':2,'source':'KB public complex page + target mapping','collected_at':now(),'items':rows,'errors':errors,'warnings':warnings,'unresolved_targets':unresolved_targets,'target_count':len(targets),'resolved_target_count':resolved_targets,'target_resolution_pct':coverage,'known_unavailable_targets':known_unavailable_targets}
     atomic_json(ROOT/'data/listing_asks_probe.json',snap)
     # Publish partial-but-audited coverage when network collection succeeded; never
     # silently claim 100% coverage. Previous downstream values are only overwritten
@@ -197,6 +200,6 @@ def main():
     if a.publish and rows: atomic_json(ROOT/'data/buy_watchlist_listings.json',snap)
     probe_mode=bool(a.complex_id or a.area_id)
     fatal = (not rows) or (coverage < 90 and not probe_mode)
-    if unresolved_targets: print(json.dumps({'unresolved_targets':unresolved_targets},ensure_ascii=False),flush=True)
+    if unresolved_targets or known_unavailable_targets: print(json.dumps({'unresolved_targets':unresolved_targets,'known_unavailable_targets':known_unavailable_targets},ensure_ascii=False),flush=True)
     return 2 if fatal else 0
 if __name__=='__main__': raise SystemExit(main())
