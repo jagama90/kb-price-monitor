@@ -9,6 +9,8 @@ API_PATH='/land-property/propList/main'
 PRICE_PATH='/land-price/price/complex/integrationChart'
 
 def now(): return dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')
+def norm_name(s):
+    return re.sub(r'[^0-9A-Za-z가-힣]','',str(s or '')).replace('아파트','').lower()
 def atomic_json(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
     tmp=path.with_suffix('.tmp')
@@ -187,10 +189,15 @@ def main():
     targets=json.loads((ROOT/'data/buy_watchlist_targets.json').read_text(encoding='utf-8'))
     cmap={x.get('complex_id'):x for x in master['items'] if x.get('complex_id')}
     nmap={x.get('user_name'):x for x in master['items']}
-    rows=[]; errors=[]
+    nnmap={norm_name(x.get('user_name')):x for x in master['items']}
+    kbmap={norm_name(x.get('kb_name')):x for x in master['items'] if x.get('kb_name')}
+    rows=[]; errors=[]; warnings=[]; resolved_targets=0; unresolved_targets=[]
     for t in targets['items']:
-        c=cmap.get(t.get('complex_id')) or nmap.get(t.get('name'))
-        if not c or not c.get('complex_id'): continue
+        c=cmap.get(t.get('complex_id')) or nmap.get(t.get('name')) or nnmap.get(norm_name(t.get('name'))) or kbmap.get(norm_name(t.get('name')))
+        if not c or not c.get('complex_id'):
+            unresolved_targets.append({'name':t.get('name'),'reason':'complex_not_resolved'})
+            continue
+        resolved_targets+=1
         cid=c['complex_id']
         if a.complex_id and cid!=a.complex_id: continue
         aids=t.get('area_ids') or []
@@ -200,6 +207,9 @@ def main():
                 try: p=float(re.search(r'\d+(?:\.\d+)?',str(typ.get('type_label',''))).group())
                 except Exception: continue
                 if (lo is None or p>=float(lo)) and (hi is None or p<=float(hi)): aids.append(typ.get('area_id'))
+        if not aids:
+            unresolved_targets.append({'name':t.get('name'),'complex_id':cid,'reason':'target_area_not_resolved','selection':t.get('selection')})
+            continue
         for aid in aids:
             if not aid or (a.area_id and aid!=a.area_id): continue
             try:
@@ -218,8 +228,14 @@ def main():
                 print(json.dumps(r,ensure_ascii=False),flush=True)
             except Exception as e:
                 errors.append({'complex_id':cid,'area_id':aid,'error':str(e)}); print(errors[-1],flush=True)
-    snap={'schema_version':1,'source':'KB부동산 propList/main','collected_at':now(),'items':rows,'errors':errors}
+    coverage=round(resolved_targets*100/len(targets),1) if targets else 100.0
+    snap={'schema_version':2,'source':'KB public complex page + target mapping','collected_at':now(),'items':rows,'errors':errors,'warnings':warnings,'unresolved_targets':unresolved_targets,'target_count':len(targets),'resolved_target_count':resolved_targets,'target_resolution_pct':coverage}
     atomic_json(ROOT/'data/listing_asks_probe.json',snap)
-    if a.publish and not errors: atomic_json(ROOT/'data/buy_watchlist_listings.json',snap)
-    return 2 if errors else 0
+    # Publish partial-but-audited coverage when network collection succeeded; never
+    # silently claim 100% coverage. Previous downstream values are only overwritten
+    # by matched rows, so unresolved targets do not become false zeros.
+    if a.publish and rows: atomic_json(ROOT/'data/buy_watchlist_listings.json',snap)
+    fatal = (not rows) or coverage < 90
+    if unresolved_targets: print(json.dumps({'unresolved_targets':unresolved_targets},ensure_ascii=False),flush=True)
+    return 2 if fatal else 0
 if __name__=='__main__': raise SystemExit(main())
