@@ -1,0 +1,10 @@
+{
+  "status": "waiting_inputs",
+  "checks": {
+    "reb_file": false,
+    "reb_price_series": false,
+    "reb_trade_series": false,
+    "m2_2005_start": true,
+    "policy_started": true
+  }
+}
