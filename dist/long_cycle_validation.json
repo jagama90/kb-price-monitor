@@ -2,7 +2,7 @@
   "status": "waiting_inputs",
   "checks": {
     "reb_file": true,
-    "reb_price_series": false,
+    "reb_price_series": true,
     "reb_trade_series": false,
     "m2_2005_start": true,
     "policy_started": true
