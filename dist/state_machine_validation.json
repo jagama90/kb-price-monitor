@@ -1,0 +1,83 @@
+{
+  "status": "research_only",
+  "no_future_leakage": true,
+  "state_machine": [
+    "observe",
+    "precision_early_warning",
+    "price_turn_confirmed",
+    "long_trend_confirmed",
+    "recovery_or_reacceleration"
+  ],
+  "entry_metrics": {
+    "early": {
+      "entries": 3,
+      "fwd_3m_mean_pct": -2.96,
+      "positive_3m_pct": 0.0,
+      "renew_low_3m_pct": 100.0,
+      "fwd_6m_mean_pct": -2.85,
+      "positive_6m_pct": 50.0,
+      "renew_low_6m_pct": 100.0,
+      "fwd_12m_mean_pct": -4.95,
+      "positive_12m_pct": 0.0,
+      "renew_low_12m_pct": 100.0
+    },
+    "price_turn": {
+      "entries": 1,
+      "fwd_3m_mean_pct": 0.92,
+      "positive_3m_pct": 100.0,
+      "renew_low_3m_pct": 0.0,
+      "fwd_6m_mean_pct": 1.92,
+      "positive_6m_pct": 100.0,
+      "renew_low_6m_pct": 0.0,
+      "fwd_12m_mean_pct": null,
+      "positive_12m_pct": null,
+      "renew_low_12m_pct": null
+    },
+    "long_confirmed": {
+      "entries": 0,
+      "fwd_3m_mean_pct": null,
+      "positive_3m_pct": null,
+      "renew_low_3m_pct": null,
+      "fwd_6m_mean_pct": null,
+      "positive_6m_pct": null,
+      "renew_low_6m_pct": null,
+      "fwd_12m_mean_pct": null,
+      "positive_12m_pct": null,
+      "renew_low_12m_pct": null
+    }
+  },
+  "entry_events": {
+    "early": [
+      "202211",
+      "202303",
+      "202312"
+    ],
+    "price_turn": [
+      "202305"
+    ],
+    "long_confirmed": []
+  },
+  "early_warning_cohorts": [
+    {
+      "early_ym": "202211",
+      "price_turn_ym": "202305",
+      "months_to_price_turn": 6,
+      "long_confirmed_ym": null,
+      "months_to_long_confirmed": null
+    },
+    {
+      "early_ym": "202303",
+      "price_turn_ym": "202305",
+      "months_to_price_turn": 2,
+      "long_confirmed_ym": null,
+      "months_to_long_confirmed": null
+    },
+    {
+      "early_ym": "202312",
+      "price_turn_ym": null,
+      "months_to_price_turn": null,
+      "long_confirmed_ym": null,
+      "months_to_long_confirmed": null
+    }
+  ]
+}
