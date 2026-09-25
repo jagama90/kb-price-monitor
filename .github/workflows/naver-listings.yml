@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/naver_listing_asks_probe.json data/buy_watchlist_listings.json 2>/dev/null || true
+          git add -f data/naver_listing_asks_probe.json
           git commit -m 'Collect Naver watchlist lowest asks' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
