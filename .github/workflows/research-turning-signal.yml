@@ -24,6 +24,9 @@ on:
       - 'scripts/validate_integrated_model.py'
       - 'scripts/validate_state_machine.py'
       - 'data_sources/housing_policy_events.json'
+concurrency:
+  group: research-turning-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   research:
     runs-on: ubuntu-latest
