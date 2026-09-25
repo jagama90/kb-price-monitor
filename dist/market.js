@@ -152,3 +152,16 @@ async function renderConditionHistory(){
  }catch(e){latestEl.textContent='인증 데이터 대기';host.innerHTML='<div class="chart-error">최종 인증 파일이 배포되면 자동으로 표시됩니다.</div>'}
 }
 renderConditionHistory();
+
+async function renderCycleStage(){
+ const badge=document.getElementById('cycleStageBadge');if(!badge)return;
+ try{const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
+  let stage=0,label='관찰',text='뚜렷한 바닥 탐색 또는 가격전환 신호가 확인되지 않았습니다.';
+  if(x.bottom_zone){stage=1;label='바닥 탐색';text='정밀모델의 조기경보 구간입니다. 검증상 이 단계만으로는 진입 신호로 사용하지 않습니다.'}
+  if(x.price_mom_pct>=0&&x.momentum_3m_pct<=0){stage=2;label='가격전환 확인';text='하락 3개월 흐름 속 월간 가격이 비음수로 전환했습니다. 연구상 실제 진입 후보 역할을 한 단계입니다.'}
+  if(x.momentum_3m_pct>0){stage=3;label='회복 확인';text='3개월 가격 모멘텀이 양수로 전환된 회복 구간입니다.'}
+  if(x.momentum_zone){stage=4;label='재가속';text='가격 모멘텀과 시장 breadth가 함께 확인되는 재가속 구간입니다.'}
+  badge.textContent=label;document.getElementById('cycleStageText').textContent=text;document.getElementById('cycleStageEvidence').textContent='최근 연구월 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · opportunity '+x.opportunity+' · 3개월 모멘텀 '+x.momentum_3m_pct+'%';
+  document.querySelectorAll('#cycleSteps span').forEach((e,i)=>e.classList.toggle('active',i===stage));
+ }catch(e){badge.textContent='연구 데이터 대기';document.getElementById('cycleStageText').textContent='검증 데이터가 갱신되면 자동 판독합니다.'}}
+renderCycleStage();
