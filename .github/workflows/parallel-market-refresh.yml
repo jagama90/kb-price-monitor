@@ -18,6 +18,8 @@ on:
       - 'scripts/collect_ecos_mortgage_rate.py'
       - 'scripts/build_market_snapshot.py'
       - 'scripts/forecast_market_regime.py'
+      - 'dist/turning_signal_research.json'
+      - 'dist/final_backtest.json'
       - 'scripts/collect_listings.py'
       - 'scripts/merge_watchlist_details.py'
       - 'data/buy_watchlist_targets.json'
