@@ -139,13 +139,14 @@ def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--complex-id',type=int); ap.add_argument('--area-id',type=int); ap.add_argument('--publish',action='store_true')
     a=ap.parse_args(); token=os.getenv('KB_AUTH_TOKEN')
     master=json.loads((ROOT/'data/buy_watchlist_master.json').read_text(encoding='utf-8'))
-    targets=json.loads((ROOT/'data/buy_watchlist_targets.json').read_text(encoding='utf-8'))
+    target_payload=json.loads((ROOT/'data/buy_watchlist_targets.json').read_text(encoding='utf-8'))
+    targets=target_payload.get('items') or []
     cmap={x.get('complex_id'):x for x in master['items'] if x.get('complex_id')}
     nmap={x.get('user_name'):x for x in master['items']}
     nnmap={norm_name(x.get('user_name')):x for x in master['items']}
     kbmap={norm_name(x.get('kb_name')):x for x in master['items'] if x.get('kb_name')}
     rows=[]; errors=[]; warnings=[]; resolved_targets=0; unresolved_targets=[]
-    for t in targets['items']:
+    for t in targets:
         c=cmap.get(t.get('complex_id')) or nmap.get(t.get('name')) or nnmap.get(norm_name(t.get('name'))) or kbmap.get(norm_name(t.get('name')))
         if not c or not c.get('complex_id'):
             unresolved_targets.append({'name':t.get('name'),'reason':'complex_not_resolved'})
