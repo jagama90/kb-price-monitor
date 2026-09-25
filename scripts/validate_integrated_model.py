@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Freeze long-cycle rule and test agreement/conflict with the unchanged 2022+ precision research model."""
+"""Freeze long-cycle rule and test agreement/conflict with the unchanged 2022+ precision research model.\nTrigger integration run.\n"""
 import json,pathlib,statistics
 R=pathlib.Path(__file__).resolve().parents[1];OUT=R/'dist/integrated_model_validation.json'
 def pct(a,b):return (a/b-1)*100 if b else None
