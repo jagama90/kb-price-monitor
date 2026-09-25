@@ -2521,7 +2521,7 @@
       "trade_vs_prior3_pct": -17.825057324361904,
       "fwd_3m_pct": 1.3787147096753882,
       "fwd_6m_pct": 4.52459998513377,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.129521620257576
     },
     {
       "ym": "202502",
@@ -2532,7 +2532,7 @@
       "trade_vs_prior3_pct": 15.772912023075914,
       "fwd_3m_pct": 1.6829887157808532,
       "fwd_6m_pct": 4.774903956669507,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.674498113539865
     },
     {
       "ym": "202503",
@@ -2543,7 +2543,7 @@
       "trade_vs_prior3_pct": 94.33800400343151,
       "fwd_3m_pct": 2.329160682053022,
       "fwd_6m_pct": 4.554343645223047,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.175429481047281
     },
     {
       "ym": "202504",
@@ -2554,7 +2554,7 @@
       "trade_vs_prior3_pct": 48.36246075996815,
       "fwd_3m_pct": 3.1031023469447527,
       "fwd_6m_pct": 5.698236786476296,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.40871722479746
     },
     {
       "ym": "202505",
@@ -2565,7 +2565,7 @@
       "trade_vs_prior3_pct": 11.026144907723845,
       "fwd_3m_pct": 3.0407399309741123,
       "fwd_6m_pct": 5.979468888539952,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.974715319123796
     },
     {
       "ym": "202506",
@@ -2576,7 +2576,7 @@
       "trade_vs_prior3_pct": 27.890538220741192,
       "fwd_3m_pct": 2.1745345591995147,
       "fwd_6m_pct": 5.3845048897459336,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.726911524999384
     },
     {
       "ym": "202507",
@@ -2586,8 +2586,8 @@
       "price_mom_6m": 4.52459998513377,
       "trade_vs_prior3_pct": 13.242562998453455,
       "fwd_3m_pct": 2.5170284700055445,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_6m_pct": 5.3622990529702985,
+      "fwd_12m_pct": 10.917554767141958
     },
     {
       "ym": "202508",
@@ -2597,7 +2597,7 @@
       "price_mom_6m": 4.774903956669507,
       "trade_vs_prior3_pct": -36.708320633953065,
       "fwd_3m_pct": 2.852006846548716,
-      "fwd_6m_pct": null,
+      "fwd_6m_pct": 5.630732106717251,
       "fwd_12m_pct": null
     },
     {
@@ -2608,7 +2608,7 @@
       "price_mom_6m": 4.554343645223047,
       "trade_vs_prior3_pct": -17.66772261079572,
       "fwd_3m_pct": 3.141653979041692,
-      "fwd_6m_pct": null,
+      "fwd_6m_pct": 5.376233678916176,
       "fwd_12m_pct": null
     },
     {
@@ -2618,8 +2618,8 @@
       "price_mom_3m": 2.5170284700055445,
       "price_mom_6m": 5.698236786476296,
       "trade_vs_prior3_pct": 12.59770251065846,
-      "fwd_3m_pct": null,
-      "fwd_6m_pct": null,
+      "fwd_3m_pct": 2.7754126562469006,
+      "fwd_6m_pct": 4.456536439521619,
       "fwd_12m_pct": null
     },
     {
@@ -2629,8 +2629,8 @@
       "price_mom_3m": 2.852006846548716,
       "price_mom_6m": 5.979468888539952,
       "trade_vs_prior3_pct": -43.02481660683628,
-      "fwd_3m_pct": null,
-      "fwd_6m_pct": null,
+      "fwd_3m_pct": 2.701673351220335,
+      "fwd_6m_pct": 4.7134095716571345,
       "fwd_12m_pct": null
     },
     {
@@ -2640,6 +2640,83 @@
       "price_mom_3m": 3.141653979041692,
       "price_mom_6m": 5.3845048897459336,
       "trade_vs_prior3_pct": -15.120910384068287,
+      "fwd_3m_pct": 2.166515286179682,
+      "fwd_6m_pct": 5.069442268427138,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202601",
+      "state": "recovery",
+      "price_mom_1m": 1.070481120649558,
+      "price_mom_3m": 2.7754126562469006,
+      "price_mom_6m": 5.3622990529702985,
+      "trade_vs_prior3_pct": -2.9701224029066164,
+      "fwd_3m_pct": 1.63572564665595,
+      "fwd_6m_pct": 5.272527046300279,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202602",
+      "state": "recovery",
+      "price_mom_1m": 0.7395430951839588,
+      "price_mom_3m": 2.701673351220335,
+      "price_mom_6m": 5.630732106717251,
+      "trade_vs_prior3_pct": -5.881283850096331,
+      "fwd_3m_pct": 1.9588154260710366,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202603",
+      "state": "recovery",
+      "price_mom_1m": 0.3423506683627453,
+      "price_mom_3m": 2.166515286179682,
+      "price_mom_6m": 5.376233678916176,
+      "trade_vs_prior3_pct": -13.30239173559905,
+      "fwd_3m_pct": 2.8413683036130344,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202604",
+      "state": "recovery",
+      "price_mom_1m": 0.5453857497225378,
+      "price_mom_3m": 1.63572564665595,
+      "price_mom_6m": 4.456536439521619,
+      "trade_vs_prior3_pct": 16.592701107329066,
+      "fwd_3m_pct": 3.5782707079673237,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202605",
+      "state": "recovery",
+      "price_mom_1m": 1.0597840001405068,
+      "price_mom_3m": 1.9588154260710366,
+      "price_mom_6m": 4.7134095716571345,
+      "trade_vs_prior3_pct": 41.520422425842504,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202606",
+      "state": "recovery",
+      "price_mom_1m": 1.210911468639031,
+      "price_mom_3m": 2.8413683036130344,
+      "price_mom_6m": 5.069442268427138,
+      "trade_vs_prior3_pct": 32.173504173033976,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202607",
+      "state": "recovery",
+      "price_mom_1m": 1.2658364567470048,
+      "price_mom_3m": 3.5782707079673237,
+      "price_mom_6m": 5.272527046300279,
+      "trade_vs_prior3_pct": 11.914709128172785,
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null
@@ -2671,16 +2748,16 @@
       "fwd_12m_positive_rate_pct": 88.9
     },
     "recovery": {
-      "months": 153,
-      "fwd_3m_mean_pct": 1.57,
-      "fwd_3m_median_pct": 1.35,
-      "fwd_3m_positive_rate_pct": 88.7,
-      "fwd_6m_mean_pct": 2.88,
-      "fwd_6m_median_pct": 2.49,
-      "fwd_6m_positive_rate_pct": 87.1,
-      "fwd_12m_mean_pct": 4.77,
-      "fwd_12m_median_pct": 4.55,
-      "fwd_12m_positive_rate_pct": 83.0
+      "months": 160,
+      "fwd_3m_mean_pct": 1.61,
+      "fwd_3m_median_pct": 1.38,
+      "fwd_3m_positive_rate_pct": 89.2,
+      "fwd_6m_mean_pct": 2.98,
+      "fwd_6m_median_pct": 2.59,
+      "fwd_6m_positive_rate_pct": 87.7,
+      "fwd_12m_mean_pct": 5.04,
+      "fwd_12m_median_pct": 4.66,
+      "fwd_12m_positive_rate_pct": 83.8
     },
     "observe": {
       "months": 69,

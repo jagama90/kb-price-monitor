@@ -3205,7 +3205,7 @@
       "m2_yoy_pct": 4.99,
       "fwd_3m_pct": 1.3787147096753882,
       "fwd_6m_pct": 4.52459998513377,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.129521620257576
     },
     {
       "ym": "202502",
@@ -3219,7 +3219,7 @@
       "m2_yoy_pct": 4.45,
       "fwd_3m_pct": 1.6829887157808532,
       "fwd_6m_pct": 4.774903956669507,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.674498113539865
     },
     {
       "ym": "202503",
@@ -3233,7 +3233,7 @@
       "m2_yoy_pct": 2.89,
       "fwd_3m_pct": 2.329160682053022,
       "fwd_6m_pct": 4.554343645223047,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.175429481047281
     },
     {
       "ym": "202504",
@@ -3247,7 +3247,7 @@
       "m2_yoy_pct": 3.21,
       "fwd_3m_pct": 3.1031023469447527,
       "fwd_6m_pct": 5.698236786476296,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.40871722479746
     },
     {
       "ym": "202505",
@@ -3261,7 +3261,7 @@
       "m2_yoy_pct": 3.83,
       "fwd_3m_pct": 3.0407399309741123,
       "fwd_6m_pct": 5.979468888539952,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.974715319123796
     },
     {
       "ym": "202506",
@@ -3275,7 +3275,7 @@
       "m2_yoy_pct": 4.31,
       "fwd_3m_pct": 2.1745345591995147,
       "fwd_6m_pct": 5.3845048897459336,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 10.726911524999384
     },
     {
       "ym": "202507",
@@ -3288,8 +3288,8 @@
       "trade_vs_prior3_pct": 17.12825016466457,
       "m2_yoy_pct": 4.46,
       "fwd_3m_pct": 2.5170284700055445,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_6m_pct": 5.3622990529702985,
+      "fwd_12m_pct": 10.917554767141958
     },
     {
       "ym": "202508",
@@ -3302,7 +3302,7 @@
       "trade_vs_prior3_pct": -38.51847465656086,
       "m2_yoy_pct": 5.33,
       "fwd_3m_pct": 2.852006846548716,
-      "fwd_6m_pct": null,
+      "fwd_6m_pct": 5.630732106717251,
       "fwd_12m_pct": null
     },
     {
@@ -3316,7 +3316,7 @@
       "trade_vs_prior3_pct": -18.05837365381614,
       "m2_yoy_pct": 5.45,
       "fwd_3m_pct": 3.141653979041692,
-      "fwd_6m_pct": null,
+      "fwd_6m_pct": 5.376233678916176,
       "fwd_12m_pct": null
     },
     {
@@ -3329,8 +3329,8 @@
       "price_mom_6m": 5.698236786476296,
       "trade_vs_prior3_pct": 35.24537695590326,
       "m2_yoy_pct": 5.22,
-      "fwd_3m_pct": null,
-      "fwd_6m_pct": null,
+      "fwd_3m_pct": 2.7754126562469006,
+      "fwd_6m_pct": 4.456536439521619,
       "fwd_12m_pct": null
     },
     {
@@ -3343,8 +3343,8 @@
       "price_mom_6m": 5.979468888539952,
       "trade_vs_prior3_pct": -35.616776605876744,
       "m2_yoy_pct": 4.78,
-      "fwd_3m_pct": null,
-      "fwd_6m_pct": null,
+      "fwd_3m_pct": 2.701673351220335,
+      "fwd_6m_pct": 4.7134095716571345,
       "fwd_12m_pct": null
     },
     {
@@ -3357,6 +3357,104 @@
       "price_mom_6m": 5.3845048897459336,
       "trade_vs_prior3_pct": -13.241975936897976,
       "m2_yoy_pct": 4.65,
+      "fwd_3m_pct": 2.166515286179682,
+      "fwd_6m_pct": 5.069442268427138,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202601",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.070481120649558,
+      "price_mom_3m": 2.7754126562469006,
+      "price_mom_6m": 5.3622990529702985,
+      "trade_vs_prior3_pct": 2.956918815735299,
+      "m2_yoy_pct": 4.83,
+      "fwd_3m_pct": 1.63572564665595,
+      "fwd_6m_pct": 5.272527046300279,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202602",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.7395430951839588,
+      "price_mom_3m": 2.701673351220335,
+      "price_mom_6m": 5.630732106717251,
+      "trade_vs_prior3_pct": 11.564479296824516,
+      "m2_yoy_pct": 4.67,
+      "fwd_3m_pct": 1.9588154260710366,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202603",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.3423506683627453,
+      "price_mom_3m": 2.166515286179682,
+      "price_mom_6m": 5.376233678916176,
+      "trade_vs_prior3_pct": -10.067557074079836,
+      "m2_yoy_pct": 5.47,
+      "fwd_3m_pct": 2.8413683036130344,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202604",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.5453857497225378,
+      "price_mom_3m": 1.63572564665595,
+      "price_mom_6m": 4.456536439521619,
+      "trade_vs_prior3_pct": 6.030327965205129,
+      "m2_yoy_pct": 5.65,
+      "fwd_3m_pct": 3.5782707079673237,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202605",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.0597840001405068,
+      "price_mom_3m": 1.9588154260710366,
+      "price_mom_6m": 4.7134095716571345,
+      "trade_vs_prior3_pct": 43.6623049030427,
+      "m2_yoy_pct": 5.76,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202606",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.210911468639031,
+      "price_mom_3m": 2.8413683036130344,
+      "price_mom_6m": 5.069442268427138,
+      "trade_vs_prior3_pct": 16.75608320930393,
+      "m2_yoy_pct": 5.98,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202607",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.2658364567470048,
+      "price_mom_3m": 3.5782707079673237,
+      "price_mom_6m": 5.272527046300279,
+      "trade_vs_prior3_pct": -12.398963410871843,
+      "m2_yoy_pct": 5.8,
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null
