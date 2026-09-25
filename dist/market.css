@@ -155,3 +155,11 @@ header{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom
 .condition-history-legend i.current{height:0;border-top:2px dashed #8294a8;background:none}
 .condition-history>small{color:#718296;font-size:10px}
 @media(max-width:800px){.condition-history{margin-top:12px}.condition-history .title{align-items:flex-start;gap:5px}.condition-history .title>span{font-size:9px}.condition-history-chart{min-height:190px}.condition-history-chart svg{min-height:185px}.condition-history-legend{flex-wrap:wrap}}
+
+/* v92: keep score cards dimensionally stable while drill-down moves inside the grid */
+.score-grid>.score-component{height:142px!important;min-height:142px!important}
+.score-grid>.score-component:last-of-type{height:142px!important;min-height:142px!important}
+@media(max-width:800px){
+ .score-grid>.score-component{height:142px!important;min-height:142px!important}
+ .score-grid>.score-component:last-of-type{height:142px!important;min-height:142px!important}
+}
