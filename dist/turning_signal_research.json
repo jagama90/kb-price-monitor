@@ -1509,104 +1509,104 @@
   "mortgage_rate_overlay": [
     {
       "ym": "202209",
-      "mortgage_rate_pct": null,
+      "mortgage_rate_pct": 4.79,
       "mom_bp": null,
       "fwd_6m_pct": -21.72
     },
     {
       "ym": "202210",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.82,
+      "mom_bp": 3.0,
       "fwd_6m_pct": -19.84
     },
     {
       "ym": "202211",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.74,
+      "mom_bp": -8.0,
       "fwd_6m_pct": -14.17
     },
     {
       "ym": "202212",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.63,
+      "mom_bp": -11.0,
       "fwd_6m_pct": -11.91
     },
     {
       "ym": "202301",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.58,
+      "mom_bp": -5.0,
       "fwd_6m_pct": -7.39
     },
     {
       "ym": "202302",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.56,
+      "mom_bp": -2.0,
       "fwd_6m_pct": 0.92
     },
     {
       "ym": "202303",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.4,
+      "mom_bp": -16.0,
       "fwd_6m_pct": 5.74
     },
     {
       "ym": "202304",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.24,
+      "mom_bp": -16.0,
       "fwd_6m_pct": 7.28
     },
     {
       "ym": "202305",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.21,
+      "mom_bp": -3.0,
       "fwd_6m_pct": 7.28
     },
     {
       "ym": "202306",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.26,
+      "mom_bp": 5.0,
       "fwd_6m_pct": 6.76
     },
     {
       "ym": "202307",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.28,
+      "mom_bp": 2.0,
       "fwd_6m_pct": 3.76
     },
     {
       "ym": "202308",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.31,
+      "mom_bp": 3.0,
       "fwd_6m_pct": 0.91
     },
     {
       "ym": "202309",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.35,
+      "mom_bp": 4.0,
       "fwd_6m_pct": 0.0
     },
     {
       "ym": "202310",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.56,
+      "mom_bp": 21.0,
       "fwd_6m_pct": 0.23
     },
     {
       "ym": "202311",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.48,
+      "mom_bp": -8.0,
       "fwd_6m_pct": 0.23
     },
     {
       "ym": "202312",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.16,
+      "mom_bp": -32.0,
       "fwd_6m_pct": 0.23
     },
     {
       "ym": "202401",
       "mortgage_rate_pct": 3.99,
-      "mom_bp": null,
+      "mom_bp": -17.0,
       "fwd_6m_pct": 2.26
     },
     {
@@ -1761,32 +1761,32 @@
     },
     {
       "ym": "202603",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.34,
+      "mom_bp": 2.0,
       "fwd_6m_pct": 1.4
     },
     {
       "ym": "202604",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.31,
+      "mom_bp": -3.0,
       "fwd_6m_pct": null
     },
     {
       "ym": "202605",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.32,
+      "mom_bp": 1.0,
       "fwd_6m_pct": null
     },
     {
       "ym": "202606",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.36,
+      "mom_bp": 4.0,
       "fwd_6m_pct": null
     },
     {
       "ym": "202607",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.48,
+      "mom_bp": 12.0,
       "fwd_6m_pct": null
     },
     {
@@ -1807,9 +1807,9 @@
     "opportunity_vs_fwd_12m_corr": -0.024,
     "opportunity_low_third_mean_fwd_6m_pct": 4.82,
     "opportunity_high_third_mean_fwd_6m_pct": 6.99,
-    "mortgage_rate_available_months": 26,
-    "mortgage_rate_level_vs_fwd_6m_corr": 0.204,
-    "mortgage_rate_mom_bp_vs_fwd_6m_corr": -0.008
+    "mortgage_rate_available_months": 47,
+    "mortgage_rate_level_vs_fwd_6m_corr": -0.618,
+    "mortgage_rate_mom_bp_vs_fwd_6m_corr": 0.138
   },
   "component_dispersion": {
     "finance": {
@@ -1843,5 +1843,5 @@
       "corr_fwd_6m": 0.728
     }
   },
-  "generated_at": "2026-09-25T17:41:16.672167+00:00"
+  "generated_at": "2026-09-25T17:48:16.943289+00:00"
 }
