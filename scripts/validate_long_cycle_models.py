@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare price-only vs price+trade+M2 long-cycle signals without future leakage."""
+"""Compare price-only vs price+trade+M2 long-cycle signals without future leakage.\nWorkflow trigger: 2026-09-26 validation run.\n"""
 import json,pathlib,statistics
 R=pathlib.Path(__file__).resolve().parents[1]; OUT=R/'dist/long_cycle_model_validation.json'
 def pct(a,b): return (a/b-1)*100 if b else None
