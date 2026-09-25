@@ -78,7 +78,7 @@ def main():
             low=min(near,key=lambda x:x['price_manwon']) if near else None
             types.append({'kb_area_id':t.get('area_id'),'type_label':t.get('type_label'),'supply_m2':t.get('supply_m2'),
                           'exclusive_m2':t.get('exclusive_m2'),'lowest_ask_manwon':low['price_manwon'] if low else None,
-                          'listing_count':len(near),'lowest_listing':low})
+                          'listing_count':len(near),'avg_ask_manwon':int(round(sum(x['price_manwon'] for x in near)/len(near))) if near else None,'lowest_listing':low})
           row={'complex_id':c['complex_id'],'name':c.get('user_name'),'naver_complex_no':str(n['hscpNo']),'naver_name':n.get('hscpNm'),'types':types,'article_count':len(arts)}
           items.append(row);print(json.dumps(row,ensure_ascii=False),flush=True);time.sleep(1)
         except Exception as e:
