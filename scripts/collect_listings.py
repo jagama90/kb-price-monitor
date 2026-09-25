@@ -194,7 +194,8 @@ def main():
     # silently claim 100% coverage. Previous downstream values are only overwritten
     # by matched rows, so unresolved targets do not become false zeros.
     if a.publish and rows: atomic_json(ROOT/'data/buy_watchlist_listings.json',snap)
-    fatal = (not rows) or coverage < 90
+    probe_mode=bool(a.complex_id or a.area_id)
+    fatal = (not rows) or (coverage < 90 and not probe_mode)
     if unresolved_targets: print(json.dumps({'unresolved_targets':unresolved_targets},ensure_ascii=False),flush=True)
     return 2 if fatal else 0
 if __name__=='__main__': raise SystemExit(main())
