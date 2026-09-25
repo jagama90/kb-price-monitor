@@ -3,7 +3,7 @@
 Research output only: this script does not change the production score."""
 import json,pathlib,math,statistics,datetime
 R=pathlib.Path(__file__).resolve().parents[1]
-SRC=R/'dist/final_backtest.json'; OUT=R/'dist/turning_signal_research.json'
+SRC=R/'dist/final_backtest.json'; OUT=R/'dist/turning_signal_research.json'; MORT=R/'data_sources/ecos_mortgage_rate.json'
 def clamp(x): return max(0,min(100,x))
 def corr(a,b):
  z=[(x,y) for x,y in zip(a,b) if x is not None and y is not None]
@@ -23,7 +23,6 @@ def main():
  # All normalisation is expanding-window only, so no future observations leak into a historical score.
  for i,r in enumerate(rows):
   c=r['components']; hist=rows[:i+1]
-  cheap=clamp(100-c['value']) # production value is high when cheap; invert below corrected next line
   cheap=c['value']
   distress=clamp(100-c['sentiment'])
   # Improvements use 1m and 3m deltas. Positive demand/sentiment/finance changes indicate marginal turn.
@@ -53,8 +52,8 @@ def main():
  comps=['finance','sentiment','demand','value','supply']; dispersion={}
  for k in comps:
   v=[x['components'][k] for x in rows]; dispersion[k]={'min':round(min(v),1),'max':round(max(v),1),'stdev':round(statistics.pstdev(v),1),'corr_fwd_6m':corr(v,[x.get('fwd_6m_pct') for x in rows])}
- payload={'status':'research_only','production_formula_unchanged':True,'no_future_leakage':True,
+ # Mortgage-rate overlay is diagnostic only. Current source starts in 2024, so it is not yet eligible for production weighting.\n mort=[]\n if MORT.exists():\n  md=json.loads(MORT.read_text()); mm={}\n  for x in md.get('series',[]):\n   if x.get('item')=='주택담보대출': mm[x['period']]=x['rate_pct']\n  for i,x in enumerate(outrows):\n   rate=mm.get(x['ym']); prev=mm.get(outrows[i-1]['ym']) if i else None\n   mort.append({'ym':x['ym'],'mortgage_rate_pct':rate,'mom_bp':round((rate-prev)*100,1) if rate is not None and prev is not None else None,'fwd_6m_pct':x['fwd_6m_pct']})\n  paired=[x for x in mort if x['mortgage_rate_pct'] is not None]\n  metrics['mortgage_rate_available_months']=len(paired)\n  metrics['mortgage_rate_level_vs_fwd_6m_corr']=corr([x['mortgage_rate_pct'] for x in paired],[x['fwd_6m_pct'] for x in paired])\n  metrics['mortgage_rate_mom_bp_vs_fwd_6m_corr']=corr([x['mom_bp'] for x in paired],[x['fwd_6m_pct'] for x in paired])\n payload={'status':'research_only','production_formula_unchanged':True,'no_future_leakage':True,
   'method':'setup = 55% cheapness + 45% sentiment distress; turn = expanding-percentile of weighted 1m/3m improvements in demand, sentiment, finance; opportunity = setup * turn / 100',
-  'rows':outrows,'metrics':metrics,'component_dispersion':dispersion,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+  'rows':outrows,'mortgage_rate_overlay':mort,'metrics':metrics,'component_dispersion':dispersion,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)); print(json.dumps(metrics,ensure_ascii=False))
 if __name__=='__main__': main()
