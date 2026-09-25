@@ -1,32 +1,38 @@
 name: Naver watchlist lowest asks
 on:
+  schedule:
+    - cron: '20 22 * * *'
+  push:
+    paths:
+      - 'scripts/collect_naver_listings.py'
+      - '.github/workflows/naver-listings.yml'
   workflow_dispatch:
     inputs:
       complex_id:
         description: "KB complex id (blank = configured targets)"
         required: false
-        default: "1947"
+        default: ""
       publish:
         description: "Publish when collection has no errors"
         required: false
-        default: "false"
+        default: "true"
         type: choice
         options: ["false","true"]
 permissions:
   contents: write
 jobs:
   collect:
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - name: Install browser helper
-        run: npm install
+        run: npm install && npx playwright install --with-deps chromium
       - name: Collect lowest asking prices
         env:
-          NAVER_BROWSER_CHANNEL: chrome
+          NAVER_BROWSER_CHANNEL: chromium
         run: |
           args=(--max-pages 4)
           if [[ -n "${{ inputs.complex_id }}" ]]; then args+=(--complex-id "${{ inputs.complex_id }}"); fi
