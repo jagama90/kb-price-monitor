@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Final 3-part validation: long-trend filter, walk-forward, robustness stress tests."""
+"""Final 3-part validation: long-trend filter, walk-forward, robustness stress tests.\nTrigger full suite.\n"""
 import json,pathlib,statistics,itertools
 R=pathlib.Path(__file__).resolve().parents[1]; OUT=R/'dist/final_long_cycle_validation.json'
 def pct(a,b): return (a/b-1)*100 if b else None
