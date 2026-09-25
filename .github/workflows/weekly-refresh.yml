@@ -8,13 +8,12 @@ on:
     paths:
       - '.github/workflows/weekly-refresh.yml'
       - 'scripts/test_static_contract.py'
+      - 'scripts/test_price_core.cjs'
       - 'scripts/collect_public_market.py'
       - 'scripts/collect_seoul.py'
-      - 'scripts/refresh_market_indicators.py'
-      - 'scripts/collect_molit_trades.py'
-      - 'scripts/collect_ecos_m2.py'
-      - 'scripts/backfill_kb_history.py'
+      - 'scripts/build_buy_watchlist_master.py'
       - 'scripts/build_kb_value_sample.py'
+      - 'scripts/probe_kb_history_endpoint.py'
 
 permissions:
   contents: write
