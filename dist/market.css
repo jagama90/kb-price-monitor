@@ -183,3 +183,47 @@ header{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom
  min-height:142px!important;
  max-height:142px!important;
 }
+
+/* v94 visual refinement: KB-style clarity without copying brand assets */
+:root{--bg:#f4f5f7;--line:#e5e8ec;--text:#182330;--muted:#747d87;--blue:#3186df}
+body{letter-spacing:-.015em}
+header{height:76px;border-bottom:0;box-shadow:0 2px 12px #1322380a}
+main{max-width:1180px;padding-top:24px}
+.card{border-color:#e6e9ed;border-radius:22px;box-shadow:0 5px 18px #22354b0a}
+.hero{border-radius:24px!important;box-shadow:0 8px 28px #102b4714!important}
+.score-section-head h2,.section-head h2,.title h2{letter-spacing:-.035em}
+.score-grid{gap:12px}
+.score-component{border-radius:20px!important;transition:border-color .15s,box-shadow .15s,transform .15s}
+.score-component:hover{transform:translateY(-1px)}
+.score-component:active{transform:scale(.992)}
+.score-component>b{letter-spacing:-.04em}
+.component-state{font-weight:700}
+.condition-history{padding:26px 28px 22px}
+.condition-history .title{margin-bottom:6px}
+.condition-history .title h2{font-size:21px}
+.condition-history .title>span{font-size:12px}
+.condition-history-chart{margin-top:20px}
+.condition-grid{stroke:#e8ebef}
+.condition-line{stroke:#3186df;stroke-width:3.4}
+.condition-current-dot{stroke:#3186df}
+.snapshot{gap:12px}
+.snapshot .card{border-radius:20px!important;padding:22px!important}
+.snapshot .card>b{letter-spacing:-.04em}
+.score-explanation,.snapshot-explanation,.rate-detail,.macro-detail{border-left:5px solid #3186df!important;box-shadow:0 8px 28px #18334f0d!important}
+.close-rate{width:40px;height:40px;background:#f1f3f6;color:#707b89}
+.score-detail-rows>div{border-radius:16px!important;background:#f7f8fa!important;border-color:#e8ebef!important}
+@media(max-width:800px){
+ header{height:72px;padding:0 24px}.brand{gap:12px}.brand>span{font-size:29px}.brand b{font-size:19px}.brand small{font-size:9px}header>span{font-size:9px}
+ main{padding:18px 24px 34px}
+ .card{border-radius:20px}
+ .hero{padding:26px 24px!important;margin-top:4px!important}
+ .score-section{margin-top:28px}.score-section-head h2{font-size:20px}
+ .score-grid{gap:12px}
+ .score-grid>.score-component,.score-grid>.score-component.active,.score-grid>.score-component[aria-expanded="true"]{height:150px!important;min-height:150px!important;max-height:150px!important;padding:18px!important}
+ .score-grid>.score-component:last-child,.score-grid>.score-component:last-of-type,.score-grid>.score-component.active:last-child,.score-grid>.score-component.active:last-of-type{height:150px!important;min-height:150px!important;max-height:150px!important}
+ .score-component>span{font-size:12px!important}.score-component>b{font-size:28px!important}.score-component>small{font-size:10px!important}
+ .condition-history{padding:24px 26px 20px;margin-top:16px}.condition-history .title h2{font-size:21px}.condition-history-chart{margin-top:24px}
+ .snapshot{gap:12px;margin-top:16px}.snapshot .card{min-height:142px!important;padding:22px!important}.snapshot .card>span{font-size:12px}.snapshot .card>b{font-size:30px!important;margin-top:18px}
+ .score-explanation{padding:26px 28px!important}.score-explanation .title h2{font-size:22px!important}.score-rule{font-size:13px!important;line-height:1.65!important}
+ .score-detail-rows{gap:12px!important}.score-detail-rows>div{padding:20px!important;min-height:122px!important}.score-detail-rows b{font-size:22px!important}
+}
