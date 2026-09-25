@@ -24,6 +24,25 @@ def norm(r):
          'value':float(r['DTA_VAL']) if r.get('DTA_VAL') not in (None,'') else None,
          'statbl_id':r.get('STATBL_ID'),'cls_id':r.get('CLS_ID'),'cls_name':r.get('CLS_NM'),
          'itm_id':r.get('ITM_ID'),'itm_name':r.get('ITM_NM'),'unit':r.get('UI_NM')}
+def month_range(year,last_ym):
+ out=[]
+ for m in range(1,13):
+  ym=f'{year:04d}{m:02d}'
+  if ym<=last_ym: out.append(ym)
+ return out
+def fill_tail(key,statbl_id,cls_id,itm_id,series,last_ym):
+ by={x['ym']:x for x in series if x.get('ym')}
+ for ym in month_range(int(last_ym[:4]),last_ym):
+  if ym in by: continue
+  try:
+   raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':statbl_id,'DTACYCLE_CD':'MM','CLS_ID':cls_id,'ITM_ID':itm_id,'WRTTIME_IDTFR_ID':ym,'pIndex':1,'pSize':1000})
+   for x in rows(raw,'SttsApiTblData'):
+    z=norm(x)
+    if z.get('ym')==ym and z.get('value') is not None:
+     by[ym]=z;break
+  except Exception:
+   pass
+ return [by[k] for k in sorted(by)]
 def main():
  key=os.getenv('RONE_API_KEY','sample')
  today=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date(); end_year=str(today.year)
@@ -32,6 +51,7 @@ def main():
  price_params={'KEY':key,'Type':'json','STATBL_ID':'A_2024_00045','DTACYCLE_CD':'MM','CLS_ID':'500008','ITM_ID':'100001','START_WRTTIME':'2006','END_WRTTIME':end_year,'pIndex':1,'pSize':1000}
  price_raw=get('SttsApiTblData.do',price_params)
  price=[norm(x) for x in rows(price_raw,'SttsApiTblData') if norm(x)['ym']]
+ price=fill_tail(key,'A_2024_00045','500008','100001',price,prev_month)
  if not price:
   (R/'data_sources/reb_price_debug.json').write_text(json.dumps(price_raw,ensure_ascii=False,indent=2))
  # Discover valid Seoul CLS/ITM pairs for the transaction-status table from a single month.
@@ -45,6 +65,7 @@ def main():
  trade_params={'KEY':key,'Type':'json','STATBL_ID':'A_2024_00549','DTACYCLE_CD':'MM','CLS_ID':'500002','ITM_ID':'100001','START_WRTTIME':'2006','END_WRTTIME':end_year,'pIndex':1,'pSize':1000}
  trade_raw=get('SttsApiTblData.do',trade_params)
  trade=[norm(x) for x in rows(trade_raw,'SttsApiTblData') if norm(x)['ym']]
+ trade=fill_tail(key,'A_2024_00549','500002','100001',trade,prev_month)
  if not trade:
   (R/'data_sources/reb_trade_debug.json').write_text(json.dumps({'probe':trade_probe,'full_request':trade_raw,'seoul_candidates':trade_candidates},ensure_ascii=False,indent=2))
  catalog=get('SttsApiTbl.do',{'KEY':key,'Type':'json','pIndex':1,'pSize':1000})
