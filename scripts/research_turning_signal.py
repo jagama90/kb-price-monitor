@@ -44,12 +44,18 @@ def main():
   if mom < -2: price_turn=min(price_turn,20)
   elif mom < 0 and accel <= 0: price_turn=min(price_turn,35)
   elif mom >= 0: price_turn=max(price_turn,65)
-  turn=.45*turn+.55*price_turn
+  # Early-turn evidence: repeated sentiment improvement plus demand recovery can precede flat prices.
+  sent1=delta('sentiment',1); sent2=(rows[i-1]['components']['sentiment']-rows[i-2]['components']['sentiment']) if i>=2 else 0
+  dem3=delta('demand',3)
+  early=clamp(50 + 8*sent1 + 5*sent2 + 1.2*dem3 + 6*accel)
+  # During a still-severe monthly price fall, cap optimism; once deceleration and breadth agree, allow an earlier signal.
+  if mom < -4: early=min(early,25)
+  turn=.30*turn+.35*price_turn+.35*early
   # Opportunity requires both pain/valuation and a marginal turn; harmonic-style gate prevents one leg dominating.
   setup=.55*cheap+.45*distress
   opportunity=round((setup*turn)/100,1)
   outrows.append({'ym':r['ym'],'market_state':r['score'],'setup':round(setup,1),'turn':round(turn,1),'opportunity':opportunity,
-   'cheapness':round(cheap,1),'distress':round(distress,1),'price_turn':round(price_turn,1),'price_mom_pct':round(mom,2),'price_accel_pp':round(accel,2),'target_price':r['target_price'],
+   'cheapness':round(cheap,1),'distress':round(distress,1),'price_turn':round(price_turn,1),'price_mom_pct':round(mom,2),'price_accel_pp':round(accel,2),'early_turn':round(early,1),'target_price':r['target_price'],
    'fwd_1m_pct':r.get('fwd_1m_pct'),'fwd_3m_pct':r.get('fwd_3m_pct'),'fwd_6m_pct':r.get('fwd_6m_pct'),'fwd_12m_pct':r.get('fwd_12m_pct')})
  metrics={}
  for h in (1,3,6,12):
@@ -76,7 +82,7 @@ def main():
   metrics['mortgage_rate_level_vs_fwd_6m_corr']=corr([x['mortgage_rate_pct'] for x in paired],[x['fwd_6m_pct'] for x in paired])
   metrics['mortgage_rate_mom_bp_vs_fwd_6m_corr']=corr([x['mom_bp'] for x in paired],[x['fwd_6m_pct'] for x in paired])
  payload={'status':'research_only','production_formula_unchanged':True,'no_future_leakage':True,
-  'method':'setup = 55% cheapness + 45% sentiment distress; turn = 45% breadth turn + 55% price-decline-exhaustion gate; opportunity = setup * turn / 100',
+  'method':'setup = 55% cheapness + 45% sentiment distress; turn = 30% breadth + 35% price-decline-exhaustion + 35% early turn (sentiment persistence, demand recovery, price deceleration); opportunity = setup * turn / 100',
   'rows':outrows,'mortgage_rate_overlay':mort,'metrics':metrics,'component_dispersion':dispersion,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)); print(json.dumps(metrics,ensure_ascii=False))
 if __name__=='__main__': main()
