@@ -126,15 +126,6 @@ def get_page_price_record(complex_id,area_id):
         cursor=max(end,start+1)
     matches=[x for x in records if str(x.get('면적일련번호'))==str(area_id)]
     rec=max(matches,key=lambda x: sum(k in x for k in ('매매일반거래가','매매평균가','시세기준년월일'))) if matches else {}
-    text=htmlmod.unescape(re.sub(r'<[^>]+>',' ',rawhtml))
-    text=re.sub(r'\s+',' ',text)
-    sales=re.findall(r'KB시세 일반가\s*([0-9억, ]+)\s*(\d{2}\.\d{2}\.\d{2}).*?최근 실거래가\s*([0-9억, ]+)\s*(\d{2}\.\d{2}\.\d{2})/(\d+)층\s*매물평균가\s*([0-9억, ]+)',text,re.S)
-    if sales:
-        sale=max(sales,key=lambda z:z[1])
-        rec=dict(rec)
-        rec.update({'매매일반거래가':_kr_price_to_manwon(sale[0]),'시세기준년월일':'20'+sale[1].replace('.',''),
-                    '최근실거래가':_kr_price_to_manwon(sale[2]),'최근실거래일':'20'+sale[3].replace('.',''),
-                    '최근실거래층':int(sale[4]),'매물평균가':_kr_price_to_manwon(sale[5])})
     return rec
 
 def get_integration_chart(complex_id,area_id):
@@ -213,17 +204,23 @@ def main():
         for aid in aids:
             if not aid or (a.area_id and aid!=a.area_id): continue
             try:
-                # Price fields are embedded in the server-rendered KB complex page and are
-                # more stable from GitHub Actions than the session-sensitive propList API.
-                rec=get_page_price_record(cid,aid)
-                r={'lowest_ask_manwon':None,'avg_ask_manwon':rec.get('매물평균가'),'listing_count':0,'page_count':0,
-                   'kb_general_check_manwon':rec.get('매매일반거래가'),'kb_price_date':rec.get('시세기준년월일')}
+                typ=next((z for z in c.get('types',[]) if int(z.get('area_id') or 0)==int(aid)),{})
+                # Never copy the server page's default visible type into another area_id.
+                # Exact KB general price comes from the validated master snapshot.
+                r={'lowest_ask_manwon':None,'avg_ask_manwon':None,'listing_count':None,'page_count':None,
+                   'kb_general_check_manwon':typ.get('general_price_manwon'),'kb_price_date':typ.get('price_date')}
+                # Asking-price API is area-id scoped. Failure is non-fatal: downstream keeps last-good.
                 try:
-                    trade,trade_date=rec.get('최근실거래가'),rec.get('최근실거래일')
-                    if not trade:
-                        chart=get_integration_chart(cid,aid); trade,trade_date=latest_trade_from_chart(chart)
+                    ask=collect_one(c,aid,token)
+                    for k in ('lowest_ask_manwon','avg_ask_manwon','listing_count','page_count','building','floor','direction','listing_id','verified_date','registered_date','duplicate_count','supply_m2','exclusive_m2'):
+                        if ask.get(k) is not None:r[k]=ask.get(k)
+                except Exception as ae:
+                    warnings.append({'complex_id':cid,'area_id':aid,'kind':'asking_price_unavailable','error':str(ae)})
+                # Recent trade is read only from the exact area-id integration endpoint.
+                try:
+                    chart=get_integration_chart(cid,aid); trade,trade_date=latest_trade_from_chart(chart)
                 except Exception as ce:
-                    trade=trade_date=None; r['price_detail_error']=str(ce)
+                    trade=trade_date=None; warnings.append({'complex_id':cid,'area_id':aid,'kind':'recent_trade_unavailable','error':str(ce)})
                 r.update({'complex_id':cid,'area_id':aid,'name':c['user_name'],'recent_trade_manwon':trade,'recent_trade_date':trade_date,'collected_at':now()}); rows.append(r)
                 print(json.dumps(r,ensure_ascii=False),flush=True)
             except Exception as e:
