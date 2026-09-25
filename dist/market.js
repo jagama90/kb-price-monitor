@@ -11,21 +11,7 @@ async function loadMarketIndicators(){
   renderKbOfficial(d);
   renderConditionIndex(d);
   setupScoreDetails(d,window.__conditionComponents||{});
-  const lc=window.__conditionComponents||{};
-  // Section 3 is intentionally change-oriented: current levels already live in the five signal cards.
-  const hist=window.__conditionHistoryRows||[], prev=hist.length>1?hist[hist.length-2]:null;
-  const delta=(k,now)=>prev&&Number.isFinite(+prev[k])?now-(+prev[k]):null, fmt=v=>v==null?'추세 계산 대기':(v>0?'↑ +':v<0?'↓ ':'→ ')+v.toFixed(1);
-  const lead=(id,val,note)=>{const e=document.getElementById(id);if(e)e.textContent=val;const n=document.getElementById(id+'Note');if(n)n.textContent=note};
-  if(['finance','sentiment','supply','demand'].every(k=>Number.isFinite(lc[k]))){
-   const ds={finance:delta('finance',lc.finance),sentiment:delta('sentiment',lc.sentiment),supply:delta('supply',lc.supply),demand:delta('demand',lc.demand)};
-   lead('leadFinance',fmt(ds.finance),'직전 완료월 대비 변화');
-   lead('leadSentiment',fmt(ds.sentiment),'직전 완료월 대비 변화');
-   lead('leadJeonse',fmt(ds.supply),'직전 완료월 대비 변화');
-   lead('leadDemand',fmt(ds.demand),'직전 완료월 대비 변화');
-   const vv=Object.values(ds).filter(Number.isFinite),up=vv.filter(x=>x>0).length,down=vv.filter(x=>x<0).length,lv=document.getElementById('leadVerdict'),ln=document.getElementById('leadVerdictNote');
-   if(lv)lv.textContent=vv.length<3?'변화 이력을 연결하는 중':up>=3?'개선 신호가 여러 단계로 확산':down>=3?'여러 선행신호가 함께 약화':'개선과 약화가 엇갈리는 변곡 구간';
-   if(ln)ln.textContent=vv.length?('직전 완료월 대비 '+up+'개 개선 · '+down+'개 약화 · 현재 점수 자체는 위 5 SIGNALS에서 확인'):'현재 수준을 반복하지 않고 월간 변화만 표시합니다.';
-  }
+  renderLeadChanges();
   setupSnapshotEvidence(d);
   window.__marketIndicators=d;
   const updated=document.querySelector('#updated');if(updated&&/LOADING|DATA ERROR|관심단지 일부/.test(updated.textContent))updated.textContent='MARKET '+(d.updated_at||new Date().toLocaleDateString('ko-KR'));
@@ -174,7 +160,18 @@ async function renderGarakGeumho24A(){
 }
 renderGarakGeumho24A();
 
-async function renderConditionHistory(){
+async async function renderLeadChanges(){
+ const lc=window.__conditionComponents||{},hist=window.__conditionHistoryRows||[],prev=hist.length?hist[hist.length-1]:null;
+ const delta=(k,now)=>prev&&Number.isFinite(+prev[k])?now-(+prev[k]):null,fmt=v=>v==null?'이력 연결 중':(v>0?'↑ +':v<0?'↓ ':'→ ')+v.toFixed(1);
+ const lead=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val;const n=document.getElementById(id+'Note');if(n)n.textContent='최근 완료월 대비 현재 진행월'};
+ if(!['finance','sentiment','supply','demand'].every(k=>Number.isFinite(lc[k])))return;
+ const ds={finance:delta('finance',lc.finance),sentiment:delta('sentiment',lc.sentiment),supply:delta('supply',lc.supply),demand:delta('demand',lc.demand)};
+ lead('leadFinance',fmt(ds.finance));lead('leadSentiment',fmt(ds.sentiment));lead('leadJeonse',fmt(ds.supply));lead('leadDemand',fmt(ds.demand));
+ const vv=Object.values(ds).filter(Number.isFinite),up=vv.filter(x=>x>0).length,down=vv.filter(x=>x<0).length,lv=document.getElementById('leadVerdict'),ln=document.getElementById('leadVerdictNote');
+ if(lv)lv.textContent=vv.length<3?'변화 이력을 연결하는 중':up>=3?'개선 신호가 여러 단계로 확산':down>=3?'여러 선행신호가 함께 약화':'개선과 약화가 엇갈리는 변곡 구간';
+ if(ln)ln.textContent=vv.length?('최근 완료월 대비 현재 진행월: '+up+'개 개선 · '+down+'개 약화'):'현재 수준을 반복하지 않고 변화만 표시합니다.';
+}
+function renderConditionHistory(){
  const host=document.getElementById('conditionHistoryChart'),latestEl=document.getElementById('conditionHistoryLatest'),note=document.getElementById('conditionHistoryNote'),summary=document.getElementById('conditionHistorySummary'),controls=document.getElementById('conditionPeriods');if(!host)return;
  try{
   const r=await fetch('final_backtest.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);
@@ -196,7 +193,7 @@ async function renderConditionHistory(){
    summary.innerHTML='<b>현재 '+last.score+'점</b><span>'+rows.length+'개월 전 대비 '+(+delta>=0?'+':'')+delta+'점 · 기간 저점 '+low.score+' ('+low.ym.slice(2,4)+'.'+low.ym.slice(4)+') · 고점 '+peak.score+' ('+peak.ym.slice(2,4)+'.'+peak.ym.slice(4)+')</span>';
    note.textContent=rows.length+'개월 표시 · 점/선을 누르면 해당 월 수치 확인 · 주요 국지 고점·저점 표시';
   };
-  controls?.querySelectorAll('button').forEach(b=>b.onclick=()=>{controls.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');months=+b.dataset.months;draw()});draw();
+  controls?.querySelectorAll('button').forEach(b=>b.onclick=()=>{controls.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');months=+b.dataset.months;draw()});draw();renderLeadChanges();
  }catch(e){latestEl.textContent='인증 데이터 대기';host.innerHTML='<div class="chart-error">최종 인증 파일이 배포되면 자동으로 표시됩니다.</div>'}
 }
 renderConditionHistory();
