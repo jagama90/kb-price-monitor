@@ -153,7 +153,7 @@ async function renderConditionHistory(){
 }
 renderConditionHistory();
 
-async function renderCycleStage(){
+async function renderCycleStage(){ // validated staged-state UI
  const badge=document.getElementById('cycleStageBadge');if(!badge)return;
  try{const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
   let stage=0,label='관찰',text='뚜렷한 바닥 탐색 또는 가격전환 신호가 확인되지 않았습니다.';
