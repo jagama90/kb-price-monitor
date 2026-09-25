@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Collect KB lowest asking prices for configured buy-watchlist area IDs."""
-import argparse, datetime as dt, http.client, json, os, random, re, urllib.parse, urllib.request
+import argparse, datetime as dt, html as htmlmod, http.client, json, os, random, re, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -88,116 +88,51 @@ def payload_for(c,area_id,page):
 
 
 
+def _kr_price_to_manwon(s):
+    s=str(s).replace(',','').strip(); total=0
+    m=re.search(r'(\\d+)억',s)
+    if m: total+=int(m.group(1))*10000
+    tail=re.search(r'억\\s*(\\d+)',s)
+    if tail: total+=int(tail.group(1))
+    elif not m:
+        n=re.search(r'(\\d+)',s)
+        if n: total=int(n.group(1))
+    return total or None
+
 def get_page_price_record(complex_id,area_id):
     url=f'https://kbland.kr/se/c/{complex_id}'
     req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36','Referer':'https://kbland.kr/','Accept':'text/html'})
-    with urllib.request.urlopen(req,timeout=35) as r: html=r.read().decode('utf-8','replace')
-    marker=r'{\"단지기본일련번호\":'
+    with urllib.request.urlopen(req,timeout=35) as r: rawhtml=r.read().decode('utf-8','replace')
+    marker=r'{\\"단지기본일련번호\\":'
     records=[]; cursor=0
     while True:
-        start=html.find(marker,cursor)
+        start=rawhtml.find(marker,cursor)
         if start<0: break
         depth=0; end=start; esc=False
-        while end<len(html):
-            ch=html[end]
+        while end<len(rawhtml):
+            ch=rawhtml[end]
             if ch=='{' and not esc: depth+=1
             elif ch=='}' and not esc:
                 depth-=1
                 if depth==0: end+=1; break
-            esc=(ch=='\\' and not esc)
-            if ch!='\\': esc=False
+            esc=(ch=='\\\\' and not esc)
+            if ch!='\\\\': esc=False
             end+=1
-        raw=html[start:end].replace(r'\"','"')
+        raw=rawhtml[start:end].replace(r'\\"','"')
         try: records.append(json.loads(raw))
         except Exception: pass
         cursor=max(end,start+1)
     matches=[x for x in records if str(x.get('면적일련번호'))==str(area_id)]
-    if not matches: return {}
-    return max(matches,key=lambda x: sum(k in x for k in ('매매일반거래가','매매평균가','시세기준년월일')))
+    rec=max(matches,key=lambda x: sum(k in x for k in ('매매일반거래가','매매평균가','시세기준년월일'))) if matches else {}
+    # The public SSR page also contains the exact user-facing latest sale and listing average.
+    # Normalize its visible text and parse the first (sale) market block.
+    text=htmlmod.unescape(re.sub(r'<[^>]+>',' ',rawhtml))
+    text=re.sub(r'\\s+',' ',text)
+    sale=re.search(r'KB시세 일반가\\s*([0-9억, ]+)\\s*(\\d{2}\\.\\d{2}\\.\\d{2}).*?최근 실거래가\\s*([0-9억, ]+)\\s*(\\d{2}\\.\\d{2}\\.\\d{2})/(\\d+)층\\s*매물평균가\\s*([0-9억, ]+)',text,re.S)
+    if sale:
+        rec=dict(rec)
+        rec.update({'매매일반거래가':_kr_price_to_manwon(sale.group(1)),'시세기준년월일':'20'+sale.group(2).replace('.',''),
+                    '최근실거래가':_kr_price_to_manwon(sale.group(3)),'최근실거래일':'20'+sale.group(4).replace('.',''),
+                    '최근실거래층':int(sale.group(5)),'매물평균가':_kr_price_to_manwon(sale.group(6))})
+    return rec
 
-def get_integration_chart(complex_id,area_id):
-    q=urllib.parse.urlencode({'단지기본일련번호':complex_id,'면적일련번호':area_id})
-    req=urllib.request.Request('https://api.kbland.kr'+PRICE_PATH+'?'+q,headers={'User-Agent':'Mozilla/5.0','Accept':'application/json','Referer':f'https://kbland.kr/c/{complex_id}'})
-    with urllib.request.urlopen(req,timeout=25) as r:
-        body=json.loads(r.read())
-    return (body.get('dataBody') or {}).get('data') or {}
-
-def latest_trade_from_chart(data):
-    # KB integration payload schemas have changed; search recursively for the newest sale transaction.
-    found=[]
-    def walk(x):
-        if isinstance(x,dict):
-            date=x.get('거래일자') or x.get('계약일자') or x.get('거래년월일') or x.get('계약년월일')
-            price=x.get('거래금액') or x.get('매매거래가') or x.get('실거래가') or x.get('매매가')
-            if date and price:
-                try:
-                    p=int(str(price).replace(',','')); ds=re.sub(r'[^0-9]','',str(date))
-                    if p>0 and len(ds)>=6: found.append((ds,p))
-                except Exception: pass
-            for v in x.values(): walk(v)
-        elif isinstance(x,list):
-            for v in x: walk(v)
-    walk(data)
-    if not found:return (None,None)
-    ds,p=max(found,key=lambda z:z[0]);return (p,ds)
-
-def collect_one(c,area_id,token):
-    listings=[]; pages=1
-    for page in range(1,51):
-        data=post(payload_for(c,area_id,page),token)
-        pages=int(data.get('페이지개수') or pages or 1)
-        batch=data.get('propertyList') or []
-        listings.extend(batch)
-        if page>=pages or not batch: break
-    sale=[x for x in listings if str(x.get('매물거래구분'))=='1' and int(x.get('면적일련번호') or 0)==int(area_id) and x.get('매매가')]
-    if not sale: return {'lowest_ask_manwon':None,'avg_ask_manwon':None,'listing_count':0,'page_count':pages}
-    x=min(sale,key=lambda y:int(y['매매가']))
-    # KB listing rows already expose the asking prices used by KB's own listing-average display.
-    # Deduplicate by listing id before averaging when the same listing is repeated across pages.
-    uniq={str(y.get('매물일련번호') or i):y for i,y in enumerate(sale)}; prices=[int(y['매매가']) for y in uniq.values() if y.get('매매가')]
-    return {'lowest_ask_manwon':int(x['매매가']),'avg_ask_manwon':int(round(sum(prices)/len(prices))) if prices else None,'listing_count':int(x.get('totalCnt') or len(sale)),
-      'page_count':pages,'building':x.get('건물동명'),'floor':x.get('해당층수'),'direction':x.get('방향구분명'),
-      'listing_id':x.get('매물일련번호'),'verified_date':x.get('매물확인년월일'),'registered_date':x.get('등록년월일'),
-      'duplicate_count':x.get('중복개수'),'supply_m2':x.get('순공급면적'),'exclusive_m2':x.get('순전용면적')}
-
-def main():
-    ap=argparse.ArgumentParser(); ap.add_argument('--complex-id',type=int); ap.add_argument('--area-id',type=int); ap.add_argument('--publish',action='store_true')
-    a=ap.parse_args(); token=os.getenv('KB_AUTH_TOKEN')
-    master=json.loads((ROOT/'data/buy_watchlist_master.json').read_text(encoding='utf-8'))
-    targets=json.loads((ROOT/'data/buy_watchlist_targets.json').read_text(encoding='utf-8'))
-    cmap={x.get('complex_id'):x for x in master['items'] if x.get('complex_id')}
-    nmap={x.get('user_name'):x for x in master['items']}
-    rows=[]; errors=[]
-    for t in targets['items']:
-        c=cmap.get(t.get('complex_id')) or nmap.get(t.get('name'))
-        if not c or not c.get('complex_id'): continue
-        cid=c['complex_id']
-        if a.complex_id and cid!=a.complex_id: continue
-        aids=t.get('area_ids') or []
-        if not aids:
-            lo=t.get('min_pyeong'); hi=t.get('max_pyeong')
-            for typ in c.get('types',[]):
-                try: p=float(re.search(r'\d+(?:\.\d+)?',str(typ.get('type_label',''))).group())
-                except Exception: continue
-                if (lo is None or p>=float(lo)) and (hi is None or p<=float(hi)): aids.append(typ.get('area_id'))
-        for aid in aids:
-            if not aid or (a.area_id and aid!=a.area_id): continue
-            try:
-                # Price fields are embedded in the server-rendered KB complex page and are
-                # more stable from GitHub Actions than the session-sensitive propList API.
-                rec=get_page_price_record(cid,aid)
-                r={'lowest_ask_manwon':None,'avg_ask_manwon':rec.get('매매평균가'),'listing_count':0,'page_count':0,
-                   'kb_general_check_manwon':rec.get('매매일반거래가'),'kb_price_date':rec.get('시세기준년월일')}
-                try:
-                    chart=get_integration_chart(cid,aid); trade,trade_date=latest_trade_from_chart(chart)
-                except Exception as ce:
-                    trade=trade_date=None; r['price_detail_error']=str(ce)
-                r.update({'complex_id':cid,'area_id':aid,'name':c['user_name'],'recent_trade_manwon':trade,'recent_trade_date':trade_date,'collected_at':now()}); rows.append(r)
-                print(json.dumps(r,ensure_ascii=False),flush=True)
-            except Exception as e:
-                errors.append({'complex_id':cid,'area_id':aid,'error':str(e)}); print(errors[-1],flush=True)
-    snap={'schema_version':1,'source':'KB부동산 propList/main','collected_at':now(),'items':rows,'errors':errors}
-    atomic_json(ROOT/'data/listing_asks_probe.json',snap)
-    if a.publish and not errors: atomic_json(ROOT/'data/buy_watchlist_listings.json',snap)
-    return 2 if errors else 0
-if __name__=='__main__': raise SystemExit(main())
