@@ -153,15 +153,17 @@ async function renderConditionHistory(){
 }
 renderConditionHistory();
 
-async function renderCycleStage(){ // validated staged-state UI
+async function renderCycleStage(){ // plain-language market phase UI
  const badge=document.getElementById('cycleStageBadge');if(!badge)return;
  try{const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
-  let stage=0,label='관찰',text='뚜렷한 바닥 탐색 또는 가격전환 신호가 확인되지 않았습니다.';
-  if(x.bottom_zone){stage=1;label='바닥 탐색';text='정밀모델의 조기경보 구간입니다. 검증상 이 단계만으로는 진입 신호로 사용하지 않습니다.'}
-  if(x.price_mom_pct>=0&&x.momentum_3m_pct<=0){stage=2;label='가격전환 확인';text='하락 3개월 흐름 속 월간 가격이 비음수로 전환했습니다. 연구상 실제 진입 후보 역할을 한 단계입니다.'}
-  if(x.momentum_3m_pct>0){stage=3;label='회복 확인';text='3개월 가격 모멘텀이 양수로 전환된 회복 구간입니다.'}
-  if(x.momentum_zone){stage=4;label='재가속';text='가격 모멘텀과 시장 breadth가 함께 확인되는 재가속 구간입니다.'}
-  badge.textContent=label;document.getElementById('cycleStageText').textContent=text;document.getElementById('cycleStageEvidence').textContent='최근 연구월 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · opportunity '+x.opportunity+' · 3개월 모멘텀 '+x.momentum_3m_pct+'%';
+  let stage=0,label='하락 중',text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
+  if(x.bottom_zone){stage=1;label='하락 둔화';text='하락 압력이 약해지고 있습니다. 다만 아직 가격이 멈췄거나 상승세로 바뀌었다고 보기는 이릅니다.'}
+  if(x.price_mom_pct>=0&&x.momentum_3m_pct<=0){stage=2;label='하락 멈춤';text='최근 가격 하락이 멈췄습니다. 과거 검증에서는 이 시점부터 매수 타이밍을 살펴볼 가치가 높아졌습니다. 다만 아직 상승세가 확인된 것은 아닙니다.'}
+  if(x.momentum_3m_pct>0){stage=3;label='상승 확인';text='최근 3개월 가격 흐름이 상승으로 돌아섰습니다. 상승 흐름이 이어지는지 확인하는 단계입니다.'}
+  if(x.momentum_zone){stage=4;label='상승 가속';text='가격 상승과 시장 수요가 함께 강해지는 구간입니다.'}
+  badge.textContent=label;document.getElementById('cycleStageText').textContent=text;
+  const mom=Number(x.momentum_3m_pct),flow=mom>0?'상승 '+mom.toFixed(1)+'%':mom<0?'하락 '+Math.abs(mom).toFixed(1)+'%':'보합';
+  document.getElementById('cycleStageEvidence').textContent='최근 데이터 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow;
   document.querySelectorAll('#cycleSteps span').forEach((e,i)=>e.classList.toggle('active',i===stage));
- }catch(e){badge.textContent='연구 데이터 대기';document.getElementById('cycleStageText').textContent='검증 데이터가 갱신되면 자동 판독합니다.'}}
+ }catch(e){badge.textContent='데이터 확인 중';document.getElementById('cycleStageText').textContent='최신 가격 데이터를 확인하고 있습니다.'}}
 renderCycleStage();
