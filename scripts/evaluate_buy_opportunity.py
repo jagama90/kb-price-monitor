@@ -25,3 +25,4 @@ def main():
  OUT.write_text(json.dumps({'status':'research_only','purpose':'evaluate early buy-opportunity alert quality','rows':out,'stats':stats},ensure_ascii=False,indent=2))
  print(json.dumps(stats,ensure_ascii=False))
 # long-cycle readiness is independent and cheap; refresh it on every research run\ntry:\n import subprocess,sys\n subprocess.run([sys.executable,str(R/'scripts/build_long_cycle_readiness.py')],check=True)\nexcept Exception as e:\n print('long-cycle readiness refresh failed:',e)\nif __name__=='__main__':main()
+
