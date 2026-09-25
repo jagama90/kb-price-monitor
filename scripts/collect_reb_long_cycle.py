@@ -32,3 +32,4 @@ def main():
  print(json.dumps({'status':out['status'],'price_rows':len(price),'trade_rows':0,'blockers':out['blockers']},ensure_ascii=False))
 if __name__=='__main__':main()
 
+
