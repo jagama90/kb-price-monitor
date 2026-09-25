@@ -1,0 +1,15 @@
+{
+  "status": "research_seed",
+  "purpose": "Structured housing-policy events for regime research; political identity is not scored.",
+  "schema": {
+    "date": "YYYY-MM-DD",
+    "category": "credit|tax|transaction|supply|redevelopment|rental|other",
+    "direction": "demand_support|demand_restraint|supply_support|supply_restraint|mixed",
+    "intensity": "1..5",
+    "scope": "national|capital_region|seoul|district",
+    "announcement_or_effective": "announcement|effective",
+    "source": "official URL",
+    "note": "factual policy description"
+  },
+  "events": []
+}
