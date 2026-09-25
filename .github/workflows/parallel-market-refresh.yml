@@ -136,13 +136,15 @@ jobs:
         if: needs.molit.result == 'success'
         uses: actions/download-artifact@v4
         with:
-          name: source-molit-${{ github.run_id }}
+          pattern: source-molit-*
+          merge-multiple: true
           path: data_sources
       - name: Download ECOS artifact
         if: needs.ecos.result == 'success'
         uses: actions/download-artifact@v4
         with:
-          name: source-ecos-${{ github.run_id }}
+          pattern: source-ecos-*
+          merge-multiple: true
           path: data_sources
       - name: Compare MOLIT reporting vintages
         run: python3 scripts/compare_molit_vintages.py
@@ -150,7 +152,8 @@ jobs:
         if: needs.kb_sentiment.result == 'success'
         uses: actions/download-artifact@v4
         with:
-          name: source-kb-sentiment-${{ github.run_id }}
+          pattern: source-kb-sentiment-*
+          merge-multiple: true
           path: data_sources
       - name: Build connected KB value component
         run: |
