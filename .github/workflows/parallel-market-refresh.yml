@@ -122,14 +122,10 @@ jobs:
         with: {python-version: '3.11'}
       - name: Collect KB watchlist detail fields
         id: watchlist_collect
-        continue-on-error: true
         env:
           KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
           KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
         run: python3 scripts/collect_listings.py --publish
-      - name: Keep last-good KB detail snapshot on failure
-        if: steps.watchlist_collect.outcome == 'failure'
-        run: echo 'KB watchlist detail unavailable; dashboard keeps the last-good committed snapshot.'
       - uses: actions/upload-artifact@v4
         if: steps.watchlist_collect.outcome == 'success'
         with: {name: watchlist-details, path: data/buy_watchlist_listings.json}
