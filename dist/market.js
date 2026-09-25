@@ -162,7 +162,7 @@ renderGarakGeumho24A();
 
 async async function renderLeadChanges(){
  const lc=window.__conditionComponents||{},hist=window.__conditionHistoryRows||[],prev=hist.length?hist[hist.length-1]:null;
- const delta=(k,now)=>prev&&Number.isFinite(+prev[k])?now-(+prev[k]):null,fmt=v=>v==null?'이력 연결 중':(v>0?'↑ +':v<0?'↓ ':'→ ')+v.toFixed(1);
+ const delta=(k,now)=>prev&&Number.isFinite(+prev.components?.[k])?now-(+prev.components[k]):null,fmt=v=>v==null?'이력 연결 중':(v>0?'↑ +':v<0?'↓ ':'→ ')+v.toFixed(1);
  const lead=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val;const n=document.getElementById(id+'Note');if(n)n.textContent='최근 완료월 대비 현재 진행월'};
  if(!['finance','sentiment','supply','demand'].every(k=>Number.isFinite(lc[k])))return;
  const ds={finance:delta('finance',lc.finance),sentiment:delta('sentiment',lc.sentiment),supply:delta('supply',lc.supply),demand:delta('demand',lc.demand)};
