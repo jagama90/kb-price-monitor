@@ -20,16 +20,23 @@ async function loadMarketIndicators(){
 }
 const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
 function setupScoreDetails(d,components){
- const m=d.m2_official||d.m2,x=d.matched_period,s=d.kb_sentiment||{},v=d.kb_value||{},val=(z,n=1)=>z==null?'—':Number(z).toFixed(n),score=k=>components[k]==null?'—':Math.round(components[k])+'/100';
+ const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},titles={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
+ const m=d.m2_official||d.m2,x=d.matched_period,s=d.kb_sentiment||{},v=d.kb_value||{};
+ const val=(z,n=1)=>z==null?'—':Number(z).toFixed(n);
  const bodies={
- finance:'<p><b>현재 '+score('finance')+'</b> · M2 전월비 '+val(m?.mom_pct)+'% · 전년비 '+val(m?.yoy_pct)+'%</p><p><b>산식</b> 50 + M2 전월비×8 + M2 전년비×1.5, 0~100 제한</p><p class="score-guide">0~39 긴축·제약 · 40~59 중립 · 60~100 완화·개선</p>',
- sentiment:'<p><b>현재 '+score('sentiment')+'</b> · 매수우위 '+val(s.latest?.매수우위?.value)+' · 거래활발 '+val(s.latest?.매매거래활발?.value)+'</p><p><b>산식</b> KB 매수우위와 매매거래활발을 결합해 0~100으로 환산</p>',
- demand:'<p><b>현재 '+score('demand')+'</b> · 동일기간 거래 '+(x?.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 비중 '+(x?.changes?.under15_share_pp==null?'—':signed(x.changes.under15_share_pp,'%p'))+'</p><p><b>산식</b> 거래량 증감과 15억 이하 거래비중 변화를 결합</p>',
- value:'<p><b>현재 '+score('value')+'</b> · 현재 KB '+eok(v.current_manwon)+' · 36개월 저점 '+eok(v.window_low_manwon)+' · 고점 '+eok(v.window_high_manwon)+'</p><p><b>산식</b> 최근 36개월 가격 위치를 역산해 저점에 가까울수록 높은 점수</p>',
- supply:'<p><b>현재 '+score('supply')+'</b> · 전세수급 '+val(s.latest?.전세수급?.value)+' · 전세거래활발 '+val(s.latest?.전세거래활발?.value)+'</p><p><b>산식</b> KB 전세수급과 전세거래활발을 결합해 0~100으로 환산</p>'
+ finance:()=>'<p><b>현재 '+Math.round(components.finance)+'/100</b> · M2 전월비 '+val(m?.mom_pct)+'% · 전년비 '+val(m?.yoy_pct)+'%</p><p><b>산식</b> 50 + M2 전월비×8 + M2 전년비×1.5, 0~100 제한</p><p class="score-guide">0~39 긴축·제약 · 40~59 중립 · 60~100 완화·개선</p>',
+ sentiment:()=>'<p><b>현재 '+Math.round(components.sentiment)+'/100</b> · 매수우위 '+val(s.latest?.매수우위?.value)+' · 거래활발 '+val(s.latest?.매매거래활발?.value)+'</p><p><b>산식</b> KB 매수우위와 매매거래활발을 결합해 0~100으로 환산</p><p class="score-guide">KB 원지수 0~200 · 100이 균형 기준</p>',
+ demand:()=>'<p><b>현재 '+Math.round(components.demand)+'/100</b> · 동일기간 거래 '+(x?.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 비중 '+(x?.changes?.under15_share_pp==null?'—':signed(x.changes.under15_share_pp,'%p'))+'</p><p><b>산식</b> 50 + 거래량 증감×0.35 + 15억 이하 비중 변화×1.5</p><p class="score-guide">0~39 위축 · 40~59 중립 · 60~100 개선</p>',
+ value:()=>'<p><b>현재 '+Math.round(components.value)+'/100</b> · 현재 KB '+eok(v.current_manwon)+' · 36개월 저점 '+eok(v.window_low_manwon)+' · 고점 '+eok(v.window_high_manwon)+'</p><p><b>산식</b> 최근 36개월 가격 위치를 역산해 저점에 가까울수록 높은 점수</p><p class="score-guide">저점→75 · 중간→50 · 고점→25</p>',
+ supply:()=>'<p><b>현재 '+Math.round(components.supply)+'/100</b> · 전세수급 '+val(s.latest?.전세수급?.value)+' · 전세거래활발 '+val(s.latest?.전세거래활발?.value)+'</p><p><b>산식</b> KB 전세수급과 전세거래활발을 결합해 0~100으로 환산</p><p class="score-guide">KB 원지수 0~200 · 100이 균형 기준</p>'
  };
- const ids={finance:'scoreDetailFinance',sentiment:'scoreDetailSentiment',demand:'scoreDetailDemand',value:'scoreDetailValue',supply:'scoreDetailSupply'};
- Object.entries(ids).forEach(([k,id])=>{const el=document.getElementById(id);if(el)el.innerHTML=bodies[k]});
+ const panel=document.getElementById('scoreExplanation');if(!panel)return;
+ const open=k=>{if(components[k]==null)return;setText('scoreExplainTitle',titles[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');document.getElementById('scoreExplainBody').innerHTML=bodies[k]();panel.hidden=false;
+ const card=document.querySelector('[data-score="'+k+'"]'),grid=document.querySelector('.score-grid');
+ if(card&&grid){const cards=[...grid.querySelectorAll('[data-score]')],idx=cards.indexOf(card),cols=matchMedia('(max-width:800px)').matches?2:5,end=Math.min(cards.length-1,Math.floor(idx/cols)*cols+cols-1);cards[end].after(panel)}
+ document.querySelectorAll('[data-score]').forEach(z=>z.classList.toggle('active',z.dataset.score===k));panel.scrollIntoView({behavior:'smooth',block:'nearest'})};
+ document.querySelectorAll('[data-score]').forEach(card=>{card.onclick=()=>open(card.dataset.score);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card.dataset.score)}}});
+ document.getElementById('closeScoreExplain')?.addEventListener('click',()=>{panel.hidden=true;document.querySelectorAll('[data-score]').forEach(z=>z.classList.remove('active'))});
 }
 function setupSnapshotEvidence(d){
  const x=d.matched_period;
@@ -89,7 +96,6 @@ function renderConditionIndex(d){
  document.getElementById('nextSignals').innerHTML=next.slice(0,4).map((x,i)=>'<span><b>'+(i+1)+'</b>'+esc(x)+'</span>').join('');
  setTimeout(renderConditionHistory,0);
 }
-
 loadMarketIndicators();
 const BASE_RATES=[{d:'2016-06-09',v:1.25},{d:'2017-11-30',v:1.50},{d:'2018-11-30',v:1.75},{d:'2019-07-18',v:1.50},{d:'2019-10-16',v:1.25},{d:'2020-03-17',v:.75},{d:'2020-05-28',v:.50},{d:'2021-08-26',v:.75},{d:'2021-11-25',v:1.00},{d:'2022-01-14',v:1.25},{d:'2022-04-14',v:1.50},{d:'2022-05-26',v:1.75},{d:'2022-07-13',v:2.25},{d:'2022-08-25',v:2.50},{d:'2022-10-12',v:3.00},{d:'2022-11-24',v:3.25},{d:'2023-01-13',v:3.50},{d:'2024-10-11',v:3.25},{d:'2024-11-28',v:3.00},{d:'2025-02-25',v:2.75},{d:'2025-05-29',v:2.50},{d:'2026-07-16',v:2.75},{d:'2026-08-27',v:3.00}];
 let RATE_PAGE=0,MACRO_PAGE=0;
