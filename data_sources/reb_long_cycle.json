@@ -3,7 +3,7 @@
   "source": "한국부동산원 R-ONE",
   "target_start": "2006-01",
   "price_contract": {
-    "statbl_id": "A_2024_00034",
+    "statbl_id": "A_2024_00045",
     "cls_id": "500008",
     "itm_id": "100001"
   },
@@ -11103,5 +11103,5 @@
     ]
   },
   "blockers": [],
-  "collected_at": "2026-09-25T17:48:24.634655+00:00"
+  "collected_at": "2026-09-25T17:50:16.572756+00:00"
 }
