@@ -125,7 +125,7 @@ jobs:
   aggregate:
     name: E · Aggregate and validate
     if: always()
-    needs: [molit, ecos, kb_sentiment]
+    needs: [molit, ecos, kb_sentiment, watchlist_details]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -155,6 +155,13 @@ jobs:
           pattern: source-kb-sentiment-*
           merge-multiple: true
           path: data_sources
+      - name: Download KB watchlist detail artifact
+        if: needs.watchlist_details.result == 'success'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: watchlist-details
+          path: data
       - name: Build connected KB value component
         run: |
           python3 scripts/collect_garak_geumho_24a.py
@@ -178,12 +185,16 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p /tmp/market-refresh
           cp dist/market_indicators.json /tmp/market-refresh/
+          [ -f data/buy_watchlist_listings.json ] && cp data/buy_watchlist_listings.json /tmp/market-refresh/
+          [ -f data/buy_watchlist_market.json ] && cp data/buy_watchlist_market.json /tmp/market-refresh/
           for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json data_sources/ecos_mortgage_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json; do
             [ -f "$f" ] && cp "$f" /tmp/market-refresh/$(basename "$f")
           done
           git reset --hard
           git pull --rebase origin main
           cp /tmp/market-refresh/market_indicators.json dist/market_indicators.json
+          [ -f /tmp/market-refresh/buy_watchlist_listings.json ] && cp /tmp/market-refresh/buy_watchlist_listings.json data/buy_watchlist_listings.json
+          [ -f /tmp/market-refresh/buy_watchlist_market.json ] && cp /tmp/market-refresh/buy_watchlist_market.json data/buy_watchlist_market.json
           [ -f /tmp/market-refresh/m2_history.json ] && cp /tmp/market-refresh/m2_history.json dist/m2_history.json
           [ -f /tmp/market-refresh/condition_index_history.json ] && cp /tmp/market-refresh/condition_index_history.json dist/condition_index_history.json
           [ -f /tmp/market-refresh/index_audit.json ] && cp /tmp/market-refresh/index_audit.json dist/index_audit.json
