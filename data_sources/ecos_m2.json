@@ -15,76 +15,868 @@
   ],
   "series": [
     {
-      "period": "201601",
-      "value": 2112089.3,
+      "period": "200501",
+      "value": 902992.8,
       "mom_pct": null,
       "yoy_pct": null
+    },
+    {
+      "period": "200502",
+      "value": 910391.0,
+      "mom_pct": 0.82,
+      "yoy_pct": null
+    },
+    {
+      "period": "200503",
+      "value": 922942.5,
+      "mom_pct": 1.38,
+      "yoy_pct": null
+    },
+    {
+      "period": "200504",
+      "value": 930989.1,
+      "mom_pct": 0.87,
+      "yoy_pct": null
+    },
+    {
+      "period": "200505",
+      "value": 933697.1,
+      "mom_pct": 0.29,
+      "yoy_pct": null
+    },
+    {
+      "period": "200506",
+      "value": 939150.7,
+      "mom_pct": 0.58,
+      "yoy_pct": null
+    },
+    {
+      "period": "200507",
+      "value": 948372.8,
+      "mom_pct": 0.98,
+      "yoy_pct": null
+    },
+    {
+      "period": "200508",
+      "value": 960979.0,
+      "mom_pct": 1.33,
+      "yoy_pct": null
+    },
+    {
+      "period": "200509",
+      "value": 957486.9,
+      "mom_pct": -0.36,
+      "yoy_pct": null
+    },
+    {
+      "period": "200510",
+      "value": 957390.9,
+      "mom_pct": -0.01,
+      "yoy_pct": null
+    },
+    {
+      "period": "200511",
+      "value": 955328.2,
+      "mom_pct": -0.22,
+      "yoy_pct": null
+    },
+    {
+      "period": "200512",
+      "value": 960235.2,
+      "mom_pct": 0.51,
+      "yoy_pct": null
+    },
+    {
+      "period": "200601",
+      "value": 957326.7,
+      "mom_pct": -0.3,
+      "yoy_pct": 6.02
+    },
+    {
+      "period": "200602",
+      "value": 961576.6,
+      "mom_pct": 0.44,
+      "yoy_pct": 5.62
+    },
+    {
+      "period": "200603",
+      "value": 965391.3,
+      "mom_pct": 0.4,
+      "yoy_pct": 4.6
+    },
+    {
+      "period": "200604",
+      "value": 971394.3,
+      "mom_pct": 0.62,
+      "yoy_pct": 4.34
+    },
+    {
+      "period": "200605",
+      "value": 977381.9,
+      "mom_pct": 0.62,
+      "yoy_pct": 4.68
+    },
+    {
+      "period": "200606",
+      "value": 987668.5,
+      "mom_pct": 1.05,
+      "yoy_pct": 5.17
+    },
+    {
+      "period": "200607",
+      "value": 991033.5,
+      "mom_pct": 0.34,
+      "yoy_pct": 4.5
+    },
+    {
+      "period": "200608",
+      "value": 998024.7,
+      "mom_pct": 0.71,
+      "yoy_pct": 3.85
+    },
+    {
+      "period": "200609",
+      "value": 1011962.9,
+      "mom_pct": 1.4,
+      "yoy_pct": 5.69
+    },
+    {
+      "period": "200610",
+      "value": 1023316.4,
+      "mom_pct": 1.12,
+      "yoy_pct": 6.89
+    },
+    {
+      "period": "200611",
+      "value": 1030437.4,
+      "mom_pct": 0.7,
+      "yoy_pct": 7.86
+    },
+    {
+      "period": "200612",
+      "value": 1041540.1,
+      "mom_pct": 1.08,
+      "yoy_pct": 8.47
+    },
+    {
+      "period": "200701",
+      "value": 1049517.4,
+      "mom_pct": 0.77,
+      "yoy_pct": 9.63
+    },
+    {
+      "period": "200702",
+      "value": 1057158.9,
+      "mom_pct": 0.73,
+      "yoy_pct": 9.94
+    },
+    {
+      "period": "200703",
+      "value": 1059549.0,
+      "mom_pct": 0.23,
+      "yoy_pct": 9.75
+    },
+    {
+      "period": "200704",
+      "value": 1063156.2,
+      "mom_pct": 0.34,
+      "yoy_pct": 9.45
+    },
+    {
+      "period": "200705",
+      "value": 1064962.8,
+      "mom_pct": 0.17,
+      "yoy_pct": 8.96
+    },
+    {
+      "period": "200706",
+      "value": 1075534.2,
+      "mom_pct": 0.99,
+      "yoy_pct": 8.9
+    },
+    {
+      "period": "200707",
+      "value": 1077650.1,
+      "mom_pct": 0.2,
+      "yoy_pct": 8.74
+    },
+    {
+      "period": "200708",
+      "value": 1082976.6,
+      "mom_pct": 0.49,
+      "yoy_pct": 8.51
+    },
+    {
+      "period": "200709",
+      "value": 1087170.4,
+      "mom_pct": 0.39,
+      "yoy_pct": 7.43
+    },
+    {
+      "period": "200710",
+      "value": 1088167.2,
+      "mom_pct": 0.09,
+      "yoy_pct": 6.34
+    },
+    {
+      "period": "200711",
+      "value": 1089973.1,
+      "mom_pct": 0.17,
+      "yoy_pct": 5.78
+    },
+    {
+      "period": "200712",
+      "value": 1097590.8,
+      "mom_pct": 0.7,
+      "yoy_pct": 5.38
+    },
+    {
+      "period": "200801",
+      "value": 1105916.8,
+      "mom_pct": 0.76,
+      "yoy_pct": 5.37
+    },
+    {
+      "period": "200802",
+      "value": 1117083.7,
+      "mom_pct": 1.01,
+      "yoy_pct": 5.67
+    },
+    {
+      "period": "200803",
+      "value": 1128670.7,
+      "mom_pct": 1.04,
+      "yoy_pct": 6.52
+    },
+    {
+      "period": "200804",
+      "value": 1143956.6,
+      "mom_pct": 1.35,
+      "yoy_pct": 7.6
+    },
+    {
+      "period": "200805",
+      "value": 1159581.9,
+      "mom_pct": 1.37,
+      "yoy_pct": 8.88
+    },
+    {
+      "period": "200806",
+      "value": 1175866.9,
+      "mom_pct": 1.4,
+      "yoy_pct": 9.33
+    },
+    {
+      "period": "200807",
+      "value": 1190474.9,
+      "mom_pct": 1.24,
+      "yoy_pct": 10.47
+    },
+    {
+      "period": "200808",
+      "value": 1198210.2,
+      "mom_pct": 0.65,
+      "yoy_pct": 10.64
+    },
+    {
+      "period": "200809",
+      "value": 1208134.1,
+      "mom_pct": 0.83,
+      "yoy_pct": 11.13
+    },
+    {
+      "period": "200810",
+      "value": 1237588.2,
+      "mom_pct": 2.44,
+      "yoy_pct": 13.73
+    },
+    {
+      "period": "200811",
+      "value": 1263562.7,
+      "mom_pct": 2.1,
+      "yoy_pct": 15.93
+    },
+    {
+      "period": "200812",
+      "value": 1286922.8,
+      "mom_pct": 1.85,
+      "yoy_pct": 17.25
+    },
+    {
+      "period": "200901",
+      "value": 1292462.7,
+      "mom_pct": 0.43,
+      "yoy_pct": 16.87
+    },
+    {
+      "period": "200902",
+      "value": 1303385.4,
+      "mom_pct": 0.85,
+      "yoy_pct": 16.68
+    },
+    {
+      "period": "200903",
+      "value": 1315293.5,
+      "mom_pct": 0.91,
+      "yoy_pct": 16.53
+    },
+    {
+      "period": "200904",
+      "value": 1329910.7,
+      "mom_pct": 1.11,
+      "yoy_pct": 16.26
+    },
+    {
+      "period": "200905",
+      "value": 1336604.2,
+      "mom_pct": 0.5,
+      "yoy_pct": 15.27
+    },
+    {
+      "period": "200906",
+      "value": 1339126.0,
+      "mom_pct": 0.19,
+      "yoy_pct": 13.88
+    },
+    {
+      "period": "200907",
+      "value": 1350651.5,
+      "mom_pct": 0.86,
+      "yoy_pct": 13.45
+    },
+    {
+      "period": "200908",
+      "value": 1380776.9,
+      "mom_pct": 2.23,
+      "yoy_pct": 15.24
+    },
+    {
+      "period": "200909",
+      "value": 1384414.2,
+      "mom_pct": 0.26,
+      "yoy_pct": 14.59
+    },
+    {
+      "period": "200910",
+      "value": 1394094.4,
+      "mom_pct": 0.7,
+      "yoy_pct": 12.65
+    },
+    {
+      "period": "200911",
+      "value": 1400475.5,
+      "mom_pct": 0.46,
+      "yoy_pct": 10.84
+    },
+    {
+      "period": "200912",
+      "value": 1399323.9,
+      "mom_pct": -0.08,
+      "yoy_pct": 8.73
+    },
+    {
+      "period": "201001",
+      "value": 1406577.5,
+      "mom_pct": 0.52,
+      "yoy_pct": 8.83
+    },
+    {
+      "period": "201002",
+      "value": 1425069.1,
+      "mom_pct": 1.31,
+      "yoy_pct": 9.34
+    },
+    {
+      "period": "201003",
+      "value": 1435032.5,
+      "mom_pct": 0.7,
+      "yoy_pct": 9.1
+    },
+    {
+      "period": "201004",
+      "value": 1448987.9,
+      "mom_pct": 0.97,
+      "yoy_pct": 8.95
+    },
+    {
+      "period": "201005",
+      "value": 1456909.3,
+      "mom_pct": 0.55,
+      "yoy_pct": 9.0
+    },
+    {
+      "period": "201006",
+      "value": 1466581.2,
+      "mom_pct": 0.66,
+      "yoy_pct": 9.52
+    },
+    {
+      "period": "201007",
+      "value": 1482417.4,
+      "mom_pct": 1.08,
+      "yoy_pct": 9.76
+    },
+    {
+      "period": "201008",
+      "value": 1488033.3,
+      "mom_pct": 0.38,
+      "yoy_pct": 7.77
+    },
+    {
+      "period": "201009",
+      "value": 1495141.5,
+      "mom_pct": 0.48,
+      "yoy_pct": 8.0
+    },
+    {
+      "period": "201010",
+      "value": 1498033.9,
+      "mom_pct": 0.19,
+      "yoy_pct": 7.46
+    },
+    {
+      "period": "201011",
+      "value": 1506545.1,
+      "mom_pct": 0.57,
+      "yoy_pct": 7.57
+    },
+    {
+      "period": "201012",
+      "value": 1516914.0,
+      "mom_pct": 0.69,
+      "yoy_pct": 8.4
+    },
+    {
+      "period": "201101",
+      "value": 1520642.1,
+      "mom_pct": 0.25,
+      "yoy_pct": 8.11
+    },
+    {
+      "period": "201102",
+      "value": 1521655.1,
+      "mom_pct": 0.07,
+      "yoy_pct": 6.78
+    },
+    {
+      "period": "201103",
+      "value": 1530223.2,
+      "mom_pct": 0.56,
+      "yoy_pct": 6.63
+    },
+    {
+      "period": "201104",
+      "value": 1539009.1,
+      "mom_pct": 0.57,
+      "yoy_pct": 6.21
+    },
+    {
+      "period": "201105",
+      "value": 1547725.2,
+      "mom_pct": 0.57,
+      "yoy_pct": 6.23
+    },
+    {
+      "period": "201106",
+      "value": 1550022.4,
+      "mom_pct": 0.15,
+      "yoy_pct": 5.69
+    },
+    {
+      "period": "201107",
+      "value": 1555990.0,
+      "mom_pct": 0.39,
+      "yoy_pct": 4.96
+    },
+    {
+      "period": "201108",
+      "value": 1571378.8,
+      "mom_pct": 0.99,
+      "yoy_pct": 5.6
+    },
+    {
+      "period": "201109",
+      "value": 1579257.0,
+      "mom_pct": 0.5,
+      "yoy_pct": 5.63
+    },
+    {
+      "period": "201110",
+      "value": 1597926.7,
+      "mom_pct": 1.18,
+      "yoy_pct": 6.67
+    },
+    {
+      "period": "201111",
+      "value": 1603013.1,
+      "mom_pct": 0.32,
+      "yoy_pct": 6.4
+    },
+    {
+      "period": "201112",
+      "value": 1599168.0,
+      "mom_pct": -0.24,
+      "yoy_pct": 5.42
+    },
+    {
+      "period": "201201",
+      "value": 1603967.0,
+      "mom_pct": 0.3,
+      "yoy_pct": 5.48
+    },
+    {
+      "period": "201202",
+      "value": 1612098.2,
+      "mom_pct": 0.51,
+      "yoy_pct": 5.94
+    },
+    {
+      "period": "201203",
+      "value": 1618320.7,
+      "mom_pct": 0.39,
+      "yoy_pct": 5.76
+    },
+    {
+      "period": "201204",
+      "value": 1629427.9,
+      "mom_pct": 0.69,
+      "yoy_pct": 5.88
+    },
+    {
+      "period": "201205",
+      "value": 1633889.0,
+      "mom_pct": 0.27,
+      "yoy_pct": 5.57
+    },
+    {
+      "period": "201206",
+      "value": 1647303.9,
+      "mom_pct": 0.82,
+      "yoy_pct": 6.28
+    },
+    {
+      "period": "201207",
+      "value": 1655328.1,
+      "mom_pct": 0.49,
+      "yoy_pct": 6.38
+    },
+    {
+      "period": "201208",
+      "value": 1665020.0,
+      "mom_pct": 0.59,
+      "yoy_pct": 5.96
+    },
+    {
+      "period": "201209",
+      "value": 1665281.6,
+      "mom_pct": 0.02,
+      "yoy_pct": 5.45
+    },
+    {
+      "period": "201210",
+      "value": 1676747.9,
+      "mom_pct": 0.69,
+      "yoy_pct": 4.93
+    },
+    {
+      "period": "201211",
+      "value": 1675811.9,
+      "mom_pct": -0.06,
+      "yoy_pct": 4.54
+    },
+    {
+      "period": "201212",
+      "value": 1686156.0,
+      "mom_pct": 0.62,
+      "yoy_pct": 5.44
+    },
+    {
+      "period": "201301",
+      "value": 1698131.6,
+      "mom_pct": 0.71,
+      "yoy_pct": 5.87
+    },
+    {
+      "period": "201302",
+      "value": 1711076.9,
+      "mom_pct": 0.76,
+      "yoy_pct": 6.14
+    },
+    {
+      "period": "201303",
+      "value": 1718308.7,
+      "mom_pct": 0.42,
+      "yoy_pct": 6.18
+    },
+    {
+      "period": "201304",
+      "value": 1717442.2,
+      "mom_pct": -0.05,
+      "yoy_pct": 5.4
+    },
+    {
+      "period": "201305",
+      "value": 1723903.5,
+      "mom_pct": 0.38,
+      "yoy_pct": 5.51
+    },
+    {
+      "period": "201306",
+      "value": 1735168.6,
+      "mom_pct": 0.65,
+      "yoy_pct": 5.33
+    },
+    {
+      "period": "201307",
+      "value": 1733115.5,
+      "mom_pct": -0.12,
+      "yoy_pct": 4.7
+    },
+    {
+      "period": "201308",
+      "value": 1739717.8,
+      "mom_pct": 0.38,
+      "yoy_pct": 4.49
+    },
+    {
+      "period": "201309",
+      "value": 1761110.1,
+      "mom_pct": 1.23,
+      "yoy_pct": 5.75
+    },
+    {
+      "period": "201310",
+      "value": 1767779.4,
+      "mom_pct": 0.38,
+      "yoy_pct": 5.43
+    },
+    {
+      "period": "201311",
+      "value": 1782729.9,
+      "mom_pct": 0.85,
+      "yoy_pct": 6.38
+    },
+    {
+      "period": "201312",
+      "value": 1795257.0,
+      "mom_pct": 0.7,
+      "yoy_pct": 6.47
+    },
+    {
+      "period": "201401",
+      "value": 1799846.9,
+      "mom_pct": 0.26,
+      "yoy_pct": 5.99
+    },
+    {
+      "period": "201402",
+      "value": 1814781.0,
+      "mom_pct": 0.83,
+      "yoy_pct": 6.06
+    },
+    {
+      "period": "201403",
+      "value": 1826090.4,
+      "mom_pct": 0.62,
+      "yoy_pct": 6.27
+    },
+    {
+      "period": "201404",
+      "value": 1830800.0,
+      "mom_pct": 0.26,
+      "yoy_pct": 6.6
+    },
+    {
+      "period": "201405",
+      "value": 1847499.7,
+      "mom_pct": 0.91,
+      "yoy_pct": 7.17
+    },
+    {
+      "period": "201406",
+      "value": 1858233.6,
+      "mom_pct": 0.58,
+      "yoy_pct": 7.09
+    },
+    {
+      "period": "201407",
+      "value": 1869730.2,
+      "mom_pct": 0.62,
+      "yoy_pct": 7.88
+    },
+    {
+      "period": "201408",
+      "value": 1891814.7,
+      "mom_pct": 1.18,
+      "yoy_pct": 8.74
+    },
+    {
+      "period": "201409",
+      "value": 1901679.4,
+      "mom_pct": 0.52,
+      "yoy_pct": 7.98
+    },
+    {
+      "period": "201410",
+      "value": 1912477.6,
+      "mom_pct": 0.57,
+      "yoy_pct": 8.19
+    },
+    {
+      "period": "201411",
+      "value": 1935697.0,
+      "mom_pct": 1.21,
+      "yoy_pct": 8.58
+    },
+    {
+      "period": "201412",
+      "value": 1946213.6,
+      "mom_pct": 0.54,
+      "yoy_pct": 8.41
+    },
+    {
+      "period": "201501",
+      "value": 1949424.5,
+      "mom_pct": 0.16,
+      "yoy_pct": 8.31
+    },
+    {
+      "period": "201502",
+      "value": 1966543.7,
+      "mom_pct": 0.88,
+      "yoy_pct": 8.36
+    },
+    {
+      "period": "201503",
+      "value": 1983317.2,
+      "mom_pct": 0.85,
+      "yoy_pct": 8.61
+    },
+    {
+      "period": "201504",
+      "value": 2006484.3,
+      "mom_pct": 1.17,
+      "yoy_pct": 9.6
+    },
+    {
+      "period": "201505",
+      "value": 2018864.2,
+      "mom_pct": 0.62,
+      "yoy_pct": 9.28
+    },
+    {
+      "period": "201506",
+      "value": 2028091.1,
+      "mom_pct": 0.46,
+      "yoy_pct": 9.14
+    },
+    {
+      "period": "201507",
+      "value": 2046768.0,
+      "mom_pct": 0.92,
+      "yoy_pct": 9.47
+    },
+    {
+      "period": "201508",
+      "value": 2058804.8,
+      "mom_pct": 0.59,
+      "yoy_pct": 8.83
+    },
+    {
+      "period": "201509",
+      "value": 2069757.1,
+      "mom_pct": 0.53,
+      "yoy_pct": 8.84
+    },
+    {
+      "period": "201510",
+      "value": 2076050.9,
+      "mom_pct": 0.3,
+      "yoy_pct": 8.55
+    },
+    {
+      "period": "201511",
+      "value": 2084185.5,
+      "mom_pct": 0.39,
+      "yoy_pct": 7.67
+    },
+    {
+      "period": "201512",
+      "value": 2094647.7,
+      "mom_pct": 0.5,
+      "yoy_pct": 7.63
+    },
+    {
+      "period": "201601",
+      "value": 2112089.3,
+      "mom_pct": 0.83,
+      "yoy_pct": 8.34
     },
     {
       "period": "201602",
       "value": 2129784.1,
       "mom_pct": 0.84,
-      "yoy_pct": null
+      "yoy_pct": 8.3
     },
     {
       "period": "201603",
       "value": 2136613.8,
       "mom_pct": 0.32,
-      "yoy_pct": null
+      "yoy_pct": 7.73
     },
     {
       "period": "201604",
       "value": 2145385.9,
       "mom_pct": 0.41,
-      "yoy_pct": null
+      "yoy_pct": 6.92
     },
     {
       "period": "201605",
       "value": 2163643.3,
       "mom_pct": 0.85,
-      "yoy_pct": null
+      "yoy_pct": 7.17
     },
     {
       "period": "201606",
       "value": 2178064.5,
       "mom_pct": 0.67,
-      "yoy_pct": null
+      "yoy_pct": 7.39
     },
     {
       "period": "201607",
       "value": 2193889.4,
       "mom_pct": 0.73,
-      "yoy_pct": null
+      "yoy_pct": 7.19
     },
     {
       "period": "201608",
       "value": 2212930.6,
       "mom_pct": 0.87,
-      "yoy_pct": null
+      "yoy_pct": 7.49
     },
     {
       "period": "201609",
       "value": 2215033.9,
       "mom_pct": 0.1,
-      "yoy_pct": null
+      "yoy_pct": 7.02
     },
     {
       "period": "201610",
       "value": 2232353.3,
       "mom_pct": 0.78,
-      "yoy_pct": null
+      "yoy_pct": 7.53
     },
     {
       "period": "201611",
       "value": 2255845.8,
       "mom_pct": 1.05,
-      "yoy_pct": null
+      "yoy_pct": 8.24
     },
     {
       "period": "201612",
       "value": 2265136.6,
       "mom_pct": 0.41,
-      "yoy_pct": null
+      "yoy_pct": 8.14
     },
     {
       "period": "201701",
@@ -778,6 +1570,6 @@
     }
   ],
   "candidate_item_count": 2,
-  "raw_row_count": 1397,
-  "collected_at": "2026-09-25T12:05:26.945180+00:00"
+  "raw_row_count": 2849,
+  "collected_at": "2026-09-25T16:53:08.562163+00:00"
 }

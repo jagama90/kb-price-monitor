@@ -131,6 +131,72 @@
         },
         "under15_share": 81.8
       }
+    },
+    {
+      "as_of": "2026-09-26",
+      "matched_period": {
+        "as_of": "2026-09-26",
+        "cutoff_day": 26,
+        "basis": "contract_date_equal_calendar_days",
+        "current": {
+          "period": "2026-09",
+          "range": "1~26일",
+          "total": 1363,
+          "counts": {
+            "<=9eok": 823,
+            "9-15eok": 292,
+            "15-25eok": 179,
+            "25eok+": 69
+          },
+          "boundary_counts": {
+            "13-15eok": 62,
+            "15-17eok": 59,
+            "23-25eok": 16,
+            "25-27eok": 6
+          },
+          "under15_share": 81.8
+        },
+        "previous": {
+          "period": "2026-08",
+          "range": "1~26일",
+          "total": 2977,
+          "counts": {
+            "<=9eok": 1523,
+            "9-15eok": 841,
+            "15-25eok": 450,
+            "25eok+": 163
+          },
+          "boundary_counts": {
+            "13-15eok": 215,
+            "15-17eok": 157,
+            "23-25eok": 47,
+            "25-27eok": 26
+          },
+          "under15_share": 79.4
+        },
+        "changes": {
+          "trade_count_pct": -54.2,
+          "under15_share_pp": 2.4
+        },
+        "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+      },
+      "current_month": {
+        "period": "2026-09",
+        "total": 1363,
+        "counts": {
+          "<=9eok": 823,
+          "9-15eok": 292,
+          "15-25eok": 179,
+          "25eok+": 69
+        },
+        "boundary_counts": {
+          "13-15eok": 62,
+          "15-17eok": 59,
+          "23-25eok": 16,
+          "25-27eok": 6
+        },
+        "under15_share": 81.8
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-25",
+  "updated_at": "2026-09-26",
   "sources": [
     {
       "name": "서울특별시/국토교통부 실거래가",
@@ -231,7 +231,7 @@
     "jeonse_score_0_100": 49.3,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-25T12:09:51.777820+00:00"
+    "generated_at": "2026-09-25T16:57:31.858807+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -245,15 +245,15 @@
     "current_position_0_1": 1.0,
     "source": "KB부동산 가락금호 24A 월별 일반거래가",
     "period": "202609",
-    "generated_at": "2026-09-25T12:09:51.738328+00:00"
+    "generated_at": "2026-09-25T16:57:31.821172+00:00"
   },
   "matched_period": {
-    "as_of": "2026-09-25",
-    "cutoff_day": 25,
+    "as_of": "2026-09-26",
+    "cutoff_day": 26,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-09",
-      "range": "1~25일",
+      "range": "1~26일",
       "total": 1363,
       "counts": {
         "<=9eok": 823,
@@ -271,24 +271,24 @@
     },
     "previous": {
       "period": "2026-08",
-      "range": "1~25일",
-      "total": 2883,
+      "range": "1~26일",
+      "total": 2977,
       "counts": {
-        "<=9eok": 1468,
-        "9-15eok": 820,
-        "15-25eok": 435,
-        "25eok+": 160
+        "<=9eok": 1523,
+        "9-15eok": 841,
+        "15-25eok": 450,
+        "25eok+": 163
       },
       "boundary_counts": {
-        "13-15eok": 210,
-        "15-17eok": 151,
-        "23-25eok": 46,
+        "13-15eok": 215,
+        "15-17eok": 157,
+        "23-25eok": 47,
         "25-27eok": 26
       },
       "under15_share": 79.4
     },
     "changes": {
-      "trade_count_pct": -52.7,
+      "trade_count_pct": -54.2,
       "under15_share_pp": 2.4
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"

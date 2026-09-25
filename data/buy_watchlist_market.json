@@ -84,7 +84,7 @@
       "kb_general_check_manwon": 167500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260918"
+      "kb_price_date": "20260925"
     },
     {
       "complex_id": 1945,
@@ -140,7 +140,7 @@
       "kb_general_check_manwon": 175000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260918"
+      "kb_price_date": "20260925"
     },
     {
       "complex_id": 25769,
@@ -447,6 +447,6 @@
       "error": "visible type tab not found: 25평"
     }
   ],
-  "kb_detail_collected_at": "2026-09-25T12:09:37+00:00",
+  "kb_detail_collected_at": "2026-09-25T16:57:18+00:00",
   "kb_detail_matched_rows": 24
 }
