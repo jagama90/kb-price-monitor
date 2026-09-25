@@ -7,6 +7,532 @@
     "cls_id": "500008",
     "itm_id": "100001"
   },
+  "trade_discovery": {
+    "statbl_id": "A_2024_00549",
+    "probe_month": "202601",
+    "seoul_candidates": [
+      {
+        "cls_id": 510003,
+        "cls_name": "종로구",
+        "cls_fullname": "서울>종로구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 49
+      },
+      {
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "cls_fullname": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 9169
+      },
+      {
+        "cls_id": 510004,
+        "cls_name": "중구",
+        "cls_fullname": "서울>중구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 64
+      },
+      {
+        "cls_id": 510005,
+        "cls_name": "용산구",
+        "cls_fullname": "서울>용산구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 120
+      },
+      {
+        "cls_id": 510006,
+        "cls_name": "성동구",
+        "cls_fullname": "서울>성동구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 946
+      },
+      {
+        "cls_id": 510007,
+        "cls_name": "광진구",
+        "cls_fullname": "서울>광진구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 60
+      },
+      {
+        "cls_id": 510008,
+        "cls_name": "동대문구",
+        "cls_fullname": "서울>동대문구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 334
+      },
+      {
+        "cls_id": 510009,
+        "cls_name": "중랑구",
+        "cls_fullname": "서울>중랑구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 285
+      },
+      {
+        "cls_id": 510010,
+        "cls_name": "성북구",
+        "cls_fullname": "서울>성북구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 337
+      },
+      {
+        "cls_id": 510011,
+        "cls_name": "강북구",
+        "cls_fullname": "서울>강북구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 120
+      },
+      {
+        "cls_id": 510012,
+        "cls_name": "도봉구",
+        "cls_fullname": "서울>도봉구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 184
+      },
+      {
+        "cls_id": 510013,
+        "cls_name": "노원구",
+        "cls_fullname": "서울>노원구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 625
+      },
+      {
+        "cls_id": 510014,
+        "cls_name": "은평구",
+        "cls_fullname": "서울>은평구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 308
+      },
+      {
+        "cls_id": 510015,
+        "cls_name": "서대문구",
+        "cls_fullname": "서울>서대문구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 250
+      },
+      {
+        "cls_id": 510016,
+        "cls_name": "마포구",
+        "cls_fullname": "서울>마포구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 204
+      },
+      {
+        "cls_id": 510017,
+        "cls_name": "양천구",
+        "cls_fullname": "서울>양천구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 282
+      },
+      {
+        "cls_id": 510018,
+        "cls_name": "강서구",
+        "cls_fullname": "서울>강서구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 411
+      },
+      {
+        "cls_id": 510019,
+        "cls_name": "구로구",
+        "cls_fullname": "서울>구로구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 283
+      },
+      {
+        "cls_id": 510020,
+        "cls_name": "금천구",
+        "cls_fullname": "서울>금천구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 95
+      },
+      {
+        "cls_id": 510021,
+        "cls_name": "영등포구",
+        "cls_fullname": "서울>영등포구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 399
+      },
+      {
+        "cls_id": 510022,
+        "cls_name": "동작구",
+        "cls_fullname": "서울>동작구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 519
+      },
+      {
+        "cls_id": 510023,
+        "cls_name": "관악구",
+        "cls_fullname": "서울>관악구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 171
+      },
+      {
+        "cls_id": 510024,
+        "cls_name": "서초구",
+        "cls_fullname": "서울>서초구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 584
+      },
+      {
+        "cls_id": 510025,
+        "cls_name": "강남구",
+        "cls_fullname": "서울>강남구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 397
+      },
+      {
+        "cls_id": 510026,
+        "cls_name": "송파구",
+        "cls_fullname": "서울>송파구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 1822
+      },
+      {
+        "cls_id": 510027,
+        "cls_name": "강동구",
+        "cls_fullname": "서울>강동구",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "itm_fullname": "동(호)수",
+        "unit": "동(호)수",
+        "value": 320
+      },
+      {
+        "cls_id": 510003,
+        "cls_name": "종로구",
+        "cls_fullname": "서울>종로구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 4.48
+      },
+      {
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "cls_fullname": "서울",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 622.104
+      },
+      {
+        "cls_id": 510004,
+        "cls_name": "중구",
+        "cls_fullname": "서울>중구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 4.56
+      },
+      {
+        "cls_id": 510005,
+        "cls_name": "용산구",
+        "cls_fullname": "서울>용산구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 10.159
+      },
+      {
+        "cls_id": 510006,
+        "cls_name": "성동구",
+        "cls_fullname": "서울>성동구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 32.655
+      },
+      {
+        "cls_id": 510007,
+        "cls_name": "광진구",
+        "cls_fullname": "서울>광진구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 4.562
+      },
+      {
+        "cls_id": 510008,
+        "cls_name": "동대문구",
+        "cls_fullname": "서울>동대문구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 23.105
+      },
+      {
+        "cls_id": 510009,
+        "cls_name": "중랑구",
+        "cls_fullname": "서울>중랑구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 18.394
+      },
+      {
+        "cls_id": 510010,
+        "cls_name": "성북구",
+        "cls_fullname": "서울>성북구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 26.369
+      },
+      {
+        "cls_id": 510011,
+        "cls_name": "강북구",
+        "cls_fullname": "서울>강북구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 8.903
+      },
+      {
+        "cls_id": 510012,
+        "cls_name": "도봉구",
+        "cls_fullname": "서울>도봉구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 12.048
+      },
+      {
+        "cls_id": 510013,
+        "cls_name": "노원구",
+        "cls_fullname": "서울>노원구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 40.361
+      },
+      {
+        "cls_id": 510014,
+        "cls_name": "은평구",
+        "cls_fullname": "서울>은평구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 21.188
+      },
+      {
+        "cls_id": 510015,
+        "cls_name": "서대문구",
+        "cls_fullname": "서울>서대문구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 18.867
+      },
+      {
+        "cls_id": 510016,
+        "cls_name": "마포구",
+        "cls_fullname": "서울>마포구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 14.46
+      },
+      {
+        "cls_id": 510017,
+        "cls_name": "양천구",
+        "cls_fullname": "서울>양천구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 20.658
+      },
+      {
+        "cls_id": 510018,
+        "cls_name": "강서구",
+        "cls_fullname": "서울>강서구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 29.026
+      },
+      {
+        "cls_id": 510019,
+        "cls_name": "구로구",
+        "cls_fullname": "서울>구로구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 19.855
+      },
+      {
+        "cls_id": 510020,
+        "cls_name": "금천구",
+        "cls_fullname": "서울>금천구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 6.609
+      },
+      {
+        "cls_id": 510021,
+        "cls_name": "영등포구",
+        "cls_fullname": "서울>영등포구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 25.385
+      },
+      {
+        "cls_id": 510022,
+        "cls_name": "동작구",
+        "cls_fullname": "서울>동작구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 28.527
+      },
+      {
+        "cls_id": 510023,
+        "cls_name": "관악구",
+        "cls_fullname": "서울>관악구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 12.945
+      },
+      {
+        "cls_id": 510024,
+        "cls_name": "서초구",
+        "cls_fullname": "서울>서초구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 40.898
+      },
+      {
+        "cls_id": 510025,
+        "cls_name": "강남구",
+        "cls_fullname": "서울>강남구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 29.666
+      },
+      {
+        "cls_id": 510026,
+        "cls_name": "송파구",
+        "cls_fullname": "서울>송파구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 145.074
+      },
+      {
+        "cls_id": 510027,
+        "cls_name": "강동구",
+        "cls_fullname": "서울>강동구",
+        "itm_id": 100002,
+        "itm_name": "면적",
+        "itm_fullname": "면적",
+        "unit": "천㎡",
+        "value": 23.355
+      }
+    ]
+  },
   "series": {
     "price": [
       {
@@ -13264,5 +13790,5 @@
     ]
   },
   "blockers": [],
-  "collected_at": "2026-09-25T17:58:22.680807+00:00"
+  "collected_at": "2026-09-25T18:01:22.020173+00:00"
 }
