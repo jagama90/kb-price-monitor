@@ -1,6 +1,9 @@
 name: Deploy website
 
 on:
+  workflow_run:
+    workflows: ['Parallel market data refresh', 'Weekly KB price refresh', 'Forward regime forecast']
+    types: [completed]
   push:
     branches: [main]
     paths: ['dist/**', 'data/buy_watchlist_master.json', 'data/buy_watchlist_targets.json', 'data/buy_watchlist_market.json', '.github/workflows/pages.yml']
@@ -17,6 +20,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
