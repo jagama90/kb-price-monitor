@@ -94,9 +94,12 @@ def collect_one(c,area_id,token):
         listings.extend(batch)
         if page>=pages or not batch: break
     sale=[x for x in listings if str(x.get('매물거래구분'))=='1' and int(x.get('면적일련번호') or 0)==int(area_id) and x.get('매매가')]
-    if not sale: return {'lowest_ask_manwon':None,'listing_count':0,'page_count':pages}
+    if not sale: return {'lowest_ask_manwon':None,'avg_ask_manwon':None,'listing_count':0,'page_count':pages}
     x=min(sale,key=lambda y:int(y['매매가']))
-    return {'lowest_ask_manwon':int(x['매매가']),'listing_count':int(x.get('totalCnt') or len(sale)),
+    # KB listing rows already expose the asking prices used by KB's own listing-average display.
+    # Deduplicate by listing id before averaging when the same listing is repeated across pages.
+    uniq={str(y.get('매물일련번호') or i):y for i,y in enumerate(sale)}; prices=[int(y['매매가']) for y in uniq.values() if y.get('매매가')]
+    return {'lowest_ask_manwon':int(x['매매가']),'avg_ask_manwon':int(round(sum(prices)/len(prices))) if prices else None,'listing_count':int(x.get('totalCnt') or len(sale)),
       'page_count':pages,'building':x.get('건물동명'),'floor':x.get('해당층수'),'direction':x.get('방향구분명'),
       'listing_id':x.get('매물일련번호'),'verified_date':x.get('매물확인년월일'),'registered_date':x.get('등록년월일'),
       'duplicate_count':x.get('중복개수'),'supply_m2':x.get('순공급면적'),'exclusive_m2':x.get('순전용면적')}
