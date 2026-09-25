@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "source": "KB부동산 + user purchase watchlist",
-  "kb_collected_at": "2026-09-24T17:19:29+00:00",
-  "generated_at": "2026-09-24T17:19:29+00:00",
+  "kb_collected_at": "2026-09-25T01:50:08+00:00",
+  "generated_at": "2026-09-25T01:50:08+00:00",
   "complex_count": 39,
   "matched_in_snapshot": 38,
   "priced_complex_count": 35,
@@ -626,7 +626,7 @@
           "supply_m2": 93.44,
           "exclusive_m2": 72.7,
           "type_households": 96,
-          "general_price_manwon": 195000.0,
+          "general_price_manwon": 197500.0,
           "price_status": "kb_general",
           "price_date": null
         },
@@ -636,7 +636,7 @@
           "supply_m2": 93.68,
           "exclusive_m2": 72.88,
           "type_households": 96,
-          "general_price_manwon": 195000.0,
+          "general_price_manwon": 197500.0,
           "price_status": "kb_general",
           "price_date": null
         },
@@ -646,7 +646,7 @@
           "supply_m2": 107.97,
           "exclusive_m2": 84.7,
           "type_households": 96,
-          "general_price_manwon": 211000.0,
+          "general_price_manwon": 213500.0,
           "price_status": "kb_general",
           "price_date": null
         },
@@ -656,7 +656,7 @@
           "supply_m2": 108.31,
           "exclusive_m2": 84.97,
           "type_households": 96,
-          "general_price_manwon": 211000.0,
+          "general_price_manwon": 213500.0,
           "price_status": "kb_general",
           "price_date": null
         },
@@ -666,7 +666,7 @@
           "supply_m2": 143.74,
           "exclusive_m2": 121.04,
           "type_households": 264,
-          "general_price_manwon": 225000.0,
+          "general_price_manwon": 227500.0,
           "price_status": "kb_general",
           "price_date": null
         }
@@ -1532,7 +1532,7 @@
           "supply_m2": 81.74,
           "exclusive_m2": 59.97,
           "type_households": 147,
-          "general_price_manwon": 140000.0,
+          "general_price_manwon": 145000.0,
           "price_status": "kb_general",
           "price_date": null
         },
@@ -1542,7 +1542,7 @@
           "supply_m2": 82.43,
           "exclusive_m2": 58.11,
           "type_households": 36,
-          "general_price_manwon": 140000.0,
+          "general_price_manwon": 145000.0,
           "price_status": "kb_general",
           "price_date": null
         },
