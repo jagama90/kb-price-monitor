@@ -107,9 +107,10 @@
     },
     {
       "name": "E편한세상송파파크센트럴",
-      "selection": "24~25평",
-      "min_pyeong": 24,
-      "max_pyeong": 25
+      "selection": "25A평",
+      "min_pyeong": 25,
+      "max_pyeong": 25,
+      "area_ids": [147705]
     },
     {
       "name": "금호타운아파트(마천역)",
@@ -143,9 +144,10 @@
     },
     {
       "name": "가락대림",
-      "selection": "26~36평",
-      "min_pyeong": 26,
-      "max_pyeong": 36
+      "selection": "30평(112세대)",
+      "min_pyeong": 30,
+      "max_pyeong": 30,
+      "area_ids": [171544]
     },
     {
       "name": "현대프라임",
