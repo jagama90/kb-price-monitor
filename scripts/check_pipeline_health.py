@@ -5,6 +5,7 @@ import json,sys,re
 
 R=Path(__file__).resolve().parents[1]
 errors=[]
+warnings=[]
 
 def load(p):
     try:return json.loads((R/p).read_text(encoding='utf-8'))
@@ -15,6 +16,9 @@ fb=load('dist/final_backtest.json')
 tr=load('dist/turning_signal_research.json')
 fc=load('dist/regime_forecast.json')
 mi=load('dist/market_indicators.json')
+master=load('data/buy_watchlist_master.json')
+targets=load('data/buy_watchlist_targets.json')
+details=load('data/buy_watchlist_listings.json')
 
 if fb and not fb.get('certified_final'): errors.append('final_backtest is not certified')
 fbrows=fb.get('rows') or []
@@ -38,6 +42,35 @@ for h in fc.get('horizons') or []:
     if abs(total-100)>0.11: errors.append(f"{h.get('period')}: weights sum {total}, expected 100")
 if not mi.get('updated_at'): errors.append('market_indicators.updated_at missing')
 
+# Watchlist target coverage: never silently omit a named complex or requested area.
+def norm_name(x):
+    return re.sub(r'[^0-9A-Za-z가-힣]','',str(x or '')).replace('아파트','').lower()
+masters=master.get('items') or []
+by_name={norm_name(x.get('user_name')):x for x in masters}
+by_kb={norm_name(x.get('kb_name')):x for x in masters if x.get('kb_name')}
+unresolved=[]
+for t in targets.get('items') or []:
+    c=by_name.get(norm_name(t.get('name'))) or by_kb.get(norm_name(t.get('name')))
+    if not c:
+        unresolved.append({'name':t.get('name'),'reason':'complex_not_resolved'}); continue
+    aids=t.get('area_ids') or []
+    if not aids:
+        lo,hi=t.get('min_pyeong'),t.get('max_pyeong')
+        for typ in c.get('types') or []:
+            m=re.search(r'\d+(?:\.\d+)?',str(typ.get('type_label') or ''))
+            if m and (lo is None or float(m.group())>=float(lo)) and (hi is None or float(m.group())<=float(hi)):
+                aids.append(typ.get('area_id'))
+    if not aids: unresolved.append({'name':t.get('name'),'reason':'target_area_not_resolved','selection':t.get('selection')})
+if unresolved: warnings.append({'watchlist_unresolved_targets':unresolved})
+
+# Detail snapshots must never claim false zero/price values after a degraded collection.
+for x in details.get('items') or []:
+    if x.get('data_quality')=='sanitized_pending_exact_area_refresh': continue
+    if x.get('listing_count')==0 and x.get('avg_ask_manwon') is None:
+        warnings.append({'detail_suspicious_zero_listing':{'complex_id':x.get('complex_id'),'area_id':x.get('area_id')}})
+        break
+
+
 paths={
  'parallel':'.github/workflows/parallel-market-refresh.yml',
  'weekly':'.github/workflows/weekly-refresh.yml',
@@ -59,6 +92,6 @@ if 'dist/regime_forecast.json' not in wf['forecast']: errors.append('forecast wo
 
 payload={'status':'ok' if not errors else 'failed','latest_available':latest,'certified_through':cert,
          'research_month':trrows[-1].get('ym') if trrows else None,
-         'forecast_research_month':fc.get('latest_research_month'),'errors':errors}
+         'forecast_research_month':fc.get('latest_research_month'),'warnings':warnings,'errors':errors}
 print(json.dumps(payload,ensure_ascii=False))
 if errors: sys.exit(1)
