@@ -18,6 +18,8 @@ on:
       - 'scripts/build_market_snapshot.py'
       - 'scripts/collect_listings.py'
       - 'scripts/merge_watchlist_details.py'
+      - 'data/buy_watchlist_targets.json'
+      - 'data/buy_watchlist_master.json'
       - 'scripts/test_static_contract.py'
       - 'dist/index.html'
       - 'dist/market.html'
