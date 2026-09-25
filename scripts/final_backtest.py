@@ -25,7 +25,8 @@ def main():
  se=sorted([x for x in sr if x.get('region')=='서울' and x.get('date')],key=lambda x:x['date'])
  m2=json.loads((R/'data_sources/ecos_m2.json').read_text()).get('series',[])
  mm={str(x['period']).replace('-','')[:6]:x for x in m2}
- demand=json.loads((R/'dist/molit_historical_backtest.json').read_text()).get('rows',[])
+ demand_payload=json.loads((R/'dist/molit_historical_backtest.json').read_text())
+ demand=demand_payload.get('rows',[])
  dm={x['ym']:x for x in demand}
  rows=[]
  for ym in sorted(k for k in pm if '202209'<=k):
@@ -55,7 +56,7 @@ def main():
    k=shift(ym,h);row[f'fwd_{h}m_pct']=round((pm[k]/pm[ym]-1)*100,2) if k in pm else None
   rows.append(row)
  # Full monthly history is certified only through the latest completed demand month.
- latest_complete=max(dm) if dm else ''
+ latest_complete=demand_payload.get('certified_through') or (max(dm) if dm else '')
  rows=[x for x in rows if x['ym']<=latest_complete]
  complete=[x for x in rows if x['score'] is not None]
  expected=[]
