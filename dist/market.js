@@ -93,6 +93,24 @@ function renderConditionIndex(d){
  document.getElementById('nextSignals').innerHTML=next.slice(0,4).map((x,i)=>'<span><b>'+(i+1)+'</b>'+esc(x)+'</span>').join('');
  setTimeout(renderConditionHistory,0);
 }
+
+// Bind score-card clicks independently of async data loading.
+// This guarantees mobile clicks work even if a later indicator renderer throws.
+document.querySelectorAll('[data-score]').forEach(card=>{
+ card.addEventListener('click',()=>{
+  const d=window.__marketIndicators,components=window.__conditionComponents||{},k=card.dataset.score;
+  if(!d||components[k]==null)return;
+  const titles={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'},weights={finance:25,sentiment:20,demand:20,value:20,supply:15};
+  const m=d.m2_official||d.m2,x=d.matched_period,q=d.kb_sentiment||{},v=d.kb_value||{},val=(z,n=1)=>z==null?'—':Number(z).toFixed(n),b={
+   finance:'<p><b>현재 '+Math.round(components.finance)+'/100</b> · M2 전월비 '+val(m?.mom_pct)+'% · 전년비 '+val(m?.yoy_pct)+'%</p><p><b>산식</b> 50 + M2 전월비×8 + M2 전년비×1.5</p>',
+   sentiment:'<p><b>현재 '+Math.round(components.sentiment)+'/100</b> · 매수우위 '+val(q.latest?.매수우위?.value)+' · 거래활발 '+val(q.latest?.매매거래활발?.value)+'</p>',
+   demand:'<p><b>현재 '+Math.round(components.demand)+'/100</b> · 동일기간 거래 '+(x?.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 비중 '+(x?.changes?.under15_share_pp==null?'—':signed(x.changes.under15_share_pp,'%p'))+'</p>',
+   value:'<p><b>현재 '+Math.round(components.value)+'/100</b> · 현재 KB '+eok(v.current_manwon)+' · 36개월 저점 '+eok(v.window_low_manwon)+' · 고점 '+eok(v.window_high_manwon)+'</p>',
+   supply:'<p><b>현재 '+Math.round(components.supply)+'/100</b> · 전세수급 '+val(q.latest?.전세수급?.value)+' · 전세거래활발 '+val(q.latest?.전세거래활발?.value)+'</p>'
+  };
+  setText('scoreExplainTitle',titles[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');document.getElementById('scoreExplainBody').innerHTML=b[k];const panel=document.getElementById('scoreExplanation');panel.hidden=false;panel.style.display='block';document.querySelectorAll('[data-score]').forEach(z=>z.classList.toggle('active',z===card));panel.scrollIntoView({behavior:'smooth',block:'center'});
+ });
+});
 loadMarketIndicators();
 const BASE_RATES=[{d:'2016-06-09',v:1.25},{d:'2017-11-30',v:1.50},{d:'2018-11-30',v:1.75},{d:'2019-07-18',v:1.50},{d:'2019-10-16',v:1.25},{d:'2020-03-17',v:.75},{d:'2020-05-28',v:.50},{d:'2021-08-26',v:.75},{d:'2021-11-25',v:1.00},{d:'2022-01-14',v:1.25},{d:'2022-04-14',v:1.50},{d:'2022-05-26',v:1.75},{d:'2022-07-13',v:2.25},{d:'2022-08-25',v:2.50},{d:'2022-10-12',v:3.00},{d:'2022-11-24',v:3.25},{d:'2023-01-13',v:3.50},{d:'2024-10-11',v:3.25},{d:'2024-11-28',v:3.00},{d:'2025-02-25',v:2.75},{d:'2025-05-29',v:2.50},{d:'2026-07-16',v:2.75},{d:'2026-08-27',v:3.00}];
 let RATE_PAGE=0,MACRO_PAGE=0;
