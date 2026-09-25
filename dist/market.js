@@ -156,7 +156,7 @@ renderConditionHistory();
 async function renderCycleStage(){ // direction-aware market phase UI
  const badge=document.getElementById('cycleStageBadge');if(!badge)return;
  try{const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],x=rows.at(-1),prev=rows.at(-2);if(!x)throw Error('no rows');
-  const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),prev3=Number(prev?.momentum_3m_pct),wasRising=Number.isFinite(prev3)&&prev3>0;
+  const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),prev3=Number(prev?.momentum_3m_pct),recent=rows.slice(-4,-1),wasRising=recent.some(r=>Number(r.momentum_3m_pct)>0);
   let stage=0,label='하락 중',text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
   if(x.bottom_zone){stage=1;label='하락 둔화';text='하락 압력이 약해지고 있습니다. 다만 아직 가격이 멈췄거나 상승세로 바뀌었다고 보기는 이릅니다.'}
   if(m1>=0&&m3<=0&&!wasRising){stage=2;label='바닥 확인 중';text='하락 뒤 가격이 더 내려가지 않고 있습니다. 과거 검증상 매수 타이밍을 살펴볼 가치가 높아지는 구간이지만 아직 상승 확인 전입니다.'}
