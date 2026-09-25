@@ -1,14 +1,15 @@
 name: Forward regime forecast
 on:
+  workflow_run:
+    workflows: ['Research turning signal', 'Parallel market data refresh', 'Final historical validation']
+    types: [completed]
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - '.github/workflows/forecast-regime.yml'
       - 'scripts/forecast_market_regime.py'
-      - 'dist/turning_signal_research.json'
-      - 'dist/final_backtest.json'
-      - 'dist/market_indicators.json'
+
 permissions:
   contents: write
 concurrency:
@@ -16,6 +17,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   forecast:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
