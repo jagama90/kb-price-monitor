@@ -6536,6 +6536,726 @@
         "yoy_pct": 1.74
       },
       "policy_events": []
+    },
+    {
+      "ym": "202401",
+      "price": {
+        "ym": "202401",
+        "value": 83.2894620580735,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202401",
+        "value": 5995.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202401",
+        "value": 3737150.0,
+        "mom_pct": -0.24,
+        "yoy_pct": 1.28
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202402",
+      "price": {
+        "ym": "202402",
+        "value": 83.1729818960404,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202402",
+        "value": 5024.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202402",
+        "value": 3762421.4,
+        "mom_pct": 0.68,
+        "yoy_pct": 1.82
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202403",
+      "price": {
+        "ym": "202403",
+        "value": 83.1583888266093,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202403",
+        "value": 4464.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202403",
+        "value": 3804502.7,
+        "mom_pct": 1.12,
+        "yoy_pct": 3.33
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202404",
+      "price": {
+        "ym": "202404",
+        "value": 83.2633771269511,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202404",
+        "value": 6725.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202404",
+        "value": 3808016.6,
+        "mom_pct": 0.09,
+        "yoy_pct": 3.8
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202405",
+      "price": {
+        "ym": "202405",
+        "value": 83.4291011690866,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202405",
+        "value": 6833.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202405",
+        "value": 3809604.3,
+        "mom_pct": 0.04,
+        "yoy_pct": 4.08
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202406",
+      "price": {
+        "ym": "202406",
+        "value": 83.8934322968393,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202406",
+        "value": 8845.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202406",
+        "value": 3810925.3,
+        "mom_pct": 0.03,
+        "yoy_pct": 3.64
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202407",
+      "price": {
+        "ym": "202407",
+        "value": 84.8942535181522,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202407",
+        "value": 12757.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202407",
+        "value": 3823612.1,
+        "mom_pct": 0.33,
+        "yoy_pct": 3.15
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202408",
+      "price": {
+        "ym": "202408",
+        "value": 85.9754641984233,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202408",
+        "value": 10487.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202408",
+        "value": 3834045.4,
+        "mom_pct": 0.27,
+        "yoy_pct": 3.47
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202409",
+      "price": {
+        "ym": "202409",
+        "value": 86.6589054808918,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202409",
+        "value": 9190.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202409",
+        "value": 3850110.0,
+        "mom_pct": 0.42,
+        "yoy_pct": 3.75
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202410",
+      "price": {
+        "ym": "202410",
+        "value": 87.032704638502,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202410",
+        "value": 6926.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202410",
+        "value": 3856830.2,
+        "mom_pct": 0.17,
+        "yoy_pct": 3.53
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202411",
+      "price": {
+        "ym": "202411",
+        "value": 87.255166007901,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202411",
+        "value": 6765.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202411",
+        "value": 3877653.5,
+        "mom_pct": 0.54,
+        "yoy_pct": 3.32
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202412",
+      "price": {
+        "ym": "202412",
+        "value": 87.3333035727029,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202412",
+        "value": 7291.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202412",
+        "value": 3899883.8,
+        "mom_pct": 0.57,
+        "yoy_pct": 4.1
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202501",
+      "price": {
+        "ym": "202501",
+        "value": 87.3462276841334,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202501",
+        "value": 7287.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202501",
+        "value": 3923813.7,
+        "mom_pct": 0.61,
+        "yoy_pct": 4.99
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202502",
+      "price": {
+        "ym": "202502",
+        "value": 87.5589049968106,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202502",
+        "value": 8830.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202502",
+        "value": 3930032.5,
+        "mom_pct": 0.16,
+        "yoy_pct": 4.45
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202503",
+      "price": {
+        "ym": "202503",
+        "value": 88.2566424550917,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202503",
+        "value": 13592.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202503",
+        "value": 3914425.3,
+        "mom_pct": -0.4,
+        "yoy_pct": 2.89
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202504",
+      "price": {
+        "ym": "202504",
+        "value": 88.5504829735611,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202504",
+        "value": 10555.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202504",
+        "value": 3930117.2,
+        "mom_pct": 0.4,
+        "yoy_pct": 3.21
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202505",
+      "price": {
+        "ym": "202505",
+        "value": 89.0325114875682,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202505",
+        "value": 8663.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202505",
+        "value": 3955677.1,
+        "mom_pct": 0.65,
+        "yoy_pct": 3.83
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202506",
+      "price": {
+        "ym": "202506",
+        "value": 90.3122814704558,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202506",
+        "value": 12665.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202506",
+        "value": 3975355.6,
+        "mom_pct": 0.5,
+        "yoy_pct": 4.31
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202507",
+      "price": {
+        "ym": "202507",
+        "value": 91.2982950889446,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202507",
+        "value": 12448.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202507",
+        "value": 3994121.9,
+        "mom_pct": 0.47,
+        "yoy_pct": 4.46
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202508",
+      "price": {
+        "ym": "202508",
+        "value": 91.7397586159198,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202508",
+        "value": 6922.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202508",
+        "value": 4038586.0,
+        "mom_pct": 1.11,
+        "yoy_pct": 5.33
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202509",
+      "price": {
+        "ym": "202509",
+        "value": 92.2761532422324,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202509",
+        "value": 8750.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202509",
+        "value": 4059804.3,
+        "mom_pct": 0.53,
+        "yoy_pct": 5.45
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202510",
+      "price": {
+        "ym": "202510",
+        "value": 93.596299168963,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202510",
+        "value": 12677.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202510",
+        "value": 4057978.5,
+        "mom_pct": -0.04,
+        "yoy_pct": 5.22
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202511",
+      "price": {
+        "ym": "202511",
+        "value": 94.3561828126531,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202511",
+        "value": 6084.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202511",
+        "value": 4063174.9,
+        "mom_pct": 0.13,
+        "yoy_pct": 4.78
+      },
+      "policy_events": []
+    },
+    {
+      "ym": "202512",
+      "price": {
+        "ym": "202512",
+        "value": 95.1751506822736,
+        "statbl_id": "A_2024_00045",
+        "cls_id": 500008,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "지수",
+        "unit": "지수"
+      },
+      "trade": {
+        "ym": "202512",
+        "value": 7956.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      "m2": {
+        "period": "202512",
+        "value": 4081360.1,
+        "mom_pct": 0.45,
+        "yoy_pct": 4.65
+      },
+      "policy_events": []
     }
   ]
 }

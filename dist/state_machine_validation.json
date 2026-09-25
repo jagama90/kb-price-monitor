@@ -10,52 +10,56 @@
   ],
   "entry_metrics": {
     "early": {
-      "entries": 3,
-      "fwd_3m_mean_pct": -2.96,
-      "positive_3m_pct": 0.0,
-      "renew_low_3m_pct": 100.0,
-      "fwd_6m_mean_pct": -2.85,
-      "positive_6m_pct": 50.0,
-      "renew_low_6m_pct": 100.0,
-      "fwd_12m_mean_pct": -4.95,
-      "positive_12m_pct": 0.0,
-      "renew_low_12m_pct": 100.0
+      "entries": 4,
+      "fwd_3m_mean_pct": -1.19,
+      "positive_3m_pct": 25.0,
+      "renew_low_3m_pct": 75.0,
+      "fwd_6m_mean_pct": -0.83,
+      "positive_6m_pct": 75.0,
+      "renew_low_6m_pct": 75.0,
+      "fwd_12m_mean_pct": 1.88,
+      "positive_12m_pct": 75.0,
+      "renew_low_12m_pct": 75.0
     },
     "price_turn": {
-      "entries": 1,
-      "fwd_3m_mean_pct": 0.92,
+      "entries": 2,
+      "fwd_3m_mean_pct": 1.44,
       "positive_3m_pct": 100.0,
       "renew_low_3m_pct": 0.0,
-      "fwd_6m_mean_pct": 1.92,
+      "fwd_6m_mean_pct": 3.23,
       "positive_6m_pct": 100.0,
       "renew_low_6m_pct": 0.0,
-      "fwd_12m_mean_pct": null,
-      "positive_12m_pct": null,
-      "renew_low_12m_pct": null
+      "fwd_12m_mean_pct": 4.07,
+      "positive_12m_pct": 100.0,
+      "renew_low_12m_pct": 0.0
     },
     "long_confirmed": {
-      "entries": 0,
-      "fwd_3m_mean_pct": null,
-      "positive_3m_pct": null,
-      "renew_low_3m_pct": null,
-      "fwd_6m_mean_pct": null,
-      "positive_6m_pct": null,
-      "renew_low_6m_pct": null,
-      "fwd_12m_mean_pct": null,
-      "positive_12m_pct": null,
-      "renew_low_12m_pct": null
+      "entries": 1,
+      "fwd_3m_mean_pct": 1.96,
+      "positive_3m_pct": 100.0,
+      "renew_low_3m_pct": 0.0,
+      "fwd_6m_mean_pct": 4.53,
+      "positive_6m_pct": 100.0,
+      "renew_low_6m_pct": 0.0,
+      "fwd_12m_mean_pct": 6.35,
+      "positive_12m_pct": 100.0,
+      "renew_low_12m_pct": 0.0
     }
   },
   "entry_events": {
     "early": [
       "202211",
       "202303",
-      "202312"
+      "202312",
+      "202408"
     ],
     "price_turn": [
-      "202305"
+      "202305",
+      "202404"
     ],
-    "long_confirmed": []
+    "long_confirmed": [
+      "202404"
+    ]
   },
   "early_warning_cohorts": [
     {
@@ -74,6 +78,13 @@
     },
     {
       "early_ym": "202312",
+      "price_turn_ym": "202404",
+      "months_to_price_turn": 4,
+      "long_confirmed_ym": "202404",
+      "months_to_long_confirmed": 4
+    },
+    {
+      "early_ym": "202408",
       "price_turn_ym": null,
       "months_to_price_turn": null,
       "long_confirmed_ym": null,

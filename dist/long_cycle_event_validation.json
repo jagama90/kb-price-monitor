@@ -4,12 +4,12 @@
   "cycle_definition": "completed running-peak drawdown >=2%, ending when prior peak is recovered",
   "signal_rule": "price m3<=0 and m1>=0; uses t and earlier only",
   "summary": {
-    "completed_cycles": 1,
-    "cycles_with_signal": 1,
+    "completed_cycles": 2,
+    "cycles_with_signal": 2,
     "coverage_pct": 100.0,
     "signals_before_or_at_trough": 1,
-    "avg_signal_vs_trough_months": -52.0,
-    "avg_entry_premium_to_trough_pct": 8.2,
+    "avg_signal_vs_trough_months": -25.5,
+    "avg_entry_premium_to_trough_pct": 4.1,
     "avg_max_drawdown_after_signal_12m_pct": 0.0
   },
   "cycles": [
@@ -23,6 +23,17 @@
       "entry_premium_to_trough_pct": 8.2,
       "max_drawdown_after_signal_12m_pct": 0.0,
       "signal_before_or_at_trough": true
+    },
+    {
+      "peak_ym": "202201",
+      "trough_ym": "202304",
+      "recovery_ym": "202510",
+      "cycle_drawdown_pct": -11.32,
+      "signal_ym": "202305",
+      "signal_vs_trough_months": 1,
+      "entry_premium_to_trough_pct": 0.01,
+      "max_drawdown_after_signal_12m_pct": 0.0,
+      "signal_before_or_at_trough": false
     }
   ]
 }

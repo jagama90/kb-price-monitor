@@ -33,54 +33,54 @@
     },
     "holdout": {
       "price_only": {
-        "signals": 4,
-        "fwd_3m_mean_pct": 1.27,
-        "fwd_3m_median_pct": 1.09,
+        "signals": 5,
+        "fwd_3m_mean_pct": 1.41,
+        "fwd_3m_median_pct": 1.25,
         "fwd_3m_positive_rate_pct": 100.0,
-        "fwd_6m_mean_pct": 2.35,
-        "fwd_6m_median_pct": 2.21,
+        "fwd_6m_mean_pct": 2.78,
+        "fwd_6m_median_pct": 2.5,
         "fwd_6m_positive_rate_pct": 100.0,
-        "fwd_12m_mean_pct": 5.32,
-        "fwd_12m_median_pct": 5.32,
+        "fwd_12m_mean_pct": 4.19,
+        "fwd_12m_median_pct": 4.56,
         "fwd_12m_positive_rate_pct": 100.0
       },
       "enhanced": {
-        "signals": 3,
-        "fwd_3m_mean_pct": 1.27,
-        "fwd_3m_median_pct": 0.93,
+        "signals": 4,
+        "fwd_3m_mean_pct": 1.44,
+        "fwd_3m_median_pct": 1.44,
         "fwd_3m_positive_rate_pct": 100.0,
-        "fwd_6m_mean_pct": 2.59,
-        "fwd_6m_median_pct": 2.5,
+        "fwd_6m_mean_pct": 3.07,
+        "fwd_6m_median_pct": 2.92,
         "fwd_6m_positive_rate_pct": 100.0,
-        "fwd_12m_mean_pct": 5.32,
+        "fwd_12m_mean_pct": 4.69,
         "fwd_12m_median_pct": 5.32,
         "fwd_12m_positive_rate_pct": 100.0
       }
     },
     "all": {
       "price_only": {
-        "signals": 8,
-        "fwd_3m_mean_pct": 0.9,
-        "fwd_3m_median_pct": 0.92,
-        "fwd_3m_positive_rate_pct": 87.5,
-        "fwd_6m_mean_pct": 1.83,
-        "fwd_6m_median_pct": 1.79,
-        "fwd_6m_positive_rate_pct": 87.5,
-        "fwd_12m_mean_pct": 2.8,
-        "fwd_12m_median_pct": 2.89,
-        "fwd_12m_positive_rate_pct": 83.3
+        "signals": 9,
+        "fwd_3m_mean_pct": 1.02,
+        "fwd_3m_median_pct": 0.93,
+        "fwd_3m_positive_rate_pct": 88.9,
+        "fwd_6m_mean_pct": 2.13,
+        "fwd_6m_median_pct": 1.92,
+        "fwd_6m_positive_rate_pct": 88.9,
+        "fwd_12m_mean_pct": 3.01,
+        "fwd_12m_median_pct": 2.19,
+        "fwd_12m_positive_rate_pct": 88.9
       },
       "enhanced": {
-        "signals": 6,
-        "fwd_3m_mean_pct": 0.89,
-        "fwd_3m_median_pct": 0.92,
-        "fwd_3m_positive_rate_pct": 83.3,
-        "fwd_6m_mean_pct": 1.9,
-        "fwd_6m_median_pct": 2.21,
-        "fwd_6m_positive_rate_pct": 83.3,
-        "fwd_12m_mean_pct": 2.96,
+        "signals": 7,
+        "fwd_3m_mean_pct": 1.04,
+        "fwd_3m_median_pct": 0.93,
+        "fwd_3m_positive_rate_pct": 85.7,
+        "fwd_6m_mean_pct": 2.27,
+        "fwd_6m_median_pct": 2.5,
+        "fwd_6m_positive_rate_pct": 85.7,
+        "fwd_12m_mean_pct": 3.27,
         "fwd_12m_median_pct": 3.75,
-        "fwd_12m_positive_rate_pct": 80.0
+        "fwd_12m_positive_rate_pct": 85.7
       }
     }
   },
@@ -2869,7 +2869,7 @@
       "m2_yoy_pct": 6.97,
       "fwd_3m_pct": -2.1725185751638287,
       "fwd_6m_pct": -1.736609856923521,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": -0.5763030344027809
     },
     {
       "ym": "202302",
@@ -2883,7 +2883,7 @@
       "m2_yoy_pct": 5.97,
       "fwd_3m_pct": -1.0913583114348313,
       "fwd_6m_pct": -0.18362428360264582,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 0.37025718646446215
     },
     {
       "ym": "202303",
@@ -2897,7 +2897,7 @@
       "m2_yoy_pct": 5.5,
       "fwd_3m_pct": -0.21007711138064655,
       "fwd_6m_pct": 1.0394832704010426,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 1.0792370311474064
     },
     {
       "ym": "202304",
@@ -2911,7 +2911,7 @@
       "m2_yoy_pct": 4.78,
       "fwd_3m_pct": 0.44558922696504855,
       "fwd_6m_pct": 1.8002643059016776,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 1.5998343224189693
     },
     {
       "ym": "202305",
@@ -2925,7 +2925,7 @@
       "m2_yoy_pct": 3.66,
       "fwd_3m_pct": 0.9177499683904022,
       "fwd_6m_pct": 1.9237311148470937,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 1.7902291289821015
     },
     {
       "ym": "202306",
@@ -2939,7 +2939,7 @@
       "m2_yoy_pct": 3.54,
       "fwd_3m_pct": 1.2521909483549587,
       "fwd_6m_pct": 1.6272959017918032,
-      "fwd_12m_pct": null
+      "fwd_12m_pct": 2.187356520032502
     },
     {
       "ym": "202307",
@@ -2952,8 +2952,8 @@
       "trade_vs_prior3_pct": -3.886064781750198,
       "m2_yoy_pct": 3.87,
       "fwd_3m_pct": 1.3486655704469275,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_6m_pct": 1.180812936365494,
+      "fwd_12m_pct": 3.1303285234740352
     },
     {
       "ym": "202308",
@@ -2966,8 +2966,8 @@
       "trade_vs_prior3_pct": -33.07312593272873,
       "m2_yoy_pct": 2.91,
       "fwd_3m_pct": 0.9968327145341238,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_6m_pct": 0.5549004019548942,
+      "fwd_12m_pct": 3.9430599024352864
     },
     {
       "ym": "202309",
@@ -2980,8 +2980,8 @@
       "trade_vs_prior3_pct": 4.268109407874965,
       "m2_yoy_pct": 2.81,
       "fwd_3m_pct": 0.3704660115732006,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_6m_pct": 0.039344778357564,
+      "fwd_12m_pct": 4.250458021668679
     },
     {
       "ym": "202310",
@@ -2993,9 +2993,9 @@
       "price_mom_6m": 1.8002643059016776,
       "trade_vs_prior3_pct": -2.8390703147984753,
       "m2_yoy_pct": 2.56,
-      "fwd_3m_pct": null,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_3m_pct": -0.1656189878146419,
+      "fwd_6m_pct": -0.19688552367645995,
+      "fwd_12m_pct": 4.321194791039762
     },
     {
       "ym": "202311",
@@ -3007,9 +3007,9 @@
       "price_mom_6m": 1.9237311148470937,
       "trade_vs_prior3_pct": -4.996644814948647,
       "m2_yoy_pct": 1.97,
-      "fwd_3m_pct": null,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
+      "fwd_3m_pct": -0.43757046701489166,
+      "fwd_6m_pct": -0.1309822397637217,
+      "fwd_12m_pct": 4.449018407312111
     },
     {
       "ym": "202312",
@@ -3021,6 +3021,342 @@
       "price_mom_6m": 1.6272959017918032,
       "trade_vs_prior3_pct": -8.451062099806883,
       "m2_yoy_pct": 1.74,
+      "fwd_3m_pct": -0.3298990692914172,
+      "fwd_6m_pct": 0.5510927091692874,
+      "fwd_12m_pct": 4.67397582525324
+    },
+    {
+      "ym": "202401",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": -0.17280027993668012,
+      "price_mom_3m": -0.1656189878146419,
+      "price_mom_6m": 1.180812936365494,
+      "trade_vs_prior3_pct": -4.054414510536142,
+      "m2_yoy_pct": 1.28,
+      "fwd_3m_pct": -0.031318405087321644,
+      "fwd_6m_pct": 1.9267641072765684,
+      "fwd_12m_pct": 4.870682948139726
+    },
+    {
+      "ym": "202402",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": -0.13984981911863148,
+      "price_mom_3m": -0.43757046701489166,
+      "price_mom_6m": 0.5549004019548942,
+      "trade_vs_prior3_pct": -16.889991728701403,
+      "m2_yoy_pct": 1.82,
+      "fwd_3m_pct": 0.30793566276885453,
+      "fwd_6m_pct": 3.369462340409757,
+      "fwd_12m_pct": 5.273254608392253
+    },
+    {
+      "ym": "202403",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": -0.017545444564370793,
+      "price_mom_3m": -0.3298990692914172,
+      "price_mom_6m": 0.039344778357564,
+      "trade_vs_prior3_pct": -21.33458646616542,
+      "m2_yoy_pct": 3.33,
+      "fwd_3m_pct": 0.8839077820069541,
+      "fwd_6m_pct": 4.209457041767983,
+      "fwd_12m_pct": 6.130774898865088
+    },
+    {
+      "ym": "202404",
+      "split": "holdout",
+      "price_only": true,
+      "enhanced": true,
+      "price_mom_1m": 0.12625100344441087,
+      "price_mom_3m": -0.031318405087321644,
+      "price_mom_6m": -0.19688552367645995,
+      "trade_vs_prior3_pct": 30.304204611509398,
+      "m2_yoy_pct": 3.8,
+      "fwd_3m_pct": 1.9586959446942886,
+      "fwd_6m_pct": 4.526993309199834,
+      "fwd_12m_pct": 6.34985755928299
+    },
+    {
+      "ym": "202405",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.1990359361509153,
+      "price_mom_3m": 0.30793566276885453,
+      "price_mom_6m": -0.1309822397637217,
+      "trade_vs_prior3_pct": 26.435576389317216,
+      "m2_yoy_pct": 4.08,
+      "fwd_3m_pct": 3.052128086788275,
+      "fwd_6m_pct": 4.586007502418221,
+      "fwd_12m_pct": 6.7163738311468935
+    },
+    {
+      "ym": "202406",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.5565577493297447,
+      "price_mom_3m": 0.8839077820069541,
+      "price_mom_6m": 0.5510927091692874,
+      "trade_vs_prior3_pct": 47.236710686938196,
+      "m2_yoy_pct": 3.64,
+      "fwd_3m_pct": 3.296412017412109,
+      "fwd_6m_pct": 4.100286734833247,
+      "fwd_12m_pct": 7.651193899070385
+    },
+    {
+      "ym": "202407",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.1929673085393722,
+      "price_mom_3m": 1.9586959446942886,
+      "price_mom_6m": 1.9267641072765684,
+      "trade_vs_prior3_pct": 70.82979958041334,
+      "m2_yoy_pct": 3.15,
+      "fwd_3m_pct": 2.51895862408702,
+      "fwd_6m_pct": 2.888268715923048,
+      "fwd_12m_pct": 7.543551306948104
+    },
+    {
+      "ym": "202408",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.2735970168344934,
+      "price_mom_3m": 3.052128086788275,
+      "price_mom_6m": 3.369462340409757,
+      "trade_vs_prior3_pct": 10.641814665025496,
+      "m2_yoy_pct": 3.47,
+      "fwd_3m_pct": 1.4884500146742585,
+      "fwd_6m_pct": 1.841735677905576,
+      "fwd_12m_pct": 6.704580744330801
+    },
+    {
+      "ym": "202409",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.7949259580514623,
+      "price_mom_3m": 3.296412017412109,
+      "price_mom_6m": 4.209457041767983,
+      "trade_vs_prior3_pct": -14.082707469849487,
+      "m2_yoy_pct": 3.75,
+      "fwd_3m_pct": 0.7782213357862,
+      "fwd_6m_pct": 1.8437077705212745,
+      "fwd_12m_pct": 6.482020203427563
+    },
+    {
+      "ym": "202410",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.4313453482200025,
+      "price_mom_3m": 2.51895862408702,
+      "price_mom_6m": 4.526993309199834,
+      "trade_vs_prior3_pct": -35.93759634950978,
+      "m2_yoy_pct": 3.53,
+      "fwd_3m_pct": 0.3602358986011467,
+      "fwd_6m_pct": 1.7439172336001008,
+      "fwd_12m_pct": 7.541526553407096
+    },
+    {
+      "ym": "202411",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.25560663697976604,
+      "price_mom_3m": 1.4884500146742585,
+      "price_mom_6m": 4.586007502418221,
+      "trade_vs_prior3_pct": -23.711611472390327,
+      "m2_yoy_pct": 3.32,
+      "fwd_3m_pct": 0.34810430465754827,
+      "fwd_6m_pct": 2.0369515766049506,
+      "fwd_12m_pct": 8.13821935094261
+    },
+    {
+      "ym": "202412",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.08955064596958273,
+      "price_mom_3m": 0.7782213357862,
+      "price_mom_6m": 4.100286734833247,
+      "trade_vs_prior3_pct": -4.405401861806735,
+      "m2_yoy_pct": 4.1,
+      "fwd_3m_pct": 1.0572586225598757,
+      "fwd_6m_pct": 3.411044556757181,
+      "fwd_12m_pct": 8.979217307453101
+    },
+    {
+      "ym": "202501",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.014798605917532015,
+      "price_mom_3m": 0.3602358986011467,
+      "price_mom_6m": 2.888268715923048,
+      "trade_vs_prior3_pct": 4.189305118673148,
+      "m2_yoy_pct": 4.99,
+      "fwd_3m_pct": 1.3787147096753882,
+      "fwd_6m_pct": 4.52459998513377,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202502",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.24348769067199516,
+      "price_mom_3m": 0.34810430465754827,
+      "price_mom_6m": 1.841735677905576,
+      "trade_vs_prior3_pct": 24.115635102844024,
+      "m2_yoy_pct": 4.45,
+      "fwd_3m_pct": 1.6829887157808532,
+      "fwd_6m_pct": 4.774903956669507,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202503",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.7968777799431281,
+      "price_mom_3m": 1.0572586225598757,
+      "price_mom_6m": 1.8437077705212745,
+      "trade_vs_prior3_pct": 74.19685577580313,
+      "m2_yoy_pct": 2.89,
+      "fwd_3m_pct": 2.329160682053022,
+      "fwd_6m_pct": 4.554343645223047,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202504",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.3329387004711082,
+      "price_mom_3m": 1.3787147096753882,
+      "price_mom_6m": 1.7439172336001008,
+      "trade_vs_prior3_pct": 6.583863475714424,
+      "m2_yoy_pct": 3.21,
+      "fwd_3m_pct": 3.1031023469447527,
+      "fwd_6m_pct": 5.698236786476296,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202505",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.5443544719581306,
+      "price_mom_3m": 1.6829887157808532,
+      "price_mom_6m": 2.0369515766049506,
+      "trade_vs_prior3_pct": -21.190526730751735,
+      "m2_yoy_pct": 3.83,
+      "fwd_3m_pct": 3.0407399309741123,
+      "fwd_6m_pct": 5.979468888539952,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202506",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.437418715371508,
+      "price_mom_3m": 2.329160682053022,
+      "price_mom_6m": 3.411044556757181,
+      "trade_vs_prior3_pct": 15.803108808290167,
+      "m2_yoy_pct": 4.31,
+      "fwd_3m_pct": 2.1745345591995147,
+      "fwd_6m_pct": 5.3845048897459336,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202507",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.091782426968546,
+      "price_mom_3m": 3.1031023469447527,
+      "price_mom_6m": 4.52459998513377,
+      "trade_vs_prior3_pct": 17.12825016466457,
+      "m2_yoy_pct": 4.46,
+      "fwd_3m_pct": 2.5170284700055445,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202508",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.48353972716042026,
+      "price_mom_3m": 3.0407399309741123,
+      "price_mom_6m": 4.774903956669507,
+      "trade_vs_prior3_pct": -38.51847465656086,
+      "m2_yoy_pct": 5.33,
+      "fwd_3m_pct": 2.852006846548716,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202509",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.5846915605678404,
+      "price_mom_3m": 2.1745345591995147,
+      "price_mom_6m": 4.554343645223047,
+      "trade_vs_prior3_pct": -18.05837365381614,
+      "m2_yoy_pct": 5.45,
+      "fwd_3m_pct": 3.141653979041692,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202510",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 1.4306469010093137,
+      "price_mom_3m": 2.5170284700055445,
+      "price_mom_6m": 5.698236786476296,
+      "trade_vs_prior3_pct": 35.24537695590326,
+      "m2_yoy_pct": 5.22,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202511",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.8118736001712312,
+      "price_mom_3m": 2.852006846548716,
+      "price_mom_6m": 5.979468888539952,
+      "trade_vs_prior3_pct": -35.616776605876744,
+      "m2_yoy_pct": 4.78,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202512",
+      "split": "holdout",
+      "price_only": false,
+      "enhanced": false,
+      "price_mom_1m": 0.8679535831229712,
+      "price_mom_3m": 3.141653979041692,
+      "price_mom_6m": 5.3845048897459336,
+      "trade_vs_prior3_pct": -13.241975936897976,
+      "m2_yoy_pct": 4.65,
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null
