@@ -1,10 +1,14 @@
 name: Research turning signal
 on:
+  schedule:
+    - cron: '45 23 4 * *' # monthly fallback: 08:45 KST on the 5th
   workflow_dispatch:
   push:
     branches: [main]
     paths:
+      - '.github/workflows/research-turning-signal.yml'
       - 'scripts/research_turning_signal.py'
+      - 'scripts/forecast_market_regime.py'
       - 'dist/final_backtest.json'
       - 'scripts/collect_reb_long_cycle.py'
       - 'scripts/build_long_cycle_readiness.py'
@@ -51,11 +55,13 @@ jobs:
           python3 scripts/final_long_cycle_validation.py
           python3 scripts/validate_integrated_model.py
           python3 scripts/validate_state_machine.py
+      - name: Refresh forward regime forecast
+        run: python3 scripts/forecast_market_regime.py
       - name: Persist research output
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add -f data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json dist/long_cycle_model_validation.json dist/long_cycle_score_validation.json dist/long_cycle_event_validation.json dist/false_bottom_validation.json dist/final_long_cycle_validation.json dist/integrated_model_validation.json dist/state_machine_validation.json
+          git add -f data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json dist/long_cycle_model_validation.json dist/long_cycle_score_validation.json dist/long_cycle_event_validation.json dist/false_bottom_validation.json dist/final_long_cycle_validation.json dist/integrated_model_validation.json dist/state_machine_validation.json dist/regime_forecast.json
           git commit -m 'Refresh turning signal research' || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
