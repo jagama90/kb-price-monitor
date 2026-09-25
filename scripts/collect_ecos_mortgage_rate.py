@@ -13,8 +13,8 @@ def get(u):
 def main():
  key=os.getenv('BOK_ECOS_KEY')
  if not key:raise SystemExit('BOK_ECOS_KEY required')
- now=datetime.date.today();start=f'{now.year-2}01';end=f'{now.year}12'
- u=f'https://ecos.bok.or.kr/api/StatisticSearch/{key}/json/kr/1/500/{CODE}/{CYCLE}/{start}/{end}/'
+ now=datetime.date.today();start='200601';end=f'{now.year}12'
+ u=f'https://ecos.bok.or.kr/api/StatisticSearch/{key}/json/kr/1/5000/{CODE}/{CYCLE}/{start}/{end}/'
  rows=get(u).get('StatisticSearch',{}).get('row',[])
  hits=[]
  for r in rows:
