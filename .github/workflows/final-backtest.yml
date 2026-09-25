@@ -1,5 +1,7 @@
 name: Final historical validation
 on:
+  schedule:
+    - cron: '20 22 2 * *' # monthly certified refresh: 07:20 KST on the 3rd
   workflow_dispatch:
   push:
     branches: [main]
