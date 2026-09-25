@@ -1,4 +1,5 @@
 name: Parallel market data refresh
+# KB detail merge enabled
 on:
   schedule:
     - cron: '5 22 * * *'
