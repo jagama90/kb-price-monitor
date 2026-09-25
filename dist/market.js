@@ -103,7 +103,7 @@ function renderLeadChanges(){
  if(lv)lv.textContent=vv.length<3?'변화 이력을 연결하는 중':up>=3?'개선 신호가 여러 단계로 확산':down>=3?'여러 선행신호가 함께 약화':'개선과 약화가 엇갈리는 변곡 구간';
  if(ln)ln.textContent=vv.length?('최근 완료월 대비 현재 진행월: '+up+'개 개선 · '+down+'개 약화'):'현재 수준을 반복하지 않고 변화만 표시합니다.';
 }
-function renderConditionHistory(){
+async function renderConditionHistory(){
  const host=document.getElementById('conditionHistoryChart'),latestEl=document.getElementById('conditionHistoryLatest'),note=document.getElementById('conditionHistoryNote'),summary=document.getElementById('conditionHistorySummary'),controls=document.getElementById('conditionPeriods');if(!host)return;
  try{
   const r=await fetch('final_backtest.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);
