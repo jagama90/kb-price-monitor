@@ -238,3 +238,5 @@ main{max-width:1180px;padding-top:24px}
 @media(max-width:800px){.condition-summary{display:block}.condition-summary b{display:block;font-size:16px}.condition-summary span{display:block;text-align:left;margin-top:5px;line-height:1.5}.condition-periods button{padding:8px 17px}.condition-history-chart{overflow:visible}}
 
 .radar-period{display:block;margin:-2px 0 10px;color:#7b8794;font-size:10px;line-height:1.45}.watch .mobile-cards:empty:before{content:'관심단지 데이터를 불러오는 중입니다.';display:block;padding:18px;color:#7b8794}
+
+.mini-sort{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}.mini-sort button{border:1px solid #dfe5eb;background:#fff;color:#6f7b87;border-radius:999px;padding:6px 10px;font-size:9px;font-weight:700}.mini-sort button.active{border-color:#3186df;background:#eef6ff;color:#2376c9}
