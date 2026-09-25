@@ -20,7 +20,7 @@ async function loadMarketIndicators(){
 const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
 function setupSnapshotEvidence(d){
  const x=d.matched_period;
- const open=(title,source,current,previous,delta,note,formula)=>{document.getElementById('rateDetail').hidden=true;document.getElementById('macroDetail').hidden=true;setText('snapshotExplainTitle',title);setText('snapshotExplainSource',source);document.getElementById('snapshotExplainBody').innerHTML='<div class="evidence-compare"><div><small>현재 동일기간</small><b>'+esc(current[0])+'</b><span>'+esc(current[1])+'</span></div><div><small>직전월 동일기간</small><b>'+esc(previous[0])+'</b><span>'+esc(previous[1])+'</span></div></div><div class="evidence-change"><div><span>변화</span><b>'+esc(delta)+'</b></div><p>'+esc(note)+'</p></div><div class="evidence-method"><b>산출 기준</b><p>'+esc(formula)+'</p></div>';const el=document.getElementById('snapshotExplanation');el.hidden=false};
+ const open=(title,source,current,previous,delta,note,formula)=>{setText('snapshotExplainTitle',title);setText('snapshotExplainSource',source);document.getElementById('snapshotExplainBody').innerHTML='<div class="evidence-compare"><div><small>현재 동일기간</small><b>'+esc(current[0])+'</b><span>'+esc(current[1])+'</span></div><div><small>직전월 동일기간</small><b>'+esc(previous[0])+'</b><span>'+esc(previous[1])+'</span></div></div><div class="evidence-change"><div><span>변화</span><b>'+esc(delta)+'</b></div><p>'+esc(note)+'</p></div><div class="evidence-method"><b>산출 기준</b><p>'+esc(formula)+'</p></div>';const el=document.getElementById('snapshotExplanation');el.hidden=false};
  const bind=(id,fn)=>{const el=document.getElementById(id);if(!el)return;el.onclick=fn;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn()}}};
  if(x){bind('volumeCard',()=>open('서울 거래량','국토교통부 실거래가 · 계약일 기준',[Number(x.current.total).toLocaleString('ko-KR')+'건',x.current.period+' '+x.current.range],[Number(x.previous.total).toLocaleString('ko-KR')+'건',x.previous.period+' '+x.previous.range],signed(x.changes.trade_count_pct,'%'),x.warning||'당월 신고 진행 중','현재월과 직전월을 같은 달력일 구간으로 맞춰 계약 건수를 비교합니다.'));bind('under15Card',()=>open('15억 이하 비중','국토교통부 실거래가 · 서울 아파트',[x.current.under15_share+'%',x.current.period+' '+x.current.range],[x.previous.under15_share+'%',x.previous.period+' '+x.previous.range],signed(x.changes.under15_share_pp,'%p'),'중저가 거래 비중의 월간 이동','15억원 이하 거래건수 ÷ 해당 동일기간 서울 아파트 전체 거래건수 × 100'))}
  document.getElementById('closeSnapshotExplain')?.addEventListener('click',()=>document.getElementById('snapshotExplanation').hidden=true);
@@ -92,75 +92,7 @@ function renderRateDetail(){
  document.getElementById('rateHistory').innerHTML='<div class="head"><span>변경일</span><b>기준금리</b><em>직전 대비</em></div>'+BASE_RATES.slice(-8).reverse().map(x=>{const n=BASE_RATES.indexOf(x),p=n?BASE_RATES[n-1].v:null,delta=p==null?'—':((x.v-p)>0?'+':'')+(x.v-p).toFixed(2)+'%p';return '<div><span>'+x.d+'</span><b>'+x.v.toFixed(2)+'%</b><em>'+delta+'</em></div>'}).join('');
  document.getElementById('ratePrev').disabled=pg.start===0;document.getElementById('rateNext').disabled=pg.end===pg.total;
 }
-const rc=document.querySelector('#rateCard'),rd=document.querySelector('#rateDetail');
-function openRate(){RATE_PAGE=0;rd.hidden=false;document.querySelector('#macroDetail').hidden=true;document.querySelector('#snapshotExplanation').hidden=true;rc.setAttribute('aria-expanded','true');renderRateDetail()}
-rc?.addEventListener('click',openRate);rc?.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openRate()}});
-document.querySelector('#closeRate')?.addEventListener('click',()=>{rd.hidden=true;rc.setAttribute('aria-expanded','false')});
-document.querySelector('#ratePrev')?.addEventListener('click',()=>{RATE_PAGE++;renderRateDetail()});document.querySelector('#rateNext')?.addEventListener('click',()=>{RATE_PAGE=Math.max(0,RATE_PAGE-1);renderRateDetail()});
-const MACRO={m2:{title:'한국 M2 통화공급 증가율',source:'한국은행 ECOS',series:[{d:'2026-03',v:7.3},{d:'2026-04',v:8.2},{d:'2026-05',v:7.0},{d:'2026-06',v:8.2}]}};
-function showMacro(k){
- const z=MACRO[k],live=window.__marketIndicators?.m2_official||window.__marketIndicators?.m2,rows=z.series.slice();
- if(live?.period&&live?.yoy_pct!=null){const pd=String(live.period).slice(0,4)+'-'+String(live.period).slice(4,6),i=rows.findIndex(x=>x.d===pd);if(i>=0)rows[i]={d:pd,v:Number(live.yoy_pct)};else rows.push({d:pd,v:Number(live.yoy_pct)})}
- setText('macroTitle',z.title);setText('macroSource',z.source);document.getElementById('macroCurrent').innerHTML='<div><span>현재</span><b>'+(live?.yoy_pct!=null?Number(live.yoy_pct).toFixed(1)+'%':'—')+'</b></div><small>'+(live?.period||'최신')+' · 한국은행 ECOS</small>';
- MACRO_PAGE=0;const pg=renderPagedSeries('macroSvg','macroX','macroY',rows,MACRO_PAGE,7);setText('macroRange',rows[pg.start].d+' ~ '+rows[pg.end-1].d);
- document.getElementById('macroHistory').innerHTML='<div class="head"><span>기간</span><b>전년비</b><em>출처</em></div>'+rows.slice().reverse().map(x=>'<div><span>'+x.d+'</span><b>'+x.v.toFixed(1)+'%</b><em>ECOS</em></div>').join('');
- const el=document.getElementById('macroDetail');document.querySelector('#rateDetail').hidden=true;document.querySelector('#snapshotExplanation').hidden=true;el.hidden=false;
- document.getElementById('macroPrev').disabled=true;document.getElementById('macroNext').disabled=true;
-}
-document.querySelector('#m2Card')?.addEventListener('click',()=>showMacro('m2'));document.querySelector('#closeMacro')?.addEventListener('click',()=>document.querySelector('#macroDetail').hidden=true);
-
-async function loadEcosFinanceSamples(){
- try{
-  const d=await fetch('ecos_finance_sample.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),r=d.results||{};
-  const pick=(x,match)=>{const a=x?.sample?.rows||[];return a.find(z=>String(z.item||'').includes(match))||a[a.length-1]};
-  const rate=pick(r.loan_rate,'주택담보대출'),credit=pick(r.household_credit,''),mort=pick(r.mortgage,'');
-  if(rate){setText('sampleMortgageRate',rate.value+'%');setText('sampleMortgageRateMeta',(rate.time||'')+' · '+(rate.item||'')+' · 샘플')}
-  if(credit){setText('sampleHouseholdCredit',Number(credit.value).toLocaleString('ko-KR'));setText('sampleHouseholdCreditMeta',(credit.time||'')+' · '+(credit.item||'')+' · 샘플')}
-  if(mort){setText('sampleMortgage',Number(mort.value).toLocaleString('ko-KR'));setText('sampleMortgageMeta',(mort.time||'')+' · '+(mort.item||'')+' · 샘플')}
- }catch(e){console.warn('ECOS finance sample not published yet',e)}
-}
-loadEcosFinanceSamples();
-
-let SCORE_DETAIL_DATA={};
-function scoreDetailRows(k,d,c){
- const m=d.m2_official||d.m2, x=d.matched_period, ks=d.kb_sentiment||{}, v=d.kb_value||{};
- const guide={
-  finance:'해석 · 0~39 긴축/제약 · 40~59 중립 · 60~100 완화/개선. M2 증가율이 높을수록 점수가 올라갑니다.',
-  sentiment:'해석 · KB 원지표는 0~200, 100이 매수·매도 균형입니다. 이 상황판 점수는 0~100으로 환산하며 0~39 매도우위 · 40~59 중립 · 60~100 매수우위입니다.',
-  demand:'해석 · 0~39 수요 위축 · 40~59 중립 · 60~100 수요 개선. 전월 같은 신고구간보다 거래량과 15억 이하 비중이 늘수록 올라갑니다.',
-  value:'해석 · 25~75 범위. 최근 36개월 가격대에서 저점에 가까울수록 75, 고점에 가까울수록 25입니다. 50은 36개월 중간 위치입니다.',
-  supply:'해석 · KB 원지표는 0~200, 100이 수요·공급 균형입니다. 상황판 점수는 0~100 환산값으로 0~39 공급우위 · 40~59 중립 · 60~100 수요우위입니다.'
- };
- let rows;
- if(k==='finance')rows=[['M2 전월비',m?.mom_pct==null?'미연결':signed(m.mom_pct,'%'),'전월보다 시중 유동성이 얼마나 늘거나 줄었는지'],['M2 전년비',m?.yoy_pct==null?'미연결':signed(m.yoy_pct,'%'),'1년 전보다 유동성이 얼마나 늘었는지'],['현재 산출값',c.finance==null?'미연결':Math.round(c.finance)+'/100','50 + 전월비×8 + 전년비×1.5']];
- else if(k==='sentiment')rows=[['KB 매수우위',ks.latest?.['매수우위']?.value==null?'미연결':Number(ks.latest['매수우위'].value).toFixed(1),'0~200 · 100=매수자와 매도자 균형 · 높을수록 매수자 우위'],['KB 거래활발',ks.latest?.['매매거래활발']?.value==null?'미연결':Number(ks.latest['매매거래활발'].value).toFixed(1),'0~200 · 높을수록 거래가 활발하다는 응답이 강함'],['현재 산출값',c.sentiment==null?'미연결':Math.round(c.sentiment)+'/100','두 KB 심리지표를 상황판 0~100 척도로 환산']];
- else if(k==='demand')rows=[['동일기간 거래량 변화',x?.changes?.trade_count_pct==null?'미연결':signed(x.changes.trade_count_pct,'%'),'전월과 같은 계약일 구간 대비 · 0%=거래량 동일'],['15억 이하 비중 변화',x?.changes?.under15_share_pp==null?'미연결':signed(x.changes.under15_share_pp,'%p'),'0%p=비중 동일 · +면 15억 이하 거래비중 확대'],['현재 산출값',c.demand==null?'산출 보류':Math.round(c.demand)+'/100',c.demand==null?'두 입력값 연결 후 산출':'50 + 거래량 변화×0.35 + 비중 변화×1.5']];
- else if(k==='value')rows=[['KB 현재가격',v.current_manwon==null?'미연결':(v.current_manwon/10000).toFixed(2)+'억','가락금호 24A KB 월별 일반거래가'],['36개월 범위',(v.window_low_manwon==null||v.window_high_manwon==null)?'미연결':(v.window_low_manwon/10000).toFixed(2)+'억 ~ '+(v.window_high_manwon/10000).toFixed(2)+'억','이 범위에서 현재가격의 위치를 계산'],['가격 위치',v.current_position_0_1==null?'미연결':Math.round(v.current_position_0_1*100)+'%','0%=36개월 저점 · 100%=36개월 고점'],['현재 산출값',c.value==null?'미연결':Math.round(c.value)+'/100',v.status==='connected'?'저점 75점 ↔ 중간 50점 ↔ 고점 25점':'과거 이력 검증 대기']];
- else rows=[['KB 전세수급',ks.latest?.['전세수급']?.value==null?'미연결':Number(ks.latest['전세수급'].value).toFixed(1),'0~200 · 100=수요·공급 균형 · 높을수록 전세 수요우위'],['전세거래활발',ks.latest?.['전세거래활발']?.value==null?'미연결':Number(ks.latest['전세거래활발'].value).toFixed(1),'0~200 · 높을수록 전세 거래가 활발하다는 응답이 강함'],['현재 산출값',c.supply==null?'미연결':Math.round(c.supply)+'/100','KB 전세 신호를 상황판 0~100 척도로 환산']];
- return {guide:guide[k],rows};
-}
-function setupScoreDetails(d,c){
- SCORE_DETAIL_DATA={d,c};
- const meta={finance:['금융여건','25%','금리·유동성·신용이 실제 자금조달 여건을 얼마나 개선했는지 봅니다.'],sentiment:['시장심리','20%','KB 매수우위와 거래활발 지수로 매수·매도 압력을 봅니다.'],demand:['실수요·거래','20%','동일기간 거래량과 15억 이하 거래비중으로 실제 수요 확인 여부를 봅니다.'],value:['가격·밸류','20%','현재 가격의 장기 위치를 보되 가격 하락 자체를 매수 호재로 간주하지 않습니다.'],supply:['공급·전세','15%','전세수급·거래와 향후 입주·미분양을 통해 공급 부담을 검증합니다.']};
- const open=k=>{const [title,w,desc]=meta[k], detail=scoreDetailRows(k,d,c), rows=detail.rows, el=document.getElementById('scoreExplanation'),grid=document.querySelector('.score-grid'),cards=[...grid.querySelectorAll('.score-component')],clicked=grid.querySelector('[data-score="'+k+'"]'),idx=cards.indexOf(clicked);setText('scoreExplainTitle',title+' 점수 산정 근거');setText('scoreExplainWeight','매수여건 지수 가중치 '+w);document.getElementById('scoreExplainBody').innerHTML='<p class="score-rule">'+esc(desc)+'</p><div class="score-scale-guide">'+esc(detail.guide)+'</div><div class="score-detail-rows">'+rows.map(r=>'<div><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b><small>'+esc(r[2])+'</small></div>').join('')+'</div><p class="score-note">미연결 데이터는 50점으로 임의 대체하지 않고 전체 신뢰도에서 제외합니다.</p>';if(grid&&clicked){let anchor=clicked;if(window.matchMedia('(max-width:800px)').matches&&idx>=0){const rowEnd=Math.min(cards.length-1,idx%2===0?idx+1:idx);anchor=cards[rowEnd]}grid.insertBefore(el,anchor.nextSibling)}el.hidden=false};
- document.querySelectorAll('.score-component').forEach(el=>{el.onclick=()=>open(el.dataset.score);el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(el.dataset.score)}}});
- document.getElementById('closeScoreExplain')?.addEventListener('click',()=>document.getElementById('scoreExplanation').hidden=true);
-}
-
-async function renderGarakGeumho24A(){
- const label=document.getElementById('garakHistoryLatest'),host=document.getElementById('garakHistoryChart'); if(!host)return;
- try{const r=await fetch('garak_geumho_24a_history.json?v=95',{cache:'no-store'});if(!r.ok)throw Error(r.status);const d=await r.json(),rows=(d.series||[]).filter(x=>Number(x.sale)).slice(-96);if(!rows.length)throw Error('empty');
- const latest=rows.at(-1);label.textContent=latest.ym.slice(0,4)+'.'+latest.ym.slice(4)+' · '+(latest.sale/10000).toFixed(2)+'억';
- const W=420,H=230,p={l:38,r:8,t:12,b:26},vals=rows.flatMap(x=>[+x.sale,+x.rent]).filter(v=>v>0),lo=Math.min(...vals)*.94,hi=Math.max(...vals)*1.04,X=i=>p.l+i*(W-p.l-p.r)/(rows.length-1),Y=v=>p.t+(hi-v)/(hi-lo)*(H-p.t-p.b);
- const poly=k=>rows.map((q,i)=>q[k]?X(i).toFixed(1)+','+Y(+q[k]).toFixed(1):'').filter(Boolean).join(' ');let g='',ticks='';
- for(let k=0;k<4;k++){const v=lo+(hi-lo)*k/3,y=Y(v);g+='<line class="garak-grid" x1="'+p.l+'" y1="'+y+'" x2="'+(W-p.r)+'" y2="'+y+'"/><text class="garak-axis" x="2" y="'+(y+3)+'">'+(v/10000).toFixed(1)+'</text>'}
- rows.forEach((q,i)=>{if(i%24===0||i===rows.length-1)ticks+='<text class="garak-axis" text-anchor="middle" x="'+X(i)+'" y="'+(H-7)+'">'+q.ym.slice(2,4)+'.'+q.ym.slice(4)+'</text>'});
- host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="가락금호 24A KB 월별 매매 전세 시세">'+g+'<polyline class="garak-sale" points="'+poly('sale')+'"/><polyline class="garak-rent" points="'+poly('rent')+'"/>'+ticks+'</svg>';
- }catch(e){label.textContent='데이터 연결 실패';host.innerHTML='<div class="chart-error">차트 데이터를 불러오지 못했습니다.</div>'}
-}
-renderGarakGeumho24A();
-
-async async function renderLeadChanges(){
+function renderLeadChanges(){
  const lc=window.__conditionComponents||{},hist=window.__conditionHistoryRows||[],prev=hist.length?hist[hist.length-1]:null;
  const delta=(k,now)=>prev&&Number.isFinite(+prev.components?.[k])?now-(+prev.components[k]):null,fmt=v=>v==null?'이력 연결 중':(v>0?'↑ +':v<0?'↓ ':'→ ')+v.toFixed(1);
  const lead=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val;const n=document.getElementById(id+'Note');if(n)n.textContent='최근 완료월 대비 현재 진행월'};
