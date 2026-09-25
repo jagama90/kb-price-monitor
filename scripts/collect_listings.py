@@ -87,6 +87,34 @@ def payload_for(c,area_id,page):
     return p
 
 
+
+def get_page_price_record(complex_id,area_id):
+    url=f'https://kbland.kr/se/c/{complex_id}'
+    req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36','Referer':'https://kbland.kr/','Accept':'text/html'})
+    with urllib.request.urlopen(req,timeout=35) as r: html=r.read().decode('utf-8','replace')
+    marker=r'{\"단지기본일련번호\":'
+    records=[]; cursor=0
+    while True:
+        start=html.find(marker,cursor)
+        if start<0: break
+        depth=0; end=start; esc=False
+        while end<len(html):
+            ch=html[end]
+            if ch=='{' and not esc: depth+=1
+            elif ch=='}' and not esc:
+                depth-=1
+                if depth==0: end+=1; break
+            esc=(ch=='\\' and not esc)
+            if ch!='\\': esc=False
+            end+=1
+        raw=html[start:end].replace(r'\"','"')
+        try: records.append(json.loads(raw))
+        except Exception: pass
+        cursor=max(end,start+1)
+    matches=[x for x in records if str(x.get('면적일련번호'))==str(area_id)]
+    if not matches: return {}
+    return max(matches,key=lambda x: sum(k in x for k in ('매매일반거래가','매매평균가','시세기준년월일')))
+
 def get_integration_chart(complex_id,area_id):
     q=urllib.parse.urlencode({'단지기본일련번호':complex_id,'면적일련번호':area_id})
     req=urllib.request.Request('https://api.kbland.kr'+PRICE_PATH+'?'+q,headers={'User-Agent':'Mozilla/5.0','Accept':'application/json','Referer':f'https://kbland.kr/c/{complex_id}'})
@@ -155,7 +183,11 @@ def main():
         for aid in aids:
             if not aid or (a.area_id and aid!=a.area_id): continue
             try:
-                r=collect_one(c,aid,token)
+                # Price fields are embedded in the server-rendered KB complex page and are
+                # more stable from GitHub Actions than the session-sensitive propList API.
+                rec=get_page_price_record(cid,aid)
+                r={'lowest_ask_manwon':None,'avg_ask_manwon':rec.get('매매평균가'),'listing_count':0,'page_count':0,
+                   'kb_general_check_manwon':rec.get('매매일반거래가'),'kb_price_date':rec.get('시세기준년월일')}
                 try:
                     chart=get_integration_chart(cid,aid); trade,trade_date=latest_trade_from_chart(chart)
                 except Exception as ce:
