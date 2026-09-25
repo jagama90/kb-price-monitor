@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 API_HOST='api.kbland.kr'
-API_PATH='/land-property/propList/main'
+API_PATH='/land-property/propList/main'\nPRICE_PATH='/land-price/price/complex/integrationChart'
 
 def now(): return dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')
 def atomic_json(path,value):
@@ -85,6 +85,33 @@ def payload_for(c,area_id,page):
           '전자계약가능개수':'0'})
     return p
 
+
+def get_integration_chart(complex_id,area_id):
+    q=urllib.parse.urlencode({'단지기본일련번호':complex_id,'면적일련번호':area_id})
+    req=urllib.request.Request('https://api.kbland.kr'+PRICE_PATH+'?'+q,headers={'User-Agent':'Mozilla/5.0','Accept':'application/json','Referer':f'https://kbland.kr/c/{complex_id}'})
+    with urllib.request.urlopen(req,timeout=25) as r:
+        body=json.loads(r.read())
+    return (body.get('dataBody') or {}).get('data') or {}
+
+def latest_trade_from_chart(data):
+    # KB integration payload schemas have changed; search recursively for the newest sale transaction.
+    found=[]
+    def walk(x):
+        if isinstance(x,dict):
+            date=x.get('거래일자') or x.get('계약일자') or x.get('거래년월일') or x.get('계약년월일')
+            price=x.get('거래금액') or x.get('매매거래가') or x.get('실거래가') or x.get('매매가')
+            if date and price:
+                try:
+                    p=int(str(price).replace(',','')); ds=re.sub(r'[^0-9]','',str(date))
+                    if p>0 and len(ds)>=6: found.append((ds,p))
+                except Exception: pass
+            for v in x.values(): walk(v)
+        elif isinstance(x,list):
+            for v in x: walk(v)
+    walk(data)
+    if not found:return (None,None)
+    ds,p=max(found,key=lambda z:z[0]);return (p,ds)
+
 def collect_one(c,area_id,token):
     listings=[]; pages=1
     for page in range(1,51):
@@ -127,7 +154,12 @@ def main():
         for aid in aids:
             if not aid or (a.area_id and aid!=a.area_id): continue
             try:
-                r=collect_one(c,aid,token); r.update({'complex_id':cid,'area_id':aid,'name':c['user_name'],'collected_at':now()}); rows.append(r)
+                r=collect_one(c,aid,token)
+                try:
+                    chart=get_integration_chart(cid,aid); trade,trade_date=latest_trade_from_chart(chart)
+                except Exception as ce:
+                    trade=trade_date=None; r['price_detail_error']=str(ce)
+                r.update({'complex_id':cid,'area_id':aid,'name':c['user_name'],'recent_trade_manwon':trade,'recent_trade_date':trade_date,'collected_at':now()}); rows.append(r)
                 print(json.dumps(r,ensure_ascii=False),flush=True)
             except Exception as e:
                 errors.append({'complex_id':cid,'area_id':aid,'error':str(e)}); print(errors[-1],flush=True)
