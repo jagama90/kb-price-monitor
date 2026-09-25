@@ -15,14 +15,13 @@ on:
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/backfill_kb_history.py'
       - 'scripts/build_kb_value_sample.py'
-      - '.github/workflows/weekly-refresh.yml'
 
 permissions:
   contents: write
 
 concurrency:
   group: kb-weekly-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   refresh:
