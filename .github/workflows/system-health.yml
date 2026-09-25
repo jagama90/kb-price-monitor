@@ -1,5 +1,8 @@
 name: System health audit
 on:
+  workflow_run:
+    workflows: ['Forward regime forecast']
+    types: [completed]
   schedule:
     - cron: '15 0 * * *' # 09:15 KST, after daily market refresh + DB sync
   workflow_dispatch:
@@ -22,6 +25,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   audit:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
