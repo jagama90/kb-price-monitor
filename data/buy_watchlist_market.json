@@ -11,7 +11,7 @@
       "avg_ask_manwon": 271169,
       "recent_trade_manwon": 268500,
       "recent_trade_date": "20260814",
-      "kb_general_check_manwon": 257500,
+      "kb_general_check_manwon": 257500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -25,10 +25,10 @@
       "avg_ask_manwon": 186107,
       "recent_trade_manwon": 172500,
       "recent_trade_date": "20260711",
-      "kb_general_check_manwon": 172500,
+      "kb_general_check_manwon": 171500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260918"
+      "kb_price_date": "20260925"
     },
     {
       "complex_id": 15663,
@@ -39,7 +39,7 @@
       "avg_ask_manwon": 191770,
       "recent_trade_manwon": 183000,
       "recent_trade_date": "20260726",
-      "kb_general_check_manwon": 177500,
+      "kb_general_check_manwon": 177500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -53,7 +53,7 @@
       "avg_ask_manwon": 210000,
       "recent_trade_manwon": 175000,
       "recent_trade_date": "20260615",
-      "kb_general_check_manwon": 190000,
+      "kb_general_check_manwon": 185000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -67,7 +67,7 @@
       "avg_ask_manwon": 180000,
       "recent_trade_manwon": 171500,
       "recent_trade_date": "20260523",
-      "kb_general_check_manwon": 172500,
+      "kb_general_check_manwon": 172500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -81,10 +81,10 @@
       "avg_ask_manwon": 175321,
       "recent_trade_manwon": 167000,
       "recent_trade_date": "20260522",
-      "kb_general_check_manwon": 167500,
+      "kb_general_check_manwon": 167500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260925"
+      "kb_price_date": "20260918"
     },
     {
       "complex_id": 1945,
@@ -95,7 +95,7 @@
       "avg_ask_manwon": 238750,
       "recent_trade_manwon": 235000,
       "recent_trade_date": "20260520",
-      "kb_general_check_manwon": 227500,
+      "kb_general_check_manwon": 197500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": -1,
       "kb_price_date": "20260925"
@@ -109,7 +109,7 @@
       "avg_ask_manwon": null,
       "recent_trade_manwon": 191000,
       "recent_trade_date": "20260727",
-      "kb_general_check_manwon": 192500,
+      "kb_general_check_manwon": 163500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -123,7 +123,7 @@
       "avg_ask_manwon": 193653,
       "recent_trade_manwon": 194000,
       "recent_trade_date": "20260818",
-      "kb_general_check_manwon": 189500,
+      "kb_general_check_manwon": 189500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -137,10 +137,10 @@
       "avg_ask_manwon": 221667,
       "recent_trade_manwon": 202000,
       "recent_trade_date": "20260328",
-      "kb_general_check_manwon": 195000,
+      "kb_general_check_manwon": 175000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260925"
+      "kb_price_date": "20260918"
     },
     {
       "complex_id": 25769,
@@ -151,7 +151,7 @@
       "avg_ask_manwon": 163969,
       "recent_trade_manwon": 162800,
       "recent_trade_date": "20260825",
-      "kb_general_check_manwon": 160000,
+      "kb_general_check_manwon": 184250.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": -10,
       "kb_price_date": "20260925"
@@ -192,7 +192,7 @@
       "avg_ask_manwon": 186300,
       "recent_trade_manwon": 177500,
       "recent_trade_date": "20260629",
-      "kb_general_check_manwon": 166000,
+      "kb_general_check_manwon": 145000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": -1,
       "kb_price_date": "20260925"
@@ -206,10 +206,10 @@
       "avg_ask_manwon": 191714,
       "recent_trade_manwon": 200000,
       "recent_trade_date": "20260917",
-      "kb_general_check_manwon": 180000,
+      "kb_general_check_manwon": 149000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
-      "kb_price_date": "20260918"
+      "kb_price_date": "20260925"
     },
     {
       "complex_id": 323275,
@@ -260,7 +260,7 @@
       "avg_ask_manwon": 217059,
       "recent_trade_manwon": 206000,
       "recent_trade_date": "20260609",
-      "kb_general_check_manwon": 215000,
+      "kb_general_check_manwon": 175000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -274,7 +274,7 @@
       "avg_ask_manwon": 203300,
       "recent_trade_manwon": 196000,
       "recent_trade_date": "20260727",
-      "kb_general_check_manwon": 192500,
+      "kb_general_check_manwon": 192500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -288,7 +288,7 @@
       "avg_ask_manwon": 171000,
       "recent_trade_manwon": 166000,
       "recent_trade_date": "20260613",
-      "kb_general_check_manwon": 155000,
+      "kb_general_check_manwon": 126000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -302,7 +302,7 @@
       "avg_ask_manwon": 166762,
       "recent_trade_manwon": 177000,
       "recent_trade_date": "20260712",
-      "kb_general_check_manwon": 157000,
+      "kb_general_check_manwon": 157000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": -1,
       "kb_price_date": "20260925"
@@ -316,7 +316,7 @@
       "avg_ask_manwon": 170000,
       "recent_trade_manwon": 164000,
       "recent_trade_date": "20260520",
-      "kb_general_check_manwon": 153500,
+      "kb_general_check_manwon": 153500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -330,7 +330,7 @@
       "avg_ask_manwon": 187625,
       "recent_trade_manwon": 200000,
       "recent_trade_date": "20260728",
-      "kb_general_check_manwon": 185000,
+      "kb_general_check_manwon": 160500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": -2,
       "kb_price_date": "20260925"
@@ -344,7 +344,7 @@
       "avg_ask_manwon": 198802,
       "recent_trade_manwon": 195000,
       "recent_trade_date": "20260801",
-      "kb_general_check_manwon": 191000,
+      "kb_general_check_manwon": 163000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -358,7 +358,7 @@
       "avg_ask_manwon": 167648,
       "recent_trade_manwon": 170000,
       "recent_trade_date": "20260619",
-      "kb_general_check_manwon": 162500,
+      "kb_general_check_manwon": 162500.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": "20260925"
@@ -372,7 +372,7 @@
       "avg_ask_manwon": 236167,
       "recent_trade_manwon": 165000,
       "recent_trade_date": "20260105",
-      "kb_general_check_manwon": 212500,
+      "kb_general_check_manwon": 182500.0,
       "market_scope": "target_area_id",
       "kb_price_date": "20260925"
     }
@@ -447,6 +447,6 @@
       "error": "visible type tab not found: 25평"
     }
   ],
-  "kb_detail_collected_at": "2026-09-25T12:03:22+00:00",
-  "kb_detail_matched_rows": 26
+  "kb_detail_collected_at": "2026-09-25T12:09:37+00:00",
+  "kb_detail_matched_rows": 24
 }
