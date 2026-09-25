@@ -55,29 +55,33 @@ def main():
   for h in (1,3,6,12):
    k=shift(ym,h);row[f'fwd_{h}m_pct']=round((pm[k]/pm[ym]-1)*100,2) if k in pm else None
   rows.append(row)
- # Full monthly history is certified only through the latest completed demand month.
- latest_complete=demand_payload.get('certified_through') or (max(dm) if dm else '')
- rows=[x for x in rows if x['ym']<=latest_complete]
- complete=[x for x in rows if x['score'] is not None]
+ # Keep the newest completed calendar month as a provisional tail for current
+ # regime reading, but certify/score history only through t-2 after reporting lag.
+ latest_available=max(dm) if dm else ''
+ certified_through=demand_payload.get('certified_through') or latest_available
+ rows=[x for x in rows if x['ym']<=latest_available]
+ for x in rows: x['provisional']=x['ym']>certified_through
+ certified_rows=[x for x in rows if x['ym']<=certified_through]
+ complete=[x for x in certified_rows if x['score'] is not None]
  expected=[]
  k='202209'
- while latest_complete and k<=latest_complete:
+ while certified_through and k<=certified_through:
   expected.append(k); k=shift(k,1)
  checkpoint=[shift('202210',i) for i in range(9)]
- actual=[x['ym'] for x in rows]
- checkpoint_rows=[x for x in rows if x['ym'] in checkpoint]
- certified=bool(rows) and actual==expected and len(complete)==len(rows) and all(x['coverage_weight']==100 for x in rows) and [x['ym'] for x in checkpoint_rows]==checkpoint
+ actual=[x['ym'] for x in certified_rows]
+ checkpoint_rows=[x for x in certified_rows if x['ym'] in checkpoint]
+ certified=bool(certified_rows) and actual==expected and len(complete)==len(certified_rows) and all(x['coverage_weight']==100 for x in certified_rows) and [x['ym'] for x in checkpoint_rows]==checkpoint
  metrics={}
  for h in (1,3,6,12):metrics[f'score_vs_fwd_{h}m_corr']=corr([x['score'] for x in complete],[x[f'fwd_{h}m_pct'] for x in complete])
  if complete:
   ordered=sorted(complete,key=lambda x:x['score']);n=max(1,len(ordered)//3)
   metrics['low_score_mean_fwd_6m_pct']=round(sum(x['fwd_6m_pct'] for x in ordered[:n] if x['fwd_6m_pct'] is not None)/max(1,sum(x['fwd_6m_pct'] is not None for x in ordered[:n])),2)
   metrics['high_score_mean_fwd_6m_pct']=round(sum(x['fwd_6m_pct'] for x in ordered[-n:] if x['fwd_6m_pct'] is not None)/max(1,sum(x['fwd_6m_pct'] is not None for x in ordered[-n:])),2)
- out={'status':'certified' if certified else 'incomplete','certified_final':certified,
+ out={'status':('certified_with_provisional_tail' if certified and any(x.get('provisional') for x in rows) else 'certified') if certified else 'incomplete','certified_final':certified,
   'formula':'finance25 + sentiment20 + demand20 + value20 + supply15; identical to production dashboard',
   'no_future_leakage':True,'vintage_rules':{'kb_sentiment':'latest observation dated <= month end','m2':'t-2 conservative publication lag','demand':'completed calendar month vs previous completed month','value':'trailing 36 months through score month only'},
   'target':'KB Garak Geumho 24A monthly sale general price','checkpoint':'2022-10..2023-06',
-  'period':'2022-09..latest completed month','checkpoint_rows':checkpoint_rows,'rows':rows,'metrics':metrics,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+  'period':'2022-09..latest completed month','certified_through':certified_through,'latest_available_month':latest_available,'checkpoint_rows':checkpoint_rows,'rows':rows,'metrics':metrics,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  O.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  print(json.dumps({'status':out['status'],'certified_final':certified,'complete_rows':len(complete),'metrics':metrics},ensure_ascii=False))
  if not certified: raise SystemExit('historical validation incomplete: '+json.dumps({x['ym']:x['missing'] for x in rows if x['missing']},ensure_ascii=False))
