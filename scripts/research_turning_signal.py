@@ -91,6 +91,8 @@ def main():
  # Regime diagnostics for the two reference episodes: 2023 bottom turn and 2025 reacceleration.
  refs={k:[x for x in outrows if a<=x['ym']<=b] for k,(a,b) in {'bottom_2023':('202212','202306'),'reaccel_2025':('202412','202509')}.items()}
  payload={'status':'research_only','production_formula_unchanged':True,'no_future_leakage':True,
+  'source_backtest_status':d.get('status'),'certified_through':d.get('certified_through'),
+  'latest_source_provisional':bool(outrows[-1].get('source_provisional')) if outrows else False,
   'method':'setup = 55% cheapness + 45% sentiment distress; turn = 30% breadth + 35% price-decline-exhaustion + 35% early turn (sentiment persistence, demand recovery, price deceleration); opportunity = setup * turn / 100',
   'rows':outrows,'reference_episodes':refs,'mortgage_rate_overlay':mort,'metrics':metrics,'component_dispersion':dispersion,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)); print(json.dumps(metrics,ensure_ascii=False))
