@@ -208,7 +208,9 @@ def main():
                 r={'lowest_ask_manwon':None,'avg_ask_manwon':rec.get('매물평균가'),'listing_count':0,'page_count':0,
                    'kb_general_check_manwon':rec.get('매매일반거래가'),'kb_price_date':rec.get('시세기준년월일')}
                 try:
-                    trade,trade_date=rec.get('최근실거래가'),rec.get('최근실거래일')\n                    if not trade:\n                        chart=get_integration_chart(cid,aid); trade,trade_date=latest_trade_from_chart(chart)
+                    trade,trade_date=rec.get('최근실거래가'),rec.get('최근실거래일')
+                    if not trade:
+                        chart=get_integration_chart(cid,aid); trade,trade_date=latest_trade_from_chart(chart)
                 except Exception as ce:
                     trade=trade_date=None; r['price_detail_error']=str(ce)
                 r.update({'complex_id':cid,'area_id':aid,'name':c['user_name'],'recent_trade_manwon':trade,'recent_trade_date':trade_date,'collected_at':now()}); rows.append(r)
