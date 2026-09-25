@@ -11,6 +11,16 @@ async function loadMarketIndicators(){
   renderKbOfficial(d);
   renderConditionIndex(d);
   setupScoreDetails(d,window.__conditionComponents||{});
+  const lc=window.__conditionComponents||{}, lead=(id,val,note)=>{const e=document.getElementById(id);if(e)e.textContent=val;const n=document.getElementById(id+'Note');if(n&&note)n.textContent=note};
+  if(['finance','sentiment','supply','demand'].every(k=>Number.isFinite(lc[k]))){
+   lead('leadFinance',Math.round(lc.finance)+'/100',lc.finance>=60?'유동성 여건 개선권':lc.finance<40?'금융 제약 지속':'중립권');
+   lead('leadSentiment',Math.round(lc.sentiment)+'/100',lc.sentiment>=60?'매수심리 우위':lc.sentiment<40?'매도우위 지속':'균형권');
+   lead('leadJeonse',Math.round(lc.supply)+'/100',lc.supply>=60?'전세 수요압력 우위':lc.supply<40?'공급우위':'균형권');
+   lead('leadDemand',Math.round(lc.demand)+'/100',lc.demand>=60?'실제 거래 개선':lc.demand<40?'실현수요 약함':'중립권');
+   const vals=[lc.finance,lc.sentiment,lc.supply,lc.demand],strong=vals.filter(x=>x>=60).length,weak=vals.filter(x=>x<40).length,lv=document.getElementById('leadVerdict'),ln=document.getElementById('leadVerdictNote');
+   if(lv)lv.textContent=strong>=3?'여러 선행신호가 같은 방향으로 개선 중':weak>=3?'아직 선행신호의 동시 회복은 확인되지 않음':'신호가 엇갈리는 전환 구간';
+   if(ln)ln.textContent='금융 '+Math.round(lc.finance)+' · 심리 '+Math.round(lc.sentiment)+' · 전세 '+Math.round(lc.supply)+' · 수요 '+Math.round(lc.demand)+' — 같은 방향의 확산 여부를 확인합니다.';
+  }
   setupSnapshotEvidence(d);
   window.__marketIndicators=d;
   const updated=document.querySelector('#updated');if(updated&&/LOADING|DATA ERROR|관심단지 일부/.test(updated.textContent))updated.textContent='MARKET '+(d.updated_at||new Date().toLocaleDateString('ko-KR'));
