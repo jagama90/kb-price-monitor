@@ -197,7 +197,6 @@ def main():
         if not c or not c.get('complex_id'):
             unresolved_targets.append({'name':t.get('name'),'reason':'complex_not_resolved'})
             continue
-        resolved_targets+=1
         cid=c['complex_id']
         if a.complex_id and cid!=a.complex_id: continue
         aids=t.get('area_ids') or []
@@ -210,6 +209,7 @@ def main():
         if not aids:
             unresolved_targets.append({'name':t.get('name'),'complex_id':cid,'reason':'target_area_not_resolved','selection':t.get('selection')})
             continue
+        resolved_targets+=1
         for aid in aids:
             if not aid or (a.area_id and aid!=a.area_id): continue
             try:
