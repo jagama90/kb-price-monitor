@@ -28,14 +28,14 @@ def main():
   a.append(x)
  # Predeclared confirmation family; choose only on train. Penalize renewed lows heavily.
  cand=[]
- for need_up2,rec_cut,trade_cut,m2_cut in itertools.product((False,True),(0,0.3,0.6),(-20,0,20),(0,5,8)):
+ for need_up2,rec_cut,trade_cut,m2_cut in itertools.product((False,True),(-0.5,0,0.3),(-50,-20,0),(-5,0,5)):
   def hit(x,nu=need_up2,rc=rec_cut,tc=trade_cut,mc=m2_cut):
    return x['base'] and (not nu or x['up2']) and x['rec2']>=rc and x['trade_yoy']>=tc and x['m2']>=mc
   tr=[x for x in a if x['split']=='train' and hit(x)]
-  if len(tr)<3: continue
+  if len(tr)<2: continue
   m=met(tr); obj=(m['fwd_12m_mean_pct'] or -99)+0.04*(m['fwd_12m_positive_rate_pct'] or 0)-0.06*(m['renew_low_12m_rate_pct'] or 100)+min(len(tr),8)*0.05
   cand.append((obj,need_up2,rec_cut,trade_cut,m2_cut))
- cand.sort(reverse=True);_,nu,rc,tc,mc=cand[0]
+ cand.sort(reverse=True)\n if not cand:\n  raise RuntimeError('No train candidates; inspect base signal coverage')\n _,nu,rc,tc,mc=cand[0]
  def confirm(x): return x['base'] and (not nu or x['up2']) and x['rec2']>=rc and x['trade_yoy']>=tc and x['m2']>=mc
  for x in a:x['confirmed']=confirm(x)
  summary={}
