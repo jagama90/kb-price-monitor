@@ -1,0 +1,1111 @@
+{
+  "status": "certified",
+  "certified_final": true,
+  "formula": "finance25 + sentiment20 + demand20 + value20 + supply15; identical to production dashboard",
+  "no_future_leakage": true,
+  "vintage_rules": {
+    "kb_sentiment": "latest observation dated <= month end",
+    "m2": "t-2 conservative publication lag",
+    "demand": "completed calendar month vs previous completed month",
+    "value": "trailing 36 months through score month only"
+  },
+  "target": "KB Garak Geumho 24A monthly sale general price",
+  "checkpoint": "2022-10..2023-06",
+  "period": "2022-09..latest completed month",
+  "checkpoint_rows": [
+    {
+      "ym": "202210",
+      "score": 37.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 71.21,
+        "sentiment": 4.7,
+        "demand": 46.14,
+        "value": 32.81,
+        "supply": 17.1
+      },
+      "target_price": 128500.0,
+      "m2_vintage_period": "202208",
+      "fwd_1m_pct": -6.61,
+      "fwd_3m_pct": -10.51,
+      "fwd_6m_pct": -19.84,
+      "fwd_12m_pct": -14.01
+    },
+    {
+      "ym": "202211",
+      "score": 40.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 65.34,
+        "sentiment": 4.1,
+        "demand": 60.99,
+        "value": 43.39,
+        "supply": 13.7
+      },
+      "target_price": 120000.0,
+      "m2_vintage_period": "202209",
+      "fwd_1m_pct": -2.08,
+      "fwd_3m_pct": -9.58,
+      "fwd_6m_pct": -14.17,
+      "fwd_12m_pct": -7.92
+    },
+    {
+      "ym": "202212",
+      "score": 40.0,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 67.66,
+        "sentiment": 4.9,
+        "demand": 54.37,
+        "value": 47.29,
+        "supply": 12.1
+      },
+      "target_price": 117500.0,
+      "m2_vintage_period": "202210",
+      "fwd_1m_pct": -2.13,
+      "fwd_3m_pct": -11.06,
+      "fwd_6m_pct": -11.91,
+      "fwd_12m_pct": -5.96
+    },
+    {
+      "ym": "202301",
+      "score": 45.7,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 73.2,
+        "sentiment": 6.2,
+        "demand": 69.88,
+        "value": 50.61,
+        "supply": 13.8
+      },
+      "target_price": 115000.0,
+      "m2_vintage_period": "202211",
+      "fwd_1m_pct": -5.65,
+      "fwd_3m_pct": -10.43,
+      "fwd_6m_pct": -7.39,
+      "fwd_12m_pct": -3.91
+    },
+    {
+      "ym": "202302",
+      "score": 46.4,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 62.31,
+        "sentiment": 6.8,
+        "demand": 73.56,
+        "value": 60.26,
+        "supply": 17.9
+      },
+      "target_price": 108500.0,
+      "m2_vintage_period": "202212",
+      "fwd_1m_pct": -3.69,
+      "fwd_3m_pct": -5.07,
+      "fwd_6m_pct": 0.92,
+      "fwd_12m_pct": 1.84
+    },
+    {
+      "ym": "202303",
+      "score": 45.2,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 62.13,
+        "sentiment": 7.8,
+        "demand": 59.69,
+        "value": 65.38,
+        "supply": 20.9
+      },
+      "target_price": 104500.0,
+      "m2_vintage_period": "202301",
+      "fwd_1m_pct": -1.44,
+      "fwd_3m_pct": -0.96,
+      "fwd_6m_pct": 5.74,
+      "fwd_12m_pct": 5.74
+    },
+    {
+      "ym": "202304",
+      "score": 43.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 60.07,
+        "sentiment": 8.7,
+        "demand": 49.83,
+        "value": 67.31,
+        "supply": 22.3
+      },
+      "target_price": 103000.0,
+      "m2_vintage_period": "202302",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 3.4,
+      "fwd_6m_pct": 7.28,
+      "fwd_12m_pct": 7.52
+    },
+    {
+      "ym": "202305",
+      "score": 43.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 55.37,
+        "sentiment": 10.7,
+        "demand": 46.98,
+        "value": 69.0,
+        "supply": 26.3
+      },
+      "target_price": 103000.0,
+      "m2_vintage_period": "202303",
+      "fwd_1m_pct": 0.49,
+      "fwd_3m_pct": 6.31,
+      "fwd_6m_pct": 7.28,
+      "fwd_12m_pct": 7.52
+    },
+    {
+      "ym": "202306",
+      "score": 46.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 54.29,
+        "sentiment": 12.0,
+        "demand": 56.49,
+        "value": 74.24,
+        "supply": 29.2
+      },
+      "target_price": 103500.0,
+      "m2_vintage_period": "202304",
+      "fwd_1m_pct": 2.9,
+      "fwd_3m_pct": 6.76,
+      "fwd_6m_pct": 6.76,
+      "fwd_12m_pct": 7.0
+    }
+  ],
+  "rows": [
+    {
+      "ym": "202209",
+      "score": 35.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 68.28,
+        "sentiment": 5.3,
+        "demand": 43.46,
+        "value": 27.45,
+        "supply": 21.2
+      },
+      "target_price": 133500.0,
+      "m2_vintage_period": "202207",
+      "fwd_1m_pct": -3.75,
+      "fwd_3m_pct": -11.99,
+      "fwd_6m_pct": -21.72,
+      "fwd_12m_pct": -17.23
+    },
+    {
+      "ym": "202210",
+      "score": 37.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 71.21,
+        "sentiment": 4.7,
+        "demand": 46.14,
+        "value": 32.81,
+        "supply": 17.1
+      },
+      "target_price": 128500.0,
+      "m2_vintage_period": "202208",
+      "fwd_1m_pct": -6.61,
+      "fwd_3m_pct": -10.51,
+      "fwd_6m_pct": -19.84,
+      "fwd_12m_pct": -14.01
+    },
+    {
+      "ym": "202211",
+      "score": 40.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 65.34,
+        "sentiment": 4.1,
+        "demand": 60.99,
+        "value": 43.39,
+        "supply": 13.7
+      },
+      "target_price": 120000.0,
+      "m2_vintage_period": "202209",
+      "fwd_1m_pct": -2.08,
+      "fwd_3m_pct": -9.58,
+      "fwd_6m_pct": -14.17,
+      "fwd_12m_pct": -7.92
+    },
+    {
+      "ym": "202212",
+      "score": 40.0,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 67.66,
+        "sentiment": 4.9,
+        "demand": 54.37,
+        "value": 47.29,
+        "supply": 12.1
+      },
+      "target_price": 117500.0,
+      "m2_vintage_period": "202210",
+      "fwd_1m_pct": -2.13,
+      "fwd_3m_pct": -11.06,
+      "fwd_6m_pct": -11.91,
+      "fwd_12m_pct": -5.96
+    },
+    {
+      "ym": "202301",
+      "score": 45.7,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 73.2,
+        "sentiment": 6.2,
+        "demand": 69.88,
+        "value": 50.61,
+        "supply": 13.8
+      },
+      "target_price": 115000.0,
+      "m2_vintage_period": "202211",
+      "fwd_1m_pct": -5.65,
+      "fwd_3m_pct": -10.43,
+      "fwd_6m_pct": -7.39,
+      "fwd_12m_pct": -3.91
+    },
+    {
+      "ym": "202302",
+      "score": 46.4,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 62.31,
+        "sentiment": 6.8,
+        "demand": 73.56,
+        "value": 60.26,
+        "supply": 17.9
+      },
+      "target_price": 108500.0,
+      "m2_vintage_period": "202212",
+      "fwd_1m_pct": -3.69,
+      "fwd_3m_pct": -5.07,
+      "fwd_6m_pct": 0.92,
+      "fwd_12m_pct": 1.84
+    },
+    {
+      "ym": "202303",
+      "score": 45.2,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 62.13,
+        "sentiment": 7.8,
+        "demand": 59.69,
+        "value": 65.38,
+        "supply": 20.9
+      },
+      "target_price": 104500.0,
+      "m2_vintage_period": "202301",
+      "fwd_1m_pct": -1.44,
+      "fwd_3m_pct": -0.96,
+      "fwd_6m_pct": 5.74,
+      "fwd_12m_pct": 5.74
+    },
+    {
+      "ym": "202304",
+      "score": 43.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 60.07,
+        "sentiment": 8.7,
+        "demand": 49.83,
+        "value": 67.31,
+        "supply": 22.3
+      },
+      "target_price": 103000.0,
+      "m2_vintage_period": "202302",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 3.4,
+      "fwd_6m_pct": 7.28,
+      "fwd_12m_pct": 7.52
+    },
+    {
+      "ym": "202305",
+      "score": 43.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 55.37,
+        "sentiment": 10.7,
+        "demand": 46.98,
+        "value": 69.0,
+        "supply": 26.3
+      },
+      "target_price": 103000.0,
+      "m2_vintage_period": "202303",
+      "fwd_1m_pct": 0.49,
+      "fwd_3m_pct": 6.31,
+      "fwd_6m_pct": 7.28,
+      "fwd_12m_pct": 7.52
+    },
+    {
+      "ym": "202306",
+      "score": 46.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 54.29,
+        "sentiment": 12.0,
+        "demand": 56.49,
+        "value": 74.24,
+        "supply": 29.2
+      },
+      "target_price": 103500.0,
+      "m2_vintage_period": "202304",
+      "fwd_1m_pct": 2.9,
+      "fwd_3m_pct": 6.76,
+      "fwd_6m_pct": 6.76,
+      "fwd_12m_pct": 7.0
+    },
+    {
+      "ym": "202307",
+      "score": 44.7,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 53.65,
+        "sentiment": 13.7,
+        "demand": 48.38,
+        "value": 69.7,
+        "supply": 32.7
+      },
+      "target_price": 106500.0,
+      "m2_vintage_period": "202305",
+      "fwd_1m_pct": 2.82,
+      "fwd_3m_pct": 3.76,
+      "fwd_6m_pct": 3.76,
+      "fwd_12m_pct": 6.1
+    },
+    {
+      "ym": "202308",
+      "score": 46.9,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 59.07,
+        "sentiment": 15.7,
+        "demand": 52.43,
+        "value": 65.15,
+        "supply": 36.2
+      },
+      "target_price": 109500.0,
+      "m2_vintage_period": "202306",
+      "fwd_1m_pct": 0.91,
+      "fwd_3m_pct": 0.91,
+      "fwd_6m_pct": 0.91,
+      "fwd_12m_pct": 3.2
+    },
+    {
+      "ym": "202309",
+      "score": 45.6,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 62.29,
+        "sentiment": 13.9,
+        "demand": 44.5,
+        "value": 63.64,
+        "supply": 37.7
+      },
+      "target_price": 110500.0,
+      "m2_vintage_period": "202307",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.0,
+      "fwd_12m_pct": 6.33
+    },
+    {
+      "ym": "202310",
+      "score": 41.8,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 54.05,
+        "sentiment": 9.7,
+        "demand": 40.74,
+        "value": 63.64,
+        "supply": 36.3
+      },
+      "target_price": 110500.0,
+      "m2_vintage_period": "202308",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 7.69
+    },
+    {
+      "ym": "202311",
+      "score": 41.7,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 55.42,
+        "sentiment": 6.1,
+        "demand": 43.06,
+        "value": 63.64,
+        "supply": 35.2
+      },
+      "target_price": 110500.0,
+      "m2_vintage_period": "202309",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202312",
+      "score": 43.6,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 56.88,
+        "sentiment": 6.0,
+        "demand": 51.82,
+        "value": 63.64,
+        "supply": 33.9
+      },
+      "target_price": 110500.0,
+      "m2_vintage_period": "202310",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202401",
+      "score": 47.3,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 58.95,
+        "sentiment": 7.7,
+        "demand": 63.79,
+        "value": 63.64,
+        "supply": 37.2
+      },
+      "target_price": 110500.0,
+      "m2_vintage_period": "202311",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 2.26,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202402",
+      "score": 43.0,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 51.17,
+        "sentiment": 8.8,
+        "demand": 49.55,
+        "value": 63.64,
+        "supply": 38.5
+      },
+      "target_price": 110500.0,
+      "m2_vintage_period": "202312",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 2.26,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202403",
+      "score": 47.8,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 50.0,
+        "sentiment": 11.6,
+        "demand": 71.53,
+        "value": 63.64,
+        "supply": 39.6
+      },
+      "target_price": 110500.0,
+      "m2_vintage_period": "202401",
+      "fwd_1m_pct": 0.23,
+      "fwd_3m_pct": 0.23,
+      "fwd_6m_pct": 6.33,
+      "fwd_12m_pct": 12.22
+    },
+    {
+      "ym": "202404",
+      "score": 45.6,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 58.17,
+        "sentiment": 12.0,
+        "demand": 50.02,
+        "value": 63.26,
+        "supply": 39.8
+      },
+      "target_price": 110750.0,
+      "m2_vintage_period": "202402",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.03,
+      "fwd_6m_pct": 7.45,
+      "fwd_12m_pct": 14.67
+    },
+    {
+      "ym": "202405",
+      "score": 47.8,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 63.95,
+        "sentiment": 14.7,
+        "demand": 49.57,
+        "value": 63.26,
+        "supply": 42.3
+      },
+      "target_price": 110750.0,
+      "m2_vintage_period": "202403",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.03,
+      "fwd_6m_pct": 9.26,
+      "fwd_12m_pct": 14.67
+    },
+    {
+      "ym": "202406",
+      "score": 51.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 56.42,
+        "sentiment": 22.3,
+        "demand": 66.02,
+        "value": 63.26,
+        "supply": 44.6
+      },
+      "target_price": 110750.0,
+      "m2_vintage_period": "202404",
+      "fwd_1m_pct": 2.03,
+      "fwd_3m_pct": 6.09,
+      "fwd_6m_pct": 9.26,
+      "fwd_12m_pct": 17.38
+    },
+    {
+      "ym": "202407",
+      "score": 49.8,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 56.44,
+        "sentiment": 29.1,
+        "demand": 55.59,
+        "value": 59.85,
+        "supply": 44.9
+      },
+      "target_price": 113000.0,
+      "m2_vintage_period": "202405",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 5.31,
+      "fwd_6m_pct": 7.08,
+      "fwd_12m_pct": 16.81
+    },
+    {
+      "ym": "202408",
+      "score": 46.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 55.7,
+        "sentiment": 26.8,
+        "demand": 41.43,
+        "value": 59.85,
+        "supply": 46.6
+      },
+      "target_price": 113000.0,
+      "m2_vintage_period": "202406",
+      "fwd_1m_pct": 3.98,
+      "fwd_3m_pct": 7.08,
+      "fwd_6m_pct": 7.08,
+      "fwd_12m_pct": 19.47
+    },
+    {
+      "ym": "202409",
+      "score": 40.3,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 57.37,
+        "sentiment": 16.5,
+        "demand": 28.61,
+        "value": 53.03,
+        "supply": 42.5
+      },
+      "target_price": 117500.0,
+      "m2_vintage_period": "202407",
+      "fwd_1m_pct": 1.28,
+      "fwd_3m_pct": 2.98,
+      "fwd_6m_pct": 5.53,
+      "fwd_12m_pct": 22.98
+    },
+    {
+      "ym": "202410",
+      "score": 45.3,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 57.36,
+        "sentiment": 13.6,
+        "demand": 61.25,
+        "value": 50.76,
+        "supply": 38.6
+      },
+      "target_price": 119000.0,
+      "m2_vintage_period": "202408",
+      "fwd_1m_pct": 1.68,
+      "fwd_3m_pct": 1.68,
+      "fwd_6m_pct": 6.72,
+      "fwd_12m_pct": 21.85
+    },
+    {
+      "ym": "202411",
+      "score": 40.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 58.98,
+        "sentiment": 11.6,
+        "demand": 42.03,
+        "value": 47.73,
+        "supply": 36.7
+      },
+      "target_price": 121000.0,
+      "m2_vintage_period": "202409",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 4.96,
+      "fwd_12m_pct": 20.66
+    },
+    {
+      "ym": "202412",
+      "score": 42.0,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 56.66,
+        "sentiment": 10.7,
+        "demand": 53.62,
+        "value": 47.73,
+        "supply": 36.4
+      },
+      "target_price": 121000.0,
+      "m2_vintage_period": "202410",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 2.48,
+      "fwd_6m_pct": 7.44,
+      "fwd_12m_pct": 21.07
+    },
+    {
+      "ym": "202501",
+      "score": 42.0,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 59.3,
+        "sentiment": 11.9,
+        "demand": 48.36,
+        "value": 47.73,
+        "supply": 37.4
+      },
+      "target_price": 121000.0,
+      "m2_vintage_period": "202411",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 4.96,
+      "fwd_6m_pct": 9.09,
+      "fwd_12m_pct": 28.1
+    },
+    {
+      "ym": "202502",
+      "score": 49.2,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 60.71,
+        "sentiment": 22.4,
+        "demand": 67.69,
+        "value": 47.73,
+        "supply": 42.8
+      },
+      "target_price": 121000.0,
+      "m2_vintage_period": "202412",
+      "fwd_1m_pct": 2.48,
+      "fwd_3m_pct": 4.96,
+      "fwd_6m_pct": 11.57,
+      "fwd_12m_pct": 38.43
+    },
+    {
+      "ym": "202503",
+      "score": 48.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 62.37,
+        "sentiment": 18.4,
+        "demand": 72.43,
+        "value": 43.18,
+        "supply": 41.0
+      },
+      "target_price": 124000.0,
+      "m2_vintage_period": "202501",
+      "fwd_1m_pct": 2.42,
+      "fwd_3m_pct": 4.84,
+      "fwd_6m_pct": 16.53,
+      "fwd_12m_pct": 44.35
+    },
+    {
+      "ym": "202504",
+      "score": 42.8,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 57.95,
+        "sentiment": 18.2,
+        "demand": 54.25,
+        "value": 38.64,
+        "supply": 40.4
+      },
+      "target_price": 127000.0,
+      "m2_vintage_period": "202502",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 3.94,
+      "fwd_6m_pct": 14.17,
+      "fwd_12m_pct": 42.91
+    },
+    {
+      "ym": "202505",
+      "score": 43.9,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 51.13,
+        "sentiment": 24.6,
+        "demand": 60.47,
+        "value": 38.64,
+        "supply": 42.3
+      },
+      "target_price": 127000.0,
+      "m2_vintage_period": "202503",
+      "fwd_1m_pct": 2.36,
+      "fwd_3m_pct": 6.3,
+      "fwd_6m_pct": 14.96,
+      "fwd_12m_pct": 42.91
+    },
+    {
+      "ym": "202506",
+      "score": 45.2,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 58.02,
+        "sentiment": 27.6,
+        "demand": 58.76,
+        "value": 34.09,
+        "supply": 43.8
+      },
+      "target_price": 130000.0,
+      "m2_vintage_period": "202504",
+      "fwd_1m_pct": 1.54,
+      "fwd_3m_pct": 11.15,
+      "fwd_6m_pct": 12.69,
+      "fwd_12m_pct": 39.62
+    },
+    {
+      "ym": "202507",
+      "score": 37.2,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 60.95,
+        "sentiment": 14.4,
+        "demand": 34.31,
+        "value": 31.06,
+        "supply": 40.1
+      },
+      "target_price": 132000.0,
+      "m2_vintage_period": "202505",
+      "fwd_1m_pct": 2.27,
+      "fwd_3m_pct": 9.85,
+      "fwd_6m_pct": 17.42,
+      "fwd_12m_pct": 37.5
+    },
+    {
+      "ym": "202508",
+      "score": 42.3,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 60.47,
+        "sentiment": 17.2,
+        "demand": 61.09,
+        "value": 25,
+        "supply": 43.4
+      },
+      "target_price": 135000.0,
+      "m2_vintage_period": "202506",
+      "fwd_1m_pct": 7.04,
+      "fwd_3m_pct": 8.15,
+      "fwd_6m_pct": 24.07,
+      "fwd_12m_pct": 34.44
+    },
+    {
+      "ym": "202509",
+      "score": 47.9,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 60.45,
+        "sentiment": 32.1,
+        "demand": 72.18,
+        "value": 25,
+        "supply": 46.4
+      },
+      "target_price": 144500.0,
+      "m2_vintage_period": "202507",
+      "fwd_1m_pct": 0.35,
+      "fwd_3m_pct": 1.38,
+      "fwd_6m_pct": 23.88,
+      "fwd_12m_pct": 25.61
+    },
+    {
+      "ym": "202510",
+      "score": 42.6,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 66.88,
+        "sentiment": 23.3,
+        "demand": 46.5,
+        "value": 25,
+        "supply": 46.1
+      },
+      "target_price": 145000.0,
+      "m2_vintage_period": "202508",
+      "fwd_1m_pct": 0.69,
+      "fwd_3m_pct": 6.9,
+      "fwd_6m_pct": 25.17,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202511",
+      "score": 37.6,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 62.42,
+        "sentiment": 22.3,
+        "demand": 28.48,
+        "value": 25,
+        "supply": 45.9
+      },
+      "target_price": 146000.0,
+      "m2_vintage_period": "202509",
+      "fwd_1m_pct": 0.34,
+      "fwd_3m_pct": 14.73,
+      "fwd_6m_pct": 24.32,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202512",
+      "score": 46.3,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 57.51,
+        "sentiment": 24.3,
+        "demand": 76.48,
+        "value": 25,
+        "supply": 45.4
+      },
+      "target_price": 146500.0,
+      "m2_vintage_period": "202510",
+      "fwd_1m_pct": 5.8,
+      "fwd_3m_pct": 22.18,
+      "fwd_6m_pct": 23.89,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202601",
+      "score": 43.2,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 58.21,
+        "sentiment": 32.5,
+        "demand": 49.85,
+        "value": 25,
+        "supply": 48.1
+      },
+      "target_price": 155000.0,
+      "m2_vintage_period": "202511",
+      "fwd_1m_pct": 8.06,
+      "fwd_3m_pct": 17.1,
+      "fwd_6m_pct": 17.1,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202602",
+      "score": 43.9,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 60.58,
+        "sentiment": 25.0,
+        "demand": 56.78,
+        "value": 25,
+        "supply": 49.4
+      },
+      "target_price": 167500.0,
+      "m2_vintage_period": "202512",
+      "fwd_1m_pct": 6.87,
+      "fwd_3m_pct": 8.36,
+      "fwd_6m_pct": 8.36,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202603",
+      "score": 43.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 63.56,
+        "sentiment": 24.0,
+        "demand": 51.75,
+        "value": 25,
+        "supply": 50.0
+      },
+      "target_price": 179000.0,
+      "m2_vintage_period": "202601",
+      "fwd_1m_pct": 1.4,
+      "fwd_3m_pct": 1.4,
+      "fwd_6m_pct": 1.4,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202604",
+      "score": 43.5,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 57.09,
+        "sentiment": 25.0,
+        "demand": 58.21,
+        "value": 25,
+        "supply": 50.7
+      },
+      "target_price": 181500.0,
+      "m2_vintage_period": "202602",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202605",
+      "score": 42.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 61.09,
+        "sentiment": 25.0,
+        "demand": 46.1,
+        "value": 25,
+        "supply": 50.8
+      },
+      "target_price": 181500.0,
+      "m2_vintage_period": "202603",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202606",
+      "score": 42.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 63.04,
+        "sentiment": 26.8,
+        "demand": 41.51,
+        "value": 25,
+        "supply": 51.0
+      },
+      "target_price": 181500.0,
+      "m2_vintage_period": "202604",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202607",
+      "score": 45.2,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 64.72,
+        "sentiment": 24.8,
+        "demand": 58.32,
+        "value": 25,
+        "supply": 49.4
+      },
+      "target_price": 181500.0,
+      "m2_vintage_period": "202605",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202608",
+      "score": 40.3,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 64.57,
+        "sentiment": 23.2,
+        "demand": 36.01,
+        "value": 25,
+        "supply": 49.0
+      },
+      "target_price": 181500.0,
+      "m2_vintage_period": "202606",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    }
+  ],
+  "metrics": {
+    "score_vs_fwd_1m_corr": 0.262,
+    "score_vs_fwd_3m_corr": 0.235,
+    "score_vs_fwd_6m_corr": 0.309,
+    "score_vs_fwd_12m_corr": 0.278,
+    "low_score_mean_fwd_6m_pct": 1.97,
+    "high_score_mean_fwd_6m_pct": 7.86
+  },
+  "generated_at": "2026-09-25T02:09:24.063212+00:00"
+}

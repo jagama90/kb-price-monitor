@@ -1,0 +1,346 @@
+{
+  "status": "connected",
+  "source": "MOLIT apartment trade OpenAPI",
+  "method": "completed_month_vs_previous_completed_month; same demand formula inputs as live dashboard",
+  "start": "202209",
+  "end": "202608",
+  "rows": [
+    {
+      "ym": "202209",
+      "total": 658,
+      "under15_share": 87.7,
+      "trade_count_pct": -18.2609,
+      "under15_share_pp": -0.1
+    },
+    {
+      "ym": "202210",
+      "total": 577,
+      "under15_share": 88.0,
+      "trade_count_pct": -12.31,
+      "under15_share_pp": 0.3
+    },
+    {
+      "ym": "202211",
+      "total": 768,
+      "under15_share": 87.6,
+      "trade_count_pct": 33.1023,
+      "under15_share_pp": -0.4
+    },
+    {
+      "ym": "202212",
+      "total": 910,
+      "under15_share": 86.2,
+      "trade_count_pct": 18.4896,
+      "under15_share_pp": -1.4
+    },
+    {
+      "ym": "202301",
+      "total": 1497,
+      "under15_share": 84.4,
+      "trade_count_pct": 64.5055,
+      "under15_share_pp": -1.8
+    },
+    {
+      "ym": "202302",
+      "total": 2556,
+      "under15_share": 83.6,
+      "trade_count_pct": 70.7415,
+      "under15_share_pp": -0.8
+    },
+    {
+      "ym": "202303",
+      "total": 3110,
+      "under15_share": 85.0,
+      "trade_count_pct": 21.6745,
+      "under15_share_pp": 1.4
+    },
+    {
+      "ym": "202304",
+      "total": 3335,
+      "under15_share": 83.2,
+      "trade_count_pct": 7.2347,
+      "under15_share_pp": -1.8
+    },
+    {
+      "ym": "202305",
+      "total": 3490,
+      "under15_share": 80.1,
+      "trade_count_pct": 4.6477,
+      "under15_share_pp": -3.1
+    },
+    {
+      "ym": "202306",
+      "total": 4032,
+      "under15_share": 80.8,
+      "trade_count_pct": 15.5301,
+      "under15_share_pp": 0.7
+    },
+    {
+      "ym": "202307",
+      "total": 3759,
+      "under15_share": 81.3,
+      "trade_count_pct": -6.7708,
+      "under15_share_pp": 0.5
+    },
+    {
+      "ym": "202308",
+      "total": 4052,
+      "under15_share": 81.1,
+      "trade_count_pct": 7.7946,
+      "under15_share_pp": -0.2
+    },
+    {
+      "ym": "202309",
+      "total": 3520,
+      "under15_share": 80.5,
+      "trade_count_pct": -13.1293,
+      "under15_share_pp": -0.6
+    },
+    {
+      "ym": "202310",
+      "total": 2423,
+      "under15_share": 81.6,
+      "trade_count_pct": -31.1648,
+      "under15_share_pp": 1.1
+    },
+    {
+      "ym": "202311",
+      "total": 1932,
+      "under15_share": 81.7,
+      "trade_count_pct": -20.2641,
+      "under15_share_pp": 0.1
+    },
+    {
+      "ym": "202312",
+      "total": 1875,
+      "under15_share": 83.6,
+      "trade_count_pct": -2.9503,
+      "under15_share_pp": 1.9
+    },
+    {
+      "ym": "202401",
+      "total": 2694,
+      "under15_share": 82.6,
+      "trade_count_pct": 43.68,
+      "under15_share_pp": -1.0
+    },
+    {
+      "ym": "202402",
+      "total": 2729,
+      "under15_share": 82.0,
+      "trade_count_pct": 1.2992,
+      "under15_share_pp": -0.6
+    },
+    {
+      "ym": "202403",
+      "total": 4466,
+      "under15_share": 81.5,
+      "trade_count_pct": 63.6497,
+      "under15_share_pp": -0.5
+    },
+    {
+      "ym": "202404",
+      "total": 4660,
+      "under15_share": 80.5,
+      "trade_count_pct": 4.3439,
+      "under15_share_pp": -1.0
+    },
+    {
+      "ym": "202405",
+      "total": 5322,
+      "under15_share": 76.9,
+      "trade_count_pct": 14.206,
+      "under15_share_pp": -3.6
+    },
+    {
+      "ym": "202406",
+      "total": 7963,
+      "under15_share": 76.0,
+      "trade_count_pct": 49.6242,
+      "under15_share_pp": -0.9
+    },
+    {
+      "ym": "202407",
+      "total": 9269,
+      "under15_share": 75.9,
+      "trade_count_pct": 16.4009,
+      "under15_share_pp": -0.1
+    },
+    {
+      "ym": "202408",
+      "total": 6563,
+      "under15_share": 77.0,
+      "trade_count_pct": -29.1941,
+      "under15_share_pp": 1.1
+    },
+    {
+      "ym": "202409",
+      "total": 3199,
+      "under15_share": 74.7,
+      "trade_count_pct": -51.257,
+      "under15_share_pp": -2.3
+    },
+    {
+      "ym": "202410",
+      "total": 3939,
+      "under15_share": 76.8,
+      "trade_count_pct": 23.1322,
+      "under15_share_pp": 2.1
+    },
+    {
+      "ym": "202411",
+      "total": 3565,
+      "under15_share": 73.7,
+      "trade_count_pct": -9.4948,
+      "under15_share_pp": -3.1
+    },
+    {
+      "ym": "202412",
+      "total": 3399,
+      "under15_share": 77.2,
+      "trade_count_pct": -4.6564,
+      "under15_share_pp": 3.5
+    },
+    {
+      "ym": "202501",
+      "total": 3589,
+      "under15_share": 74.8,
+      "trade_count_pct": 5.5899,
+      "under15_share_pp": -2.4
+    },
+    {
+      "ym": "202502",
+      "total": 6818,
+      "under15_share": 65.6,
+      "trade_count_pct": 89.9694,
+      "under15_share_pp": -9.2
+    },
+    {
+      "ym": "202503",
+      "total": 10691,
+      "under15_share": 67.3,
+      "trade_count_pct": 56.8055,
+      "under15_share_pp": 1.7
+    },
+    {
+      "ym": "202504",
+      "total": 5757,
+      "under15_share": 80.9,
+      "trade_count_pct": -46.151,
+      "under15_share_pp": 13.6
+    },
+    {
+      "ym": "202505",
+      "total": 8565,
+      "under15_share": 76.5,
+      "trade_count_pct": 48.7754,
+      "under15_share_pp": -4.4
+    },
+    {
+      "ym": "202506",
+      "total": 12618,
+      "under15_share": 71.3,
+      "trade_count_pct": 47.3205,
+      "under15_share_pp": -5.2
+    },
+    {
+      "ym": "202507",
+      "total": 4635,
+      "under15_share": 75.6,
+      "trade_count_pct": -63.2668,
+      "under15_share_pp": 4.3
+    },
+    {
+      "ym": "202508",
+      "total": 4614,
+      "under15_share": 83.1,
+      "trade_count_pct": -0.4531,
+      "under15_share_pp": 7.5
+    },
+    {
+      "ym": "202509",
+      "total": 9081,
+      "under15_share": 75.3,
+      "trade_count_pct": 96.814,
+      "under15_share_pp": -7.8
+    },
+    {
+      "ym": "202510",
+      "total": 8950,
+      "under15_share": 73.3,
+      "trade_count_pct": -1.4426,
+      "under15_share_pp": -2.0
+    },
+    {
+      "ym": "202511",
+      "total": 3523,
+      "under15_share": 73.1,
+      "trade_count_pct": -60.6369,
+      "under15_share_pp": -0.2
+    },
+    {
+      "ym": "202512",
+      "total": 4935,
+      "under15_share": 81.4,
+      "trade_count_pct": 40.0795,
+      "under15_share_pp": 8.3
+    },
+    {
+      "ym": "202601",
+      "total": 5549,
+      "under15_share": 78.4,
+      "trade_count_pct": 12.4417,
+      "under15_share_pp": -3.0
+    },
+    {
+      "ym": "202602",
+      "total": 5982,
+      "under15_share": 81.1,
+      "trade_count_pct": 7.8032,
+      "under15_share_pp": 2.7
+    },
+    {
+      "ym": "202603",
+      "total": 5717,
+      "under15_share": 83.3,
+      "trade_count_pct": -4.43,
+      "under15_share_pp": 2.2
+    },
+    {
+      "ym": "202604",
+      "total": 8920,
+      "under15_share": 75.7,
+      "trade_count_pct": 56.0259,
+      "under15_share_pp": -7.6
+    },
+    {
+      "ym": "202605",
+      "total": 9263,
+      "under15_share": 72.2,
+      "trade_count_pct": 3.8453,
+      "under15_share_pp": -3.5
+    },
+    {
+      "ym": "202606",
+      "total": 5468,
+      "under15_share": 76.1,
+      "trade_count_pct": -40.9694,
+      "under15_share_pp": 3.9
+    },
+    {
+      "ym": "202607",
+      "total": 5994,
+      "under15_share": 79.4,
+      "trade_count_pct": 9.6196,
+      "under15_share_pp": 3.3
+    },
+    {
+      "ym": "202608",
+      "total": 3547,
+      "under15_share": 79.6,
+      "trade_count_pct": -40.8242,
+      "under15_share_pp": 0.2
+    }
+  ],
+  "generated_at": "2026-09-25T02:09:23.989182+00:00"
+}
