@@ -1,0 +1,28 @@
+name: Research turning signal
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/research_turning_signal.py'
+      - 'dist/final_backtest.json'
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compare market-state and turning signals
+        run: python3 scripts/research_turning_signal.py
+      - name: Persist research output
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -f dist/turning_signal_research.json
+          git commit -m 'Refresh turning signal research' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
