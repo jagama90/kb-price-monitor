@@ -5,7 +5,8 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 API_HOST='api.kbland.kr'
-API_PATH='/land-property/propList/main'\nPRICE_PATH='/land-price/price/complex/integrationChart'
+API_PATH='/land-property/propList/main'
+PRICE_PATH='/land-price/price/complex/integrationChart'
 
 def now(): return dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')
 def atomic_json(path,value):
