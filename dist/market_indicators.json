@@ -231,7 +231,7 @@
     "jeonse_score_0_100": 49.3,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-25T16:57:31.858807+00:00"
+    "generated_at": "2026-09-25T17:44:40.530593+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -245,7 +245,7 @@
     "current_position_0_1": 1.0,
     "source": "KB부동산 가락금호 24A 월별 일반거래가",
     "period": "202609",
-    "generated_at": "2026-09-25T16:57:31.821172+00:00"
+    "generated_at": "2026-09-25T17:44:40.486859+00:00"
   },
   "matched_period": {
     "as_of": "2026-09-26",
@@ -294,8 +294,8 @@
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
   "mortgage_rate_official": {
-    "period": "202602",
-    "rate_pct": 4.38,
+    "period": "202607",
+    "rate_pct": 4.35,
     "item": "변동형 주택담보대출 3)"
   },
   "m2_official": {
