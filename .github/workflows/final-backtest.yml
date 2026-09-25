@@ -7,12 +7,15 @@ on:
     branches: [main]
     paths:
       - 'scripts/final_backtest.py'
+      - 'scripts/collect_ecos_m2.py'
+      - 'scripts/collect_kb_sentiment.py'
+      - 'scripts/collect_garak_geumho_24a.py'
       - 'scripts/collect_historical_demand.py'
       - '.github/workflows/final-backtest.yml'
 permissions: {contents: write}
 concurrency:
   group: final-backtest-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   validate:
     runs-on: ubuntu-latest
