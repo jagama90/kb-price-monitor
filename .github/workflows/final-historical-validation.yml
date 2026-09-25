@@ -1,4 +1,4 @@
-name: Final historical validation
+name: LEGACY · Final historical validation
 on:
   workflow_dispatch:
 permissions: {contents: write}
