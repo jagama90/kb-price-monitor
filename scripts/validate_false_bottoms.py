@@ -35,7 +35,10 @@ def main():
   if len(tr)<2: continue
   m=met(tr); obj=(m['fwd_12m_mean_pct'] or -99)+0.04*(m['fwd_12m_positive_rate_pct'] or 0)-0.06*(m['renew_low_12m_rate_pct'] or 100)+min(len(tr),8)*0.05
   cand.append((obj,need_up2,rec_cut,trade_cut,m2_cut))
- cand.sort(reverse=True)\n if not cand:\n  raise RuntimeError('No train candidates; inspect base signal coverage')\n _,nu,rc,tc,mc=cand[0]
+ cand.sort(reverse=True)
+ if not cand:
+  raise RuntimeError('No train candidates; inspect base signal coverage')
+ _,nu,rc,tc,mc=cand[0]
  def confirm(x): return x['base'] and (not nu or x['up2']) and x['rec2']>=rc and x['trade_yoy']>=tc and x['m2']>=mc
  for x in a:x['confirmed']=confirm(x)
  summary={}
