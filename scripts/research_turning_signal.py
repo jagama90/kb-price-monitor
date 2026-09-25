@@ -54,8 +54,15 @@ def main():
   # Opportunity requires both pain/valuation and a marginal turn; harmonic-style gate prevents one leg dominating.
   setup=.55*cheap+.45*distress
   opportunity=round((setup*turn)/100,1)
+  # Regime split: bottom-turn opportunity vs momentum/reacceleration. Do not force both into one score.
+  mom3=((p/p3)-1)*100 if p and p3 else 0
+  breadth=clamp(.40*c['demand']+.35*c['sentiment']+.25*c['finance'])
+  reaccel=clamp(50 + 6*mom + 3*mom3 + 1.5*delta('demand',1) + 1.2*delta('sentiment',1))
+  if mom3 <= 0: reaccel=min(reaccel,35)
+  bottom_zone = setup>=65 and turn>=35
+  momentum_zone = mom3>0 and breadth>=45 and reaccel>=50
   outrows.append({'ym':r['ym'],'market_state':r['score'],'setup':round(setup,1),'turn':round(turn,1),'opportunity':opportunity,
-   'cheapness':round(cheap,1),'distress':round(distress,1),'price_turn':round(price_turn,1),'price_mom_pct':round(mom,2),'price_accel_pp':round(accel,2),'early_turn':round(early,1),'target_price':r['target_price'],
+   'cheapness':round(cheap,1),'distress':round(distress,1),'price_turn':round(price_turn,1),'price_mom_pct':round(mom,2),'price_accel_pp':round(accel,2),'early_turn':round(early,1),'momentum_3m_pct':round(mom3,2),'breadth':round(breadth,1),'reaccel':round(reaccel,1),'bottom_zone':bottom_zone,'momentum_zone':momentum_zone,'target_price':r['target_price'],
    'fwd_1m_pct':r.get('fwd_1m_pct'),'fwd_3m_pct':r.get('fwd_3m_pct'),'fwd_6m_pct':r.get('fwd_6m_pct'),'fwd_12m_pct':r.get('fwd_12m_pct')})
  metrics={}
  for h in (1,3,6,12):
@@ -81,8 +88,10 @@ def main():
   metrics['mortgage_rate_available_months']=len(paired)
   metrics['mortgage_rate_level_vs_fwd_6m_corr']=corr([x['mortgage_rate_pct'] for x in paired],[x['fwd_6m_pct'] for x in paired])
   metrics['mortgage_rate_mom_bp_vs_fwd_6m_corr']=corr([x['mom_bp'] for x in paired],[x['fwd_6m_pct'] for x in paired])
+ # Regime diagnostics for the two reference episodes: 2023 bottom turn and 2025 reacceleration.
+ refs={k:[x for x in outrows if a<=x['ym']<=b] for k,(a,b) in {'bottom_2023':('202212','202306'),'reaccel_2025':('202412','202509')}.items()}
  payload={'status':'research_only','production_formula_unchanged':True,'no_future_leakage':True,
   'method':'setup = 55% cheapness + 45% sentiment distress; turn = 30% breadth + 35% price-decline-exhaustion + 35% early turn (sentiment persistence, demand recovery, price deceleration); opportunity = setup * turn / 100',
-  'rows':outrows,'mortgage_rate_overlay':mort,'metrics':metrics,'component_dispersion':dispersion,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+  'rows':outrows,'reference_episodes':refs,'mortgage_rate_overlay':mort,'metrics':metrics,'component_dispersion':dispersion,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)); print(json.dumps(metrics,ensure_ascii=False))
 if __name__=='__main__': main()
