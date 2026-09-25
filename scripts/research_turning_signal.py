@@ -63,7 +63,7 @@ def main():
   momentum_zone = mom3>0 and breadth>=45 and reaccel>=50
   outrows.append({'ym':r['ym'],'market_state':r['score'],'setup':round(setup,1),'turn':round(turn,1),'opportunity':opportunity,
    'cheapness':round(cheap,1),'distress':round(distress,1),'price_turn':round(price_turn,1),'price_mom_pct':round(mom,2),'price_accel_pp':round(accel,2),'early_turn':round(early,1),'momentum_3m_pct':round(mom3,2),'breadth':round(breadth,1),'reaccel':round(reaccel,1),'bottom_zone':bottom_zone,'momentum_zone':momentum_zone,'target_price':r['target_price'],
-   'fwd_1m_pct':r.get('fwd_1m_pct'),'fwd_3m_pct':r.get('fwd_3m_pct'),'fwd_6m_pct':r.get('fwd_6m_pct'),'fwd_12m_pct':r.get('fwd_12m_pct')})
+   'source_provisional':bool(r.get('provisional',False)),'fwd_1m_pct':r.get('fwd_1m_pct'),'fwd_3m_pct':r.get('fwd_3m_pct'),'fwd_6m_pct':r.get('fwd_6m_pct'),'fwd_12m_pct':r.get('fwd_12m_pct')})
  metrics={}
  for h in (1,3,6,12):
   key=f'fwd_{h}m_pct'; metrics[f'market_state_vs_fwd_{h}m_corr']=corr([x['market_state'] for x in outrows],[x[key] for x in outrows]); metrics[f'opportunity_vs_fwd_{h}m_corr']=corr([x['opportunity'] for x in outrows],[x[key] for x in outrows])
