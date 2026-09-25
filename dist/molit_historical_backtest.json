@@ -4,6 +4,7 @@
   "method": "completed_month_vs_previous_completed_month; same demand formula inputs as live dashboard",
   "start": "202209",
   "end": "202608",
+  "certified_through": "202607",
   "rows": [
     {
       "ym": "202209",
@@ -329,18 +330,18 @@
     },
     {
       "ym": "202607",
-      "total": 5994,
+      "total": 5993,
       "under15_share": 79.4,
-      "trade_count_pct": 9.6196,
+      "trade_count_pct": 9.6013,
       "under15_share_pp": 3.3
     },
     {
       "ym": "202608",
-      "total": 3547,
+      "total": 3546,
       "under15_share": 79.6,
-      "trade_count_pct": -40.8242,
+      "trade_count_pct": -40.831,
       "under15_share_pp": 0.2
     }
   ],
-  "generated_at": "2026-09-25T02:09:23.989182+00:00"
+  "generated_at": "2026-09-25T19:51:37.799728+00:00"
 }

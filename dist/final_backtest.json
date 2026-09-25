@@ -1068,7 +1068,7 @@
       "components": {
         "finance": 64.72,
         "sentiment": 24.8,
-        "demand": 58.32,
+        "demand": 58.31,
         "value": 25,
         "supply": 49.4
       },
@@ -1078,34 +1078,15 @@
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null
-    },
-    {
-      "ym": "202608",
-      "score": 40.3,
-      "coverage_weight": 100,
-      "missing": [],
-      "components": {
-        "finance": 64.57,
-        "sentiment": 23.2,
-        "demand": 36.01,
-        "value": 25,
-        "supply": 49.0
-      },
-      "target_price": 181500.0,
-      "m2_vintage_period": "202606",
-      "fwd_1m_pct": 0.0,
-      "fwd_3m_pct": null,
-      "fwd_6m_pct": null,
-      "fwd_12m_pct": null
     }
   ],
   "metrics": {
-    "score_vs_fwd_1m_corr": 0.262,
+    "score_vs_fwd_1m_corr": 0.259,
     "score_vs_fwd_3m_corr": 0.235,
     "score_vs_fwd_6m_corr": 0.309,
     "score_vs_fwd_12m_corr": 0.278,
     "low_score_mean_fwd_6m_pct": 1.97,
-    "high_score_mean_fwd_6m_pct": 7.86
+    "high_score_mean_fwd_6m_pct": 8.39
   },
-  "generated_at": "2026-09-25T02:09:24.063212+00:00"
+  "generated_at": "2026-09-25T19:51:37.873665+00:00"
 }
