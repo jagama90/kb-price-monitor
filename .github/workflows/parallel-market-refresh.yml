@@ -22,14 +22,11 @@ on:
       - 'data/buy_watchlist_targets.json'
       - 'data/buy_watchlist_master.json'
       - 'scripts/test_static_contract.py'
-      - 'dist/index.html'
-      - 'dist/market.html'
-      - 'dist/market.js'
 permissions:
   contents: write
 concurrency:
   group: market-data-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   kb_sentiment:
     name: C · KB sentiment
@@ -57,6 +54,8 @@ jobs:
     name: A · MOLIT trades
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    outputs:
+      artifact_ready: ${{ steps.molit_collect.outcome == 'success' }}
     env:
       MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
     steps:
@@ -147,7 +146,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Download MOLIT artifact
-        if: needs.molit.result == 'success'
+        if: needs.molit.outputs.artifact_ready == 'true'
         uses: actions/download-artifact@v4
         with:
           pattern: source-molit-*
