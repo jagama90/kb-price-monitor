@@ -9,6 +9,8 @@ on:
     paths:
       - '.github/workflows/forecast-regime.yml'
       - 'scripts/forecast_market_regime.py'
+      - 'scripts/check_dashboard_bundle.py'
+      - 'scripts/check_pipeline_health.py'
 
 permissions:
   contents: write
