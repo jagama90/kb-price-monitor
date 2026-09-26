@@ -173,7 +173,12 @@ for row in wm_rows:
         errors.append(f'KB watchlist history area mismatch {cid}: history={h.get("area_id")} market={row.get("area_id")}')
     months=[ymd(str(x.get('ym') or '')+'01') for x in (h.get('series') or []) if x.get('ym')]
     months=[x for x in months if x]
-    if not months or (today-max(months)).days>75:
+    if h.get('refresh_status')=='unavailable':
+        if row.get('kb_general_check_manwon') is not None:
+            errors.append(f'KB watchlist history unavailable despite current KB price for {cid} {row.get("name")}')
+        else:
+            warnings.append({'kb_watchlist_history_unavailable':{'complex_id':cid,'name':row.get('name'),'area_id':row.get('area_id')}})
+    elif not months or (today-max(months)).days>75:
         errors.append(f'KB watchlist history stale for {cid} {row.get("name")}')
 if watch_hist.get('refresh_status') in ('partial_last_good','partial'):
     warnings.append({'kb_watchlist_history_refresh_status':watch_hist.get('refresh_status'),
