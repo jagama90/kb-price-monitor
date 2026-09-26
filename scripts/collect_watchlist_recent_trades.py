@@ -59,12 +59,40 @@ def fetch(code,ym,key):
         if page>50: break
     return rows
 
+ALIASES={
+    norm('가락쌍용1차'):{norm('가락(1차)쌍용아파트')},
+    norm('송파꿈에그린위례24단지'):{norm('위례24단지(꿈에그린)')},
+    norm('금호타운아파트 (마천역)'):{norm('마천동금호타운1')},
+}
+
 def similarity(a,b):
     a,b=norm(a),norm(b)
     if not a or not b:return 0
     if a==b:return 1.0
     if a in b or b in a:return .92
     return SequenceMatcher(None,a,b).ratio()
+
+def identity_tokens(s):
+    raw=str(s or '')
+    return {
+      '단지':set(re.findall(r'(\\d+)\\s*단지',raw)),
+      '차':set(re.findall(r'(\\d+)\\s*차',raw)),
+    }
+
+def identity_conflict(a,b):
+    ta,tb=identity_tokens(a),identity_tokens(b)
+    for k in ('단지','차'):
+        if ta[k] and tb[k] and ta[k]!=tb[k]: return True
+    return False
+
+def alias_match(a,b):
+    a,b=norm(a),norm(b)
+    return b in ALIASES.get(a,set()) or a in ALIASES.get(b,set())
+
+def identity_score(a,b):
+    if not a or not b or identity_conflict(a,b): return -1.0
+    if alias_match(a,b): return 1.0
+    return similarity(a,b)
 
 def main():
     key=os.getenv('MOLIT_SERVICE_KEY')
@@ -96,6 +124,7 @@ def main():
     months=[month_shift(today,-i) for i in range(3 if prior_items else 8)]
     districts=sorted({x['district'] for x in resolved})
     raw={d:[] for d in districts}
+    fetch_errors=[]; failed_districts=set()
     tasks=[]
     with ThreadPoolExecutor(max_workers=6) as pool:
         for district in districts:
@@ -104,6 +133,8 @@ def main():
         for district,ym,fut in tasks:
             try: raw[district].extend(fut.result())
             except Exception as e:
+                failed_districts.add(district)
+                fetch_errors.append({'district':district,'ym':ym,'error':str(e)})
                 print(json.dumps({'warning':'MOLIT target fetch failed','district':district,'ym':ym,'error':str(e)},ensure_ascii=False),flush=True)
     items=[];unmatched=[]
     for x in resolved:
@@ -112,31 +143,33 @@ def main():
             ad=abs(float(r['exclusive_m2'])-x['exclusive_m2'])
             if ad>0.8: continue
             if x.get('dong') and r.get('dong') and norm(x['dong'])!=norm(r['dong']): continue
-            sim=max(similarity(x.get('name'),r['apt_name']),similarity(x.get('kb_name'),r['apt_name']))
+            sim=max(identity_score(x.get('name'),r['apt_name']),identity_score(x.get('kb_name'),r['apt_name']))
             if ad<=0.05: exact_area.append((sim,-ad,r))
-            if sim>=0.62:candidates.append((sim,-ad,r))
+            # Conservative complex identity gate: area/dong alone must never identify
+            # a complex, and numbered blocks/phases must agree.
+            if sim>=0.80:candidates.append((sim,-ad,r))
         method='name_area'
-        if not candidates and exact_area:
-            # Safe alias fallback: within the same legal dong and virtually exact
-            # exclusive area, accept only when the observed apartment name is unique.
-            names={norm(z[2]['apt_name']) for z in exact_area if norm(z[2]['apt_name'])}
-            if len(names)==1:
-                candidates=exact_area;method='unique_dong_exact_area'
         if not candidates:
             old=prior_items.get((x['complex_id'],x['area_id']))
-            if old and old.get('recent_trade_manwon') is not None:
+            old_name=old.get('molit_apt_name') if old else None
+            old_sim=max(identity_score(x.get('name'),old_name),identity_score(x.get('kb_name'),old_name)) if old_name else -1
+            if old and old.get('recent_trade_manwon') is not None and old_sim>=0.80:
                 items.append({**x,'recent_trade_manwon':old.get('recent_trade_manwon'),'recent_trade_date':old.get('recent_trade_date'),
-                  'molit_apt_name':old.get('molit_apt_name'),'matched_exclusive_m2':old.get('matched_exclusive_m2'),
-                  'name_similarity':old.get('name_similarity'),'match_method':'last_good_older_trade','source':'MOLIT apartment trade OpenAPI'})
+                  'molit_apt_name':old_name,'matched_exclusive_m2':old.get('matched_exclusive_m2'),
+                  'name_similarity':round(old_sim,3),'match_method':'last_good_no_newer_trade',
+                  'trade_refresh_status':'fallback_last_good' if x['district'] in failed_districts else 'connected_no_newer_trade',
+                  'source':'MOLIT apartment trade OpenAPI'})
                 continue
             unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
               'candidate_names':sorted({z[2]['apt_name'] for z in exact_area})[:8]});continue
         candidates.sort(key=lambda z:(z[2]['date'],z[0],z[1]),reverse=True)
         sim,_,r=candidates[0]
         items.append({**x,'recent_trade_manwon':r['price_manwon'],'recent_trade_date':r['date'],'molit_apt_name':r['apt_name'],
-          'matched_exclusive_m2':r['exclusive_m2'],'name_similarity':round(sim,3),'match_method':method,'source':'MOLIT apartment trade OpenAPI'})
-    out={'status':'connected','source':'MOLIT apartment trade OpenAPI','months':months,'items':items,'unmatched':unmatched,
-      'matched_count':len(items),'target_area_count':len(resolved),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+          'matched_exclusive_m2':r['exclusive_m2'],'name_similarity':round(sim,3),'match_method':method,
+          'trade_refresh_status':'partial_source' if x['district'] in failed_districts else 'connected',
+          'source':'MOLIT apartment trade OpenAPI'})
+    out={'status':'partial' if fetch_errors else 'connected','source':'MOLIT apartment trade OpenAPI','months':months,'items':items,'unmatched':unmatched,
+      'fetch_errors':fetch_errors,'matched_count':len(items),'target_area_count':len(resolved),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps({'matched':len(items),'target_areas':len(resolved),'unmatched':len(unmatched)},ensure_ascii=False))
 if __name__=='__main__':main()
