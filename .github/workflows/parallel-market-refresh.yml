@@ -57,6 +57,7 @@ jobs:
             data_sources/kb_statusboard_live.json
             data_sources/kb_datahub_batch.json
             data_sources/kb_weekly_sale_index.json
+            data_sources/kb_weekly_rent_index.json
   molit:
     name: A · MOLIT trades
     runs-on: ubuntu-latest
