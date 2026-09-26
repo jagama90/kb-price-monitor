@@ -247,3 +247,48 @@ async function loadGarakHistory(){
  }catch(e){host.innerHTML='<div class="chart-error">장기 추이 데이터를 불러오지 못했습니다.</div>';latest.textContent='데이터 확인 필요';console.error(e)}
 }
 loadGarakHistory();
+
+async function loadMarketExtensions(){
+ const host=document.getElementById('marketContext');if(!host)return;
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+ const pct=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
+ const pp=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%p';
+ try{
+  const d=await fetch('market_extensions.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('extensions '+r.status);return r.json()});
+  const b=d.current?.breadth||{},s25=b.seoul_25||{},g3=b.gangnam3||{},ng=b.non_gangnam3||{},songpa=b.songpa||{};
+  const up=Number(s25.up_share_pct||0);
+  set('breadthHeadline',(s25.up??'—')+'/'+(s25.count??25)+'개구 상승');
+  set('breadthGangnam','강남3구 '+(g3.up??'—')+'/'+(g3.count??3)+'↑');
+  set('breadthNonGangnam','비강남 '+(ng.up??'—')+'/'+(ng.count??22)+'↑');
+  set('breadthSongpa','송파 '+pct(songpa.change_pct));
+  const fill=document.getElementById('breadthFill');if(fill)fill.style.width=Math.max(0,Math.min(100,up))+'%';
+  set('contextBreadthBadge',up>=75?'확산 강함':up>=45?'확산 혼조':'확산 약함');
+
+  const t=d.current?.temperature||{},sg=Number(t.songpa_vs_seoul_gap_pp);
+  set('tempSeoul',pct(t.seoul_m3_pct));
+  set('tempSongpa',pct(t.songpa_m3_median_pct));
+  set('temperatureHeadline',sg<=-1?'송파가 서울보다 느림':sg>=1?'송파가 서울보다 강함':'서울과 비슷한 흐름');
+  set('tempGap',sg<0?'서울 대비 '+Math.abs(sg).toFixed(2)+'%p 뒤처짐 · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4):'서울 대비 '+pp(sg)+' · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4));
+
+  const a=d.current?.affordability||{},ac=Number(a.affordability_change_3m_pct);
+  set('affordHeadline',ac<0?'구매력 약화':'구매력 개선');
+  set('affordRate',a.mortgage_rate_pct==null?'—':Number(a.mortgage_rate_pct).toFixed(2)+'%');
+  set('affordPayment',a.payment_5eok_won==null?'—':Math.round(Number(a.payment_5eok_won)/10000).toLocaleString('ko-KR')+'만원');
+  set('affordChange',a.affordability_change_3m_pct==null?'—':(ac>0?'+':'')+ac.toFixed(1)+'%');
+  const loan=a.max_loan_income100m_dsr40_won==null?null:Number(a.max_loan_income100m_dsr40_won)/100000000;
+  set('affordBenchmark','비교기준: 연소득 1억 · DSR 40% · 30년'+(loan==null?'':' → '+loan.toFixed(2)+'억')+' · 개인 한도 아님');
+
+  const v=d.validation||{};
+  set('contextValidation',v.breadth_role==='confidence_context'?'Breadth 백테스트 통과 · 국면 신뢰도 보강에 사용':'Breadth 연구 검증 중');
+  host.dataset.breadth=up>=75?'strong':up>=45?'mixed':'weak';
+  host.dataset.afford=ac<0?'worse':'better';
+  const hd=document.getElementById('hubDriversMeta');if(hd)hd.textContent='확산 '+(s25.up??'—')+'/'+(s25.count??25)+' · 구매력 '+(ac>0?'+':'')+ac.toFixed(1)+'%';
+ }catch(e){
+  set('contextBreadthBadge','데이터 확인');
+  set('breadthHeadline','확장지표 확인 중');
+  set('temperatureHeadline','확장지표 확인 중');
+  set('affordHeadline','확장지표 확인 중');
+  console.error(e);
+ }
+}
+loadMarketExtensions();
