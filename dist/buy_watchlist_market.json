@@ -260,14 +260,15 @@
       "name": "풍납현대",
       "sale_listing_count": 16,
       "avg_ask_manwon": null,
-      "recent_trade_manwon": null,
-      "recent_trade_date": null,
+      "recent_trade_manwon": 159000,
+      "recent_trade_date": "20260406",
       "kb_general_check_manwon": 149000.0,
       "market_scope": "target_area_id",
       "sale_listing_week_delta": 0,
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "recent_trade_source": "MOLIT"
     },
     {
       "complex_id": 323275,
@@ -720,8 +721,8 @@
   "kb_detail_matched_rows": 38,
   "kb_detail_sanitized_at": "2026-09-25T20:22:28.487Z",
   "kb_detail_quality": "legacy cross-type fallback removed",
-  "molit_trade_collected_at": "2026-09-26T01:34:24.890462+00:00",
-  "molit_trade_matched_rows": 33,
+  "molit_trade_collected_at": "2026-09-26T01:36:37.851943+00:00",
+  "molit_trade_matched_rows": 34,
   "exact_kb_rows": 38,
   "supported_target_rows": 38,
   "known_unavailable_targets": [
