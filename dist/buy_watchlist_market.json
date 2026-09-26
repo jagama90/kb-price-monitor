@@ -835,7 +835,7 @@
     "성동자이리버뷰"
   ],
   "listing_collected_at": "2026-09-26T02:14:32.066308+09:00",
-  "listing_refresh_attempted_at": "2026-09-26T08:36:41+00:00",
+  "listing_refresh_attempted_at": "2026-09-26T11:29:54+00:00",
   "listing_refresh_matched_rows": 0,
   "listing_refresh_status": "fallback_last_good",
   "listing_refresh_error": "weekly KB public-market source unavailable; preserved last-good listing fields"
