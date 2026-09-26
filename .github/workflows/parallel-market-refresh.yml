@@ -24,6 +24,7 @@ on:
       - 'scripts/build_kb_value_live.py'
       - 'scripts/collect_ecos_m2.py'
       - 'scripts/collect_ecos_mortgage_rate.py'
+      - 'scripts/collect_ecos_base_rate.py'
       - 'scripts/build_market_snapshot.py'
       - 'scripts/collect_listings.py'
       - 'scripts/merge_watchlist_details.py'
@@ -133,6 +134,7 @@ jobs:
           retry python3 scripts/smoke_ecos_sources.py
           retry python3 scripts/sample_ecos_finance.py
           retry python3 scripts/collect_ecos_mortgage_rate.py
+          retry python3 scripts/collect_ecos_base_rate.py
           retry python3 scripts/collect_ecos_m2.py
       - uses: actions/upload-artifact@v4
         with:
@@ -229,7 +231,7 @@ jobs:
           [ -f data/buy_watchlist_listings.json ] && cp data/buy_watchlist_listings.json /tmp/market-refresh/
           [ -f data/buy_watchlist_market.json ] && cp data/buy_watchlist_market.json /tmp/market-refresh/
           [ -f dist/buy_watchlist_market.json ] && cp dist/buy_watchlist_market.json /tmp/market-refresh/dist_buy_watchlist_market.json
-          for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json data_sources/ecos_mortgage_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json data_sources/watchlist_recent_trades.json; do
+          for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json data_sources/ecos_mortgage_rate.json data_sources/ecos_base_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json data_sources/watchlist_recent_trades.json; do
             [ -f "$f" ] && cp "$f" /tmp/market-refresh/$(basename "$f")
           done
           git reset --hard
@@ -244,7 +246,7 @@ jobs:
           [ -f /tmp/market-refresh/condition_index_history.json ] && cp /tmp/market-refresh/condition_index_history.json dist/condition_index_history.json
           [ -f /tmp/market-refresh/index_audit.json ] && cp /tmp/market-refresh/index_audit.json dist/index_audit.json
           [ -f /tmp/market-refresh/validation_report.json ] && cp /tmp/market-refresh/validation_report.json dist/validation_report.json
-          for n in ecos_mortgage_rate.json ecos_m2.json kb_sentiment.json kb_sentiment_score.json kb_statusboard_live.json kb_weekly_sale_index.json kb_weekly_rent_index.json kb_value_score.json molit.json molit_daily_history.json watchlist_recent_trades.json; do
+          for n in ecos_mortgage_rate.json ecos_base_rate.json ecos_m2.json kb_sentiment.json kb_sentiment_score.json kb_statusboard_live.json kb_weekly_sale_index.json kb_weekly_rent_index.json kb_value_score.json molit.json molit_daily_history.json watchlist_recent_trades.json; do
             [ -f /tmp/market-refresh/$n ] && cp /tmp/market-refresh/$n data_sources/$n
           done
           git add -f dist/market_indicators.json
@@ -253,7 +255,7 @@ jobs:
           [ -f data/buy_watchlist_market.json ] && git add -f data/buy_watchlist_market.json
           [ -f dist/buy_watchlist_market.json ] && git add -f dist/buy_watchlist_market.json
           for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json; do [ -f "$f" ] && git add -f "$f"; done
-          for f in data_sources/ecos_mortgage_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json data_sources/watchlist_recent_trades.json; do [ -f "$f" ] && git add -f "$f"; done
+          for f in data_sources/ecos_mortgage_rate.json data_sources/ecos_base_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json data_sources/watchlist_recent_trades.json; do [ -f "$f" ] && git add -f "$f"; done
           git diff --cached --quiet && exit 0
           git commit -m 'Daily parallel market data refresh'
           git push origin HEAD:main
