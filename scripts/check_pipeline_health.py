@@ -274,6 +274,7 @@ if wf['weekly'].count('scripts/collect_kb_watchlist_history.py')<2: errors.appen
 if wf['weekly'].count('scripts/collect_garak_geumho_24a.py')<2: errors.append('weekly workflow does not trigger when Garak history collector changes')
 if 'merge_parallel_market_snapshot.py' not in wf['parallel']: errors.append('parallel watchlist merge guard missing')
 if 'merge_parallel_market_snapshot.py' not in wf['repair']: errors.append('repair workflow can roll back newer listing data')
+if "'Repair dashboard data'" not in wf['extensions']: errors.append('market extensions are not rebuilt after dashboard repair')
 if 'check_pipeline_health.py' not in wf['pages']: errors.append('Pages deploy is not gated by pipeline health')
 if 'buy_watchlist_market.prev.json' in wf['weekly'] or 'restoring last-good market snapshot' in wf['weekly']:
     errors.append('weekly workflow can roll back newer watchlist market data')
