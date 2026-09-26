@@ -2,11 +2,17 @@ name: Deploy website
 
 on:
   workflow_run:
-    workflows: ['Parallel market data refresh', 'Weekly KB price refresh', 'Forward regime forecast', 'Validate market extensions']
+    workflows: ['System health audit']
     types: [completed]
   push:
     branches: [main]
-    paths: ['dist/**', 'data/buy_watchlist_master.json', 'data/buy_watchlist_targets.json', 'data/buy_watchlist_market.json', '.github/workflows/pages.yml']
+    # Static UI changes may deploy directly, but generated JSON waits for the
+    # final System health gate so mixed-generation datasets are never published.
+    paths:
+      - 'dist/*.html'
+      - 'dist/*.js'
+      - 'dist/*.css'
+      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
