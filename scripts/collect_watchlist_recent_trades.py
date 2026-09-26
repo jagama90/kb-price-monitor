@@ -3,6 +3,7 @@
 import os,json,re,datetime,time,random,urllib.parse,urllib.request,xml.etree.ElementTree as ET
 from pathlib import Path
 from difflib import SequenceMatcher
+from concurrent.futures import ThreadPoolExecutor,as_completed
 from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -91,11 +92,16 @@ def main():
     today=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date()
     months=[month_shift(today,-i) for i in range(8)]
     districts=sorted({x['district'] for x in resolved})
-    raw={}
-    for district in districts:
-        code=DIST[district]; arr=[]
-        for ym in months: arr.extend(fetch(code,ym,key))
-        raw[district]=arr
+    raw={d:[] for d in districts}
+    tasks=[]
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        for district in districts:
+            for ym in months:
+                tasks.append((district,ym,pool.submit(fetch,DIST[district],ym,key)))
+        for district,ym,fut in tasks:
+            try: raw[district].extend(fut.result())
+            except Exception as e:
+                print(json.dumps({'warning':'MOLIT target fetch failed','district':district,'ym':ym,'error':str(e)},ensure_ascii=False),flush=True)
     items=[];unmatched=[]
     for x in resolved:
         candidates=[]
