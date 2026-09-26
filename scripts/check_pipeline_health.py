@@ -82,6 +82,17 @@ if market_ext:
 else:
     errors.append('market_extensions.json missing')
 if fc and fc.get('as_of')!=mi.get('updated_at'): errors.append('forecast as_of does not match market snapshot')
+base=mi.get('base_rate_official') or {}
+base_day=ymd(base.get('latest_observation_date') or (base.get('latest') or {}).get('date'))
+if not base_day or (today-base_day).days>10: errors.append('official base-rate observation is stale')
+mort=mi.get('mortgage_rate_official') or {}
+mort_item=str(mort.get('item') or '')
+if mort_item!='주택담보대출': errors.append('mortgage_rate_official must use aggregate 주택담보대출 rate')
+if market_ext:
+    aff=((market_ext.get('current') or {}).get('affordability') or {})
+    if aff.get('ym')==mort.get('period') and aff.get('mortgage_rate_pct') is not None and mort.get('rate_pct') is not None:
+        if abs(float(aff['mortgage_rate_pct'])-float(mort['rate_pct']))>.001:
+            errors.append('affordability mortgage rate differs from market snapshot')
 trade_day=ymd((mi.get('matched_period') or {}).get('as_of'))
 if not trade_day or (today-trade_day).days>3: errors.append('MOLIT matched-period snapshot is stale')
 sent_dates=[ymd(x.get('date')) for x in ((mi.get('kb_sentiment') or {}).get('latest') or {}).values() if isinstance(x,dict)]
