@@ -19,6 +19,9 @@ mi=load('dist/market_indicators.json')
 master=load('data/buy_watchlist_master.json')
 targets=load('data/buy_watchlist_targets.json')
 details=load('data/buy_watchlist_listings.json')
+watch_market=load('data/buy_watchlist_market.json')
+trade_detail=load('data_sources/watchlist_recent_trades.json')
+garak=load('dist/garak_geumho_24a_history.json')
 
 if fb and not fb.get('certified_final'): errors.append('final_backtest is not certified')
 fbrows=fb.get('rows') or []
@@ -89,6 +92,20 @@ for t in targets.get('items') or []:
                 aids.append(typ.get('area_id'))
     if not aids: unresolved.append({'name':t.get('name'),'reason':'target_area_not_resolved','selection':t.get('selection')})
 if unresolved: warnings.append({'watchlist_unresolved_targets':unresolved})
+
+# Representative interest-complex rows and recent-trade coverage.
+wm_rows=watch_market.get('items') or []
+supported=int(watch_market.get('supported_target_rows') or 0)
+if supported and len(wm_rows)<supported: errors.append('watchlist market representative coverage incomplete')
+if supported>=10:
+    traded=sum(1 for x in wm_rows if x.get('recent_trade_manwon') is not None)
+    if traded/supported < .70: errors.append(f'watchlist recent-trade coverage too low: {traded}/{supported}')
+if trade_detail and int(trade_detail.get('matched_count') or 0)<1: errors.append('watchlist recent trade source has no matches')
+series=garak.get('series') or []
+if len(series)<200: errors.append('Garak Geumho long history too short')
+elif series[-1].get('ym'):
+    age=ym_age(series[-1].get('ym'))
+    if age is None or age>2: errors.append('Garak Geumho long history is stale')
 
 # Detail snapshots must never claim false zero/price values after a degraded collection.
 for x in details.get('items') or []:
