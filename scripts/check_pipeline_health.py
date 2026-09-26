@@ -67,6 +67,11 @@ def ym_age(v):
 def iso_day(v):
     try:return datetime.datetime.fromisoformat(str(v).replace('Z','+00:00')).date()
     except:return None
+def iso_dt(v):
+    try:
+        z=datetime.datetime.fromisoformat(str(v).replace('Z','+00:00'))
+        return z if z.tzinfo else z.replace(tzinfo=datetime.timezone.utc)
+    except:return None
 
 mi_day=ymd(mi.get('updated_at'))
 if not mi_day or (today-mi_day).days>2: errors.append('market_indicators bundle is stale')
@@ -107,6 +112,15 @@ if market_ext:
 else:
     errors.append('market_extensions.json missing')
 if fc and fc.get('as_of')!=mi.get('updated_at'): errors.append('forecast as_of does not match market snapshot')
+# Derived artifacts must be newer than every live input generation they consume.
+mi_refresh_dt=iso_dt((mi.get('refresh_run') or {}).get('attempted_at'))
+fc_gen_dt=iso_dt(fc.get('generated_at')) if fc else None
+if mi_refresh_dt and (not fc_gen_dt or fc_gen_dt<mi_refresh_dt):
+    errors.append('forecast predates latest market refresh attempt')
+ext_gen_dt=iso_dt(market_ext.get('generated_at')) if market_ext else None
+lineage_inputs=[x for x in (mi_refresh_dt,iso_dt(watch_hist.get('generated_at')),iso_dt(master.get('generated_at'))) if x]
+if lineage_inputs and (not ext_gen_dt or ext_gen_dt<max(lineage_inputs)):
+    errors.append('market extensions predate latest market/watchlist inputs')
 base=mi.get('base_rate_official') or {}
 base_day=ymd(base.get('latest_observation_date') or (base.get('latest') or {}).get('date'))
 if not base_day or (today-base_day).days>10: errors.append('official base-rate observation is stale')
@@ -299,7 +313,12 @@ lineage=[
 ]
 for asset,owner,needle in lineage:
     if needle not in wf[owner]: errors.append(f'{asset}: {owner} workflow ownership missing')
-if "paths: ['dist/**'" not in wf['pages']: errors.append('Pages push trigger does not cover all dist assets')
+if "workflows: ['System health audit']" not in wf['pages']: errors.append('Pages generated-data deploy must wait for System health audit')
+if "workflows: ['Parallel market data refresh'" in wf['pages'] or "'Weekly KB price refresh'" in wf['pages']:
+    errors.append('Pages must not deploy directly from raw producer workflow completion')
+if "'dist/**'" in wf['pages']: errors.append('Pages broad dist trigger can publish generated JSON before final health gate')
+for static_path in ("'dist/*.html'","'dist/*.js'","'dist/*.css'"):
+    if static_path not in wf['pages']: errors.append('Pages static UI trigger missing '+static_path)
 
 payload={'status':'ok' if not errors else 'failed','latest_available':latest,'certified_through':cert,
          'research_month':trrows[-1].get('ym') if trrows else None,
