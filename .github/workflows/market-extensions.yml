@@ -38,17 +38,22 @@ jobs:
         run: |
           python3 scripts/validate_market_extensions.py
           python3 scripts/build_market_extensions_summary.py
-      - name: Persist research outputs
+      - name: Rebase, rebuild and persist research outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           files="data_sources/kb_regional_breadth.json dist/affordability_engine.json dist/regional_temperature_history.json dist/market_extension_validation.json dist/market_extensions.json"
-          mkdir -p /tmp/extensions
-          tar -cf /tmp/extensions/out.tar $files
+          cp data_sources/kb_regional_breadth.json /tmp/kb_regional_breadth.json
           git reset --hard
           git clean -fd
           git pull --ff-only origin main
-          tar -xf /tmp/extensions/out.tar -C .
+          cp /tmp/kb_regional_breadth.json data_sources/kb_regional_breadth.json
+          # Derived outputs must consume the newest watchlist/history/market inputs
+          # after pull, not the workflow-start snapshot.
+          python3 scripts/build_affordability_engine.py
+          python3 scripts/build_regional_temperature.py
+          python3 scripts/validate_market_extensions.py
+          python3 scripts/build_market_extensions_summary.py
           git add -f $files
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh market extension validation'
