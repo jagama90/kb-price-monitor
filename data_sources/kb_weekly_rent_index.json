@@ -1,0 +1,14 @@
+{
+  "status": "connected",
+  "source": "KB부동산 데이터허브 statusBoard",
+  "region": "서울",
+  "frequency": "weekly",
+  "latest": {
+    "date": "20260921",
+    "value": 108.2919038601,
+    "display_value": "108.3",
+    "change_pct": 0.12
+  },
+  "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
+  "collected_at": "2026-09-26T01:34:18.574077+00:00"
+}
