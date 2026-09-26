@@ -34,7 +34,10 @@ def target_for(x,targets):
 
 def target_types(x,t):
     ts=x.get('types') or []
-    if not t or t.get('min_pyeong') is None: return ts
+    if not t:return ts
+    aids={int(z) for z in (t.get('area_ids') or []) if z}
+    if aids:return [a for a in ts if int(a.get('area_id') or 0) in aids]
+    if t.get('min_pyeong') is None:return ts
     lo,hi=float(t['min_pyeong']),float(t['max_pyeong'])
     out=[]
     for a in ts:
