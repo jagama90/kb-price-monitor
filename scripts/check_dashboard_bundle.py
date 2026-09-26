@@ -89,3 +89,15 @@ if 'market_extensions.json' not in js or 'loadMarketExtensions()' not in js:
     errors.append('market extension loader missing')
 if html.count('class="card market-context-v1"')!=1:
     errors.append('market context panel missing or duplicated')
+
+# live-data anti-hardcode contract
+if 'const KB_HISTORY=' in js:
+    errors.append('hard-coded KB history returned')
+if 'const BASE_RATES=[' in js:
+    errors.append('hard-coded base-rate history returned')
+if '2026.08.27' in js or "['3.00%'" in js:
+    errors.append('hard-coded current base-rate snapshot returned')
+if 'kb_watchlist_history.json' not in js:
+    errors.append('watchlist KB history is not loaded from live JSON')
+if 'base_rate_official' not in js:
+    errors.append('official base-rate snapshot is not wired to dashboard')
