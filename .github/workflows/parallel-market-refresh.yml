@@ -225,6 +225,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p /tmp/market-refresh
           cp dist/market_indicators.json /tmp/market-refresh/
+          [ -f dist/garak_geumho_24a_history.json ] && cp dist/garak_geumho_24a_history.json /tmp/market-refresh/
           [ -f data/buy_watchlist_listings.json ] && cp data/buy_watchlist_listings.json /tmp/market-refresh/
           [ -f data/buy_watchlist_market.json ] && cp data/buy_watchlist_market.json /tmp/market-refresh/
           [ -f dist/buy_watchlist_market.json ] && cp dist/buy_watchlist_market.json /tmp/market-refresh/dist_buy_watchlist_market.json
@@ -235,6 +236,7 @@ jobs:
           git clean -fd
           git pull --ff-only origin main
           cp /tmp/market-refresh/market_indicators.json dist/market_indicators.json
+          [ -f /tmp/market-refresh/garak_geumho_24a_history.json ] && cp /tmp/market-refresh/garak_geumho_24a_history.json dist/garak_geumho_24a_history.json
           [ -f /tmp/market-refresh/buy_watchlist_listings.json ] && cp /tmp/market-refresh/buy_watchlist_listings.json data/buy_watchlist_listings.json
           [ -f /tmp/market-refresh/buy_watchlist_market.json ] && cp /tmp/market-refresh/buy_watchlist_market.json data/buy_watchlist_market.json
           [ -f /tmp/market-refresh/dist_buy_watchlist_market.json ] && cp /tmp/market-refresh/dist_buy_watchlist_market.json dist/buy_watchlist_market.json
@@ -246,6 +248,7 @@ jobs:
             [ -f /tmp/market-refresh/$n ] && cp /tmp/market-refresh/$n data_sources/$n
           done
           git add -f dist/market_indicators.json
+          [ -f dist/garak_geumho_24a_history.json ] && git add -f dist/garak_geumho_24a_history.json
           [ -f data/buy_watchlist_listings.json ] && git add -f data/buy_watchlist_listings.json
           [ -f data/buy_watchlist_market.json ] && git add -f data/buy_watchlist_market.json
           [ -f dist/buy_watchlist_market.json ] && git add -f dist/buy_watchlist_market.json
