@@ -150,7 +150,19 @@ def main():
             if x.get('kb_general_check_manwon') is None:
                 bad.append(f'{key} live KB general price unavailable')
         print(json.dumps({'sample_values':items,'sample_errors':errors},ensure_ascii=False))
-        if bad: print(json.dumps({'sample_validation':'FAIL','details':bad},ensure_ascii=False)); raise SystemExit(2)
+        fatal=[e for e in errors if 'mismatch' in str(e.get('error') or '').lower()]
+        if fatal:
+            out['validation_status']='failed_integrity'
+            out['validation_details']=fatal
+            p.write_text(json.dumps(out,ensure_ascii=False,indent=2))
+            print(json.dumps({'sample_validation':'FAIL_INTEGRITY','details':fatal},ensure_ascii=False)); raise SystemExit(2)
+        if bad:
+            out['validation_status']='degraded_source'
+            out['validation_details']=bad
+            p.write_text(json.dumps(out,ensure_ascii=False,indent=2))
+            print(json.dumps({'sample_validation':'DEGRADED_SOURCE','details':bad},ensure_ascii=False)); return
+        out['validation_status']='pass'
+        p.write_text(json.dumps(out,ensure_ascii=False,indent=2))
         print(json.dumps({'sample_validation':'PASS'},ensure_ascii=False)); return
     OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)); DIST.write_text(json.dumps(out,ensure_ascii=False,indent=2))
     if len(items)<30 or validated<25 or stats['with_avg']<20 or stats['with_trade']<20:
