@@ -4,12 +4,7 @@
   "months": [
     "202609",
     "202608",
-    "202607",
-    "202606",
-    "202605",
-    "202604",
-    "202603",
-    "202602"
+    "202607"
   ],
   "items": [
     {
@@ -111,7 +106,7 @@
       "molit_apt_name": "문정동아",
       "matched_exclusive_m2": 78.4,
       "name_similarity": 0.667,
-      "match_method": "name_area",
+      "match_method": "last_good_older_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -570,7 +565,7 @@
       "molit_apt_name": "가락미륭아파트",
       "matched_exclusive_m2": 64.26,
       "name_similarity": 0.92,
-      "match_method": "name_area",
+      "match_method": "last_good_older_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -897,6 +892,40 @@
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
+      "complex_id": 1896,
+      "area_id": 51090,
+      "name": "금호타운아파트 (마천역)",
+      "kb_name": "마천금호(금호타운)",
+      "district": "송파구",
+      "dong": "마천동",
+      "exclusive_m2": 84.79,
+      "type_label": "33A",
+      "recent_trade_manwon": 128800,
+      "recent_trade_date": "20260829",
+      "molit_apt_name": "천마그랑밸리",
+      "matched_exclusive_m2": 84.8,
+      "name_similarity": 0.143,
+      "match_method": "unique_dong_exact_area",
+      "source": "MOLIT apartment trade OpenAPI"
+    },
+    {
+      "complex_id": 1896,
+      "area_id": 94730,
+      "name": "금호타운아파트 (마천역)",
+      "kb_name": "마천금호(금호타운)",
+      "district": "송파구",
+      "dong": "마천동",
+      "exclusive_m2": 84.92,
+      "type_label": "33B",
+      "recent_trade_manwon": 143500,
+      "recent_trade_date": "20260918",
+      "molit_apt_name": "삼익1",
+      "matched_exclusive_m2": 84.9,
+      "name_similarity": 0.0,
+      "match_method": "unique_dong_exact_area",
+      "source": "MOLIT apartment trade OpenAPI"
+    },
+    {
       "complex_id": 1868,
       "area_id": 1758,
       "name": "풍납극동",
@@ -927,7 +956,7 @@
       "molit_apt_name": "현대리버빌1지구",
       "matched_exclusive_m2": 58.13,
       "name_similarity": 0.0,
-      "match_method": "unique_dong_exact_area",
+      "match_method": "last_good_older_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -944,7 +973,7 @@
       "molit_apt_name": "현대1",
       "matched_exclusive_m2": 71.17,
       "name_similarity": 0.571,
-      "match_method": "unique_dong_exact_area",
+      "match_method": "last_good_older_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1097,7 +1126,7 @@
       "molit_apt_name": "대림",
       "matched_exclusive_m2": 84.11,
       "name_similarity": 0.92,
-      "match_method": "name_area",
+      "match_method": "last_good_older_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1148,7 +1177,7 @@
       "molit_apt_name": "현대프라임",
       "matched_exclusive_m2": 84.99,
       "name_similarity": 1.0,
-      "match_method": "name_area",
+      "match_method": "last_good_older_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1279,12 +1308,12 @@
       "dong": "마장동",
       "exclusive_m2": 84.97,
       "type_label": "32A",
-      "recent_trade_manwon": 166000,
-      "recent_trade_date": "20260613",
-      "molit_apt_name": "왕십리금호어울림",
-      "matched_exclusive_m2": 84.97,
-      "name_similarity": 1.0,
-      "match_method": "name_area",
+      "recent_trade_manwon": 146000,
+      "recent_trade_date": "20260710",
+      "molit_apt_name": "신성미소지움",
+      "matched_exclusive_m2": 84.99,
+      "name_similarity": 0.0,
+      "match_method": "unique_dong_exact_area",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1432,12 +1461,12 @@
       "dong": "응봉동",
       "exclusive_m2": 59.98,
       "type_label": "24",
-      "recent_trade_manwon": 170000,
-      "recent_trade_date": "20260619",
-      "molit_apt_name": "서울숲리버그린동아아파트",
-      "matched_exclusive_m2": 59.98,
-      "name_similarity": 1.0,
-      "match_method": "name_area",
+      "recent_trade_manwon": 135000,
+      "recent_trade_date": "20260704",
+      "molit_apt_name": "신동아",
+      "matched_exclusive_m2": 59.97,
+      "name_similarity": 0.333,
+      "match_method": "unique_dong_exact_area",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1466,12 +1495,12 @@
       "dong": "자곡동",
       "exclusive_m2": 59.96,
       "type_label": "24A",
-      "recent_trade_manwon": 188000,
-      "recent_trade_date": "20260509",
-      "molit_apt_name": "강남자곡아이파크",
-      "matched_exclusive_m2": 59.96,
-      "name_similarity": 1.0,
-      "match_method": "name_area",
+      "recent_trade_manwon": 155500,
+      "recent_trade_date": "20260912",
+      "molit_apt_name": "강남자곡 힐스테이트",
+      "matched_exclusive_m2": 59.93,
+      "name_similarity": 0.588,
+      "match_method": "unique_dong_exact_area",
       "source": "MOLIT apartment trade OpenAPI"
     }
   ],
@@ -1482,27 +1511,6 @@
       "name": "금호타운아파트 (마천역)",
       "exclusive_m2": 73.92,
       "candidate_names": []
-    },
-    {
-      "complex_id": 1896,
-      "area_id": 51090,
-      "name": "금호타운아파트 (마천역)",
-      "exclusive_m2": 84.79,
-      "candidate_names": [
-        "마천금호어울림1차아파트",
-        "천마그랑밸리"
-      ]
-    },
-    {
-      "complex_id": 1896,
-      "area_id": 94730,
-      "name": "금호타운아파트 (마천역)",
-      "exclusive_m2": 84.92,
-      "candidate_names": [
-        "금호어울림",
-        "삼익1",
-        "솔렌시아"
-      ]
     },
     {
       "complex_id": 323275,
@@ -1570,7 +1578,6 @@
         "두산",
         "서울숲 한신 더 휴",
         "신동아",
-        "행당두산위브",
         "행당한진타운"
       ]
     },
@@ -1596,12 +1603,11 @@
       "candidate_names": [
         "금호1차푸르지오",
         "금호자이2차",
-        "금호한신",
         "두산"
       ]
     }
   ],
-  "matched_count": 86,
+  "matched_count": 88,
   "target_area_count": 101,
-  "collected_at": "2026-09-26T01:42:11.029453+00:00"
+  "collected_at": "2026-09-26T01:43:07.292497+00:00"
 }
