@@ -23,7 +23,8 @@ permissions:
 
 concurrency:
   group: kb-weekly-${{ github.ref }}
-  cancel-in-progress: false
+  # Preserve the scheduled checkpoint, but cancel superseded code-change/manual runs.
+  cancel-in-progress: ${{ github.event_name != 'schedule' }}
 
 jobs:
   refresh:
