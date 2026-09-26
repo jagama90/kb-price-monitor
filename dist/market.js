@@ -325,3 +325,74 @@ async function loadMarketExtensions(){
  }
 }
 loadMarketExtensions();
+
+
+/* refresh calendar + panel unread indicators v1 */
+const REFRESH_SEEN_PREFIX='kbpm.refresh.seen.';
+const refreshJson=async path=>{try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' '+r.status);return await r.json()}catch(e){console.warn('refresh-meta',e);return null}};
+const refreshStamp=v=>{const d=new Date(v||0);return Number.isFinite(d.getTime())?d:null};
+const refreshMax=(...vals)=>{const ds=vals.flat().map(refreshStamp).filter(Boolean);return ds.length?new Date(Math.max(...ds.map(d=>d.getTime()))):null};
+const refreshFmt=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):'확인 대기';
+const refreshScheduleFmt=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):'—';
+const refreshKstParts=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return{y:+p.year,m:+p.month,d:+p.day,w:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.weekday],hh:+p.hour,mm:+p.minute}};
+const refreshKstDate=(y,m,d,h,min)=>new Date(Date.UTC(y,m-1,d,h-9,min));
+const refreshNextDaily=()=>{const n=refreshKstParts(),after=n.hh>7||(n.hh===7&&n.mm>=5),base=refreshKstDate(n.y,n.m,n.d,7,5);return after?new Date(base.getTime()+86400000):base};
+const refreshNextWeekly=()=>{const n=refreshKstParts();let delta=(5-n.w+7)%7;if(delta===0&&(n.hh>21||(n.hh===21&&n.mm>=5)))delta=7;return new Date(refreshKstDate(n.y,n.m,n.d,21,5).getTime()+delta*86400000)};
+const refreshNextMonthly=()=>{const n=refreshKstParts();let y=n.y,m=n.m;let d=refreshKstDate(y,m,3,7,20);if(Date.now()>=d.getTime()){m+=1;if(m===13){m=1;y+=1}d=refreshKstDate(y,m,3,7,20)}return d};
+const refreshSeen=(key,rev)=>{try{return localStorage.getItem(REFRESH_SEEN_PREFIX+key)===String(rev||'')}catch{return false}};
+const refreshMarkSeen=(key,rev)=>{try{if(rev)localStorage.setItem(REFRESH_SEEN_PREFIX+key,String(rev))}catch{}};
+function decorateRefreshPanel({key,host,anchor,revision,warning='',note=true}){
+ if(!host||!anchor||!revision)return;
+ anchor.querySelector('.panel-refresh-dot')?.remove();
+ const dot=document.createElement('i');dot.className='panel-refresh-dot';
+ const isNew=!refreshSeen(key,revision);
+ if(warning)dot.classList.add('is-warning');else if(isNew)dot.classList.add('is-new');else dot.classList.add('is-seen');
+ dot.setAttribute('aria-label',warning?'원천 갱신 지연':isNew?'새 데이터':'확인한 데이터');
+ dot.title=warning?warning:(isNew?'새 데이터 · 눌러서 확인 처리':'확인한 데이터');
+ anchor.appendChild(dot);
+ if(note){
+   let meta=anchor.parentElement?.querySelector(':scope > .panel-refresh-note');
+   if(!meta&&anchor.parentElement){meta=document.createElement('span');meta.className='panel-refresh-note';anchor.parentElement.appendChild(meta)}
+   if(meta)meta.textContent=refreshFmt(refreshStamp(revision))+' 갱신';
+ }
+ const mark=()=>{refreshMarkSeen(key,revision);if(!warning){dot.classList.remove('is-new');dot.classList.add('is-seen')}};
+ host.addEventListener('click',mark);
+ host.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')mark()});
+}
+async function initRefreshCalendar(){
+ const [mi,market,master,forecast,extensions,hist,backtest,research]=await Promise.all([
+   refreshJson('market_indicators.json'),refreshJson('buy_watchlist_market.json'),refreshJson('buy_watchlist_master.json'),
+   refreshJson('regime_forecast.json'),refreshJson('market_extensions.json'),refreshJson('kb_watchlist_history.json'),
+   refreshJson('final_backtest.json'),refreshJson('turning_signal_research.json')
+ ]);
+ const src=mi?.refresh_run?.sources||{},delayed=Object.entries(src).filter(([,v])=>v!=='connected').map(([k])=>({molit:'국토부',ecos:'ECOS',kb_sentiment:'KB',watchlist_detail:'단지상세'}[k]||k));
+ const listingWarn=market&&String(market.listing_refresh_status||'')!=='connected'?'매물 원천 지연 · 마지막 정상값 유지 중':'';
+ const dailyRev=mi?.refresh_run?.attempted_at||mi?.updated_at;
+ const kbRev=master?.kb_collected_at||master?.generated_at;
+ const watchRev=refreshMax(kbRev,market?.molit_trade_collected_at,market?.kb_detail_collected_at,String(market?.listing_refresh_status)==='connected'?market?.listing_collected_at:null)?.toISOString();
+ const forecastRev=forecast?.generated_at;
+ const extensionRev=extensions?.generated_at;
+ const monthlyRev=refreshMax(backtest?.generated_at,research?.generated_at)?.toISOString();
+ const healthRev=refreshMax(dailyRev,market?.listing_refresh_attempted_at,hist?.generated_at,forecastRev,extensionRev,monthlyRev)?.toISOString();
+ const healthWarn=[delayed.length?'원천 지연 '+delayed.join('/'):'',listingWarn].filter(Boolean).join(' · ');
+
+ const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+ set('refreshDailyLast','마지막 '+refreshFmt(refreshStamp(dailyRev))+(delayed.length?' · 원천 지연 '+delayed.join('/'):' · 원천 정상'));
+ set('refreshDailyNext','다음 '+refreshScheduleFmt(refreshNextDaily()));
+ set('refreshWeeklyLast','KB 시세 '+refreshFmt(refreshStamp(kbRev))+(listingWarn?' · 매물 원천 지연':' · 주간 원천 정상'));
+ set('refreshWeeklyNext','다음 '+refreshScheduleFmt(refreshNextWeekly()));
+ set('refreshMonthlyLast','연구엔진 '+refreshFmt(refreshStamp(monthlyRev))+(backtest?.certified_through?' · 인증 '+String(backtest.certified_through).slice(0,4)+'.'+String(backtest.certified_through).slice(4):''));
+ set('refreshMonthlyNext','다음 '+refreshScheduleFmt(refreshNextMonthly()));
+ const hs=document.getElementById('refreshHealthSummary');
+ if(hs){hs.classList.toggle('warning',Boolean(healthWarn));hs.textContent=healthWarn?'주의 · '+healthWarn:'정상 · 연결 원천과 파생 데이터가 최신 주기에 맞춰 갱신되고 있습니다.'}
+
+ const boundaryHost=document.getElementById('boundary')?.closest('.card');
+ decorateRefreshPanel({key:'overview',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),revision:dailyRev,warning:delayed.length?'원천 지연 '+delayed.join('/'):''});
+ decorateRefreshPanel({key:'forecast',host:document.getElementById('regimeForecast'),anchor:document.querySelector('#regimeForecast h2'),revision:forecastRev});
+ decorateRefreshPanel({key:'context',host:document.getElementById('marketContext'),anchor:document.querySelector('#marketContext h2'),revision:extensionRev});
+ decorateRefreshPanel({key:'watchlist',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),revision:watchRev,warning:listingWarn,note:false});
+ decorateRefreshPanel({key:'boundary',host:boundaryHost,anchor:boundaryHost?.querySelector('.title h2'),revision:kbRev});
+ decorateRefreshPanel({key:'health',host:document.querySelector('.method-v4'),anchor:document.querySelector('.method-v4 summary b'),revision:healthRev,warning:healthWarn});
+}
+initRefreshCalendar();
+

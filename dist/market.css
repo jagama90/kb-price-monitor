@@ -702,3 +702,43 @@ main{max-width:1180px;padding-top:24px}
  .context-foot-v1{display:block;line-height:1.45}
  .context-foot-v1 em{display:block;margin-top:3px}
 }
+
+
+/* refresh calendar + panel unread indicators v1 */
+.refresh-calendar-v1{margin-top:14px;padding:20px}
+.refresh-calendar-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.refresh-calendar-head small{font-size:10px;font-weight:800;color:#1677ff;letter-spacing:.04em}
+.refresh-calendar-head h2{margin:5px 0 4px;font-size:20px}
+.refresh-calendar-head p{margin:0;color:var(--muted);font-size:11px}
+.refresh-legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;font-size:10px;color:var(--muted)}
+.refresh-legend span{display:inline-flex;align-items:center;gap:5px}
+.legend-dot,.panel-refresh-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+.legend-dot.new,.panel-refresh-dot.is-new{background:#f04452;box-shadow:0 0 0 3px rgba(240,68,82,.12)}
+.legend-dot.warning,.panel-refresh-dot.is-warning{background:#f59f00;box-shadow:0 0 0 3px rgba(245,159,0,.13)}
+.panel-refresh-dot{margin-left:7px;vertical-align:middle}
+.panel-refresh-dot.is-seen{display:none}
+.panel-refresh-note{display:block;margin-top:4px;color:var(--muted);font-size:9px!important;font-weight:650!important;line-height:1.4}
+.refresh-calendar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.refresh-cycle-card{border:1px solid var(--line);background:#fafcff;border-radius:14px;padding:15px;min-width:0}
+.refresh-cycle-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.refresh-cycle-top span{font-size:10px;color:#1677ff;font-weight:850}
+.refresh-cycle-top b{font-size:10px;color:#52647c}
+.refresh-cycle-card>strong{display:block;margin:8px 0 10px;font-size:14px}
+.refresh-items{display:grid;grid-template-columns:1fr 1fr;gap:5px 9px;margin-bottom:12px}
+.refresh-items span{font-size:9px;color:var(--muted);line-height:1.35}
+.refresh-cycle-card>small,.refresh-cycle-card>em{display:block;font-size:9px;line-height:1.45}
+.refresh-cycle-card>small{padding-top:10px;border-top:1px solid #edf1f5;color:#42536a;font-weight:750}
+.refresh-cycle-card>em{margin-top:3px;color:var(--muted);font-style:normal}
+.refresh-health-summary{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f5f9ff;color:#52647c;font-size:10px;font-weight:700}
+.refresh-health-summary.warning{background:#fff7e6;color:#9a6700}
+.deep-copy-v4 b .panel-refresh-dot,.method-v4 summary b .panel-refresh-dot{transform:translateY(-1px)}
+@media(max-width:800px){
+ .refresh-calendar-v1{padding:16px}
+ .refresh-calendar-head{display:block}
+ .refresh-legend{justify-content:flex-start;margin-top:10px;gap:9px}
+ .refresh-calendar-grid{grid-template-columns:1fr}
+ .refresh-cycle-card{padding:13px}
+ .refresh-items{grid-template-columns:1fr 1fr}
+}
+@media(max-width:430px){.refresh-items{grid-template-columns:1fr}.refresh-calendar-head h2{font-size:18px}}
+
