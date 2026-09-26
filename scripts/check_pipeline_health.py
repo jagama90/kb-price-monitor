@@ -62,6 +62,9 @@ def ym_age(v):
     if len(z)<6:return None
     try:return (today.year-int(z[:4]))*12 + today.month-int(z[4:6])
     except:return None
+def iso_day(v):
+    try:return datetime.datetime.fromisoformat(str(v).replace('Z','+00:00')).date()
+    except:return None
 # Validated market extension freshness and integrity.
 if market_ext:
     cur=market_ext.get('current') or {}
@@ -78,6 +81,7 @@ if market_ext:
     if val.get('breadth_role')!='confidence_context': warnings.append({'market_extension_breadth_role':val.get('breadth_role')})
 else:
     errors.append('market_extensions.json missing')
+if fc and fc.get('as_of')!=mi.get('updated_at'): errors.append('forecast as_of does not match market snapshot')
 trade_day=ymd((mi.get('matched_period') or {}).get('as_of'))
 if not trade_day or (today-trade_day).days>3: errors.append('MOLIT matched-period snapshot is stale')
 sent_dates=[ymd(x.get('date')) for x in ((mi.get('kb_sentiment') or {}).get('latest') or {}).values() if isinstance(x,dict)]
@@ -112,6 +116,13 @@ if unresolved: warnings.append({'watchlist_unresolved_targets':unresolved})
 
 # Representative interest-complex rows and recent-trade coverage.
 wm_rows=watch_market.get('items') or []
+mt_day=iso_day(watch_market.get('molit_trade_collected_at'))
+if not mt_day or (today-mt_day).days>3: errors.append('watchlist MOLIT trade refresh is stale')
+kb_master_day=iso_day(master.get('kb_collected_at'))
+if not kb_master_day or (today-kb_master_day).days>10: errors.append('watchlist KB price master is stale')
+listing_day=iso_day(watch_market.get('collected_at'))
+if any(x.get('sale_listing_count') is not None for x in wm_rows) and (not listing_day or (today-listing_day).days>10):
+    warnings.append({'watchlist_listing_source_stale_days':None if not listing_day else (today-listing_day).days})
 supported=int(watch_market.get('supported_target_rows') or 0)
 if supported and len(wm_rows)<supported: errors.append('watchlist market representative coverage incomplete')
 if supported>=10:
