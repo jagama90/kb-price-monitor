@@ -45,10 +45,24 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Collect KB weekly sentiment
+        shell: bash
         run: |
-          python3 scripts/collect_kb_sentiment.py
-          python3 scripts/collect_kb_statusboard_live.py
-          python3 scripts/collect_kb_datahub_batch.py
+          set -euo pipefail
+          retry() {
+            local attempt=1 max=4 delay=5
+            until "$@"; do
+              if [ "$attempt" -ge "$max" ]; then
+                echo "KB command failed after $attempt attempts: $*"
+                return 1
+              fi
+              sleep "$delay"
+              attempt=$((attempt+1))
+              delay=$((delay*2))
+            done
+          }
+          retry python3 scripts/collect_kb_sentiment.py
+          retry python3 scripts/collect_kb_statusboard_live.py
+          retry python3 scripts/collect_kb_datahub_batch.py
       - uses: actions/upload-artifact@v4
         with:
           name: source-kb-sentiment-${{ github.run_id }}
@@ -218,7 +232,8 @@ jobs:
             [ -f "$f" ] && cp "$f" /tmp/market-refresh/$(basename "$f")
           done
           git reset --hard
-          git pull --rebase origin main
+          git clean -fd
+          git pull --ff-only origin main
           cp /tmp/market-refresh/market_indicators.json dist/market_indicators.json
           [ -f /tmp/market-refresh/buy_watchlist_listings.json ] && cp /tmp/market-refresh/buy_watchlist_listings.json data/buy_watchlist_listings.json
           [ -f /tmp/market-refresh/buy_watchlist_market.json ] && cp /tmp/market-refresh/buy_watchlist_market.json data/buy_watchlist_market.json
