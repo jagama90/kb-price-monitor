@@ -17,7 +17,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1986,
@@ -32,7 +33,8 @@
       "market_scope": "target_area_id",
       "kb_price_date": null,
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 15738,
@@ -49,7 +51,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 15663,
@@ -66,7 +69,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 15308,
@@ -83,7 +87,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 15813,
@@ -100,7 +105,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 15309,
@@ -116,7 +122,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 15041,
@@ -133,7 +140,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1945,
@@ -150,7 +158,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1944,
@@ -167,7 +176,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1947,
@@ -184,7 +194,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1984,
@@ -201,7 +212,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 25769,
@@ -218,7 +230,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1896,
@@ -234,7 +247,8 @@
       "sale_listing_week_delta": 0,
       "kb_price_date": null,
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1868,
@@ -251,7 +265,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1873,
@@ -268,7 +283,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "detail_quality": "exact_area_id",
-      "recent_trade_source": "MOLIT"
+      "recent_trade_source": "MOLIT",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 323275,
@@ -284,7 +300,8 @@
       "sale_listing_week_delta": 0,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "kb_price_date": null,
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 323274,
@@ -300,7 +317,8 @@
       "sale_listing_week_delta": -3,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "kb_price_date": null,
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1941,
@@ -315,7 +333,8 @@
       "market_scope": "target_area_id",
       "kb_price_date": null,
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 716,
@@ -332,7 +351,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 12530,
@@ -349,7 +369,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1771,
@@ -365,7 +386,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 13487,
@@ -381,7 +403,8 @@
       "sale_listing_week_delta": 0,
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 16151,
@@ -398,7 +421,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 12024,
@@ -415,7 +439,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 31944,
@@ -432,7 +457,8 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
-      "detail_quality": "exact_area_id"
+      "detail_quality": "exact_area_id",
+      "listing_refresh_status": "fallback_last_good"
     },
     {
       "complex_id": 1960,
@@ -728,5 +754,9 @@
   "known_unavailable_targets": [
     "성동자이리버뷰"
   ],
-  "listing_collected_at": "2026-09-26T02:14:32.066308+09:00"
+  "listing_collected_at": "2026-09-26T02:14:32.066308+09:00",
+  "listing_refresh_attempted_at": "2026-09-26T08:36:41+00:00",
+  "listing_refresh_matched_rows": 0,
+  "listing_refresh_status": "fallback_last_good",
+  "listing_refresh_error": "weekly KB public-market source unavailable; preserved last-good listing fields"
 }
