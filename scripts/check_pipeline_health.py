@@ -50,9 +50,6 @@ for key in ('kb_weekly_sale_index','kb_weekly_rent_index'):
     src=mi.get(key) or {}
     if src.get('status')!='connected' or not (src.get('latest') or {}).get('value'):
         errors.append(key+' missing or disconnected')
-    else:
-        kday=ymd((src.get('latest') or {}).get('date'))
-        if not kday or (today-kday).days>14: errors.append(key+' is stale')
 # Fail if last-good inputs silently become stale while the bundle keeps rebuilding.
 today=datetime.datetime.now(datetime.timezone.utc).date()
 def ymd(v):
@@ -69,6 +66,12 @@ def ym_age(v):
 def iso_day(v):
     try:return datetime.datetime.fromisoformat(str(v).replace('Z','+00:00')).date()
     except:return None
+
+for key in ('kb_weekly_sale_index','kb_weekly_rent_index'):
+    src=mi.get(key) or {}
+    if src.get('status')=='connected' and (src.get('latest') or {}).get('value'):
+        kday=ymd((src.get('latest') or {}).get('date'))
+        if not kday or (today-kday).days>14: errors.append(key+' is stale')
 # Validated market extension freshness and integrity.
 if market_ext:
     cur=market_ext.get('current') or {}
