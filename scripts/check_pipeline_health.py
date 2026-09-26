@@ -205,7 +205,7 @@ if garak.get('refresh_status')=='fallback_last_good':
 # Exact-area trade identity must never cross-map sibling complexes.
 def ident_tokens(v):
     s=str(v or '')
-    return ({x for x in re.findall(r'(\\d+)\\s*단지',s)},{x for x in re.findall(r'(\\d+)\\s*차',s)})
+    return ({x for x in re.findall(r'(\d+)\s*단지',s)},{x for x in re.findall(r'(\d+)\s*차',s)})
 def ident_conflict(a,b):
     aa,ab=ident_tokens(a);ba,bb=ident_tokens(b)
     return bool((aa and ba and aa!=ba) or (ab and bb and ab!=bb))
