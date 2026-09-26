@@ -27,14 +27,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate dashboard bundle
-        run: |
-          node --check dist/market.js
-          python3 scripts/check_dashboard_bundle.py
       - name: Sync purchase watchlist data
         run: |
           cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
           cp data/buy_watchlist_targets.json dist/buy_watchlist_targets.json
+      - name: Validate dashboard and pipeline health
+        run: |
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_pipeline_health.py
       - uses: actions/configure-pages@v5
         with:
           enablement: true
