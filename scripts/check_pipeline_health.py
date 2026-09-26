@@ -254,7 +254,7 @@ if 'artifact_ready' not in wf['parallel'] or "needs.molit.outputs.artifact_ready
     errors.append('MOLIT degraded-mode artifact guard missing')
 if 'refresh_run_status.json' not in wf['parallel']: errors.append('parallel workflow does not persist per-run source refresh outcomes')
 if wf['weekly'].count("'.github/workflows/weekly-refresh.yml'")!=1: errors.append('weekly workflow trigger duplicated')
-if 'cancel-in-progress: false' not in wf['weekly']: errors.append('weekly checkpoint should preserve in-progress run')
+if "github.event_name != 'schedule'" not in wf['weekly']: errors.append('weekly workflow must cancel superseded push/manual runs while preserving scheduled checkpoint')
 if 'merge_weekly_listing_snapshot.py' not in wf['weekly']: errors.append('weekly listing merge guard missing')
 if wf['weekly'].count('scripts/collect_kb_watchlist_history.py')<2: errors.append('weekly workflow does not trigger when KB watchlist history collector changes')
 if wf['weekly'].count('scripts/collect_garak_geumho_24a.py')<2: errors.append('weekly workflow does not trigger when Garak history collector changes')
