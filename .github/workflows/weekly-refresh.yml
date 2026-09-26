@@ -10,6 +10,8 @@ on:
       - 'scripts/test_static_contract.py'
       - 'scripts/test_price_core.cjs'
       - 'scripts/collect_public_market.py'
+      - 'scripts/collect_kb_watchlist_history.py'
+      - 'scripts/collect_garak_geumho_24a.py'
       - 'scripts/merge_weekly_listing_snapshot.py'
       - 'scripts/collect_seoul.py'
       - 'scripts/build_buy_watchlist_master.py'
