@@ -29,19 +29,35 @@ jobs:
           python-version: '3.11'
       - name: Build forward regime forecast
         run: python3 scripts/forecast_market_regime.py
-      - name: Validate forecast and pipeline contracts
+      - name: Validate forecast bundle contract
         run: |
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
-          python3 scripts/check_pipeline_health.py
-      - name: Persist forecast
+          python3 - <<'PY'
+          import json
+          m=json.load(open('dist/market_indicators.json'))
+          f=json.load(open('dist/regime_forecast.json'))
+          assert f.get('as_of')==m.get('updated_at'), 'forecast as_of mismatch'
+          assert f.get('latest_research_month'), 'forecast research lineage missing'
+          print({'status':'ok','as_of':f.get('as_of'),'research':f.get('latest_research_month')})
+          PY
+      - name: Rebase, rebuild and persist forecast
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          cp dist/regime_forecast.json /tmp/regime_forecast.json
           git reset --hard
           git pull --ff-only origin main
-          cp /tmp/regime_forecast.json dist/regime_forecast.json
+          # Recompute after pull so the committed forecast always consumes the
+          # newest market/research inputs rather than the workflow-start snapshot.
+          python3 scripts/forecast_market_regime.py
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 - <<'PY'
+          import json
+          m=json.load(open('dist/market_indicators.json'))
+          f=json.load(open('dist/regime_forecast.json'))
+          assert f.get('as_of')==m.get('updated_at'), 'forecast as_of mismatch after pull'
+          PY
           git add -f dist/regime_forecast.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh forward regime forecast'
