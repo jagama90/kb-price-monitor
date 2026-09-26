@@ -6,6 +6,7 @@ from urllib.parse import urlencode
 from playwright.async_api import async_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
+# stability-probe-20260926: verify area-specific asking-price fallback remains usable
 UA='Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 Chrome/153 Mobile Safari/537.36'
 
 def resolve_complex(name):
