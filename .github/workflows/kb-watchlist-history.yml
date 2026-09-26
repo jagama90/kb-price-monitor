@@ -1,8 +1,7 @@
 name: KB watchlist history
 on:
+  # Production refresh is owned by weekly-refresh.yml. Keep this only for manual diagnostics.
   workflow_dispatch:
-  push:
-    paths: ['scripts/collect_kb_watchlist_history.py','.github/workflows/kb-watchlist-history.yml']
 permissions: {contents: write}
 jobs:
   collect:
