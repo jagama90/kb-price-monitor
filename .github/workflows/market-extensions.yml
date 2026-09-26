@@ -1,5 +1,8 @@
 name: Validate market extensions
 on:
+  workflow_run:
+    workflows: ['Parallel market data refresh', 'Weekly KB price refresh']
+    types: [completed]
   push:
     branches: [main]
     paths:
@@ -8,6 +11,7 @@ on:
       - 'scripts/build_affordability_engine.py'
       - 'scripts/build_regional_temperature.py'
       - 'scripts/validate_market_extensions.py'
+      - 'scripts/build_market_extensions_summary.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -16,6 +20,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -30,12 +35,14 @@ jobs:
           python3 scripts/build_affordability_engine.py
           python3 scripts/build_regional_temperature.py
       - name: Run leakage-safe backtest
-        run: python3 scripts/validate_market_extensions.py
+        run: |
+          python3 scripts/validate_market_extensions.py
+          python3 scripts/build_market_extensions_summary.py
       - name: Persist research outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          files="data_sources/kb_regional_breadth.json dist/affordability_engine.json dist/regional_temperature_history.json dist/market_extension_validation.json"
+          files="data_sources/kb_regional_breadth.json dist/affordability_engine.json dist/regional_temperature_history.json dist/market_extension_validation.json dist/market_extensions.json"
           mkdir -p /tmp/extensions
           tar -cf /tmp/extensions/out.tar $files
           git reset --hard
