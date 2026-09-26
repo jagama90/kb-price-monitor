@@ -10,6 +10,7 @@ on:
       - 'scripts/test_static_contract.py'
       - 'scripts/test_price_core.cjs'
       - 'scripts/collect_public_market.py'
+      - 'scripts/merge_weekly_listing_snapshot.py'
       - 'scripts/collect_seoul.py'
       - 'scripts/build_buy_watchlist_master.py'
       - 'scripts/build_kb_value_sample.py'
@@ -43,14 +44,12 @@ jobs:
           python3 scripts/build_buy_watchlist_master.py
           python3 scripts/build_kb_value_sample.py
           cp data_sources/kb_value_sample.json dist/kb_value_sample.json
-          cp data/buy_watchlist_market.json /tmp/buy_watchlist_market.prev.json 2>/dev/null || true
-          cp dist/buy_watchlist_market.json /tmp/dist_buy_watchlist_market.prev.json 2>/dev/null || true
           if python3 scripts/collect_public_market.py; then
-            echo 'KB public-market enrichment refreshed'
+            cp data/buy_watchlist_market.json /tmp/kb-weekly-listings.json
+            echo 'KB public-market enrichment refreshed; listing-owned fields staged'
           else
-            echo 'KB public-market enrichment failed; restoring last-good market snapshot'
-            [ -f /tmp/buy_watchlist_market.prev.json ] && cp /tmp/buy_watchlist_market.prev.json data/buy_watchlist_market.json
-            [ -f /tmp/dist_buy_watchlist_market.prev.json ] && cp /tmp/dist_buy_watchlist_market.prev.json dist/buy_watchlist_market.json
+            rm -f /tmp/kb-weekly-listings.json
+            echo 'KB public-market enrichment unavailable; newest main snapshot will be preserved'
           fi
           python3 scripts/collect_kb_watchlist_history.py || echo 'KB watchlist history refresh failed; keeping last-good history'
           python3 scripts/collect_garak_geumho_24a.py || echo 'Garak Geumho history refresh failed; keeping last-good history'
@@ -65,13 +64,18 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          files="data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json data/buy_watchlist_market.json dist/seoul_types.json dist/buy_watchlist_master.json dist/buy_watchlist_market.json dist/kb_watchlist_history.json dist/garak_geumho_24a_history.json data_sources/kb_history_status.json data_sources/kb_history_probe.json data_sources/kb_value_sample.json dist/kb_value_sample.json"
+          files="data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json dist/kb_watchlist_history.json dist/garak_geumho_24a_history.json data_sources/kb_history_status.json data_sources/kb_history_probe.json data_sources/kb_value_sample.json dist/kb_value_sample.json"
           mkdir -p /tmp/kb-weekly
           tar -cf /tmp/kb-weekly/output.tar $files
           git reset --hard
           git pull --ff-only origin main
           tar -xf /tmp/kb-weekly/output.tar -C .
-          git add -f $files
+          if [ -f /tmp/kb-weekly-listings.json ]; then
+            python3 scripts/merge_weekly_listing_snapshot.py --source /tmp/kb-weekly-listings.json
+          else
+            python3 scripts/merge_weekly_listing_snapshot.py --mark-failed
+          fi
+          git add -f $files data/buy_watchlist_market.json dist/buy_watchlist_market.json
           git diff --cached --quiet && exit 0
           git commit -m 'Weekly KB snapshot refresh'
           git push origin HEAD:main
