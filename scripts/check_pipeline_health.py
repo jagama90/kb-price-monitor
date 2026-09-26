@@ -22,6 +22,7 @@ details=load('data/buy_watchlist_listings.json')
 watch_market=load('data/buy_watchlist_market.json')
 trade_detail=load('data_sources/watchlist_recent_trades.json')
 garak=load('dist/garak_geumho_24a_history.json')
+market_ext=load('dist/market_extensions.json')
 
 if fb and not fb.get('certified_final'): errors.append('final_backtest is not certified')
 fbrows=fb.get('rows') or []
@@ -44,6 +45,22 @@ for h in fc.get('horizons') or []:
     total=sum(float(v) for v in w.values()) if w else 0
     if abs(total-100)>0.11: errors.append(f"{h.get('period')}: weights sum {total}, expected 100")
 if not mi.get('updated_at'): errors.append('market_indicators.updated_at missing')
+# Validated market extension freshness and integrity.
+if market_ext:
+    cur=market_ext.get('current') or {}
+    br=cur.get('breadth') or {}; s25=br.get('seoul_25') or {}
+    if int(s25.get('count') or 0)!=25: errors.append('market extension breadth must cover 25 Seoul districts')
+    bday=ymd(str(br.get('date') or ''))
+    if not bday or (today-bday).days>14: errors.append('market extension district breadth is stale')
+    aff=cur.get('affordability') or {}; age=ym_age(aff.get('ym'))
+    if age is None or age>3: errors.append('market extension affordability input is stale')
+    temp=cur.get('temperature') or {}; tage=ym_age(temp.get('ym'))
+    if tage is None or tage>2: errors.append('market extension local temperature is stale')
+    val=market_ext.get('validation') or {}
+    if val.get('production_price_turn_formula_changed') is not False: errors.append('market extension unexpectedly changed production price-turn formula')
+    if val.get('breadth_role')!='confidence_context': warnings.append({'market_extension_breadth_role':val.get('breadth_role')})
+else:
+    errors.append('market_extensions.json missing')
 for key in ('kb_weekly_sale_index','kb_weekly_rent_index'):
     src=mi.get(key) or {}
     if src.get('status')!='connected' or not (src.get('latest') or {}).get('value'):
