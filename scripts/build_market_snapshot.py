@@ -15,6 +15,9 @@ def main():
  r=read('ecos_mortgage_rate.json')
  if r and r.get('latest'):
   d['mortgage_rate_official']=r['latest'];d.setdefault('data_status',{})['ecos_mortgage_rate']='connected'
+ base=read('ecos_base_rate.json')
+ if base and base.get('latest'):
+  d['base_rate_official']=base;d.setdefault('data_status',{})['ecos_base_rate']='connected'
  e=read('ecos_m2.json')
  if e and e.get('series'):
   x=e['series'][-1];d['m2_official']={'period':x['period'],'mom_pct':x['mom_pct'],'yoy_pct':x['yoy_pct'],'source':'한국은행 ECOS 101Y003','definition':e.get('definition'),'selected_item':e.get('selected_item')}
