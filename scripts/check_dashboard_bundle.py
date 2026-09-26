@@ -103,6 +103,8 @@ if 'rowListingFresh=x=>' not in js or 'listing_refresh_status' not in js:
     errors.append('listing freshness must be evaluated per row and source status')
 if 'rowTradeFresh=x=>' not in js or 'trade_refresh_status' not in js:
     errors.append('recent-trade identity/freshness must be evaluated per row')
+if "sourceRefreshNote=delayed.length?' · 원천 지연 " not in js or 'refresh_run?.sources' not in js:
+    errors.append('dashboard must surface current per-run source refresh status')
 if "rowListingFresh(x)&&rowTradeFresh(x)?signal(x)" not in js:
     errors.append('directional listing signal must require both fresh listing and verified trade')
 if "hasAsk=x.avg_ask_manwon!=null" not in js or "hasTrade=x.recent_trade_manwon!=null" not in js:
