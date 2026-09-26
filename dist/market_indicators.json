@@ -233,7 +233,7 @@
     "jeonse_score_0_100": 49.3,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-26T01:46:34.738427+00:00"
+    "generated_at": "2026-09-26T01:46:46.167211+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -247,7 +247,7 @@
     "current_position_0_1": 1.0,
     "source": "KB부동산 가락금호 24A 월별 일반거래가",
     "period": "202609",
-    "generated_at": "2026-09-26T01:46:34.691311+00:00"
+    "generated_at": "2026-09-26T01:46:46.114777+00:00"
   },
   "matched_period": {
     "as_of": "2026-09-26",
@@ -327,7 +327,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-09-26T01:46:13.772030+00:00"
+    "collected_at": "2026-09-26T01:43:00.020374+00:00"
   },
   "kb_weekly_rent_index": {
     "status": "connected",
@@ -341,6 +341,6 @@
       "change_pct": 0.12
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-09-26T01:46:13.772044+00:00"
+    "collected_at": "2026-09-26T01:43:00.020386+00:00"
   }
 }
