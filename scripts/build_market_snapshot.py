@@ -29,6 +29,21 @@ def main():
   d['kb_sentiment']=s;d.setdefault('data_status',{})['kb_sentiment']='connected'
   if s.get('jeonse_score_0_100') is not None: d.setdefault('data_status',{})['kb_jeonse_supply']='connected'
  sale=read('kb_weekly_sale_index.json');rent=read('kb_weekly_rent_index.json')
+ # Fallback directly to the already-connected statusBoard payload so the dashboard
+ # never shows "수집 대기" merely because an adapter filename is missing.
+ sb=read('kb_statusboard_live.json')
+ def from_status(kind,label,key):
+  try:
+   hit=(sb.get('targets') or {}).get(kind) or {}
+   rows=((((hit.get('payload') or {}).get('dataBody') or {}).get('data') or {}).get(label) or [])
+   z=next((x for x in rows if str(x.get('법정동코드'))=='1100000000' or str(x.get('지역명'))=='서울'),None)
+   if not z:return None
+   return {'status':'connected','source':'KB부동산 데이터허브 statusBoard','region':'서울','frequency':'weekly',
+    'latest':{'date':str(z.get('통계기준년월일시') or hit.get('date') or ''),'value':float(z.get('현재데이터') or z.get(key)),
+              'display_value':z.get(key),'change_pct':float(z.get('변동률')) if z.get('변동률') not in (None,'') else None}}
+  except Exception:return None
+ if not sale or sale.get('status')!='connected': sale=from_status('sale','주간 매매지수','매매지수')
+ if not rent or rent.get('status')!='connected': rent=from_status('rent','주간 전세지수','전세지수')
  if sale and sale.get('status')=='connected':
   d['kb_weekly_sale_index']=sale;d.setdefault('data_status',{})['kb_weekly_sale_index']='connected';d.setdefault('data_status',{})['kb_history']='connected'
  if rent and rent.get('status')=='connected':
