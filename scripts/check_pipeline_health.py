@@ -41,6 +41,10 @@ for h in fc.get('horizons') or []:
     total=sum(float(v) for v in w.values()) if w else 0
     if abs(total-100)>0.11: errors.append(f"{h.get('period')}: weights sum {total}, expected 100")
 if not mi.get('updated_at'): errors.append('market_indicators.updated_at missing')
+for key in ('kb_weekly_sale_index','kb_weekly_rent_index'):
+    src=mi.get(key) or {}
+    if src.get('status')!='connected' or not (src.get('latest') or {}).get('value'):
+        errors.append(key+' missing or disconnected')
 # Fail if last-good inputs silently become stale while the bundle keeps rebuilding.
 today=datetime.datetime.now(datetime.timezone.utc).date()
 def ymd(v):
