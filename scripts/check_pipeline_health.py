@@ -20,6 +20,7 @@ master=load('data/buy_watchlist_master.json')
 targets=load('data/buy_watchlist_targets.json')
 details=load('data/buy_watchlist_listings.json')
 watch_market=load('data/buy_watchlist_market.json')
+watch_market_dist=load('dist/buy_watchlist_market.json')
 watch_hist=load('dist/kb_watchlist_history.json')
 trade_detail=load('data_sources/watchlist_recent_trades.json')
 garak=load('dist/garak_geumho_24a_history.json')
@@ -66,6 +67,11 @@ def ym_age(v):
 def iso_day(v):
     try:return datetime.datetime.fromisoformat(str(v).replace('Z','+00:00')).date()
     except:return None
+
+mi_day=ymd(mi.get('updated_at'))
+if not mi_day or (today-mi_day).days>2: errors.append('market_indicators bundle is stale')
+fb_age=ym_age(latest)
+if fb_age is None or fb_age>2: errors.append('final_backtest latest_available_month is stale')
 
 for key in ('kb_weekly_sale_index','kb_weekly_rent_index'):
     src=mi.get(key) or {}
@@ -134,6 +140,10 @@ if unresolved: warnings.append({'watchlist_unresolved_targets':unresolved})
 
 # Representative interest-complex rows and recent-trade coverage.
 wm_rows=watch_market.get('items') or []
+dist_wm_rows=watch_market_dist.get('items') or []
+for stamp in ('listing_collected_at','kb_detail_collected_at','molit_trade_collected_at'):
+    if watch_market.get(stamp)!=watch_market_dist.get(stamp): errors.append('watchlist data/dist '+stamp+' mismatch')
+if len(wm_rows)!=len(dist_wm_rows): errors.append('watchlist data/dist row count mismatch')
 mt_day=iso_day(watch_market.get('molit_trade_collected_at'))
 if not mt_day or (today-mt_day).days>3: errors.append('watchlist MOLIT trade refresh is stale')
 kb_master_day=iso_day(master.get('kb_collected_at'))
