@@ -144,6 +144,7 @@ jobs:
             data_sources/ecos_smoke.json
             data_sources/ecos_finance_sample.json
             data_sources/ecos_mortgage_rate.json
+            data_sources/ecos_base_rate.json
   watchlist_details:
     runs-on: ubuntu-latest
     timeout-minutes: 12
