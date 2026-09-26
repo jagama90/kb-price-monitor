@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Collect current KB weekly Seoul district breadth from official statusBoard API."""
-import json,urllib.request,urllib.parse,pathlib,datetime,time,random
+import json,urllib.request,urllib.parse,pathlib,datetime,time,random,statistics
 from zoneinfo import ZoneInfo
 R=pathlib.Path(__file__).resolve().parents[1]
 OUT=R/'data_sources/kb_regional_breadth.json'
@@ -61,7 +61,7 @@ def main():
   arr=[by[n]['change_pct'] for n in names if n in by]
   return {'count':len(arr),'up':sum(v>0 for v in arr),'flat':sum(v==0 for v in arr),'down':sum(v<0 for v in arr),
           'up_share_pct':round(100*sum(v>0 for v in arr)/len(arr),1) if arr else None,
-          'median_change_pct':round(sorted(arr)[len(arr)//2],3) if arr else None}
+          'median_change_pct':round(statistics.median(arr),3) if arr else None}
  groups={'seoul_25':group(set(SEOUL)),'gangnam3':group(G3),'non_gangnam3':group(set(SEOUL)-G3)}
  out={'status':'connected','source':'KB부동산 데이터허브 statusBoard weeklyAptPrcIndx','date':hit_date,'districts':sorted(region_rows,key=lambda x:x['region']),
       'groups':groups,'songpa':by.get('송파구'),'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
