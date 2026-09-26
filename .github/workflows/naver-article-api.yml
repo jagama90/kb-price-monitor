@@ -1,9 +1,5 @@
 name: Naver Article API smoke
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/naver-article-api.yml'
   workflow_dispatch:
     inputs:
       naver_complex_no:
