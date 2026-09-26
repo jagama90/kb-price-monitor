@@ -57,6 +57,23 @@ def main():
  local={}
  if gap_cut is not None:
   for h in (3,6,12):local[f'{h}m']=split_feature(hold,'songpa_gap',gap_cut,f'songpa_fwd_{h}m')
+
+ # Robustness: nearby breadth cuts and holdout eras. These are diagnostics only.
+ breadth_stress={}
+ for cut in (25,35,50,65):
+  hi=[x for x in hold if x.get('breadth') is not None and x['breadth']>=cut]
+  lo=[x for x in hold if x.get('breadth') is not None and x['breadth']<cut]
+  breadth_stress[str(cut)]={'high_6m':stats(hi,'fwd_6m'),'low_6m':stats(lo,'fwd_6m')}
+ eras={}
+ for name,start,end in [('2018_2020','201801','202012'),('2021_2023','202101','202312'),('2024_2026','202401','202612')]:
+  pool=[x for x in hold if start<=x['ym']<=end]
+  eras[name]={
+    'breadth_high_6m':stats([x for x in pool if x.get('breadth') is not None and x['breadth']>=breadth_cut],'fwd_6m'),
+    'breadth_low_6m':stats([x for x in pool if x.get('breadth') is not None and x['breadth']<breadth_cut],'fwd_6m'),
+    'afford_improving_6m':stats([x for x in pool if x.get('afford_impulse') is not None and x['afford_impulse']>=0],'fwd_6m'),
+    'afford_worsening_6m':stats([x for x in pool if x.get('afford_impulse') is not None and x['afford_impulse']<0],'fwd_6m')
+  }
+ 
  result={'status':'research_only','no_future_leakage':True,'train':'<201801','holdout':'>=201801',
    'thresholds_selected_on_train_only':{'afford_impulse_median':round(afford_cut,3) if afford_cut is not None else None,
       'breadth_median':round(breadth_cut,3) if breadth_cut is not None else None,'songpa_gap_median':round(gap_cut,3) if gap_cut is not None else None},
@@ -64,7 +81,9 @@ def main():
    'holdout_feature_diagnostics':{
       'affordability_vs_seoul_6m':split_feature(hold,'afford_impulse',afford_cut),
       'breadth_vs_seoul_6m':split_feature(hold,'breadth',breadth_cut),
-      'songpa_relative_strength_vs_songpa_forward':local},
+      'songpa_relative_strength_vs_songpa_forward':local,
+      'breadth_threshold_stress':breadth_stress,
+      'era_robustness':eras},
    'guardrails':{'historical_breadth_is_watchlist_proxy':True,'standardized_dsr_is_benchmark_not_actual_limit':True,
       'do_not_modify_production_model_unless_holdout_improves_with_adequate_signal_count':True},
    'rows':rows,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
