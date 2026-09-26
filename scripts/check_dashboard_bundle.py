@@ -58,6 +58,15 @@ if 'forecast-mini-values' not in js or 'scenario-rail' not in js: errors.append(
 if '<summary><span><small>2 · 왜 움직이고 있나' in html: errors.append('legacy text-heavy analysis menu returned')
 if '점수 근거 보기' in html: errors.append('legacy score CTA returned')
 
+# mobile flow repair contract
+if html.count('class="signal-rail"')!=1: errors.append('weekly signal rail missing or duplicated')
+if 'decision-path-mini' in html: errors.append('legacy boxed weekly path returned')
+if html.count('class="driver-rail"')!=1: errors.append('deep-dive driver rail missing')
+if 'class="transmission compact"' in html: errors.append('legacy boxed driver infographic returned')
+if html.count('methodology-v3')!=1: errors.append('methodology v3 status-first layout missing')
+if 'methodology-v2' in html: errors.append('legacy methodology v2 returned')
+if html.count('class="method-health"')!=1: errors.append('methodology health summary missing')
+
 
 jsv=re.search(r'market\.js\?v=([^"]+)',html)
 cssv=re.search(r'market\.css\?v=([^"]+)',html)
