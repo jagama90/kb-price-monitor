@@ -70,6 +70,18 @@ def iso_day(v):
 
 mi_day=ymd(mi.get('updated_at'))
 if not mi_day or (today-mi_day).days>2: errors.append('market_indicators bundle is stale')
+refresh_run=mi.get('refresh_run') or {}
+refresh_day=iso_day(refresh_run.get('attempted_at'))
+if not refresh_run:
+    errors.append('market_indicators refresh_run metadata missing')
+elif not refresh_day or (today-refresh_day).days>2:
+    errors.append('market_indicators source refresh attempt is stale')
+else:
+    src_states=refresh_run.get('sources') or {}
+    for src in ('molit','ecos','kb_sentiment','watchlist_detail'):
+        if src not in src_states: errors.append(f'market_indicators refresh status missing: {src}')
+        elif src_states.get(src)!='connected':
+            warnings.append({'source_refresh_fallback':src,'status':src_states.get(src),'attempted_at':refresh_run.get('attempted_at')})
 fb_age=ym_age(latest)
 if fb_age is None or fb_age>2: errors.append('final_backtest latest_available_month is stale')
 
@@ -235,6 +247,7 @@ for bad in ["'dist/market.html'","'dist/market.js'","'dist/index.html'"]:
 if 'cancel-in-progress: true' not in wf['parallel']: errors.append('parallel refresh should cancel superseded runs')
 if 'artifact_ready' not in wf['parallel'] or "needs.molit.outputs.artifact_ready == 'true'" not in wf['parallel']:
     errors.append('MOLIT degraded-mode artifact guard missing')
+if 'refresh_run_status.json' not in wf['parallel']: errors.append('parallel workflow does not persist per-run source refresh outcomes')
 if wf['weekly'].count("'.github/workflows/weekly-refresh.yml'")!=1: errors.append('weekly workflow trigger duplicated')
 if 'cancel-in-progress: false' not in wf['weekly']: errors.append('weekly checkpoint should preserve in-progress run')
 if 'merge_weekly_listing_snapshot.py' not in wf['weekly']: errors.append('weekly listing merge guard missing')
