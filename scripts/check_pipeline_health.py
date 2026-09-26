@@ -141,7 +141,7 @@ if unresolved: warnings.append({'watchlist_unresolved_targets':unresolved})
 # Representative interest-complex rows and recent-trade coverage.
 wm_rows=watch_market.get('items') or []
 dist_wm_rows=watch_market_dist.get('items') or []
-for stamp in ('listing_collected_at','kb_detail_collected_at','molit_trade_collected_at'):
+for stamp in ('listing_collected_at','listing_refresh_attempted_at','listing_refresh_status','kb_detail_collected_at','molit_trade_collected_at'):
     if watch_market.get(stamp)!=watch_market_dist.get(stamp): errors.append('watchlist data/dist '+stamp+' mismatch')
 if len(wm_rows)!=len(dist_wm_rows): errors.append('watchlist data/dist row count mismatch')
 mt_day=iso_day(watch_market.get('molit_trade_collected_at'))
@@ -151,6 +151,9 @@ if not kb_master_day or (today-kb_master_day).days>10: errors.append('watchlist 
 listing_day=iso_day(watch_market.get('listing_collected_at') or watch_market.get('collected_at'))
 if any(x.get('sale_listing_count') is not None for x in wm_rows) and (not listing_day or (today-listing_day).days>10):
     warnings.append({'watchlist_listing_source_stale_days':None if not listing_day else (today-listing_day).days})
+listing_status=watch_market.get('listing_refresh_status')
+if listing_status in ('fallback_last_good','partial_last_good'):
+    warnings.append({'watchlist_listing_refresh_status':listing_status,'last_good':watch_market.get('listing_collected_at'),'attempted_at':watch_market.get('listing_refresh_attempted_at')})
 supported=int(watch_market.get('supported_target_rows') or 0)
 if supported and len(wm_rows)<supported: errors.append('watchlist market representative coverage incomplete')
 if supported>=10:
@@ -191,6 +194,9 @@ if 'artifact_ready' not in wf['parallel'] or "needs.molit.outputs.artifact_ready
     errors.append('MOLIT degraded-mode artifact guard missing')
 if wf['weekly'].count("'.github/workflows/weekly-refresh.yml'")!=1: errors.append('weekly workflow trigger duplicated')
 if 'cancel-in-progress: false' not in wf['weekly']: errors.append('weekly checkpoint should preserve in-progress run')
+if 'merge_weekly_listing_snapshot.py' not in wf['weekly']: errors.append('weekly listing merge guard missing')
+if 'buy_watchlist_market.prev.json' in wf['weekly'] or 'restoring last-good market snapshot' in wf['weekly']:
+    errors.append('weekly workflow can roll back newer watchlist market data')
 if "'scripts/forecast_market_regime.py'" in wf['research']: errors.append('research workflow has unrelated forecast-script trigger')
 if 'dist/regime_forecast.json' in wf['parallel']: errors.append('parallel workflow must not own regime_forecast output')
 if 'dist/regime_forecast.json' in wf['research']: errors.append('research workflow must not own regime_forecast output')
