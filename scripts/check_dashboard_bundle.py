@@ -76,10 +76,6 @@ jsv=re.search(r'market\.js\?v=([^"]+)',html)
 cssv=re.search(r'market\.css\?v=([^"]+)',html)
 if not jsv or not cssv: errors.append('asset cache versions missing')
 
-payload={'status':'ok' if not errors else 'failed','checks':len(required)+9,'errors':errors}
-print(json.dumps(payload,ensure_ascii=False))
-if errors: sys.exit(1)
-
 # market context extension contract
 for rid in ('marketContext','contextBreadthBadge','breadthHeadline','breadthFill','breadthGangnam','breadthNonGangnam','breadthSongpa',
             'temperatureHeadline','tempSeoul','tempSongpa','tempGap','affordHeadline','affordRate','affordPayment','affordChange',
@@ -105,3 +101,7 @@ if 'm.listing_collected_at||m.collected_at' not in js:
     errors.append('listing freshness is not tied to the listing-source timestamp')
 if "hasAsk=x.avg_ask_manwon!=null" not in js or "hasTrade=x.recent_trade_manwon!=null" not in js:
     errors.append('directional listing signal must fail closed when ask/trade data is missing')
+
+payload={'status':'ok' if not errors else 'failed','checks':'all-dashboard-contracts','errors':errors}
+print(json.dumps(payload,ensure_ascii=False))
+if errors: sys.exit(1)
