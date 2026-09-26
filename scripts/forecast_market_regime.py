@@ -19,6 +19,16 @@ def clamp(x): return max(0.0,min(100.0,float(x)))
 def n(v,default=0.0):
     try:return float(v)
     except:return default
+def rolling_horizons(as_of):
+    try:
+        y=int(str(as_of)[:4]);m=int(str(as_of)[5:7])
+    except Exception:
+        d=datetime.date.today();y,m=d.year,d.month
+    if m<=3:return [(f'{y}H1',f'{y}년 상반기'),(f'{y}H2',f'{y}년 하반기'),(f'{y+1}H1',f'{y+1}년 상반기')]
+    if m<=6:return [(f'{y}H2',f'{y}년 하반기'),(f'{y+1}H1',f'{y+1}년 상반기'),(f'{y+1}H2',f'{y+1}년 하반기')]
+    if m<=9:return [(f'{y}Q4',f'{y}년 말'),(f'{y+1}H1',f'{y+1}년 상반기'),(f'{y+1}H2',f'{y+1}년 하반기')]
+    return [(f'{y+1}H1',f'{y+1}년 상반기'),(f'{y+1}H2',f'{y+1}년 하반기'),(f'{y+2}H1',f'{y+2}년 상반기')]
+
 def norm(d):
     z=sum(max(0.0,v) for v in d.values()) or 1.0
     q={k:round(max(0.0,v)*100/z,1) for k,v in d.items()}
@@ -92,6 +102,7 @@ def main():
         'trade_count_pct':round(trade,1),'m2_yoy_pct':mm.get('yoy_pct'),'mortgage_rate_pct':mortgage
       }
     }
+    horizon_labels=rolling_horizons(m.get('updated_at'))
     payload={
       'status':'research_only',
       'weights_are_not_calibrated_probabilities':True,
@@ -101,9 +112,9 @@ def main():
       'latest_research_provisional':bool(x.get('source_provisional',False)),
       'latest_certified_backtest_month':latest_cert,
       'horizons':[
-        {'period':'2026Q4','label':'2026년 말','weights':q4,'base_case':'consolidation'},
-        {'period':'2027H1','label':'2027년 상반기','weights':h1,'base_case':max(h1,key=h1.get)},
-        {'period':'2027H2','label':'2027년 하반기','weights':h2,'base_case':max(h2,key=h2.get)}
+        {'period':horizon_labels[0][0],'label':horizon_labels[0][1],'weights':q4,'base_case':'consolidation'},
+        {'period':horizon_labels[1][0],'label':horizon_labels[1][1],'weights':h1,'base_case':max(h1,key=h1.get)},
+        {'period':horizon_labels[2][0],'label':horizon_labels[2][1],'weights':h2,'base_case':max(h2,key=h2.get)}
       ],
       'state':{
         'current_phase':'post_rally_consolidation' if m3<=0 and m1>=0 else ('uptrend' if m3>0 else 'downtrend'),
