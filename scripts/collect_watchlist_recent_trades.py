@@ -162,8 +162,16 @@ def main():
                 continue
             unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
               'candidate_names':sorted({z[2]['apt_name'] for z in exact_area})[:8]});continue
-        candidates.sort(key=lambda z:(z[2]['date'],z[0],z[1]),reverse=True)
-        sim,_,r=candidates[0]
+        best_sim=max(z[0] for z in candidates)
+        best=[z for z in candidates if abs(z[0]-best_sim)<1e-9]
+        best_names={norm(z[2]['apt_name']) for z in best if norm(z[2]['apt_name'])}
+        if len(best_names)>1:
+            unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
+              'reason':'ambiguous_best_name_match','candidate_names':sorted(best_names)})
+            continue
+        # Identity score first; recency only chooses among trades of the best-matching complex.
+        best.sort(key=lambda z:(z[2]['date'],z[1]),reverse=True)
+        sim,_,r=best[0]
         items.append({**x,'recent_trade_manwon':r['price_manwon'],'recent_trade_date':r['date'],'molit_apt_name':r['apt_name'],
           'matched_exclusive_m2':r['exclusive_m2'],'name_similarity':round(sim,3),'match_method':method,
           'trade_refresh_status':'partial_source' if x['district'] in failed_districts else 'connected',
