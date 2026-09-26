@@ -23,6 +23,8 @@ def main():
    hits.append({'period':r.get('TIME'),'rate_pct':float(r['DATA_VALUE']),'item':names.strip()})
  hits.sort(key=lambda x:x['period'] or '')
  if not hits:raise SystemExit('no mortgage rate rows')
- p={'status':'connected','source':'한국은행 ECOS','stat_code':CODE,'stat_name':'예금은행 대출금리(신규취급액 기준)','series':hits,'latest':hits[-1],'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
- OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(p,ensure_ascii=False,indent=2));print(json.dumps({'rows':len(hits),'latest':hits[-1]},ensure_ascii=False))
+ aggregate=[x for x in hits if '고정형' not in x['item'] and '변동형' not in x['item']]
+ latest=max(aggregate,key=lambda x:x['period']) if aggregate else hits[-1]
+ p={'status':'connected','source':'한국은행 ECOS','stat_code':CODE,'stat_name':'예금은행 대출금리(신규취급액 기준)','series':hits,'latest':latest,'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+ OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(p,ensure_ascii=False,indent=2));print(json.dumps({'rows':len(hits),'latest':latest},ensure_ascii=False))
 if __name__=='__main__':main()
