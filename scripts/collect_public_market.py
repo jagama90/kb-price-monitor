@@ -111,9 +111,12 @@ def main():
             areas=[z for z in (x.get('types') or []) if (int(cid),int(z.get('area_id') or 0)) in sample_pairs]
             if not areas: continue
         else:
-            areas=target_types(x,target_for(x,targets)); priced=[z for z in areas if z.get('general_price_manwon') is not None]
-            if priced: areas=[min(priced,key=lambda z:z['general_price_manwon'])]
-            elif areas: areas=[areas[0]]
+            areas=target_types(x,target_for(x,targets))
+            # Use the exact same representative-area rule as the live watchlist
+            # and monthly history: largest household count within the user's target group.
+            # This prevents ask/listing fields from being merged onto a different type.
+            if areas:
+                areas=[max(areas,key=lambda z:(int(z.get('type_households') or 0),-int(z.get('area_id') or 0)))]
         try:
             page.goto(f'https://kbland.kr/se/c/{cid}',wait_until='domcontentloaded',timeout=20000); page.wait_for_timeout(1200)
             for z in areas:
