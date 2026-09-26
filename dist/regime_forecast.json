@@ -12,8 +12,8 @@
       "label": "2026년 말",
       "weights": {
         "consolidation": 42.4,
-        "reacceleration": 21.2,
-        "downturn": 36.4
+        "reacceleration": 21.1,
+        "downturn": 36.5
       },
       "base_case": "consolidation"
     },
@@ -22,8 +22,8 @@
       "label": "2027년 상반기",
       "weights": {
         "consolidation": 38.0,
-        "reacceleration": 32.1,
-        "downturn": 29.9
+        "reacceleration": 32.0,
+        "downturn": 30.0
       },
       "base_case": "consolidation"
     },
@@ -31,9 +31,9 @@
       "period": "2027H2",
       "label": "2027년 하반기",
       "weights": {
-        "consolidation": 39.2,
-        "reacceleration": 36.3,
-        "downturn": 24.5
+        "consolidation": 39.1,
+        "reacceleration": 36.2,
+        "downturn": 24.7
       },
       "base_case": "consolidation"
     }
@@ -69,7 +69,7 @@
       "supply": 49.3,
       "trade_count_pct": -54.1,
       "m2_yoy_pct": 5.8,
-      "mortgage_rate_pct": 4.35
+      "mortgage_rate_pct": 4.48
     }
   },
   "historical_analogs": [
@@ -99,5 +99,5 @@
     },
     "sample_is_small": true
   },
-  "generated_at": "2026-09-26T07:17:07.033030+00:00"
+  "generated_at": "2026-09-26T07:19:00.659529+00:00"
 }
