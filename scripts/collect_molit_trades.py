@@ -48,13 +48,23 @@ def main():
  key=os.getenv('MOLIT_SERVICE_KEY')
  if not key:raise SystemExit('MOLIT_SERVICE_KEY secret is required')
  OUT.parent.mkdir(exist_ok=True);now=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date();months=[]
+ try:
+  previous=json.loads(OUT.read_text()) if OUT.exists() else {}
+ except Exception: previous={}
+ previous_bands={str(x.get('period','')).replace('-',''):x for x in ((previous.get('price_bands') or {}).get('months') or [])}
  for back in range(7):
   y,m=shift_month(now,-back);months.append(f'{y:04d}{m:02d}')
  monthly={};series=[];bands=[]
+ refresh=set(months[:2])
  for ym in reversed(months):
-  rows=[]
-  for code in SEOUL:rows.extend(fetch_all(code,ym,key))
-  monthly[ym]=rows;sm=summarize(rows);series.append([ym[:4]+'-'+ym[4:],sm['total'],ym==months[0]]);bands.append({'period':ym[:4]+'-'+ym[4:],**sm})
+  if ym not in refresh and ym in previous_bands:
+   cached=dict(previous_bands[ym]);cached['period']=ym[:4]+'-'+ym[4:]
+   sm={k:cached.get(k) for k in ('total','counts','boundary_counts','under15_share')}
+  else:
+   rows=[]
+   for code in SEOUL:rows.extend(fetch_all(code,ym,key))
+   monthly[ym]=rows;sm=summarize(rows)
+  series.append([ym[:4]+'-'+ym[4:],sm['total'],ym==months[0]]);bands.append({'period':ym[:4]+'-'+ym[4:],**sm})
  cy,cm=now.year,now.month;py,pm=shift_month(now,-1);cutoff=min(now.day,calendar.monthrange(py,pm)[1]);cur=f'{cy:04d}{cm:02d}';prev=f'{py:04d}{pm:02d}'
  cs=summarize([r for r in monthly.get(cur,[]) if 1<=r[0]<=cutoff]);ps=summarize([r for r in monthly.get(prev,[]) if 1<=r[0]<=cutoff])
  pct=lambda a,b:round((a/b-1)*100,1) if b else None
