@@ -102,7 +102,20 @@ for row in rows:
         row['recent_trade_manwon']=tr.get('recent_trade_manwon')
         row['recent_trade_date']=tr.get('recent_trade_date')
         row['recent_trade_source']='MOLIT'
+        row['molit_apt_name']=tr.get('molit_apt_name')
+        row['trade_match_method']=tr.get('match_method')
+        row['trade_refresh_status']=tr.get('trade_refresh_status') or 'connected'
         matched_trade+=1
+    else:
+        # The latest exact-area trade snapshot is authoritative for identity.
+        # Never keep a previously mis-matched complex trade just because the
+        # refreshed collector found no verified candidate.
+        row['recent_trade_manwon']=None
+        row['recent_trade_date']=None
+        row['recent_trade_source']=None
+        row['molit_apt_name']=None
+        row['trade_match_method']=None
+        row['trade_refresh_status']='unmatched'
     row['detail_quality']='exact_area_id'
 
 market['items']=rows
