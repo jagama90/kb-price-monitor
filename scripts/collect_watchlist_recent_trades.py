@@ -90,7 +90,10 @@ def main():
                 resolved.append({'complex_id':int(c['complex_id']),'area_id':int(aid),'name':c.get('user_name'),'kb_name':c.get('kb_name'),
                   'district':c.get('district'),'dong':c.get('dong'),'exclusive_m2':float(typ['exclusive_m2']),'type_label':typ.get('type_label')})
     today=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date()
-    months=[month_shift(today,-i) for i in range(8)]
+    try: prior=json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
+    except Exception: prior={}
+    prior_items={(int(x['complex_id']),int(x['area_id'])):x for x in prior.get('items') or [] if x.get('complex_id') and x.get('area_id')}
+    months=[month_shift(today,-i) for i in range(3 if prior_items else 8)]
     districts=sorted({x['district'] for x in resolved})
     raw={d:[] for d in districts}
     tasks=[]
@@ -120,6 +123,12 @@ def main():
             if len(names)==1:
                 candidates=exact_area;method='unique_dong_exact_area'
         if not candidates:
+            old=prior_items.get((x['complex_id'],x['area_id']))
+            if old and old.get('recent_trade_manwon') is not None:
+                items.append({**x,'recent_trade_manwon':old.get('recent_trade_manwon'),'recent_trade_date':old.get('recent_trade_date'),
+                  'molit_apt_name':old.get('molit_apt_name'),'matched_exclusive_m2':old.get('matched_exclusive_m2'),
+                  'name_similarity':old.get('name_similarity'),'match_method':'last_good_older_trade','source':'MOLIT apartment trade OpenAPI'})
+                continue
             unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
               'candidate_names':sorted({z[2]['apt_name'] for z in exact_area})[:8]});continue
         candidates.sort(key=lambda z:(z[2]['date'],z[0],z[1]),reverse=True)
