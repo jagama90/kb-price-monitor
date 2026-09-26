@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260926-120"></head><body><header><div class="brand"><span>⌂</span><div><small>MARKET CONDITION MONITOR</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260926-121"></head><body><header><div class="brand"><span>⌂</span><div><small>MARKET CONDITION MONITOR</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
 <section id="overview" class="card research-overview research-overview-v2">
   <div class="research-head">
     <div><small>RESEARCH ENGINE · 현재 국면</small><h1>서울 집값은 지금 어디쯤?</h1></div>
@@ -51,14 +51,11 @@
     <span class="decision-live">LIVE</span>
   </div>
   <p id="storySummary" class="decision-summary">금융 → 심리 → 거래 → 가격으로 이어지는 흐름을 확인합니다.</p>
-  <div class="decision-path-mini" aria-label="시장 전달 경로">
-    <div id="nodeFinance" class="signal-node neutral"><small>①</small><b>금융</b><span id="pathFinance">—</span></div>
-    <i>›</i>
-    <div id="nodeSentiment" class="signal-node neutral"><small>②</small><b>심리</b><span id="pathSentiment">—</span></div>
-    <i>›</i>
-    <div id="nodeDemand" class="signal-node neutral"><small>③</small><b>거래</b><span id="pathDemand">—</span></div>
-    <i>›</i>
-    <div id="nodeValue" class="signal-node neutral"><small>④</small><b>가격</b><span id="pathValue">—</span></div>
+  <div class="signal-rail" aria-label="금융에서 가격까지 시장 전달 경로">
+    <div id="nodeFinance" class="signal-node rail-node neutral"><i></i><small>금융</small><b id="pathFinance">—</b></div>
+    <div id="nodeSentiment" class="signal-node rail-node neutral"><i></i><small>심리</small><b id="pathSentiment">—</b></div>
+    <div id="nodeDemand" class="signal-node rail-node neutral"><i></i><small>거래</small><b id="pathDemand">—</b></div>
+    <div id="nodeValue" class="signal-node rail-node neutral"><i></i><small>가격</small><b id="pathValue">—</b></div>
   </div>
   <div class="decision-pulse">
     <div class="pulse-card positive"><span>＋</span><div><small>개선</small><b id="positiveLead">판독 중</b><em id="positiveSub">—</em></div></div>
@@ -68,21 +65,66 @@
   <details class="source-drawer"><summary>원자료 보기</summary><div id="kbOfficialData" class="evidence-strip"><div>공식 데이터 불러오는 중</div></div><div class="evidence-strip"><div><span>서울 거래량</span><b id="snapVolume">—</b><small id="snapVolumePeriod">공식 원자료</small></div><div><span>15억 이하</span><b id="snapUnder15">—</b><small>국토부</small></div><div><span>M2 전년비</span><b id="snapM2">—</b><small id="snapM2Period">ECOS</small></div></div></details>
 </section>
 <section class="analysis-hub">
-  <div class="hub-title"><small>더 깊게 볼 때만</small><h2>핵심 분석 4개</h2><span>카드를 눌러 펼치기</span></div>
+  <div class="hub-title hub-title-v2"><div><small>DEEP DIVE</small><h2>상세 분석</h2></div><span>필요할 때만 펼쳐보기</span></div>
   <div class="analysis-hub-grid">
-    <details class="compact-section" id="drivers"><summary class="hub-summary"><span class="hub-symbol">↗</span><span class="hub-copy"><small>원인</small><b>왜 움직이나</b><em id="hubDriversMeta">금융 → 심리 → 거래</em></span><strong>＋</strong></summary><section class="card compact-body"><div class="transmission compact"><div><span>① 정책·규제</span><b>LTV · DSR</b><small>대출 가능액</small></div><i>→</i><div><span>② 금융여건</span><b>금리 · M2</b><small>자금 가격·유동성</small></div><i>→</i><div><span>③ 시장심리</span><b>KB 심리</b><small>매수·매도 압력</small></div><i>→</i><div><span>④ 실현 수요</span><b>거래·가격대</b><small>건수·자금 이동</small></div><i>→</i><div><span>⑤ 가격</span><b>KB · 실거래</b><small>시차를 두고 확인</small></div></div><details><summary>정책·금융 상세 근거 보기</summary><div class="detail-grid"><div><b>정책·신용</b><p>정책 발표 자체에 점수를 주지 않고 실제 LTV·DSR·대출한도 변화가 신용공급과 거래에 전달됐는지를 봅니다.</p></div><div><b>M2·금리</b><p id="m2Detail">ECOS 동일 M2 수준계열의 MoM·YoY와 기준금리 방향을 함께 사용합니다.</p></div><div><b>원칙</b><p>정책과 가격의 동행은 인과관계의 증명이 아닙니다. 단계별 방향과 시차를 함께 확인합니다.</p></div></div></details></section></details>
+    <details class="compact-section" id="drivers"><summary class="hub-summary"><span class="hub-symbol">↗</span><span class="hub-copy"><small>원인</small><b>왜 움직이나</b><em id="hubDriversMeta">금융 → 심리 → 거래</em></span><strong>＋</strong></summary><section class="card compact-body driver-body-v2"><div class="driver-rail" aria-label="시장 전달 구조">
+  <div><i>1</i><span><small>정책·신용</small><b>LTV · DSR</b></span></div>
+  <div><i>2</i><span><small>금융</small><b>금리 · M2</b></span></div>
+  <div><i>3</i><span><small>심리</small><b>KB 심리</b></span></div>
+  <div><i>4</i><span><small>거래</small><b>실수요</b></span></div>
+  <div><i>5</i><span><small>가격</small><b>KB · 실거래</b></span></div>
+</div><details class="deep-source"><summary>전달 구조의 근거 보기</summary><div class="detail-grid"><div><b>정책·신용</b><p>정책 발표 자체에 점수를 주지 않고 실제 LTV·DSR·대출한도 변화가 신용공급과 거래에 전달됐는지를 봅니다.</p></div><div><b>M2·금리</b><p id="m2Detail">ECOS 동일 M2 수준계열의 MoM·YoY와 기준금리 방향을 함께 사용합니다.</p></div><div><b>원칙</b><p>정책과 가격의 동행은 인과관계의 증명이 아닙니다. 단계별 방향과 시차를 함께 확인합니다.</p></div></div></details></section></details>
 
-    <details class="compact-section" id="validation"><summary class="hub-summary"><span class="hub-symbol">≋</span><span class="hub-copy"><small>검증</small><b>수요·전세</b><em id="hubValidationMeta">거래 · 가격대 · 전세</em></span><strong>＋</strong></summary><section class="validation-grid compact-body"><article class="card"><div class="title"><h2>수요</h2><span class="dbbadge">MOLIT</span></div><div class="matched-kpis"><div><span>동일기간 거래량</span><b id="matchedVolume">집계 중</b><small id="matchedVolumeDelta">—</small></div><div><span>15억 이하 비중</span><b id="matchedUnder15">집계 중</b><small id="matchedUnder15Delta">—</small></div></div><small id="matchedRange">전월과 당월의 같은 계약일 구간 비교</small><details><summary>거래량·가격대 상세 보기</summary><div class="volume-chart" id="volumeChart"></div><div class="bucketgrid"><div><b>≤9억</b><strong id="b9">—</strong></div><div><b>9~15억</b><strong id="b15">—</strong></div><div><b>15~25억</b><strong id="b25">—</strong></div><div><b>25억+</b><strong id="b25p">—</strong></div></div><p>당월은 신고기한 때문에 이후 증가할 수 있어 조기신호로만 사용합니다.</p></details></article><article class="card"><div class="title"><h2>공급·전세</h2><span class="dbbadge">STRUCTURE</span></div><div class="supply-list"><div><span>서울·송파 입주물량</span><b>공식 원천 탐색</b></div><div><span>전세 실거래가격</span><b>7월 +0.50%</b></div><div><span>미분양</span><b>월간 공식통계</b></div><div><span>전세수급</span><b>KB 공식 제공 확인</b></div></div><details><summary>해석 원칙 보기</summary><p>공급은 단기 가격신호와 시간축을 섞지 않습니다. 입주물량 → 전세가격·거래 → 매매가격의 시차를 추적하고 검증되지 않은 추정치는 점수에 넣지 않습니다.</p></details></article></section></details>
+    <details class="compact-section" id="validation"><summary class="hub-summary"><span class="hub-symbol">≋</span><span class="hub-copy"><small>검증</small><b>수요·전세</b><em id="hubValidationMeta">거래 · 가격대 · 전세</em></span><strong>＋</strong></summary>
+<section class="compact-body validation-compact-v2">
+  <div class="validation-kpis">
+    <div><small>동일기간 거래량</small><b id="matchedVolume">집계 중</b><em id="matchedVolumeDelta">—</em></div>
+    <div><small>15억 이하 비중</small><b id="matchedUnder15">집계 중</b><em id="matchedUnder15Delta">—</em></div>
+  </div>
+  <small id="matchedRange" class="validation-range">전월과 당월의 같은 계약일 구간 비교</small>
+  <div class="validation-secondary">
+    <div><span>전세가격</span><b>+0.50%</b><small>7월</small></div>
+    <div><span>전세수급</span><b>KB</b><small>공식 연결</small></div>
+    <div><span>미분양</span><b>월간</b><small>공식통계</small></div>
+  </div>
+  <details class="deep-source"><summary>거래 분포 자세히 보기</summary>
+    <div class="volume-chart" id="volumeChart"></div>
+    <div class="bucketgrid"><div><b>≤9억</b><strong id="b9">—</strong></div><div><b>9~15억</b><strong id="b15">—</strong></div><div><b>15~25억</b><strong id="b25">—</strong></div><div><b>25억+</b><strong id="b25p">—</strong></div></div>
+    <p>당월 거래는 신고기한 때문에 이후 늘어날 수 있어 조기신호로만 사용합니다.</p>
+  </details>
+</section></details>
 
     <details class="compact-section" id="watchlist"><summary class="hub-summary"><span class="hub-symbol">◎</span><span class="hub-copy"><small>내 단지</small><b>관심단지</b><em id="hubWatchMeta">연결 상태 확인 중</em></span><strong>＋</strong></summary><section class="watch-layout compact-body"><article class="card chartcard"><div class="title"><h2>관심단지 KB 추이</h2><span>실제 DB</span></div><div class="kbchart"><div class="kb-y" id="kbYAxis"></div><div class="kb-plot"><svg viewBox="0 0 420 170" preserveAspectRatio="none" id="kbSvg"></svg><div class="kb-x" id="kbXAxis"></div></div></div><small id="kbHistoryNote">KB 가격 이력 불러오는 중</small></article><article class="card"><div class="title"><h2>15억 경계선</h2><span id="marketDate">집계 중</span></div><div id="boundary"></div></article><article class="card"><div class="title"><h2>매물 증감</h2><span>전주비</span></div><div id="radar"></div></article></section>
 <section class="card garak-history standalone-history"><div class="title"><div><h2>가락금호 24A · KB 장기 추이</h2><p>주력 24A 타입 · KB 월별 일반거래가</p></div><span id="garakHistoryLatest">불러오는 중</span></div><div class="garak-chart-wrap" id="garakHistoryChart"></div><div class="chart-note">실선 매매 · 점선 전세 · 단위 억원 · 월별 KB 원자료</div></section>
 <section class="card watch"><div class="title"><div><h2>관심단지 상세</h2><small id="summary">KB · 호가 · 실거래 · 매물</small></div></div><div class="mobile-cards" id="mobileCards"></div><div class="table"><table><thead><tr><th>단지명</th><th>KB시세</th><th>최근 실거래가</th><th>매물 평균가</th><th>매매 매물량</th><th>전주 대비</th><th>신호</th></tr></thead><tbody id="body"></tbody></table></div></section></details>
 
-    <details class="compact-section" id="backtest"><summary class="hub-summary"><span class="hub-symbol">✓</span><span class="hub-copy"><small>검증력</small><b>과거검증</b><em id="hubBacktestMeta">누수 없는 검증</em></span><strong>＋</strong></summary><section class="card backtest-pending compact-body backtest-compact"><div><b>과거 정보만 사용</b><span>미래 데이터 누수 없이 국면을 검증합니다.</span></div><div><b>장기 + 정밀 엔진</b><span>2006+ 장기국면과 2022+ 정밀신호를 분리 검증합니다.</span></div><div><b>표본 제한 표시</b><span>표본이 작은 구간은 확률처럼 과장하지 않습니다.</span></div></section></details>
+    <details class="compact-section" id="backtest"><summary class="hub-summary"><span class="hub-symbol">✓</span><span class="hub-copy"><small>검증력</small><b>과거검증</b><em id="hubBacktestMeta">누수 없는 검증</em></span><strong>＋</strong></summary><section class="card backtest-pending compact-body backtest-compact backtest-list"><div><i>✓</i><span><b>미래정보 차단</b><small>당시 알 수 있었던 데이터만 사용</small></span></div><div><i>✓</i><span><b>두 엔진 분리검증</b><small>장기국면 + 정밀신호</small></span></div><div><i>!</i><span><b>표본 제한 표시</b><small>작은 표본은 확률처럼 과장하지 않음</small></span></div></section></details>
 
   </div>
 </section>
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
-<details class="card methodology methodology-v2"><summary><span>데이터 상태</span><b>자동검증 · 신선도 · 방법론</b><em>＋</em></summary><div class="fresh"><div><b>매수여건 지수</b><span>연결된 공식 데이터만 사용 · 미연결 항목은 중립값으로 채우지 않고 신뢰도에서 차감</span></div><div><b>실거래</b><span>국토부 원자료 · 계약일 기준 · 신고지연 주의</span></div><div><b>KB</b><span>관심단지 시세·시장심리 공식 데이터 연결 확대 중</span></div><div><b>M2·금리</b><span>한국은행 ECOS·기준금리</span></div></div><p>지수는 투자수익을 예측하거나 매수를 지시하지 않습니다. 동일한 규칙으로 시장여건의 상대적 위치와 변화를 비교하는 도구입니다.</p></details>
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260926-120"></script></body></html>
+<details class="card methodology methodology-v3">
+  <summary>
+    <div><small>DATA QUALITY</small><b>데이터·검증 상태</b></div>
+    <div class="method-summary-chips"><span>공식원천</span><span>자동검증</span><span>신선도 감시</span></div>
+    <em>＋</em>
+  </summary>
+  <div class="method-body">
+    <div class="method-health">
+      <div><i>✓</i><span><b>공식 원천</b><small>국토부 · KB · ECOS</small></span></div>
+      <div><i>✓</i><span><b>자동 검증</b><small>배포 전 계약·구조 검사</small></span></div>
+      <div><i>↻</i><span><b>신선도 감시</b><small>지연·누락 시 헬스체크 실패</small></span></div>
+    </div>
+    <details class="method-source-drawer"><summary>원천별 기준 보기</summary>
+      <div class="fresh">
+        <div><b>매수여건</b><span>연결된 공식 데이터만 사용 · 미연결 항목은 신뢰도에서 차감</span></div>
+        <div><b>실거래</b><span>국토부 원자료 · 계약일 기준 · 신고지연 주의</span></div>
+        <div><b>KB</b><span>관심단지 시세 · 시장심리 · 주간 가격지수</span></div>
+        <div><b>M2·금리</b><span>한국은행 ECOS · 기준금리</span></div>
+      </div>
+    </details>
+    <p class="method-note">지수는 투자수익을 예측하거나 매수를 지시하지 않습니다. 같은 규칙으로 시장 위치와 변화를 비교합니다.</p>
+  </div>
+</details>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260926-121"></script></body></html>
