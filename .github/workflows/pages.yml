@@ -2,7 +2,7 @@ name: Deploy website
 
 on:
   workflow_run:
-    workflows: ['Parallel market data refresh', 'Weekly KB price refresh', 'Forward regime forecast']
+    workflows: ['Parallel market data refresh', 'Weekly KB price refresh', 'Forward regime forecast', 'Validate market extensions']
     types: [completed]
   push:
     branches: [main]
