@@ -47,7 +47,7 @@ def main():
     by_name={norm(x.get('user_name')):x for x in masters}
     by_kb={norm(x.get('kb_name')):x for x in masters if x.get('kb_name')}
     attempted=datetime.datetime.now(datetime.timezone.utc).isoformat()
-    items=[];errors=[];unresolved=[];live=fallback=0
+    items=[];errors=[];unresolved=[];unavailable=[];live=fallback=0
 
     for target in targets:
         c=by_name.get(norm(target.get('name'))) or by_kb.get(norm(target.get('name')))
@@ -62,12 +62,27 @@ def main():
         typ=max(types,key=lambda x:(int(x.get('type_households') or 0),-int(x.get('area_id') or 0)))
         cid=int(c['complex_id']);aid=int(typ['area_id'])
         name=c.get('user_name') or c.get('kb_name') or target.get('name')
+        price_available=typ.get('general_price_manwon') is not None
         try:
             d=fetch(cid,aid)
-            if not d or not isinstance(d.get('시세'),list):raise RuntimeError('KB returned no monthly history')
+            if not d or not isinstance(d.get('시세'),list):
+                if not price_available:
+                    items.append({'name':name,'complex_id':cid,'area_id':aid,'type_label':typ.get('type_label'),
+                                  'supply_pyeong':round(float(typ.get('supply_m2') or 0)/3.3058,1) if typ.get('supply_m2') else None,
+                                  'refresh_status':'unavailable','refresh_attempted_at':attempted,
+                                  'unavailable_reason':'KB current general price/history unavailable for selected area','series':[]})
+                    unavailable.append(name);continue
+                raise RuntimeError('KB returned no monthly history')
             series=[{'ym':r.get('기준년월'),'sale':r.get('매매일반거래가') or None,'rent':r.get('전세일반거래가') or None,'rent_ratio':r.get('전세가율')}
                     for r in d['시세'] if r.get('기준년월') and (r.get('매매일반거래가') or r.get('전세일반거래가'))]
-            if not series:raise RuntimeError('KB returned empty usable series')
+            if not series:
+                if not price_available:
+                    items.append({'name':name,'complex_id':cid,'area_id':aid,'type_label':typ.get('type_label'),
+                                  'supply_pyeong':round(float(typ.get('supply_m2') or 0)/3.3058,1) if typ.get('supply_m2') else None,
+                                  'refresh_status':'unavailable','refresh_attempted_at':attempted,
+                                  'unavailable_reason':'KB current general price/history unavailable for selected area','series':[]})
+                    unavailable.append(name);continue
+                raise RuntimeError('KB returned empty usable series')
             items.append({'name':name,'complex_id':cid,'area_id':aid,'type_label':typ.get('type_label'),
                           'supply_pyeong':round(float(typ.get('supply_m2') or 0)/3.3058,1) if typ.get('supply_m2') else None,
                           'refresh_status':'live','refresh_attempted_at':attempted,'series':series})
@@ -77,17 +92,23 @@ def main():
             if prev and int(prev.get('area_id') or 0)==aid and prev.get('series'):
                 keep=dict(prev);keep['refresh_status']='fallback_last_good';keep['refresh_attempted_at']=attempted;keep['refresh_error']=str(e)
                 items.append(keep);fallback+=1
+            elif not price_available:
+                items.append({'name':name,'complex_id':cid,'area_id':aid,'type_label':typ.get('type_label'),
+                              'supply_pyeong':round(float(typ.get('supply_m2') or 0)/3.3058,1) if typ.get('supply_m2') else None,
+                              'refresh_status':'unavailable','refresh_attempted_at':attempted,
+                              'unavailable_reason':'KB current general price/history unavailable for selected area','refresh_error':str(e),'series':[]})
+                unavailable.append(name)
             else:
                 errors.append({'name':name,'complex_id':cid,'area_id':aid,'error':str(e)})
         time.sleep(.12)
 
-    expected=live+fallback+len(errors)
+    expected=live+fallback+len(unavailable)+len(errors)
     status='connected' if not errors and fallback==0 else ('partial_last_good' if not errors else 'partial')
     out={'source':'KB부동산 complex/integrationChart','frequency':'monthly','selection':'same representative target area as watchlist market',
-         'generated_at':attempted,'refresh_status':status,'live_rows':live,'fallback_rows':fallback,
-         'expected_rows':expected,'unresolved_targets':unresolved,'errors':errors,'items':items}
+         'generated_at':attempted,'refresh_status':status,'live_rows':live,'fallback_rows':fallback,'unavailable_rows':len(unavailable),
+         'expected_rows':expected,'unavailable_targets':unavailable,'unresolved_targets':unresolved,'errors':errors,'items':items}
     O.write_text(json.dumps(out,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
-    print(json.dumps({'status':status,'items':len(items),'live':live,'fallback':fallback,'errors':len(errors),'unresolved':unresolved},ensure_ascii=False))
+    print(json.dumps({'status':status,'items':len(items),'live':live,'fallback':fallback,'unavailable':len(unavailable),'errors':len(errors),'unresolved':unresolved},ensure_ascii=False))
     if errors:raise SystemExit('KB watchlist history has unresolved rows without same-area last-good fallback')
 
 if __name__=='__main__':main()
