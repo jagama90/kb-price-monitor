@@ -33,7 +33,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: market-data-${{ github.ref }}
+  group: market-data-v2-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   kb_sentiment:
