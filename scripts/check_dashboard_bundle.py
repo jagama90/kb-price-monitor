@@ -79,3 +79,13 @@ if not jsv or not cssv: errors.append('asset cache versions missing')
 payload={'status':'ok' if not errors else 'failed','checks':len(required)+9,'errors':errors}
 print(json.dumps(payload,ensure_ascii=False))
 if errors: sys.exit(1)
+
+# market context extension contract
+for rid in ('marketContext','contextBreadthBadge','breadthHeadline','breadthFill','breadthGangnam','breadthNonGangnam','breadthSongpa',
+            'temperatureHeadline','tempSeoul','tempSongpa','tempGap','affordHeadline','affordRate','affordPayment','affordChange',
+            'affordBenchmark','contextValidation'):
+    if ids.count(rid)!=1: errors.append(f'market context id {rid}: expected 1, got {ids.count(rid)}')
+if 'market_extensions.json' not in js or 'loadMarketExtensions()' not in js:
+    errors.append('market extension loader missing')
+if html.count('class="card market-context-v1"')!=1:
+    errors.append('market context panel missing or duplicated')
