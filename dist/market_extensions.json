@@ -71,7 +71,7 @@
       "songpa_fwd_6m_median_pct": null,
       "songpa_fwd_12m_median_pct": null,
       "non_songpa_n": 14,
-      "non_songpa_m3_median_pct": 2.087,
+      "non_songpa_m3_median_pct": 2.0,
       "non_songpa_breadth_up_pct": 85.7,
       "non_songpa_fwd_3m_median_pct": null,
       "non_songpa_fwd_6m_median_pct": null,
@@ -83,7 +83,7 @@
       "all_interest_fwd_6m_median_pct": null,
       "all_interest_fwd_12m_median_pct": null,
       "songpa_vs_seoul_gap_pp": -2.055,
-      "non_songpa_vs_seoul_gap_pp": -1.483
+      "non_songpa_vs_seoul_gap_pp": -1.57
     }
   },
   "validation": {
@@ -94,5 +94,5 @@
     "production_price_turn_formula_changed": false,
     "reason": "breadth improves holdout discrimination but hard filtering leaves too few entry signals; affordability timing effect is inconsistent; Songpa relative strength is local rather than Seoul-wide."
   },
-  "generated_at": "2026-09-26T11:05:59.845586+00:00"
+  "generated_at": "2026-09-26T11:19:41.208351+00:00"
 }
