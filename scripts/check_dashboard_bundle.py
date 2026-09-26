@@ -99,6 +99,8 @@ if 'base_rate_official' not in js:
     errors.append('official base-rate snapshot is not wired to dashboard')
 if 'm.listing_collected_at||m.collected_at' not in js:
     errors.append('listing freshness is not tied to the listing-source timestamp')
+if 'rowListingFresh=x=>' not in js or 'listing_refresh_status' not in js:
+    errors.append('listing freshness must be evaluated per row and source status')
 if "hasAsk=x.avg_ask_manwon!=null" not in js or "hasTrade=x.recent_trade_manwon!=null" not in js:
     errors.append('directional listing signal must fail closed when ask/trade data is missing')
 
