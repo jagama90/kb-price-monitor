@@ -104,19 +104,28 @@ def main():
                 print(json.dumps({'warning':'MOLIT target fetch failed','district':district,'ym':ym,'error':str(e)},ensure_ascii=False),flush=True)
     items=[];unmatched=[]
     for x in resolved:
-        candidates=[]
+        candidates=[]; exact_area=[]
         for r in raw.get(x['district'],[]):
             ad=abs(float(r['exclusive_m2'])-x['exclusive_m2'])
             if ad>0.8: continue
             if x.get('dong') and r.get('dong') and norm(x['dong'])!=norm(r['dong']): continue
             sim=max(similarity(x.get('name'),r['apt_name']),similarity(x.get('kb_name'),r['apt_name']))
+            if ad<=0.05: exact_area.append((sim,-ad,r))
             if sim>=0.62:candidates.append((sim,-ad,r))
+        method='name_area'
+        if not candidates and exact_area:
+            # Safe alias fallback: within the same legal dong and virtually exact
+            # exclusive area, accept only when the observed apartment name is unique.
+            names={norm(z[2]['apt_name']) for z in exact_area if norm(z[2]['apt_name'])}
+            if len(names)==1:
+                candidates=exact_area;method='unique_dong_exact_area'
         if not candidates:
-            unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2']});continue
+            unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
+              'candidate_names':sorted({z[2]['apt_name'] for z in exact_area})[:8]});continue
         candidates.sort(key=lambda z:(z[2]['date'],z[0],z[1]),reverse=True)
         sim,_,r=candidates[0]
         items.append({**x,'recent_trade_manwon':r['price_manwon'],'recent_trade_date':r['date'],'molit_apt_name':r['apt_name'],
-          'matched_exclusive_m2':r['exclusive_m2'],'name_similarity':round(sim,3),'source':'MOLIT apartment trade OpenAPI'})
+          'matched_exclusive_m2':r['exclusive_m2'],'name_similarity':round(sim,3),'match_method':method,'source':'MOLIT apartment trade OpenAPI'})
     out={'status':'connected','source':'MOLIT apartment trade OpenAPI','months':months,'items':items,'unmatched':unmatched,
       'matched_count':len(items),'target_area_count':len(resolved),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
