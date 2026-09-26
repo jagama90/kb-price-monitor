@@ -19,13 +19,15 @@ for x in required:
     if ids.count(x)!=1: errors.append(f'required id {x}: expected 1, got {ids.count(x)}')
 
 for k in ['finance','sentiment','demand','value','supply']:
-    n=len(re.findall(rf'data-score-key="{k}"',html))
-    if n!=1: errors.append(f'score detail button {k}: expected 1, got {n}')
+    n=len(re.findall(rf'<article[^>]+class="[^"]*score-component[^"]*"[^>]+data-score-key="{k}"',html))
+    if n!=1: errors.append(f'score card {k}: expected 1 clickable card, got {n}')
+if '점수 근거 보기' in html: errors.append('legacy score detail label still visible')
 if 'score-detail-close' not in html: errors.append('score detail close control missing')
 
 if js.count('window.showScoreDetail=function')!=1: errors.append('showScoreDetail must be defined exactly once')
 if js.count('window.hideScoreDetail=function')!=1: errors.append('hideScoreDetail must be defined exactly once')
-if "btn.dataset.scoreKey" not in js: errors.append('delegated score button handler missing')
+if "card.dataset.scoreKey" not in js: errors.append('delegated score card handler missing')
+if ".score-detail-btn" in js: errors.append('legacy score detail button handler remains')
 
 a=js.find('function setupScoreDetails')
 b=js.find('\nfunction setupSnapshotEvidence',a)
