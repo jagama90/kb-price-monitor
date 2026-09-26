@@ -94,5 +94,5 @@
     "production_price_turn_formula_changed": false,
     "reason": "breadth improves holdout discrimination but hard filtering leaves too few entry signals; affordability timing effect is inconsistent; Songpa relative strength is local rather than Seoul-wide."
   },
-  "generated_at": "2026-09-26T07:29:29.064724+00:00"
+  "generated_at": "2026-09-26T07:30:00.982190+00:00"
 }
