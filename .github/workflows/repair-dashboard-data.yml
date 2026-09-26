@@ -1,5 +1,5 @@
 name: Repair dashboard data
-# exact-trade-parallel-v2
+# exact-trade-alias-v3
 on:
   push:
     branches: [main]
