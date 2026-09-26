@@ -137,7 +137,7 @@ def collect_one(c,area_id,token):
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--complex-id',type=int); ap.add_argument('--area-id',type=int); ap.add_argument('--publish',action='store_true')
-    a=ap.parse_args(); token=os.getenv('KB_AUTH_TOKEN')
+    a=ap.parse_args(); token=os.getenv('KB_AUTH_TOKEN'); network_enabled=os.getenv('KB_DETAIL_NETWORK_ENABLED')=='1'
     master=json.loads((ROOT/'data/buy_watchlist_master.json').read_text(encoding='utf-8'))
     target_payload=json.loads((ROOT/'data/buy_watchlist_targets.json').read_text(encoding='utf-8'))
     targets=target_payload.get('items') or []
@@ -175,18 +175,17 @@ def main():
                 # Exact KB general price comes from the validated master snapshot.
                 r={'lowest_ask_manwon':None,'avg_ask_manwon':None,'listing_count':None,'page_count':None,
                    'kb_general_check_manwon':typ.get('general_price_manwon'),'kb_price_date':typ.get('price_date')}
-                # Asking-price API is area-id scoped. Failure is non-fatal: downstream keeps last-good.
-                try:
-                    ask=collect_one(c,aid,token)
-                    for k in ('lowest_ask_manwon','avg_ask_manwon','listing_count','page_count','building','floor','direction','listing_id','verified_date','registered_date','duplicate_count','supply_m2','exclusive_m2'):
-                        if ask.get(k) is not None:r[k]=ask.get(k)
-                except Exception as ae:
-                    warnings.append({'complex_id':cid,'area_id':aid,'kind':'asking_price_unavailable','error':str(ae)})
-                # Recent trade is read only from the exact area-id integration endpoint.
-                try:
-                    chart=get_integration_chart(cid,aid); trade,trade_date=latest_trade_from_chart(chart)
-                except Exception as ce:
-                    trade=trade_date=None; warnings.append({'complex_id':cid,'area_id':aid,'kind':'recent_trade_unavailable','error':str(ce)})
+                # The KB propList endpoint currently returns HTTP 200 with an empty
+                # body from Actions. Keep it opt-in until the source recovers; do not waste
+                # 100+ calls or fabricate asks. MOLIT now owns recent-trade collection.
+                trade=trade_date=None
+                if network_enabled:
+                    try:
+                        ask=collect_one(c,aid,token)
+                        for k in ('lowest_ask_manwon','avg_ask_manwon','listing_count','page_count','building','floor','direction','listing_id','verified_date','registered_date','duplicate_count','supply_m2','exclusive_m2'):
+                            if ask.get(k) is not None:r[k]=ask.get(k)
+                    except Exception as ae:
+                        warnings.append({'complex_id':cid,'area_id':aid,'kind':'asking_price_unavailable','error':str(ae)})
                 r.update({'complex_id':cid,'area_id':aid,'name':c['user_name'],'recent_trade_manwon':trade,'recent_trade_date':trade_date,'collected_at':now()}); rows.append(r)
                 print(json.dumps(r,ensure_ascii=False),flush=True)
             except Exception as e:
