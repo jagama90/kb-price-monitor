@@ -251,6 +251,144 @@
           "positive_pct": 75.0
         }
       }
+    },
+    "breadth_threshold_stress": {
+      "25": {
+        "high_6m": {
+          "n": 74,
+          "mean": 2.336,
+          "median": 2.517,
+          "positive_pct": 83.8
+        },
+        "low_6m": {
+          "n": 24,
+          "mean": -1.0,
+          "median": 0.261,
+          "positive_pct": 50.0
+        }
+      },
+      "35": {
+        "high_6m": {
+          "n": 68,
+          "mean": 2.648,
+          "median": 2.751,
+          "positive_pct": 86.8
+        },
+        "low_6m": {
+          "n": 30,
+          "mean": -1.04,
+          "median": 0.184,
+          "positive_pct": 50.0
+        }
+      },
+      "50": {
+        "high_6m": {
+          "n": 63,
+          "mean": 2.763,
+          "median": 2.778,
+          "positive_pct": 88.9
+        },
+        "low_6m": {
+          "n": 35,
+          "mean": -0.72,
+          "median": 0.551,
+          "positive_pct": 51.4
+        }
+      },
+      "65": {
+        "high_6m": {
+          "n": 55,
+          "mean": 2.844,
+          "median": 2.769,
+          "positive_pct": 90.9
+        },
+        "low_6m": {
+          "n": 43,
+          "mean": -0.176,
+          "median": 0.555,
+          "positive_pct": 55.8
+        }
+      }
+    },
+    "era_robustness": {
+      "2018_2020": {
+        "breadth_high_6m": {
+          "n": 31,
+          "mean": 1.896,
+          "median": 2.346,
+          "positive_pct": 83.9
+        },
+        "breadth_low_6m": {
+          "n": 5,
+          "mean": 0.842,
+          "median": 0.705,
+          "positive_pct": 60.0
+        },
+        "afford_improving_6m": {
+          "n": 23,
+          "mean": 1.21,
+          "median": 1.609,
+          "positive_pct": 69.6
+        },
+        "afford_worsening_6m": {
+          "n": 13,
+          "mean": 2.705,
+          "median": 2.769,
+          "positive_pct": 100.0
+        }
+      },
+      "2021_2023": {
+        "breadth_high_6m": {
+          "n": 17,
+          "mean": 2.066,
+          "median": 1.526,
+          "positive_pct": 76.5
+        },
+        "breadth_low_6m": {
+          "n": 19,
+          "mean": -3.06,
+          "median": -1.737,
+          "positive_pct": 31.6
+        },
+        "afford_improving_6m": {
+          "n": 8,
+          "mean": 0.16,
+          "median": 0.795,
+          "positive_pct": 62.5
+        },
+        "afford_worsening_6m": {
+          "n": 28,
+          "mean": -0.867,
+          "median": -0.046,
+          "positive_pct": 50.0
+        }
+      },
+      "2024_2026": {
+        "breadth_high_6m": {
+          "n": 20,
+          "mean": 4.308,
+          "median": 4.744,
+          "positive_pct": 100.0
+        },
+        "breadth_low_6m": {
+          "n": 6,
+          "mean": 3.786,
+          "median": 4.155,
+          "positive_pct": 100.0
+        },
+        "afford_improving_6m": {
+          "n": 14,
+          "mean": 4.229,
+          "median": 4.541,
+          "positive_pct": 100.0
+        },
+        "afford_worsening_6m": {
+          "n": 12,
+          "mean": 4.14,
+          "median": 4.619,
+          "positive_pct": 100.0
+        }
+      }
     }
   },
   "guardrails": {
@@ -5140,5 +5278,5 @@
       "enhanced_both": false
     }
   ],
-  "generated_at": "2026-09-26T06:17:17.602192+00:00"
+  "generated_at": "2026-09-26T06:19:32.685667+00:00"
 }
