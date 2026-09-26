@@ -1,7 +1,7 @@
 name: System health audit
 on:
   workflow_run:
-    workflows: ['Forward regime forecast']
+    workflows: ['Forward regime forecast', 'Validate market extensions']
     types: [completed]
   schedule:
     - cron: '15 0 * * *' # 09:15 KST, after daily market refresh + DB sync
