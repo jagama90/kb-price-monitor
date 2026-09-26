@@ -81,10 +81,16 @@ for row in rows:
     if target:
         _,_,types,rep=target
         allowed={int(x.get('area_id') or 0) for x in types}
-        if int(row.get('area_id') or 0) not in allowed:
-            # A stale row points outside the currently configured target group.
+        if int(row.get('area_id') or 0)!=int(rep['area_id']):
+            # One canonical representative type across KB price, listing, trade,
+            # monthly history and regional-temperature calculations.
             row['area_id']=int(rep['area_id']);row['type_label']=rep.get('type_label')
-            row['avg_ask_manwon']=None;row['recent_trade_manwon']=None;row['recent_trade_date']=None
+            for k in ('sale_listing_count','sale_listing_week_delta','avg_ask_manwon','avg_ask_week_delta_manwon',
+                      'listing_collected_at','recent_trade_manwon','recent_trade_date','recent_trade_source',
+                      'molit_apt_name','trade_match_method'):
+                row[k]=None
+            row['listing_refresh_status']='representative_area_changed'
+            row['trade_refresh_status']='unmatched'
     aid=int(row.get('area_id') or 0)
     kt=kb_exact.get((cid,aid))
     if kt:
