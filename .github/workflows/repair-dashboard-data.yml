@@ -1,0 +1,48 @@
+name: Repair dashboard data
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/repair-dashboard-data.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: repair-dashboard-data
+  cancel-in-progress: true
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Refresh KB weekly indices
+        run: python3 scripts/collect_kb_statusboard_live.py
+      - name: Refresh exact-area recent trades
+        run: python3 scripts/collect_watchlist_recent_trades.py
+      - name: Rebuild market snapshot and watchlist
+        run: |
+          python3 scripts/build_market_snapshot.py
+          python3 scripts/merge_watchlist_details.py
+      - name: Validate repaired contracts
+        run: |
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+      - name: Persist repaired data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          files="data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/watchlist_recent_trades.json dist/market_indicators.json data/buy_watchlist_market.json dist/buy_watchlist_market.json"
+          mkdir -p /tmp/repair
+          tar -cf /tmp/repair/out.tar $files
+          git reset --hard
+          git pull --ff-only origin main
+          tar -xf /tmp/repair/out.tar -C .
+          git add -f $files
+          git diff --cached --quiet && exit 0
+          git commit -m 'Repair connected dashboard data'
+          git push origin HEAD:main
