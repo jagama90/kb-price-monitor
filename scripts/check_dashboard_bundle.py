@@ -14,7 +14,7 @@ if dups: errors.append('duplicate ids: '+', '.join(dups))
 
 required=['conditionScore','scoreFinance','scoreSentiment','scoreDemand','scoreValue','scoreSupply',
           'scoreExplanation','scoreExplainTitle','scoreExplainWeight','scoreExplainBody',
-          'regimeForecast','forecastGrid','forecastMeta']
+          'regimeForecast','forecastGrid','forecastMeta','garakHistoryLatest','garakHistoryChart','mobileCards','body']
 for x in required:
     if ids.count(x)!=1: errors.append(f'required id {x}: expected 1, got {ids.count(x)}')
 
@@ -34,6 +34,16 @@ for forbidden in ['.onclick=','.onkeydown=','.after(panel)','appendChild(panel)'
     if forbidden in block: errors.append('legacy score handler still present: '+forbidden)
 
 if not (R/'dist/regime_forecast.json').exists(): errors.append('regime_forecast.json missing')
+hist=R/'dist/garak_geumho_24a_history.json'
+if not hist.exists(): errors.append('garak_geumho_24a_history.json missing')
+else:
+    try:
+        hd=json.loads(hist.read_text(encoding='utf-8')); series=hd.get('series') or []
+        if len(series)<200: errors.append(f'garak history too short: {len(series)}')
+    except Exception as e: errors.append('garak history invalid: '+str(e))
+if 'garak_geumho_24a_history.json' not in js or 'loadGarakHistory()' not in js: errors.append('Garak history loader missing from market.js')
+if "const kbKey=x=>" not in js: errors.append('exact complex+area KB key missing')
+if "kb.get(Number(x.complex_id))" in js: errors.append('legacy complex-only KB price lookup remains')
 
 jsv=re.search(r'market\.js\?v=([^"]+)',html)
 cssv=re.search(r'market\.css\?v=([^"]+)',html)
