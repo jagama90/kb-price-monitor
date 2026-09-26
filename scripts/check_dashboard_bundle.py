@@ -47,6 +47,18 @@ if 'garak_geumho_24a_history.json' not in js or 'loadGarakHistory()' not in js: 
 if "const kbKey=x=>" not in js: errors.append('exact complex+area KB key missing')
 if "kb.get(Number(x.complex_id))" in js: errors.append('legacy complex-only KB price lookup remains')
 
+# visual remodel contract
+for rid in ('forecastHeadline','forecastTrend','storyHeadline','storySummary','nextSignals','hubDriversMeta','hubValidationMeta','hubWatchMeta','hubBacktestMeta'):
+    if ids.count(rid)!=1: errors.append(f'visual remodel id {rid}: expected 1, got {ids.count(rid)}')
+if html.count('class="hub-summary"')!=4: errors.append('analysis hub must contain exactly four visual summaries')
+if html.count('class="card score-component"')!=5: errors.append('condition dashboard must contain five compact score tiles')
+if 'class="analysis-hub"' not in html: errors.append('analysis hub wrapper missing')
+if 'class="forecast-flow"' not in html: errors.append('forward-regime infographic flow missing')
+if 'forecast-mini-values' not in js or 'scenario-rail' not in js: errors.append('forecast infographic renderer missing')
+if '<summary><span><small>2 · 왜 움직이고 있나' in html: errors.append('legacy text-heavy analysis menu returned')
+if '점수 근거 보기' in html: errors.append('legacy score CTA returned')
+
+
 jsv=re.search(r'market\.js\?v=([^"]+)',html)
 cssv=re.search(r'market\.css\?v=([^"]+)',html)
 if not jsv or not cssv: errors.append('asset cache versions missing')
