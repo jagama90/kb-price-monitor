@@ -156,6 +156,11 @@ dist_wm_rows=watch_market_dist.get('items') or []
 for stamp in ('listing_collected_at','listing_refresh_attempted_at','listing_refresh_status','kb_detail_collected_at','molit_trade_collected_at'):
     if watch_market.get(stamp)!=watch_market_dist.get(stamp): errors.append('watchlist data/dist '+stamp+' mismatch')
 if len(wm_rows)!=len(dist_wm_rows): errors.append('watchlist data/dist row count mismatch')
+if watch_market!=watch_market_dist: errors.append('watchlist data/dist payload mismatch')
+wm_keys=[(int(x.get('complex_id') or 0),int(x.get('area_id') or 0)) for x in wm_rows]
+if len(wm_keys)!=len(set(wm_keys)): errors.append('watchlist market has duplicate complex/area rows')
+complex_ids=[int(x.get('complex_id') or 0) for x in wm_rows]
+if len(complex_ids)!=len(set(complex_ids)): errors.append('watchlist market must have one representative row per complex')
 mt_day=iso_day(watch_market.get('molit_trade_collected_at'))
 if not mt_day or (today-mt_day).days>3: errors.append('watchlist MOLIT trade refresh is stale')
 kb_master_day=iso_day(master.get('kb_collected_at'))
