@@ -106,6 +106,7 @@ for row in rows:
     row['detail_quality']='exact_area_id'
 
 market['items']=rows
+market['listing_collected_at']=market.get('listing_collected_at') or market.get('collected_at')
 market['kb_detail_collected_at']=detail.get('collected_at')
 market['molit_trade_collected_at']=trades.get('collected_at')
 market['kb_detail_matched_rows']=matched_detail

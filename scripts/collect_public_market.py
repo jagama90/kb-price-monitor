@@ -127,7 +127,8 @@ def main():
                 except Exception as e: errors.append({'complex_id':cid,'area_id':z.get('area_id'),'type_label':z.get('type_label'),'name':x.get('user_name'),'error':str(e)})
         except Exception as e: errors.append({'complex_id':cid,'name':x.get('user_name'),'error':str(e)})
     browser.close(); pw.stop()
-    out={'collected_at':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat(),'source':'KB public complex page / explicitly selected target type','items':items,'errors':errors}
+    stamp=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
+    out={'collected_at':stamp,'listing_collected_at':stamp,'source':'KB public complex page / explicitly selected target type','items':items,'errors':errors}
     stats={'items':len(items),'errors':len(errors),'validated_type_price':validated,'with_avg':sum(x['avg_ask_manwon'] is not None for x in items),'with_trade':sum(x['recent_trade_manwon'] is not None for x in items)}
     print(json.dumps(stats,ensure_ascii=False))
     if args.sample:

@@ -20,6 +20,7 @@ master=load('data/buy_watchlist_master.json')
 targets=load('data/buy_watchlist_targets.json')
 details=load('data/buy_watchlist_listings.json')
 watch_market=load('data/buy_watchlist_market.json')
+watch_hist=load('dist/kb_watchlist_history.json')
 trade_detail=load('data_sources/watchlist_recent_trades.json')
 garak=load('dist/garak_geumho_24a_history.json')
 market_ext=load('dist/market_extensions.json')
@@ -49,6 +50,9 @@ for key in ('kb_weekly_sale_index','kb_weekly_rent_index'):
     src=mi.get(key) or {}
     if src.get('status')!='connected' or not (src.get('latest') or {}).get('value'):
         errors.append(key+' missing or disconnected')
+    else:
+        kday=ymd((src.get('latest') or {}).get('date'))
+        if not kday or (today-kday).days>14: errors.append(key+' is stale')
 # Fail if last-good inputs silently become stale while the bundle keeps rebuilding.
 today=datetime.datetime.now(datetime.timezone.utc).date()
 def ymd(v):
@@ -131,7 +135,7 @@ mt_day=iso_day(watch_market.get('molit_trade_collected_at'))
 if not mt_day or (today-mt_day).days>3: errors.append('watchlist MOLIT trade refresh is stale')
 kb_master_day=iso_day(master.get('kb_collected_at'))
 if not kb_master_day or (today-kb_master_day).days>10: errors.append('watchlist KB price master is stale')
-listing_day=iso_day(watch_market.get('collected_at'))
+listing_day=iso_day(watch_market.get('listing_collected_at') or watch_market.get('collected_at'))
 if any(x.get('sale_listing_count') is not None for x in wm_rows) and (not listing_day or (today-listing_day).days>10):
     warnings.append({'watchlist_listing_source_stale_days':None if not listing_day else (today-listing_day).days})
 supported=int(watch_market.get('supported_target_rows') or 0)
@@ -141,6 +145,9 @@ if supported>=10:
     if traded/supported < .70: errors.append(f'watchlist recent-trade coverage too low: {traded}/{supported}')
 if trade_detail and int(trade_detail.get('matched_count') or 0)<1: errors.append('watchlist recent trade source has no matches')
 series=garak.get('series') or []
+hist_months=[ymd(str(x.get('ym') or '')+'01') for item in (watch_hist.get('items') or []) for x in (item.get('series') or []) if x.get('ym')]
+hist_months=[x for x in hist_months if x]
+if not hist_months or (today-max(hist_months)).days>75: errors.append('KB watchlist history is stale')
 if len(series)<200: errors.append('Garak Geumho long history too short')
 elif series[-1].get('ym'):
     age=ym_age(series[-1].get('ym'))
@@ -158,12 +165,15 @@ paths={
  'parallel':'.github/workflows/parallel-market-refresh.yml',
  'weekly':'.github/workflows/weekly-refresh.yml',
  'research':'.github/workflows/research-turning-signal.yml',
- 'forecast':'.github/workflows/forecast-regime.yml'
+ 'forecast':'.github/workflows/forecast-regime.yml',
+ 'final':'.github/workflows/final-backtest.yml',
+ 'extensions':'.github/workflows/market-extensions.yml',
+ 'pages':'.github/workflows/pages.yml'
 }
 wf={k:(R/p).read_text(encoding='utf-8') for k,p in paths.items()}
 for bad in ["'dist/market.html'","'dist/market.js'","'dist/index.html'"]:
     if bad in wf['parallel']: errors.append('parallel refresh still triggered by UI file '+bad)
-if 'cancel-in-progress: false' not in wf['parallel']: errors.append('parallel refresh should preserve in-progress run')
+if 'cancel-in-progress: true' not in wf['parallel']: errors.append('parallel refresh should cancel superseded runs')
 if 'artifact_ready' not in wf['parallel'] or "needs.molit.outputs.artifact_ready == 'true'" not in wf['parallel']:
     errors.append('MOLIT degraded-mode artifact guard missing')
 if wf['weekly'].count("'.github/workflows/weekly-refresh.yml'")!=1: errors.append('weekly workflow trigger duplicated')
@@ -172,6 +182,39 @@ if "'scripts/forecast_market_regime.py'" in wf['research']: errors.append('resea
 if 'dist/regime_forecast.json' in wf['parallel']: errors.append('parallel workflow must not own regime_forecast output')
 if 'dist/regime_forecast.json' in wf['research']: errors.append('research workflow must not own regime_forecast output')
 if 'dist/regime_forecast.json' not in wf['forecast']: errors.append('forecast workflow does not own regime_forecast output')
+
+# Dashboard live-data lineage: every fetched asset must have a repository producer/owner
+# and Pages must publish dist changes. This is deliberately explicit so a new fetch
+# cannot silently bypass refresh/freshness review.
+market_js=(R/'dist/market.js').read_text(encoding='utf-8')
+fetch_assets={x.split('?')[0] for x in re.findall(r"fetch\(['\"]([^'\"]+)",market_js)}
+expected_fetch_assets={
+    'kb_watchlist_history.json','buy_watchlist_market.json','buy_watchlist_master.json',
+    'buy_watchlist_targets.json','market_indicators.json','final_backtest.json',
+    'turning_signal_research.json','regime_forecast.json','garak_geumho_24a_history.json',
+    'market_extensions.json'
+}
+if fetch_assets!=expected_fetch_assets:
+    errors.append('dashboard fetch asset set changed without lineage review: '+str(sorted(fetch_assets^expected_fetch_assets)))
+for asset in expected_fetch_assets:
+    if not (R/'dist'/asset).exists(): errors.append('dashboard fetch asset missing from dist: '+asset)
+lineage=[
+    ('kb_watchlist_history.json','weekly','scripts/collect_kb_watchlist_history.py'),
+    ('buy_watchlist_market.json','parallel','dist/buy_watchlist_market.json'),
+    ('buy_watchlist_market.json','weekly','dist/buy_watchlist_market.json'),
+    ('buy_watchlist_master.json','weekly','dist/buy_watchlist_master.json'),
+    ('buy_watchlist_targets.json','pages','cp data/buy_watchlist_targets.json dist/buy_watchlist_targets.json'),
+    ('market_indicators.json','parallel','dist/market_indicators.json'),
+    ('final_backtest.json','final','dist/final_backtest.json'),
+    ('turning_signal_research.json','research','dist/turning_signal_research.json'),
+    ('regime_forecast.json','forecast','dist/regime_forecast.json'),
+    ('garak_geumho_24a_history.json','parallel','dist/garak_geumho_24a_history.json'),
+    ('garak_geumho_24a_history.json','weekly','dist/garak_geumho_24a_history.json'),
+    ('market_extensions.json','extensions','dist/market_extensions.json'),
+]
+for asset,owner,needle in lineage:
+    if needle not in wf[owner]: errors.append(f'{asset}: {owner} workflow ownership missing')
+if "paths: ['dist/**'" not in wf['pages']: errors.append('Pages push trigger does not cover all dist assets')
 
 payload={'status':'ok' if not errors else 'failed','latest_available':latest,'certified_through':cert,
          'research_month':trrows[-1].get('ym') if trrows else None,

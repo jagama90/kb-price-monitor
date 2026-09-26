@@ -101,3 +101,5 @@ if 'kb_watchlist_history.json' not in js:
     errors.append('watchlist KB history is not loaded from live JSON')
 if 'base_rate_official' not in js:
     errors.append('official base-rate snapshot is not wired to dashboard')
+if 'm.listing_collected_at||m.collected_at' not in js:
+    errors.append('listing freshness is not tied to the listing-source timestamp')
