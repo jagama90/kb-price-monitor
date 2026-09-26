@@ -161,13 +161,50 @@ if supported>=10:
     if traded/supported < .70: errors.append(f'watchlist recent-trade coverage too low: {traded}/{supported}')
 if trade_detail and int(trade_detail.get('matched_count') or 0)<1: errors.append('watchlist recent trade source has no matches')
 series=garak.get('series') or []
-hist_months=[ymd(str(x.get('ym') or '')+'01') for item in (watch_hist.get('items') or []) for x in (item.get('series') or []) if x.get('ym')]
-hist_months=[x for x in hist_months if x]
-if not hist_months or (today-max(hist_months)).days>75: errors.append('KB watchlist history is stale')
+hist_rows=watch_hist.get('items') or []
+hist_by_cid={int(x.get('complex_id')):x for x in hist_rows if x.get('complex_id')}
+for row in wm_rows:
+    cid=int(row.get('complex_id') or 0)
+    h=hist_by_cid.get(cid)
+    if not h:
+        errors.append(f'KB watchlist history missing complex {cid} {row.get("name")}')
+        continue
+    if int(h.get('area_id') or 0)!=int(row.get('area_id') or 0):
+        errors.append(f'KB watchlist history area mismatch {cid}: history={h.get("area_id")} market={row.get("area_id")}')
+    months=[ymd(str(x.get('ym') or '')+'01') for x in (h.get('series') or []) if x.get('ym')]
+    months=[x for x in months if x]
+    if not months or (today-max(months)).days>75:
+        errors.append(f'KB watchlist history stale for {cid} {row.get("name")}')
+if watch_hist.get('refresh_status') in ('partial_last_good','partial'):
+    warnings.append({'kb_watchlist_history_refresh_status':watch_hist.get('refresh_status'),
+                     'fallback_rows':watch_hist.get('fallback_rows'),'errors':watch_hist.get('errors')})
 if len(series)<200: errors.append('Garak Geumho long history too short')
 elif series[-1].get('ym'):
     age=ym_age(series[-1].get('ym'))
     if age is None or age>2: errors.append('Garak Geumho long history is stale')
+if garak.get('refresh_status')=='fallback_last_good':
+    warnings.append({'garak_history_refresh_status':'fallback_last_good','attempted_at':garak.get('refresh_attempted_at')})
+
+# Exact-area trade identity must never cross-map sibling complexes.
+def ident_tokens(v):
+    s=str(v or '')
+    return ({x for x in re.findall(r'(\\d+)\\s*단지',s)},{x for x in re.findall(r'(\\d+)\\s*차',s)})
+def ident_conflict(a,b):
+    aa,ab=ident_tokens(a);ba,bb=ident_tokens(b)
+    return bool((aa and ba and aa!=ba) or (ab and bb and ab!=bb))
+observed={}
+for x in trade_detail.get('items') or []:
+    if x.get('match_method')=='unique_dong_exact_area':
+        errors.append(f"unsafe area-only MOLIT match remains: {x.get('name')} -> {x.get('molit_apt_name')}")
+    if ident_conflict(x.get('name'),x.get('molit_apt_name')) and ident_conflict(x.get('kb_name'),x.get('molit_apt_name')):
+        errors.append(f"numbered-complex MOLIT mismatch: {x.get('name')} -> {x.get('molit_apt_name')}")
+    k=(x.get('molit_apt_name'),x.get('recent_trade_date'),x.get('recent_trade_manwon'),x.get('matched_exclusive_m2'))
+    if all(v is not None for v in k):
+        observed.setdefault(k,set()).add(int(x.get('complex_id') or 0))
+for k,cids in observed.items():
+    if len(cids)>1: errors.append(f'MOLIT trade assigned to multiple complexes {sorted(cids)}: {k}')
+if trade_detail.get('status')=='partial':
+    warnings.append({'watchlist_trade_source_status':'partial','fetch_errors':trade_detail.get('fetch_errors')})
 
 # Detail snapshots must never claim false zero/price values after a degraded collection.
 for x in details.get('items') or []:
@@ -184,7 +221,8 @@ paths={
  'forecast':'.github/workflows/forecast-regime.yml',
  'final':'.github/workflows/final-backtest.yml',
  'extensions':'.github/workflows/market-extensions.yml',
- 'pages':'.github/workflows/pages.yml'
+ 'pages':'.github/workflows/pages.yml',
+ 'repair':'.github/workflows/repair-dashboard-data.yml'
 }
 wf={k:(R/p).read_text(encoding='utf-8') for k,p in paths.items()}
 for bad in ["'dist/market.html'","'dist/market.js'","'dist/index.html'"]:
@@ -195,6 +233,11 @@ if 'artifact_ready' not in wf['parallel'] or "needs.molit.outputs.artifact_ready
 if wf['weekly'].count("'.github/workflows/weekly-refresh.yml'")!=1: errors.append('weekly workflow trigger duplicated')
 if 'cancel-in-progress: false' not in wf['weekly']: errors.append('weekly checkpoint should preserve in-progress run')
 if 'merge_weekly_listing_snapshot.py' not in wf['weekly']: errors.append('weekly listing merge guard missing')
+if wf['weekly'].count('scripts/collect_kb_watchlist_history.py')<2: errors.append('weekly workflow does not trigger when KB watchlist history collector changes')
+if wf['weekly'].count('scripts/collect_garak_geumho_24a.py')<2: errors.append('weekly workflow does not trigger when Garak history collector changes')
+if 'merge_parallel_market_snapshot.py' not in wf['parallel']: errors.append('parallel watchlist merge guard missing')
+if 'merge_parallel_market_snapshot.py' not in wf['repair']: errors.append('repair workflow can roll back newer listing data')
+if 'check_pipeline_health.py' not in wf['pages']: errors.append('Pages deploy is not gated by pipeline health')
 if 'buy_watchlist_market.prev.json' in wf['weekly'] or 'restoring last-good market snapshot' in wf['weekly']:
     errors.append('weekly workflow can roll back newer watchlist market data')
 if "'scripts/forecast_market_regime.py'" in wf['research']: errors.append('research workflow has unrelated forecast-script trigger')
