@@ -20,14 +20,13 @@ async function loadMarketIndicators(){
 }
 const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
 function setupScoreDetails(d,components){
- // Score details are opened only by the explicit buttons in market.html.
- // Do not attach card-level click handlers or move the panel into the grid.
  window.__marketIndicators=d;
  window.__conditionComponents=components||{};
- document.querySelectorAll('.score-detail-btn').forEach(btn=>{
-  btn.disabled=false;
-  btn.setAttribute('aria-expanded','false');
-  btn.setAttribute('aria-controls','scoreExplanation');
+ document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{
+  card.setAttribute('role','button');
+  card.setAttribute('tabindex','0');
+  card.setAttribute('aria-expanded','false');
+  card.setAttribute('aria-controls','scoreExplanation');
  });
 }
 function setupSnapshotEvidence(d){
@@ -174,12 +173,12 @@ window.showScoreDetail=function(k){
  setText('scoreExplainTitle',t[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+w[k]+'%');
  const bodyEl=document.getElementById('scoreExplainBody'),p=document.getElementById('scoreExplanation');if(!bodyEl||!p)return;
  bodyEl.innerHTML='<p>'+body[k]+'</p>';p.hidden=false;p.style.display='block';
- document.querySelectorAll('.score-detail-btn').forEach(btn=>btn.setAttribute('aria-expanded',btn.closest('[data-score]')?.dataset.score===k?'true':'false'));
+ document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{const on=card.dataset.scoreKey===k;card.setAttribute('aria-expanded',on?'true':'false');card.classList.toggle('active',on)});
  p.scrollIntoView({behavior:'smooth',block:'center'});
 };
 window.hideScoreDetail=function(){
  const p=document.getElementById('scoreExplanation');if(p){p.hidden=true;p.style.display='none'}
- document.querySelectorAll('.score-detail-btn').forEach(btn=>btn.setAttribute('aria-expanded','false'));
+ document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{card.setAttribute('aria-expanded','false');card.classList.remove('active')});
 };
 
 async function renderRegimeForecast(){
@@ -193,11 +192,15 @@ async function renderRegimeForecast(){
 }
 renderRegimeForecast();
 
-// Single delegated control path for score details; independent of async data loading.
+// Score cards themselves are the controls; no separate "점수 근거 보기" button.
 document.addEventListener('click',e=>{
- const btn=e.target.closest?.('.score-detail-btn');
- if(btn){e.preventDefault();window.showScoreDetail?.(btn.dataset.scoreKey);return}
- if(e.target.closest?.('.score-detail-close')){e.preventDefault();window.hideScoreDetail?.()}
+ if(e.target.closest?.('.score-detail-close')){e.preventDefault();window.hideScoreDetail?.();return}
+ const card=e.target.closest?.('.score-component[data-score-key]');
+ if(card){e.preventDefault();window.showScoreDetail?.(card.dataset.scoreKey)}
+});
+document.addEventListener('keydown',e=>{
+ const card=e.target.closest?.('.score-component[data-score-key]');
+ if(card&&(e.key==='Enter'||e.key===' ')){e.preventDefault();window.showScoreDetail?.(card.dataset.scoreKey)}
 });
 
 async function loadGarakHistory(){
