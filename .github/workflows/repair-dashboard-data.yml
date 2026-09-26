@@ -37,13 +37,15 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          files="data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/watchlist_recent_trades.json dist/market_indicators.json data/buy_watchlist_market.json dist/buy_watchlist_market.json"
+          files="data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/watchlist_recent_trades.json dist/market_indicators.json"
           mkdir -p /tmp/repair
+          cp data/buy_watchlist_market.json /tmp/repair/buy_watchlist_market.json
           tar -cf /tmp/repair/out.tar $files
           git reset --hard
           git pull --ff-only origin main
           tar -xf /tmp/repair/out.tar -C .
-          git add -f $files
+          python3 scripts/merge_parallel_market_snapshot.py --source /tmp/repair/buy_watchlist_market.json
+          git add -f $files data/buy_watchlist_market.json dist/buy_watchlist_market.json
           git diff --cached --quiet && exit 0
           git commit -m 'Repair connected dashboard data'
           git push origin HEAD:main
