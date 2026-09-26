@@ -50,22 +50,26 @@ if "kb.get(Number(x.complex_id))" in js: errors.append('legacy complex-only KB p
 # visual remodel contract
 for rid in ('forecastHeadline','forecastTrend','storyHeadline','storySummary','nextSignals','hubDriversMeta','hubValidationMeta','hubWatchMeta','hubBacktestMeta'):
     if ids.count(rid)!=1: errors.append(f'visual remodel id {rid}: expected 1, got {ids.count(rid)}')
-if html.count('class="hub-summary"')!=4: errors.append('analysis hub must contain exactly four visual summaries')
 if html.count('class="card score-component"')!=5: errors.append('condition dashboard must contain five compact score tiles')
-if 'class="analysis-hub"' not in html: errors.append('analysis hub wrapper missing')
 if 'class="forecast-flow"' not in html: errors.append('forward-regime infographic flow missing')
 if 'forecast-mini-values' not in js or 'scenario-rail' not in js: errors.append('forecast infographic renderer missing')
 if '<summary><span><small>2 · 왜 움직이고 있나' in html: errors.append('legacy text-heavy analysis menu returned')
 if '점수 근거 보기' in html: errors.append('legacy score CTA returned')
 
-# mobile flow repair contract
-if html.count('class="signal-rail"')!=1: errors.append('weekly signal rail missing or duplicated')
-if 'decision-path-mini' in html: errors.append('legacy boxed weekly path returned')
+# isolated mobile v4 contract: legacy layout selectors must not be used by live markup.
+if html.count('class="weekly-flow-v4"')!=1: errors.append('weekly v4 flow missing or duplicated')
+if html.count('class="flow-step-v4')!=4: errors.append('weekly v4 flow must contain exactly four steps')
+if 'class="signal-rail"' in html or 'decision-path-mini' in html: errors.append('legacy weekly flow markup returned')
+if html.count('class="deep-row-v4"')!=4: errors.append('deep dive must contain exactly four isolated rows')
+if html.count('class="deep-summary-v4"')!=4: errors.append('deep dive summaries missing')
+if 'class="analysis-hub"' in html or 'class="hub-summary"' in html or 'class="compact-section"' in html:
+    errors.append('legacy deep-dive wrapper classes returned')
 if html.count('class="driver-rail"')!=1: errors.append('deep-dive driver rail missing')
 if 'class="transmission compact"' in html: errors.append('legacy boxed driver infographic returned')
-if html.count('methodology-v3')!=1: errors.append('methodology v3 status-first layout missing')
-if 'methodology-v2' in html: errors.append('legacy methodology v2 returned')
-if html.count('class="method-health"')!=1: errors.append('methodology health summary missing')
+if html.count('class="card method-v4"')!=1: errors.append('methodology v4 status-first layout missing')
+if 'methodology-v3' in html or 'methodology-v2' in html: errors.append('legacy methodology markup returned')
+if html.count('class="method-health-v4"')!=1: errors.append('methodology v4 health summary missing')
+if "flow-step-v4 '+state[1]" not in js: errors.append('live signal updater does not preserve v4 flow classes')
 
 
 jsv=re.search(r'market\.js\?v=([^"]+)',html)
