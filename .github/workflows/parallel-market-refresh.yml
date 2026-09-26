@@ -35,7 +35,7 @@ permissions:
   contents: write
 concurrency:
   group: market-data-v3-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   kb_sentiment:
     name: C · KB sentiment
@@ -131,8 +131,7 @@ jobs:
               delay=$((delay*2))
             done
           }
-          retry python3 scripts/smoke_ecos_sources.py
-          retry python3 scripts/sample_ecos_finance.py
+          # Production refresh: direct collectors only. Discovery/smoke scripts are diagnostics, not daily dependencies.
           retry python3 scripts/collect_ecos_mortgage_rate.py
           retry python3 scripts/collect_ecos_base_rate.py
           retry python3 scripts/collect_ecos_m2.py
