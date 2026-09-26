@@ -55,7 +55,8 @@ def main():
  for back in range(7):
   y,m=shift_month(now,-back);months.append(f'{y:04d}{m:02d}')
  monthly={};series=[];bands=[]
- refresh=set(months[:2])
+ # Re-query three deal months because late reports/cancellations can revise prior-month totals.
+ refresh=set(months[:3])
  for ym in reversed(months):
   if ym not in refresh and ym in previous_bands:
    cached=dict(previous_bands[ym]);cached['period']=ym[:4]+'-'+ym[4:]
