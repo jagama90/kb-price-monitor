@@ -53,6 +53,11 @@ def main():
   d['kb_weekly_rent_index']=rent;d.setdefault('data_status',{})['kb_weekly_rent_index']='connected'
  kb=read('kb_history_status.json')
  if kb and not sale:d.setdefault('data_status',{})['kb_history']=kb.get('status')
+ refresh=read('refresh_run_status.json')
+ if refresh:
+  d['refresh_run']=refresh
+  for name,status in (refresh.get('sources') or {}).items():
+   d.setdefault('data_status',{})[name+'_refresh']=status
  d['updated_at']=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date().isoformat();OUT.write_text(json.dumps(d,ensure_ascii=False,indent=2))
  if e:(ROOT/'dist/m2_history.json').write_text(json.dumps(e,ensure_ascii=False,indent=2))
  if kb:(ROOT/'dist/kb_history_status.json').write_text(json.dumps(kb,ensure_ascii=False,indent=2))
