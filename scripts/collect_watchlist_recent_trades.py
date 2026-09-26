@@ -75,8 +75,8 @@ def similarity(a,b):
 def identity_tokens(s):
     raw=str(s or '')
     return {
-      '단지':set(re.findall(r'(\\d+)\\s*단지',raw)),
-      '차':set(re.findall(r'(\\d+)\\s*차',raw)),
+      '단지':set(re.findall(r'(\d+)\s*단지',raw)),
+      '차':set(re.findall(r'(\d+)\s*차',raw)),
     }
 
 def identity_conflict(a,b):
