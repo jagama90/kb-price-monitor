@@ -1,7 +1,7 @@
 name: Validate market extensions
 on:
   workflow_run:
-    workflows: ['Parallel market data refresh', 'Weekly KB price refresh']
+    workflows: ['Parallel market data refresh', 'Weekly KB price refresh', 'Repair dashboard data']
     types: [completed]
   push:
     branches: [main]
