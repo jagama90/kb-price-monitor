@@ -1,0 +1,48 @@
+name: Validate market extensions
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/market-extensions.yml'
+      - 'scripts/collect_kb_regional_breadth.py'
+      - 'scripts/build_affordability_engine.py'
+      - 'scripts/build_regional_temperature.py'
+      - 'scripts/validate_market_extensions.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: market-extensions-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect current regional breadth
+        run: python3 scripts/collect_kb_regional_breadth.py
+      - name: Build affordability and regional temperature
+        run: |
+          python3 scripts/build_affordability_engine.py
+          python3 scripts/build_regional_temperature.py
+      - name: Run leakage-safe backtest
+        run: python3 scripts/validate_market_extensions.py
+      - name: Persist research outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          files="data_sources/kb_regional_breadth.json dist/affordability_engine.json dist/regional_temperature_history.json dist/market_extension_validation.json"
+          mkdir -p /tmp/extensions
+          tar -cf /tmp/extensions/out.tar $files
+          git reset --hard
+          git clean -fd
+          git pull --ff-only origin main
+          tar -xf /tmp/extensions/out.tar -C .
+          git add -f $files
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh market extension validation'
+          git push origin HEAD:main
