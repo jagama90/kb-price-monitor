@@ -202,7 +202,8 @@
     "ecos_mortgage_rate": "connected",
     "m2": "connected",
     "kb_weekly_sale_index": "connected",
-    "kb_weekly_rent_index": "connected"
+    "kb_weekly_rent_index": "connected",
+    "ecos_base_rate": "connected"
   },
   "kb_sentiment": {
     "status": "connected",
@@ -233,7 +234,7 @@
     "jeonse_score_0_100": 49.3,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-26T07:37:33.089140+00:00"
+    "generated_at": "2026-09-26T07:39:44.629574+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -247,7 +248,7 @@
     "current_position_0_1": 1.0,
     "source": "KB부동산 가락금호 24A 월별 일반거래가",
     "period": "202609",
-    "generated_at": "2026-09-26T07:37:33.036185+00:00"
+    "generated_at": "2026-09-26T07:39:44.584680+00:00"
   },
   "matched_period": {
     "as_of": "2026-09-26",
@@ -327,7 +328,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-09-26T07:29:27.212351+00:00"
+    "collected_at": "2026-09-26T07:38:05.607380+00:00"
   },
   "kb_weekly_rent_index": {
     "status": "connected",
@@ -341,6 +342,142 @@
       "change_pct": 0.12
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-09-26T07:29:27.212374+00:00"
+    "collected_at": "2026-09-26T07:38:05.607393+00:00"
+  },
+  "base_rate_official": {
+    "status": "connected",
+    "source": "한국은행 ECOS",
+    "stat_code": "722Y001",
+    "item_code": "0101000",
+    "frequency": "daily",
+    "latest": {
+      "date": "20260924",
+      "rate_pct": 3.0,
+      "item": "한국은행 기준금리"
+    },
+    "latest_observation_date": "20260924",
+    "series": [
+      {
+        "date": "20160101",
+        "rate_pct": 1.5,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20160609",
+        "rate_pct": 1.25,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20171130",
+        "rate_pct": 1.5,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20181130",
+        "rate_pct": 1.75,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20190718",
+        "rate_pct": 1.5,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20191016",
+        "rate_pct": 1.25,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20200317",
+        "rate_pct": 0.75,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20200528",
+        "rate_pct": 0.5,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20210826",
+        "rate_pct": 0.75,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20211125",
+        "rate_pct": 1.0,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20220114",
+        "rate_pct": 1.25,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20220414",
+        "rate_pct": 1.5,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20220526",
+        "rate_pct": 1.75,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20220713",
+        "rate_pct": 2.25,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20220825",
+        "rate_pct": 2.5,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20221012",
+        "rate_pct": 3.0,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20221124",
+        "rate_pct": 3.25,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20230113",
+        "rate_pct": 3.5,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20241011",
+        "rate_pct": 3.25,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20241128",
+        "rate_pct": 3.0,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20250225",
+        "rate_pct": 2.75,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20250529",
+        "rate_pct": 2.5,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20260716",
+        "rate_pct": 2.75,
+        "item": "한국은행 기준금리"
+      },
+      {
+        "date": "20260827",
+        "rate_pct": 3.0,
+        "item": "한국은행 기준금리"
+      }
+    ],
+    "collected_at": "2026-09-26T07:37:57.507343+00:00"
   }
 }
