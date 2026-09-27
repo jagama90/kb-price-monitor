@@ -109,6 +109,23 @@ for legacy_label in ('FORWARD REGIME · 전망엔진','THIS WEEK · 이번 주 �
 if '가격·Value' in js or 'Breadth 백테스트' in js:
     errors.append('internal English metric label returned to user-facing dashboard')
 
+
+# mobile density v132 contract
+if 'score-dashboard-inline' not in html:
+    errors.append('compact five-score inline gauge strip missing')
+if 'forecast-compact-mobile' not in html:
+    errors.append('compact mobile forecast marker missing')
+if ids.count('watchInsights')!=1:
+    errors.append('watchlist supporting analyses drawer missing')
+watch_pos=html.find('<details class="deep-row-v4" id="watchlist"')
+watch_primary=html.find('<section class="card watch">',watch_pos)
+watch_insights=html.find('id="watchInsights"',watch_pos)
+if watch_pos<0 or watch_primary<0 or watch_insights<0 or not (watch_pos < watch_primary < watch_insights):
+    errors.append('watchlist detail must appear before supporting analyses')
+watch_insight_tag=re.search(r'<details[^>]+id="watchInsights"[^>]*>',html)
+if not watch_insight_tag or re.search(r'\sopen(?:\s|>)',watch_insight_tag.group(0)):
+    errors.append('watchlist supporting analyses must default closed')
+
 jsv=re.search(r'market\.js\?v=([^"]+)',html)
 cssv=re.search(r'market\.css\?v=([^"]+)',html)
 if not jsv or not cssv: errors.append('asset cache versions missing')

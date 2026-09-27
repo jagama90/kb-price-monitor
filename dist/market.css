@@ -767,3 +767,69 @@ main{max-width:1180px;padding-top:24px}
 .watch-source-notice[hidden]{display:none}
 .data-missing{color:#9aa6b5!important;font-weight:650!important}
 @media(max-width:800px){.watch-source-notice{margin-bottom:10px;padding:9px 10px;font-size:9px}}
+
+
+/* MOBILE DENSITY V132: thin forecast, inline gauges, watchlist-first */
+.watch-insights-v2{margin:10px 0 0;border:1px solid var(--line);border-radius:14px;background:#fbfcfe;overflow:hidden}
+.watch-insights-v2>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px}
+.watch-insights-v2>summary::-webkit-details-marker{display:none}
+.watch-insights-v2>summary span{min-width:0}
+.watch-insights-v2>summary b,.watch-insights-v2>summary small{display:block}
+.watch-insights-v2>summary b{font-size:13px;color:#324c61}
+.watch-insights-v2>summary small{margin-top:3px;font-size:9px;color:#8a99a6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.watch-insights-v2>summary strong{font-size:18px;color:#91a1ad;transition:transform .18s}
+.watch-insights-v2[open]>summary{border-bottom:1px solid #edf1f4}
+.watch-insights-v2[open]>summary strong{transform:rotate(45deg)}
+.watch-insights-body{padding:12px}
+.watch-insights-body .watch-layout.compact-body{margin:0}
+.watch-insights-body .standalone-history{margin-top:10px}
+#watchlist>.watch.card{margin-top:0}
+
+@media(max-width:800px){
+  /* Forecast: three short rows instead of three tall cards */
+  .forecast-compact-mobile{padding:17px 15px}
+  .forecast-compact-mobile .forecast-titlebar h2{font-size:19px;margin-top:3px}
+  .forecast-compact-mobile .forecast-titlebar small{font-size:9px}
+  .forecast-compact-mobile .forecast-headline{margin:10px 0;padding:9px 11px;border-radius:11px;font-size:13px;line-height:1.4}
+  .forecast-compact-mobile .forecast-flow{display:block!important;margin:0!important}
+  .forecast-compact-mobile .forecast-flow:before{display:none!important}
+  .forecast-compact-mobile .forecast-stop{display:grid!important;grid-template-columns:minmax(0,1fr) 43%;grid-template-areas:"head head" "phrase rail" "values values";align-items:center;column-gap:10px;row-gap:5px;margin:0 0 7px!important;padding:10px 11px!important;border-radius:11px;box-shadow:none;min-height:0}
+  .forecast-compact-mobile .forecast-stop:last-child{margin-bottom:0!important}
+  .forecast-compact-mobile .forecast-stop:before,.forecast-compact-mobile .forecast-stop:after{display:none!important}
+  .forecast-compact-mobile .forecast-stop-head{grid-area:head}
+  .forecast-compact-mobile .forecast-stop-head small{font-size:10px}
+  .forecast-compact-mobile .forecast-stop-head span{font-size:9px;padding:2px 5px}
+  .forecast-compact-mobile .forecast-stop>b{grid-area:phrase;margin:0!important;font-size:13px;line-height:1.25}
+  .forecast-compact-mobile .scenario-rail{grid-area:rail;height:7px}
+  .forecast-compact-mobile .forecast-mini-values{grid-area:values;margin-top:0;font-size:8px;line-height:1.2}
+  .forecast-compact-mobile .forecast-trend{margin-top:9px;gap:5px}
+  .forecast-compact-mobile .trend-chip{font-size:9px;padding:4px 7px}
+  .forecast-compact-mobile .forecast-legend{display:none}
+  .forecast-compact-mobile .forecast-meta{margin-top:7px;font-size:8px}
+
+  /* Five indicators become one compact, tappable gauge strip */
+  .score-dashboard-inline{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:0!important;margin:10px 0 0!important;padding:8px 5px!important;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:0 4px 14px rgba(22,55,78,.035);overflow:hidden}
+  .score-dashboard-inline .score-component{grid-column:auto!important;min-height:58px!important;margin:0!important;padding:7px 3px!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;align-items:center;text-align:center;justify-content:center!important;overflow:visible}
+  .score-dashboard-inline .score-component+ .score-component{border-left:1px solid #edf1f4!important}
+  .score-dashboard-inline .score-tile-head{display:block}
+  .score-dashboard-inline .score-tile-head>span{font-size:9px;white-space:nowrap;color:#65798a}
+  .score-dashboard-inline .score-tile-head em{display:none}
+  .score-dashboard-inline .score-component>b{font-size:18px!important;line-height:1;margin:5px 0 0!important}
+  .score-dashboard-inline .score-mini-meter,.score-dashboard-inline .score-component>small{display:none!important}
+  .score-dashboard-inline .score-component.active{background:#f4f9fd!important}
+  .score-dashboard-inline .score-component:active{transform:none!important}
+
+  /* Watchlist: important numbers first, analyses behind one drawer */
+  #watchlist>.watch.card{margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:14px 13px!important}
+  #watchlist>.watch.card .title{margin-bottom:4px}
+  #watchlist>.watch-insights-v2{margin:0 12px 12px}
+  .watch-insights-v2>summary{padding:11px 12px}
+  .watch-insights-v2>summary b{font-size:12px}
+  .watch-insights-v2>summary small{font-size:8px}
+  .watch-insights-body{padding:9px}
+  .watch-insights-body .watch-layout{display:block!important}
+  .watch-insights-body .watch-layout>.card{margin:8px 0 0!important}
+  .watch-insights-body .watch-layout>.card:first-child{margin-top:0!important}
+  .watch-insights-body .standalone-history{margin:8px 0 0!important}
+}
+
