@@ -704,12 +704,23 @@ main{max-width:1180px;padding-top:24px}
 }
 
 
-/* refresh calendar + panel unread indicators v1 */
-.refresh-calendar-v1{margin-top:14px;padding:20px}
-.refresh-calendar-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
-.refresh-calendar-head small{font-size:10px;font-weight:800;color:#1677ff;letter-spacing:.04em}
-.refresh-calendar-head h2{margin:5px 0 4px;font-size:20px}
-.refresh-calendar-head p{margin:0;color:var(--muted);font-size:11px}
+/* refresh calendar + panel unread indicators v2 */
+.refresh-calendar-v1{margin-top:14px;padding:0;overflow:hidden}
+.refresh-calendar-v1>summary{list-style:none}
+.refresh-calendar-v1>summary::-webkit-details-marker{display:none}
+.refresh-calendar-summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;cursor:pointer;user-select:none}
+.refresh-summary-copy{min-width:0}
+.refresh-summary-copy>small{display:block;font-size:9px;font-weight:800;color:#1677ff;letter-spacing:.04em}
+.refresh-summary-line{display:flex;align-items:center;gap:9px;margin-top:3px;min-width:0}
+.refresh-summary-line h2{margin:0;font-size:17px;line-height:1.35}
+.refresh-summary-line b{font-size:10px;color:#18794e;background:#edf9f2;border-radius:999px;padding:4px 7px;white-space:nowrap}
+.refresh-summary-line b.warning{color:#9a6700;background:#fff4d6}
+.refresh-summary-copy>p{margin:4px 0 0;color:var(--muted);font-size:10px;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.refresh-summary-toggle{font-style:normal;font-size:19px;color:#718096;transition:transform .18s}
+.refresh-calendar-v1[open] .refresh-summary-toggle{transform:rotate(45deg)}
+.refresh-calendar-detail{border-top:1px solid var(--line);padding:15px 20px 20px}
+.refresh-calendar-head{display:flex;justify-content:space-between;gap:20px;align-items:center}
+.refresh-calendar-head>p{margin:0;color:var(--muted);font-size:10px}
 .refresh-legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;font-size:10px;color:var(--muted)}
 .refresh-legend span{display:inline-flex;align-items:center;gap:5px}
 .legend-dot,.panel-refresh-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex:0 0 auto}
@@ -718,7 +729,7 @@ main{max-width:1180px;padding-top:24px}
 .panel-refresh-dot{margin-left:7px;vertical-align:middle}
 .panel-refresh-dot.is-seen{display:none}
 .panel-refresh-note{display:block;margin-top:4px;color:var(--muted);font-size:9px!important;font-weight:650!important;line-height:1.4}
-.refresh-calendar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.refresh-calendar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
 .refresh-cycle-card{border:1px solid var(--line);background:#fafcff;border-radius:14px;padding:15px;min-width:0}
 .refresh-cycle-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
 .refresh-cycle-top span{font-size:10px;color:#1677ff;font-weight:850}
@@ -733,12 +744,20 @@ main{max-width:1180px;padding-top:24px}
 .refresh-health-summary.warning{background:#fff7e6;color:#9a6700}
 .deep-copy-v4 b .panel-refresh-dot,.method-v4 summary b .panel-refresh-dot{transform:translateY(-1px)}
 @media(max-width:800px){
- .refresh-calendar-v1{padding:16px}
+ .refresh-calendar-summary{padding:14px 16px}
+ .refresh-summary-line{gap:7px}
+ .refresh-summary-line h2{font-size:16px}
+ .refresh-summary-copy>p{font-size:9px}
+ .refresh-calendar-detail{padding:13px 16px 16px}
  .refresh-calendar-head{display:block}
- .refresh-legend{justify-content:flex-start;margin-top:10px;gap:9px}
+ .refresh-legend{justify-content:flex-start;margin-top:9px;gap:9px}
  .refresh-calendar-grid{grid-template-columns:1fr}
  .refresh-cycle-card{padding:13px}
  .refresh-items{grid-template-columns:1fr 1fr}
 }
-@media(max-width:430px){.refresh-items{grid-template-columns:1fr}.refresh-calendar-head h2{font-size:18px}}
+@media(max-width:430px){
+ .refresh-summary-line{align-items:flex-start;flex-direction:column;gap:3px}
+ .refresh-summary-copy>p{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+ .refresh-items{grid-template-columns:1fr}
+}
 

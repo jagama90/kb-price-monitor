@@ -385,6 +385,9 @@ async function initRefreshCalendar(){
  set('refreshMonthlyNext','다음 '+refreshScheduleFmt(refreshNextMonthly()));
  const hs=document.getElementById('refreshHealthSummary');
  if(hs){hs.classList.toggle('warning',Boolean(healthWarn));hs.textContent=healthWarn?'주의 · '+healthWarn:'정상 · 연결 원천과 파생 데이터가 최신 주기에 맞춰 갱신되고 있습니다.'}
+ const summaryStatus=document.getElementById('refreshSummaryStatus'),summaryMeta=document.getElementById('refreshSummaryMeta');
+ if(summaryStatus){summaryStatus.classList.toggle('warning',Boolean(healthWarn));summaryStatus.textContent=healthWarn?'원천 지연 확인':'원천 정상'}
+ if(summaryMeta){summaryMeta.textContent='시장 '+refreshFmt(refreshStamp(dailyRev))+' · KB '+refreshFmt(refreshStamp(kbRev))+' · 다음 시장 '+refreshScheduleFmt(refreshNextDaily())}
 
  const boundaryHost=document.getElementById('boundary')?.closest('.card');
  decorateRefreshPanel({key:'overview',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),revision:dailyRev,warning:delayed.length?'원천 지연 '+delayed.join('/'):''});

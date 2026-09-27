@@ -74,10 +74,16 @@ if "flow-step-v4 '+state[1]" not in js: errors.append('live signal updater does 
 
 
 # refresh calendar / unread indicator contract
-for rid in ('refreshCalendar','refreshCalendarTitle','refreshLegend','refreshDaily','refreshWeekly','refreshMonthly',
+for rid in ('refreshCalendar','refreshCalendarTitle','refreshSummaryStatus','refreshSummaryMeta','refreshLegend','refreshDaily','refreshWeekly','refreshMonthly',
             'refreshDailyLast','refreshDailyNext','refreshWeeklyLast','refreshWeeklyNext','refreshMonthlyLast','refreshMonthlyNext',
             'refreshHealthSummary'):
     if ids.count(rid)!=1: errors.append(f'refresh calendar id {rid}: expected 1, got {ids.count(rid)}')
+if not re.search(r'<details[^>]+id="refreshCalendar"[^>]*>',html):
+    errors.append('refresh calendar must default to collapsed details')
+if '<summary class="refresh-calendar-summary">' not in html:
+    errors.append('refresh calendar compact summary missing')
+if 'refreshSummaryStatus' not in js or 'refreshSummaryMeta' not in js:
+    errors.append('refresh calendar compact live status wiring missing')
 if "const REFRESH_SEEN_PREFIX='kbpm.refresh.seen.'" not in js:
     errors.append('panel unread localStorage revision contract missing')
 if 'initRefreshCalendar()' not in js or 'decorateRefreshPanel' not in js:
