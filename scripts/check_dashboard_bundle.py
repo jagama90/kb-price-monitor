@@ -73,9 +73,9 @@ if "flow-step-v4 '+state[1]" not in js: errors.append('live signal updater does 
 
 
 
-# refresh calendar / unread indicator contract
-for rid in ('refreshCalendar','refreshCalendarTitle','refreshSummaryStatus','refreshSummaryMeta','refreshLegend','refreshDaily','refreshWeekly','refreshMonthly',
-            'refreshDailyLast','refreshDailyNext','refreshWeeklyLast','refreshWeeklyNext','refreshMonthlyLast','refreshMonthlyNext',
+# refresh calendar / semantic change-history contract
+for rid in ('refreshCalendar','refreshCalendarTitle','refreshSummaryStatus','refreshSummaryMeta','refreshLegend','refreshChangedCount','refreshUnchangedCount','refreshWarningCount',
+            'refreshDaily','refreshWeekly','refreshMonthly','refreshDailyLast','refreshDailyNext','refreshWeeklyLast','refreshWeeklyNext','refreshMonthlyLast','refreshMonthlyNext',
             'refreshHealthSummary'):
     if ids.count(rid)!=1: errors.append(f'refresh calendar id {rid}: expected 1, got {ids.count(rid)}')
 if not re.search(r'<details[^>]+id="refreshCalendar"[^>]*>',html):
@@ -84,12 +84,20 @@ if '<summary class="refresh-calendar-summary">' not in html:
     errors.append('refresh calendar compact summary missing')
 if 'refreshSummaryStatus' not in js or 'refreshSummaryMeta' not in js:
     errors.append('refresh calendar compact live status wiring missing')
-if "const REFRESH_SEEN_PREFIX='kbpm.refresh.seen.'" not in js:
-    errors.append('panel unread localStorage revision contract missing')
-if 'initRefreshCalendar()' not in js or 'decorateRefreshPanel' not in js:
-    errors.append('refresh calendar renderer missing')
+if "const REFRESH_SNAPSHOT_KEY='kbpm.refresh.snapshot.v3'" not in js:
+    errors.append('semantic refresh snapshot storage contract missing')
+if 'REFRESH_CHANGE_TTL=24*60*60*1000' not in js:
+    errors.append('24h recent-change visibility contract missing')
+if 'initRefreshCalendar()' not in js or 'decorateRefreshPanel' not in js or 'decorateFactorRefresh' not in js:
+    errors.append('semantic refresh renderer missing')
 if js.count("decorateRefreshPanel({key:")<6:
-    errors.append('six core dashboard panels must expose refresh indicators')
+    errors.append('six core dashboard panels must expose refresh timestamps')
+if "dot.className='panel-refresh-dot'" in js:
+    errors.append('legacy unread red-dot creator returned')
+if '실제 변경' not in js or '변경 없음' not in js:
+    errors.append('refresh summary must distinguish real changes from checks with no value change')
+if 'factor-change-v135' not in js:
+    errors.append('factor before-to-after change display missing')
 
 
 # watchlist simplified source-state contract
