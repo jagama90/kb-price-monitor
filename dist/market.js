@@ -398,7 +398,7 @@ async function initRefreshCalendar(){
    refreshJson('final_backtest.json'),refreshJson('turning_signal_research.json')
  ]);
  const src=mi?.refresh_run?.sources||{},delayed=Object.entries(src).filter(([,v])=>v!=='connected').map(([k])=>({molit:'국토부',ecos:'ECOS',kb_sentiment:'KB',watchlist_detail:'단지상세'}[k]||k));
- const listingWarn=market&&String(market.listing_refresh_status||'')!=='connected'?'매물 원천 확인':'';
+ const listingFallback=market&&String(market.listing_refresh_status||'')!=='connected';
  const dailyRev=mi?.refresh_run?.attempted_at||mi?.updated_at;
  const kbRev=master?.kb_collected_at||master?.generated_at;
  const watchRev=refreshMax(kbRev,market?.molit_trade_collected_at,market?.kb_detail_collected_at,String(market?.listing_refresh_status)==='connected'?market?.listing_collected_at:null)?.toISOString();
@@ -436,13 +436,13 @@ async function initRefreshCalendar(){
  decorateRefreshPanel({key:'overview',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),record:overviewRec,checkedAt:dailyRev});
  decorateRefreshPanel({key:'forecast',host:document.getElementById('regimeForecast'),anchor:document.querySelector('#regimeForecast h2'),record:forecastRec,checkedAt:forecastRev});
  decorateRefreshPanel({key:'context',host:document.getElementById('marketContext'),anchor:document.querySelector('#marketContext h2'),record:contextRec,checkedAt:extensionRev});
- decorateRefreshPanel({key:'watchlist',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),record:watchRec,checkedAt:watchRev,warning:listingWarn,note:false});
+ decorateRefreshPanel({key:'watchlist',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),record:watchRec,checkedAt:watchRev,note:false});
  const boundaryHost=document.getElementById('boundary')?.closest('.card');
  decorateRefreshPanel({key:'boundary',host:boundaryHost,anchor:boundaryHost?.querySelector('.title h2'),record:boundaryRec,checkedAt:kbRev});
  decorateRefreshPanel({key:'health',host:document.querySelector('.method-v4'),anchor:document.querySelector('.method-v4 summary b'),record:healthRec,checkedAt:healthRev,warning:critical.length?'핵심 원천 확인 필요':'',note:false});
 
  refreshWriteState(state);
- const countable=records.filter(x=>x.countable),changed=countable.filter(x=>x.active),unchanged=countable.length-changed.length,warningCount=critical.length+(listingWarn?1:0);
+ const countable=records.filter(x=>x.countable),changed=countable.filter(x=>x.active),unchanged=countable.length-changed.length,warningCount=critical.length;
  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
  set('refreshChangedCount',changed.length?'실제 변경 '+changed.length+'개':'실제 변경 없음');
  set('refreshUnchangedCount','변경 없음 '+unchanged+'개');
@@ -450,7 +450,7 @@ async function initRefreshCalendar(){
  const changedEl=document.getElementById('refreshChangedCount');if(changedEl)changedEl.classList.toggle('changed',changed.length>0);
  set('refreshDailyLast','마지막 '+refreshShortFmt(refreshStamp(dailyRev))+' 확인 · '+(changed.length?'실제 변경 '+changed.length+'개':'변경 없음'));
  set('refreshDailyNext','다음 '+refreshScheduleFmt(refreshNextDaily()));
- set('refreshWeeklyLast','KB 시세 '+refreshShortFmt(refreshStamp(kbRev))+(listingWarn?' · 매물 원천 확인':' · 확인 완료'));
+ set('refreshWeeklyLast','KB 시세 '+refreshShortFmt(refreshStamp(kbRev))+(listingFallback?' · 매물은 마지막 정상값 유지':' · 확인 완료'));
  set('refreshWeeklyNext','다음 '+refreshScheduleFmt(refreshNextWeekly()));
  set('refreshMonthlyLast','연구엔진 '+refreshShortFmt(refreshStamp(monthlyRev))+(backtest?.certified_through?' · 인증 '+String(backtest.certified_through).slice(0,4)+'.'+String(backtest.certified_through).slice(4):''));
  set('refreshMonthlyNext','다음 '+refreshScheduleFmt(refreshNextMonthly()));
