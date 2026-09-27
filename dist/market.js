@@ -90,7 +90,7 @@ function renderConditionIndex(d){
   const card=document.querySelector('[data-score="'+k+'"]');
   if(card)card.style.setProperty('--score',components[k]==null?0:Math.round(components[k]));
  });
- const historyKey='marketConditionPreviousComponents', previous=(()=>{try{return JSON.parse(localStorage.getItem(historyKey)||'{}')}catch(e){return {}}})();
+ const historyKey='marketConditionPreviousComponents', previous=(()=>{try{return JSON.parse(localStorage.getItem(historyKey)||'{}')}catch(e){return {}}})(); window.__previousConditionComponents=previous;
  Object.entries(labels).forEach(([k,id])=>{const card=document.querySelector('[data-score="'+k+'"]'),old=previous[k],now=components[k];card?.querySelector('.score-change-badge')?.remove();if(old!=null&&now!=null&&Math.round(Number(old))!==Math.round(Number(now))){const delta=Math.round(Number(now))-Math.round(Number(old)),badge=document.createElement('span');badge.className='score-change-badge '+(delta>0?'score-up':'score-down');badge.textContent=(delta>0?'↑ +':'↓ ')+delta;badge.title='이전 확인값 '+Math.round(Number(old))+' → 현재 '+Math.round(Number(now));card?.appendChild(badge)}});
  try{localStorage.setItem(historyKey,JSON.stringify(components))}catch(e){}
  const available=Object.keys(components).filter(k=>components[k]!=null),covered=available.reduce((a,k)=>a+weights[k],0);
@@ -327,37 +327,69 @@ async function loadMarketExtensions(){
 loadMarketExtensions();
 
 
-/* refresh calendar + panel unread indicators v1 */
-const REFRESH_SEEN_PREFIX='kbpm.refresh.seen.';
+/* refresh calendar + semantic change history v135 */
+const REFRESH_SNAPSHOT_KEY='kbpm.refresh.snapshot.v3';
+const REFRESH_CHANGE_TTL=24*60*60*1000;
 const refreshJson=async path=>{try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' '+r.status);return await r.json()}catch(e){console.warn('refresh-meta',e);return null}};
 const refreshStamp=v=>{const d=new Date(v||0);return Number.isFinite(d.getTime())?d:null};
 const refreshMax=(...vals)=>{const ds=vals.flat().map(refreshStamp).filter(Boolean);return ds.length?new Date(Math.max(...ds.map(d=>d.getTime()))):null};
 const refreshFmt=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):'확인 대기';
+const refreshShortFmt=d=>{if(!d)return'확인 대기';const now=new Date(),parts=z=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(z),same=parts(d)===parts(now);return (same?'오늘 ':new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'}).format(d)+' ')+new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d)};
 const refreshScheduleFmt=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):'—';
 const refreshKstParts=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return{y:+p.year,m:+p.month,d:+p.day,w:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.weekday],hh:+p.hour,mm:+p.minute}};
 const refreshKstDate=(y,m,d,h,min)=>new Date(Date.UTC(y,m-1,d,h-9,min));
 const refreshNextDaily=()=>{const n=refreshKstParts(),after=n.hh>7||(n.hh===7&&n.mm>=5),base=refreshKstDate(n.y,n.m,n.d,7,5);return after?new Date(base.getTime()+86400000):base};
 const refreshNextWeekly=()=>{const n=refreshKstParts();let delta=(5-n.w+7)%7;if(delta===0&&(n.hh>21||(n.hh===21&&n.mm>=5)))delta=7;return new Date(refreshKstDate(n.y,n.m,n.d,21,5).getTime()+delta*86400000)};
 const refreshNextMonthly=()=>{const n=refreshKstParts();let y=n.y,m=n.m;let d=refreshKstDate(y,m,3,7,20);if(Date.now()>=d.getTime()){m+=1;if(m===13){m=1;y+=1}d=refreshKstDate(y,m,3,7,20)}return d};
-const refreshSeen=(key,rev)=>{try{return localStorage.getItem(REFRESH_SEEN_PREFIX+key)===String(rev||'')}catch{return false}};
-const refreshMarkSeen=(key,rev)=>{try{if(rev)localStorage.setItem(REFRESH_SEEN_PREFIX+key,String(rev))}catch{}};
-function decorateRefreshPanel({key,host,anchor,revision,warning='',note=true}){
- if(!host||!anchor||!revision)return;
- anchor.querySelector('.panel-refresh-dot')?.remove();
- const dot=document.createElement('i');dot.className='panel-refresh-dot';
- const isNew=!refreshSeen(key,revision);
- if(warning)dot.classList.add('is-warning');else if(isNew)dot.classList.add('is-new');else dot.classList.add('is-seen');
- dot.setAttribute('aria-label',warning?'원천 갱신 지연':isNew?'새 데이터':'확인한 데이터');
- dot.title=warning?warning:(isNew?'새 데이터 · 눌러서 확인 처리':'확인한 데이터');
- anchor.appendChild(dot);
- if(note){
-   let meta=anchor.parentElement?.querySelector(':scope > .panel-refresh-note');
-   if(!meta&&anchor.parentElement){meta=document.createElement('span');meta.className='panel-refresh-note';anchor.parentElement.appendChild(meta)}
-   if(meta)meta.textContent=refreshFmt(refreshStamp(revision))+' 갱신';
+const refreshReadState=()=>{try{const x=JSON.parse(localStorage.getItem(REFRESH_SNAPSHOT_KEY)||'{}');return{xVersion:3,items:x.items||{}}}catch{return{xVersion:3,items:{}}}};
+const refreshWriteState=s=>{try{localStorage.setItem(REFRESH_SNAPSHOT_KEY,JSON.stringify(s))}catch{}};
+const refreshSig=v=>JSON.stringify(v);
+const refreshNum=v=>v==null||!Number.isFinite(Number(v))?null:Number(v);
+const refreshClamp=v=>Math.max(0,Math.min(100,v));
+const refreshComponents=d=>{const m=d?.m2_official||d?.m2,matched=d?.matched_period;return{
+ finance:m?.mom_pct!=null&&m?.yoy_pct!=null?refreshClamp(50+Number(m.mom_pct)*8+Number(m.yoy_pct)*1.5):null,
+ sentiment:d?.kb_sentiment?.score_0_100==null?null:Number(d.kb_sentiment.score_0_100),
+ demand:matched?.changes?.trade_count_pct!=null&&matched?.changes?.under15_share_pp!=null?refreshClamp(50+Number(matched.changes.trade_count_pct)*.35+Number(matched.changes.under15_share_pp)*1.5):null,
+ value:d?.kb_value?.score_0_100==null?null:Number(d.kb_value.score_0_100),
+ supply:d?.kb_sentiment?.jeonse_score_0_100==null?null:Number(d.kb_sentiment.jeonse_score_0_100)
+}};
+function refreshTrack(state,key,label,signature,value,checkedAt,countable=true){
+ const now=Date.now(),sig=refreshSig(signature),prev=state.items[key],changed=Boolean(prev&&prev.sig!==sig);
+ const changedAt=changed?now:(prev&&prev.sig===sig?Number(prev.changedAt||0):0);
+ const from=changed?prev.value:(prev?.from??null),to=value;
+ const active=Boolean(changedAt&&now-changedAt<REFRESH_CHANGE_TTL);
+ state.items[key]={sig,value,from,changedAt,checkedAt:checkedAt||null,label,countable};
+ return{key,label,value,from,changedAt,active,changed,checkedAt:refreshStamp(checkedAt),countable,initialized:Boolean(prev)};
+}
+function decorateRefreshPanel({key,host,anchor,record,checkedAt,warning='',note=true}){
+ if(!host||!anchor)return;
+ host.querySelectorAll('.panel-refresh-dot,.panel-refresh-note,.panel-refresh-chip-v135,.panel-refresh-change-v135').forEach(x=>x.remove());
+ host.classList.toggle('has-fresh-change-v135',Boolean(record?.active&&!warning));
+ const chip=document.createElement('span');chip.className='panel-refresh-chip-v135';
+ const stamp=refreshShortFmt(refreshStamp(checkedAt)||record?.checkedAt);
+ if(warning){chip.classList.add('warning');chip.textContent=stamp+' · 원천 확인'}
+ else if(record?.active){chip.classList.add('changed');chip.textContent=stamp+' · 갱신됨'}
+ else{chip.textContent=stamp+' · 변경 없음'}
+ anchor.insertAdjacentElement('afterend',chip);
+ if(note&&record?.active&&record.from!=null&&record.value!=null&&String(record.from)!==String(record.value)){
+   const detail=document.createElement('span');detail.className='panel-refresh-change-v135';detail.textContent=String(record.from)+' → '+String(record.value);chip.insertAdjacentElement('afterend',detail);
  }
- const mark=()=>{refreshMarkSeen(key,revision);if(!warning){dot.classList.remove('is-new');dot.classList.add('is-seen')}};
- host.addEventListener('click',mark);
- host.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')mark()});
+}
+function decorateFactorRefresh(card,record,checkedAt){
+ if(!card)return;
+ card.querySelectorAll('.factor-refresh-v135,.factor-change-v135').forEach(x=>x.remove());
+ card.classList.toggle('has-fresh-change-v135',Boolean(record?.active));
+ const head=card.querySelector('.factor-card-head-v134'),score=card.querySelector('.factor-score-v134');
+ const chip=document.createElement('span');chip.className='factor-refresh-v135'+(record?.active?' changed':'');
+ chip.textContent=record?.active?refreshShortFmt(refreshStamp(checkedAt))+' 갱신':refreshShortFmt(refreshStamp(checkedAt))+' 확인 · 변경 없음';
+ if(head)head.insertAdjacentElement('afterend',chip);
+ const a=refreshNum(record?.from),b=refreshNum(record?.value);
+ if(record?.active&&score){
+   const change=document.createElement('div');change.className='factor-change-v135';
+   if(a!=null&&b!=null&&Math.round(a)!==Math.round(b)){const delta=Math.round(b)-Math.round(a);change.innerHTML='<span>이전 '+Math.round(a)+'</span><i>→</i><b>'+Math.round(b)+'</b><em>'+(delta>0?'+':'')+delta+'</em>'}
+   else change.textContent='입력 데이터 갱신';
+   score.insertAdjacentElement('afterend',change);
+ }
 }
 async function initRefreshCalendar(){
  const [mi,market,master,forecast,extensions,hist,backtest,research]=await Promise.all([
@@ -366,7 +398,7 @@ async function initRefreshCalendar(){
    refreshJson('final_backtest.json'),refreshJson('turning_signal_research.json')
  ]);
  const src=mi?.refresh_run?.sources||{},delayed=Object.entries(src).filter(([,v])=>v!=='connected').map(([k])=>({molit:'국토부',ecos:'ECOS',kb_sentiment:'KB',watchlist_detail:'단지상세'}[k]||k));
- const listingWarn=market&&String(market.listing_refresh_status||'')!=='connected'?'매물 원천 지연 · 마지막 정상값 유지 중':'';
+ const listingWarn=market&&String(market.listing_refresh_status||'')!=='connected'?'매물 원천 확인':'';
  const dailyRev=mi?.refresh_run?.attempted_at||mi?.updated_at;
  const kbRev=master?.kb_collected_at||master?.generated_at;
  const watchRev=refreshMax(kbRev,market?.molit_trade_collected_at,market?.kb_detail_collected_at,String(market?.listing_refresh_status)==='connected'?market?.listing_collected_at:null)?.toISOString();
@@ -374,32 +406,60 @@ async function initRefreshCalendar(){
  const extensionRev=extensions?.generated_at;
  const monthlyRev=refreshMax(backtest?.generated_at,research?.generated_at)?.toISOString();
  const healthRev=refreshMax(dailyRev,market?.listing_refresh_attempted_at,hist?.generated_at,forecastRev,extensionRev,monthlyRev)?.toISOString();
- const healthWarn=[delayed.length?'원천 지연 '+delayed.join('/'):'',listingWarn].filter(Boolean).join(' · ');
+ const statuses=mi?.data_status||{},critical=Object.entries(statuses).filter(([k,v])=>v!=='connected'&&!['watchlist_detail_refresh'].includes(k)).map(([k])=>k);
+ const state=refreshReadState(),records=[],components=refreshComponents(mi),m=mi?.m2_official||mi?.m2||{},sent=mi?.kb_sentiment||{},matched=mi?.matched_period||{},val=mi?.kb_value||{};
 
- const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
- set('refreshDailyLast','마지막 '+refreshFmt(refreshStamp(dailyRev))+(delayed.length?' · 원천 지연 '+delayed.join('/'):' · 원천 정상'));
- set('refreshDailyNext','다음 '+refreshScheduleFmt(refreshNextDaily()));
- set('refreshWeeklyLast','KB 시세 '+refreshFmt(refreshStamp(kbRev))+(listingWarn?' · 매물 원천 지연':' · 주간 원천 정상'));
- set('refreshWeeklyNext','다음 '+refreshScheduleFmt(refreshNextWeekly()));
- set('refreshMonthlyLast','연구엔진 '+refreshFmt(refreshStamp(monthlyRev))+(backtest?.certified_through?' · 인증 '+String(backtest.certified_through).slice(0,4)+'.'+String(backtest.certified_through).slice(4):''));
- set('refreshMonthlyNext','다음 '+refreshScheduleFmt(refreshNextMonthly()));
- const hs=document.getElementById('refreshHealthSummary');
- if(hs){hs.classList.toggle('warning',Boolean(healthWarn));hs.textContent=healthWarn?'주의 · '+healthWarn:'정상 · 연결 원천과 파생 데이터가 최신 주기에 맞춰 갱신되고 있습니다.'}
- const summaryStatus=document.getElementById('refreshSummaryStatus'),summaryMeta=document.getElementById('refreshSummaryMeta');
- if(summaryStatus){summaryStatus.classList.toggle('warning',Boolean(healthWarn));summaryStatus.textContent=healthWarn?'원천 지연 확인':'원천 정상'}
- if(summaryMeta){summaryMeta.textContent='시장 '+refreshFmt(refreshStamp(dailyRev))+' · KB '+refreshFmt(refreshStamp(kbRev))+' · 다음 시장 '+refreshScheduleFmt(refreshNextDaily())}
+ const factorDefs={
+  finance:{label:'금융',value:components.finance,sig:{score:components.finance,m2:[m.period,m.mom_pct,m.yoy_pct],mortgage:[mi?.mortgage_rate_official?.period,mi?.mortgage_rate_official?.rate_pct],base:[mi?.base_rate_official?.latest?.date,mi?.base_rate_official?.latest?.rate_pct]}},
+  sentiment:{label:'심리',value:components.sentiment,sig:{score:components.sentiment,buy:[sent.latest?.매수우위?.date,sent.latest?.매수우위?.value],trade:[sent.latest?.매매거래활발?.date,sent.latest?.매매거래활발?.value]}},
+  demand:{label:'거래',value:components.demand,sig:{score:components.demand,period:matched.current?.period,total:matched.current?.total,under15:matched.current?.under15_share,changes:matched.changes}},
+  value:{label:'가격',value:components.value,sig:{score:components.value,period:val.period,current:val.current_manwon,low:val.window_low_manwon,high:val.window_high_manwon}},
+  supply:{label:'전세',value:components.supply,sig:{score:components.supply,supply:[sent.latest?.전세수급?.date,sent.latest?.전세수급?.value],activity:[sent.latest?.전세거래활발?.date,sent.latest?.전세거래활발?.value]}}
+ };
+ for(const [key,d] of Object.entries(factorDefs)){const rec=refreshTrack(state,'factor.'+key,d.label,d.sig,d.value,dailyRev,true);records.push(rec);decorateFactorRefresh(document.querySelector('[data-score-key="'+key+'"]'),rec,dailyRev)}
 
+ const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},avail=Object.keys(components).filter(k=>components[k]!=null),covered=avail.reduce((a,k)=>a+weights[k],0),condition=covered?Math.round(avail.reduce((a,k)=>a+components[k]*weights[k],0)/covered):null;
+ const overviewRec=refreshTrack(state,'panel.overview','현재 국면',{condition,factors:components,weekly:[mi?.kb_weekly_sale_index?.latest?.date,mi?.kb_weekly_sale_index?.latest?.change_pct,mi?.kb_weekly_rent_index?.latest?.change_pct]},condition,dailyRev,false);
+ const forecastSig={research:forecast?.latest_research_month,cert:forecast?.latest_certified_backtest_month,h:(forecast?.horizons||[]).map(x=>[x.period,x.weights])};
+ const forecastValue=(forecast?.horizons||[])[0]?.weights?.consolidation==null?null:Number((forecast.horizons||[])[0].weights.consolidation).toFixed(1);
+ const forecastRec=refreshTrack(state,'panel.forecast','전망',forecastSig,forecastValue,forecastRev,true);
+ const contextSig={breadth:extensions?.current?.breadth,aff:extensions?.current?.affordability,temp:extensions?.current?.temperature};
+ const contextValue=extensions?.current?.breadth?.seoul_25?.up_share_pct??null;
+ const contextRec=refreshTrack(state,'panel.context','보조신호',contextSig,contextValue,extensionRev,true);
+ const watchItems=(market?.items||[]).map(x=>[x.complex_id,x.area_id,x.sale_listing_count,x.sale_listing_week_delta,x.avg_ask_manwon,x.recent_trade_manwon,x.recent_trade_date]);
+ const watchRec=refreshTrack(state,'panel.watchlist','관심단지',{items:watchItems,kb:kbRev},(market?.items||[]).length,watchRev,true);
+ const boundarySig=(master?.items||[]).map(x=>[x.complex_id,(x.types||[]).map(t=>[t.area_id,t.general_price_manwon])]);
+ const boundaryRec=refreshTrack(state,'panel.boundary','15억 경계',boundarySig,kbRev?refreshFmt(refreshStamp(kbRev)):null,kbRev,false);
+ const healthRec=refreshTrack(state,'panel.health','검증상태',{statuses,cert:backtest?.certified_through,research:research?.latest_month||research?.as_of},critical.length,healthRev,false);
+ records.push(forecastRec,contextRec,watchRec);
+
+ decorateRefreshPanel({key:'overview',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),record:overviewRec,checkedAt:dailyRev});
+ decorateRefreshPanel({key:'forecast',host:document.getElementById('regimeForecast'),anchor:document.querySelector('#regimeForecast h2'),record:forecastRec,checkedAt:forecastRev});
+ decorateRefreshPanel({key:'context',host:document.getElementById('marketContext'),anchor:document.querySelector('#marketContext h2'),record:contextRec,checkedAt:extensionRev});
+ decorateRefreshPanel({key:'watchlist',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),record:watchRec,checkedAt:watchRev,warning:listingWarn,note:false});
  const boundaryHost=document.getElementById('boundary')?.closest('.card');
- decorateRefreshPanel({key:'overview',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),revision:dailyRev,warning:delayed.length?'원천 지연 '+delayed.join('/'):''});
- decorateRefreshPanel({key:'forecast',host:document.getElementById('regimeForecast'),anchor:document.querySelector('#regimeForecast h2'),revision:forecastRev});
- decorateRefreshPanel({key:'context',host:document.getElementById('marketContext'),anchor:document.querySelector('#marketContext h2'),revision:extensionRev});
- decorateRefreshPanel({key:'watchlist',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),revision:watchRev,warning:listingWarn,note:false});
- decorateRefreshPanel({key:'boundary',host:boundaryHost,anchor:boundaryHost?.querySelector('.title h2'),revision:kbRev});
- decorateRefreshPanel({key:'health',host:document.querySelector('.method-v4'),anchor:document.querySelector('.method-v4 summary b'),revision:healthRev,warning:healthWarn});
+ decorateRefreshPanel({key:'boundary',host:boundaryHost,anchor:boundaryHost?.querySelector('.title h2'),record:boundaryRec,checkedAt:kbRev});
+ decorateRefreshPanel({key:'health',host:document.querySelector('.method-v4'),anchor:document.querySelector('.method-v4 summary b'),record:healthRec,checkedAt:healthRev,warning:critical.length?'핵심 원천 확인 필요':'',note:false});
+
+ refreshWriteState(state);
+ const countable=records.filter(x=>x.countable),changed=countable.filter(x=>x.active),unchanged=countable.length-changed.length,warningCount=critical.length+(listingWarn?1:0);
+ const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+ set('refreshChangedCount',changed.length?'실제 변경 '+changed.length+'개':'실제 변경 없음');
+ set('refreshUnchangedCount','변경 없음 '+unchanged+'개');
+ const wc=document.getElementById('refreshWarningCount');if(wc){wc.hidden=!warningCount;wc.textContent='원천 확인 '+warningCount+'건'}
+ const changedEl=document.getElementById('refreshChangedCount');if(changedEl)changedEl.classList.toggle('changed',changed.length>0);
+ set('refreshDailyLast','마지막 '+refreshShortFmt(refreshStamp(dailyRev))+' 확인 · '+(changed.length?'실제 변경 '+changed.length+'개':'변경 없음'));
+ set('refreshDailyNext','다음 '+refreshScheduleFmt(refreshNextDaily()));
+ set('refreshWeeklyLast','KB 시세 '+refreshShortFmt(refreshStamp(kbRev))+(listingWarn?' · 매물 원천 확인':' · 확인 완료'));
+ set('refreshWeeklyNext','다음 '+refreshScheduleFmt(refreshNextWeekly()));
+ set('refreshMonthlyLast','연구엔진 '+refreshShortFmt(refreshStamp(monthlyRev))+(backtest?.certified_through?' · 인증 '+String(backtest.certified_through).slice(0,4)+'.'+String(backtest.certified_through).slice(4):''));
+ set('refreshMonthlyNext','다음 '+refreshScheduleFmt(refreshNextMonthly()));
+ const hs=document.getElementById('refreshHealthSummary');if(hs){hs.classList.toggle('warning',Boolean(warningCount));hs.textContent=warningCount?'원천 확인 필요 · 문제가 있는 원천만 마지막 정상값을 유지합니다.':'정상 · 핵심 원천이 확인됐고 실제 값 변화만 갱신 표시합니다.'}
+ const ss=document.getElementById('refreshSummaryStatus'),sm=document.getElementById('refreshSummaryMeta');
+ if(ss){ss.classList.toggle('warning',Boolean(warningCount));ss.classList.toggle('changed',changed.length>0&&!warningCount);ss.textContent=warningCount?'원천 확인 '+warningCount+'건':changed.length?'변경 '+changed.length+'개':'변경 없음'}
+ if(sm){const names=changed.slice(0,4).map(x=>x.label);sm.textContent=refreshShortFmt(refreshStamp(dailyRev))+' 확인 완료 · '+(names.length?names.join(' · ')+' 갱신'+(changed.length>4?' 외 '+(changed.length-4)+'개':''):'주요 지표 값 변화 없음')}
 }
 initRefreshCalendar();
-
-
 
 /* dashboard refinement v133 — infographic details + semantic notification revisions */
 (function(){
@@ -426,31 +486,7 @@ initRefreshCalendar();
    p.hidden=false;p.style.display='block';document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{const on=card.dataset.scoreKey===k;card.setAttribute('aria-expanded',on?'true':'false');card.classList.toggle('active',on)});p.scrollIntoView({behavior:'smooth',block:'center'});
  };
 
- const stable=async(path,make)=>{try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)return null;return make(await r.json())}catch{return null}};
- const clearDots=()=>document.querySelectorAll('.panel-refresh-dot,.panel-refresh-note').forEach(x=>x.remove());
- async function normalizeRefreshIndicators(){
-   const [mi,mkt,master,fc,ext,bt,rs]=await Promise.all([
-    stable('market_indicators.json',d=>d),stable('buy_watchlist_market.json',d=>d),stable('buy_watchlist_master.json',d=>d),
-    stable('regime_forecast.json',d=>d),stable('market_extensions.json',d=>d),stable('final_backtest.json',d=>d),stable('turning_signal_research.json',d=>d)
-   ]);
-   clearDots();
-   const statuses=mi?.data_status||{};
-   const critical=Object.entries(statuses).filter(([k,v])=>v!=='connected'&&!['watchlist_detail_refresh'].includes(k)).map(([k])=>k);
-   const overviewRev=JSON.stringify({trade:mi?.matched_period?.current?.period,n:mi?.matched_period?.current?.total,m2:mi?.m2_official?.period,kb:mi?.kb_sentiment?.latest?.매수우위?.date});
-   const forecastRev=fc?JSON.stringify({research:fc.latest_research_month,cert:fc.latest_certified_backtest_month,h:(fc.horizons||[]).map(x=>[x.period,x.weights])}):null;
-   const contextRev=ext?JSON.stringify({breadth:ext.current?.breadth?.date,aff:ext.current?.affordability?.ym,temp:ext.current?.temperature?.ym}):null;
-   const latestTrade=(mkt?.items||[]).map(x=>x.recent_trade_date||'').sort().pop()||'';
-   const watchRev=JSON.stringify({kb:master?.kb_collected_at||master?.generated_at,trade:latestTrade,count:(mkt?.items||[]).length});
-   const healthRev=JSON.stringify({status:statuses,cert:bt?.certified_through,research:rs?.latest_month||rs?.as_of});
-   decorateRefreshPanel({key:'overview.v2',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),revision:overviewRev,warning:critical.length?'핵심 원천 확인 필요':''});
-   decorateRefreshPanel({key:'forecast.v2',host:document.getElementById('regimeForecast'),anchor:document.querySelector('#regimeForecast h2'),revision:forecastRev,note:false});
-   decorateRefreshPanel({key:'context.v2',host:document.getElementById('marketContext'),anchor:document.querySelector('#marketContext h2'),revision:contextRev,note:false});
-   decorateRefreshPanel({key:'watchlist.v2',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),revision:watchRev,note:false});
-   decorateRefreshPanel({key:'health.v2',host:document.querySelector('.method-v4'),anchor:document.querySelector('.method-v4 summary b'),revision:healthRev,warning:critical.length?'핵심 원천 '+critical.length+'건 확인 필요':'',note:false});
-   const hs=document.getElementById('refreshHealthSummary'),ss=document.getElementById('refreshSummaryStatus');
-   if(!critical.length){if(hs){hs.classList.remove('warning');hs.textContent='정상 · 핵심 원천과 검증 데이터가 정상 연결되어 있습니다. 일부 보조 원천의 마지막 정상값 사용은 경고로 승격하지 않습니다.'}if(ss){ss.classList.remove('warning');ss.textContent='핵심 원천 정상'}}
- }
- setTimeout(normalizeRefreshIndicators,700);
+
 })();
 
 
