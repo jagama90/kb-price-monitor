@@ -399,3 +399,56 @@ async function initRefreshCalendar(){
 }
 initRefreshCalendar();
 
+
+
+/* dashboard refinement v133 — infographic details + semantic notification revisions */
+(function(){
+ const fmt1=v=>v==null||!Number.isFinite(Number(v))?'—':Number(v).toFixed(1);
+ const signed1=(v,s='')=>v==null||!Number.isFinite(Number(v))?'—':(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
+ const metric=(label,value,note='')=>'<div class="score-metric-v133"><span>'+label+'</span><b>'+value+'</b>'+(note?'<small>'+note+'</small>':'')+'</div>';
+ const verdict=(v)=>v>=65?'우호적':v>=45?'중립권':v>=30?'부담':'부담 큼';
+ window.showScoreDetail=function(k){
+   const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
+   const w={finance:25,sentiment:20,demand:20,value:20,supply:15};
+   const t={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
+   const m=d.m2_official||d.m2||{},x=d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},score=Math.round(Number(c[k]));
+   const blocks={
+    finance:[metric('M2 전월비',signed1(m.mom_pct,'%'),'유동성 단기 변화'),metric('M2 전년비',signed1(m.yoy_pct,'%'),'유동성 장기 변화'),metric('주담대',d.mortgage_rate_official?.rate_pct==null?'—':fmt1(d.mortgage_rate_official.rate_pct)+'%','신규취급액 기준')],
+    sentiment:[metric('매수우위',fmt1(s.latest?.매수우위?.value),'KB 서울'),metric('거래활발',fmt1(s.latest?.매매거래활발?.value),'KB 서울'),metric('심리점수',fmt1(s.score_0_100),'100점 환산')],
+    demand:[metric('동일기간 거래',signed1(x.changes?.trade_count_pct,'%'),'전월 같은 계약일'),metric('≤15억 비중',x.current?.under15_share==null?'—':fmt1(x.current.under15_share)+'%','현재 동일기간'),metric('비중 변화',signed1(x.changes?.under15_share_pp,'%p'),'전월 대비')],
+    value:[metric('현재 KB',typeof eok==='function'?eok(v.current_manwon):fmt1(v.current_manwon),'대표평형'),metric('36개월 저점',typeof eok==='function'?eok(v.window_low_manwon):fmt1(v.window_low_manwon),'가격 범위'),metric('36개월 고점',typeof eok==='function'?eok(v.window_high_manwon):fmt1(v.window_high_manwon),'가격 범위')],
+    supply:[metric('전세수급',fmt1(s.latest?.전세수급?.value),'KB 서울'),metric('전세거래',fmt1(s.latest?.전세거래활발?.value),'KB 서울'),metric('전세점수',fmt1(s.jeonse_score_0_100),'100점 환산')]
+   };
+   const formula={finance:'M2의 전월·전년 변화와 주담대 금리 수준을 함께 반영',sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',value:'최근 36개월 가격 범위 안에서 현재 위치를 역산',supply:'KB 전세수급·전세거래활발 지표를 결합'}[k];
+   const body=document.getElementById('scoreExplainBody'),p=document.getElementById('scoreExplanation');if(!body||!p)return;
+   setText('scoreExplainTitle',t[k]);setText('scoreExplainWeight','전체 점수 가중치 '+w[k]+'%');
+   body.innerHTML='<div class="score-infographic"><div class="score-hero-v133"><div class="score-ring-v133" style="--score:'+Math.max(0,Math.min(100,score))+'"><b>'+score+'<small>/100</small></b></div><div class="score-hero-copy-v133"><strong>'+verdict(score)+'</strong><p>현재 수치를 먼저 보여주고, 아래에서 무엇이 이 점수를 만들었는지 바로 비교합니다.</p></div></div><div class="score-metrics-v133">'+blocks[k].join('')+'</div><div class="score-formula-v133"><b>산정 기준</b> · '+formula+'</div></div>';
+   p.hidden=false;p.style.display='block';document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{const on=card.dataset.scoreKey===k;card.setAttribute('aria-expanded',on?'true':'false');card.classList.toggle('active',on)});p.scrollIntoView({behavior:'smooth',block:'center'});
+ };
+
+ const stable=async(path,make)=>{try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)return null;return make(await r.json())}catch{return null}};
+ const clearDots=()=>document.querySelectorAll('.panel-refresh-dot,.panel-refresh-note').forEach(x=>x.remove());
+ async function normalizeRefreshIndicators(){
+   const [mi,mkt,master,fc,ext,bt,rs]=await Promise.all([
+    stable('market_indicators.json',d=>d),stable('buy_watchlist_market.json',d=>d),stable('buy_watchlist_master.json',d=>d),
+    stable('regime_forecast.json',d=>d),stable('market_extensions.json',d=>d),stable('final_backtest.json',d=>d),stable('turning_signal_research.json',d=>d)
+   ]);
+   clearDots();
+   const statuses=mi?.data_status||{};
+   const critical=Object.entries(statuses).filter(([k,v])=>v!=='connected'&&!['watchlist_detail_refresh'].includes(k)).map(([k])=>k);
+   const overviewRev=JSON.stringify({trade:mi?.matched_period?.current?.period,n:mi?.matched_period?.current?.total,m2:mi?.m2_official?.period,kb:mi?.kb_sentiment?.latest?.매수우위?.date});
+   const forecastRev=fc?JSON.stringify({research:fc.latest_research_month,cert:fc.latest_certified_backtest_month,h:(fc.horizons||[]).map(x=>[x.period,x.weights])}):null;
+   const contextRev=ext?JSON.stringify({breadth:ext.current?.breadth?.date,aff:ext.current?.affordability?.ym,temp:ext.current?.temperature?.ym}):null;
+   const latestTrade=(mkt?.items||[]).map(x=>x.recent_trade_date||'').sort().pop()||'';
+   const watchRev=JSON.stringify({kb:master?.kb_collected_at||master?.generated_at,trade:latestTrade,count:(mkt?.items||[]).length});
+   const healthRev=JSON.stringify({status:statuses,cert:bt?.certified_through,research:rs?.latest_month||rs?.as_of});
+   decorateRefreshPanel({key:'overview.v2',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),revision:overviewRev,warning:critical.length?'핵심 원천 확인 필요':''});
+   decorateRefreshPanel({key:'forecast.v2',host:document.getElementById('regimeForecast'),anchor:document.querySelector('#regimeForecast h2'),revision:forecastRev,note:false});
+   decorateRefreshPanel({key:'context.v2',host:document.getElementById('marketContext'),anchor:document.querySelector('#marketContext h2'),revision:contextRev,note:false});
+   decorateRefreshPanel({key:'watchlist.v2',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),revision:watchRev,note:false});
+   decorateRefreshPanel({key:'health.v2',host:document.querySelector('.method-v4'),anchor:document.querySelector('.method-v4 summary b'),revision:healthRev,warning:critical.length?'핵심 원천 '+critical.length+'건 확인 필요':'',note:false});
+   const hs=document.getElementById('refreshHealthSummary'),ss=document.getElementById('refreshSummaryStatus');
+   if(!critical.length){if(hs){hs.classList.remove('warning');hs.textContent='정상 · 핵심 원천과 검증 데이터가 정상 연결되어 있습니다. 일부 보조 원천의 마지막 정상값 사용은 경고로 승격하지 않습니다.'}if(ss){ss.classList.remove('warning');ss.textContent='핵심 원천 정상'}}
+ }
+ setTimeout(normalizeRefreshIndicators,700);
+})();
