@@ -201,7 +201,7 @@ async function renderCycleStage(){ // direction-aware market phase UI
  }catch(e){badge.textContent='데이터 확인 중';document.getElementById('cycleStageText').textContent='최신 가격 데이터를 확인하고 있습니다.'}}
 renderCycleStage();
 
-window.showScoreDetail=function(k){
+window.__legacyScoreDetailUnused=function(k){
  const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
  const w={finance:25,sentiment:20,demand:20,value:20,supply:15},t={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'},m=d.m2_official||d.m2,x=d.matched_period,s=d.kb_sentiment||{},v=d.kb_value||{},val=z=>z==null?'—':Number(z).toFixed(1),body={
   finance:'현재 '+Math.round(c.finance)+'/100 · M2 전월비 '+val(m?.mom_pct)+'% · 전년비 '+val(m?.yoy_pct)+'%<br><b>산식</b> 50 + M2 전월비×8 + M2 전년비×1.5',
@@ -407,7 +407,7 @@ initRefreshCalendar();
  const signed1=(v,s='')=>v==null||!Number.isFinite(Number(v))?'—':(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
  const metric=(label,value,note='')=>'<div class="score-metric-v133"><span>'+label+'</span><b>'+value+'</b>'+(note?'<small>'+note+'</small>':'')+'</div>';
  const verdict=(v)=>v>=65?'우호적':v>=45?'중립권':v>=30?'부담':'부담 큼';
- window.showScoreDetail=function(k){
+ window.__legacyScoreDetailUnused=function(k){
    const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
    const w={finance:25,sentiment:20,demand:20,value:20,supply:15};
    const t={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
