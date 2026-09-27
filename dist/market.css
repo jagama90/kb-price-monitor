@@ -875,3 +875,257 @@ main{max-width:1180px;padding-top:24px}
  .score-ring-v133{width:82px;height:82px}.score-ring-v133:after{width:62px;height:62px}.score-ring-v133 b{font-size:20px}
  .score-metrics-v133{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+
+/* v134 five-factor rebuild — robust modern cards */
+.factor-board-v134{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:10px!important;
+  margin:14px 0 12px!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+.factor-board-v134 .factor-card-v134{
+  min-width:0!important;
+  min-height:132px!important;
+  margin:0!important;
+  padding:14px 14px 13px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  text-align:left!important;
+  background:#fff!important;
+  border:1px solid #e4eaf1!important;
+  border-radius:16px!important;
+  box-shadow:0 6px 18px rgba(23,43,67,.045)!important;
+  overflow:hidden!important;
+  transform:none!important;
+}
+.factor-board-v134 .factor-card-v134:before{display:none!important}
+.factor-board-v134 .factor-card-v134:hover,
+.factor-board-v134 .factor-card-v134:focus-visible,
+.factor-board-v134 .factor-card-v134.active{
+  transform:translateY(-1px)!important;
+  border-color:#ccd8e6!important;
+  box-shadow:0 10px 24px rgba(23,43,67,.075)!important;
+  outline:none!important;
+}
+.factor-card-head-v134{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:8px!important;
+  min-width:0!important;
+}
+.factor-card-head-v134>span{
+  color:#425466!important;
+  font-size:12px!important;
+  font-weight:850!important;
+  line-height:1.2!important;
+  letter-spacing:-.02em!important;
+  white-space:nowrap!important;
+}
+.factor-card-head-v134>em{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  max-width:78px!important;
+  margin:0!important;
+  padding:4px 7px!important;
+  border-radius:999px!important;
+  background:#f1f4f8!important;
+  color:#6f7d90!important;
+  font-size:9px!important;
+  font-style:normal!important;
+  font-weight:800!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+.factor-card-head-v134>em.good{background:#edf8f2!important;color:#287a52!important}
+.factor-card-head-v134>em.bad{background:#fff3f1!important;color:#b9574c!important}
+.factor-card-head-v134>em.neutral{background:#f1f4f8!important;color:#6f7d90!important}
+.factor-score-v134{
+  display:flex!important;
+  align-items:baseline!important;
+  gap:3px!important;
+  margin:13px 0 10px!important;
+  min-width:0!important;
+}
+.factor-score-v134>b{
+  display:block!important;
+  margin:0!important;
+  color:#0f2740!important;
+  font-size:30px!important;
+  font-weight:850!important;
+  line-height:1!important;
+  letter-spacing:-.045em!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+}
+.factor-score-v134>small{
+  display:block!important;
+  margin:0!important;
+  color:#9aa6b5!important;
+  font-size:11px!important;
+  font-weight:750!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+.factor-board-v134 .factor-meter-v134{
+  display:block!important;
+  width:100%!important;
+  height:5px!important;
+  margin:0!important;
+  border-radius:999px!important;
+  background:#edf1f5!important;
+  overflow:hidden!important;
+  flex:0 0 auto!important;
+}
+.factor-board-v134 .factor-meter-v134>u{
+  display:block!important;
+  width:calc(var(--score,0) * 1%)!important;
+  height:100%!important;
+  border-radius:inherit!important;
+  background:#4c6b8a!important;
+  text-decoration:none!important;
+}
+.factor-foot-v134{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:8px!important;
+  margin-top:auto!important;
+  padding-top:10px!important;
+  min-width:0!important;
+}
+.factor-foot-v134>span,
+.factor-foot-v134>i{
+  display:block!important;
+  margin:0!important;
+  font-size:9px!important;
+  line-height:1.2!important;
+  white-space:nowrap!important;
+}
+.factor-foot-v134>span{color:#8794a5!important;font-weight:700!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.factor-foot-v134>i{color:#61758c!important;font-style:normal!important;font-weight:800!important}
+.factor-board-v134 .score-change-badge{display:none!important}
+
+/* detail panel: summary first, metrics second */
+#scoreExplanation.factor-detail-shell-v134,
+#scoreExplanation{
+  margin:10px 0 18px!important;
+  padding:0!important;
+  border:1px solid #dfe6ee!important;
+  border-left:1px solid #dfe6ee!important;
+  border-radius:18px!important;
+  background:#fff!important;
+  box-shadow:0 10px 28px rgba(23,43,67,.07)!important;
+  overflow:hidden!important;
+}
+#scoreExplanation>.title{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:14px!important;
+  margin:0!important;
+  padding:16px 18px 13px!important;
+  border-bottom:1px solid #edf1f5!important;
+}
+#scoreExplanation>.title h2{margin:3px 0 0!important;font-size:18px!important;line-height:1.25!important;letter-spacing:-.025em!important}
+#scoreExplanation>.title small{font-size:9px!important;color:#8190a3!important;font-weight:800!important}
+#scoreExplanation .score-detail-close{
+  width:34px!important;height:34px!important;min-width:34px!important;border:0!important;border-radius:50%!important;
+  background:#f3f5f8!important;color:#6f7c8e!important;font-size:21px!important;line-height:1!important
+}
+.factor-detail-v134{padding:16px 18px 18px!important}
+.factor-detail-hero-v134{
+  display:grid!important;
+  grid-template-columns:150px minmax(0,1fr)!important;
+  gap:18px!important;
+  align-items:center!important;
+  padding:16px!important;
+  border-radius:15px!important;
+  background:#f7f9fc!important;
+  border:1px solid #e7ecf2!important;
+}
+.factor-detail-score-v134>span{display:block!important;color:#7f8da0!important;font-size:10px!important;font-weight:800!important;margin-bottom:5px!important}
+.factor-detail-score-v134>strong{display:flex!important;align-items:baseline!important;gap:4px!important;color:#102840!important;font-size:36px!important;line-height:1!important;letter-spacing:-.05em!important}
+.factor-detail-score-v134>strong small{color:#9aa6b5!important;font-size:12px!important;font-weight:750!important;letter-spacing:0!important}
+.factor-detail-copy-v134 strong{display:block!important;margin-bottom:6px!important;color:#22384e!important;font-size:15px!important}
+.factor-detail-copy-v134 p{margin:0!important;color:#68788d!important;font-size:11px!important;line-height:1.55!important}
+.factor-detail-progress-v134{height:6px!important;margin-top:12px!important;border-radius:999px!important;background:#e9eef3!important;overflow:hidden!important}
+.factor-detail-progress-v134 i{display:block!important;height:100%!important;border-radius:inherit!important;background:#4c6b8a!important}
+.factor-detail-metrics-v134{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:9px!important;
+  margin-top:12px!important;
+}
+.factor-detail-metric-v134{
+  min-width:0!important;
+  padding:12px!important;
+  border:1px solid #e6ebf1!important;
+  border-radius:13px!important;
+  background:#fff!important;
+}
+.factor-detail-metric-v134 span{display:block!important;color:#8491a2!important;font-size:9px!important;font-weight:800!important;margin-bottom:6px!important}
+.factor-detail-metric-v134 b{display:block!important;color:#21374d!important;font-size:16px!important;line-height:1.2!important;font-variant-numeric:tabular-nums!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.factor-detail-metric-v134 small{display:block!important;margin-top:4px!important;color:#99a4b1!important;font-size:8px!important;line-height:1.4!important}
+.factor-detail-method-v134{
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:10px!important;
+  margin-top:10px!important;
+  padding:11px 12px!important;
+  border-radius:12px!important;
+  background:#f7f8fa!important;
+  color:#6d7b8d!important;
+  font-size:10px!important;
+  line-height:1.5!important;
+}
+.factor-detail-method-v134>b{flex:0 0 auto!important;color:#53677e!important}
+
+@media(max-width:800px){
+  .factor-board-v134{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    justify-content:center!important;
+    gap:8px!important;
+    margin:10px 0 12px!important;
+  }
+  .factor-board-v134 .factor-card-v134{
+    flex:0 0 calc(50% - 4px)!important;
+    width:calc(50% - 4px)!important;
+    max-width:calc(50% - 4px)!important;
+    min-height:112px!important;
+    padding:12px 12px 11px!important;
+    border-radius:14px!important;
+  }
+  .factor-card-head-v134>span{font-size:11px!important}
+  .factor-card-head-v134>em{max-width:68px!important;padding:3px 6px!important;font-size:8px!important}
+  .factor-score-v134{margin:10px 0 8px!important}
+  .factor-score-v134>b{font-size:27px!important}
+  .factor-score-v134>small{font-size:10px!important}
+  .factor-foot-v134{padding-top:8px!important}
+  .factor-foot-v134>span,.factor-foot-v134>i{font-size:8px!important}
+  #scoreExplanation>.title{padding:14px 14px 12px!important}
+  #scoreExplanation>.title h2{font-size:17px!important}
+  .factor-detail-v134{padding:13px 14px 15px!important}
+  .factor-detail-hero-v134{grid-template-columns:100px minmax(0,1fr)!important;gap:12px!important;padding:13px!important}
+  .factor-detail-score-v134>strong{font-size:30px!important}
+  .factor-detail-copy-v134 strong{font-size:13px!important}
+  .factor-detail-copy-v134 p{font-size:10px!important}
+  .factor-detail-metrics-v134{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .factor-detail-metric-v134:last-child:nth-child(odd){grid-column:1/-1!important}
+}
+@media(max-width:360px){
+  .factor-board-v134 .factor-card-v134{flex-basis:100%!important;width:100%!important;max-width:100%!important}
+  .factor-detail-hero-v134{grid-template-columns:1fr!important}
+  .factor-detail-metrics-v134{grid-template-columns:1fr!important}
+}
