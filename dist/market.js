@@ -86,7 +86,7 @@ function renderConditionIndex(d){
  window.__conditionComponents=components;
  const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},labels={finance:'scoreFinance',sentiment:'scoreSentiment',demand:'scoreDemand',value:'scoreValue',supply:'scoreSupply'};
  Object.entries(labels).forEach(([k,id])=>{
-  setText(id,components[k]==null?'미연결':Math.round(components[k])+'/100');
+  setText(id,components[k]==null?'—':Math.round(components[k]));
   const card=document.querySelector('[data-score="'+k+'"]');
   if(card)card.style.setProperty('--score',components[k]==null?0:Math.round(components[k]));
  });
@@ -451,4 +451,68 @@ initRefreshCalendar();
    if(!critical.length){if(hs){hs.classList.remove('warning');hs.textContent='정상 · 핵심 원천과 검증 데이터가 정상 연결되어 있습니다. 일부 보조 원천의 마지막 정상값 사용은 경고로 승격하지 않습니다.'}if(ss){ss.classList.remove('warning');ss.textContent='핵심 원천 정상'}}
  }
  setTimeout(normalizeRefreshIndicators,700);
+})();
+
+
+/* v134 factor detail renderer — one stable responsive panel */
+(function(){
+ const fmt1=v=>v==null||!Number.isFinite(Number(v))?'—':Number(v).toFixed(1);
+ const signed1=(v,s='')=>v==null||!Number.isFinite(Number(v))?'—':(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
+ const metric=(label,value,note='')=>'<div class="factor-detail-metric-v134"><span>'+label+'</span><b>'+value+'</b>'+(note?'<small>'+note+'</small>':'')+'</div>';
+ const status=v=>v>=65?'우호적인 편':v>=45?'중립권':v>=30?'부담이 있는 편':'부담이 큰 편';
+ const desc={
+  finance:'금리와 통화량을 묶어 자금 조달 환경을 봅니다.',
+  sentiment:'KB 매수심리와 거래심리를 함께 봅니다.',
+  demand:'실제 계약 건수와 가격대별 수요 이동을 봅니다.',
+  value:'최근 가격 범위에서 현재 가격의 위치를 봅니다.',
+  supply:'전세수급과 전세거래 흐름으로 주거 수요 압력을 봅니다.'
+ };
+ window.showScoreDetail=function(k){
+   const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
+   const weights={finance:25,sentiment:20,demand:20,value:20,supply:15};
+   const title={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
+   const m=d.m2_official||d.m2||{},x=d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},score=Math.round(Number(c[k]));
+   const blocks={
+    finance:[
+      metric('M2 전월비',signed1(m.mom_pct,'%'),'단기 유동성'),
+      metric('M2 전년비',signed1(m.yoy_pct,'%'),'장기 유동성'),
+      metric('주담대 금리',d.mortgage_rate_official?.rate_pct==null?'—':fmt1(d.mortgage_rate_official.rate_pct)+'%','신규취급액 기준')
+    ],
+    sentiment:[
+      metric('매수우위',fmt1(s.latest?.매수우위?.value),'KB 서울'),
+      metric('거래활발',fmt1(s.latest?.매매거래활발?.value),'KB 서울'),
+      metric('심리점수',fmt1(s.score_0_100),'100점 환산')
+    ],
+    demand:[
+      metric('동일기간 거래',signed1(x.changes?.trade_count_pct,'%'),'전월 같은 계약일'),
+      metric('15억 이하',x.current?.under15_share==null?'—':fmt1(x.current.under15_share)+'%','현재 비중'),
+      metric('비중 변화',signed1(x.changes?.under15_share_pp,'%p'),'전월 대비')
+    ],
+    value:[
+      metric('현재 KB',typeof eok==='function'?eok(v.current_manwon):fmt1(v.current_manwon),'대표평형'),
+      metric('36개월 저점',typeof eok==='function'?eok(v.window_low_manwon):fmt1(v.window_low_manwon),'가격 범위'),
+      metric('36개월 고점',typeof eok==='function'?eok(v.window_high_manwon):fmt1(v.window_high_manwon),'가격 범위')
+    ],
+    supply:[
+      metric('전세수급',fmt1(s.latest?.전세수급?.value),'KB 서울'),
+      metric('전세거래',fmt1(s.latest?.전세거래활발?.value),'KB 서울'),
+      metric('전세점수',fmt1(s.jeonse_score_0_100),'100점 환산')
+    ]
+   };
+   const method={
+    finance:'M2 전월·전년 변화와 주담대 금리 수준을 함께 반영',
+    sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',
+    demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',
+    value:'최근 36개월 가격 범위 안에서 현재 위치를 역산',
+    supply:'KB 전세수급·전세거래활발 지표를 결합'
+   };
+   const p=document.getElementById('scoreExplanation'),body=document.getElementById('scoreExplainBody');if(!p||!body)return;
+   p.classList.add('factor-detail-shell-v134');
+   setText('scoreExplainTitle',title[k]);
+   setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');
+   body.innerHTML='<div class="factor-detail-v134"><div class="factor-detail-hero-v134"><div class="factor-detail-score-v134"><span>현재 점수</span><strong>'+score+'<small>/100</small></strong><div class="factor-detail-progress-v134"><i style="width:'+Math.max(0,Math.min(100,score))+'%"></i></div></div><div class="factor-detail-copy-v134"><strong>'+status(score)+'</strong><p>'+desc[k]+'</p></div></div><div class="factor-detail-metrics-v134">'+blocks[k].join('')+'</div><div class="factor-detail-method-v134"><b>산정 기준</b><span>'+method[k]+'</span></div></div>';
+   p.hidden=false;p.style.display='block';
+   document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{const on=card.dataset.scoreKey===k;card.setAttribute('aria-expanded',on?'true':'false');card.classList.toggle('active',on)});
+   p.scrollIntoView({behavior:'smooth',block:'nearest'});
+ };
 })();
