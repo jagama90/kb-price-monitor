@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260927-133"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260927-134"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
 <details id="refreshCalendar" class="card refresh-calendar-v1" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
     <div class="refresh-summary-copy">
@@ -73,12 +73,37 @@
   <small class="forecast-meta" id="forecastMeta">최신 전망 데이터를 불러오는 중입니다.</small>
 </section>
 
-<section class="score-grid compact-components score-dashboard score-dashboard-inline" aria-label="시장여건 5개 보조지표">
-  <article class="card score-component" data-score="finance" data-score-key="finance" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false"><div class="score-tile-head"><span>금융</span><em id="stateFinance">—</em></div><b id="scoreFinance">—</b><i class="score-mini-meter"><u></u></i><small>금리 · M2</small></article>
-  <article class="card score-component" data-score="sentiment" data-score-key="sentiment" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false"><div class="score-tile-head"><span>심리</span><em id="stateSentiment">—</em></div><b id="scoreSentiment">—</b><i class="score-mini-meter"><u></u></i><small>매수우위</small></article>
-  <article class="card score-component" data-score="demand" data-score-key="demand" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false"><div class="score-tile-head"><span>거래</span><em id="stateDemand">—</em></div><b id="scoreDemand">—</b><i class="score-mini-meter"><u></u></i><small>실수요</small></article>
-  <article class="card score-component" data-score="value" data-score-key="value" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false"><div class="score-tile-head"><span>가격</span><em id="stateValue">—</em></div><b id="scoreValue">—</b><i class="score-mini-meter"><u></u></i><small>밸류</small></article>
-  <article class="card score-component" data-score="supply" data-score-key="supply" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false"><div class="score-tile-head"><span>전세</span><em id="stateSupply">—</em></div><b id="scoreSupply">—</b><i class="score-mini-meter"><u></u></i><small>공급·전세</small></article>
+<section class="score-dashboard-inline factor-board-v134" aria-label="시장여건 5개 보조지표">
+  <article class="score-component factor-card-v134" data-score="finance" data-score-key="finance" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+    <div class="factor-card-head-v134"><span>금융</span><em id="stateFinance">—</em></div>
+    <div class="factor-score-v134"><b id="scoreFinance">—</b><small>/100</small></div>
+    <i class="score-mini-meter factor-meter-v134"><u></u></i>
+    <div class="factor-foot-v134"><span>금리 · M2</span><i>자세히 ›</i></div>
+  </article>
+  <article class="score-component factor-card-v134" data-score="sentiment" data-score-key="sentiment" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+    <div class="factor-card-head-v134"><span>심리</span><em id="stateSentiment">—</em></div>
+    <div class="factor-score-v134"><b id="scoreSentiment">—</b><small>/100</small></div>
+    <i class="score-mini-meter factor-meter-v134"><u></u></i>
+    <div class="factor-foot-v134"><span>매수우위</span><i>자세히 ›</i></div>
+  </article>
+  <article class="score-component factor-card-v134" data-score="demand" data-score-key="demand" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+    <div class="factor-card-head-v134"><span>거래</span><em id="stateDemand">—</em></div>
+    <div class="factor-score-v134"><b id="scoreDemand">—</b><small>/100</small></div>
+    <i class="score-mini-meter factor-meter-v134"><u></u></i>
+    <div class="factor-foot-v134"><span>실수요</span><i>자세히 ›</i></div>
+  </article>
+  <article class="score-component factor-card-v134" data-score="value" data-score-key="value" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+    <div class="factor-card-head-v134"><span>가격</span><em id="stateValue">—</em></div>
+    <div class="factor-score-v134"><b id="scoreValue">—</b><small>/100</small></div>
+    <i class="score-mini-meter factor-meter-v134"><u></u></i>
+    <div class="factor-foot-v134"><span>밸류</span><i>자세히 ›</i></div>
+  </article>
+  <article class="score-component factor-card-v134" data-score="supply" data-score-key="supply" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+    <div class="factor-card-head-v134"><span>전세</span><em id="stateSupply">—</em></div>
+    <div class="factor-score-v134"><b id="scoreSupply">—</b><small>/100</small></div>
+    <i class="score-mini-meter factor-meter-v134"><u></u></i>
+    <div class="factor-foot-v134"><span>공급 · 전세</span><i>자세히 ›</i></div>
+  </article>
 </section>
 <section id="scoreExplanation" class="card score-explanation" hidden><div class="title"><div><small id="scoreExplainWeight">구성요소</small><h2 id="scoreExplainTitle">점수 산정 근거</h2></div><button type="button" class="close-rate score-detail-close">×</button></div><div id="scoreExplainBody"></div></section>
 <section class="card decision-brief decision-brief-v2">
@@ -196,4 +221,4 @@
     <p class="method-note-v4">지수는 투자수익을 예측하거나 매수를 지시하지 않습니다. 같은 규칙으로 시장 위치와 변화를 비교합니다.</p>
   </div>
 </details>
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260927-133"></script></body></html>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260927-134"></script></body></html>
