@@ -91,6 +91,24 @@ if 'initRefreshCalendar()' not in js or 'decorateRefreshPanel' not in js:
 if js.count("decorateRefreshPanel({key:")<6:
     errors.append('six core dashboard panels must expose refresh indicators')
 
+
+# watchlist simplified source-state contract
+if ids.count('watchSourceNotice')!=1:
+    errors.append('watchlist source notice missing')
+if '실거래 미확인' not in js:
+    errors.append('unverified trade must use neutral 실거래 미확인 label')
+watch_render_start=js.find("document.querySelector('#summary').textContent=market.length+'개 단지'")
+watch_render_end=js.find("}load().catch",watch_render_start)
+watch_render=js[watch_render_start:watch_render_end] if watch_render_start>=0 and watch_render_end>watch_render_start else ''
+for noisy in ("원천 지연","확인 대기","원천 검증","원천 미연결"):
+    if noisy in watch_render:
+        errors.append('watchlist row-level noisy source label returned: '+noisy)
+for legacy_label in ('FORWARD REGIME · 전망엔진','THIS WEEK · 이번 주 핵심','MARKET CONTEXT · 검증된 보조신호','DEEP DIVE','DATA QUALITY','월간 갱신','>LIVE<'):
+    if legacy_label in html:
+        errors.append('redundant dashboard label returned: '+legacy_label)
+if '가격·Value' in js or 'Breadth 백테스트' in js:
+    errors.append('internal English metric label returned to user-facing dashboard')
+
 jsv=re.search(r'market\.js\?v=([^"]+)',html)
 cssv=re.search(r'market\.css\?v=([^"]+)',html)
 if not jsv or not cssv: errors.append('asset cache versions missing')
@@ -122,7 +140,7 @@ if 'rowListingFresh=x=>' not in js or 'listing_refresh_status' not in js:
     errors.append('listing freshness must be evaluated per row and source status')
 if 'rowTradeFresh=x=>' not in js or 'trade_refresh_status' not in js:
     errors.append('recent-trade identity/freshness must be evaluated per row')
-if "sourceRefreshNote=delayed.length?' · 원천 지연 " not in js or 'refresh_run?.sources' not in js:
+if "sourceRefreshNote=delayed.length?' · 일부 지연':' · 정상'" not in js or 'refresh_run?.sources' not in js:
     errors.append('dashboard must surface current per-run source refresh status')
 if "rowListingFresh(x)&&rowTradeFresh(x)?signal(x)" not in js:
     errors.append('directional listing signal must require both fresh listing and verified trade')
