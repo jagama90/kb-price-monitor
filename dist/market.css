@@ -889,7 +889,7 @@ main{max-width:1180px;padding-top:24px}
   box-shadow:none!important;
   overflow:visible!important;
 }
-.factor-board-v134 .factor-card-v134{
+.factor-board-v134 .score-component{
   min-width:0!important;
   min-height:132px!important;
   margin:0!important;
@@ -905,10 +905,10 @@ main{max-width:1180px;padding-top:24px}
   overflow:hidden!important;
   transform:none!important;
 }
-.factor-board-v134 .factor-card-v134:before{display:none!important}
-.factor-board-v134 .factor-card-v134:hover,
-.factor-board-v134 .factor-card-v134:focus-visible,
-.factor-board-v134 .factor-card-v134.active{
+.factor-board-v134 .score-component:before{display:none!important}
+.factor-board-v134 .score-component:hover,
+.factor-board-v134 .score-component:focus-visible,
+.factor-board-v134 .score-component.active{
   transform:translateY(-1px)!important;
   border-color:#ccd8e6!important;
   box-shadow:0 10px 24px rgba(23,43,67,.075)!important;
@@ -1099,7 +1099,7 @@ main{max-width:1180px;padding-top:24px}
     gap:8px!important;
     margin:10px 0 12px!important;
   }
-  .factor-board-v134 .factor-card-v134{
+  .factor-board-v134 .score-component{
     flex:0 0 calc(50% - 4px)!important;
     width:calc(50% - 4px)!important;
     max-width:calc(50% - 4px)!important;
@@ -1125,7 +1125,7 @@ main{max-width:1180px;padding-top:24px}
   .factor-detail-metric-v134:last-child:nth-child(odd){grid-column:1/-1!important}
 }
 @media(max-width:360px){
-  .factor-board-v134 .factor-card-v134{flex-basis:100%!important;width:100%!important;max-width:100%!important}
+  .factor-board-v134 .score-component{flex-basis:100%!important;width:100%!important;max-width:100%!important}
   .factor-detail-hero-v134{grid-template-columns:1fr!important}
   .factor-detail-metrics-v134{grid-template-columns:1fr!important}
 }
