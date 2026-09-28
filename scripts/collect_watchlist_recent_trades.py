@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/watchlist_recent_trades.json'
+SHARED=ROOT/'data_sources/.molit_watchlist_pair_cache.json'
 API='https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev'
 DIST={
 '종로구':'11110','중구':'11140','용산구':'11170','성동구':'11200','광진구':'11215','동대문구':'11230','중랑구':'11260','성북구':'11290',
@@ -27,19 +28,12 @@ def val(it,*names):
 def month_shift(d,delta):
     q=d.year*12+d.month-1+delta
     return f'{q//12:04d}{q%12+1:02d}'
-def fetch(code,ym,key):
+def fetch(code,ym,key,timeout):
     rows=[];page=1;fetched=0
     while True:
         q=urllib.parse.urlencode({'serviceKey':key,'LAWD_CD':code,'DEAL_YMD':ym,'numOfRows':1000,'pageNo':page},safe='%')
-        last=None
-        for attempt in range(4):
-            try:
-                req=urllib.request.Request(API+'?'+q,headers={'User-Agent':'kb-price-monitor/1.0'})
-                root=ET.fromstring(urllib.request.urlopen(req,timeout=60).read());break
-            except Exception as e:
-                last=e
-                if attempt==3: raise
-                time.sleep(min(12,2**attempt+random.random()))
+        req=urllib.request.Request(API+'?'+q,headers={'User-Agent':'kb-price-monitor/1.0'})
+        root=ET.fromstring(urllib.request.urlopen(req,timeout=timeout).read())
         items=root.findall('.//item');fetched+=len(items)
         for it in items:
             amt=val(it,'dealAmount','거래금액').replace(',','').strip()
@@ -56,8 +50,22 @@ def fetch(code,ym,key):
         total=int(root.findtext('.//totalCount') or len(rows))
         if not items or fetched>=total: break
         page+=1
-        if page>50: break
+        if page>50: raise RuntimeError(f'pagination guard {code} {ym}')
     return rows
+
+def run_pairs(pairs,key,workers,timeout):
+    results={};errors={};durations={};tasks={}
+    with ThreadPoolExecutor(max_workers=max(1,workers)) as pool:
+        for district,ym in pairs:
+            started=time.monotonic()
+            fut=pool.submit(fetch,DIST[district],ym,key,timeout)
+            tasks[fut]=(district,ym,started)
+        for fut in as_completed(tasks):
+            district,ym,started=tasks[fut];durations[(district,ym)]=time.monotonic()-started
+            try:results[(district,ym)]=fut.result()
+            except Exception as e:errors[(district,ym)]=str(e)
+    return results,errors,durations
+
 
 ALIASES={
     norm('가락쌍용1차'):{norm('가락(1차)쌍용아파트')},
@@ -140,17 +148,32 @@ def main():
         district_months[district]=sorted(dmonths,reverse=True)
     raw={d:[] for d in districts}
     fetch_errors=[]; failed_districts=set()
-    tasks=[]; started=time.monotonic()
-    with ThreadPoolExecutor(max_workers=6) as pool:
-        for district in districts:
-            for ym in district_months[district]:
-                tasks.append((district,ym,pool.submit(fetch,DIST[district],ym,key)))
-        for district,ym,fut in tasks:
-            try: raw[district].extend(fut.result())
-            except Exception as e:
-                failed_districts.add(district)
-                fetch_errors.append({'district':district,'ym':ym,'error':str(e)})
-                print(json.dumps({'warning':'MOLIT target fetch failed','district':district,'ym':ym,'error':str(e)},ensure_ascii=False),flush=True)
+    pairs=[(district,ym) for district in districts for ym in district_months[district]]
+    started=time.monotonic()
+    fast_timeout=max(3,float(os.getenv('MOLIT_FAST_TIMEOUT','8')))
+    retry_timeout=max(fast_timeout,float(os.getenv('MOLIT_RETRY_TIMEOUT','20')))
+    first,first_errors,first_durations=run_pairs(pairs,key,6,fast_timeout)
+    retry_pairs=sorted(first_errors)
+    recovered={};retry_errors={};retry_durations={}
+    if retry_pairs:
+        time.sleep(float(os.getenv('MOLIT_RETRY_DELAY','1')))
+        recovered,retry_errors,retry_durations=run_pairs(retry_pairs,key,min(2,len(retry_pairs)),retry_timeout)
+    fetched=dict(first);fetched.update(recovered)
+    for (district,ym),rows in fetched.items():
+        raw[district].extend(rows)
+    for (district,ym),err in retry_errors.items():
+        failed_districts.add(district)
+        fetch_errors.append({'district':district,'ym':ym,'error':err})
+        print(json.dumps({'warning':'MOLIT target pair failed after retry','district':district,'ym':ym,'error':err},ensure_ascii=False),flush=True)
+
+    # Share the already-downloaded district/month rows with the Seoul-wide
+    # collector that runs next in the same job. It only needs day + price.
+    shared={}
+    for (district,ym),rows in fetched.items():
+        shared[f"{DIST[district]}:{ym}"]=[
+            [int(str(x['date'])[-2:]),int(x['price_manwon'])] for x in rows
+        ]
+    SHARED.write_text(json.dumps(shared,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
     items=[];unmatched=[]
     for x in resolved:
         candidates=[]; exact_area=[]
@@ -195,5 +218,15 @@ def main():
     out={'status':'partial' if fetch_errors else 'connected','source':'MOLIT apartment trade OpenAPI','months':months,'items':items,'unmatched':unmatched,
       'fetch_errors':fetch_errors,'matched_count':len(items),'target_area_count':len(resolved),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
-    print(json.dumps({'matched':len(items),'target_areas':len(resolved),'unmatched':len(unmatched),'steady_months':len(months),'bootstrap_districts':sorted(bootstrap_districts),'district_month_pairs':len(tasks),'districts':len(districts),'elapsed_sec':round(elapsed,1)},ensure_ascii=False))
+    slow=sorted(
+        [(*k,round(v,1),'first') for k,v in first_durations.items()]+
+        [(*k,round(v,1),'retry') for k,v in retry_durations.items()],
+        key=lambda x:x[2],reverse=True
+    )[:6]
+    print(json.dumps({'matched':len(items),'target_areas':len(resolved),'unmatched':len(unmatched),
+      'steady_months':len(months),'bootstrap_districts':sorted(bootstrap_districts),
+      'district_month_pairs':len(pairs),'districts':len(districts),
+      'first_pass_failed':len(retry_pairs),'retry_recovered':len(recovered),
+      'failed_after_retry':len(retry_errors),'shared_pairs':len(shared),
+      'slowest_pairs':slow,'elapsed_sec':round(elapsed,1)},ensure_ascii=False))
 if __name__=='__main__':main()
