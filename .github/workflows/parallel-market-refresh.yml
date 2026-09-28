@@ -43,9 +43,15 @@ jobs:
         run: |
           set -euo pipefail
           collect_source() {
-            python3 scripts/collect_kb_sentiment.py &&
-            python3 scripts/collect_kb_statusboard_live.py &&
-            python3 scripts/collect_kb_datahub_batch.py
+            set +e
+            python3 scripts/collect_kb_sentiment.py & p1=$!
+            python3 scripts/collect_kb_statusboard_live.py & p2=$!
+            python3 scripts/collect_kb_datahub_batch.py & p3=$!
+            wait "$p1"; s1=$?
+            wait "$p2"; s2=$?
+            wait "$p3"; s3=$?
+            set -e
+            [ "$s1" -eq 0 ] && [ "$s2" -eq 0 ] && [ "$s3" -eq 0 ]
           }
           echo "retried=false" >> "$GITHUB_OUTPUT"
           if ! collect_source; then
@@ -127,9 +133,15 @@ jobs:
           set -euo pipefail
           test -n "$BOK_ECOS_KEY"
           collect_source() {
-            python3 scripts/collect_ecos_mortgage_rate.py &&
-            python3 scripts/collect_ecos_base_rate.py &&
-            python3 scripts/collect_ecos_m2.py
+            set +e
+            python3 scripts/collect_ecos_mortgage_rate.py & p1=$!
+            python3 scripts/collect_ecos_base_rate.py & p2=$!
+            python3 scripts/collect_ecos_m2.py & p3=$!
+            wait "$p1"; s1=$?
+            wait "$p2"; s2=$?
+            wait "$p3"; s3=$?
+            set -e
+            [ "$s1" -eq 0 ] && [ "$s2" -eq 0 ] && [ "$s3" -eq 0 ]
           }
           echo "retried=false" >> "$GITHUB_OUTPUT"
           if ! collect_source; then
