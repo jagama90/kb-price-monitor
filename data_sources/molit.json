@@ -1,6 +1,6 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-09-28T12:58:14.278003+09:00",
+  "collected_at": "2026-09-29T01:59:27.153282+09:00",
   "seoul_apt_trade_count": [
     [
       "2026-03",
@@ -163,12 +163,12 @@
     ]
   },
   "matched_period": {
-    "as_of": "2026-09-28",
-    "cutoff_day": 28,
+    "as_of": "2026-09-29",
+    "cutoff_day": 29,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-09",
-      "range": "1~28일",
+      "range": "1~29일",
       "total": 1366,
       "counts": {
         "<=9eok": 824,
@@ -186,25 +186,25 @@
     },
     "previous": {
       "period": "2026-08",
-      "range": "1~28일",
-      "total": 3269,
+      "range": "1~29일",
+      "total": 3428,
       "counts": {
-        "<=9eok": 1713,
-        "9-15eok": 893,
-        "15-25eok": 487,
-        "25eok+": 176
+        "<=9eok": 1796,
+        "9-15eok": 933,
+        "15-25eok": 517,
+        "25eok+": 182
       },
       "boundary_counts": {
-        "13-15eok": 227,
-        "15-17eok": 171,
-        "23-25eok": 50,
+        "13-15eok": 238,
+        "15-17eok": 182,
+        "23-25eok": 54,
         "25-27eok": 28
       },
-      "under15_share": 79.7
+      "under15_share": 79.6
     },
     "changes": {
-      "trade_count_pct": -58.2,
-      "under15_share_pp": 2.0
+      "trade_count_pct": -60.2,
+      "under15_share_pp": 2.1
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   }
