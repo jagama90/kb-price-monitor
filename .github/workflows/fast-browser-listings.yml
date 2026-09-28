@@ -23,4 +23,4 @@ jobs:
       dry_run: true
     secrets: inherit
 
-# molit-benchmark: parallel-scope-v2
+# molit-benchmark: parallel-scope-v3
