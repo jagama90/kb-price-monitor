@@ -121,16 +121,29 @@ def main():
     try: prior=json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
     except Exception: prior={}
     prior_items={(int(x['complex_id']),int(x['area_id'])):x for x in prior.get('items') or [] if x.get('complex_id') and x.get('area_id')}
-    # Keep three months for exact-area recent-trade coverage; this slice is small
-    # (only five target districts) and now runs before the Seoul-wide burst.
-    months=[month_shift(today,-i) for i in range(3 if prior_items else 8)]
+    # Steady state only needs current + previous month because an older latest
+    # trade is preserved from the last-good snapshot. Recheck month-2 on Friday.
+    # For a newly-added target area with no prior row, selectively bootstrap up to
+    # eight months, but only for the district that actually needs it.
+    steady_count=3 if today.weekday()==4 else 2
+    months=[month_shift(today,-i) for i in range(steady_count if prior_items else 8)]
     districts=sorted({x['district'] for x in resolved})
+    bootstrap_districts={
+        x['district'] for x in resolved
+        if prior_items and (x['complex_id'],x['area_id']) not in prior_items
+    }
+    district_months={}
+    for district in districts:
+        dmonths=set(months)
+        if district in bootstrap_districts:
+            dmonths.update(month_shift(today,-i) for i in range(steady_count,8))
+        district_months[district]=sorted(dmonths,reverse=True)
     raw={d:[] for d in districts}
     fetch_errors=[]; failed_districts=set()
     tasks=[]; started=time.monotonic()
     with ThreadPoolExecutor(max_workers=6) as pool:
         for district in districts:
-            for ym in months:
+            for ym in district_months[district]:
                 tasks.append((district,ym,pool.submit(fetch,DIST[district],ym,key)))
         for district,ym,fut in tasks:
             try: raw[district].extend(fut.result())
@@ -182,5 +195,5 @@ def main():
     out={'status':'partial' if fetch_errors else 'connected','source':'MOLIT apartment trade OpenAPI','months':months,'items':items,'unmatched':unmatched,
       'fetch_errors':fetch_errors,'matched_count':len(items),'target_area_count':len(resolved),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
-    print(json.dumps({'matched':len(items),'target_areas':len(resolved),'unmatched':len(unmatched),'months':len(months),'districts':len(districts),'elapsed_sec':round(elapsed,1)},ensure_ascii=False))
+    print(json.dumps({'matched':len(items),'target_areas':len(resolved),'unmatched':len(unmatched),'steady_months':len(months),'bootstrap_districts':sorted(bootstrap_districts),'district_month_pairs':len(tasks),'districts':len(districts),'elapsed_sec':round(elapsed,1)},ensure_ascii=False))
 if __name__=='__main__':main()
