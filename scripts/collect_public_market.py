@@ -84,7 +84,7 @@ def select_type(page,label,area=None):
         if click_visible(toggle): page.wait_for_timeout(350)
     except Exception:
         pass
-    pat=re.compile(r'^\s*'+re.escape(pyeong)+r'(?:\.0+)?평')
+    pat=re.compile(r'^\s*'+re.escape(pyeong)+r'(?:[A-Za-z])?(?:\.0+)?평')
     if click_visible(page.get_by_role('button',name=pat)):
         page.wait_for_timeout(900); return
 
@@ -102,22 +102,45 @@ def select_type(page,label,area=None):
 
 
 def field_money(t,label):
-    m=re.search(re.escape(label)+r'[ \t]*([^\n\r]+)',t)
+    # Current KB DOM renders labels and values on separate lines.
+    lines=[x.strip() for x in str(t or '').splitlines()]
+    for i,line in enumerate(lines):
+        if line==label:
+            for j in range(i+1,min(i+4,len(lines))):
+                v=money(lines[j])
+                if v is not None:return v
+    # Legacy same-line fallback.
+    m=re.search(re.escape(label)+r'[ \t]*([^\n\r]+)',str(t or ''))
     return money(m.group(1)) if m else None
+
+def field_text_after(t,label,limit=4):
+    lines=[x.strip() for x in str(t or '').splitlines()]
+    for i,line in enumerate(lines):
+        if line==label:
+            return lines[i+1:min(i+1+limit,len(lines))]
+    return []
 
 def parse_selected(page,cid,name,a):
     t=body(page)
     avg=field_money(t,'매물평균가')
     kb=field_money(t,'KB시세 일반가')
     recent=None; date=None
-    m=re.search(r'최근 실거래가[ \t]*([^\n\r]+)',t)
-    if m:
-        recent=money(m.group(1))
-        dm=re.search(r'(\d{2}\.\d{2}\.\d{2})',m.group(1))
-        if dm: date=dm.group(1)
+    nxt=field_text_after(t,'최근 실거래가',3)
+    if nxt:
+        recent=money(nxt[0])
+        for q in nxt[1:]:
+            dm=re.search(r'(\d{2}\.\d{2}\.\d{2})',q)
+            if dm:
+                date=dm.group(1);break
+
+    # The page contains both complex-wide counts and selected-type counts.
+    # Use the last 매매→전세 count pair, which is the selected type detail block.
     cnt=None
-    m=re.search(r'매매\s*([\d,]+)\s*전세',t)
-    if m: cnt=int(m.group(1).replace(',',''))
+    pairs=re.findall(r'매매\s*([\d,]+)\s*전세',t,re.S)
+    if pairs:
+        try:cnt=int(pairs[-1].replace(',',''))
+        except Exception:pass
+
     expected=a.get('general_price_manwon')
     if expected is not None and kb is not None and int(expected)!=int(kb):
         raise RuntimeError(f'KB price/type validation failed area={a.get("area_id")} label={a.get("type_label")} expected={expected} got={kb}')
