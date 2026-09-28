@@ -338,7 +338,9 @@ const refreshShortFmt=d=>{if(!d)return'확인 대기';const now=new Date(),parts
 const refreshScheduleFmt=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):'—';
 const refreshKstParts=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return{y:+p.year,m:+p.month,d:+p.day,w:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.weekday],hh:+p.hour,mm:+p.minute}};
 const refreshKstDate=(y,m,d,h,min)=>new Date(Date.UTC(y,m-1,d,h-9,min));
-const refreshNextDaily=()=>{const n=refreshKstParts(),after=n.hh>7||(n.hh===7&&n.mm>=5),base=refreshKstDate(n.y,n.m,n.d,7,5);return after?new Date(base.getTime()+86400000):base};
+const refreshTodayDaily=()=>{const n=refreshKstParts();return refreshKstDate(n.y,n.m,n.d,7,5)};
+const refreshNextDaily=()=>{const n=refreshKstParts(),after=n.hh>7||(n.hh===7&&n.mm>=5),base=refreshTodayDaily();return after?new Date(base.getTime()+86400000):base};
+const refreshDailyDueState=last=>{const n=refreshKstParts(),due=refreshTodayDaily(),after=n.hh>7||(n.hh===7&&n.mm>=5),lastDate=refreshStamp(last);return{due,after,overdue:Boolean(after&&(!lastDate||lastDate.getTime()<due.getTime()))}};
 const refreshNextWeekly=()=>{const n=refreshKstParts();let delta=(5-n.w+7)%7;if(delta===0&&(n.hh>21||(n.hh===21&&n.mm>=5)))delta=7;return new Date(refreshKstDate(n.y,n.m,n.d,21,5).getTime()+delta*86400000)};
 const refreshNextMonthly=()=>{const n=refreshKstParts();let y=n.y,m=n.m;let d=refreshKstDate(y,m,3,7,20);if(Date.now()>=d.getTime()){m+=1;if(m===13){m=1;y+=1}d=refreshKstDate(y,m,3,7,20)}return d};
 const refreshReadState=()=>{try{const x=JSON.parse(localStorage.getItem(REFRESH_SNAPSHOT_KEY)||'{}');return{xVersion:3,items:x.items||{}}}catch{return{xVersion:3,items:{}}}};
@@ -448,16 +450,22 @@ async function initRefreshCalendar(){
  set('refreshUnchangedCount','변경 없음 '+unchanged+'개');
  const wc=document.getElementById('refreshWarningCount');if(wc){wc.hidden=!warningCount;wc.textContent='원천 확인 '+warningCount+'건'}
  const changedEl=document.getElementById('refreshChangedCount');if(changedEl)changedEl.classList.toggle('changed',changed.length>0);
- set('refreshDailyLast','마지막 '+refreshShortFmt(refreshStamp(dailyRev))+' 확인 · '+(changed.length?'실제 변경 '+changed.length+'개':'변경 없음'));
- set('refreshDailyNext','다음 '+refreshScheduleFmt(refreshNextDaily()));
+ const dailyDue=refreshDailyDueState(dailyRev);
+ if(dailyDue.overdue){
+   set('refreshDailyLast','마지막 '+refreshShortFmt(refreshStamp(dailyRev))+' 확인 · 오늘 07:05 예정분 미반영');
+   set('refreshDailyNext','오늘 갱신 지연/미실행 확인 필요 · 다음 정규 '+refreshScheduleFmt(refreshNextDaily()));
+ }else{
+   set('refreshDailyLast','마지막 '+refreshShortFmt(refreshStamp(dailyRev))+' 확인 · '+(changed.length?'실제 변경 '+changed.length+'개':'변경 없음'));
+   set('refreshDailyNext','다음 '+refreshScheduleFmt(refreshNextDaily()));
+ }
  set('refreshWeeklyLast','KB 시세 '+refreshShortFmt(refreshStamp(kbRev))+(listingFallback?' · 매물은 마지막 정상값 유지':' · 확인 완료'));
  set('refreshWeeklyNext','다음 '+refreshScheduleFmt(refreshNextWeekly()));
  set('refreshMonthlyLast','연구엔진 '+refreshShortFmt(refreshStamp(monthlyRev))+(backtest?.certified_through?' · 인증 '+String(backtest.certified_through).slice(0,4)+'.'+String(backtest.certified_through).slice(4):''));
  set('refreshMonthlyNext','다음 '+refreshScheduleFmt(refreshNextMonthly()));
  const hs=document.getElementById('refreshHealthSummary');if(hs){hs.classList.toggle('warning',Boolean(warningCount));hs.textContent=warningCount?'원천 확인 필요 · 문제가 있는 원천만 마지막 정상값을 유지합니다.':'정상 · 핵심 원천이 확인됐고 실제 값 변화만 갱신 표시합니다.'}
  const ss=document.getElementById('refreshSummaryStatus'),sm=document.getElementById('refreshSummaryMeta');
- if(ss){ss.classList.toggle('warning',Boolean(warningCount));ss.classList.toggle('changed',changed.length>0&&!warningCount);ss.textContent=warningCount?'원천 확인 '+warningCount+'건':changed.length?'변경 '+changed.length+'개':'변경 없음'}
- if(sm){const names=changed.slice(0,4).map(x=>x.label);sm.textContent=refreshShortFmt(refreshStamp(dailyRev))+' 확인 완료 · '+(names.length?names.join(' · ')+' 갱신'+(changed.length>4?' 외 '+(changed.length-4)+'개':''):'주요 지표 값 변화 없음')}
+ if(ss){const dailyDue=refreshDailyDueState(dailyRev),warn=Boolean(warningCount)||dailyDue.overdue;ss.classList.toggle('warning',warn);ss.classList.toggle('changed',changed.length>0&&!warn);ss.textContent=dailyDue.overdue?'오늘 갱신 미반영':warningCount?'원천 확인 '+warningCount+'건':changed.length?'변경 '+changed.length+'개':'변경 없음'}
+ if(sm){const dailyDue=refreshDailyDueState(dailyRev),names=changed.slice(0,4).map(x=>x.label);sm.textContent=dailyDue.overdue?'오늘 07:05 예정분이 아직 반영되지 않았습니다 · 마지막 '+refreshShortFmt(refreshStamp(dailyRev)):refreshShortFmt(refreshStamp(dailyRev))+' 확인 완료 · '+(names.length?names.join(' · ')+' 갱신'+(changed.length>4?' 외 '+(changed.length-4)+'개':''):'주요 지표 값 변화 없음')}
 }
 initRefreshCalendar();
 
