@@ -215,9 +215,19 @@ def main():
         best=[z for z in candidates if abs(z[0]-best_sim)<1e-9]
         best_names={norm(z[2]['apt_name']) for z in best if norm(z[2]['apt_name'])}
         if len(best_names)>1:
-            unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
-              'reason':'ambiguous_best_name_match','candidate_names':sorted(best_names)})
-            continue
+            # A previously verified MOLIT apartment identity is a safe tie-breaker.
+            # This prevents a shorter daily window from losing an established match
+            # merely because sibling complexes have equal fuzzy scores.
+            old=prior_items.get((x['complex_id'],x['area_id']))
+            old_name=old.get('molit_apt_name') if old else None
+            anchored=[z for z in best if old_name and norm(z[2]['apt_name'])==norm(old_name)]
+            if anchored:
+                best=anchored
+                best_names={norm(old_name)}
+            else:
+                unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
+                  'reason':'ambiguous_best_name_match','candidate_names':sorted(best_names)})
+                continue
         # Identity score first; recency only chooses among trades of the best-matching complex.
         best.sort(key=lambda z:(z[2]['date'],z[1]),reverse=True)
         sim,_,r=best[0]
