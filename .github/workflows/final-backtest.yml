@@ -1,18 +1,10 @@
 name: Final historical validation
 # full-refresh trigger: 2026-09-28 12:54 KST
+# Monthly certified backtest path. Heavy history collection is schedule/manual only.
 on:
   schedule:
-    - cron: '20 22 2 * *' # monthly certified refresh: 07:20 KST on the 3rd
+    - cron: '20 22 2 * *' # 07:20 KST on the 3rd
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/final_backtest.py'
-      - 'scripts/collect_ecos_m2.py'
-      - 'scripts/collect_kb_sentiment.py'
-      - 'scripts/collect_garak_geumho_24a.py'
-      - 'scripts/collect_historical_demand.py'
-      - '.github/workflows/final-backtest.yml'
 permissions: {contents: write}
 concurrency:
   group: final-backtest-${{ github.ref }}
