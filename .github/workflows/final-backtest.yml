@@ -1,4 +1,5 @@
 name: Final historical validation
+# full-refresh trigger: 2026-09-28 12:54 KST
 on:
   schedule:
     - cron: '20 22 2 * *' # monthly certified refresh: 07:20 KST on the 3rd
