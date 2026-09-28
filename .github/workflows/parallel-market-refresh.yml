@@ -2,38 +2,11 @@ name: Parallel market data refresh
 # full-refresh trigger: 2026-09-28 12:54 KST
 # KB detail merge enabled
 # catch-up trigger: 2026-09-28 missed scheduled refresh
+# FAST PATH: daily source refresh only. Code changes are validated by the sample path.
 on:
   schedule:
-    - cron: '5 22 * * *'
+    - cron: '5 22 * * *' # 07:05 KST
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/parallel-market-refresh.yml'
-      - 'scripts/collect_molit_trades.py'
-      - 'scripts/collect_watchlist_recent_trades.py'
-      - 'scripts/smoke_ecos_sources.py'
-      - 'scripts/sample_ecos_finance.py'
-      - 'scripts/collect_kb_sentiment.py'
-      - 'scripts/collect_kb_datahub_batch.py'
-      - 'scripts/collect_kb_statusboard_live.py'
-      - 'scripts/collect_kb_weekly_sale_index.py'
-      - 'scripts/build_kb_sentiment_score.py'
-      - 'scripts/compare_molit_vintages.py'
-      - 'scripts/build_condition_history.py'
-      - 'scripts/build_index_audit.py'
-      - 'scripts/validate_condition_index.py'
-      - 'scripts/collect_garak_geumho_24a.py'
-      - 'scripts/build_kb_value_live.py'
-      - 'scripts/collect_ecos_m2.py'
-      - 'scripts/collect_ecos_mortgage_rate.py'
-      - 'scripts/collect_ecos_base_rate.py'
-      - 'scripts/build_market_snapshot.py'
-      - 'scripts/collect_listings.py'
-      - 'scripts/merge_watchlist_details.py'
-      - 'scripts/merge_parallel_market_snapshot.py'
-      - 'data/buy_watchlist_targets.json'
-      - 'data/buy_watchlist_master.json'
-      - 'scripts/test_static_contract.py'
 permissions:
   contents: write
 concurrency:
@@ -44,11 +17,15 @@ jobs:
     name: C · KB sentiment
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      artifact_ready: ${{ steps.kb_sentiment_collect.outcome == 'success' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Collect KB weekly sentiment
+        id: kb_sentiment_collect
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -68,6 +45,7 @@ jobs:
           retry python3 scripts/collect_kb_statusboard_live.py
           retry python3 scripts/collect_kb_datahub_batch.py
       - uses: actions/upload-artifact@v4
+        if: steps.kb_sentiment_collect.outcome == 'success'
         with:
           name: source-kb-sentiment-${{ github.run_id }}
           path: |
@@ -110,6 +88,8 @@ jobs:
     name: B · BOK ECOS
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      artifact_ready: ${{ steps.ecos_collect.outcome == 'success' }}
     env:
       BOK_ECOS_KEY: ${{ secrets.BOK_ECOS_KEY }}
     steps:
@@ -117,6 +97,8 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Collect ECOS finance sources with retry
+        id: ecos_collect
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -139,6 +121,7 @@ jobs:
           retry python3 scripts/collect_ecos_base_rate.py
           retry python3 scripts/collect_ecos_m2.py
       - uses: actions/upload-artifact@v4
+        if: steps.ecos_collect.outcome == 'success'
         with:
           name: source-ecos-${{ github.run_id }}
           path: |
@@ -150,12 +133,15 @@ jobs:
   watchlist_details:
     runs-on: ubuntu-latest
     timeout-minutes: 12
+    outputs:
+      artifact_ready: ${{ steps.watchlist_collect.outcome == 'success' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
       - name: Collect KB watchlist detail fields
         id: watchlist_collect
+        continue-on-error: true
         env:
           KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
           KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
@@ -182,7 +168,7 @@ jobs:
           merge-multiple: true
           path: data_sources
       - name: Download ECOS artifact
-        if: needs.ecos.result == 'success'
+        if: needs.ecos.outputs.artifact_ready == 'true'
         uses: actions/download-artifact@v4
         with:
           pattern: source-ecos-*
@@ -191,14 +177,14 @@ jobs:
       - name: Compare MOLIT reporting vintages
         run: python3 scripts/compare_molit_vintages.py
       - name: Download KB sentiment artifact
-        if: needs.kb_sentiment.result == 'success'
+        if: needs.kb_sentiment.outputs.artifact_ready == 'true'
         uses: actions/download-artifact@v4
         with:
           pattern: source-kb-sentiment-*
           merge-multiple: true
           path: data_sources
       - name: Download KB watchlist detail artifact
-        if: needs.watchlist_details.result == 'success'
+        if: needs.watchlist_details.outputs.artifact_ready == 'true'
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
@@ -207,9 +193,9 @@ jobs:
       - name: Record source refresh outcomes
         env:
           MOLIT_ARTIFACT_READY: ${{ needs.molit.outputs.artifact_ready }}
-          ECOS_JOB_RESULT: ${{ needs.ecos.result }}
-          KB_SENTIMENT_JOB_RESULT: ${{ needs.kb_sentiment.result }}
-          WATCHLIST_DETAIL_JOB_RESULT: ${{ needs.watchlist_details.result }}
+          ECOS_ARTIFACT_READY: ${{ needs.ecos.outputs.artifact_ready }}
+          KB_SENTIMENT_ARTIFACT_READY: ${{ needs.kb_sentiment.outputs.artifact_ready }}
+          WATCHLIST_DETAIL_ARTIFACT_READY: ${{ needs.watchlist_details.outputs.artifact_ready }}
         run: |
           python3 - <<'PY'
           import json,os,datetime,pathlib
@@ -219,9 +205,9 @@ jobs:
             'attempted_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
             'sources':{
               'molit':state(os.getenv('MOLIT_ARTIFACT_READY'),'true'),
-              'ecos':state(os.getenv('ECOS_JOB_RESULT')),
-              'kb_sentiment':state(os.getenv('KB_SENTIMENT_JOB_RESULT')),
-              'watchlist_detail':state(os.getenv('WATCHLIST_DETAIL_JOB_RESULT')),
+              'ecos':state(os.getenv('ECOS_ARTIFACT_READY'),'true'),
+              'kb_sentiment':state(os.getenv('KB_SENTIMENT_ARTIFACT_READY'),'true'),
+              'watchlist_detail':state(os.getenv('WATCHLIST_DETAIL_ARTIFACT_READY'),'true'),
             }
           }
           p=pathlib.Path('data_sources/refresh_run_status.json')
@@ -230,7 +216,7 @@ jobs:
           PY
       - name: Build connected KB value component
         run: |
-          python3 scripts/collect_garak_geumho_24a.py
+          python3 scripts/collect_garak_geumho_24a.py || echo 'KB value history refresh unavailable; using last-good history'
           python3 scripts/build_kb_value_live.py
       - name: Build KB sentiment component
         if: needs.kb_sentiment.result == 'success'
