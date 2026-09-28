@@ -1,11 +1,27 @@
 name: Validate market samples
 
+# SAMPLE PATH: cheap collector validation. Never publishes or launches full refreshes.
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'scripts/collect_public_market.py'
+      - 'scripts/collect_listings.py'
+      - 'scripts/collect_catalog.py'
+      - 'scripts/collect_types.py'
+      - 'scripts/collect_seoul.py'
+      - 'scripts/build_buy_watchlist_master.py'
+      - 'data/buy_watchlist_targets.json'
+      - 'data/buy_watchlist_master.json'
       - '.github/workflows/market-sample.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: market-sample-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   sample:
@@ -16,17 +32,34 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Syntax check
-        run: python3 -m py_compile scripts/collect_public_market.py
-      - name: Validate two known target types
+      - name: Syntax check collector path
+        run: |
+          python3 -m py_compile \
+            scripts/collect_public_market.py \
+            scripts/collect_listings.py \
+            scripts/collect_catalog.py \
+            scripts/collect_types.py \
+            scripts/collect_seoul.py \
+            scripts/build_buy_watchlist_master.py
+      - name: Validate two live KB market samples
         run: |
           pip install playwright
           playwright install chromium
           python3 scripts/collect_public_market.py --sample
+      - name: Validate exact-area lightweight collector
+        env:
+          KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
+          KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
+          KB_WMONID: ${{ secrets.KB_WMONID }}
+        run: |
+          python3 scripts/collect_listings.py --complex-id 1960
+          python3 scripts/collect_listings.py --complex-id 1947 --area-id 1835
       - name: Preserve sample result
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: market-sample-${{ github.run_id }}
-          path: data/market_sample_validation.json
+          path: |
+            data/market_sample_validation.json
+            data/listing_asks_probe.json
           if-no-files-found: warn
