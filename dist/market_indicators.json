@@ -204,10 +204,10 @@
     "kb_weekly_sale_index": "connected",
     "kb_weekly_rent_index": "connected",
     "ecos_base_rate": "connected",
-    "molit_refresh": "connected",
-    "ecos_refresh": "connected",
-    "kb_sentiment_refresh": "connected",
-    "watchlist_detail_refresh": "connected"
+    "molit_refresh": "fallback_last_good",
+    "ecos_refresh": "fallback_last_good",
+    "kb_sentiment_refresh": "fallback_last_good",
+    "watchlist_detail_refresh": "fallback_last_good"
   },
   "kb_sentiment": {
     "status": "connected",
@@ -252,7 +252,7 @@
     "current_position_0_1": 1.0,
     "source": "KB부동산 가락금호 24A 월별 일반거래가",
     "period": "202609",
-    "generated_at": "2026-09-28T16:59:41.882400+00:00"
+    "generated_at": "2026-09-28T17:21:46.021640+00:00"
   },
   "matched_period": {
     "as_of": "2026-09-29",
@@ -485,12 +485,12 @@
     "collected_at": "2026-09-28T16:58:26.347079+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-09-28T16:59:38.849558+00:00",
+    "attempted_at": "2026-09-28T17:21:42.676107+00:00",
     "sources": {
-      "molit": "connected",
-      "ecos": "connected",
-      "kb_sentiment": "connected",
-      "watchlist_detail": "connected"
+      "molit": "fallback_last_good",
+      "ecos": "fallback_last_good",
+      "kb_sentiment": "fallback_last_good",
+      "watchlist_detail": "fallback_last_good"
     },
     "attempts": {
       "molit": 1,
