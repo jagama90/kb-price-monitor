@@ -60,6 +60,36 @@ jobs:
               yaml.compose(Path(p).read_text(encoding='utf-8'))
               print('YAML OK',p)
           PY
+      - name: Validate fast/full/sample trigger isolation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import yaml
+          heavy=[
+            '.github/workflows/parallel-market-refresh.yml',
+            '.github/workflows/weekly-refresh.yml',
+            '.github/workflows/market-extensions.yml',
+            '.github/workflows/forecast-regime.yml',
+            '.github/workflows/system-health.yml',
+            '.github/workflows/research-turning-signal.yml',
+            '.github/workflows/final-backtest.yml',
+          ]
+          for p in heavy:
+              data=yaml.load(Path(p).read_text(encoding='utf-8'),Loader=yaml.BaseLoader)
+              triggers=data.get('on') or {}
+              assert 'push' not in triggers, f'heavy workflow must not run on push: {p}'
+          sample=yaml.load(Path('.github/workflows/market-sample.yml').read_text(encoding='utf-8'),Loader=yaml.BaseLoader)
+          assert 'push' in (sample.get('on') or {}), 'sample path must validate relevant code pushes'
+          daily=Path('.github/workflows/parallel-market-refresh.yml').read_text(encoding='utf-8')
+          assert daily.count('continue-on-error: true') >= 4, 'daily source jobs must fail soft'
+          assert daily.count('artifact_ready:') >= 4, 'daily source artifact gates missing'
+          extensions=yaml.load(Path('.github/workflows/market-extensions.yml').read_text(encoding='utf-8'),Loader=yaml.BaseLoader)
+          ext_names=((extensions.get('on') or {}).get('workflow_run') or {}).get('workflows') or []
+          assert 'Parallel market data refresh' not in ext_names, 'daily path must not launch heavy market extensions'
+          health=yaml.load(Path('.github/workflows/system-health.yml').read_text(encoding='utf-8'),Loader=yaml.BaseLoader)
+          assert 'schedule' not in (health.get('on') or {}), 'health gate must not duplicate daily schedule'
+          print('TRIGGER ISOLATION OK')
+          PY
       - name: Syntax check collector path
         run: |
           python3 -m py_compile \
