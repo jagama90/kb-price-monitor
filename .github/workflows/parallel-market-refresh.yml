@@ -22,7 +22,9 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: market-data-v3-${{ github.ref }}
+  # Keep production and smoke isolated while still cancelling superseded runs
+  # of the same workflow.
+  group: market-data-v4-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   kb_sentiment:
@@ -73,7 +75,7 @@ jobs:
   molit:
     name: A · MOLIT trades
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 5
     outputs:
       artifact_ready: ${{ steps.molit_collect.outcome == 'success' }}
       retried: ${{ steps.molit_collect.outputs.retried }}
@@ -90,9 +92,10 @@ jobs:
           set -euo pipefail
           test -n "$MOLIT_SERVICE_KEY"
           collect_source() {
-            # Query the small watchlist slice first, before the Seoul-wide burst.
-            python3 scripts/collect_watchlist_recent_trades.py &&
-            python3 scripts/collect_molit_trades.py
+            # Query the small watchlist slice first so the city collector can reuse it.
+            # OS-level deadlines guarantee one bad upstream response cannot pin the job.
+            timeout --signal=TERM --kill-after=3s 25s python3 scripts/collect_watchlist_recent_trades.py &&
+            timeout --signal=TERM --kill-after=3s 30s python3 scripts/collect_molit_trades.py
           }
           # Pair-level collectors already retry only the failed district/month.
           # Do not restart the entire MOLIT source after those selective retries.
