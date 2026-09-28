@@ -22,9 +22,10 @@ on:
 permissions:
   contents: write
 concurrency:
-  # Keep production and smoke isolated while still cancelling superseded runs
-  # of the same workflow.
-  group: market-data-v4-${{ github.workflow }}-${{ github.ref }}
+  # Production runs keep ref-level supersede/cancel behavior.
+  # Reusable dry-run smoke calls get a unique inner group; the caller owns
+  # smoke supersede/cancel behavior. This avoids nested-concurrency races.
+  group: market-data-v5-${{ inputs.dry_run == true && github.run_id || github.ref }}
   cancel-in-progress: true
 jobs:
   kb_sentiment:
