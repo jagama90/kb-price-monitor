@@ -9,13 +9,15 @@ OUT=ROOT/'data/buy_watchlist_market.json'
 DIST=ROOT/'dist/buy_watchlist_market.json'
 
 def money(s):
-    s=str(s or '').replace(',','').strip()
+    raw=str(s or '').strip()
+    s=raw.replace(',','')
     total=0.0
     m=re.search(r'(\d+(?:\.\d+)?)억',s)
     if m:
         total+=float(m.group(1))*10000
-        tail=s[m.end():]
-        m2=re.search(r'(\d+)\s*만',tail)
+        tail=s[m.end():].strip()
+        # KB now renders e.g. "18억 9,500" without the trailing "만".
+        m2=re.match(r'(\d{1,4})(?:\s*만)?(?:\s|$)',tail)
         if m2: total+=float(m2.group(1))
     else:
         m3=re.search(r'(\d+)\s*만',s)
