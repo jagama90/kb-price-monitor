@@ -142,9 +142,10 @@ def parse_selected(page,cid,name,a):
     lines=[x.strip() for x in t.splitlines()]
     label=str(a.get('type_label') or '').strip()
     display=(label+'평') if label and not label.endswith('평') else label
-    type_markers=[i for i,x in enumerate(lines) if x=='타입']
-    begin=type_markers[-1]+1 if type_markers else 0
-    for i in range(begin,len(lines)-1):
+    # Scan the whole rendered document: only the type-detail copy of the label
+    # is immediately followed by "(N세대)", so this is safer than relying on a
+    # particular section-marker position.
+    for i in range(0,len(lines)-1):
         household_line=lines[i+1]
         is_households=household_line.startswith('(') and household_line.endswith('세대)')
         if lines[i]==display and is_households:
