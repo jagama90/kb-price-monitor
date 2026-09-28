@@ -1,23 +1,11 @@
 name: Weekly KB price refresh
 # full-refresh trigger: 2026-09-28 12:54 KST
 
+# FULL PATH: expensive KB-wide refresh runs only on schedule or explicit manual request.
 on:
   schedule:
     - cron: '5 12 * * 5' # Friday 21:05 KST full KB checkpoint
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/weekly-refresh.yml'
-      - 'scripts/test_static_contract.py'
-      - 'scripts/test_price_core.cjs'
-      - 'scripts/collect_public_market.py'
-      - 'scripts/collect_kb_watchlist_history.py'
-      - 'scripts/collect_garak_geumho_24a.py'
-      - 'scripts/merge_weekly_listing_snapshot.py'
-      - 'scripts/collect_seoul.py'
-      - 'scripts/build_buy_watchlist_master.py'
-      - 'scripts/build_kb_value_sample.py'
-      - 'scripts/probe_kb_history_endpoint.py'
 
 permissions:
   contents: write
