@@ -4,6 +4,10 @@ on:
   workflow_run:
     workflows: ['Forward regime forecast', 'Validate market extensions']
     types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/system-health.yml'
   workflow_dispatch:
 permissions:
   contents: read
