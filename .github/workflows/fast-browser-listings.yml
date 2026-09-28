@@ -9,6 +9,7 @@ on:
       - '.github/workflows/fast-browser-listings.yml'
       - 'scripts/collect_molit_trades.py'
       - 'scripts/collect_watchlist_recent_trades.py'
+      - '.github/workflows/parallel-market-refresh.yml'
       - 'scripts/collect_kb_sentiment.py'
   workflow_dispatch:
 
