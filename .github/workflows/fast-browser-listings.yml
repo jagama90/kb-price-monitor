@@ -35,12 +35,22 @@ jobs:
               print('URL',page.url)
               print('BUTTONS',await page.locator('button').all_inner_texts())
               els=page.locator('button')
+              # Switch to pyeong display if available, then select the 24-pyeong type.
               for i in range(await els.count()):
                 x=els.nth(i); t=(await x.inner_text()).strip()
-                if ('전체 매물' in t) or (t == '매매' and i == 0):
-                  print('CLICKING',t); await x.click(); await page.wait_for_timeout(8000); break
+                if t == '평':
+                  print('UNIT_CLICK',t); await x.click(); await page.wait_for_timeout(1200); break
+              print('BUTTONS_AFTER_UNIT',await page.locator('button').all_inner_texts())
+              els=page.locator('button')
+              for i in range(await els.count()):
+                x=els.nth(i); t=(await x.inner_text()).strip()
+                if t.startswith('24평') or t.startswith('81m²'):
+                  print('TYPE_CLICK',t); await x.click(); await page.wait_for_timeout(2000); break
+              body=await page.locator('body').inner_text()
+              rel=[line for line in body.splitlines() if any(k in line for k in ['매물','KB시세','실거래','매매','평균'])]
+              print('RELEVANT_BODY',rel[:160])
               await b.close()
           asyncio.run(m())
           PY
 # run
-# refresh-diagnostic: 2026-09-28
+# refresh-diagnostic: 2026-09-28-body
