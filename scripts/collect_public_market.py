@@ -84,7 +84,7 @@ def select_type(page,label,area=None):
         if click_visible(toggle): page.wait_for_timeout(350)
     except Exception:
         pass
-    pat=re.compile(r'^\s*'+re.escape(pyeong)+r'(?:\.0+)?평(?:\s*/|\s*$)')
+    pat=re.compile(r'^\s*'+re.escape(pyeong)+r'(?:\.0+)?평')
     if click_visible(page.get_by_role('button',name=pat)):
         page.wait_for_timeout(900); return
 
@@ -93,7 +93,7 @@ def select_type(page,label,area=None):
     supply=(area or {}).get('supply_m2')
     if supply:
         n=int(round(float(supply)))
-        mpat=re.compile(r'^\s*'+str(n)+r'(?:\.\d+)?m²(?:\s*/|\s*$)',re.I)
+        mpat=re.compile(r'^\s*'+str(n)+r'(?:\.\d+)?m²',re.I)
         if click_visible(page.get_by_role('button',name=mpat)):
             page.wait_for_timeout(900); return
 
