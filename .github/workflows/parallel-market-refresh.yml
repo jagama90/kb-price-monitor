@@ -1,4 +1,5 @@
 name: Parallel market data refresh
+# full-refresh trigger: 2026-09-28 12:54 KST
 # KB detail merge enabled
 # catch-up trigger: 2026-09-28 missed scheduled refresh
 on:
