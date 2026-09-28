@@ -3,7 +3,7 @@ import os,json,datetime,urllib.parse,urllib.request,xml.etree.ElementTree as ET,
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from zoneinfo import ZoneInfo
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-OUT=ROOT/'data_sources/molit.json'; VINTAGE=ROOT/'data_sources/molit_daily_history.json'
+OUT=ROOT/'data_sources/molit.json'; VINTAGE=ROOT/'data_sources/molit_daily_history.json'; SHARED=ROOT/'data_sources/.molit_watchlist_pair_cache.json'
 SEOUL=['11110','11140','11170','11200','11215','11230','11260','11290','11305','11320','11350','11380','11410','11440','11470','11500','11530','11545','11560','11590','11620','11650','11680','11710','11740']
 def request_page(code,ym,key,page,timeout):
  q=urllib.parse.urlencode({'serviceKey':key,'LAWD_CD':code,'DEAL_YMD':ym,'numOfRows':1000,'pageNo':page},safe='%')
@@ -38,6 +38,21 @@ def cache_key(code,ym):
 
 def decode_cache(previous):
  raw=previous.get('pair_cache') or {}
+ out={}
+ for k,v in raw.items():
+  try:
+   code,ym=k.split(':',1)
+   if code in SEOUL and len(ym)==6:
+    out[(code,ym)]=[(int(x[0]),int(x[1])) for x in (v or [])]
+  except Exception:
+   pass
+ return out
+
+def decode_shared_cache():
+ if not SHARED.exists():return {}
+ try:
+  raw=json.loads(SHARED.read_text(encoding='utf-8'))
+ except Exception:return {}
  out={}
  for k,v in raw.items():
   try:
@@ -132,6 +147,8 @@ def main():
   y,m=shift_month(now,-back);months.append(f'{y:04d}{m:02d}')
  monthly={};series=[];bands=[]
  pair_cache=decode_cache(previous)
+ shared_cache=decode_shared_cache()
+ pair_cache.update(shared_cache)
  workers=max(1,min(int(os.getenv('MOLIT_WORKERS','6')),10))
 
  # Daily: query only the current month (25 district calls). The previous month's
@@ -141,16 +158,18 @@ def main():
  refresh_count=3 if weekly_sweep else 1
  refresh=set(months[:refresh_count])
 
- # Bootstrap only what is actually missing. The previous month raw cache is needed
- # for equal-calendar-day comparison even when its aggregate band is already cached.
- pairs_to_fetch={(code,ym) for ym in refresh for code in SEOUL}
+ # Reuse district/month responses already downloaded by the watchlist collector
+ # earlier in the same job. Persistent cache never suppresses a requested refresh,
+ # but same-run shared cache does.
+ pairs_to_fetch={(code,ym) for ym in refresh for code in SEOUL if (code,ym) not in shared_cache}
  for code in SEOUL:
   if (code,months[1]) not in pair_cache:
    pairs_to_fetch.add((code,months[1]))
  # Historical bands missing from the repository are repaired lazily.
  for ym in months:
   if ym not in previous_bands:
-   for code in SEOUL:pairs_to_fetch.add((code,ym))
+   for code in SEOUL:
+    if (code,ym) not in shared_cache:pairs_to_fetch.add((code,ym))
 
  fetched,pair_cache,fetch_meta=fetch_refresh_pairs(pairs_to_fetch,key,workers,pair_cache)
  pair_rows=dict(pair_cache);pair_rows.update(fetched)
@@ -188,6 +207,7 @@ def main():
       'refresh_meta':{
        'mode':'weekly_correction_sweep' if weekly_sweep else 'daily_current_month_only',
        'queried_pairs':len(pairs_to_fetch),
+       'reused_watchlist_pairs':len(shared_cache),
        'retried_pairs':[cache_key(*x) for x in fetch_meta['retried']],
        'cache_fallback_pairs':[cache_key(*x) for x in fetch_meta['fallbacks']],
        'elapsed_sec':round(fetch_meta['elapsed_sec'],1)
@@ -198,5 +218,5 @@ def main():
       'matched_period':matched}
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  history=json.loads(VINTAGE.read_text()) if VINTAGE.exists() else {'snapshots':[]};history['snapshots']=[x for x in history.get('snapshots',[]) if x.get('as_of')!=now.isoformat()];history['snapshots'].append({'as_of':now.isoformat(),'matched_period':matched,'current_month':bands[-1]});history['snapshots']=history['snapshots'][-400:];VINTAGE.write_text(json.dumps(history,ensure_ascii=False,indent=2))
- print(json.dumps({'collector':'MOLIT','months':len(months),'mode':out['refresh_meta']['mode'],'refreshed_months':sorted(refresh),'queried_pairs':len(pairs_to_fetch),'workers':workers,'retried_pairs':len(fetch_meta['retried']),'cache_fallbacks':len(fetch_meta['fallbacks']),'latest_total':bands[-1]['total'],'matched':matched['changes']},ensure_ascii=False))
+ print(json.dumps({'collector':'MOLIT','months':len(months),'mode':out['refresh_meta']['mode'],'refreshed_months':sorted(refresh),'queried_pairs':len(pairs_to_fetch),'reused_watchlist_pairs':len(shared_cache),'workers':workers,'retried_pairs':len(fetch_meta['retried']),'cache_fallbacks':len(fetch_meta['fallbacks']),'latest_total':bands[-1]['total'],'matched':matched['changes']},ensure_ascii=False))
 if __name__=='__main__':main()
