@@ -18,14 +18,22 @@ class StaticContract(unittest.TestCase):
         for asset in page.assets:
             clean=asset.split('?',1)[0]
             self.assertTrue((ROOT/'dist'/clean).is_file(),asset)
-        # index.html is the market dashboard and is driven by market.js. Validate
-        # selectors against the script actually referenced by the page rather than
-        # the legacy app.js used by the separate watchlist UI.
-        scripts=[a.split('?',1)[0] for a in page.assets if a.split('?',1)[0].endswith('.js')]
-        code='\n'.join((ROOT/'dist'/s).read_text() for s in scripts)
-        generated=set(re.findall(r'''id=["']([A-Za-z][\w-]*)''',code))
-        for selector in re.findall(r"(?:querySelector\(|\$\()['\"]#([A-Za-z][\w-]*)",code):
-            self.assertTrue(selector in page.ids or selector in generated,selector)
+        # Validate each dashboard script against the HTML page that actually owns it.
+        # market.js belongs to market.html; index.html may host a separate lightweight shell.
+        pages=['index.html','market.html']
+        combined_code=[]
+        for name in pages:
+            path=ROOT/'dist'/name
+            if not path.exists(): continue
+            p=Page();p.feed(path.read_text())
+            self.assertEqual(len(p.ids),len(set(p.ids)),name)
+            scripts=[a.split('?',1)[0] for a in p.assets if a.split('?',1)[0].endswith('.js')]
+            code='\n'.join((ROOT/'dist'/s).read_text() for s in scripts)
+            combined_code.append(code)
+            generated=set(re.findall(r'''id=["']([A-Za-z][\w-]*)''',code))
+            for selector in re.findall(r"(?:querySelector\(|\$\()['\"]#([A-Za-z][\w-]*)",code):
+                self.assertTrue(selector in p.ids or selector in generated,f'{name}: {selector}')
+        code='\n'.join(combined_code)
         self.assertNotIn('seoul_snapshot.json',code)
         self.assertNotIn('min_price_manwon',code)
 if __name__=='__main__':unittest.main()
