@@ -13,7 +13,6 @@ on:
       - 'scripts/collect_seoul.py'
       - 'scripts/build_buy_watchlist_master.py'
       - 'data/buy_watchlist_targets.json'
-      - 'data/buy_watchlist_master.json'
       - '.github/workflows/parallel-market-refresh.yml'
       - '.github/workflows/weekly-refresh.yml'
       - '.github/workflows/market-extensions.yml'
