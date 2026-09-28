@@ -2,7 +2,7 @@
   "status": "research_only",
   "weights_are_not_calibrated_probabilities": true,
   "method": "transparent scenario-weight engine: certified turning-state research + freshest live market overlay; no future labels are used in current scoring",
-  "as_of": "2026-09-26",
+  "as_of": "2026-09-28",
   "latest_research_month": "202608",
   "latest_research_provisional": true,
   "latest_certified_backtest_month": "202607",
@@ -11,9 +11,9 @@
       "period": "2026Q4",
       "label": "2026년 말",
       "weights": {
-        "consolidation": 42.4,
+        "consolidation": 42.0,
         "reacceleration": 21.1,
-        "downturn": 36.5
+        "downturn": 36.9
       },
       "base_case": "consolidation"
     },
@@ -21,9 +21,9 @@
       "period": "2027H1",
       "label": "2027년 상반기",
       "weights": {
-        "consolidation": 38.0,
-        "reacceleration": 32.0,
-        "downturn": 30.0
+        "consolidation": 37.8,
+        "reacceleration": 31.8,
+        "downturn": 30.4
       },
       "base_case": "consolidation"
     },
@@ -31,9 +31,9 @@
       "period": "2027H2",
       "label": "2027년 하반기",
       "weights": {
-        "consolidation": 39.1,
+        "consolidation": 39.0,
         "reacceleration": 36.2,
-        "downturn": 24.7
+        "downturn": 24.8
       },
       "base_case": "consolidation"
     }
@@ -64,10 +64,10 @@
       "reaccel": 14.6,
       "finance": 61.1,
       "sentiment": 22.6,
-      "demand": 34.5,
+      "demand": 32.6,
       "value": 25.0,
       "supply": 49.3,
-      "trade_count_pct": -54.1,
+      "trade_count_pct": -58.2,
       "m2_yoy_pct": 5.8,
       "mortgage_rate_pct": 4.48
     }
@@ -99,5 +99,5 @@
     },
     "sample_is_small": true
   },
-  "generated_at": "2026-09-28T04:01:07.123030+00:00"
+  "generated_at": "2026-09-28T04:08:58.866749+00:00"
 }
