@@ -1,17 +1,10 @@
 name: System health audit
+# Single final gate for daily/weekly/monthly pipelines. No duplicate scheduled or code-push audits.
 on:
   workflow_run:
     workflows: ['Forward regime forecast', 'Validate market extensions']
     types: [completed]
-  schedule:
-    - cron: '15 0 * * *' # 09:15 KST, after daily market refresh + DB sync
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/system-health.yml'
-      - 'scripts/check_dashboard_bundle.py'
-      - 'scripts/check_pipeline_health.py'
 permissions:
   contents: read
 concurrency:
