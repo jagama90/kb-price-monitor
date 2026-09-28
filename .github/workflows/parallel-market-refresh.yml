@@ -94,13 +94,10 @@ jobs:
             python3 scripts/collect_watchlist_recent_trades.py &&
             python3 scripts/collect_molit_trades.py
           }
+          # Pair-level collectors already retry only the failed district/month.
+          # Do not restart the entire MOLIT source after those selective retries.
           echo "retried=false" >> "$GITHUB_OUTPUT"
-          if ! collect_source; then
-            echo "::warning::MOLIT source failed on first attempt; retrying once in 10s"
-            echo "retried=true" >> "$GITHUB_OUTPUT"
-            sleep 10
-            collect_source
-          fi
+          collect_source
       - name: MOLIT degraded-mode notice
         if: steps.molit_collect.outcome == 'failure'
         run: echo 'MOLIT unavailable after retries; keep last-good repository snapshot.'
