@@ -1,10 +1,10 @@
 {
-  "attempted_at": "2026-09-28T17:21:42.676107+00:00",
+  "attempted_at": "2026-09-28T17:28:19.211253+00:00",
   "sources": {
     "molit": "fallback_last_good",
-    "ecos": "fallback_last_good",
-    "kb_sentiment": "fallback_last_good",
-    "watchlist_detail": "fallback_last_good"
+    "ecos": "connected",
+    "kb_sentiment": "connected",
+    "watchlist_detail": "connected"
   },
   "attempts": {
     "molit": 1,
