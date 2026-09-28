@@ -142,6 +142,9 @@ def main():
  try:
   previous=json.loads(OUT.read_text()) if OUT.exists() else {}
  except Exception: previous={}
+ try:
+  history=json.loads(VINTAGE.read_text()) if VINTAGE.exists() else {'snapshots':[]}
+ except Exception: history={'snapshots':[]}
  previous_bands={str(x.get('period','')).replace('-',''):x for x in ((previous.get('price_bands') or {}).get('months') or [])}
  for back in range(7):
   y,m=shift_month(now,-back);months.append(f'{y:04d}{m:02d}')
@@ -158,13 +161,33 @@ def main():
  refresh_count=3 if weekly_sweep else 1
  refresh=set(months[:refresh_count])
 
+ # Equal-calendar-day comparison for the previous month is already stored in
+ # the daily vintage history. Reuse it on normal weekdays instead of re-querying
+ # all 25 districts. Friday correction sweep still refreshes the raw prior months.
+ py,pm=shift_month(now,-1)
+ cutoff=min(now.day,calendar.monthrange(py,pm)[1])
+ prev_period=f'{py:04d}-{pm:02d}'
+ cached_prev_match=None
+ if months[1] not in refresh:
+  mp=(previous.get('matched_period') or {})
+  p=(mp.get('previous') or {})
+  if mp.get('cutoff_day')==cutoff and p.get('period')==prev_period:
+   cached_prev_match=p
+  if cached_prev_match is None:
+   for snap in reversed(history.get('snapshots') or []):
+    smp=snap.get('matched_period') or {}; sp=smp.get('previous') or {}
+    if smp.get('cutoff_day')==cutoff and sp.get('period')==prev_period:
+     cached_prev_match=sp;break
+
  # Reuse district/month responses already downloaded by the watchlist collector
  # earlier in the same job. Persistent cache never suppresses a requested refresh,
  # but same-run shared cache does.
  pairs_to_fetch={(code,ym) for ym in refresh for code in SEOUL if (code,ym) not in shared_cache}
- for code in SEOUL:
-  if (code,months[1]) not in pair_cache:
-   pairs_to_fetch.add((code,months[1]))
+ # Only if no matched-period vintage exists do we need raw previous-month pairs.
+ if cached_prev_match is None and months[1] not in refresh:
+  for code in SEOUL:
+   if (code,months[1]) not in pair_cache and (code,months[1]) not in shared_cache:
+    pairs_to_fetch.add((code,months[1]))
  # Historical bands missing from the repository are repaired lazily.
  for ym in months:
   if ym not in previous_bands:
@@ -188,17 +211,28 @@ def main():
    monthly[ym]=rows;sm=summarize(rows)
   series.append([ym[:4]+'-'+ym[4:],sm['total'],ym==months[0]]);bands.append({'period':ym[:4]+'-'+ym[4:],**sm})
 
- # Matched-period calculation always needs raw current and previous rows.
- for ym in months[:2]:
-  if ym not in monthly:
+ # Matched-period calculation needs fresh raw current-month rows. Previous-month
+ # summary comes from vintage on weekdays, or fresh raw rows during Friday sweep.
+ cur=months[0];prev=months[1];cy,cm=now.year,now.month
+ if cur not in monthly:
+  rows=[]
+  for code in SEOUL:
+   pair=(code,cur)
+   if pair not in pair_rows:raise RuntimeError(f'MOLIT current-month cache missing {code} {cur}')
+   rows.extend(pair_rows[pair])
+  monthly[cur]=rows
+ cs=summarize([r for r in monthly.get(cur,[]) if 1<=r[0]<=cutoff])
+ if cached_prev_match is not None:
+  ps={k:cached_prev_match.get(k) for k in ('total','counts','boundary_counts','under15_share')}
+ else:
+  if prev not in monthly:
    rows=[]
    for code in SEOUL:
-    pair=(code,ym)
-    if pair not in pair_rows:raise RuntimeError(f'MOLIT matched-period cache missing {code} {ym}')
+    pair=(code,prev)
+    if pair not in pair_rows:raise RuntimeError(f'MOLIT previous-month cache missing {code} {prev}')
     rows.extend(pair_rows[pair])
-   monthly[ym]=rows
- cy,cm=now.year,now.month;py,pm=shift_month(now,-1);cutoff=min(now.day,calendar.monthrange(py,pm)[1]);cur=f'{cy:04d}{cm:02d}';prev=f'{py:04d}{pm:02d}'
- cs=summarize([r for r in monthly.get(cur,[]) if 1<=r[0]<=cutoff]);ps=summarize([r for r in monthly.get(prev,[]) if 1<=r[0]<=cutoff])
+   monthly[prev]=rows
+  ps=summarize([r for r in monthly.get(prev,[]) if 1<=r[0]<=cutoff])
  pct=lambda a,b:round((a/b-1)*100,1) if b else None
  matched={'as_of':now.isoformat(),'cutoff_day':cutoff,'basis':'contract_date_equal_calendar_days','current':{'period':f'{cy:04d}-{cm:02d}','range':f'1~{cutoff}일',**cs},'previous':{'period':f'{py:04d}-{pm:02d}','range':f'1~{cutoff}일',**ps},'changes':{'trade_count_pct':pct(cs['total'],ps['total']),'under15_share_pp':round(cs['under15_share']-ps['under15_share'],1) if cs['under15_share'] is not None and ps['under15_share'] is not None else None},'warning':'당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용'}
  cache_months=months[:3]
@@ -208,6 +242,7 @@ def main():
        'mode':'weekly_correction_sweep' if weekly_sweep else 'daily_current_month_only',
        'queried_pairs':len(pairs_to_fetch),
        'reused_watchlist_pairs':len(shared_cache),
+       'reused_previous_matched_vintage':cached_prev_match is not None,
        'retried_pairs':[cache_key(*x) for x in fetch_meta['retried']],
        'cache_fallback_pairs':[cache_key(*x) for x in fetch_meta['fallbacks']],
        'elapsed_sec':round(fetch_meta['elapsed_sec'],1)
@@ -217,6 +252,6 @@ def main():
       'price_bands':{'status':'partial_last_good' if fetch_meta['fallbacks'] else 'connected','months':bands},
       'matched_period':matched}
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2))
- history=json.loads(VINTAGE.read_text()) if VINTAGE.exists() else {'snapshots':[]};history['snapshots']=[x for x in history.get('snapshots',[]) if x.get('as_of')!=now.isoformat()];history['snapshots'].append({'as_of':now.isoformat(),'matched_period':matched,'current_month':bands[-1]});history['snapshots']=history['snapshots'][-400:];VINTAGE.write_text(json.dumps(history,ensure_ascii=False,indent=2))
+ history['snapshots']=[x for x in history.get('snapshots',[]) if x.get('as_of')!=now.isoformat()];history['snapshots'].append({'as_of':now.isoformat(),'matched_period':matched,'current_month':bands[-1]});history['snapshots']=history['snapshots'][-400:];VINTAGE.write_text(json.dumps(history,ensure_ascii=False,indent=2))
  print(json.dumps({'collector':'MOLIT','months':len(months),'mode':out['refresh_meta']['mode'],'refreshed_months':sorted(refresh),'queried_pairs':len(pairs_to_fetch),'reused_watchlist_pairs':len(shared_cache),'workers':workers,'retried_pairs':len(fetch_meta['retried']),'cache_fallbacks':len(fetch_meta['fallbacks']),'latest_total':bands[-1]['total'],'matched':matched['changes']},ensure_ascii=False))
 if __name__=='__main__':main()
