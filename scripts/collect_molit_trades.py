@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os,json,datetime,urllib.parse,urllib.request,xml.etree.ElementTree as ET,pathlib,calendar,time,random
+from concurrent.futures import ThreadPoolExecutor,as_completed
 from zoneinfo import ZoneInfo
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/molit.json'; VINTAGE=ROOT/'data_sources/molit_daily_history.json'
@@ -8,13 +9,13 @@ def request_page(code,ym,key,page):
  q=urllib.parse.urlencode({'serviceKey':key,'LAWD_CD':code,'DEAL_YMD':ym,'numOfRows':1000,'pageNo':page},safe='%')
  url='https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev?'+q
  last=None
- for attempt in range(5):
+ for attempt in range(3):
   try:
    req=urllib.request.Request(url,headers={'User-Agent':'kb-price-monitor/1.0'})
    return ET.fromstring(urllib.request.urlopen(req,timeout=60).read())
   except Exception as e:
    last=e
-   if attempt==4: break
+   if attempt==2: break
    time.sleep(min(20,2**attempt+random.random()))
  raise last
 def item_value(it,*names):
@@ -37,6 +38,22 @@ def fetch_all(code,ym,key):
   page+=1
   if page>100:raise RuntimeError(f'pagination guard {code} {ym}')
  return rows
+def fetch_refresh_pairs(months,key,workers):
+ tasks={}
+ results={}
+ started=time.monotonic()
+ with ThreadPoolExecutor(max_workers=workers) as pool:
+  for ym in months:
+   for code in SEOUL:
+    fut=pool.submit(fetch_all,code,ym,key)
+    tasks[fut]=(code,ym)
+  for fut in as_completed(tasks):
+   code,ym=tasks[fut]
+   results[(code,ym)]=fut.result()
+ elapsed=time.monotonic()-started
+ print(json.dumps({'collector':'MOLIT','stage':'parallel_fetch','district_month_pairs':len(tasks),'workers':workers,'elapsed_sec':round(elapsed,1)},ensure_ascii=False),flush=True)
+ return results
+
 def summarize(rows):
  prices=[p for _,p in rows];n=len(prices)
  keys={'<=9eok':sum(p<=90000 for p in prices),'9-15eok':sum(90000<p<=150000 for p in prices),'15-25eok':sum(150000<p<=250000 for p in prices),'25eok+':sum(p>250000 for p in prices)}
@@ -55,15 +72,20 @@ def main():
  for back in range(7):
   y,m=shift_month(now,-back);months.append(f'{y:04d}{m:02d}')
  monthly={};series=[];bands=[]
- # Re-query three deal months because late reports/cancellations can revise prior-month totals.
- refresh=set(months[:3])
+ # Daily fast path refreshes current + previous month only. The second prior month
+ # is revalidated every Friday (and on bootstrap) because revisions there are much rarer.
+ refresh_count=3 if (now.weekday()==4 or not previous_bands) else 2
+ refresh=set(months[:refresh_count])
+ workers=max(1,min(int(os.getenv('MOLIT_WORKERS','6')),10))
+ live_months=[ym for ym in months if ym in refresh or ym not in previous_bands]
+ pair_rows=fetch_refresh_pairs(live_months,key,workers)
  for ym in reversed(months):
   if ym not in refresh and ym in previous_bands:
    cached=dict(previous_bands[ym]);cached['period']=ym[:4]+'-'+ym[4:]
    sm={k:cached.get(k) for k in ('total','counts','boundary_counts','under15_share')}
   else:
    rows=[]
-   for code in SEOUL:rows.extend(fetch_all(code,ym,key))
+   for code in SEOUL:rows.extend(pair_rows[(code,ym)])
    monthly[ym]=rows;sm=summarize(rows)
   series.append([ym[:4]+'-'+ym[4:],sm['total'],ym==months[0]]);bands.append({'period':ym[:4]+'-'+ym[4:],**sm})
  cy,cm=now.year,now.month;py,pm=shift_month(now,-1);cutoff=min(now.day,calendar.monthrange(py,pm)[1]);cur=f'{cy:04d}{cm:02d}';prev=f'{py:04d}{pm:02d}'
@@ -73,5 +95,5 @@ def main():
  out={'source':'MOLIT apartment trade OpenAPI','collected_at':datetime.datetime.now(ZoneInfo('Asia/Seoul')).isoformat(),'seoul_apt_trade_count':series,'price_bands':{'status':'connected','months':bands},'matched_period':matched}
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  history=json.loads(VINTAGE.read_text()) if VINTAGE.exists() else {'snapshots':[]};history['snapshots']=[x for x in history.get('snapshots',[]) if x.get('as_of')!=now.isoformat()];history['snapshots'].append({'as_of':now.isoformat(),'matched_period':matched,'current_month':bands[-1]});history['snapshots']=history['snapshots'][-400:];VINTAGE.write_text(json.dumps(history,ensure_ascii=False,indent=2))
- print(json.dumps({'collector':'MOLIT','months':len(months),'latest_total':bands[-1]['total'],'matched':matched['changes']},ensure_ascii=False))
+ print(json.dumps({'collector':'MOLIT','months':len(months),'refreshed_months':sorted(refresh),'workers':workers,'latest_total':bands[-1]['total'],'matched':matched['changes']},ensure_ascii=False))
 if __name__=='__main__':main()
