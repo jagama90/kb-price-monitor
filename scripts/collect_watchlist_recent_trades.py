@@ -162,13 +162,13 @@ def main():
     pairs=[(district,ym) for district in districts for ym in district_months[district]]
     started=time.monotonic()
     fast_timeout=max(3,float(os.getenv('MOLIT_FAST_TIMEOUT','8')))
-    retry_timeout=max(fast_timeout,float(os.getenv('MOLIT_RETRY_TIMEOUT','20')))
+    retry_timeout=max(fast_timeout,float(os.getenv('MOLIT_RETRY_TIMEOUT','12')))
     first,first_errors,first_durations=run_pairs(pairs,key,6,fast_timeout)
     retry_pairs=sorted(first_errors)
     recovered={};retry_errors={};retry_durations={}
     if retry_pairs:
-        time.sleep(float(os.getenv('MOLIT_RETRY_DELAY','1')))
-        recovered,retry_errors,retry_durations=run_pairs(retry_pairs,key,min(2,len(retry_pairs)),retry_timeout)
+        time.sleep(float(os.getenv('MOLIT_RETRY_DELAY','0.5')))
+        recovered,retry_errors,retry_durations=run_pairs(retry_pairs,key,min(6,len(retry_pairs)),retry_timeout)
     fetched=dict(first);fetched.update(recovered)
     for (district,ym),rows in fetched.items():
         raw[district].extend(rows)
