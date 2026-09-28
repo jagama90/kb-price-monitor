@@ -43,3 +43,4 @@ jobs:
           asyncio.run(m())
           PY
 # run
+# refresh-diagnostic: 2026-09-28
