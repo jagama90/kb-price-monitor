@@ -17,7 +17,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: daily-fast-smoke
+  group: daily-fast-smoke-v2
   cancel-in-progress: true
 
 jobs:
