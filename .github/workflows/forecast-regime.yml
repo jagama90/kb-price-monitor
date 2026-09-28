@@ -1,16 +1,10 @@
 name: Forward regime forecast
+# Fast derived step: runs only after fresh market/research data, never on ordinary code pushes.
 on:
   workflow_run:
     workflows: ['Research turning signal', 'Parallel market data refresh', 'Repair dashboard data']
     types: [completed]
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/forecast-regime.yml'
-      - 'scripts/forecast_market_regime.py'
-      - 'scripts/check_dashboard_bundle.py'
-      - 'scripts/check_pipeline_health.py'
 
 permissions:
   contents: write
