@@ -7,6 +7,18 @@ on:
   schedule:
     - cron: '5 22 * * *' # 07:05 KST
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run full fast path without committing data'
+        required: false
+        default: false
+        type: boolean
+  workflow_call:
+    inputs:
+      dry_run:
+        required: false
+        default: false
+        type: boolean
 permissions:
   contents: write
 concurrency:
@@ -19,6 +31,7 @@ jobs:
     timeout-minutes: 10
     outputs:
       artifact_ready: ${{ steps.kb_sentiment_collect.outcome == 'success' }}
+      retried: ${{ steps.kb_sentiment_collect.outputs.retried }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -29,21 +42,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          retry() {
-            local attempt=1 max=4 delay=5
-            until "$@"; do
-              if [ "$attempt" -ge "$max" ]; then
-                echo "KB command failed after $attempt attempts: $*"
-                return 1
-              fi
-              sleep "$delay"
-              attempt=$((attempt+1))
-              delay=$((delay*2))
-            done
+          collect_source() {
+            python3 scripts/collect_kb_sentiment.py &&
+            python3 scripts/collect_kb_statusboard_live.py &&
+            python3 scripts/collect_kb_datahub_batch.py
           }
-          retry python3 scripts/collect_kb_sentiment.py
-          retry python3 scripts/collect_kb_statusboard_live.py
-          retry python3 scripts/collect_kb_datahub_batch.py
+          echo "retried=false" >> "$GITHUB_OUTPUT"
+          if ! collect_source; then
+            echo "::warning::KB sentiment source failed on first attempt; retrying once in 10s"
+            echo "retried=true" >> "$GITHUB_OUTPUT"
+            sleep 10
+            collect_source
+          fi
       - uses: actions/upload-artifact@v4
         if: steps.kb_sentiment_collect.outcome == 'success'
         with:
@@ -60,6 +70,7 @@ jobs:
     timeout-minutes: 45
     outputs:
       artifact_ready: ${{ steps.molit_collect.outcome == 'success' }}
+      retried: ${{ steps.molit_collect.outputs.retried }}
     env:
       MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
     steps:
@@ -70,9 +81,19 @@ jobs:
         id: molit_collect
         continue-on-error: true
         run: |
+          set -euo pipefail
           test -n "$MOLIT_SERVICE_KEY"
-          python3 scripts/collect_molit_trades.py
-          python3 scripts/collect_watchlist_recent_trades.py
+          collect_source() {
+            python3 scripts/collect_molit_trades.py &&
+            python3 scripts/collect_watchlist_recent_trades.py
+          }
+          echo "retried=false" >> "$GITHUB_OUTPUT"
+          if ! collect_source; then
+            echo "::warning::MOLIT source failed on first attempt; retrying once in 10s"
+            echo "retried=true" >> "$GITHUB_OUTPUT"
+            sleep 10
+            collect_source
+          fi
       - name: MOLIT degraded-mode notice
         if: steps.molit_collect.outcome == 'failure'
         run: echo 'MOLIT unavailable after retries; keep last-good repository snapshot.'
@@ -90,6 +111,7 @@ jobs:
     timeout-minutes: 20
     outputs:
       artifact_ready: ${{ steps.ecos_collect.outcome == 'success' }}
+      retried: ${{ steps.ecos_collect.outputs.retried }}
     env:
       BOK_ECOS_KEY: ${{ secrets.BOK_ECOS_KEY }}
     steps:
@@ -103,23 +125,18 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$BOK_ECOS_KEY"
-          retry() {
-            local attempt=1 max=4 delay=8
-            until "$@"; do
-              if [ "$attempt" -ge "$max" ]; then
-                echo "ECOS command failed after $attempt attempts: $*"
-                return 1
-              fi
-              echo "ECOS transient failure; retry $((attempt+1))/$max in ${delay}s: $*"
-              sleep "$delay"
-              attempt=$((attempt+1))
-              delay=$((delay*2))
-            done
+          collect_source() {
+            python3 scripts/collect_ecos_mortgage_rate.py &&
+            python3 scripts/collect_ecos_base_rate.py &&
+            python3 scripts/collect_ecos_m2.py
           }
-          # Production refresh: direct collectors only. Discovery/smoke scripts are diagnostics, not daily dependencies.
-          retry python3 scripts/collect_ecos_mortgage_rate.py
-          retry python3 scripts/collect_ecos_base_rate.py
-          retry python3 scripts/collect_ecos_m2.py
+          echo "retried=false" >> "$GITHUB_OUTPUT"
+          if ! collect_source; then
+            echo "::warning::ECOS source failed on first attempt; retrying once in 10s"
+            echo "retried=true" >> "$GITHUB_OUTPUT"
+            sleep 10
+            collect_source
+          fi
       - uses: actions/upload-artifact@v4
         if: steps.ecos_collect.outcome == 'success'
         with:
@@ -135,6 +152,7 @@ jobs:
     timeout-minutes: 12
     outputs:
       artifact_ready: ${{ steps.watchlist_collect.outcome == 'success' }}
+      retried: ${{ steps.watchlist_collect.outputs.retried }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -145,7 +163,16 @@ jobs:
         env:
           KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
           KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
-        run: python3 scripts/collect_listings.py --publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "retried=false" >> "$GITHUB_OUTPUT"
+          if ! python3 scripts/collect_listings.py --publish; then
+            echo "::warning::KB watchlist detail source failed on first attempt; retrying once in 10s"
+            echo "retried=true" >> "$GITHUB_OUTPUT"
+            sleep 10
+            python3 scripts/collect_listings.py --publish
+          fi
       - uses: actions/upload-artifact@v4
         if: steps.watchlist_collect.outcome == 'success'
         with: {name: watchlist-details, path: data/buy_watchlist_listings.json}
@@ -196,19 +223,33 @@ jobs:
           ECOS_ARTIFACT_READY: ${{ needs.ecos.outputs.artifact_ready }}
           KB_SENTIMENT_ARTIFACT_READY: ${{ needs.kb_sentiment.outputs.artifact_ready }}
           WATCHLIST_DETAIL_ARTIFACT_READY: ${{ needs.watchlist_details.outputs.artifact_ready }}
+          MOLIT_RETRIED: ${{ needs.molit.outputs.retried }}
+          ECOS_RETRIED: ${{ needs.ecos.outputs.retried }}
+          KB_SENTIMENT_RETRIED: ${{ needs.kb_sentiment.outputs.retried }}
+          WATCHLIST_DETAIL_RETRIED: ${{ needs.watchlist_details.outputs.retried }}
         run: |
           python3 - <<'PY'
           import json,os,datetime,pathlib
           def state(v,truth='success'):
               return 'connected' if str(v).lower()==truth else 'fallback_last_good'
+          sources={
+            'molit':state(os.getenv('MOLIT_ARTIFACT_READY'),'true'),
+            'ecos':state(os.getenv('ECOS_ARTIFACT_READY'),'true'),
+            'kb_sentiment':state(os.getenv('KB_SENTIMENT_ARTIFACT_READY'),'true'),
+            'watchlist_detail':state(os.getenv('WATCHLIST_DETAIL_ARTIFACT_READY'),'true'),
+          }
+          retried={
+            'molit':str(os.getenv('MOLIT_RETRIED')).lower()=='true',
+            'ecos':str(os.getenv('ECOS_RETRIED')).lower()=='true',
+            'kb_sentiment':str(os.getenv('KB_SENTIMENT_RETRIED')).lower()=='true',
+            'watchlist_detail':str(os.getenv('WATCHLIST_DETAIL_RETRIED')).lower()=='true',
+          }
           payload={
             'attempted_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
-            'sources':{
-              'molit':state(os.getenv('MOLIT_ARTIFACT_READY'),'true'),
-              'ecos':state(os.getenv('ECOS_ARTIFACT_READY'),'true'),
-              'kb_sentiment':state(os.getenv('KB_SENTIMENT_ARTIFACT_READY'),'true'),
-              'watchlist_detail':state(os.getenv('WATCHLIST_DETAIL_ARTIFACT_READY'),'true'),
-            }
+            'sources':sources,
+            'attempts':{k:(2 if retried[k] else 1) for k in sources},
+            'recovered_after_retry':[k for k in sources if retried[k] and sources[k]=='connected'],
+            'failed_after_retry':[k for k in sources if retried[k] and sources[k]!='connected'],
           }
           p=pathlib.Path('data_sources/refresh_run_status.json')
           p.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
@@ -219,10 +260,10 @@ jobs:
           python3 scripts/collect_garak_geumho_24a.py || echo 'KB value history refresh unavailable; using last-good history'
           python3 scripts/build_kb_value_live.py
       - name: Build KB sentiment component
-        if: needs.kb_sentiment.result == 'success'
+        if: needs.kb_sentiment.outputs.artifact_ready == 'true'
         run: python3 scripts/build_kb_sentiment_score.py
       - name: Merge KB watchlist details
-        if: needs.watchlist_details.result == 'success'
+        if: needs.watchlist_details.outputs.artifact_ready == 'true'
         run: python3 scripts/merge_watchlist_details.py
       - name: Build last-good snapshot
         run: python3 scripts/build_market_snapshot.py
@@ -235,6 +276,7 @@ jobs:
       - name: Validate dashboard contract
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Commit source snapshots
+        if: ${{ inputs.dry_run != true }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
