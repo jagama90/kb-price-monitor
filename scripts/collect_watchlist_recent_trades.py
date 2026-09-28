@@ -224,6 +224,18 @@ def main():
             if anchored:
                 best=anchored
                 best_names={norm(old_name)}
+            elif old and old.get('recent_trade_manwon') is not None and old_name:
+                old_sim=max(identity_score(x.get('name'),old_name),identity_score(x.get('kb_name'),old_name))
+                if old_sim>=0.80:
+                    items.append({**x,'recent_trade_manwon':old.get('recent_trade_manwon'),'recent_trade_date':old.get('recent_trade_date'),
+                      'molit_apt_name':old_name,'matched_exclusive_m2':old.get('matched_exclusive_m2'),
+                      'name_similarity':round(old_sim,3),'match_method':'last_good_ambiguous_new_candidates',
+                      'trade_refresh_status':'connected_no_unambiguous_newer_trade',
+                      'source':'MOLIT apartment trade OpenAPI'})
+                    continue
+                unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
+                  'reason':'ambiguous_best_name_match','candidate_names':sorted(best_names)})
+                continue
             else:
                 unmatched.append({'complex_id':x['complex_id'],'area_id':x['area_id'],'name':x['name'],'exclusive_m2':x['exclusive_m2'],
                   'reason':'ambiguous_best_name_match','candidate_names':sorted(best_names)})
