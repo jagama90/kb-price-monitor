@@ -31,7 +31,7 @@ jobs:
                   try: print('NATIVE_MAIN',r.status,'BYTES',len(await r.text()),(await r.text())[:10000])
                   except Exception as e: print('NATIVE_ERR',e)
               page.on('response',res)
-              await page.goto('https://kbland.kr/se/c/1947',wait_until='networkidle',timeout=45000)
+              await page.goto('https://kbland.kr/se/c/1960',wait_until='networkidle',timeout=45000)
               print('URL',page.url)
               print('BUTTONS',await page.locator('button').all_inner_texts())
               els=page.locator('button')
@@ -58,4 +58,4 @@ jobs:
           asyncio.run(m())
           PY
 # run
-# refresh-diagnostic: 2026-09-28-context
+# refresh-diagnostic: 2026-09-28-garak-geumho
