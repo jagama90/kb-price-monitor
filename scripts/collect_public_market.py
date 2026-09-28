@@ -145,7 +145,21 @@ def parse_selected(page,cid,name,a):
     type_markers=[i for i,x in enumerate(lines) if x=='타입']
     begin=type_markers[-1]+1 if type_markers else 0
     for i in range(begin,len(lines)-1):
-        if lines[i]==display and re.match(r'^\([\d,]+세대\)
+        household_line=lines[i+1]
+        is_households=household_line.startswith('(') and household_line.endswith('세대)')
+        if lines[i]==display and is_households:
+            for j in range(i+2,min(i+28,len(lines)-1)):
+                if lines[j]=='매매' and (lines[j+1].replace(',','').isdigit()):
+                    cnt=int(lines[j+1].replace(',',''))
+                    break
+            if cnt is not None:
+                break
+    # Fallback for layouts without the type-detail section.
+    if cnt is None:
+        pairs=re.findall(r'매매\s*([\d,]+)\s*전세',t,re.S)
+        if pairs:
+            try:cnt=int(pairs[0].replace(',',''))
+            except Exception:pass
     expected=a.get('general_price_manwon')
     if expected is not None and kb is not None and int(expected)!=int(kb):
         raise RuntimeError(f'KB price/type validation failed area={a.get("area_id")} label={a.get("type_label")} expected={expected} got={kb}')
