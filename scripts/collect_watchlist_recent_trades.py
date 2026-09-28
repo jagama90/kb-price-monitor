@@ -121,8 +121,9 @@ def main():
     try: prior=json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
     except Exception: prior={}
     prior_items={(int(x['complex_id']),int(x['area_id'])):x for x in prior.get('items') or [] if x.get('complex_id') and x.get('area_id')}
-    steady_months=3 if today.weekday()==4 else 2
-    months=[month_shift(today,-i) for i in range(steady_months if prior_items else 8)]
+    # Keep three months for exact-area recent-trade coverage; this slice is small
+    # (only five target districts) and now runs before the Seoul-wide burst.
+    months=[month_shift(today,-i) for i in range(3 if prior_items else 8)]
     districts=sorted({x['district'] for x in resolved})
     raw={d:[] for d in districts}
     fetch_errors=[]; failed_districts=set()
