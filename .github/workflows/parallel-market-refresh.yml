@@ -6,10 +6,6 @@ name: Parallel market data refresh
 on:
   schedule:
     - cron: '5 22 * * *' # 07:05 KST
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/parallel-market-refresh.yml'
   workflow_dispatch:
     inputs:
       dry_run:
