@@ -7,6 +7,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/fast-browser-listings.yml'
+      - 'scripts/collect_molit_trades.py'
+      - 'scripts/collect_watchlist_recent_trades.py'
   workflow_dispatch:
 
 permissions:
