@@ -88,15 +88,15 @@ def fetch_refresh_pairs(pairs,key,workers,cache):
  # entire Seoul refresh for a minute. Only failed district-month pairs get a
  # second, more patient request.
  fast_timeout=max(3,float(os.getenv('MOLIT_FAST_TIMEOUT','8')))
- retry_timeout=max(fast_timeout,float(os.getenv('MOLIT_RETRY_TIMEOUT','20')))
- retry_workers=max(1,min(int(os.getenv('MOLIT_RETRY_WORKERS','2')),4))
+ retry_timeout=max(fast_timeout,float(os.getenv('MOLIT_RETRY_TIMEOUT','12')))
+ retry_workers=max(1,min(int(os.getenv('MOLIT_RETRY_WORKERS','6')),workers))
  pairs=sorted(set(pairs))
  started=time.monotonic()
  first,failed,durations=_run_pairs(pairs,key,workers,fast_timeout)
  retried=sorted(failed)
  recovered={};retry_failed={};retry_durations={}
  if retried:
-  time.sleep(float(os.getenv('MOLIT_RETRY_DELAY','1')))
+  time.sleep(float(os.getenv('MOLIT_RETRY_DELAY','0.5')))
   recovered,retry_failed,retry_durations=_run_pairs(retried,key,min(retry_workers,len(retried)),retry_timeout)
  results=dict(first);results.update(recovered)
  fallbacks=[]
