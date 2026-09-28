@@ -1,61 +1,24 @@
-name: Fast KB browser probe
+name: Daily fast-path smoke
+
+# Diagnostic caller for the production daily workflow.
+# It executes the same jobs end-to-end but skips the repository commit.
 on:
   push:
-    paths: ['.github/workflows/fast-browser-listings.yml']
+    branches: [main]
+    paths:
+      - '.github/workflows/fast-browser-listings.yml'
   workflow_dispatch:
-permissions: {contents: read}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-fast-smoke
+  cancel-in-progress: true
+
 jobs:
-  probe:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: {python-version: '3.12'}
-      - run: pip install playwright
-      - name: Probe with runner Chrome
-        env:
-          KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
-          KB_TRACE_ID: ${{ secrets.KB_TRACE_ID }}
-        run: |
-          which google-chrome || which chromium || true
-          python3 - <<'PY'
-          import asyncio,os
-          from playwright.async_api import async_playwright
-          async def m():
-            async with async_playwright() as p:
-              b=await p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome')
-              page=await b.new_page()
-              async def res(r):
-                if 'propList/main' in r.url:
-                  try: print('NATIVE_MAIN',r.status,'BYTES',len(await r.text()),(await r.text())[:10000])
-                  except Exception as e: print('NATIVE_ERR',e)
-              page.on('response',res)
-              await page.goto('https://kbland.kr/se/c/1960',wait_until='networkidle',timeout=45000)
-              print('URL',page.url)
-              print('BUTTONS',await page.locator('button').all_inner_texts())
-              els=page.locator('button')
-              # Switch to pyeong display if available, then select the 24-pyeong type.
-              for i in range(await els.count()):
-                x=els.nth(i); t=(await x.inner_text()).strip()
-                if t == '평':
-                  print('UNIT_CLICK',t); await x.click(); await page.wait_for_timeout(1200); break
-              print('BUTTONS_AFTER_UNIT',await page.locator('button').all_inner_texts())
-              els=page.locator('button')
-              for i in range(await els.count()):
-                x=els.nth(i); t=(await x.inner_text()).strip()
-                if t.startswith('24평') or t.startswith('81m²'):
-                  print('TYPE_CLICK',t); await x.click(); await page.wait_for_timeout(2000); break
-              body=await page.locator('body').inner_text()
-              bl=body.splitlines()
-              rel=[line for line in bl if any(k in line for k in ['매물','KB시세','실거래','매매','평균'])]
-              print('RELEVANT_BODY',rel[:160])
-              for i,line in enumerate(bl):
-                if line.strip() in ('KB시세 일반가','매물평균가','최근 실거래가'):
-                  print('CONTEXT',i,bl[max(0,i-2):i+6])
-              print('BODY_HEAD',bl[:130])
-              await b.close()
-          asyncio.run(m())
-          PY
-# run
-# refresh-diagnostic: 2026-09-28-garak-geumho
+  smoke:
+    uses: ./.github/workflows/parallel-market-refresh.yml
+    with:
+      dry_run: true
+    secrets: inherit
