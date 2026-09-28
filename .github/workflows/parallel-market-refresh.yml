@@ -84,8 +84,9 @@ jobs:
           set -euo pipefail
           test -n "$MOLIT_SERVICE_KEY"
           collect_source() {
-            python3 scripts/collect_molit_trades.py &&
-            python3 scripts/collect_watchlist_recent_trades.py
+            # Query the small watchlist slice first, before the Seoul-wide burst.
+            python3 scripts/collect_watchlist_recent_trades.py &&
+            python3 scripts/collect_molit_trades.py
           }
           echo "retried=false" >> "$GITHUB_OUTPUT"
           if ! collect_source; then
