@@ -52,26 +52,52 @@ def current_type_text(t):
     m=re.search(r'\b(\d+[A-Za-z]?)평/',t)
     return m.group(1) if m else None
 
-def select_type(page,label):
-    # KB public page groups API variants such as 24A/24B/24C under the visible "24평" tab.
+def select_type(page,label,area=None):
+    # KB changed its visible type control in Sep-2026 from a plain "24평" label
+    # to a combined button such as "81m² / 59.92m²", with a separate 평 toggle.
+    # Match both presentations so collection is resilient to the display unit.
     m=re.search(r'\d+(?:\.\d+)?',str(label or ''))
     if not m: raise RuntimeError(f'invalid type label: {label}')
-    wanted=m.group(0)+'평'
+    pyeong=m.group(0)
+    wanted=pyeong+'평'
     page.wait_for_timeout(250)
-    matches=page.get_by_text(wanted,exact=True)
-    clicked=False
-    for i in range(matches.count()-1,-1,-1):
-        try:
-            el=matches.nth(i)
-            if el.is_visible():
-                el.click(force=True,timeout=3000)
-                clicked=True
-                break
-        except Exception:
-            pass
-    if not clicked:
-        raise RuntimeError(f'visible type tab not found: {wanted}')
-    page.wait_for_timeout(900)
+
+    def click_visible(locator):
+        for i in range(locator.count()-1,-1,-1):
+            try:
+                el=locator.nth(i)
+                if el.is_visible():
+                    el.click(force=True,timeout=3000)
+                    return True
+            except Exception:
+                pass
+        return False
+
+    # Legacy exact text.
+    if click_visible(page.get_by_text(wanted,exact=True)):
+        page.wait_for_timeout(900); return
+
+    # Current UI exposes a separate unit toggle. Switch to 평 and accept
+    # combined labels such as "24평 / 18평".
+    try:
+        toggle=page.get_by_role('button',name='평',exact=True)
+        if click_visible(toggle): page.wait_for_timeout(350)
+    except Exception:
+        pass
+    pat=re.compile(r'^\s*'+re.escape(pyeong)+r'(?:\.0+)?평(?:\s*/|\s*$)')
+    if click_visible(page.get_by_role('button',name=pat)):
+        page.wait_for_timeout(900); return
+
+    # Metric-mode fallback: the same current control can remain as
+    # "81m² / 59.92m²". Match the target supply area from the master snapshot.
+    supply=(area or {}).get('supply_m2')
+    if supply:
+        n=int(round(float(supply)))
+        mpat=re.compile(r'^\s*'+str(n)+r'(?:\.\d+)?m²(?:\s*/|\s*$)',re.I)
+        if click_visible(page.get_by_role('button',name=mpat)):
+            page.wait_for_timeout(900); return
+
+    raise RuntimeError(f'visible type tab not found: {wanted} / supply={supply}')
 
 
 
@@ -124,7 +150,7 @@ def main():
             page.goto(f'https://kbland.kr/se/c/{cid}',wait_until='domcontentloaded',timeout=20000); page.wait_for_timeout(1200)
             for z in areas:
                 try:
-                    select_type(page,z.get('type_label')); v=parse_selected(page,cid,x.get('user_name') or x.get('kb_name'),z)
+                    select_type(page,z.get('type_label'),z); v=parse_selected(page,cid,x.get('user_name') or x.get('kb_name'),z)
                     prev=old.get((str(cid),str(z.get('area_id'))),{})
                     if prev and v['avg_ask_manwon'] is not None and prev.get('avg_ask_manwon') is not None: v['avg_ask_week_delta_manwon']=v['avg_ask_manwon']-prev['avg_ask_manwon']
                     if prev and v['sale_listing_count'] is not None and prev.get('sale_listing_count') is not None: v['sale_listing_week_delta']=v['sale_listing_count']-prev['sale_listing_count']
