@@ -1,5 +1,6 @@
 name: Parallel market data refresh
 # KB detail merge enabled
+# catch-up trigger: 2026-09-28 missed scheduled refresh
 on:
   schedule:
     - cron: '5 22 * * *'
