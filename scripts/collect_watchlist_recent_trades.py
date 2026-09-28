@@ -136,9 +136,20 @@ def main():
     steady_count=3 if today.weekday()==4 else 2
     months=[month_shift(today,-i) for i in range(steady_count if prior_items else 8)]
     districts=sorted({x['district'] for x in resolved})
+    prior_unmatched={
+        (int(x.get('complex_id') or 0),int(x.get('area_id') or 0))
+        for x in (prior.get('unmatched') or []) if x.get('complex_id') and x.get('area_id')
+    }
+    unresolved_keys={
+        (x['complex_id'],x['area_id']) for x in resolved
+        if (x['complex_id'],x['area_id']) not in prior_items
+    }
+    new_keys={k for k in unresolved_keys if k not in prior_unmatched}
+    # New targets get an immediate deep bootstrap. Known-unmatched targets only
+    # get the expensive 8-month recovery sweep on Friday.
+    deep_keys=unresolved_keys if today.weekday()==4 else new_keys
     bootstrap_districts={
-        x['district'] for x in resolved
-        if prior_items and (x['complex_id'],x['area_id']) not in prior_items
+        x['district'] for x in resolved if (x['complex_id'],x['area_id']) in deep_keys
     }
     district_months={}
     for district in districts:
