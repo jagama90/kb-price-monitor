@@ -7,6 +7,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect_public_market.py'
+      - 'scripts/collect_molit_trades.py'
+      - 'scripts/collect_watchlist_recent_trades.py'
       - 'scripts/collect_listings.py'
       - 'scripts/collect_catalog.py'
       - 'scripts/collect_types.py'
@@ -94,6 +96,8 @@ jobs:
         run: |
           python3 -m py_compile \
             scripts/collect_public_market.py \
+            scripts/collect_molit_trades.py \
+            scripts/collect_watchlist_recent_trades.py \
             scripts/collect_listings.py \
             scripts/collect_catalog.py \
             scripts/collect_types.py \
