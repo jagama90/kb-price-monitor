@@ -118,9 +118,12 @@ fc_gen_dt=iso_dt(fc.get('generated_at')) if fc else None
 if mi_refresh_dt and (not fc_gen_dt or fc_gen_dt<mi_refresh_dt):
     errors.append('forecast predates latest market refresh attempt')
 ext_gen_dt=iso_dt(market_ext.get('generated_at')) if market_ext else None
-lineage_inputs=[x for x in (mi_refresh_dt,iso_dt(watch_hist.get('generated_at')),iso_dt(master.get('generated_at'))) if x]
+# Market extensions belong to the weekly/full path. Daily market refreshes must not
+# invalidate them; only weekly-owned watchlist history/master inputs participate
+# in the extension lineage check.
+lineage_inputs=[x for x in (iso_dt(watch_hist.get('generated_at')),iso_dt(master.get('generated_at'))) if x]
 if lineage_inputs and (not ext_gen_dt or ext_gen_dt<max(lineage_inputs)):
-    errors.append('market extensions predate latest market/watchlist inputs')
+    errors.append('market extensions predate latest weekly watchlist inputs')
 base=mi.get('base_rate_official') or {}
 base_day=ymd(base.get('latest_observation_date') or (base.get('latest') or {}).get('date'))
 if not base_day or (today-base_day).days>10: errors.append('official base-rate observation is stale')
@@ -267,11 +270,16 @@ if 'cancel-in-progress: true' not in wf['parallel']: errors.append('parallel ref
 if 'artifact_ready' not in wf['parallel'] or "needs.molit.outputs.artifact_ready == 'true'" not in wf['parallel']:
     errors.append('MOLIT degraded-mode artifact guard missing')
 if 'refresh_run_status.json' not in wf['parallel']: errors.append('parallel workflow does not persist per-run source refresh outcomes')
-if wf['weekly'].count("'.github/workflows/weekly-refresh.yml'")!=1: errors.append('weekly workflow trigger duplicated')
-if "github.event_name != 'schedule'" not in wf['weekly']: errors.append('weekly workflow must cancel superseded push/manual runs while preserving scheduled checkpoint')
+# Full KB refresh is deliberately schedule/manual only. Collector code changes are
+# covered by the cheap sample path instead of launching the expensive weekly job.
+if re.search(r'(?m)^\s*push\s*:',wf['weekly']): errors.append('weekly full refresh must not run on ordinary push')
+if "cron: '5 12 * * 5'" not in wf['weekly']: errors.append('weekly full refresh Friday schedule missing')
+if 'workflow_dispatch:' not in wf['weekly']: errors.append('weekly full refresh manual trigger missing')
+if "github.event_name != 'schedule'" not in wf['weekly']: errors.append('weekly workflow must preserve scheduled checkpoint concurrency')
 if 'merge_weekly_listing_snapshot.py' not in wf['weekly']: errors.append('weekly listing merge guard missing')
-if wf['weekly'].count('scripts/collect_kb_watchlist_history.py')<2: errors.append('weekly workflow does not trigger when KB watchlist history collector changes')
-if wf['weekly'].count('scripts/collect_garak_geumho_24a.py')<2: errors.append('weekly workflow does not trigger when Garak history collector changes')
+if wf['weekly'].count('scripts/collect_kb_watchlist_history.py')<1: errors.append('weekly workflow does not collect KB watchlist history')
+if wf['weekly'].count('scripts/collect_garak_geumho_24a.py')<1: errors.append('weekly workflow does not collect Garak history')
+if "'Parallel market data refresh'" in wf['extensions']: errors.append('daily fast path must not launch heavy market extensions')
 if 'merge_parallel_market_snapshot.py' not in wf['parallel']: errors.append('parallel watchlist merge guard missing')
 if 'merge_parallel_market_snapshot.py' not in wf['repair']: errors.append('repair workflow can roll back newer listing data')
 if "'Repair dashboard data'" not in wf['extensions']: errors.append('market extensions are not rebuilt after dashboard repair')
