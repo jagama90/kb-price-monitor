@@ -1,17 +1,9 @@
 name: Validate market extensions
+# Derived regional research follows only the weekly/full path (or explicit repair/manual run).
 on:
   workflow_run:
-    workflows: ['Parallel market data refresh', 'Weekly KB price refresh', 'Repair dashboard data']
+    workflows: ['Weekly KB price refresh', 'Repair dashboard data']
     types: [completed]
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/market-extensions.yml'
-      - 'scripts/collect_kb_regional_breadth.py'
-      - 'scripts/build_affordability_engine.py'
-      - 'scripts/build_regional_temperature.py'
-      - 'scripts/validate_market_extensions.py'
-      - 'scripts/build_market_extensions_summary.py'
   workflow_dispatch:
 permissions:
   contents: write
