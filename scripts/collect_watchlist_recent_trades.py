@@ -121,11 +121,12 @@ def main():
     try: prior=json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
     except Exception: prior={}
     prior_items={(int(x['complex_id']),int(x['area_id'])):x for x in prior.get('items') or [] if x.get('complex_id') and x.get('area_id')}
-    months=[month_shift(today,-i) for i in range(3 if prior_items else 8)]
+    steady_months=3 if today.weekday()==4 else 2
+    months=[month_shift(today,-i) for i in range(steady_months if prior_items else 8)]
     districts=sorted({x['district'] for x in resolved})
     raw={d:[] for d in districts}
     fetch_errors=[]; failed_districts=set()
-    tasks=[]
+    tasks=[]; started=time.monotonic()
     with ThreadPoolExecutor(max_workers=6) as pool:
         for district in districts:
             for ym in months:
@@ -176,8 +177,9 @@ def main():
           'matched_exclusive_m2':r['exclusive_m2'],'name_similarity':round(sim,3),'match_method':method,
           'trade_refresh_status':'partial_source' if x['district'] in failed_districts else 'connected',
           'source':'MOLIT apartment trade OpenAPI'})
+    elapsed=time.monotonic()-started
     out={'status':'partial' if fetch_errors else 'connected','source':'MOLIT apartment trade OpenAPI','months':months,'items':items,'unmatched':unmatched,
       'fetch_errors':fetch_errors,'matched_count':len(items),'target_area_count':len(resolved),'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
-    print(json.dumps({'matched':len(items),'target_areas':len(resolved),'unmatched':len(unmatched)},ensure_ascii=False))
+    print(json.dumps({'matched':len(items),'target_areas':len(resolved),'unmatched':len(unmatched),'months':len(months),'districts':len(districts),'elapsed_sec':round(elapsed,1)},ensure_ascii=False))
 if __name__=='__main__':main()
