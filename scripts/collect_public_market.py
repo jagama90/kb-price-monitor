@@ -101,7 +101,23 @@ def select_type(page,label,area=None):
                 # Bring horizontally clipped rail items into its scroll viewport.
                 el.evaluate("""e=>{let p=e.parentElement;while(p&&p!==document.body){if(p.scrollWidth>p.clientWidth+4){p.scrollLeft=Math.max(0,e.offsetLeft-p.clientWidth/2);break}p=p.parentElement}}""")
                 page.wait_for_timeout(120)
-                el.click(force=True,timeout=2500);page.wait_for_timeout(900);return
+                # KB's horizontal type rail can report the option outside the
+                # Playwright viewport even after the rail itself was scrolled.
+                # Dispatch the site's own DOM click on the cursor-bearing wrapper.
+                el.evaluate("""e=>{const p=e.closest('[style*="cursor"]')||e.parentElement||e;p.click()}""")
+                page.wait_for_timeout(1100)
+                # Never accept a click unless the live price panel switched to
+                # the requested supply/type. This prevents reading another type.
+                switched=False
+                for bi in range(buttons.count()):
+                    try:
+                        bt=buttons.nth(bi)
+                        if not bt.is_visible():continue
+                        n2,s2=metric_parts(bt.inner_text() or '')
+                        if n2 is not None and abs(n2-float(supply))<=1.25 and (not suffix or s2.startswith(suffix)):
+                            switched=True;break
+                    except Exception:pass
+                if switched:return
             except Exception:
                 pass
 
