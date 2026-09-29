@@ -14,13 +14,17 @@ def main():
   d.setdefault('data_status',{})['molit']='connected'
  r=read('ecos_mortgage_rate.json')
  if r and r.get('latest'):
-  d['mortgage_rate_official']=r['latest'];d.setdefault('data_status',{})['ecos_mortgage_rate']='connected'
+  mr=dict(r['latest']);series=[x for x in (r.get('series') or []) if x.get('item')=='주택담보대출']
+  if len(series)>1:
+   prev=series[-2];mr['previous_period']=prev.get('period');mr['previous_rate_pct']=prev.get('rate_pct');mr['change_pp']=round(float(mr['rate_pct'])-float(prev['rate_pct']),2)
+  d['mortgage_rate_official']=mr;d.setdefault('data_status',{})['ecos_mortgage_rate']='connected'
  base=read('ecos_base_rate.json')
  if base and base.get('latest'):
   d['base_rate_official']=base;d.setdefault('data_status',{})['ecos_base_rate']='connected'
  e=read('ecos_m2.json')
  if e and e.get('series'):
-  x=e['series'][-1];d['m2_official']={'period':x['period'],'mom_pct':x['mom_pct'],'yoy_pct':x['yoy_pct'],'source':'한국은행 ECOS 101Y003','definition':e.get('definition'),'selected_item':e.get('selected_item')}
+  x=e['series'][-1];px=e['series'][-2] if len(e['series'])>1 else {}
+  d['m2_official']={'period':x['period'],'mom_pct':x['mom_pct'],'yoy_pct':x['yoy_pct'],'previous_period':px.get('period'),'previous_mom_pct':px.get('mom_pct'),'previous_yoy_pct':px.get('yoy_pct'),'mom_change_pp':round(float(x['mom_pct'])-float(px['mom_pct']),2) if px.get('mom_pct') is not None else None,'yoy_change_pp':round(float(x['yoy_pct'])-float(px['yoy_pct']),2) if px.get('yoy_pct') is not None else None,'source':'한국은행 ECOS 101Y003','definition':e.get('definition'),'selected_item':e.get('selected_item')}
   d.setdefault('data_status',{})['m2']='connected'
  v=read('kb_value_score.json')
  if not v or v.get('score_0_100') is None:
@@ -51,6 +55,9 @@ def main():
   d['kb_weekly_sale_index']=sale;d.setdefault('data_status',{})['kb_weekly_sale_index']='connected';d.setdefault('data_status',{})['kb_history']='connected'
  if rent and rent.get('status')=='connected':
   d['kb_weekly_rent_index']=rent;d.setdefault('data_status',{})['kb_weekly_rent_index']='connected'
+ unsold=read('molit_unsold.json')
+ if unsold and unsold.get('seoul_units') is not None:
+  d['unsold_seoul']=unsold;d.setdefault('data_status',{})['molit_unsold']='connected'
  kb=read('kb_history_status.json')
  if kb and not sale:d.setdefault('data_status',{})['kb_history']=kb.get('status')
  refresh=read('refresh_run_status.json')
