@@ -55,52 +55,53 @@ def current_type_text(t):
     return m.group(1) if m else None
 
 def select_type(page,label,area=None):
-    # KB changed its visible type control in Sep-2026 from a plain "24평" label
-    # to a combined button such as "81m² / 59.92m²", with a separate 평 toggle.
-    # Match both presentations so collection is resilient to the display unit.
+    """Select the exact KB type, preferring supply-area identity over ambiguous 평 labels."""
     m=re.search(r'\d+(?:\.\d+)?',str(label or ''))
     if not m: raise RuntimeError(f'invalid type label: {label}')
-    pyeong=m.group(0)
-    wanted=pyeong+'평'
+    pyeong=m.group(0); wanted=pyeong+'평'; supply=(area or {}).get('supply_m2')
     page.wait_for_timeout(250)
 
-    def click_visible(locator):
-        for i in range(locator.count()-1,-1,-1):
-            try:
-                el=locator.nth(i)
-                if el.is_visible():
-                    el.click(force=True,timeout=3000)
-                    return True
-            except Exception:
-                pass
+    def click_el(el):
+        try:
+            if el.is_visible():
+                el.click(force=True,timeout=3000);page.wait_for_timeout(900);return True
+        except Exception: pass
         return False
 
-    # Legacy exact text.
-    if click_visible(page.get_by_text(wanted,exact=True)):
-        page.wait_for_timeout(900); return
-
-    # Current UI exposes a separate unit toggle. Switch to 평 and accept
-    # combined labels such as "24평 / 18평".
-    try:
-        toggle=page.get_by_role('button',name='평',exact=True)
-        if click_visible(toggle): page.wait_for_timeout(350)
-    except Exception:
-        pass
-    pat=re.compile(r'^\s*'+re.escape(pyeong)+r'(?:[A-Za-z])?(?:\.0+)?평')
-    if click_visible(page.get_by_role('button',name=pat)):
-        page.wait_for_timeout(900); return
-
-    # Metric-mode fallback: the same current control can remain as
-    # "81m² / 59.92m²". Match the target supply area from the master snapshot.
-    supply=(area or {}).get('supply_m2')
+    # Current KB type controls often expose metric labels. This is the safest
+    # discriminator for A/B variants sharing the same 평 label.
     if supply:
-        n=int(round(float(supply)))
-        mpat=re.compile(r'^\s*'+str(n)+r'(?:\.\d+)?m²',re.I)
-        if click_visible(page.get_by_role('button',name=mpat)):
-            page.wait_for_timeout(900); return
+        best=None
+        for i in range(page.get_by_role('button').count()):
+            try:
+                el=page.get_by_role('button').nth(i)
+                if not el.is_visible(): continue
+                txt=(el.inner_text() or '').replace('㎡','m²')
+                mm=re.search(r'(\d+(?:\.\d+)?)\s*m²',txt,re.I)
+                if not mm: continue
+                gap=abs(float(mm.group(1))-float(supply))
+                if gap<=1.25 and (best is None or gap<best[0]): best=(gap,el,txt)
+            except Exception: pass
+        if best and click_el(best[1]): return
+
+    # Exact labelled control when KB exposes A/B suffixes.
+    pats=[re.compile(r'^\s*'+re.escape(str(label))+r'(?:\.0+)?평',re.I),
+          re.compile(r'^\s*'+re.escape(pyeong)+r'(?:\.0+)?평')]
+    for pat in pats:
+        try:
+            loc=page.get_by_role('button',name=pat)
+            for i in range(loc.count()-1,-1,-1):
+                if click_el(loc.nth(i)): return
+        except Exception: pass
+
+    # Legacy exact text is last because "24평" can point at another 24A/24B type.
+    try:
+        loc=page.get_by_text(wanted,exact=True)
+        for i in range(loc.count()-1,-1,-1):
+            if click_el(loc.nth(i)): return
+    except Exception: pass
 
     raise RuntimeError(f'visible type tab not found: {wanted} / supply={supply}')
-
 
 
 def field_money(t,label):
