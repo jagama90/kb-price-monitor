@@ -1,0 +1,65 @@
+name: One-time change-first data refresh
+on:
+  push:
+    branches: [main]
+    paths: ['.github/change-first-refresh-now']
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install browser
+        run: |
+          pip install playwright
+          playwright install chromium
+      - name: Refresh change-first sources
+        shell: bash
+        run: |
+          python3 scripts/collect_molit_trades.py
+          python3 scripts/build_kb_sentiment_score.py
+          python3 scripts/build_kb_watchlist_weekly_change.py
+          python3 scripts/build_market_snapshot.py
+          cp data_sources/molit.json /tmp/molit.json
+          cp data_sources/molit_daily_history.json /tmp/molit_daily_history.json || true
+          cp data_sources/kb_sentiment_score.json /tmp/kb_sentiment_score.json
+          cp dist/kb_watchlist_weekly_change.json /tmp/kb_watchlist_weekly_change.json
+          cp dist/market_indicators.json /tmp/market_indicators.json
+      - name: Recollect KB watchlist listing metrics
+        shell: bash
+        run: |
+          set +e
+          python3 scripts/collect_public_market.py
+          rc=$?
+          cp data/buy_watchlist_market.json /tmp/kb-listing-dom.json
+          echo "collector_rc=$rc"
+          python3 - <<'PY'
+          import json
+          d=json.load(open('/tmp/kb-listing-dom.json'))
+          a=d.get('items') or []
+          print({'rows':len(a),'with_avg':sum(x.get('avg_ask_manwon') is not None for x in a),'with_count':sum(x.get('sale_listing_count') is not None for x in a),'errors':len(d.get('errors') or [])})
+          PY
+          exit 0
+      - name: Merge and publish refreshed data
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git reset --hard
+          git pull --ff-only origin main
+          cp /tmp/molit.json data_sources/molit.json
+          [ ! -f /tmp/molit_daily_history.json ] || cp /tmp/molit_daily_history.json data_sources/molit_daily_history.json
+          cp /tmp/kb_sentiment_score.json data_sources/kb_sentiment_score.json
+          cp /tmp/kb_watchlist_weekly_change.json dist/kb_watchlist_weekly_change.json
+          cp /tmp/market_indicators.json dist/market_indicators.json
+          python3 scripts/merge_weekly_listing_snapshot.py --source /tmp/kb-listing-dom.json
+          git add data_sources/molit.json data_sources/molit_daily_history.json data_sources/kb_sentiment_score.json dist/kb_watchlist_weekly_change.json dist/market_indicators.json data/buy_watchlist_market.json dist/buy_watchlist_market.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh change-first dashboard data'
+          git push origin HEAD:main
