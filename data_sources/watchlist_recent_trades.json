@@ -285,13 +285,13 @@
       "dong": "장지동",
       "exclusive_m2": 84.94,
       "type_label": "34A",
-      "recent_trade_manwon": 175000,
-      "recent_trade_date": "20260615",
+      "recent_trade_manwon": 208000,
+      "recent_trade_date": "20260923",
       "molit_apt_name": "송파파인타운7단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -303,13 +303,13 @@
       "dong": "장지동",
       "exclusive_m2": 84.9,
       "type_label": "34TC",
-      "recent_trade_manwon": 175000,
-      "recent_trade_date": "20260615",
+      "recent_trade_manwon": 208000,
+      "recent_trade_date": "20260923",
       "molit_apt_name": "송파파인타운7단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -321,13 +321,13 @@
       "dong": "장지동",
       "exclusive_m2": 84.93,
       "type_label": "34TD",
-      "recent_trade_manwon": 175000,
-      "recent_trade_date": "20260615",
+      "recent_trade_manwon": 208000,
+      "recent_trade_date": "20260923",
       "molit_apt_name": "송파파인타운7단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -940,6 +940,24 @@
       "name_similarity": 1.0,
       "match_method": "last_good_ambiguous_new_candidates",
       "trade_refresh_status": "connected_no_unambiguous_newer_trade",
+      "source": "MOLIT apartment trade OpenAPI"
+    },
+    {
+      "complex_id": 323274,
+      "area_id": 1125182,
+      "name": "포레나송파",
+      "kb_name": "포레나송파",
+      "district": "송파구",
+      "dong": "거여동",
+      "exclusive_m2": 66.83,
+      "type_label": "26A",
+      "recent_trade_manwon": 175000,
+      "recent_trade_date": "20260918",
+      "molit_apt_name": "포레나송파",
+      "matched_exclusive_m2": 66.83,
+      "name_similarity": 1.0,
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1557,13 +1575,6 @@
     },
     {
       "complex_id": 323274,
-      "area_id": 1125182,
-      "name": "포레나송파",
-      "exclusive_m2": 66.83,
-      "candidate_names": []
-    },
-    {
-      "complex_id": 323274,
       "area_id": 1125183,
       "name": "포레나송파",
       "exclusive_m2": 70.65,
@@ -1642,7 +1653,7 @@
     }
   ],
   "fetch_errors": [],
-  "matched_count": 83,
+  "matched_count": 84,
   "target_area_count": 101,
-  "collected_at": "2026-09-29T00:20:42.050958+00:00"
+  "collected_at": "2026-09-29T22:58:28.426892+00:00"
 }
