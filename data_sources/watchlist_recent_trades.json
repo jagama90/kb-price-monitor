@@ -105,8 +105,8 @@
       "dong": "문정동",
       "exclusive_m2": 84.17,
       "type_label": "31A",
-      "recent_trade_manwon": 184500,
-      "recent_trade_date": "20260812",
+      "recent_trade_manwon": 171000,
+      "recent_trade_date": "20260831",
       "molit_apt_name": "건영1",
       "matched_exclusive_m2": 84.39,
       "name_similarity": 0.92,
@@ -123,8 +123,8 @@
       "dong": "문정동",
       "exclusive_m2": 84.39,
       "type_label": "31B",
-      "recent_trade_manwon": 184500,
-      "recent_trade_date": "20260812",
+      "recent_trade_manwon": 171000,
+      "recent_trade_date": "20260831",
       "molit_apt_name": "건영1",
       "matched_exclusive_m2": 84.39,
       "name_similarity": 0.92,
@@ -141,8 +141,8 @@
       "dong": "문정동",
       "exclusive_m2": 84.42,
       "type_label": "31C",
-      "recent_trade_manwon": 184500,
-      "recent_trade_date": "20260812",
+      "recent_trade_manwon": 171000,
+      "recent_trade_date": "20260831",
       "molit_apt_name": "건영1",
       "matched_exclusive_m2": 84.39,
       "name_similarity": 0.92,
@@ -159,8 +159,8 @@
       "dong": "문정동",
       "exclusive_m2": 84.47,
       "type_label": "31D",
-      "recent_trade_manwon": 184500,
-      "recent_trade_date": "20260812",
+      "recent_trade_manwon": 171000,
+      "recent_trade_date": "20260831",
       "molit_apt_name": "건영1",
       "matched_exclusive_m2": 84.39,
       "name_similarity": 0.92,
@@ -177,8 +177,8 @@
       "dong": "문정동",
       "exclusive_m2": 84.87,
       "type_label": "31",
-      "recent_trade_manwon": 184500,
-      "recent_trade_date": "20260812",
+      "recent_trade_manwon": 171000,
+      "recent_trade_date": "20260831",
       "molit_apt_name": "건영1",
       "matched_exclusive_m2": 84.39,
       "name_similarity": 0.92,
@@ -236,8 +236,8 @@
       "molit_apt_name": "송파파인타운3단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -254,8 +254,8 @@
       "molit_apt_name": "송파파인타운3단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -272,8 +272,8 @@
       "molit_apt_name": "송파파인타운3단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -290,8 +290,8 @@
       "molit_apt_name": "송파파인타운7단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -308,8 +308,8 @@
       "molit_apt_name": "송파파인타운7단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -326,8 +326,8 @@
       "molit_apt_name": "송파파인타운7단지",
       "matched_exclusive_m2": 84.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -344,8 +344,8 @@
       "molit_apt_name": "송파파인타운8단지",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -362,8 +362,8 @@
       "molit_apt_name": "송파파인타운8단지",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -380,8 +380,8 @@
       "molit_apt_name": "송파파인타운9단지",
       "matched_exclusive_m2": 59.93,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -398,8 +398,8 @@
       "molit_apt_name": "송파파인타운9단지",
       "matched_exclusive_m2": 59.93,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -416,8 +416,8 @@
       "molit_apt_name": "송파파인타운9단지",
       "matched_exclusive_m2": 59.93,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -434,8 +434,8 @@
       "molit_apt_name": "송파파인타운10단지",
       "matched_exclusive_m2": 59.95,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -452,8 +452,8 @@
       "molit_apt_name": "송파파인타운10단지",
       "matched_exclusive_m2": 59.95,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -470,8 +470,8 @@
       "molit_apt_name": "힐스테이트e편한세상문정",
       "matched_exclusive_m2": 59.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -488,8 +488,8 @@
       "molit_apt_name": "힐스테이트e편한세상문정",
       "matched_exclusive_m2": 59.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -506,8 +506,8 @@
       "molit_apt_name": "삼환",
       "matched_exclusive_m2": 72.88,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -524,8 +524,8 @@
       "molit_apt_name": "삼환",
       "matched_exclusive_m2": 72.88,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -542,8 +542,8 @@
       "molit_apt_name": "가락미륭아파트",
       "matched_exclusive_m2": 50.0,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -560,8 +560,8 @@
       "molit_apt_name": "가락미륭아파트",
       "matched_exclusive_m2": 60.72,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -578,8 +578,8 @@
       "molit_apt_name": "가락미륭아파트",
       "matched_exclusive_m2": 64.26,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -596,8 +596,8 @@
       "molit_apt_name": "가락미륭아파트",
       "matched_exclusive_m2": 83.58,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -668,8 +668,8 @@
       "molit_apt_name": "송파더센트레",
       "matched_exclusive_m2": 51.77,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -686,8 +686,8 @@
       "molit_apt_name": "송파더센트레",
       "matched_exclusive_m2": 51.77,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -704,8 +704,8 @@
       "molit_apt_name": "송파더센트레",
       "matched_exclusive_m2": 51.77,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -722,8 +722,8 @@
       "molit_apt_name": "송파더센트레",
       "matched_exclusive_m2": 51.77,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -740,8 +740,8 @@
       "molit_apt_name": "송파더센트레",
       "matched_exclusive_m2": 51.77,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -902,8 +902,8 @@
       "molit_apt_name": "e편한세상송파파크센트럴",
       "matched_exclusive_m2": 59.94,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -920,8 +920,8 @@
       "molit_apt_name": "마천동금호타운1",
       "matched_exclusive_m2": 59.93,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -938,8 +938,8 @@
       "molit_apt_name": "극동",
       "matched_exclusive_m2": 59.975,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_ambiguous_new_candidates",
+      "trade_refresh_status": "connected_no_unambiguous_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1100,8 +1100,8 @@
       "molit_apt_name": "대림",
       "matched_exclusive_m2": 84.11,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1262,8 +1262,8 @@
       "molit_apt_name": "행당두산위브",
       "matched_exclusive_m2": 59.99,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1280,8 +1280,8 @@
       "molit_apt_name": "왕십리금호어울림",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1298,8 +1298,8 @@
       "molit_apt_name": "왕십리금호어울림",
       "matched_exclusive_m2": 84.97,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1316,8 +1316,8 @@
       "molit_apt_name": "대우",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1334,8 +1334,8 @@
       "molit_apt_name": "대우",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1352,8 +1352,8 @@
       "molit_apt_name": "대우",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 0.92,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1370,8 +1370,8 @@
       "molit_apt_name": "두산",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1460,8 +1460,8 @@
       "molit_apt_name": "서울숲리버그린동아아파트",
       "matched_exclusive_m2": 59.98,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1496,8 +1496,8 @@
       "molit_apt_name": "강남자곡아이파크",
       "matched_exclusive_m2": 59.96,
       "name_similarity": 1.0,
-      "match_method": "name_area",
-      "trade_refresh_status": "connected",
+      "match_method": "last_good_no_newer_trade",
+      "trade_refresh_status": "connected_no_newer_trade",
       "source": "MOLIT apartment trade OpenAPI"
     }
   ],
@@ -1522,7 +1522,6 @@
       "name": "금호타운아파트 (마천역)",
       "exclusive_m2": 84.79,
       "candidate_names": [
-        "마천금호어울림1차아파트",
         "천마그랑밸리"
       ]
     },
@@ -1532,9 +1531,7 @@
       "name": "금호타운아파트 (마천역)",
       "exclusive_m2": 84.92,
       "candidate_names": [
-        "금호어울림",
-        "삼익1",
-        "솔렌시아"
+        "삼익1"
       ]
     },
     {
@@ -1542,18 +1539,14 @@
       "area_id": 94711,
       "name": "풍납극동",
       "exclusive_m2": 58.11,
-      "candidate_names": [
-        "현대리버빌1지구"
-      ]
+      "candidate_names": []
     },
     {
       "complex_id": 1873,
       "area_id": 1763,
       "name": "풍납현대",
       "exclusive_m2": 71.17,
-      "candidate_names": [
-        "현대1"
-      ]
+      "candidate_names": []
     },
     {
       "complex_id": 323275,
@@ -1618,10 +1611,8 @@
       "exclusive_m2": 59.96,
       "candidate_names": [
         "대림e-편한세상",
-        "두산",
         "서울숲 한신 더 휴",
         "신동아",
-        "행당두산위브",
         "행당한진타운"
       ]
     },
@@ -1646,14 +1637,12 @@
       "exclusive_m2": 59.99,
       "candidate_names": [
         "금호1차푸르지오",
-        "금호자이2차",
-        "금호한신",
-        "두산"
+        "금호자이2차"
       ]
     }
   ],
   "fetch_errors": [],
   "matched_count": 83,
   "target_area_count": 101,
-  "collected_at": "2026-09-28T16:58:21.411142+00:00"
+  "collected_at": "2026-09-29T00:20:42.050958+00:00"
 }

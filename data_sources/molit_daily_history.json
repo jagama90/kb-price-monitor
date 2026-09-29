@@ -273,20 +273,20 @@
         "current": {
           "period": "2026-09",
           "range": "1~29일",
-          "total": 1366,
+          "total": 1705,
           "counts": {
-            "<=9eok": 824,
-            "9-15eok": 292,
-            "15-25eok": 180,
-            "25eok+": 70
+            "<=9eok": 1086,
+            "9-15eok": 340,
+            "15-25eok": 202,
+            "25eok+": 77
           },
           "boundary_counts": {
-            "13-15eok": 62,
-            "15-17eok": 59,
-            "23-25eok": 17,
+            "13-15eok": 69,
+            "15-17eok": 64,
+            "23-25eok": 21,
             "25-27eok": 6
           },
-          "under15_share": 81.7
+          "under15_share": 83.6
         },
         "previous": {
           "period": "2026-08",
@@ -307,27 +307,27 @@
           "under15_share": 79.6
         },
         "changes": {
-          "trade_count_pct": -60.2,
-          "under15_share_pp": 2.1
+          "trade_count_pct": -50.3,
+          "under15_share_pp": 4.0
         },
         "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
       },
       "current_month": {
         "period": "2026-09",
-        "total": 1366,
+        "total": 1705,
         "counts": {
-          "<=9eok": 824,
-          "9-15eok": 292,
-          "15-25eok": 180,
-          "25eok+": 70
+          "<=9eok": 1086,
+          "9-15eok": 340,
+          "15-25eok": 202,
+          "25eok+": 77
         },
         "boundary_counts": {
-          "13-15eok": 62,
-          "15-17eok": 59,
-          "23-25eok": 17,
+          "13-15eok": 69,
+          "15-17eok": 64,
+          "23-25eok": 21,
           "25-27eok": 6
         },
-        "under15_share": 81.7
+        "under15_share": 83.6
       }
     }
   ]
