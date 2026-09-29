@@ -652,7 +652,7 @@ initRefreshCalendar();
     value:[metric('현재 KB',typeof eok==='function'?eok(v.current_manwon):fmt1(v.current_manwon),'대표평형'),metric('36개월 저점',typeof eok==='function'?eok(v.window_low_manwon):fmt1(v.window_low_manwon),'가격 범위'),metric('36개월 고점',typeof eok==='function'?eok(v.window_high_manwon):fmt1(v.window_high_manwon),'가격 범위')],
     supply:[metric('전세수급',fmt1(s.latest?.전세수급?.value),'KB 서울'),metric('전세거래',fmt1(s.latest?.전세거래활발?.value),'KB 서울'),metric('전세점수',fmt1(s.jeonse_score_0_100),'100점 환산')]
    };
-   const formula={finance:'M2의 전월·전년 변화와 주담대 금리 수준을 함께 반영',sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',value:'최근 36개월 가격 범위 안에서 현재 위치를 역산',supply:'KB 전세수급·전세거래활발 지표를 결합'}[k];
+   const formula={finance:'M2의 전월·전년 변화와 주담대 금리 수준을 함께 반영',sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',value:'KB 서울 PIR 40% + 전세가율 30% + 60개월 장기추세 괴리 30%를 각 시점 역사 백분위로 합성',supply:'KB 전세수급·전세거래활발 지표를 결합'}[k];
    const body=document.getElementById('scoreExplainBody'),p=document.getElementById('scoreExplanation');if(!body||!p)return;
    setText('scoreExplainTitle',t[k]);setText('scoreExplainWeight','전체 점수 가중치 '+w[k]+'%');
    body.innerHTML='<div class="score-infographic"><div class="score-hero-v133"><div class="score-ring-v133" style="--score:'+Math.max(0,Math.min(100,score))+'"><b>'+score+'<small>/100</small></b></div><div class="score-hero-copy-v133"><strong>'+verdict(score)+'</strong><p>현재 수치를 먼저 보여주고, 아래에서 무엇이 이 점수를 만들었는지 바로 비교합니다.</p></div></div><div class="score-metrics-v133">'+blocks[k].join('')+'</div><div class="score-formula-v133"><b>산정 기준</b> · '+formula+'</div></div>';
