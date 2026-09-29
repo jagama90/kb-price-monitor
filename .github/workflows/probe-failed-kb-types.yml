@@ -20,7 +20,7 @@ jobs:
         run: |
           python3 - <<'PY'
           from playwright.sync_api import sync_playwright
-          tests=[(1960,'가락금호'),(46734,'송파시그니처롯데캐슬'),(2538,'남산타운')]
+          tests=[(25769,'송파꿈에그린위례24단지'),(1896,'금호타운아파트'),(1868,'풍납극동'),(1873,'풍납현대'),(40111,'E편한세상송파파크센트럴'),(1758,'행당한진타운'),(1757,'행당대림'),(1759,'서울숲한신더휴'),(2538,'남산타운')]
           with sync_playwright() as pw:
             b=pw.chromium.launch(headless=True);p=b.new_page(locale='ko-KR');p.set_default_timeout(4000)
             for cid,name in tests:
@@ -34,7 +34,7 @@ jobs:
                   if t and ('평' in t or 'm²' in t or '㎡' in t): vals.append(('V' if el.is_visible() else 'H')+':'+t)
                 except: pass
               print('BUTTONS',vals[:120])
-              desired={1960:'81Am²',46734:'85Bm²',2538:'85m²'}[cid]
+              desired={25769:'81Am²',1896:'76m²',1868:'81Am²',1873:'86m²',40111:'83Am²',1758:'86m²',1757:'83m²',1759:'81Am²',2538:'85m²'}[cid]
               try:
                 buttons=p.get_by_role('button')
                 opener=None
