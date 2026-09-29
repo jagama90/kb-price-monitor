@@ -1566,3 +1566,34 @@ main{max-width:1180px;padding-top:24px}
  .regime-ref-metrics-v145 b{font-size:9px}
  .regime-ref-metrics-v145 small{font-size:6px}
 }
+
+
+/* v147 current-regime emphasis + mobile-safe historical reference */
+.research-overview-v2:after{display:none!important;content:none!important}
+.research-overview-v2 .research-head{display:block!important}
+.research-overview-v2 .research-badge{display:none!important}
+.research-overview-v2 .research-steps span.reference-selected{outline:none!important;box-shadow:none!important}
+.regime-ref-momentum-v147{
+  min-width:0;padding:10px 11px;border-radius:11px;background:#f7fbfd;border:1px solid #dfebf1
+}
+.momentum-title-v147{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:10px}
+.momentum-title-v147 b{font-size:9px;color:#35566c}
+.momentum-title-v147 span{font-size:6.5px;color:#9aa8b1}
+.momentum-row-v147+.momentum-row-v147{margin-top:9px}
+.momentum-label-v147{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.momentum-label-v147 span{font-size:7px;font-weight:800;color:#788d9c}
+.momentum-label-v147 b{font-size:9px;font-variant-numeric:tabular-nums}
+.momentum-label-v147 b.neg{color:#b86158}.momentum-label-v147 b.pos{color:#2e8160}.momentum-label-v147 b.flat{color:#748590}
+.momentum-track-v147{position:relative;height:9px;border-radius:999px;background:#edf2f5;overflow:hidden}
+.momentum-track-v147>i{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#a1afb9;z-index:2}
+.momentum-track-v147>u{position:absolute;top:1px;bottom:1px;border-radius:999px;text-decoration:none;min-width:2px}
+.momentum-track-v147>u.neg{background:#df8a80}.momentum-track-v147>u.pos{background:#6bb58f}.momentum-track-v147>u.flat{background:#a9b5bd}
+.momentum-period-v147{display:flex;justify-content:space-between;gap:8px;margin-top:10px;padding-top:7px;border-top:1px solid #e7eef2}
+.momentum-period-v147 span,.momentum-period-v147 b{font-size:7px}
+.momentum-period-v147 span{color:#91a0aa}.momentum-period-v147 b{color:#607b8d}
+@media(max-width:800px){
+ .regime-ref-body-v145{grid-template-columns:1fr!important}
+ .regime-ref-momentum-v147{width:100%!important;box-sizing:border-box!important;padding:9px 10px!important}
+ .momentum-track-v147{height:8px}
+ .momentum-period-v147{flex-wrap:wrap}
+}
