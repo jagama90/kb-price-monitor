@@ -34,6 +34,11 @@ jobs:
           playwright install chromium
           python3 scripts/collect_seoul.py
           python3 scripts/build_buy_watchlist_master.py
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            python3 scripts/build_kb_watchlist_weekly_change.py --roll-baseline --as-of "$(TZ=Asia/Seoul date +%F)"
+          else
+            python3 scripts/build_kb_watchlist_weekly_change.py
+          fi
           python3 scripts/build_kb_value_sample.py
           cp data_sources/kb_value_sample.json dist/kb_value_sample.json
           set +e
@@ -74,7 +79,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          files="data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json dist/seoul_types.json dist/buy_watchlist_master.json dist/kb_watchlist_history.json dist/garak_geumho_24a_history.json data_sources/kb_history_status.json data_sources/kb_history_probe.json data_sources/kb_value_sample.json dist/kb_value_sample.json"
+          files="data/seoul_snapshot.json data/seoul_snapshot.csv data/seoul_types.json data/price_changes.json data/buy_watchlist_master.json data/buy_watchlist_types.json data/kb_watchlist_friday_snapshot.json dist/seoul_types.json dist/buy_watchlist_master.json dist/kb_watchlist_history.json dist/kb_watchlist_weekly_change.json dist/garak_geumho_24a_history.json data_sources/kb_history_status.json data_sources/kb_history_probe.json data_sources/kb_value_sample.json dist/kb_value_sample.json"
           mkdir -p /tmp/kb-weekly
           tar -cf /tmp/kb-weekly/output.tar $files
           git reset --hard
@@ -103,6 +108,8 @@ jobs:
             data/buy_watchlist_market.json
             dist/buy_watchlist_market.json
             dist/kb_watchlist_history.json
+            dist/kb_watchlist_weekly_change.json
+            data/kb_watchlist_friday_snapshot.json
             dist/garak_geumho_24a_history.json
             data_sources/kb_history_probe.json
             data_sources/kb_value_sample.json
