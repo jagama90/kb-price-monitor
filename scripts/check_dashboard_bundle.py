@@ -84,6 +84,10 @@ if not re.search(r'<details[^>]+id="refreshCalendar"[^>]*>',html):
     errors.append('refresh calendar must default to collapsed details')
 if '<summary class="refresh-calendar-summary">' not in html:
     errors.append('refresh calendar compact summary missing')
+if 'class="header-refresh-v154"' not in html:
+    errors.append('refresh calendar must be integrated into header')
+if 'class="card refresh-calendar-v1"' in html:
+    errors.append('legacy standalone refresh card returned')
 if 'refreshSummaryStatus' not in js or 'refreshSummaryMeta' not in js:
     errors.append('refresh calendar compact live status wiring missing')
 if "const REFRESH_SNAPSHOT_KEY='kbpm.refresh.snapshot.v3'" not in js:
