@@ -90,7 +90,8 @@ function renderKbOfficial(d){
  const s=d.kb_weekly_sale_index,r=d.kb_weekly_rent_index,m=d.mortgage_rate_official,v=d.kb_value,box=document.getElementById('kbOfficialData');if(!box)return;
  const dlt=(v,suf)=>v==null?'변화 대기':(Number(v)>0?'+':'')+Number(v).toFixed(2)+suf;
  const idx=x=>x?.latest?'<b>'+Number(x.latest.value).toFixed(2)+'</b><small>전주 '+dlt(x.latest.change_pct,'%')+' · '+esc(sourcePeriodFmt(x.latest.date))+'</small>':'<b>수집 대기</b>';
- box.innerHTML='<div><span>KB 주간 매매가격지수</span>'+idx(s)+'</div><div><span>KB 주간 전세가격지수</span>'+idx(r)+'</div><div><span>ECOS 주담대금리</span><b>'+(m?.rate_pct!=null?Number(m.rate_pct).toFixed(2)+'%':'—')+'</b><small>'+(m?.change_pp==null?'전월 변화 대기':'전월 '+dlt(m.change_pp,'%p'))+' · '+esc(sourcePeriodFmt(m?.period))+'</small></div><div><span>가격 매력도</span><b>'+(v?.score_0_100!=null?v.score_0_100+'/100':'—')+'</b><small>'+(v?.current_position_0_1>=.8?'36개월 고점권':v?.current_position_0_1<=.2?'36개월 저점권':'36개월 중간권')+'</small></div>';
+ const vc=v?.components||{},pir=vc.pir||{},rr=vc.rent_ratio||{},tg=vc.trend_gap||{};
+ box.innerHTML='<div><span>KB 주간 매매가격지수</span>'+idx(s)+'</div><div><span>KB 주간 전세가격지수</span>'+idx(r)+'</div><div><span>ECOS 주담대금리</span><b>'+(m?.rate_pct!=null?Number(m.rate_pct).toFixed(2)+'%':'—')+'</b><small>'+(m?.change_pp==null?'전월 변화 대기':'전월 '+dlt(m.change_pp,'%p'))+' · '+esc(sourcePeriodFmt(m?.period))+'</small></div><div><span>가격·밸류</span><b>'+(v?.score_0_100!=null?v.score_0_100+'/100':'—')+'</b><small>'+(pir.value!=null?'PIR '+Number(pir.value).toFixed(2)+'배 · ':'')+(rr.value_pct!=null?'전세가율 '+Number(rr.value_pct).toFixed(1)+'% · ':'')+(tg.value_pct!=null?'추세 '+(Number(tg.value_pct)>0?'+':'')+Number(tg.value_pct).toFixed(1)+'%':'')+'</small></div>';
  setText('validationRentChange',r?.latest?.change_pct==null?'—':signed(r.latest.change_pct,'%'));
  setText('validationRentPeriod',r?.latest?.date?'전주 대비 · '+sourcePeriodFmt(r.latest.date):'KB 공식');
  const jsup=d.kb_sentiment?.latest?.전세수급,chg=d.kb_sentiment?.changes?.전세수급;
@@ -298,7 +299,7 @@ window.__legacyScoreDetailUnused=function(k){
   finance:'현재 '+Math.round(c.finance)+'/100 · M2 전월비 '+val(m?.mom_pct)+'% · 전년비 '+val(m?.yoy_pct)+'%<br><b>산식</b> 50 + M2 전월비×8 + M2 전년비×1.5',
   sentiment:'현재 '+Math.round(c.sentiment)+'/100 · 매수우위 '+val(s.latest?.매수우위?.value)+' · 거래활발 '+val(s.latest?.매매거래활발?.value),
   demand:'현재 '+Math.round(c.demand)+'/100 · 동일기간 거래 '+(x?.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 비중 '+(x?.changes?.under15_share_pp==null?'—':signed(x.changes.under15_share_pp,'%p')),
-  value:'현재 '+Math.round(c.value)+'/100 · 현재 KB '+eok(v.current_manwon)+' · 36개월 저점 '+eok(v.window_low_manwon)+' · 고점 '+eok(v.window_high_manwon),
+  value:'현재 '+Math.round(c.value)+'/100 · PIR '+(v.components?.pir?.value==null?'—':Number(v.components.pir.value).toFixed(2)+'배')+' · 전세가율 '+(v.components?.rent_ratio?.value_pct==null?'—':Number(v.components.rent_ratio.value_pct).toFixed(1)+'%')+' · 장기추세 '+(v.components?.trend_gap?.value_pct==null?'—':signed(v.components.trend_gap.value_pct,'%')),
   supply:'현재 '+Math.round(c.supply)+'/100 · 전세수급 '+val(s.latest?.전세수급?.value)+' · 전세거래활발 '+val(s.latest?.전세거래활발?.value)
  };
  setText('scoreExplainTitle',t[k]+' 산출근거');setText('scoreExplainWeight','전체 점수 가중치 '+w[k]+'%');
@@ -649,7 +650,7 @@ initRefreshCalendar();
     finance:[metric('M2 전월비',signed1(m.mom_pct,'%'),'유동성 단기 변화'),metric('M2 전년비',signed1(m.yoy_pct,'%'),'유동성 장기 변화'),metric('주담대',d.mortgage_rate_official?.rate_pct==null?'—':fmt1(d.mortgage_rate_official.rate_pct)+'%','신규취급액 기준')],
     sentiment:[metric('매수우위',fmt1(s.latest?.매수우위?.value),'KB 서울'),metric('거래활발',fmt1(s.latest?.매매거래활발?.value),'KB 서울'),metric('심리점수',fmt1(s.score_0_100),'100점 환산')],
     demand:[metric('동일기간 거래',signed1(x.changes?.trade_count_pct,'%'),'전월 같은 계약일'),metric('≤15억 비중',x.current?.under15_share==null?'—':fmt1(x.current.under15_share)+'%','현재 동일기간'),metric('비중 변화',signed1(x.changes?.under15_share_pp,'%p'),'전월 대비')],
-    value:[metric('현재 KB',typeof eok==='function'?eok(v.current_manwon):fmt1(v.current_manwon),'대표평형'),metric('36개월 저점',typeof eok==='function'?eok(v.window_low_manwon):fmt1(v.window_low_manwon),'가격 범위'),metric('36개월 고점',typeof eok==='function'?eok(v.window_high_manwon):fmt1(v.window_high_manwon),'가격 범위')],
+    value:[metric('PIR',v.components?.pir?.value==null?'—':fmt1(v.components.pir.value)+'배','소득 대비 가격 · 40%'),metric('전세가율',v.components?.rent_ratio?.value_pct==null?'—':fmt1(v.components.rent_ratio.value_pct)+'%','전세가치 지지력 · 30%'),metric('장기추세 괴리',v.components?.trend_gap?.value_pct==null?'—':signed1(v.components.trend_gap.value_pct,'%'),'60개월 로그추세 대비 · 30%')],
     supply:[metric('전세수급',fmt1(s.latest?.전세수급?.value),'KB 서울'),metric('전세거래',fmt1(s.latest?.전세거래활발?.value),'KB 서울'),metric('전세점수',fmt1(s.jeonse_score_0_100),'100점 환산')]
    };
    const formula={finance:'M2의 전월·전년 변화와 주담대 금리 수준을 함께 반영',sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',value:'KB 서울 PIR 40% + 전세가율 30% + 60개월 장기추세 괴리 30%를 각 시점 역사 백분위로 합성',supply:'KB 전세수급·전세거래활발 지표를 결합'}[k];
@@ -673,7 +674,7 @@ initRefreshCalendar();
   finance:'금리와 통화량을 묶어 자금 조달 환경을 봅니다.',
   sentiment:'KB 매수심리와 거래심리를 함께 봅니다.',
   demand:'실제 계약 건수와 가격대별 수요 이동을 봅니다.',
-  value:'최근 가격 범위에서 현재 가격의 위치를 봅니다.',
+  value:'서울 집값을 소득·전세가치·장기 가격추세의 세 축으로 함께 봅니다.',
   supply:'전세수급과 전세거래 흐름으로 주거 수요 압력을 봅니다.'
  };
  window.showScoreDetail=function(k){
@@ -698,9 +699,9 @@ initRefreshCalendar();
       metric('비중 변화',signed1(x.changes?.under15_share_pp,'%p'),'전월 대비')
     ],
     value:[
-      metric('현재 KB',typeof eok==='function'?eok(v.current_manwon):fmt1(v.current_manwon),'대표평형'),
-      metric('36개월 저점',typeof eok==='function'?eok(v.window_low_manwon):fmt1(v.window_low_manwon),'가격 범위'),
-      metric('36개월 고점',typeof eok==='function'?eok(v.window_high_manwon):fmt1(v.window_high_manwon),'가격 범위')
+      metric('PIR',v.components?.pir?.value==null?'—':fmt1(v.components.pir.value)+'배','소득 대비 가격 · 점수 '+fmt1(v.components?.pir?.score_0_100)),
+      metric('전세가율',v.components?.rent_ratio?.value_pct==null?'—':fmt1(v.components.rent_ratio.value_pct)+'%','전세가치 지지력 · 점수 '+fmt1(v.components?.rent_ratio?.score_0_100)),
+      metric('장기추세 괴리',v.components?.trend_gap?.value_pct==null?'—':signed1(v.components.trend_gap.value_pct,'%'),'60개월 로그추세 대비 · 점수 '+fmt1(v.components?.trend_gap?.score_0_100))
     ],
     supply:[
       metric('전세수급',fmt1(s.latest?.전세수급?.value),(s.changes?.전세수급==null?'100=균형':'전주 '+signed1(s.changes.전세수급,'')+' · 100=균형')),
@@ -712,7 +713,7 @@ initRefreshCalendar();
     finance:'M2 전월·전년 변화와 주담대 금리 수준을 함께 반영',
     sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',
     demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',
-    value:'최근 36개월 가격 범위 안에서 현재 위치를 역산',
+    value:'PIR 40% + 전세가율 30% + 60개월 장기추세 괴리 30% · 각 지표는 해당 시점까지의 역사 백분위로 환산',
     supply:'KB 전세수급·전세거래활발 지표를 결합'
    };
    const p=document.getElementById('scoreExplanation'),body=document.getElementById('scoreExplainBody');if(!p||!body)return;
