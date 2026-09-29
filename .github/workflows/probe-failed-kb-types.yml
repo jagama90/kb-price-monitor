@@ -38,9 +38,13 @@ jobs:
               try:
                 loc=p.get_by_text(desired,exact=True)
                 print('DESIRED_COUNT',desired,loc.count())
-                for z in range(loc.count()-1,-1,-1):
-                  if loc.nth(z).is_visible():
-                    loc.nth(z).click(force=True,timeout=2500);p.wait_for_timeout(1000);break
+                el=loc.nth(loc.count()-1)
+                print('TARGET_HTML',desired,el.evaluate("(e)=>e.parentElement.outerHTML.slice(0,700)"))
+                try:
+                  el.evaluate("(e)=>e.click()")
+                except Exception:
+                  el.evaluate("(e)=>e.parentElement.click()")
+                p.wait_for_timeout(1200)
                 top=[x.strip() for x in p.locator('body').inner_text().splitlines() if x.strip()]
                 ix=top.index('KB시세 일반가') if 'KB시세 일반가' in top else -1
                 print('AFTER_CLICK',desired,top[max(0,ix-2):ix+5])
