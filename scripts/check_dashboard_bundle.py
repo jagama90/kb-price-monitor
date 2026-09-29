@@ -216,3 +216,9 @@ if "market_indicators.json" not in js or "kb_weekly_sale_index" not in js or "mo
     errors.append('current regime comparison must use KB Seoul 4w/13w momentum')
 if "kb_seoul_momentum" not in js:
     errors.append('historical/current price comparison is not source-aligned')
+
+# v159 composite Seoul Price/Value contract
+for token in ("PIR","전세가율","장기추세 괴리"):
+    if token not in js: errors.append(f'composite value detail missing: {token}')
+for legacy in ("36개월 저점","36개월 고점","대표평형"):
+    if legacy in js: errors.append(f'legacy single-complex value detail returned: {legacy}')
