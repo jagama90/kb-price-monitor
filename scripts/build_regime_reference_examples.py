@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-import json,pathlib,datetime
+import json,pathlib,datetime,urllib.request,urllib.parse,calendar
 R=pathlib.Path(__file__).resolve().parents[1]
 SRC=R/'dist/turning_signal_research.json';OUT=R/'dist/regime_reference_examples.json'
+KB_BASE='https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx'
 LABELS=['하락','둔화','바닥','상승·보합','가속']
 DESC=[
  '월간·3개월 가격 모멘텀이 함께 음수이고 반전 신호도 약했던 구간입니다.',
@@ -10,6 +11,43 @@ DESC=[
  '앞선 상승 뒤 3개월 모멘텀이 0% 부근으로 식으며 가격이 쉬어가던 구간입니다.',
  '가격 모멘텀과 시장 확산·재가속 신호가 동시에 강했던 구간입니다.'
 ]
+
+def kb_fetch(query_date):
+ q=urllib.parse.urlencode({'기준년월일':query_date.strftime('%Y%m%d'),'법정동코드':'0000000000'})
+ req=urllib.request.Request(KB_BASE+'?'+q,headers={'User-Agent':'Mozilla/5.0','Referer':'https://data.kbland.kr/','Origin':'https://data.kbland.kr'})
+ with urllib.request.urlopen(req,timeout=20) as r:data=json.load(r)
+ rows=((((data or {}).get('dataBody') or {}).get('data') or {}).get('주간 매매지수') or [])
+ z=next((x for x in rows if str(x.get('법정동코드'))=='1100000000' or str(x.get('지역명'))=='서울'),None)
+ if not z:return None
+ return {'date':str(z.get('통계기준년월일시') or ''),'value':float(z.get('현재데이터'))}
+
+def first_monday_after_month(ym):
+ y=int(ym[:4]);m=int(ym[4:]);last=calendar.monthrange(y,m)[1]
+ d=datetime.date(y,m,last)
+ delta=(7-d.weekday())%7
+ if delta==0:delta=7
+ return d+datetime.timedelta(days=delta)
+
+def kb_momentum_for_month(ym):
+ try:
+  anchor=kb_fetch(first_monday_after_month(ym))
+  if not anchor:return None
+  ad=datetime.datetime.strptime(anchor['date'],'%Y%m%d').date()
+  # API query returns the completed weekly observation immediately before the query Monday.
+  p4=kb_fetch(ad-datetime.timedelta(days=21))
+  p13=kb_fetch(ad-datetime.timedelta(days=84))
+  if not p4 or not p13:return None
+  return {
+   'as_of':anchor['date'],'index':anchor['value'],
+   'four_week_base_date':p4['date'],'four_week_base_index':p4['value'],
+   'mom_4w_pct':round((anchor['value']/p4['value']-1)*100,2),
+   'thirteen_week_base_date':p13['date'],'thirteen_week_base_index':p13['value'],
+   'mom_13w_pct':round((anchor['value']/p13['value']-1)*100,2),
+   'source':'KB 서울 주간 아파트 매매가격지수'
+  }
+ except Exception as e:
+  return {'status':'unavailable','error':str(e)[:180]}
+
 def addm(ym,d):
  y=int(ym[:4]);m=int(ym[4:])+d
  while m>12:y+=1;m-=12
@@ -55,10 +93,11 @@ def main():
   seg=rows[a:b+1];p0=seg[0].get('target_price');p1=seg[-1].get('target_price')
   refs.append({'stage':idx,'label':LABELS[idx],'anchor_ym':x['ym'],'period_start':seg[0]['ym'],'period_end':seg[-1]['ym'],'months':len(seg),'description':DESC[idx],
    'market_state':round(float(x.get('market_state') or 0),1),'price_mom_1m_pct':round(float(x.get('price_mom_pct') or 0),2),'price_mom_3m_pct':round(float(x.get('momentum_3m_pct') or 0),2),
+   'kb_seoul_momentum':kb_momentum_for_month(x['ym']),
    'breadth_0_100':round(float(x.get('breadth') or 0),1),'reaccel_0_100':round(float(x.get('reaccel') or 0),1),'turn_0_100':round(float(x.get('turn') or 0),1),
    'period_price_change_pct':round((p1/p0-1)*100,2) if p0 and p1 else None,
    'series':[{'ym':z['ym'],'price':z.get('target_price'),'price_mom_1m_pct':z.get('price_mom_pct'),'price_mom_3m_pct':z.get('momentum_3m_pct')} for z in seg]})
- payload={'status':'research_reference','source':'dist/turning_signal_research.json','classification_rule':'same five-stage rule as renderCycleStage; retrospective representative examples only',
+ payload={'status':'research_reference','source':'dist/turning_signal_research.json + KB Seoul weekly sale index','classification_rule':'same five-stage rule as renderCycleStage; retrospective representative examples only',
   'selection_rule':'exclude latest 9 months; strongest decline, then strongest subsequent slowdown and bottom within 4 months, strongest post-rally consolidation, strongest later acceleration',
   'latest_source_month':rows[-1]['ym'],'candidate_cutoff':cutoff,'references':refs,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
