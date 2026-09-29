@@ -1630,3 +1630,32 @@ main{max-width:1180px;padding-top:24px}
  .regime-metric-pair-v151{font-size:7px!important}
  .compare-bar-line-v151{grid-template-columns:27px minmax(0,1fr) 43px;gap:5px}
 }
+
+
+/* v152 readability pass for historical/current comparison */
+.regime-ref-metrics-v145>div>small{font-size:10px!important;line-height:1.25!important;font-weight:800!important}
+.regime-metric-pair-v151{font-size:11px!important;line-height:1.4!important;gap:6px!important}
+.regime-metric-delta-v151{margin-top:6px!important;font-size:10px!important;line-height:1.3!important}
+.compare-momentum-group-v151>strong{font-size:10px!important;line-height:1.3!important}
+.compare-bar-line-v151{grid-template-columns:42px minmax(0,1fr) 64px!important;gap:8px!important;margin-top:8px!important}
+.compare-bar-line-v151>span{font-size:10px!important;font-weight:750!important}
+.compare-bar-line-v151>b{font-size:11px!important;line-height:1.2!important}
+.regime-ref-actions-v151>button{font-size:10px!important}
+.regime-ref-actions-v151>span{font-size:10px!important}
+@media(max-width:800px){
+ .regime-ref-metrics-v145>div{min-height:82px!important;padding:10px 6px!important}
+ .regime-ref-metrics-v145>div>small{font-size:9px!important}
+ .regime-metric-pair-v151{font-size:9.5px!important;gap:4px!important;flex-wrap:nowrap!important}
+ .regime-metric-delta-v151{font-size:9px!important}
+ .compare-momentum-group-v151>strong{font-size:9px!important}
+ .compare-bar-line-v151{grid-template-columns:34px minmax(0,1fr) 54px!important;gap:6px!important;margin-top:7px!important}
+ .compare-bar-line-v151>span{font-size:9px!important}
+ .compare-bar-line-v151>b{font-size:10px!important}
+ .regime-ref-actions-v151>button{font-size:9px!important}
+ .regime-ref-actions-v151>span{font-size:9px!important}
+}
+@media(max-width:390px){
+ .regime-metric-pair-v151{font-size:9px!important;letter-spacing:-.02em}
+ .regime-metric-delta-v151{font-size:8.5px!important}
+ .compare-bar-line-v151{grid-template-columns:31px minmax(0,1fr) 50px!important;gap:5px!important}
+}
