@@ -1462,3 +1462,68 @@ main{max-width:1180px;padding-top:24px}
   .audit-hero-v140{grid-template-columns:1fr 1fr}
   .audit-source-grid-v140{grid-template-columns:1fr 1fr}
 }
+
+
+/* v143 factor detail fix + change-first driver + magnified distribution */
+.driver-body-v143{padding-top:12px!important}
+.driver-guide-v143{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:0 2px 10px;border-bottom:1px solid #edf1f4}
+.driver-guide-v143 b{font-size:11px;color:#29475d}
+.driver-guide-v143 span{font-size:8px;color:#93a0aa}
+.driver-change-list-v143{display:grid;gap:0}
+.driver-change-row-v143{
+  display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;
+  padding:12px 2px;border-bottom:1px solid #edf1f4
+}
+.driver-change-row-v143:last-child{border-bottom:0}
+.driver-change-row-v143>i{
+  display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#eaf5fb;color:#3180ad;
+  font-size:10px;font-style:normal;font-weight:900
+}
+.driver-change-copy-v143{min-width:0}
+.driver-change-copy-v143>span{display:block;font-size:8px;font-weight:850;color:#80909d;margin-bottom:3px}
+.driver-main-v143{display:flex;align-items:baseline;gap:7px;min-width:0}
+.driver-main-v143>b{font-size:14px;color:#18384f;line-height:1.2;white-space:nowrap;font-variant-numeric:tabular-nums}
+.driver-main-v143>em{
+  display:inline-flex;padding:3px 6px;border-radius:999px;font-size:9px;font-style:normal;font-weight:900;white-space:nowrap
+}
+.driver-main-v143>em.up{background:#e9f6ee;color:#2e7d55}
+.driver-main-v143>em.down{background:#fff0ed;color:#b4574d}
+.driver-main-v143>em.flat{background:#eef2f5;color:#71808d}
+.driver-change-copy-v143>small{display:block;margin-top:3px;font-size:8px;color:#96a2ac}
+.driver-change-copy-v143>p{margin:3px 0 0!important;font-size:8px!important;color:#738593!important;line-height:1.35!important}
+.driver-change-row-v143>time{align-self:start;padding-top:14px;font-size:7px;color:#a0abb3;white-space:nowrap}
+.driver-loading-v143{padding:14px;color:#8d9ba6;font-size:9px}
+
+.share-shift-chart-v143{display:grid;gap:13px;padding:3px 0 2px}
+.share-shift-title-v143{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.share-shift-title-v143 b{font-size:10px;color:#2a485e}
+.share-shift-title-v143 span{font-size:7px;color:#9aa6af}
+.share-shift-row-v143{min-width:0}
+.share-shift-head-v143{display:grid;grid-template-columns:54px minmax(0,1fr) 52px;align-items:center;gap:7px}
+.share-shift-head-v143>b{font-size:9px;color:#566d7f}
+.share-shift-head-v143>span{font-size:9px;color:#677d8e;text-align:center;font-variant-numeric:tabular-nums}
+.share-shift-head-v143>span i{font-style:normal;color:#a0aab2;margin:0 3px}
+.share-shift-head-v143>em{justify-self:end;padding:3px 5px;border-radius:999px;font-size:8px;font-style:normal;font-weight:900}
+.share-shift-head-v143>em.up{background:#e9f6ee;color:#2f7e57}
+.share-shift-head-v143>em.down{background:#fff0ed;color:#b4574d}
+.share-shift-head-v143>em.flat{background:#eef2f5;color:#75838f}
+.share-shift-rail-v143{position:relative;height:10px;margin:7px 0 4px;border-radius:999px;background:#eef2f5;overflow:hidden}
+.share-shift-rail-v143 .zero{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#96a6b2;z-index:2}
+.share-shift-rail-v143 u{position:absolute;top:1px;bottom:1px;text-decoration:none;border-radius:999px}
+.share-shift-rail-v143 u.up{background:#65b48c}
+.share-shift-rail-v143 u.down{background:#df8175}
+.share-shift-rail-v143 u.flat{background:#aab5bd}
+.share-shift-row-v143>small{display:block;font-size:7px;color:#9aa6ae;text-align:right}
+.share-shift-period-v143{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;font-size:8px;color:#84939f}
+.share-shift-period-v143 i{font-style:normal;color:#b0b9c0}
+
+@media(max-width:800px){
+ .driver-guide-v143{align-items:flex-start;flex-direction:column;gap:2px}
+ .driver-change-row-v143{grid-template-columns:25px minmax(0,1fr);gap:8px;padding:11px 0}
+ .driver-change-row-v143>time{grid-column:2;padding:0;margin-top:-3px}
+ .driver-main-v143{justify-content:space-between}
+ .driver-main-v143>b{font-size:13px}
+ .driver-main-v143>em{font-size:8px}
+ .share-shift-head-v143{grid-template-columns:48px minmax(0,1fr) 48px;gap:5px}
+ .share-shift-head-v143>span{font-size:8px}
+}
