@@ -23,9 +23,41 @@
       "field": "전세거래지수"
     }
   },
+  "previous": {
+    "매수우위": {
+      "date": "20260914",
+      "value": 77.04347331,
+      "field": "매수우위지수"
+    },
+    "매매거래활발": {
+      "date": "20260914",
+      "value": 14.11817566,
+      "field": "매매거래지수"
+    },
+    "전세수급": {
+      "date": "20260914",
+      "value": 177.56295886,
+      "field": "전세수급지수"
+    },
+    "전세거래활발": {
+      "date": "20260914",
+      "value": 17.36413004,
+      "field": "전세거래지수"
+    }
+  },
+  "changes": {
+    "매수우위": -1.83,
+    "매매거래활발": 1.16,
+    "전세수급": -0.24,
+    "전세거래활발": 2.4
+  },
   "score_0_100": 22.6,
+  "previous_score_0_100": 22.8,
+  "score_change": -0.2,
   "jeonse_score_0_100": 49.3,
+  "previous_jeonse_score_0_100": 48.7,
+  "jeonse_score_change": 0.6,
   "method": "mean(KB buyer superiority, transaction activity) / 2",
   "source": "KB부동산 데이터허브",
-  "generated_at": "2026-09-29T00:21:02.495964+00:00"
+  "generated_at": "2026-09-29T11:31:06.694816+00:00"
 }

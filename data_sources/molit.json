@@ -1,14 +1,14 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-09-29T09:20:46.058949+09:00",
+  "collected_at": "2026-09-29T20:31:06.647935+09:00",
   "refresh_meta": {
     "mode": "daily_current_month_only",
-    "queried_pairs": 20,
-    "reused_watchlist_pairs": 10,
+    "queried_pairs": 25,
+    "reused_watchlist_pairs": 0,
     "reused_previous_matched_vintage": true,
     "retried_pairs": [],
     "cache_fallback_pairs": [],
-    "elapsed_sec": 3.9
+    "elapsed_sec": 4.8
   },
   "pair_cache": {
     "11215:202609": [
@@ -75,6 +75,10 @@
       [
         4,
         145000
+      ],
+      [
+        7,
+        89000
       ],
       [
         7,
@@ -359,6 +363,10 @@
       [
         1,
         378000
+      ],
+      [
+        1,
+        310000
       ]
     ],
     "11215:202608": [
@@ -1171,6 +1179,14 @@
       [
         5,
         198000
+      ],
+      [
+        4,
+        149000
+      ],
+      [
+        4,
+        186500
       ],
       [
         2,
@@ -8489,7 +8505,7 @@
     ],
     [
       "2026-09",
-      1705,
+      1709,
       true
     ]
   ],
@@ -8505,6 +8521,7 @@
           "15-25eok": 694,
           "25eok+": 260
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 401,
           "15-17eok": 265,
@@ -8522,6 +8539,7 @@
           "15-25eok": 1387,
           "25eok+": 778
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 628,
           "15-17eok": 474,
@@ -8539,6 +8557,7 @@
           "15-25eok": 1642,
           "25eok+": 930
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 640,
           "15-17eok": 574,
@@ -8556,6 +8575,7 @@
           "15-25eok": 914,
           "25eok+": 395
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 439,
           "15-17eok": 319,
@@ -8573,6 +8593,7 @@
           "15-25eok": 880,
           "25eok+": 355
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 493,
           "15-17eok": 308,
@@ -8590,6 +8611,7 @@
           "15-25eok": 534,
           "25eok+": 188
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 243,
           "15-17eok": 185,
@@ -8600,15 +8622,20 @@
       },
       {
         "period": "2026-09",
-        "total": 1705,
+        "total": 1709,
         "counts": {
-          "<=9eok": 1086,
-          "9-15eok": 340,
-          "15-25eok": 202,
-          "25eok+": 77
+          "<=9eok": 1087,
+          "9-15eok": 341,
+          "15-25eok": 200,
+          "25eok+": 81
+        },
+        "buckets3": {
+          "<=15eok": 1428,
+          "15-25eok": 200,
+          "25eok+": 81
         },
         "boundary_counts": {
-          "13-15eok": 69,
+          "13-15eok": 70,
           "15-17eok": 64,
           "23-25eok": 21,
           "25-27eok": 6
@@ -8624,15 +8651,20 @@
     "current": {
       "period": "2026-09",
       "range": "1~29일",
-      "total": 1705,
+      "total": 1709,
       "counts": {
-        "<=9eok": 1086,
-        "9-15eok": 340,
-        "15-25eok": 202,
-        "25eok+": 77
+        "<=9eok": 1087,
+        "9-15eok": 341,
+        "15-25eok": 200,
+        "25eok+": 81
+      },
+      "buckets3": {
+        "<=15eok": 1428,
+        "15-25eok": 200,
+        "25eok+": 81
       },
       "boundary_counts": {
-        "13-15eok": 69,
+        "13-15eok": 70,
         "15-17eok": 64,
         "23-25eok": 21,
         "25-27eok": 6
@@ -8658,7 +8690,7 @@
       "under15_share": 79.6
     },
     "changes": {
-      "trade_count_pct": -50.3,
+      "trade_count_pct": -50.1,
       "under15_share_pp": 4.0
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"

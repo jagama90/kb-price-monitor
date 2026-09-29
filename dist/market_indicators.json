@@ -43,7 +43,7 @@
     ],
     [
       "2026-09",
-      1705,
+      1709,
       true
     ]
   ],
@@ -81,6 +81,7 @@
           "15-25eok": 694,
           "25eok+": 260
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 401,
           "15-17eok": 265,
@@ -98,6 +99,7 @@
           "15-25eok": 1387,
           "25eok+": 778
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 628,
           "15-17eok": 474,
@@ -115,6 +117,7 @@
           "15-25eok": 1642,
           "25eok+": 930
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 640,
           "15-17eok": 574,
@@ -132,6 +135,7 @@
           "15-25eok": 914,
           "25eok+": 395
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 439,
           "15-17eok": 319,
@@ -149,6 +153,7 @@
           "15-25eok": 880,
           "25eok+": 355
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 493,
           "15-17eok": 308,
@@ -166,6 +171,7 @@
           "15-25eok": 534,
           "25eok+": 188
         },
+        "buckets3": null,
         "boundary_counts": {
           "13-15eok": 243,
           "15-17eok": 185,
@@ -176,15 +182,20 @@
       },
       {
         "period": "2026-09",
-        "total": 1705,
+        "total": 1709,
         "counts": {
-          "<=9eok": 1086,
-          "9-15eok": 340,
-          "15-25eok": 202,
-          "25eok+": 77
+          "<=9eok": 1087,
+          "9-15eok": 341,
+          "15-25eok": 200,
+          "25eok+": 81
+        },
+        "buckets3": {
+          "<=15eok": 1428,
+          "15-25eok": 200,
+          "25eok+": 81
         },
         "boundary_counts": {
-          "13-15eok": 69,
+          "13-15eok": 70,
           "15-17eok": 64,
           "23-25eok": 21,
           "25-27eok": 6
@@ -207,7 +218,8 @@
     "molit_refresh": "connected",
     "ecos_refresh": "connected",
     "kb_sentiment_refresh": "connected",
-    "watchlist_detail_refresh": "connected"
+    "watchlist_detail_refresh": "connected",
+    "molit_unsold": "connected"
   },
   "kb_sentiment": {
     "status": "connected",
@@ -234,11 +246,43 @@
         "field": "전세거래지수"
       }
     },
+    "previous": {
+      "매수우위": {
+        "date": "20260914",
+        "value": 77.04347331,
+        "field": "매수우위지수"
+      },
+      "매매거래활발": {
+        "date": "20260914",
+        "value": 14.11817566,
+        "field": "매매거래지수"
+      },
+      "전세수급": {
+        "date": "20260914",
+        "value": 177.56295886,
+        "field": "전세수급지수"
+      },
+      "전세거래활발": {
+        "date": "20260914",
+        "value": 17.36413004,
+        "field": "전세거래지수"
+      }
+    },
+    "changes": {
+      "매수우위": -1.83,
+      "매매거래활발": 1.16,
+      "전세수급": -0.24,
+      "전세거래활발": 2.4
+    },
     "score_0_100": 22.6,
+    "previous_score_0_100": 22.8,
+    "score_change": -0.2,
     "jeonse_score_0_100": 49.3,
+    "previous_jeonse_score_0_100": 48.7,
+    "jeonse_score_change": 0.6,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-29T00:21:02.495964+00:00"
+    "generated_at": "2026-09-29T11:31:06.694816+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -252,7 +296,7 @@
     "current_position_0_1": 1.0,
     "source": "KB부동산 가락금호 24A 월별 일반거래가",
     "period": "202609",
-    "generated_at": "2026-09-29T00:21:02.454947+00:00"
+    "generated_at": "2026-09-25T05:07:36.468362+00:00"
   },
   "matched_period": {
     "as_of": "2026-09-29",
@@ -261,15 +305,20 @@
     "current": {
       "period": "2026-09",
       "range": "1~29일",
-      "total": 1705,
+      "total": 1709,
       "counts": {
-        "<=9eok": 1086,
-        "9-15eok": 340,
-        "15-25eok": 202,
-        "25eok+": 77
+        "<=9eok": 1087,
+        "9-15eok": 341,
+        "15-25eok": 200,
+        "25eok+": 81
+      },
+      "buckets3": {
+        "<=15eok": 1428,
+        "15-25eok": 200,
+        "25eok+": 81
       },
       "boundary_counts": {
-        "13-15eok": 69,
+        "13-15eok": 70,
         "15-17eok": 64,
         "23-25eok": 21,
         "25-27eok": 6
@@ -295,7 +344,7 @@
       "under15_share": 79.6
     },
     "changes": {
-      "trade_count_pct": -50.3,
+      "trade_count_pct": -50.1,
       "under15_share_pp": 4.0
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
@@ -303,12 +352,20 @@
   "mortgage_rate_official": {
     "period": "202607",
     "rate_pct": 4.48,
-    "item": "주택담보대출"
+    "item": "주택담보대출",
+    "previous_period": "202606",
+    "previous_rate_pct": 4.36,
+    "change_pp": 0.12
   },
   "m2_official": {
     "period": "202607",
     "mom_pct": 0.3,
     "yoy_pct": 5.8,
+    "previous_period": "202606",
+    "previous_mom_pct": 0.7,
+    "previous_yoy_pct": 5.98,
+    "mom_change_pp": -0.4,
+    "yoy_change_pp": -0.18,
     "source": "한국은행 ECOS 101Y003",
     "definition": "광의통화(M2) 동일 수준계열에서 MoM/YoY 계산",
     "selected_item": [
@@ -500,5 +557,20 @@
     },
     "recovered_after_retry": [],
     "failed_after_retry": []
+  },
+  "unsold_seoul": {
+    "status": "connected",
+    "source": "국토교통부 미분양주택현황보고",
+    "region": "서울",
+    "period": "202607",
+    "seoul_units": 994,
+    "previous_period": "202606",
+    "previous_units": 1013,
+    "change_units": -19,
+    "change_pct": -1.9,
+    "published_at": "2026-08-31",
+    "frequency": "monthly",
+    "official_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=32",
+    "note": "국토교통부 2026년 7월 주택통계 공표값"
   }
 }
