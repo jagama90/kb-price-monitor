@@ -40,10 +40,7 @@ jobs:
                 print('DESIRED_COUNT',desired,loc.count())
                 el=loc.nth(loc.count()-1)
                 print('TARGET_HTML',desired,el.evaluate("(e)=>e.parentElement.outerHTML.slice(0,700)"))
-                try:
-                  el.evaluate("(e)=>e.click()")
-                except Exception:
-                  el.evaluate("(e)=>e.parentElement.click()")
+                el.evaluate("(e)=>e.parentElement.click()")
                 p.wait_for_timeout(1200)
                 top=[x.strip() for x in p.locator('body').inner_text().splitlines() if x.strip()]
                 ix=top.index('KB시세 일반가') if 'KB시세 일반가' in top else -1
