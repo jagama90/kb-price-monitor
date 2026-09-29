@@ -192,3 +192,10 @@ if "renderRegimeReference(window.__currentCycleStage" in js:
     errors.append('historical regime reference must remain hidden until user taps a phase')
 if "window.__currentCycleStage=stage" not in js:
     errors.append('current regime stage is not persisted for UI highlighting')
+
+# v151 historical/current regime comparison contract
+for _id in ('regimeCompareToggle','regimeMetricM1','regimeMetricM3','regimeMetricBreadth','regimeMetricReaccel'):
+    if f'id="{_id}"' not in html: errors.append(f'regime compare element missing: {_id}')
+if 'window.__currentRegimeMetrics=' not in js: errors.append('current regime metrics are not persisted for historical comparison')
+if 'window.__regimeCompare=' not in js: errors.append('historical/current comparison state missing')
+if "s===window.__currentCycleStage" not in js: errors.append('current phase must auto-open comparison mode')
