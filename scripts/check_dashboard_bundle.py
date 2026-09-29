@@ -15,7 +15,7 @@ if dups: errors.append('duplicate ids: '+', '.join(dups))
 required=['conditionScore','scoreFinance','scoreSentiment','scoreDemand','scoreValue','scoreSupply',
           'scoreExplanation','scoreExplainTitle','scoreExplainWeight','scoreExplainBody',
           'regimeForecast','forecastGrid','forecastMeta','mobileCards','body',
-          'driverCredit','driverFinance','driverSentiment','driverDemand','driverPrice',
+          'driverLive',
           'backtestScope','backtestCertified','backtestCorr',
           'sourceMolitStatus','sourceKbStatus','sourceEcosStatus','sourceWatchStatus',
           'conditionTier','confidenceScore','validationUnsold','validationUnsoldPeriod',
@@ -65,7 +65,7 @@ if html.count('class="deep-row-v4"')!=4: errors.append('deep dive must contain e
 if html.count('class="deep-summary-v4"')!=4: errors.append('deep dive summaries missing')
 if 'class="analysis-hub"' in html or 'class="hub-summary"' in html or 'class="compact-section"' in html:
     errors.append('legacy deep-dive wrapper classes returned')
-if html.count('class="driver-rail"')!=1: errors.append('deep-dive driver rail missing')
+if html.count('class="driver-change-list-v143"')!=1: errors.append('change-first driver list missing')
 if 'class="transmission compact"' in html: errors.append('legacy boxed driver infographic returned')
 if html.count('class="audit-source-grid-v140"')!=1: errors.append('combined validation/data source grid missing')
 if len(re.findall(r'class="[^"]*\baudit-panel-v140\b[^"]*"',html))!=1: errors.append('combined validation/data panel missing')
