@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-152"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-153"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
 <details id="refreshCalendar" class="card refresh-calendar-v1" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
     <div class="refresh-summary-copy">
@@ -85,8 +85,12 @@
     <div class="forecast-stop skeleton"><small>중기</small><b>산출 중</b></div>
     <div class="forecast-stop skeleton"><small>장기</small><b>산출 중</b></div>
   </div>
-  <div class="forecast-trend" id="forecastTrend"></div>
-  <div class="forecast-legend"><span><i class="legend-flat"></i>보합·조정</span><span><i class="legend-up"></i>재가속</span><span><i class="legend-down"></i>하락</span><em>방향 비교용 시나리오 가중치</em></div>
+  <div class="forecast-trend forecast-risk-path-v153" id="forecastTrend"></div>
+  <details class="forecast-rules-v153">
+    <summary>표현 기준</summary>
+    <div><span>0~19%</span><b>상승 우위</b><span>20~29%</span><b>재상승 가능성 확대</b><span>30~34%</span><b>혼조·방향 탐색</b><span>35~44%</span><b>쉬어가기·하방 경계</b><span>45~54%</span><b>조정 위험 확대</b><span>55%+</span><b>하락 우위</b></div>
+    <small>하락 위험이 커질 때는 즉시 변경하고, 낮아질 때는 경계값보다 2%p 더 내려가야 다음 완화 단계로 바뀝니다.</small>
+  </details>
   <small class="forecast-meta" id="forecastMeta">최신 전망 데이터를 불러오는 중입니다.</small>
 </section>
 
@@ -226,4 +230,4 @@
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
 
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260929-151"></script></body></html>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260929-153"></script></body></html>
