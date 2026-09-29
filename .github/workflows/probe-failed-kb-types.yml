@@ -36,12 +36,20 @@ jobs:
               print('BUTTONS',vals[:120])
               desired={1960:'81Am²',46734:'85Bm²',2538:'85m²'}[cid]
               try:
+                buttons=p.get_by_role('button')
+                opener=None
+                for z in range(buttons.count()):
+                  el=buttons.nth(z)
+                  if el.is_visible() and ('m²' in (el.inner_text() or '') or '㎡' in (el.inner_text() or '')):
+                    opener=el;break
+                if opener:
+                  print('OPEN_TYPE',opener.inner_text());opener.click(force=True);p.wait_for_timeout(500)
                 loc=p.get_by_text(desired,exact=True)
                 print('DESIRED_COUNT',desired,loc.count())
-                el=loc.nth(loc.count()-1)
-                print('TARGET_HTML',desired,el.evaluate("(e)=>e.parentElement.outerHTML.slice(0,700)"))
-                el.evaluate("(e)=>e.parentElement.click()")
-                p.wait_for_timeout(1200)
+                for z in range(loc.count()-1,-1,-1):
+                  if loc.nth(z).is_visible():
+                    print('OPTION_HTML',loc.nth(z).evaluate("(e)=>e.parentElement.outerHTML.slice(0,700)"))
+                    loc.nth(z).click(force=True);p.wait_for_timeout(1200);break
                 top=[x.strip() for x in p.locator('body').inner_text().splitlines() if x.strip()]
                 ix=top.index('KB시세 일반가') if 'KB시세 일반가' in top else -1
                 print('AFTER_CLICK',desired,top[max(0,ix-2):ix+5])
