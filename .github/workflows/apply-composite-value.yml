@@ -1,0 +1,77 @@
+name: Apply composite Seoul valuation
+on:
+  push:
+    branches: [main]
+    paths: ['.github/run-apply-composite-value']
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Collect and certify composite valuation
+        run: |
+          python3 scripts/collect_kb_valuation_sources.py
+          python3 scripts/build_kb_value_composite.py
+          python3 scripts/validate_kb_value_composite.py
+          python3 scripts/build_kb_value_composite.py --publish
+      - name: Rebuild production research chain
+        run: |
+          python3 scripts/build_market_snapshot.py
+          python3 scripts/final_backtest.py
+          python3 scripts/research_turning_signal.py
+          python3 scripts/build_regime_reference_examples.py
+          python3 scripts/validate_forecast_kb_momentum.py
+          python3 scripts/forecast_market_regime.py
+          python3 scripts/build_condition_history.py
+          python3 scripts/build_index_audit.py
+          python3 scripts/validate_condition_index.py
+      - name: Validate dashboard contracts
+        run: |
+          python3 scripts/check_dashboard_bundle.py
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Stage outputs
+        run: |
+          mkdir -p /tmp/composite-value
+          cp data_sources/kb_valuation_sources.json /tmp/composite-value/
+          cp data_sources/kb_value_score.json /tmp/composite-value/
+          cp dist/kb_value_score.json /tmp/composite-value/dist-kb_value_score.json
+          cp dist/kb_value_composite_candidate.json /tmp/composite-value/
+          cp dist/kb_value_composite_validation.json /tmp/composite-value/
+          cp dist/market_indicators.json /tmp/composite-value/
+          cp dist/final_backtest.json /tmp/composite-value/
+          cp dist/turning_signal_research.json /tmp/composite-value/
+          cp dist/regime_reference_examples.json /tmp/composite-value/
+          cp dist/forecast_kb_momentum_validation.json /tmp/composite-value/
+          cp dist/regime_forecast.json /tmp/composite-value/
+          cp dist/condition_index_history.json /tmp/composite-value/
+          cp dist/index_audit.json /tmp/composite-value/
+          cp dist/validation_report.json /tmp/composite-value/
+      - name: Publish rebuilt production data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git reset --hard
+          git pull --ff-only origin main
+          cp /tmp/composite-value/kb_valuation_sources.json data_sources/kb_valuation_sources.json
+          cp /tmp/composite-value/kb_value_score.json data_sources/kb_value_score.json
+          cp /tmp/composite-value/dist-kb_value_score.json dist/kb_value_score.json
+          cp /tmp/composite-value/kb_value_composite_candidate.json dist/kb_value_composite_candidate.json
+          cp /tmp/composite-value/kb_value_composite_validation.json dist/kb_value_composite_validation.json
+          cp /tmp/composite-value/market_indicators.json dist/market_indicators.json
+          cp /tmp/composite-value/final_backtest.json dist/final_backtest.json
+          cp /tmp/composite-value/turning_signal_research.json dist/turning_signal_research.json
+          cp /tmp/composite-value/regime_reference_examples.json dist/regime_reference_examples.json
+          cp /tmp/composite-value/forecast_kb_momentum_validation.json dist/forecast_kb_momentum_validation.json
+          cp /tmp/composite-value/regime_forecast.json dist/regime_forecast.json
+          cp /tmp/composite-value/condition_index_history.json dist/condition_index_history.json
+          cp /tmp/composite-value/index_audit.json dist/index_audit.json
+          cp /tmp/composite-value/validation_report.json dist/validation_report.json
+          git add -f data_sources/kb_valuation_sources.json data_sources/kb_value_score.json             dist/kb_value_score.json dist/kb_value_composite_candidate.json dist/kb_value_composite_validation.json             dist/market_indicators.json dist/final_backtest.json dist/turning_signal_research.json             dist/regime_reference_examples.json dist/forecast_kb_momentum_validation.json dist/regime_forecast.json             dist/condition_index_history.json dist/index_audit.json dist/validation_report.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Apply composite Seoul Price Value model'
+          git push origin HEAD:main
