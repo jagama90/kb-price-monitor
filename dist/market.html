@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-142"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-143"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
 <details id="refreshCalendar" class="card refresh-calendar-v1" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
     <div class="refresh-summary-copy">
@@ -156,21 +156,11 @@
 <section class="deep-v4">
   <div class="deep-head-v4"><div><h2>상세 분석</h2></div><span>필요할 때만</span></div>
   <div class="deep-list-v4">
-    <details class="deep-row-v4" id="drivers"><summary class="deep-summary-v4"><span class="deep-icon-v4">↗</span><span class="deep-copy-v4"><small>원인</small><b>왜 움직이나</b><em id="hubDriversMeta">실제 입력값 연결 중</em></span><strong>＋</strong></summary><section class="card compact-body driver-body-v2"><div class="driver-rail" aria-label="시장 전달 구조">
-  <div><i>1</i><span><small>정책·신용</small><b>LTV · DSR</b></span></div>
-  <div><i>2</i><span><small>금융</small><b>금리 · M2</b></span></div>
-  <div><i>3</i><span><small>심리</small><b>KB 심리</b></span></div>
-  <div><i>4</i><span><small>거래</small><b>실수요</b></span></div>
-  <div><i>5</i><span><small>가격</small><b>KB · 실거래</b></span></div>
-</div>
-<div class="driver-data-v136" id="driverLive">
-  <div><span>신용 여력</span><b id="driverCredit">—</b><small id="driverCreditMeta">DSR 기준 연결 중</small></div>
-  <div><span>금융</span><b id="driverFinance">—</b><small id="driverFinanceMeta">ECOS 연결 중</small></div>
-  <div><span>심리</span><b id="driverSentiment">—</b><small id="driverSentimentMeta">KB 연결 중</small></div>
-  <div><span>거래</span><b id="driverDemand">—</b><small id="driverDemandMeta">국토부 연결 중</small></div>
-  <div><span>가격</span><b id="driverPrice">—</b><small id="driverPriceMeta">KB 연결 중</small></div>
-</div>
-<details class="deep-source"><summary>계산·해석 기준 보기</summary><div class="detail-grid"><div><b>정책·신용</b><p>정책 발표 자체가 아니라 DSR 기준 대출여력과 실제 금융조건 변화를 봅니다.</p></div><div><b>M2·금리</b><p id="m2Detail">ECOS 동일 M2 수준계열의 전월비·전년비와 주담대 금리를 함께 사용합니다.</p></div><div><b>원칙</b><p>각 단계의 실제 관측값을 연결해 방향과 시차를 확인하며, 단순 동행을 인과관계로 단정하지 않습니다.</p></div></div></details></section></details>
+    <details class="deep-row-v4" id="drivers"><summary class="deep-summary-v4"><span class="deep-icon-v4">↗</span><span class="deep-copy-v4"><small>원인</small><b>왜 움직이나</b><em id="hubDriversMeta">실제 입력값 연결 중</em></span><strong>＋</strong></summary><section class="card compact-body driver-body-v143">
+  <div class="driver-guide-v143"><b>직전 → 현재 → 변화</b><span>절대값보다 방향이 먼저 보이도록 정리했습니다.</span></div>
+  <div class="driver-change-list-v143" id="driverLive"><div class="driver-loading-v143">실제 입력값을 연결하는 중입니다.</div></div>
+  <details class="deep-source"><summary>계산·해석 기준 보기</summary><div class="detail-grid"><div><b>신용·금융</b><p>DSR 기준 구매력, 주담대 금리와 M2의 직전 발표 대비 변화를 봅니다.</p></div><div><b>심리·거래</b><p>KB 심리의 전주 변화와 국토부 동일기간 계약량·가격대 구성 변화를 비교합니다.</p></div><div><b>가격</b><p>KB 주간 가격지수의 전주 변화로 실제 가격 방향을 확인합니다.</p></div></div></details>
+</section></details>
 
     <details class="deep-row-v4" id="validation"><summary class="deep-summary-v4"><span class="deep-icon-v4">≋</span><span class="deep-copy-v4"><small>검증</small><b>수요·전세</b><em id="hubValidationMeta">거래 · 가격대 · 전세</em></span><strong>＋</strong></summary>
 <section class="compact-body validation-compact-v2">
@@ -221,4 +211,4 @@
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
 
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260929-142"></script></body></html>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260929-143"></script></body></html>
