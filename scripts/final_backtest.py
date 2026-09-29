@@ -2,7 +2,7 @@
 """Fail-closed walk-forward validation of the production five-component index.
 The checkpoint intentionally covers the 2022 decline through the 2023 turn."""
 import json,pathlib,datetime,calendar,math
-R=pathlib.Path(__file__).resolve().parents[1];O=R/'dist/final_backtest.json'
+R=pathlib.Path(__file__).resolve().parents[1];O=R/'dist/final_backtest.json';VALUE=R/'dist/kb_value_composite_candidate.json'
 W={'finance':25,'sentiment':20,'demand':20,'value':20,'supply':15}
 def clamp(x):return max(0,min(100,x))
 def shift(ym,n):
@@ -28,11 +28,11 @@ def main():
  demand_payload=json.loads((R/'dist/molit_historical_backtest.json').read_text())
  demand=demand_payload.get('rows',[])
  dm={x['ym']:x for x in demand}
+ vd=json.loads(VALUE.read_text()) if VALUE.exists() else {}
+ vm={x['ym']:float(x['score_0_100']) for x in vd.get('history',[]) if x.get('ym') and x.get('score_0_100') is not None}
  rows=[]
  for ym in sorted(k for k in pm if '202209'<=k):
-  hist=[pm[k] for k in sorted(pm) if k<=ym][-36:]
-  lo,hi=min(hist),max(hist);pos=(pm[ym]-lo)/(hi-lo) if hi>lo else .5
-  value=max(25,min(75,75-50*pos))
+  value=vm.get(ym)
   # KB weekly sentiment: only observations dated on/before that month's end.
   lastday=calendar.monthrange(int(ym[:4]),int(ym[4:]))[1];cut=f'{ym}{lastday:02d}'
   latest={}
@@ -78,9 +78,9 @@ def main():
   metrics['low_score_mean_fwd_6m_pct']=round(sum(x['fwd_6m_pct'] for x in ordered[:n] if x['fwd_6m_pct'] is not None)/max(1,sum(x['fwd_6m_pct'] is not None for x in ordered[:n])),2)
   metrics['high_score_mean_fwd_6m_pct']=round(sum(x['fwd_6m_pct'] for x in ordered[-n:] if x['fwd_6m_pct'] is not None)/max(1,sum(x['fwd_6m_pct'] is not None for x in ordered[-n:])),2)
  out={'status':('certified_with_provisional_tail' if certified and any(x.get('provisional') for x in rows) else 'certified') if certified else 'incomplete','certified_final':certified,
-  'formula':'finance25 + sentiment20 + demand20 + value20 + supply15; identical to production dashboard',
-  'no_future_leakage':True,'vintage_rules':{'kb_sentiment':'latest observation dated <= month end','m2':'t-2 conservative publication lag','demand':'completed calendar month vs previous completed month','value':'trailing 36 months through score month only'},
-  'target':'KB Garak Geumho 24A monthly sale general price','checkpoint':'2022-10..2023-06',
+  'formula':'finance25 + sentiment20 + demand20 + value20 + supply15; value = KB Seoul composite (PIR40 + rent-to-sale30 + 60m trend-gap30); identical to production dashboard',
+  'no_future_leakage':True,'vintage_rules':{'kb_sentiment':'latest observation dated <= month end','m2':'t-2 conservative publication lag','demand':'completed calendar month vs previous completed month','value':'KB Seoul composite valuation, expanding historical percentiles only; PIR latest period <= score month, rent ratio <= score month, 60m log-trend gap through score month'},
+  'target':'KB Garak Geumho 24A monthly sale general price (validation target only; value component is Seoul-wide composite)','checkpoint':'2022-10..2023-06',
   'period':'2022-09..latest completed month','certified_through':certified_through,'latest_available_month':latest_available,'checkpoint_rows':checkpoint_rows,'rows':rows,'metrics':metrics,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  O.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  print(json.dumps({'status':out['status'],'certified_final':certified,'complete_rows':len(complete),'metrics':metrics},ensure_ascii=False))
