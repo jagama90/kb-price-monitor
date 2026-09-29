@@ -5,7 +5,10 @@ name: Parallel market data refresh
 # FAST PATH: daily source refresh only. Code changes are validated by the sample path.
 on:
   schedule:
-    - cron: '5 22 * * *' # 07:05 KST
+    # GitHub scheduled workflows can be delayed substantially. Start early and
+    # keep a backup slot; the preflight freshness gate suppresses duplicate work.
+    - cron: '17 19 * * *' # 04:17 KST primary
+    - cron: '17 21 * * *' # 06:17 KST backup
   workflow_dispatch:
     inputs:
       dry_run:
@@ -28,7 +31,51 @@ concurrency:
   group: market-data-v5-${{ inputs.dry_run == true && github.run_id || github.ref }}
   cancel-in-progress: true
 jobs:
+  preflight:
+    name: 0 · Freshness gate
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.gate.outputs.should_run }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip redundant scheduled refresh
+        id: gate
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import datetime, json, os
+          from pathlib import Path
+          event=os.getenv('GITHUB_EVENT_NAME','')
+          should=True
+          reason='non-schedule event'
+          if event=='schedule':
+              p=Path('data_sources/refresh_run_status.json')
+              if p.exists():
+                  try:
+                      raw=json.loads(p.read_text(encoding='utf-8'))
+                      ts=str(raw.get('attempted_at') or '').replace('Z','+00:00')
+                      last=datetime.datetime.fromisoformat(ts)
+                      if last.tzinfo is None:
+                          last=last.replace(tzinfo=datetime.timezone.utc)
+                      age=(datetime.datetime.now(datetime.timezone.utc)-last).total_seconds()/3600
+                      if 0 <= age < 3.5:
+                          should=False
+                          reason=f'last successful refresh is only {age:.2f}h old'
+                      else:
+                          reason=f'last refresh age {age:.2f}h'
+                  except Exception as e:
+                      reason=f'freshness parse failed: {e!r}'
+              else:
+                  reason='no prior refresh status'
+          out=os.environ['GITHUB_OUTPUT']
+          with open(out,'a',encoding='utf-8') as fh:
+              fh.write(f"should_run={'true' if should else 'false'}\n")
+          print({'should_run':should,'reason':reason,'event':event})
+          PY
+
   kb_sentiment:
+    needs: preflight
+    if: needs.preflight.outputs.should_run == 'true'
     name: C · KB sentiment
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -74,6 +121,8 @@ jobs:
             data_sources/kb_weekly_sale_index.json
             data_sources/kb_weekly_rent_index.json
   molit:
+    needs: preflight
+    if: needs.preflight.outputs.should_run == 'true'
     name: A · MOLIT trades
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -114,6 +163,8 @@ jobs:
             data_sources/molit_daily_history.json
             data_sources/watchlist_recent_trades.json
   ecos:
+    needs: preflight
+    if: needs.preflight.outputs.should_run == 'true'
     name: B · BOK ECOS
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -162,6 +213,8 @@ jobs:
             data_sources/ecos_mortgage_rate.json
             data_sources/ecos_base_rate.json
   watchlist_details:
+    needs: preflight
+    if: needs.preflight.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     outputs:
@@ -193,8 +246,8 @@ jobs:
 
   aggregate:
     name: E · Aggregate and validate
-    if: always()
-    needs: [molit, ecos, kb_sentiment, watchlist_details]
+    if: ${{ always() && needs.preflight.outputs.should_run == 'true' }}
+    needs: [preflight, molit, ecos, kb_sentiment, watchlist_details]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
