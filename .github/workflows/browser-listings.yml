@@ -1,9 +1,5 @@
 name: Browser KB listing probe
 on:
-  push:
-    paths:
-      - 'scripts/probe_listings_browser.py'
-      - '.github/workflows/browser-listings.yml'
   workflow_dispatch:
 permissions:
   contents: read
