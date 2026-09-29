@@ -207,7 +207,7 @@ async function renderConditionHistory(){
 renderConditionHistory();
 
 async function renderCycleStage(){ // direction-aware market phase UI
- const badge=document.getElementById('cycleStageBadge');if(!badge)return;
+ const badge=document.getElementById('cycleStageBadge');
  try{const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],x=rows.at(-1),prev=rows.at(-2);if(!x)throw Error('no rows');
   const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),prev3=Number(prev?.momentum_3m_pct),recent=rows.slice(-4,-1),wasRising=recent.some(r=>Number(r.momentum_3m_pct)>0);
   let stage=0,label='하락 중',text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
@@ -227,16 +227,16 @@ window.__regimeReferences=null;window.__currentCycleStage=0;
 const regimeYm=v=>{const s=String(v||'');return s.length===6?s.slice(0,4)+'.'+s.slice(4):s};
 function renderRegimeReference(stage){
  const refs=window.__regimeReferences||[],x=refs.find(r=>Number(r.stage)===Number(stage));if(!x)return;
- document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(e=>e.classList.toggle('reference-selected',Number(e.dataset.regimeRef)===Number(stage)));
+ document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(e=>e.setAttribute('aria-pressed',Number(e.dataset.regimeRef)===Number(stage)?'true':'false'));
  const period=x.period_start===x.period_end?regimeYm(x.period_start):regimeYm(x.period_start)+' ~ '+regimeYm(x.period_end);
  setText('regimeRefTitle',x.label+' 대표 '+(x.months>1?'구간':'시점'));setText('regimeRefPeriod',period);setText('regimeRefDesc',x.description);
  const signed2=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
  setText('regimeRefM1',signed2(x.price_mom_1m_pct));setText('regimeRefM3',signed2(x.price_mom_3m_pct));
  setText('regimeRefBreadth',Number(x.breadth_0_100).toFixed(0)+'/100');setText('regimeRefReaccel',Number(x.reaccel_0_100).toFixed(0)+'/100');
- const host=document.getElementById('regimeRefSpark'),a=x.series||[];if(host&&a.length){
-  const vals=a.map(z=>Number(z.price)).filter(Number.isFinite),lo=Math.min(...vals),hi=Math.max(...vals),w=230,h=54,p=5,span=hi-lo||1;
-  const pts=a.map((z,i)=>{const px=a.length===1?w/2:p+i*(w-2*p)/(a.length-1),py=h-p-(Number(z.price)-lo)/span*(h-2*p);return[px,py]}),poly=pts.map(q=>q.join(',')).join(' ');
-  host.innerHTML='<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" aria-label="'+x.label+' 대표구간 가격 추이"><line x1="0" y1="'+(h-p)+'" x2="'+w+'" y2="'+(h-p)+'" class="ref-base"></line>'+(a.length>1?'<polyline points="'+poly+'" class="ref-line"></polyline>':'')+pts.map((q,i)=>'<circle cx="'+q[0]+'" cy="'+q[1]+'" r="2.4" class="ref-dot"></circle>').join('')+'</svg><div class="regime-ref-axis-v145"><span>'+regimeYm(a[0].ym)+'</span><b>KB 대표가격</b><span>'+regimeYm(a[a.length-1].ym)+'</span></div>';
+ const host=document.getElementById('regimeRefSpark'),a=x.series||[];if(host){
+  const bar=(label,v)=>{const n=Number(v)||0,mag=Math.min(50,Math.abs(n)/15*50),side=n<0?'neg':n>0?'pos':'flat';return '<div class="momentum-row-v147"><div class="momentum-label-v147"><span>'+label+'</span><b class="'+side+'">'+(n>0?'+':'')+n.toFixed(2)+'%</b></div><div class="momentum-track-v147"><i></i><u class="'+side+'" style="width:'+mag+'%;'+(n<0?'right:50%':'left:50%')+'"></u></div></div>'};
+  const pchg=x.period_price_change_pct==null?'—':((Number(x.period_price_change_pct)>0?'+':'')+Number(x.period_price_change_pct).toFixed(2)+'%');
+  host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀</b><span>0% 기준 · ±15% 확대</span></div>'+bar('월간',x.price_mom_1m_pct)+bar('3개월',x.price_mom_3m_pct)+'<div class="momentum-period-v147"><span>'+regimeYm(x.period_start)+' → '+regimeYm(x.period_end)+'</span><b>대표기간 '+pchg+'</b></div>';
  }
 }
 async function loadRegimeReferences(){
