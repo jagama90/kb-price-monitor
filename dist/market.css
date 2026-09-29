@@ -1192,3 +1192,28 @@ main{max-width:1180px;padding-top:24px}
   .factor-change-v135 b{font-size:10px!important}
   .panel-refresh-chip-v135,.panel-refresh-change-v135{font-size:7px!important}
 }
+
+/* source cards v1 — normalized metadata baseline */
+.source-drawer .evidence-strip>div{
+  min-height:116px;
+  display:flex;
+  flex-direction:column;
+  box-sizing:border-box;
+}
+.source-drawer .evidence-strip>div>b{
+  margin:7px 0 0;
+}
+.source-drawer .evidence-strip>div>b small,
+.source-drawer .evidence-strip>div>small{
+  margin-top:auto;
+  padding-top:10px;
+  min-height:1.4em;
+  line-height:1.4;
+  font-variant-numeric:tabular-nums;
+}
+.source-drawer .evidence-strip>div>b small{
+  display:block;
+}
+@media(max-width:760px){
+  .source-drawer .evidence-strip>div{min-height:116px}
+}
