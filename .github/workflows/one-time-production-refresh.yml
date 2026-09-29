@@ -1,0 +1,17 @@
+name: One-time production refresh
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/refresh-now'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    uses: ./.github/workflows/parallel-market-refresh.yml
+    with:
+      dry_run: false
+    secrets: inherit
