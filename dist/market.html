@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-147"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-148"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
 <details id="refreshCalendar" class="card refresh-calendar-v1" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
     <div class="refresh-summary-copy">
@@ -43,7 +43,7 @@
   <div class="cycle-steps research-steps" id="cycleSteps">
     <span data-regime-ref="0" role="button" tabindex="0">하락</span><span data-regime-ref="1" role="button" tabindex="0">둔화</span><span data-regime-ref="2" role="button" tabindex="0">바닥</span><span data-regime-ref="3" role="button" tabindex="0">상승·보합</span><span data-regime-ref="4" role="button" tabindex="0">가속</span>
   </div>
-  <div class="regime-reference-v145" id="regimeReference" aria-live="polite">
+  <div class="regime-reference-v145" id="regimeReference" aria-live="polite" hidden>
     <div class="regime-ref-head-v145"><div><small>과거 대표 사례</small><b id="regimeRefTitle">불러오는 중</b></div><span id="regimeRefPeriod">—</span></div>
     <p id="regimeRefDesc">같은 판정규칙으로 과거 국면을 다시 분류합니다.</p>
     <div class="regime-ref-body-v145">
@@ -170,9 +170,8 @@
   <div class="deep-head-v4"><div><h2>상세 분석</h2></div><span>필요할 때만</span></div>
   <div class="deep-list-v4">
     <details class="deep-row-v4" id="drivers"><summary class="deep-summary-v4"><span class="deep-icon-v4">↗</span><span class="deep-copy-v4"><small>원인</small><b>왜 움직이나</b><em id="hubDriversMeta">실제 입력값 연결 중</em></span><strong>＋</strong></summary><section class="card compact-body driver-body-v143">
-  <div class="driver-guide-v143"><b>직전 → 현재 → 변화</b><span>절대값보다 방향이 먼저 보이도록 정리했습니다.</span></div>
+  <div class="driver-guide-v143"><b>직전 → 현재 → 변화</b><span>전월 · 전주 · 동일기간 대비</span></div>
   <div class="driver-change-list-v143" id="driverLive"><div class="driver-loading-v143">실제 입력값을 연결하는 중입니다.</div></div>
-  <details class="deep-source"><summary>계산·해석 기준 보기</summary><div class="detail-grid"><div><b>신용·금융</b><p>DSR 기준 구매력, 주담대 금리와 M2의 직전 발표 대비 변화를 봅니다.</p></div><div><b>심리·거래</b><p>KB 심리의 전주 변화와 국토부 동일기간 계약량·가격대 구성 변화를 비교합니다.</p></div><div><b>가격</b><p>KB 주간 가격지수의 전주 변화로 실제 가격 방향을 확인합니다.</p></div></div></details>
 </section></details>
 
     <details class="deep-row-v4" id="validation"><summary class="deep-summary-v4"><span class="deep-icon-v4">≋</span><span class="deep-copy-v4"><small>검증</small><b>수요·전세</b><em id="hubValidationMeta">거래 · 가격대 · 전세</em></span><strong>＋</strong></summary>
@@ -224,4 +223,4 @@
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
 
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260929-147"></script></body></html>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260929-148"></script></body></html>
