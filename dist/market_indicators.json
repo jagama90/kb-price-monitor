@@ -389,7 +389,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-09-29T16:32:50.272350+00:00",
+    "collected_at": "2026-09-29T16:45:57.909724+00:00",
     "history": [
       {
         "date": "20260615",
@@ -507,7 +507,7 @@
       "change_pct": 0.12
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-09-29T16:32:50.773717+00:00"
+    "collected_at": "2026-09-29T16:45:58.580914+00:00"
   },
   "base_rate_official": {
     "status": "connected",

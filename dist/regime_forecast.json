@@ -1,7 +1,7 @@
 {
   "status": "research_only",
   "weights_are_not_calibrated_probabilities": true,
-  "method": "transparent scenario-weight engine: certified turning-state research + freshest live market overlay; no future labels are used in current scoring",
+  "method": "transparent scenario-weight engine: certified turning-state research + freshest live market overlay; KB Seoul 4w/13w momentum is scale-aligned to the legacy research momentum only when historical validation passes; no future labels are used in current scoring",
   "as_of": "2026-09-30",
   "latest_research_month": "202608",
   "latest_research_provisional": true,
@@ -11,9 +11,9 @@
       "period": "2026Q4",
       "label": "2026년 말",
       "weights": {
-        "consolidation": 42.8,
-        "reacceleration": 21.2,
-        "downturn": 36.0
+        "consolidation": 34.5,
+        "reacceleration": 29.8,
+        "downturn": 35.7
       },
       "base_case": "consolidation",
       "display": {
@@ -21,8 +21,8 @@
         "headline": "쉬어가기·하방 경계",
         "risk_range": "35~44%",
         "tone": "watch",
-        "downturn_weight": 36.0,
-        "reacceleration_weight": 21.2,
+        "downturn_weight": 35.7,
+        "reacceleration_weight": 29.8,
         "secondary": "하방 위험 주의",
         "easing_hysteresis_pp": 2.0
       }
@@ -51,18 +51,18 @@
       "period": "2027H2",
       "label": "2027년 하반기",
       "weights": {
-        "consolidation": 39.2,
-        "reacceleration": 36.3,
-        "downturn": 24.5
+        "consolidation": 36.4,
+        "reacceleration": 38.0,
+        "downturn": 25.6
       },
-      "base_case": "consolidation",
+      "base_case": "reacceleration",
       "display": {
         "risk_band": 1,
         "headline": "재상승 가능성 확대",
         "risk_range": "20~29%",
         "tone": "low",
-        "downturn_weight": 24.5,
-        "reacceleration_weight": 36.3,
+        "downturn_weight": 25.6,
+        "reacceleration_weight": 38.0,
         "secondary": "재상승 신호 강화",
         "easing_hysteresis_pp": 2.0
       }
@@ -107,6 +107,7 @@
   },
   "state": {
     "current_phase": "post_rally_consolidation",
+    "forecast_price_phase": "uptrend",
     "recent_peak_3m_momentum_pct": 22.18,
     "cooling_score_0_100": 100.0,
     "liquidity_support_0_100": 79.0
@@ -125,8 +126,11 @@
       "M2/금융여건 동반 둔화"
     ],
     "current_check": {
-      "price_mom_pct": 0.0,
-      "momentum_3m_pct": 0.0,
+      "price_mom_pct": 1.96,
+      "momentum_3m_pct": 8.1,
+      "research_price_mom_pct": 0.0,
+      "research_momentum_3m_pct": 0.0,
+      "price_momentum_source": "KB Seoul weekly sale index, scale-aligned to legacy research momentum",
       "breadth": 38.7,
       "reaccel": 14.6,
       "finance": 61.1,
@@ -138,6 +142,21 @@
       "m2_yoy_pct": 5.8,
       "mortgage_rate_pct": 4.48
     }
+  },
+  "price_momentum_overlay": {
+    "applied": true,
+    "source": "KB Seoul weekly sale index, scale-aligned to legacy research momentum",
+    "kb_as_of": "20260921",
+    "kb_4w_pct": 0.81,
+    "kb_13w_pct": 3.26,
+    "mapped_m1_pct": 1.96,
+    "mapped_m3_pct": 8.1,
+    "research_m1_pct": 0.0,
+    "research_m3_pct": 0.0,
+    "m1_fit_r2": 0.479,
+    "m3_fit_r2": 0.71,
+    "validation_apply_recommended": true,
+    "validation_generated_at": "2026-09-29T16:44:04.172718+00:00"
   },
   "historical_analogs": [
     {
@@ -166,5 +185,5 @@
     },
     "sample_is_small": true
   },
-  "generated_at": "2026-09-29T16:32:58.115779+00:00"
+  "generated_at": "2026-09-29T16:46:08.025597+00:00"
 }
