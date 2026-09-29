@@ -36,12 +36,30 @@ jobs:
           python3 scripts/build_buy_watchlist_master.py
           python3 scripts/build_kb_value_sample.py
           cp data_sources/kb_value_sample.json dist/kb_value_sample.json
-          if python3 scripts/collect_public_market.py; then
+          set +e
+          python3 scripts/collect_public_market.py
+          kb_market_rc=$?
+          set -e
+          if python3 - <<'PY'
+          import json,sys
+          from pathlib import Path
+          p=Path('data/buy_watchlist_market.json')
+          if not p.exists(): sys.exit(1)
+          d=json.loads(p.read_text(encoding='utf-8')); rows=d.get('items') or []
+          validated=sum(x.get('kb_general_check_manwon') is not None for x in rows)
+          with_count=sum(x.get('sale_listing_count') is not None for x in rows)
+          with_avg=sum(x.get('avg_ask_manwon') is not None for x in rows)
+          print({'kb_dom_rows':len(rows),'validated':validated,'with_count':with_count,'with_avg':with_avg})
+          # Keep audited partial success instead of discarding every row just
+          # because a minority of complexes changed their visible type UI.
+          sys.exit(0 if validated>=15 and with_count>=15 else 1)
+          PY
+          then
             cp data/buy_watchlist_market.json /tmp/kb-weekly-listings.json
-            echo 'KB public-market enrichment refreshed; listing-owned fields staged'
+            echo "KB public-market enrichment staged (collector rc=$kb_market_rc; partial coverage allowed)"
           else
             rm -f /tmp/kb-weekly-listings.json
-            echo 'KB public-market enrichment unavailable; newest main snapshot will be preserved'
+            echo "KB public-market enrichment below quality floor (collector rc=$kb_market_rc); newest main snapshot will be preserved"
           fi
           python3 scripts/collect_kb_watchlist_history.py || echo 'KB watchlist history refresh failed; keeping last-good history'
           python3 scripts/collect_garak_geumho_24a.py || echo 'Garak Geumho history refresh failed; keeping last-good history'
