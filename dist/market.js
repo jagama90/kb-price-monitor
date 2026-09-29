@@ -581,7 +581,7 @@ async function initRefreshCalendar(){
   finance:{label:'금융',value:components.finance,sig:{score:components.finance,m2:[m.period,m.mom_pct,m.yoy_pct],mortgage:[mi?.mortgage_rate_official?.period,mi?.mortgage_rate_official?.rate_pct],base:[mi?.base_rate_official?.latest?.date,mi?.base_rate_official?.latest?.rate_pct]}},
   sentiment:{label:'심리',value:components.sentiment,sig:{score:components.sentiment,buy:[sent.latest?.매수우위?.date,sent.latest?.매수우위?.value],trade:[sent.latest?.매매거래활발?.date,sent.latest?.매매거래활발?.value]}},
   demand:{label:'거래',value:components.demand,sig:{score:components.demand,period:matched.current?.period,total:matched.current?.total,under15:matched.current?.under15_share,changes:matched.changes}},
-  value:{label:'가격',value:components.value,sig:{score:components.value,period:val.period,current:val.current_manwon,low:val.window_low_manwon,high:val.window_high_manwon}},
+  value:{label:'가격',value:components.value,sig:{score:components.value,period:val.period,pir:[val.components?.pir?.period,val.components?.pir?.value,val.components?.pir?.score_0_100],rent:[val.components?.rent_ratio?.period,val.components?.rent_ratio?.value_pct,val.components?.rent_ratio?.score_0_100],trend:[val.components?.trend_gap?.period,val.components?.trend_gap?.value_pct,val.components?.trend_gap?.score_0_100]}},
   supply:{label:'전세',value:components.supply,sig:{score:components.supply,supply:[sent.latest?.전세수급?.date,sent.latest?.전세수급?.value],activity:[sent.latest?.전세거래활발?.date,sent.latest?.전세거래활발?.value]}}
  };
  for(const [key,d] of Object.entries(factorDefs)){const rec=refreshTrack(state,'factor.'+key,d.label,d.sig,d.value,dailyRev,true);records.push(rec);decorateFactorRefresh(document.querySelector('[data-score-key="'+key+'"]'),rec,dailyRev)}
