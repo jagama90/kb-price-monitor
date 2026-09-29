@@ -53,7 +53,7 @@ for rid in ('forecastHeadline','forecastTrend','storyHeadline','storySummary','n
     if ids.count(rid)!=1: errors.append(f'visual remodel id {rid}: expected 1, got {ids.count(rid)}')
 if html.count('class="card score-component"')!=5: errors.append('condition dashboard must contain five compact score tiles')
 if 'class="forecast-flow"' not in html: errors.append('forward-regime infographic flow missing')
-if 'forecast-mini-values' not in js or 'scenario-rail' not in js: errors.append('forecast infographic renderer missing')
+if 'forecast-risk-track-v153' not in js or 'forecast-risk-sub-v153' not in js: errors.append('simplified forecast risk renderer missing')
 if '<summary><span><small>2 · 왜 움직이고 있나' in html: errors.append('legacy text-heavy analysis menu returned')
 if '점수 근거 보기' in html: errors.append('legacy score CTA returned')
 
@@ -199,3 +199,8 @@ for _id in ('regimeCompareToggle','regimeMetricM1','regimeMetricM3','regimeMetri
 if 'window.__currentRegimeMetrics=' not in js: errors.append('current regime metrics are not persisted for historical comparison')
 if 'window.__regimeCompare=' not in js: errors.append('historical/current comparison state missing')
 if "s===window.__currentCycleStage" not in js: errors.append('current phase must auto-open comparison mode')
+
+# v153 forecast-language contract
+if 'forecast-rules-v153' not in html: errors.append('forecast expression rules missing')
+if "하락 가능성" not in js: errors.append('forecast must foreground downturn risk')
+if "시나리오 가중치 · 확률 예측 아님" not in js: errors.append('forecast probability disclaimer missing')
