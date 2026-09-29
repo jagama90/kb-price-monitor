@@ -4,10 +4,6 @@ on:
   workflow_run:
     workflows: ['Research turning signal', 'Parallel market data refresh', 'Repair dashboard data']
     types: [completed]
-  push:
-    branches: [main]
-    paths:
-      - '.github/forecast-now'
   workflow_dispatch:
 
 permissions:
