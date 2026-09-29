@@ -208,3 +208,11 @@ if "s===window.__currentCycleStage" not in js: errors.append('current phase must
 if 'forecast-rules-v153' not in html: errors.append('forecast expression rules missing')
 if "하락 가능성" not in js: errors.append('forecast must foreground downturn risk')
 if "시나리오 가중치 · 확률 예측 아님" not in js: errors.append('forecast probability disclaimer missing')
+
+# v155 comparable-current momentum + brand refresh
+if 'id="brandHome"' not in html: errors.append('header brand refresh control missing')
+if "window.location.reload()" not in js: errors.append('brand must reload dashboard')
+if "kb_weekly_sale_index.json" not in js or "mom_4w_pct" not in js or "mom_13w_pct" not in js:
+    errors.append('current regime comparison must use KB Seoul 4w/13w momentum')
+if "kb_seoul_momentum" not in js:
+    errors.append('historical/current price comparison is not source-aligned')
