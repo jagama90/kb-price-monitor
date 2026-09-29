@@ -211,7 +211,7 @@ async function renderCycleStage(){ // direction-aware market phase UI
  try{
   const [d,kb]=await Promise.all([
    fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('turning signal '+r.status);return r.json()}),
-   fetch('kb_weekly_sale_index.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
+   fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
   ]),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
   const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),recent=rows.slice(-4,-1),wasRising=recent.some(r=>Number(r.momentum_3m_pct)>0);
   let stage=0,text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
@@ -220,7 +220,7 @@ async function renderCycleStage(){ // direction-aware market phase UI
   if(m3>0){stage=3;text='최근 3개월 가격 흐름이 상승입니다. 상승 흐름이 이어지는지 확인하는 단계입니다.'}
   if(wasRising&&m3<=0&&m1>=0){stage=3;text='앞선 상승세가 멈추고 최근 가격이 보합권에 들어왔습니다. 상승 모멘텀이 식은 상태입니다.'}
   if(x.momentum_zone){stage=4;text='가격 상승과 시장 수요가 함께 강해지는 구간입니다.'}
-  const km=kb?.momentum||{},kbComparable=km.mom_4w_pct!=null&&km.mom_13w_pct!=null;
+  const km=kb?.kb_weekly_sale_index?.momentum||{},kbComparable=km.mom_4w_pct!=null&&km.mom_13w_pct!=null;
   window.__currentCycleStage=stage;
   window.__currentRegimeMetrics={
    ym:x.ym,label:km.as_of?String(km.as_of).slice(0,4)+'.'+String(km.as_of).slice(4,6)+'.'+String(km.as_of).slice(6,8):x.ym.slice(0,4)+'.'+x.ym.slice(4),
