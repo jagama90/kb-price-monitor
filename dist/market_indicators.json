@@ -282,7 +282,7 @@
     "jeonse_score_change": 0.6,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-29T12:15:35.887670+00:00"
+    "generated_at": "2026-09-29T12:20:01.581187+00:00"
   },
   "kb_value": {
     "status": "connected",
