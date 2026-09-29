@@ -206,7 +206,7 @@ async function renderConditionHistory(){
 }
 renderConditionHistory();
 
-window.__regimeReferences=null;window.__currentCycleStage=0;
+window.__regimeReferences=null;window.__currentCycleStage=0;window.__currentRegimeMetrics=null;window.__selectedRegimeRefStage=null;window.__regimeCompare=false;
 async function renderCycleStage(){ // direction-aware market phase UI
  try{
   const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('turning signal '+r.status);return r.json()}),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
@@ -218,10 +218,12 @@ async function renderCycleStage(){ // direction-aware market phase UI
   if(wasRising&&m3<=0&&m1>=0){stage=3;text='앞선 상승세가 멈추고 최근 가격이 보합권에 들어왔습니다. 상승 모멘텀이 식은 상태입니다.'}
   if(x.momentum_zone){stage=4;text='가격 상승과 시장 수요가 함께 강해지는 구간입니다.'}
   window.__currentCycleStage=stage;
+  window.__currentRegimeMetrics={ym:x.ym,price_mom_1m_pct:m1,price_mom_3m_pct:m3,breadth_0_100:Number(x.breadth),reaccel_0_100:Number(x.reaccel)};
   setText('cycleStageText',text);
   const flow=m3>0?'상승 '+m3.toFixed(1)+'%':m3<0?'하락 '+Math.abs(m3).toFixed(1)+'%':'보합';
   setText('cycleStageEvidence','최근 데이터 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow);
   document.querySelectorAll('#cycleSteps span').forEach((el,i)=>{el.classList.toggle('active',i===stage);el.setAttribute('aria-current',i===stage?'step':'false')});
+  const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
  }catch(e){
   console.warn('cycle stage',e);setText('cycleStageText','국면 데이터 연결을 확인하고 있습니다.');setText('cycleStageEvidence','연구엔진 원천 확인 중');
  }
@@ -229,26 +231,46 @@ async function renderCycleStage(){ // direction-aware market phase UI
 const regimeYm=v=>{const s=String(v||'');return s.length===6?s.slice(0,4)+'.'+s.slice(4):s};
 function renderRegimeReference(stage){
  const refs=window.__regimeReferences||[],x=refs.find(r=>Number(r.stage)===Number(stage));if(!x)return;
+ window.__selectedRegimeRefStage=Number(stage);
  document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(e=>e.setAttribute('aria-pressed',Number(e.dataset.regimeRef)===Number(stage)?'true':'false'));
- const period=x.period_start===x.period_end?regimeYm(x.period_start):regimeYm(x.period_start)+' ~ '+regimeYm(x.period_end);
- setText('regimeRefTitle',x.label+' 대표 '+(x.months>1?'구간':'시점'));setText('regimeRefPeriod',period);setText('regimeRefDesc',x.description);
+ const current=window.__currentRegimeMetrics,compare=!!(window.__regimeCompare&&current),period=x.period_start===x.period_end?regimeYm(x.period_start):regimeYm(x.period_start)+' ~ '+regimeYm(x.period_end);
+ setText('regimeRefTitle',x.label+' 대표 '+(x.months>1?'구간':'시점'));
+ setText('regimeRefPeriod',compare?period+' ↔ 현재 '+regimeYm(current.ym):period);
+ setText('regimeRefDesc',x.description+(compare?' 현재 '+regimeYm(current.ym)+'와 같은 척도로 대조합니다.':''));
+ const toggle=document.getElementById('regimeCompareToggle');if(toggle){toggle.disabled=!current;toggle.classList.toggle('active',compare);toggle.textContent=compare?'과거만 보기':'현재와 비교';toggle.setAttribute('aria-pressed',compare?'true':'false')}
  const signed2=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
- setText('regimeRefM1',signed2(x.price_mom_1m_pct));setText('regimeRefM3',signed2(x.price_mom_3m_pct));
- setText('regimeRefBreadth',Number(x.breadth_0_100).toFixed(0)+'/100');setText('regimeRefReaccel',Number(x.reaccel_0_100).toFixed(0)+'/100');
+ const score=v=>v==null?'—':Number(v).toFixed(1)+'/100';
+ const metric=(wrapId,bId,label,hv,cv,kind)=>{
+  const wrap=document.getElementById(wrapId);if(!wrap)return;
+  if(!compare){wrap.innerHTML='<small>'+label+'</small><b id="'+bId+'">'+(kind==='pct'?signed2(hv):score(hv))+'</b>';return}
+  const delta=Number(cv)-Number(hv),unit=kind==='pct'?'%p':'p',hist=kind==='pct'?signed2(hv):score(hv),now=kind==='pct'?signed2(cv):score(cv),d=(delta>0?'+':'')+delta.toFixed(kind==='pct'?2:1)+unit,cls=delta>0?'up':delta<0?'down':'flat';
+  wrap.innerHTML='<small>'+label+'</small><b id="'+bId+'" class="regime-metric-pair-v151"><span>과거 '+hist+'</span><i>→</i><span>현재 '+now+'</span></b><em class="regime-metric-delta-v151 '+cls+'">현재 '+d+'</em>';
+ };
+ metric('regimeMetricM1','regimeRefM1','월간 가격',x.price_mom_1m_pct,current?.price_mom_1m_pct,'pct');
+ metric('regimeMetricM3','regimeRefM3','3개월 가격',x.price_mom_3m_pct,current?.price_mom_3m_pct,'pct');
+ metric('regimeMetricBreadth','regimeRefBreadth','시장 확산',x.breadth_0_100,current?.breadth_0_100,'score');
+ metric('regimeMetricReaccel','regimeRefReaccel','재가속',x.reaccel_0_100,current?.reaccel_0_100,'score');
  const host=document.getElementById('regimeRefSpark');if(host){
-  const bar=(label,v)=>{const n=Number(v)||0,mag=Math.min(50,Math.abs(n)/15*50),side=n<0?'neg':n>0?'pos':'flat';return '<div class="momentum-row-v147"><div class="momentum-label-v147"><span>'+label+'</span><b class="'+side+'">'+(n>0?'+':'')+n.toFixed(2)+'%</b></div><div class="momentum-track-v147"><i></i><u class="'+side+'" style="width:'+mag+'%;'+(n<0?'right:50%':'left:50%')+'"></u></div></div>'};
+  const rawBar=(tag,v)=>{const n=Number(v)||0,mag=Math.min(50,Math.abs(n)/15*50),side=n<0?'neg':n>0?'pos':'flat';return '<div class="compare-bar-line-v151"><span>'+tag+'</span><div class="momentum-track-v147"><i></i><u class="'+side+'" style="width:'+mag+'%;'+(n<0?'right:50%':'left:50%')+'"></u></div><b class="'+side+'">'+(n>0?'+':'')+n.toFixed(2)+'%</b></div>'};
+  const single=(label,v)=>{const n=Number(v)||0,mag=Math.min(50,Math.abs(n)/15*50),side=n<0?'neg':n>0?'pos':'flat';return '<div class="momentum-row-v147"><div class="momentum-label-v147"><span>'+label+'</span><b class="'+side+'">'+(n>0?'+':'')+n.toFixed(2)+'%</b></div><div class="momentum-track-v147"><i></i><u class="'+side+'" style="width:'+mag+'%;'+(n<0?'right:50%':'left:50%')+'"></u></div></div>'};
   const pchg=x.period_price_change_pct==null?'—':((Number(x.period_price_change_pct)>0?'+':'')+Number(x.period_price_change_pct).toFixed(2)+'%');
-  host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀</b><span>0% 기준 · ±15% 확대</span></div>'+bar('월간',x.price_mom_1m_pct)+bar('3개월',x.price_mom_3m_pct)+'<div class="momentum-period-v147"><span>'+regimeYm(x.period_start)+' → '+regimeYm(x.period_end)+'</span><b>대표기간 '+pchg+'</b></div>';
+  if(compare){
+   host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀 · 과거 vs 현재</b><span>0% 기준 · ±15% 확대</span></div><div class="compare-momentum-group-v151"><strong>월간 가격</strong>'+rawBar('과거',x.price_mom_1m_pct)+rawBar('현재',current.price_mom_1m_pct)+'</div><div class="compare-momentum-group-v151"><strong>3개월 가격</strong>'+rawBar('과거',x.price_mom_3m_pct)+rawBar('현재',current.price_mom_3m_pct)+'</div><div class="momentum-period-v147"><span>'+period+' ↔ 현재 '+regimeYm(current.ym)+'</span><b>대표기간 '+pchg+'</b></div>';
+  }else{
+   host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀</b><span>0% 기준 · ±15% 확대</span></div>'+single('월간',x.price_mom_1m_pct)+single('3개월',x.price_mom_3m_pct)+'<div class="momentum-period-v147"><span>'+regimeYm(x.period_start)+' → '+regimeYm(x.period_end)+'</span><b>대표기간 '+pchg+'</b></div>';
+  }
  }
+ const note=document.querySelector('#regimeReference .regime-ref-note-v145');if(note)note.textContent=compare?'과거 대표값과 현재값을 같은 척도로 비교합니다. 대표사례는 현재 판정에 사용하지 않습니다.':'현재와 비교를 누르면 같은 4개 지표를 대조합니다. 대표사례는 현재 판정에 사용하지 않습니다.';
 }
 async function loadRegimeReferences(){
  try{
   const d=await fetch('regime_reference_examples.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('references '+r.status);return r.json()});
   window.__regimeReferences=d.references||[];
   document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(el=>{
-   const open=()=>{const box=document.getElementById('regimeReference');if(box)box.hidden=false;renderRegimeReference(Number(el.dataset.regimeRef))};
+   const open=()=>{const s=Number(el.dataset.regimeRef),box=document.getElementById('regimeReference');if(box)box.hidden=false;window.__regimeCompare=!!(window.__currentRegimeMetrics&&s===window.__currentCycleStage);renderRegimeReference(s)};
    el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
   });
+  const toggle=document.getElementById('regimeCompareToggle');if(toggle)toggle.addEventListener('click',()=>{if(window.__selectedRegimeRefStage==null||!window.__currentRegimeMetrics)return;window.__regimeCompare=!window.__regimeCompare;renderRegimeReference(window.__selectedRegimeRefStage)});
  }catch(e){console.warn('regime references',e)}
 }
 renderCycleStage();loadRegimeReferences();
