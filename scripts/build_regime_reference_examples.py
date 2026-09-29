@@ -76,15 +76,22 @@ def main():
   x['stage'],x['was_rising']=classify(rows,i);x['_i']=i
  cutoff=addm(rows[-1]['ym'],-9)
  eligible=[x for x in rows if not x.get('source_provisional') and x['ym']<=cutoff]
- pick=lambda a:max(a,key=score)
- decline=pick([x for x in eligible if x['stage']==0])
+ stage_counts={i:sum(1 for x in eligible if x['stage']==i) for i in range(5)}
+ def pick(a,stage=None):
+  if a:return max(a,key=score)
+  if stage is not None:
+   fallback=[x for x in eligible if x['stage']==stage]
+   if fallback:return max(fallback,key=score)
+  raise RuntimeError('no representative candidate: '+json.dumps({'stage':stage,'stage_counts':stage_counts},ensure_ascii=False))
+ decline=pick([x for x in eligible if x['stage']==0],0)
  def within(stage,after,n):
-  a=[x for x in eligible if x['stage']==stage and after<x['ym']<=addm(after,n)]
-  return pick(a) if a else pick([x for x in eligible if x['stage']==stage and x['ym']>after])
+  near=[x for x in eligible if x['stage']==stage and after<x['ym']<=addm(after,n)]
+  later=[x for x in eligible if x['stage']==stage and x['ym']>after]
+  return pick(near or later,stage)
  slow=within(1,decline['ym'],4);bottom=within(2,slow['ym'],4)
  a=[x for x in eligible if x['stage']==3 and x['ym']>bottom['ym'] and x['was_rising'] and float(x.get('momentum_3m_pct') or 0)<=0 and float(x.get('price_mom_pct') or 0)>=0]
- flat=pick(a or [x for x in eligible if x['stage']==3 and x['ym']>bottom['ym']])
- accel=pick([x for x in eligible if x['stage']==4 and x['ym']>flat['ym']])
+ flat=pick(a or [x for x in eligible if x['stage']==3 and x['ym']>bottom['ym']],3)
+ accel=pick([x for x in eligible if x['stage']==4 and x['ym']>flat['ym']],4)
  refs=[]
  for idx,x in enumerate([decline,slow,bottom,flat,accel]):
   a=b=x['_i']
@@ -98,8 +105,8 @@ def main():
    'period_price_change_pct':round((p1/p0-1)*100,2) if p0 and p1 else None,
    'series':[{'ym':z['ym'],'price':z.get('target_price'),'price_mom_1m_pct':z.get('price_mom_pct'),'price_mom_3m_pct':z.get('momentum_3m_pct')} for z in seg]})
  payload={'status':'research_reference','source':'dist/turning_signal_research.json + KB Seoul weekly sale index','classification_rule':'same five-stage rule as renderCycleStage; retrospective representative examples only',
-  'selection_rule':'exclude latest 9 months; strongest decline, then strongest subsequent slowdown and bottom within 4 months, strongest post-rally consolidation, strongest later acceleration',
+  'selection_rule':'exclude latest 9 months; prefer sequential decline→slowdown→bottom→consolidation→acceleration representatives; when a later-stage candidate is absent after the prior anchor, fall back to the strongest historical example of that same classified stage',
   'latest_source_month':rows[-1]['ym'],'candidate_cutoff':cutoff,'references':refs,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
- print(json.dumps({'cutoff':cutoff,'references':[(x['label'],x['period_start'],x['period_end'],x['anchor_ym']) for x in refs]},ensure_ascii=False))
+ print(json.dumps({'cutoff':cutoff,'stage_counts':stage_counts,'references':[(x['label'],x['period_start'],x['period_end'],x['anchor_ym']) for x in refs]},ensure_ascii=False))
 if __name__=='__main__':main()
