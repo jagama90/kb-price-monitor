@@ -1,0 +1,30 @@
+name: Validate KB forecast momentum scale
+on:
+  push:
+    branches: [main]
+    paths: ['.github/run-validate-kb-forecast-momentum']
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Validate scale and predictive ranking
+        run: |
+          python3 scripts/validate_forecast_kb_momentum.py
+          cp dist/forecast_kb_momentum_validation.json /tmp/forecast_kb_momentum_validation.json
+      - name: Persist research validation
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git reset --hard
+          git pull --ff-only origin main
+          cp /tmp/forecast_kb_momentum_validation.json dist/forecast_kb_momentum_validation.json
+          git add -f dist/forecast_kb_momentum_validation.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Validate KB momentum scale for forecast engine'
+          git push origin HEAD:main
