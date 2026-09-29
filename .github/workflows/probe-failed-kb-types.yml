@@ -30,14 +30,13 @@ jobs:
               for i in range(p.get_by_role('button').count()):
                 try:
                   el=p.get_by_role('button').nth(i)
-                  if el.is_visible():
-                    t=' '.join((el.inner_text() or '').split())
-                    if t and ('평' in t or 'm²' in t or '㎡' in t): vals.append(t)
+                  t=' '.join((el.inner_text() or '').split())
+                  if t and ('평' in t or 'm²' in t or '㎡' in t): vals.append(('V' if el.is_visible() else 'H')+':'+t)
                 except: pass
               print('BUTTONS',vals[:120])
               lines=[x.strip() for x in p.locator('body').inner_text().splitlines() if x.strip()]
               for i,x in enumerate(lines):
-                if x in ('매물평균가','KB시세 일반가','최근 실거래가') or '81.' in x or '82.' in x or '83.' in x or '172.' in x:
+                if x in ('매물평균가','KB시세 일반가','최근 실거래가') or 'm²' in x or '㎡' in x:
                   print('BODY',i,lines[max(0,i-3):min(len(lines),i+6)])
             b.close()
           PY
