@@ -30,10 +30,10 @@ async function loadMarketIndicators(){
  try{
   const d=await fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json());
   const vols=d.seoul_apt_trade_count||[];
-  if(vols.length){const z=vols[vols.length-1];setText('snapVolume',Number(z[1]).toLocaleString('ko-KR')+'건');setText('snapVolumePeriod',z[0]+(z[2]?' · 신고 진행':' · 집계'))}
+  if(vols.length){const z=vols[vols.length-1];setText('snapVolume',Number(z[1]).toLocaleString('ko-KR')+'건');setText('snapVolumePeriod',sourcePeriodFmt(z[0])+(z[2]?' · 신고 진행':' · 집계'))}
   const bands=d.price_bands?.months||[],latest=bands[bands.length-1];
   if(latest){setText('snapUnder15',latest.under15_share+'%');const ids={'b9':'<=9eok','b15':'9-15eok','b25':'15-25eok','b25p':'25eok+'};Object.entries(ids).forEach(([id,k])=>setText(id,Number(latest.counts?.[k]||0).toLocaleString('ko-KR')+'건'))}
-  const m=d.m2_official||d.m2;if(m){setText('snapM2',m.yoy_pct==null?'—':m.yoy_pct+'%');setText('snapM2Period',m.period+' · 한국은행 ECOS');setText('m2Detail','ECOS M2 기준 · 전월비 '+(m.mom_pct??'—')+'% · 전년비 '+(m.yoy_pct??'—')+'%')}
+  const m=d.m2_official||d.m2;if(m){setText('snapM2',m.yoy_pct==null?'—':m.yoy_pct+'%');setText('snapM2Period',sourcePeriodFmt(m.period)+' · 한국은행 ECOS');setText('m2Detail','ECOS M2 기준 · 전월비 '+(m.mom_pct??'—')+'% · 전년비 '+(m.yoy_pct??'—')+'%')}
   if(d.matched_period){const x=d.matched_period,c=x.current,p=x.previous,fmt=v=>v==null?'—':Number(v).toLocaleString('ko-KR');setText('matchedRange',p.period+' '+p.range+' ↔ '+c.period+' '+c.range+' · 계약일 기준');setText('matchedVolume',fmt(p.total)+' → '+fmt(c.total)+'건');setText('matchedVolumeDelta',x.changes?.trade_count_pct==null?'증감 계산 대기':signed(x.changes.trade_count_pct,'%')+' · 당월 신고 진행');setText('matchedUnder15',(p.under15_share??'—')+' → '+(c.under15_share??'—')+'%');setText('matchedUnder15Delta',x.changes?.under15_share_pp==null?'증감 계산 대기':signed(x.changes.under15_share_pp,'%p'));const hv=document.getElementById('hubValidationMeta');if(hv)hv.textContent='거래 '+(x.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 '+(c.under15_share??'—')+'%'}
   window.__marketIndicators=d;
   const src=d.refresh_run?.sources||{},srcLabel={molit:'국토부',ecos:'ECOS',kb_sentiment:'KB지수',watchlist_detail:'단지상세'},delayed=Object.entries(src).filter(([,v])=>v!=='connected').map(([k])=>srcLabel[k]||k);
@@ -74,7 +74,15 @@ function setupSnapshotEvidence(d){
 }
 const signed=(v,s='')=>(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
 const clamp=v=>Math.max(0,Math.min(100,v));
-function renderKbOfficial(d){const s=d.kb_weekly_sale_index,r=d.kb_weekly_rent_index,m=d.mortgage_rate_official,v=d.kb_value;const box=document.getElementById('kbOfficialData');if(!box)return;const f=x=>x?.latest?Number(x.latest.value).toFixed(2)+' <small>'+esc(x.latest.date)+'</small>':'수집 대기';box.innerHTML='<div><span>KB 주간 매매가격지수</span><b>'+f(s)+'</b></div><div><span>KB 주간 전세가격지수</span><b>'+f(r)+'</b></div><div><span>ECOS 주담대금리</span><b>'+(m?.rate_pct!=null?m.rate_pct+'% <small>'+esc(m.period)+'</small>':'수집 대기')+'</b></div><div><span>가격 매력도</span><b>'+(v?.score_0_100!=null?v.score_0_100+'/100':'52주 검증 대기')+'</b></div>';setText('validationRentChange',r?.latest?.change_pct==null?'—':signed(r.latest.change_pct,'%'));setText('validationRentPeriod',r?.latest?.date||'KB 공식');const jsup=d.kb_sentiment?.latest?.전세수급;setText('validationJeonseSupply',jsup?.value==null?'—':Number(jsup.value).toFixed(1));setText('validationJeonseSupplyPeriod',jsup?.date||'KB 공식')}
+const sourcePeriodFmt=v=>{
+ const s=String(v??'').trim();
+ if(!s)return'—';
+ let m;
+ if((m=s.match(/^(\d{4})[-./]?(\d{2})[-./]?(\d{2})$/)))return m[1]+'.'+m[2]+'.'+m[3];
+ if((m=s.match(/^(\d{4})[-./]?(\d{2})$/)))return m[1]+'-'+m[2];
+ return s;
+};
+function renderKbOfficial(d){const s=d.kb_weekly_sale_index,r=d.kb_weekly_rent_index,m=d.mortgage_rate_official,v=d.kb_value;const box=document.getElementById('kbOfficialData');if(!box)return;const f=x=>x?.latest?Number(x.latest.value).toFixed(2)+' <small>'+esc(sourcePeriodFmt(x.latest.date))+'</small>':'수집 대기';box.innerHTML='<div><span>KB 주간 매매가격지수</span><b>'+f(s)+'</b></div><div><span>KB 주간 전세가격지수</span><b>'+f(r)+'</b></div><div><span>ECOS 주담대금리</span><b>'+(m?.rate_pct!=null?m.rate_pct+'% <small>'+esc(sourcePeriodFmt(m.period))+'</small>':'수집 대기')+'</b></div><div><span>가격 매력도</span><b>'+(v?.score_0_100!=null?v.score_0_100+'/100':'52주 검증 대기')+'</b></div>';setText('validationRentChange',r?.latest?.change_pct==null?'—':signed(r.latest.change_pct,'%'));setText('validationRentPeriod',r?.latest?.date?sourcePeriodFmt(r.latest.date):'KB 공식');const jsup=d.kb_sentiment?.latest?.전세수급;setText('validationJeonseSupply',jsup?.value==null?'—':Number(jsup.value).toFixed(1));setText('validationJeonseSupplyPeriod',jsup?.date?sourcePeriodFmt(jsup.date):'KB 공식')}
 function renderConditionIndex(d){
  const bands=d.price_bands?.months||[],latest=bands[bands.length-1],prev=bands[bands.length-2],m=d.m2_official||d.m2,matched=d.matched_period;
  const components={finance:null,sentiment:null,demand:null,value:null,supply:null};
