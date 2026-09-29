@@ -58,6 +58,10 @@ jobs:
           cp /tmp/kb_sentiment_score.json data_sources/kb_sentiment_score.json
           cp /tmp/kb_watchlist_weekly_change.json dist/kb_watchlist_weekly_change.json
           cp /tmp/market_indicators.json dist/market_indicators.json
+          # Canonicalize each target to the same representative KB area before
+          # overlaying the fresh weekly listing snapshot. This prevents stale
+          # 24A/24B identities from blocking otherwise valid fresh KB values.
+          python3 scripts/merge_watchlist_details.py
           python3 scripts/merge_weekly_listing_snapshot.py --source /tmp/kb-listing-dom.json
           git add data_sources/molit.json data_sources/molit_daily_history.json data_sources/kb_sentiment_score.json dist/kb_watchlist_weekly_change.json dist/market_indicators.json data/buy_watchlist_market.json dist/buy_watchlist_market.json
           git diff --cached --quiet && exit 0
