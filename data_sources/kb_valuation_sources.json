@@ -1,0 +1,2683 @@
+{
+  "status": "connected",
+  "source": "KB부동산 데이터허브",
+  "region": "서울",
+  "pir": {
+    "label": "KB아파트담보대출 PIR",
+    "frequency": "quarterly",
+    "series": [
+      {
+        "period": "200803",
+        "pir": 7.361589209,
+        "house_price_manwon": 29500.0,
+        "annual_income_manwon": 4007.0
+      },
+      {
+        "period": "200806",
+        "pir": 7.544103993,
+        "house_price_manwon": 32500.0,
+        "annual_income_manwon": 4308.0
+      },
+      {
+        "period": "200809",
+        "pir": 7.535669649,
+        "house_price_manwon": 36325.0,
+        "annual_income_manwon": 4820.0
+      },
+      {
+        "period": "200812",
+        "pir": 8.313637929,
+        "house_price_manwon": 42000.0,
+        "annual_income_manwon": 5052.0
+      },
+      {
+        "period": "200903",
+        "pir": 8.327400442,
+        "house_price_manwon": 45500.0,
+        "annual_income_manwon": 5464.0
+      },
+      {
+        "period": "200906",
+        "pir": 8.444176984,
+        "house_price_manwon": 45800.0,
+        "annual_income_manwon": 5424.0
+      },
+      {
+        "period": "200909",
+        "pir": 8.741036544,
+        "house_price_manwon": 43500.0,
+        "annual_income_manwon": 4977.0
+      },
+      {
+        "period": "200912",
+        "pir": 8.504202955,
+        "house_price_manwon": 39500.0,
+        "annual_income_manwon": 4645.0
+      },
+      {
+        "period": "201003",
+        "pir": 7.959803093,
+        "house_price_manwon": 40450.0,
+        "annual_income_manwon": 5082.0
+      },
+      {
+        "period": "201006",
+        "pir": 7.922392409,
+        "house_price_manwon": 38500.0,
+        "annual_income_manwon": 4860.0
+      },
+      {
+        "period": "201009",
+        "pir": 8.1570543,
+        "house_price_manwon": 39062.5,
+        "annual_income_manwon": 4789.0
+      },
+      {
+        "period": "201012",
+        "pir": 8.718085146,
+        "house_price_manwon": 39500.0,
+        "annual_income_manwon": 4531.0
+      },
+      {
+        "period": "201103",
+        "pir": 8.586982418,
+        "house_price_manwon": 40000.0,
+        "annual_income_manwon": 4658.0
+      },
+      {
+        "period": "201106",
+        "pir": 8.286966589,
+        "house_price_manwon": 36700.0,
+        "annual_income_manwon": 4429.0
+      },
+      {
+        "period": "201109",
+        "pir": 8.323509742,
+        "house_price_manwon": 37500.0,
+        "annual_income_manwon": 4505.0
+      },
+      {
+        "period": "201112",
+        "pir": 8.262313628,
+        "house_price_manwon": 39000.0,
+        "annual_income_manwon": 4720.0
+      },
+      {
+        "period": "201203",
+        "pir": 8.246266018,
+        "house_price_manwon": 42100.0,
+        "annual_income_manwon": 5105.0
+      },
+      {
+        "period": "201206",
+        "pir": 7.797270955,
+        "house_price_manwon": 40000.0,
+        "annual_income_manwon": 5130.0
+      },
+      {
+        "period": "201209",
+        "pir": 8.038294414,
+        "house_price_manwon": 38675.0,
+        "annual_income_manwon": 4811.0
+      },
+      {
+        "period": "201212",
+        "pir": 8.174855864,
+        "house_price_manwon": 38000.0,
+        "annual_income_manwon": 4648.0
+      },
+      {
+        "period": "201303",
+        "pir": 7.844539812,
+        "house_price_manwon": 40000.0,
+        "annual_income_manwon": 5099.0
+      },
+      {
+        "period": "201306",
+        "pir": 7.511406649,
+        "house_price_manwon": 39000.0,
+        "annual_income_manwon": 5192.0
+      },
+      {
+        "period": "201309",
+        "pir": 7.633784159,
+        "house_price_manwon": 36500.0,
+        "annual_income_manwon": 4781.0
+      },
+      {
+        "period": "201312",
+        "pir": 8.482140771,
+        "house_price_manwon": 36300.0,
+        "annual_income_manwon": 4280.0
+      },
+      {
+        "period": "201403",
+        "pir": 7.53539077,
+        "house_price_manwon": 42000.0,
+        "annual_income_manwon": 5574.0
+      },
+      {
+        "period": "201406",
+        "pir": 7.819134927,
+        "house_price_manwon": 38900.0,
+        "annual_income_manwon": 4975.0
+      },
+      {
+        "period": "201409",
+        "pir": 8.428284897,
+        "house_price_manwon": 39500.0,
+        "annual_income_manwon": 4687.0
+      },
+      {
+        "period": "201412",
+        "pir": 8.068232276,
+        "house_price_manwon": 38000.0,
+        "annual_income_manwon": 4710.0
+      },
+      {
+        "period": "201503",
+        "pir": 7.600660247,
+        "house_price_manwon": 40000.0,
+        "annual_income_manwon": 5263.0
+      },
+      {
+        "period": "201506",
+        "pir": 7.892582921,
+        "house_price_manwon": 40500.0,
+        "annual_income_manwon": 5131.0
+      },
+      {
+        "period": "201509",
+        "pir": 8.140855736,
+        "house_price_manwon": 43000.0,
+        "annual_income_manwon": 5282.0
+      },
+      {
+        "period": "201512",
+        "pir": 8.527992598,
+        "house_price_manwon": 44000.0,
+        "annual_income_manwon": 5159.0
+      },
+      {
+        "period": "201603",
+        "pir": 8.979315678,
+        "house_price_manwon": 46450.0,
+        "annual_income_manwon": 5173.0
+      },
+      {
+        "period": "201606",
+        "pir": 8.7,
+        "house_price_manwon": 43500.0,
+        "annual_income_manwon": 5000.0
+      },
+      {
+        "period": "201609",
+        "pir": 8.98,
+        "house_price_manwon": 44900.0,
+        "annual_income_manwon": 5000.0
+      },
+      {
+        "period": "201612",
+        "pir": 9.375,
+        "house_price_manwon": 46500.0,
+        "annual_income_manwon": 4960.0
+      },
+      {
+        "period": "201703",
+        "pir": 9.380269815,
+        "house_price_manwon": 44500.0,
+        "annual_income_manwon": 4744.0
+      },
+      {
+        "period": "201706",
+        "pir": 8.824347695,
+        "house_price_manwon": 46000.0,
+        "annual_income_manwon": 5213.0
+      },
+      {
+        "period": "201709",
+        "pir": 8.824347695,
+        "house_price_manwon": 47000.0,
+        "annual_income_manwon": 5395.0
+      },
+      {
+        "period": "201712",
+        "pir": 9.421000981,
+        "house_price_manwon": 48000.0,
+        "annual_income_manwon": 5095.0
+      },
+      {
+        "period": "201803",
+        "pir": 8.9254378,
+        "house_price_manwon": 48675.0,
+        "annual_income_manwon": 5454.0
+      },
+      {
+        "period": "201806",
+        "pir": 9.858839099,
+        "house_price_manwon": 45583.5,
+        "annual_income_manwon": 4624.0
+      },
+      {
+        "period": "201809",
+        "pir": 10.14125162,
+        "house_price_manwon": 47500.0,
+        "annual_income_manwon": 4684.0
+      },
+      {
+        "period": "201812",
+        "pir": 9.87430185,
+        "house_price_manwon": 49000.0,
+        "annual_income_manwon": 4962.0
+      },
+      {
+        "period": "201903",
+        "pir": 10.52586238,
+        "house_price_manwon": 51000.0,
+        "annual_income_manwon": 4845.0
+      },
+      {
+        "period": "201906",
+        "pir": 10.76733119,
+        "house_price_manwon": 50500.0,
+        "annual_income_manwon": 4690.0
+      },
+      {
+        "period": "201909",
+        "pir": 10.87081345,
+        "house_price_manwon": 62250.0,
+        "annual_income_manwon": 5726.0
+      },
+      {
+        "period": "201912",
+        "pir": 11.37767188,
+        "house_price_manwon": 65000.0,
+        "annual_income_manwon": 5713.0
+      },
+      {
+        "period": "202003",
+        "pir": 11.7293381,
+        "house_price_manwon": 72500.0,
+        "annual_income_manwon": 6181.0
+      },
+      {
+        "period": "202006",
+        "pir": 11.38975703,
+        "house_price_manwon": 62000.0,
+        "annual_income_manwon": 5443.0
+      },
+      {
+        "period": "202009",
+        "pir": 12.22996787,
+        "house_price_manwon": 66000.0,
+        "annual_income_manwon": 5397.0
+      },
+      {
+        "period": "202012",
+        "pir": 12.79316934,
+        "house_price_manwon": 71500.0,
+        "annual_income_manwon": 5589.0
+      },
+      {
+        "period": "202103",
+        "pir": 12.73713309,
+        "house_price_manwon": 65500.0,
+        "annual_income_manwon": 5142.0
+      },
+      {
+        "period": "202106",
+        "pir": 13.36230801,
+        "house_price_manwon": 73750.0,
+        "annual_income_manwon": 5519.0
+      },
+      {
+        "period": "202109",
+        "pir": 13.62349611,
+        "house_price_manwon": 77000.0,
+        "annual_income_manwon": 5652.0
+      },
+      {
+        "period": "202112",
+        "pir": 13.432289,
+        "house_price_manwon": 80625.0,
+        "annual_income_manwon": 6002.0
+      },
+      {
+        "period": "202203",
+        "pir": 14.494866,
+        "house_price_manwon": 81000.0,
+        "annual_income_manwon": 5588.0
+      },
+      {
+        "period": "202206",
+        "pir": 14.805414,
+        "house_price_manwon": 87500.0,
+        "annual_income_manwon": 5910.0
+      },
+      {
+        "period": "202209",
+        "pir": 14.53721,
+        "house_price_manwon": 82875.0,
+        "annual_income_manwon": 5701.0
+      },
+      {
+        "period": "202212",
+        "pir": 13.406015,
+        "house_price_manwon": 57500.0,
+        "annual_income_manwon": 4289.0
+      },
+      {
+        "period": "202303",
+        "pir": 14.549623,
+        "house_price_manwon": 77250.0,
+        "annual_income_manwon": 5309.0
+      },
+      {
+        "period": "202306",
+        "pir": 12.749561,
+        "house_price_manwon": 82500.0,
+        "annual_income_manwon": 6471.0
+      },
+      {
+        "period": "202309",
+        "pir": 12.816192,
+        "house_price_manwon": 84500.0,
+        "annual_income_manwon": 6593.0
+      },
+      {
+        "period": "202312",
+        "pir": 11.775775,
+        "house_price_manwon": 92000.0,
+        "annual_income_manwon": 7813.0
+      },
+      {
+        "period": "202403",
+        "pir": 12.630499,
+        "house_price_manwon": 97500.0,
+        "annual_income_manwon": 7719.0
+      },
+      {
+        "period": "202406",
+        "pir": 11.520373,
+        "house_price_manwon": 90000.0,
+        "annual_income_manwon": 7812.0
+      },
+      {
+        "period": "202409",
+        "pir": 11.230867,
+        "house_price_manwon": 92500.0,
+        "annual_income_manwon": 8236.0
+      },
+      {
+        "period": "202412",
+        "pir": 11.359803,
+        "house_price_manwon": 86000.0,
+        "annual_income_manwon": 7571.0
+      },
+      {
+        "period": "202503",
+        "pir": 10.254484,
+        "house_price_manwon": 91000.0,
+        "annual_income_manwon": 8874.0
+      },
+      {
+        "period": "202506",
+        "pir": 10.574846,
+        "house_price_manwon": 97000.0,
+        "annual_income_manwon": 9173.0
+      },
+      {
+        "period": "202509",
+        "pir": 10.646174,
+        "house_price_manwon": 92500.0,
+        "annual_income_manwon": 8689.0
+      },
+      {
+        "period": "202512",
+        "pir": 10.072446,
+        "house_price_manwon": 91500.0,
+        "annual_income_manwon": 9084.0
+      },
+      {
+        "period": "202603",
+        "pir": 10.164563,
+        "house_price_manwon": 93000.0,
+        "annual_income_manwon": 9149.0
+      },
+      {
+        "period": "202606",
+        "pir": 9.957873,
+        "house_price_manwon": 83750.0,
+        "annual_income_manwon": 8410.0
+      }
+    ],
+    "latest": {
+      "period": "202606",
+      "pir": 9.957873,
+      "house_price_manwon": 83750.0,
+      "annual_income_manwon": 8410.0
+    },
+    "updated_at": "20260615",
+    "definition": "KB 담보대출 아파트 주택가격 중위값 / 대출자 연소득 중위값",
+    "endpoint": "https://data-api.kbland.kr/bfmstat/weekMnthlyHuseTrnd/husScurlnPir"
+  },
+  "rent_to_sale_ratio": {
+    "label": "서울 아파트 전세가율",
+    "frequency": "monthly",
+    "series": [
+      {
+        "period": "199812",
+        "rent_to_sale_pct": 47.9196
+      },
+      {
+        "period": "199901",
+        "rent_to_sale_pct": 48.7101
+      },
+      {
+        "period": "199902",
+        "rent_to_sale_pct": 51.415
+      },
+      {
+        "period": "199903",
+        "rent_to_sale_pct": 52.8
+      },
+      {
+        "period": "199904",
+        "rent_to_sale_pct": 53.6
+      },
+      {
+        "period": "199905",
+        "rent_to_sale_pct": 54.2
+      },
+      {
+        "period": "199906",
+        "rent_to_sale_pct": 54.7
+      },
+      {
+        "period": "199907",
+        "rent_to_sale_pct": 55.1
+      },
+      {
+        "period": "199908",
+        "rent_to_sale_pct": 55.8
+      },
+      {
+        "period": "199909",
+        "rent_to_sale_pct": 57.0
+      },
+      {
+        "period": "199910",
+        "rent_to_sale_pct": 57.2
+      },
+      {
+        "period": "199911",
+        "rent_to_sale_pct": 57.0
+      },
+      {
+        "period": "199912",
+        "rent_to_sale_pct": 56.49
+      },
+      {
+        "period": "200001",
+        "rent_to_sale_pct": 56.7
+      },
+      {
+        "period": "200002",
+        "rent_to_sale_pct": 58.32
+      },
+      {
+        "period": "200003",
+        "rent_to_sale_pct": 59.48
+      },
+      {
+        "period": "200004",
+        "rent_to_sale_pct": 60.07
+      },
+      {
+        "period": "200005",
+        "rent_to_sale_pct": 60.2
+      },
+      {
+        "period": "200006",
+        "rent_to_sale_pct": 60.0
+      },
+      {
+        "period": "200007",
+        "rent_to_sale_pct": 60.03
+      },
+      {
+        "period": "200008",
+        "rent_to_sale_pct": 60.67
+      },
+      {
+        "period": "200009",
+        "rent_to_sale_pct": 61.63
+      },
+      {
+        "period": "200010",
+        "rent_to_sale_pct": 62.1
+      },
+      {
+        "period": "200011",
+        "rent_to_sale_pct": 61.5
+      },
+      {
+        "period": "200012",
+        "rent_to_sale_pct": 60.64
+      },
+      {
+        "period": "200101",
+        "rent_to_sale_pct": 61.17
+      },
+      {
+        "period": "200102",
+        "rent_to_sale_pct": 62.57
+      },
+      {
+        "period": "200103",
+        "rent_to_sale_pct": 63.56
+      },
+      {
+        "period": "200104",
+        "rent_to_sale_pct": 64.25
+      },
+      {
+        "period": "200105",
+        "rent_to_sale_pct": 64.43
+      },
+      {
+        "period": "200106",
+        "rent_to_sale_pct": 64.01
+      },
+      {
+        "period": "200107",
+        "rent_to_sale_pct": 63.8
+      },
+      {
+        "period": "200108",
+        "rent_to_sale_pct": 63.67
+      },
+      {
+        "period": "200109",
+        "rent_to_sale_pct": 64.59
+      },
+      {
+        "period": "200110",
+        "rent_to_sale_pct": 64.64
+      },
+      {
+        "period": "200111",
+        "rent_to_sale_pct": 64.43
+      },
+      {
+        "period": "200112",
+        "rent_to_sale_pct": 63.38
+      },
+      {
+        "period": "200201",
+        "rent_to_sale_pct": 62.11
+      },
+      {
+        "period": "200202",
+        "rent_to_sale_pct": 61.96
+      },
+      {
+        "period": "200203",
+        "rent_to_sale_pct": 62.1
+      },
+      {
+        "period": "200204",
+        "rent_to_sale_pct": 62.7
+      },
+      {
+        "period": "200205",
+        "rent_to_sale_pct": 62.3
+      },
+      {
+        "period": "200206",
+        "rent_to_sale_pct": 61.89
+      },
+      {
+        "period": "200207",
+        "rent_to_sale_pct": 61.35
+      },
+      {
+        "period": "200208",
+        "rent_to_sale_pct": 60.65
+      },
+      {
+        "period": "200209",
+        "rent_to_sale_pct": 58.72
+      },
+      {
+        "period": "200210",
+        "rent_to_sale_pct": 57.6
+      },
+      {
+        "period": "200211",
+        "rent_to_sale_pct": 56.31
+      },
+      {
+        "period": "200212",
+        "rent_to_sale_pct": 55.49
+      },
+      {
+        "period": "200301",
+        "rent_to_sale_pct": 54.32
+      },
+      {
+        "period": "200302",
+        "rent_to_sale_pct": 54.83
+      },
+      {
+        "period": "200303",
+        "rent_to_sale_pct": 54.99
+      },
+      {
+        "period": "200304",
+        "rent_to_sale_pct": 54.95
+      },
+      {
+        "period": "200305",
+        "rent_to_sale_pct": 53.97
+      },
+      {
+        "period": "200306",
+        "rent_to_sale_pct": 53.53
+      },
+      {
+        "period": "200307",
+        "rent_to_sale_pct": 52.7833
+      },
+      {
+        "period": "200308",
+        "rent_to_sale_pct": 52.4111
+      },
+      {
+        "period": "200309",
+        "rent_to_sale_pct": 51.7263
+      },
+      {
+        "period": "200310",
+        "rent_to_sale_pct": 50.6076
+      },
+      {
+        "period": "200311",
+        "rent_to_sale_pct": 50.3416
+      },
+      {
+        "period": "200312",
+        "rent_to_sale_pct": 50.0885
+      },
+      {
+        "period": "200401",
+        "rent_to_sale_pct": 50.0086
+      },
+      {
+        "period": "200402",
+        "rent_to_sale_pct": 50.071
+      },
+      {
+        "period": "200403",
+        "rent_to_sale_pct": 50.3829
+      },
+      {
+        "period": "200404",
+        "rent_to_sale_pct": 50.1788
+      },
+      {
+        "period": "200405",
+        "rent_to_sale_pct": 50.0682
+      },
+      {
+        "period": "200406",
+        "rent_to_sale_pct": 49.7486
+      },
+      {
+        "period": "200407",
+        "rent_to_sale_pct": 49.742
+      },
+      {
+        "period": "200408",
+        "rent_to_sale_pct": 49.4822
+      },
+      {
+        "period": "200409",
+        "rent_to_sale_pct": 49.425
+      },
+      {
+        "period": "200410",
+        "rent_to_sale_pct": 49.4163
+      },
+      {
+        "period": "200411",
+        "rent_to_sale_pct": 49.4423
+      },
+      {
+        "period": "200412",
+        "rent_to_sale_pct": 49.125
+      },
+      {
+        "period": "200501",
+        "rent_to_sale_pct": 48.984
+      },
+      {
+        "period": "200502",
+        "rent_to_sale_pct": 48.964
+      },
+      {
+        "period": "200503",
+        "rent_to_sale_pct": 48.862
+      },
+      {
+        "period": "200504",
+        "rent_to_sale_pct": 48.527
+      },
+      {
+        "period": "200505",
+        "rent_to_sale_pct": 48.16
+      },
+      {
+        "period": "200506",
+        "rent_to_sale_pct": 47.699
+      },
+      {
+        "period": "200507",
+        "rent_to_sale_pct": 47.254
+      },
+      {
+        "period": "200508",
+        "rent_to_sale_pct": 47.228
+      },
+      {
+        "period": "200509",
+        "rent_to_sale_pct": 47.597
+      },
+      {
+        "period": "200510",
+        "rent_to_sale_pct": 48.067
+      },
+      {
+        "period": "200511",
+        "rent_to_sale_pct": 48.387
+      },
+      {
+        "period": "200512",
+        "rent_to_sale_pct": 48.375
+      },
+      {
+        "period": "200601",
+        "rent_to_sale_pct": 48.352
+      },
+      {
+        "period": "200602",
+        "rent_to_sale_pct": 48.343
+      },
+      {
+        "period": "200603",
+        "rent_to_sale_pct": 48.372
+      },
+      {
+        "period": "200604",
+        "rent_to_sale_pct": 48.074
+      },
+      {
+        "period": "200605",
+        "rent_to_sale_pct": 47.554
+      },
+      {
+        "period": "200606",
+        "rent_to_sale_pct": 47.454
+      },
+      {
+        "period": "200607",
+        "rent_to_sale_pct": 47.438
+      },
+      {
+        "period": "200608",
+        "rent_to_sale_pct": 47.48
+      },
+      {
+        "period": "200609",
+        "rent_to_sale_pct": 47.67
+      },
+      {
+        "period": "200610",
+        "rent_to_sale_pct": 47.453
+      },
+      {
+        "period": "200611",
+        "rent_to_sale_pct": 45.449
+      },
+      {
+        "period": "200612",
+        "rent_to_sale_pct": 43.811
+      },
+      {
+        "period": "200701",
+        "rent_to_sale_pct": 42.873
+      },
+      {
+        "period": "200702",
+        "rent_to_sale_pct": 42.823
+      },
+      {
+        "period": "200703",
+        "rent_to_sale_pct": 42.987
+      },
+      {
+        "period": "200704",
+        "rent_to_sale_pct": 43.149
+      },
+      {
+        "period": "200705",
+        "rent_to_sale_pct": 43.189
+      },
+      {
+        "period": "200706",
+        "rent_to_sale_pct": 43.14
+      },
+      {
+        "period": "200707",
+        "rent_to_sale_pct": 43.022
+      },
+      {
+        "period": "200708",
+        "rent_to_sale_pct": 42.898
+      },
+      {
+        "period": "200709",
+        "rent_to_sale_pct": 42.811
+      },
+      {
+        "period": "200710",
+        "rent_to_sale_pct": 42.658
+      },
+      {
+        "period": "200711",
+        "rent_to_sale_pct": 42.402
+      },
+      {
+        "period": "200712",
+        "rent_to_sale_pct": 42.165
+      },
+      {
+        "period": "200801",
+        "rent_to_sale_pct": 41.88
+      },
+      {
+        "period": "200802",
+        "rent_to_sale_pct": 41.671
+      },
+      {
+        "period": "200803",
+        "rent_to_sale_pct": 41.163
+      },
+      {
+        "period": "200804",
+        "rent_to_sale_pct": 40.339
+      },
+      {
+        "period": "200805",
+        "rent_to_sale_pct": 39.831
+      },
+      {
+        "period": "200806",
+        "rent_to_sale_pct": 39.312
+      },
+      {
+        "period": "200807",
+        "rent_to_sale_pct": 39.225
+      },
+      {
+        "period": "200808",
+        "rent_to_sale_pct": 39.056
+      },
+      {
+        "period": "200809",
+        "rent_to_sale_pct": 38.94
+      },
+      {
+        "period": "200810",
+        "rent_to_sale_pct": 38.883
+      },
+      {
+        "period": "200811",
+        "rent_to_sale_pct": 38.934
+      },
+      {
+        "period": "200812",
+        "rent_to_sale_pct": 38.67
+      },
+      {
+        "period": "200901",
+        "rent_to_sale_pct": 38.1799
+      },
+      {
+        "period": "200902",
+        "rent_to_sale_pct": 38.2798
+      },
+      {
+        "period": "200903",
+        "rent_to_sale_pct": 38.6123
+      },
+      {
+        "period": "200904",
+        "rent_to_sale_pct": 38.71
+      },
+      {
+        "period": "200905",
+        "rent_to_sale_pct": 38.7915
+      },
+      {
+        "period": "200906",
+        "rent_to_sale_pct": 38.8865
+      },
+      {
+        "period": "200907",
+        "rent_to_sale_pct": 38.9134
+      },
+      {
+        "period": "200908",
+        "rent_to_sale_pct": 39.1071
+      },
+      {
+        "period": "200909",
+        "rent_to_sale_pct": 39.7342
+      },
+      {
+        "period": "200910",
+        "rent_to_sale_pct": 40.02
+      },
+      {
+        "period": "200911",
+        "rent_to_sale_pct": 40.3842
+      },
+      {
+        "period": "200912",
+        "rent_to_sale_pct": 40.5631
+      },
+      {
+        "period": "201001",
+        "rent_to_sale_pct": 40.7319
+      },
+      {
+        "period": "201002",
+        "rent_to_sale_pct": 40.9792
+      },
+      {
+        "period": "201003",
+        "rent_to_sale_pct": 41.2915
+      },
+      {
+        "period": "201004",
+        "rent_to_sale_pct": 41.517
+      },
+      {
+        "period": "201005",
+        "rent_to_sale_pct": 41.7825
+      },
+      {
+        "period": "201006",
+        "rent_to_sale_pct": 42.057
+      },
+      {
+        "period": "201007",
+        "rent_to_sale_pct": 42.3169
+      },
+      {
+        "period": "201008",
+        "rent_to_sale_pct": 42.5896
+      },
+      {
+        "period": "201009",
+        "rent_to_sale_pct": 42.9684
+      },
+      {
+        "period": "201010",
+        "rent_to_sale_pct": 43.5106
+      },
+      {
+        "period": "201011",
+        "rent_to_sale_pct": 44.0332
+      },
+      {
+        "period": "201012",
+        "rent_to_sale_pct": 44.3712
+      },
+      {
+        "period": "201101",
+        "rent_to_sale_pct": 44.8132
+      },
+      {
+        "period": "201102",
+        "rent_to_sale_pct": 45.6103
+      },
+      {
+        "period": "201103",
+        "rent_to_sale_pct": 46.3972
+      },
+      {
+        "period": "201104",
+        "rent_to_sale_pct": 46.8403
+      },
+      {
+        "period": "201105",
+        "rent_to_sale_pct": 47.0377
+      },
+      {
+        "period": "201106",
+        "rent_to_sale_pct": 47.4097
+      },
+      {
+        "period": "201107",
+        "rent_to_sale_pct": 47.9891
+      },
+      {
+        "period": "201108",
+        "rent_to_sale_pct": 48.8656
+      },
+      {
+        "period": "201109",
+        "rent_to_sale_pct": 49.9473
+      },
+      {
+        "period": "201110",
+        "rent_to_sale_pct": 50.5275
+      },
+      {
+        "period": "201111",
+        "rent_to_sale_pct": 50.81
+      },
+      {
+        "period": "201112",
+        "rent_to_sale_pct": 50.8293
+      },
+      {
+        "period": "201201",
+        "rent_to_sale_pct": 50.9666
+      },
+      {
+        "period": "201202",
+        "rent_to_sale_pct": 51.1558
+      },
+      {
+        "period": "201203",
+        "rent_to_sale_pct": 51.4058
+      },
+      {
+        "period": "201204",
+        "rent_to_sale_pct": 51.7182
+      },
+      {
+        "period": "201205",
+        "rent_to_sale_pct": 51.9217
+      },
+      {
+        "period": "201206",
+        "rent_to_sale_pct": 52.0801
+      },
+      {
+        "period": "201207",
+        "rent_to_sale_pct": 52.359
+      },
+      {
+        "period": "201208",
+        "rent_to_sale_pct": 52.6446
+      },
+      {
+        "period": "201209",
+        "rent_to_sale_pct": 53.2709
+      },
+      {
+        "period": "201210",
+        "rent_to_sale_pct": 53.9528
+      },
+      {
+        "period": "201211",
+        "rent_to_sale_pct": 54.4672
+      },
+      {
+        "period": "201212",
+        "rent_to_sale_pct": 54.8102
+      },
+      {
+        "period": "201301",
+        "rent_to_sale_pct": 55.2075
+      },
+      {
+        "period": "201302",
+        "rent_to_sale_pct": 55.6594
+      },
+      {
+        "period": "201303",
+        "rent_to_sale_pct": 56.1532
+      },
+      {
+        "period": "201304",
+        "rent_to_sale_pct": 56.231
+      },
+      {
+        "period": "201305",
+        "rent_to_sale_pct": 56.4165
+      },
+      {
+        "period": "201306",
+        "rent_to_sale_pct": 56.7267
+      },
+      {
+        "period": "201307",
+        "rent_to_sale_pct": 57.345
+      },
+      {
+        "period": "201308",
+        "rent_to_sale_pct": 58.1364
+      },
+      {
+        "period": "201309",
+        "rent_to_sale_pct": 59.1421
+      },
+      {
+        "period": "201310",
+        "rent_to_sale_pct": 60.0567
+      },
+      {
+        "period": "201311",
+        "rent_to_sale_pct": 60.7567
+      },
+      {
+        "period": "201312",
+        "rent_to_sale_pct": 61.461
+      },
+      {
+        "period": "201401",
+        "rent_to_sale_pct": 62.063
+      },
+      {
+        "period": "201402",
+        "rent_to_sale_pct": 62.7404
+      },
+      {
+        "period": "201403",
+        "rent_to_sale_pct": 63.2282
+      },
+      {
+        "period": "201404",
+        "rent_to_sale_pct": 63.616
+      },
+      {
+        "period": "201405",
+        "rent_to_sale_pct": 63.7972
+      },
+      {
+        "period": "201406",
+        "rent_to_sale_pct": 63.9991
+      },
+      {
+        "period": "201407",
+        "rent_to_sale_pct": 64.1433
+      },
+      {
+        "period": "201408",
+        "rent_to_sale_pct": 64.4196
+      },
+      {
+        "period": "201409",
+        "rent_to_sale_pct": 64.6461
+      },
+      {
+        "period": "201410",
+        "rent_to_sale_pct": 64.8955
+      },
+      {
+        "period": "201411",
+        "rent_to_sale_pct": 65.2381
+      },
+      {
+        "period": "201412",
+        "rent_to_sale_pct": 65.7054
+      },
+      {
+        "period": "201501",
+        "rent_to_sale_pct": 66.0974
+      },
+      {
+        "period": "201502",
+        "rent_to_sale_pct": 66.8194
+      },
+      {
+        "period": "201503",
+        "rent_to_sale_pct": 67.6316
+      },
+      {
+        "period": "201504",
+        "rent_to_sale_pct": 68.2004
+      },
+      {
+        "period": "201505",
+        "rent_to_sale_pct": 68.7893
+      },
+      {
+        "period": "201506",
+        "rent_to_sale_pct": 69.5708
+      },
+      {
+        "period": "201507",
+        "rent_to_sale_pct": 70.3214
+      },
+      {
+        "period": "201508",
+        "rent_to_sale_pct": 70.9241
+      },
+      {
+        "period": "201509",
+        "rent_to_sale_pct": 71.8087
+      },
+      {
+        "period": "201510",
+        "rent_to_sale_pct": 72.3377
+      },
+      {
+        "period": "201511",
+        "rent_to_sale_pct": 73.0003
+      },
+      {
+        "period": "201512",
+        "rent_to_sale_pct": 73.4247
+      },
+      {
+        "period": "201601",
+        "rent_to_sale_pct": 73.7891
+      },
+      {
+        "period": "201602",
+        "rent_to_sale_pct": 74.1781
+      },
+      {
+        "period": "201603",
+        "rent_to_sale_pct": 74.5778
+      },
+      {
+        "period": "201604",
+        "rent_to_sale_pct": 74.7545
+      },
+      {
+        "period": "201605",
+        "rent_to_sale_pct": 74.9664
+      },
+      {
+        "period": "201606",
+        "rent_to_sale_pct": 75.0694
+      },
+      {
+        "period": "201607",
+        "rent_to_sale_pct": 74.846
+      },
+      {
+        "period": "201608",
+        "rent_to_sale_pct": 74.4589
+      },
+      {
+        "period": "201609",
+        "rent_to_sale_pct": 74.1782
+      },
+      {
+        "period": "201610",
+        "rent_to_sale_pct": 73.6602
+      },
+      {
+        "period": "201611",
+        "rent_to_sale_pct": 73.2606
+      },
+      {
+        "period": "201612",
+        "rent_to_sale_pct": 73.2335
+      },
+      {
+        "period": "201701",
+        "rent_to_sale_pct": 73.2517
+      },
+      {
+        "period": "201702",
+        "rent_to_sale_pct": 73.2316
+      },
+      {
+        "period": "201703",
+        "rent_to_sale_pct": 73.2201
+      },
+      {
+        "period": "201704",
+        "rent_to_sale_pct": 73.2118
+      },
+      {
+        "period": "201705",
+        "rent_to_sale_pct": 73.0119
+      },
+      {
+        "period": "201706",
+        "rent_to_sale_pct": 72.3797
+      },
+      {
+        "period": "201707",
+        "rent_to_sale_pct": 72.0389
+      },
+      {
+        "period": "201708",
+        "rent_to_sale_pct": 71.3609
+      },
+      {
+        "period": "201709",
+        "rent_to_sale_pct": 71.1996
+      },
+      {
+        "period": "201710",
+        "rent_to_sale_pct": 70.8791
+      },
+      {
+        "period": "201711",
+        "rent_to_sale_pct": 70.6317
+      },
+      {
+        "period": "201712",
+        "rent_to_sale_pct": 70.059
+      },
+      {
+        "period": "201801",
+        "rent_to_sale_pct": 69.322
+      },
+      {
+        "period": "201802",
+        "rent_to_sale_pct": 68.5403
+      },
+      {
+        "period": "201803",
+        "rent_to_sale_pct": 67.1875
+      },
+      {
+        "period": "201804",
+        "rent_to_sale_pct": 66.245
+      },
+      {
+        "period": "201805",
+        "rent_to_sale_pct": 65.8497
+      },
+      {
+        "period": "201806",
+        "rent_to_sale_pct": 65.3984
+      },
+      {
+        "period": "201807",
+        "rent_to_sale_pct": 64.8121
+      },
+      {
+        "period": "201808",
+        "rent_to_sale_pct": 64.2908
+      },
+      {
+        "period": "201809",
+        "rent_to_sale_pct": 61.7207
+      },
+      {
+        "period": "201810",
+        "rent_to_sale_pct": 60.3028
+      },
+      {
+        "period": "201811",
+        "rent_to_sale_pct": 59.6259
+      },
+      {
+        "period": "201812",
+        "rent_to_sale_pct": 59.3612
+      },
+      {
+        "period": "201901",
+        "rent_to_sale_pct": 59.8305
+      },
+      {
+        "period": "201902",
+        "rent_to_sale_pct": 59.5705
+      },
+      {
+        "period": "201903",
+        "rent_to_sale_pct": 59.4272
+      },
+      {
+        "period": "201904",
+        "rent_to_sale_pct": 59.316
+      },
+      {
+        "period": "201905",
+        "rent_to_sale_pct": 59.3187
+      },
+      {
+        "period": "201906",
+        "rent_to_sale_pct": 59.2511
+      },
+      {
+        "period": "201907",
+        "rent_to_sale_pct": 58.7654
+      },
+      {
+        "period": "201908",
+        "rent_to_sale_pct": 58.4314
+      },
+      {
+        "period": "201909",
+        "rent_to_sale_pct": 58.0473
+      },
+      {
+        "period": "201910",
+        "rent_to_sale_pct": 57.6004
+      },
+      {
+        "period": "201911",
+        "rent_to_sale_pct": 57.2436
+      },
+      {
+        "period": "201912",
+        "rent_to_sale_pct": 56.4761
+      },
+      {
+        "period": "202001",
+        "rent_to_sale_pct": 56.0397
+      },
+      {
+        "period": "202002",
+        "rent_to_sale_pct": 55.5724
+      },
+      {
+        "period": "202003",
+        "rent_to_sale_pct": 54.8622
+      },
+      {
+        "period": "202004",
+        "rent_to_sale_pct": 54.7234
+      },
+      {
+        "period": "202005",
+        "rent_to_sale_pct": 54.7524
+      },
+      {
+        "period": "202006",
+        "rent_to_sale_pct": 54.5288
+      },
+      {
+        "period": "202007",
+        "rent_to_sale_pct": 53.7854
+      },
+      {
+        "period": "202008",
+        "rent_to_sale_pct": 53.2652
+      },
+      {
+        "period": "202009",
+        "rent_to_sale_pct": 53.6418
+      },
+      {
+        "period": "202010",
+        "rent_to_sale_pct": 54.222
+      },
+      {
+        "period": "202011",
+        "rent_to_sale_pct": 55.4851
+      },
+      {
+        "period": "202012",
+        "rent_to_sale_pct": 56.0769
+      },
+      {
+        "period": "202101",
+        "rent_to_sale_pct": 56.264
+      },
+      {
+        "period": "202102",
+        "rent_to_sale_pct": 56.1651
+      },
+      {
+        "period": "202103",
+        "rent_to_sale_pct": 55.9395
+      },
+      {
+        "period": "202104",
+        "rent_to_sale_pct": 55.777
+      },
+      {
+        "period": "202105",
+        "rent_to_sale_pct": 55.5999
+      },
+      {
+        "period": "202106",
+        "rent_to_sale_pct": 55.5195
+      },
+      {
+        "period": "202107",
+        "rent_to_sale_pct": 55.4622
+      },
+      {
+        "period": "202108",
+        "rent_to_sale_pct": 55.282
+      },
+      {
+        "period": "202109",
+        "rent_to_sale_pct": 54.9019
+      },
+      {
+        "period": "202110",
+        "rent_to_sale_pct": 54.552
+      },
+      {
+        "period": "202111",
+        "rent_to_sale_pct": 54.4842
+      },
+      {
+        "period": "202112",
+        "rent_to_sale_pct": 54.5391
+      },
+      {
+        "period": "202201",
+        "rent_to_sale_pct": 54.586033
+      },
+      {
+        "period": "202202",
+        "rent_to_sale_pct": 54.6302243
+      },
+      {
+        "period": "202203",
+        "rent_to_sale_pct": 54.59736686
+      },
+      {
+        "period": "202204",
+        "rent_to_sale_pct": 54.6040260456
+      },
+      {
+        "period": "202205",
+        "rent_to_sale_pct": 54.6606632841
+      },
+      {
+        "period": "202206",
+        "rent_to_sale_pct": 54.678928777
+      },
+      {
+        "period": "202207",
+        "rent_to_sale_pct": 54.7044858114
+      },
+      {
+        "period": "202208",
+        "rent_to_sale_pct": 54.7044281852
+      },
+      {
+        "period": "202209",
+        "rent_to_sale_pct": 54.6938172583
+      },
+      {
+        "period": "202210",
+        "rent_to_sale_pct": 54.6705378171
+      },
+      {
+        "period": "202211",
+        "rent_to_sale_pct": 53.9136077164
+      },
+      {
+        "period": "202212",
+        "rent_to_sale_pct": 52.9246958235
+      },
+      {
+        "period": "202301",
+        "rent_to_sale_pct": 51.9573527769
+      },
+      {
+        "period": "202302",
+        "rent_to_sale_pct": 51.2347760343
+      },
+      {
+        "period": "202303",
+        "rent_to_sale_pct": 50.9198582142
+      },
+      {
+        "period": "202304",
+        "rent_to_sale_pct": 50.803885803
+      },
+      {
+        "period": "202305",
+        "rent_to_sale_pct": 50.8711689511
+      },
+      {
+        "period": "202306",
+        "rent_to_sale_pct": 50.9565200583
+      },
+      {
+        "period": "202307",
+        "rent_to_sale_pct": 50.938743769
+      },
+      {
+        "period": "202308",
+        "rent_to_sale_pct": 50.9910030397
+      },
+      {
+        "period": "202309",
+        "rent_to_sale_pct": 51.0825526293
+      },
+      {
+        "period": "202310",
+        "rent_to_sale_pct": 51.3175523697
+      },
+      {
+        "period": "202311",
+        "rent_to_sale_pct": 51.6197027202
+      },
+      {
+        "period": "202312",
+        "rent_to_sale_pct": 51.9172928151
+      },
+      {
+        "period": "202401",
+        "rent_to_sale_pct": 52.246914591
+      },
+      {
+        "period": "202402",
+        "rent_to_sale_pct": 52.446068788
+      },
+      {
+        "period": "202403",
+        "rent_to_sale_pct": 52.7908905781
+      },
+      {
+        "period": "202404",
+        "rent_to_sale_pct": 53.1967071792
+      },
+      {
+        "period": "202405",
+        "rent_to_sale_pct": 53.4300789013
+      },
+      {
+        "period": "202406",
+        "rent_to_sale_pct": 53.6697688421
+      },
+      {
+        "period": "202407",
+        "rent_to_sale_pct": 53.87697078
+      },
+      {
+        "period": "202408",
+        "rent_to_sale_pct": 53.9961678595
+      },
+      {
+        "period": "202409",
+        "rent_to_sale_pct": 53.9460528483
+      },
+      {
+        "period": "202410",
+        "rent_to_sale_pct": 53.9230548648
+      },
+      {
+        "period": "202411",
+        "rent_to_sale_pct": 54.0065775581
+      },
+      {
+        "period": "202412",
+        "rent_to_sale_pct": 54.044579586
+      },
+      {
+        "period": "202501",
+        "rent_to_sale_pct": 54.0612660433
+      },
+      {
+        "period": "202502",
+        "rent_to_sale_pct": 54.0378198318
+      },
+      {
+        "period": "202503",
+        "rent_to_sale_pct": 53.8302536957
+      },
+      {
+        "period": "202504",
+        "rent_to_sale_pct": 53.5216438451
+      },
+      {
+        "period": "202505",
+        "rent_to_sale_pct": 53.371509973
+      },
+      {
+        "period": "202506",
+        "rent_to_sale_pct": 52.9768646887
+      },
+      {
+        "period": "202507",
+        "rent_to_sale_pct": 52.5869205142
+      },
+      {
+        "period": "202508",
+        "rent_to_sale_pct": 52.4059537876
+      },
+      {
+        "period": "202509",
+        "rent_to_sale_pct": 52.2466258441
+      },
+      {
+        "period": "202510",
+        "rent_to_sale_pct": 51.7995112746
+      },
+      {
+        "period": "202511",
+        "rent_to_sale_pct": 51.2739805979
+      },
+      {
+        "period": "202512",
+        "rent_to_sale_pct": 51.0943563927
+      },
+      {
+        "period": "202601",
+        "rent_to_sale_pct": 50.9218505162
+      },
+      {
+        "period": "202602",
+        "rent_to_sale_pct": 50.6103243362
+      },
+      {
+        "period": "202603",
+        "rent_to_sale_pct": 50.1640177401
+      },
+      {
+        "period": "202604",
+        "rent_to_sale_pct": 50.0914399139
+      },
+      {
+        "period": "202605",
+        "rent_to_sale_pct": 50.0885546454
+      },
+      {
+        "period": "202606",
+        "rent_to_sale_pct": 50.2845688238
+      },
+      {
+        "period": "202607",
+        "rent_to_sale_pct": 50.412127091
+      },
+      {
+        "period": "202608",
+        "rent_to_sale_pct": 50.3876347396
+      },
+      {
+        "period": "202609",
+        "rent_to_sale_pct": 50.3337593741
+      }
+    ],
+    "latest": {
+      "period": "202609",
+      "rent_to_sale_pct": 50.3337593741
+    },
+    "updated_at": "20260914",
+    "definition": "아파트 매매가격 대비 전세가격 비율",
+    "endpoint": "https://data-api.kbland.kr/bfmstat/weekMnthlyHuseTrnd/dealCntstTnantRato"
+  },
+  "avg_sale_price": {
+    "label": "서울 아파트 평균 매매가격",
+    "frequency": "monthly",
+    "series": [
+      {
+        "period": "200812",
+        "avg_sale_price_manwon": 52529.555997
+      },
+      {
+        "period": "200901",
+        "avg_sale_price_manwon": 51924.635389
+      },
+      {
+        "period": "200902",
+        "avg_sale_price_manwon": 51905.434317
+      },
+      {
+        "period": "200903",
+        "avg_sale_price_manwon": 51766.062233
+      },
+      {
+        "period": "200904",
+        "avg_sale_price_manwon": 51993.440585
+      },
+      {
+        "period": "200905",
+        "avg_sale_price_manwon": 52103.526034
+      },
+      {
+        "period": "200906",
+        "avg_sale_price_manwon": 52412.523358
+      },
+      {
+        "period": "200907",
+        "avg_sale_price_manwon": 52935.096455
+      },
+      {
+        "period": "200908",
+        "avg_sale_price_manwon": 53211.404255
+      },
+      {
+        "period": "200909",
+        "avg_sale_price_manwon": 53790.66825
+      },
+      {
+        "period": "200910",
+        "avg_sale_price_manwon": 53957.03639
+      },
+      {
+        "period": "200911",
+        "avg_sale_price_manwon": 53941.627794
+      },
+      {
+        "period": "200912",
+        "avg_sale_price_manwon": 53930.239133
+      },
+      {
+        "period": "201001",
+        "avg_sale_price_manwon": 53993.609978
+      },
+      {
+        "period": "201002",
+        "avg_sale_price_manwon": 54162.811686
+      },
+      {
+        "period": "201003",
+        "avg_sale_price_manwon": 54143.247635
+      },
+      {
+        "period": "201004",
+        "avg_sale_price_manwon": 54068.2987
+      },
+      {
+        "period": "201005",
+        "avg_sale_price_manwon": 53841.492039
+      },
+      {
+        "period": "201006",
+        "avg_sale_price_manwon": 53538.773307
+      },
+      {
+        "period": "201007",
+        "avg_sale_price_manwon": 53274.462197
+      },
+      {
+        "period": "201008",
+        "avg_sale_price_manwon": 52995.713965
+      },
+      {
+        "period": "201009",
+        "avg_sale_price_manwon": 52850.655126
+      },
+      {
+        "period": "201010",
+        "avg_sale_price_manwon": 52751.612314
+      },
+      {
+        "period": "201011",
+        "avg_sale_price_manwon": 52654.56293
+      },
+      {
+        "period": "201012",
+        "avg_sale_price_manwon": 52696.518791
+      },
+      {
+        "period": "201101",
+        "avg_sale_price_manwon": 52774.874431
+      },
+      {
+        "period": "201102",
+        "avg_sale_price_manwon": 52920.077111
+      },
+      {
+        "period": "201103",
+        "avg_sale_price_manwon": 52963.001937
+      },
+      {
+        "period": "201104",
+        "avg_sale_price_manwon": 52944.480767
+      },
+      {
+        "period": "201105",
+        "avg_sale_price_manwon": 52878.220278
+      },
+      {
+        "period": "201106",
+        "avg_sale_price_manwon": 54559.306314
+      },
+      {
+        "period": "201107",
+        "avg_sale_price_manwon": 54444.437405
+      },
+      {
+        "period": "201108",
+        "avg_sale_price_manwon": 54372.954259
+      },
+      {
+        "period": "201109",
+        "avg_sale_price_manwon": 54285.060329
+      },
+      {
+        "period": "201110",
+        "avg_sale_price_manwon": 54186.334429
+      },
+      {
+        "period": "201111",
+        "avg_sale_price_manwon": 54031.495913
+      },
+      {
+        "period": "201112",
+        "avg_sale_price_manwon": 53899.865618
+      },
+      {
+        "period": "201201",
+        "avg_sale_price_manwon": 53766.672756
+      },
+      {
+        "period": "201202",
+        "avg_sale_price_manwon": 53638.182567
+      },
+      {
+        "period": "201203",
+        "avg_sale_price_manwon": 53455.833925
+      },
+      {
+        "period": "201204",
+        "avg_sale_price_manwon": 53111.783345
+      },
+      {
+        "period": "201205",
+        "avg_sale_price_manwon": 52930.070211
+      },
+      {
+        "period": "201206",
+        "avg_sale_price_manwon": 52728.537241
+      },
+      {
+        "period": "201207",
+        "avg_sale_price_manwon": 52387.760997
+      },
+      {
+        "period": "201208",
+        "avg_sale_price_manwon": 52034.317193
+      },
+      {
+        "period": "201209",
+        "avg_sale_price_manwon": 51599.177864
+      },
+      {
+        "period": "201210",
+        "avg_sale_price_manwon": 51257.961598
+      },
+      {
+        "period": "201211",
+        "avg_sale_price_manwon": 51017.126273
+      },
+      {
+        "period": "201212",
+        "avg_sale_price_manwon": 50779.714394
+      },
+      {
+        "period": "201301",
+        "avg_sale_price_manwon": 50567.088761
+      },
+      {
+        "period": "201302",
+        "avg_sale_price_manwon": 50347.266338
+      },
+      {
+        "period": "201303",
+        "avg_sale_price_manwon": 50209.386512
+      },
+      {
+        "period": "201304",
+        "avg_sale_price_manwon": 48913.117441
+      },
+      {
+        "period": "201305",
+        "avg_sale_price_manwon": 48889.422861
+      },
+      {
+        "period": "201306",
+        "avg_sale_price_manwon": 48810.856497
+      },
+      {
+        "period": "201307",
+        "avg_sale_price_manwon": 48626.587704
+      },
+      {
+        "period": "201308",
+        "avg_sale_price_manwon": 48461.075567
+      },
+      {
+        "period": "201309",
+        "avg_sale_price_manwon": 48389.338144
+      },
+      {
+        "period": "201310",
+        "avg_sale_price_manwon": 48434.985025
+      },
+      {
+        "period": "201311",
+        "avg_sale_price_manwon": 48394.283794
+      },
+      {
+        "period": "201312",
+        "avg_sale_price_manwon": 48375.418972
+      },
+      {
+        "period": "201401",
+        "avg_sale_price_manwon": 48396.289304
+      },
+      {
+        "period": "201402",
+        "avg_sale_price_manwon": 48462.900554
+      },
+      {
+        "period": "201403",
+        "avg_sale_price_manwon": 48581.673243
+      },
+      {
+        "period": "201404",
+        "avg_sale_price_manwon": 48630.462896
+      },
+      {
+        "period": "201405",
+        "avg_sale_price_manwon": 48566.028382
+      },
+      {
+        "period": "201406",
+        "avg_sale_price_manwon": 48538.668149
+      },
+      {
+        "period": "201407",
+        "avg_sale_price_manwon": 48555.771628
+      },
+      {
+        "period": "201408",
+        "avg_sale_price_manwon": 48599.761762
+      },
+      {
+        "period": "201409",
+        "avg_sale_price_manwon": 48891.974822
+      },
+      {
+        "period": "201410",
+        "avg_sale_price_manwon": 49091.303225
+      },
+      {
+        "period": "201411",
+        "avg_sale_price_manwon": 49152.576727
+      },
+      {
+        "period": "201412",
+        "avg_sale_price_manwon": 49176.729502
+      },
+      {
+        "period": "201501",
+        "avg_sale_price_manwon": 49282.509701
+      },
+      {
+        "period": "201502",
+        "avg_sale_price_manwon": 49460.455861
+      },
+      {
+        "period": "201503",
+        "avg_sale_price_manwon": 49699.745159
+      },
+      {
+        "period": "201504",
+        "avg_sale_price_manwon": 49998.788009
+      },
+      {
+        "period": "201505",
+        "avg_sale_price_manwon": 50197.627092
+      },
+      {
+        "period": "201506",
+        "avg_sale_price_manwon": 50513.071656
+      },
+      {
+        "period": "201507",
+        "avg_sale_price_manwon": 50835.348781
+      },
+      {
+        "period": "201508",
+        "avg_sale_price_manwon": 51213.477313
+      },
+      {
+        "period": "201509",
+        "avg_sale_price_manwon": 51618.01899
+      },
+      {
+        "period": "201510",
+        "avg_sale_price_manwon": 51864.597791
+      },
+      {
+        "period": "201511",
+        "avg_sale_price_manwon": 52282.288865
+      },
+      {
+        "period": "201512",
+        "avg_sale_price_manwon": 52475.465523
+      },
+      {
+        "period": "201601",
+        "avg_sale_price_manwon": 55282.178579
+      },
+      {
+        "period": "201602",
+        "avg_sale_price_manwon": 55342.293553
+      },
+      {
+        "period": "201603",
+        "avg_sale_price_manwon": 55434.666804
+      },
+      {
+        "period": "201604",
+        "avg_sale_price_manwon": 55592.219459
+      },
+      {
+        "period": "201605",
+        "avg_sale_price_manwon": 55895.912517
+      },
+      {
+        "period": "201606",
+        "avg_sale_price_manwon": 56292.315879
+      },
+      {
+        "period": "201607",
+        "avg_sale_price_manwon": 56828.798013
+      },
+      {
+        "period": "201608",
+        "avg_sale_price_manwon": 57388.292255
+      },
+      {
+        "period": "201609",
+        "avg_sale_price_manwon": 57939.338899
+      },
+      {
+        "period": "201610",
+        "avg_sale_price_manwon": 58813.609848
+      },
+      {
+        "period": "201611",
+        "avg_sale_price_manwon": 59510.640394
+      },
+      {
+        "period": "201612",
+        "avg_sale_price_manwon": 59670.402698
+      },
+      {
+        "period": "201701",
+        "avg_sale_price_manwon": 59769.462621
+      },
+      {
+        "period": "201702",
+        "avg_sale_price_manwon": 59860.697545
+      },
+      {
+        "period": "201703",
+        "avg_sale_price_manwon": 60017.187931
+      },
+      {
+        "period": "201704",
+        "avg_sale_price_manwon": 60215.299152
+      },
+      {
+        "period": "201705",
+        "avg_sale_price_manwon": 60708.412479
+      },
+      {
+        "period": "201706",
+        "avg_sale_price_manwon": 61755.444927
+      },
+      {
+        "period": "201707",
+        "avg_sale_price_manwon": 62447.884608
+      },
+      {
+        "period": "201708",
+        "avg_sale_price_manwon": 63626.78008
+      },
+      {
+        "period": "201709",
+        "avg_sale_price_manwon": 63923.955546
+      },
+      {
+        "period": "201710",
+        "avg_sale_price_manwon": 64468.2
+      },
+      {
+        "period": "201711",
+        "avg_sale_price_manwon": 65193.348773
+      },
+      {
+        "period": "201712",
+        "avg_sale_price_manwon": 66146.598656
+      },
+      {
+        "period": "201801",
+        "avg_sale_price_manwon": 67612.962577
+      },
+      {
+        "period": "201802",
+        "avg_sale_price_manwon": 68933.415877
+      },
+      {
+        "period": "201803",
+        "avg_sale_price_manwon": 70946.578794
+      },
+      {
+        "period": "201804",
+        "avg_sale_price_manwon": 72166.077916
+      },
+      {
+        "period": "201805",
+        "avg_sale_price_manwon": 72727.043622
+      },
+      {
+        "period": "201806",
+        "avg_sale_price_manwon": 73169.881158
+      },
+      {
+        "period": "201807",
+        "avg_sale_price_manwon": 73821.421183
+      },
+      {
+        "period": "201808",
+        "avg_sale_price_manwon": 74977.621446
+      },
+      {
+        "period": "201809",
+        "avg_sale_price_manwon": 78560.730917
+      },
+      {
+        "period": "201810",
+        "avg_sale_price_manwon": 80429.42756
+      },
+      {
+        "period": "201811",
+        "avg_sale_price_manwon": 81342.922752
+      },
+      {
+        "period": "201812",
+        "avg_sale_price_manwon": 81594.927077
+      },
+      {
+        "period": "201901",
+        "avg_sale_price_manwon": 81438.742134
+      },
+      {
+        "period": "201902",
+        "avg_sale_price_manwon": 81378.25348
+      },
+      {
+        "period": "201903",
+        "avg_sale_price_manwon": 81209.521185
+      },
+      {
+        "period": "201904",
+        "avg_sale_price_manwon": 81131.092329
+      },
+      {
+        "period": "201905",
+        "avg_sale_price_manwon": 81139.164497
+      },
+      {
+        "period": "201906",
+        "avg_sale_price_manwon": 81290.095909
+      },
+      {
+        "period": "201907",
+        "avg_sale_price_manwon": 82277.773879
+      },
+      {
+        "period": "201908",
+        "avg_sale_price_manwon": 83173.183626
+      },
+      {
+        "period": "201909",
+        "avg_sale_price_manwon": 84050.991568
+      },
+      {
+        "period": "201910",
+        "avg_sale_price_manwon": 84294.205159
+      },
+      {
+        "period": "201911",
+        "avg_sale_price_manwon": 84776.960384
+      },
+      {
+        "period": "201912",
+        "avg_sale_price_manwon": 85951.213422
+      },
+      {
+        "period": "202001",
+        "avg_sale_price_manwon": 86996.616147
+      },
+      {
+        "period": "202002",
+        "avg_sale_price_manwon": 89863.748764
+      },
+      {
+        "period": "202003",
+        "avg_sale_price_manwon": 91201.163938
+      },
+      {
+        "period": "202004",
+        "avg_sale_price_manwon": 91458.084813
+      },
+      {
+        "period": "202005",
+        "avg_sale_price_manwon": 91530.023266
+      },
+      {
+        "period": "202006",
+        "avg_sale_price_manwon": 92509.201732
+      },
+      {
+        "period": "202007",
+        "avg_sale_price_manwon": 95032.559115
+      },
+      {
+        "period": "202008",
+        "avg_sale_price_manwon": 98502.904965
+      },
+      {
+        "period": "202009",
+        "avg_sale_price_manwon": 100311.878724
+      },
+      {
+        "period": "202010",
+        "avg_sale_price_manwon": 100970.565552
+      },
+      {
+        "period": "202011",
+        "avg_sale_price_manwon": 102766.72197
+      },
+      {
+        "period": "202012",
+        "avg_sale_price_manwon": 104299.490189
+      },
+      {
+        "period": "202101",
+        "avg_sale_price_manwon": 106107.562092
+      },
+      {
+        "period": "202102",
+        "avg_sale_price_manwon": 108191.677911
+      },
+      {
+        "period": "202103",
+        "avg_sale_price_manwon": 109992.954426
+      },
+      {
+        "period": "202104",
+        "avg_sale_price_manwon": 111123.111129
+      },
+      {
+        "period": "202105",
+        "avg_sale_price_manwon": 112374.618582
+      },
+      {
+        "period": "202106",
+        "avg_sale_price_manwon": 114283.490218
+      },
+      {
+        "period": "202107",
+        "avg_sale_price_manwon": 115751.389328
+      },
+      {
+        "period": "202108",
+        "avg_sale_price_manwon": 117734.078424
+      },
+      {
+        "period": "202109",
+        "avg_sale_price_manwon": 119977.598509
+      },
+      {
+        "period": "202110",
+        "avg_sale_price_manwon": 121638.579987
+      },
+      {
+        "period": "202111",
+        "avg_sale_price_manwon": 123728.715466
+      },
+      {
+        "period": "202112",
+        "avg_sale_price_manwon": 124978.015581
+      },
+      {
+        "period": "202201",
+        "avg_sale_price_manwon": 125968.875534
+      },
+      {
+        "period": "202202",
+        "avg_sale_price_manwon": 126890.576787
+      },
+      {
+        "period": "202203",
+        "avg_sale_price_manwon": 127334.287526
+      },
+      {
+        "period": "202204",
+        "avg_sale_price_manwon": 127721.519448
+      },
+      {
+        "period": "202205",
+        "avg_sale_price_manwon": 127818.404107
+      },
+      {
+        "period": "202206",
+        "avg_sale_price_manwon": 127992.048888
+      },
+      {
+        "period": "202207",
+        "avg_sale_price_manwon": 128057.732383
+      },
+      {
+        "period": "202208",
+        "avg_sale_price_manwon": 127879.189142
+      },
+      {
+        "period": "202209",
+        "avg_sale_price_manwon": 127624.06465
+      },
+      {
+        "period": "202210",
+        "avg_sale_price_manwon": 126628.891
+      },
+      {
+        "period": "202211",
+        "avg_sale_price_manwon": 128219.692446
+      },
+      {
+        "period": "202212",
+        "avg_sale_price_manwon": 126420.99083426
+      },
+      {
+        "period": "202301",
+        "avg_sale_price_manwon": 123917.70807843
+      },
+      {
+        "period": "202302",
+        "avg_sale_price_manwon": 122481.97263734
+      },
+      {
+        "period": "202303",
+        "avg_sale_price_manwon": 120972.19098195
+      },
+      {
+        "period": "202304",
+        "avg_sale_price_manwon": 119944.32126606
+      },
+      {
+        "period": "202305",
+        "avg_sale_price_manwon": 118404.15535376
+      },
+      {
+        "period": "202306",
+        "avg_sale_price_manwon": 118224.20572516
+      },
+      {
+        "period": "202307",
+        "avg_sale_price_manwon": 118182.03183253
+      },
+      {
+        "period": "202308",
+        "avg_sale_price_manwon": 118518.6230526
+      },
+      {
+        "period": "202309",
+        "avg_sale_price_manwon": 119167.81029802
+      },
+      {
+        "period": "202310",
+        "avg_sale_price_manwon": 119662.79824669
+      },
+      {
+        "period": "202311",
+        "avg_sale_price_manwon": 120038.86136495
+      },
+      {
+        "period": "202312",
+        "avg_sale_price_manwon": 119965.84936789
+      },
+      {
+        "period": "202401",
+        "avg_sale_price_manwon": 119762.34456999
+      },
+      {
+        "period": "202402",
+        "avg_sale_price_manwon": 119661.58089315
+      },
+      {
+        "period": "202403",
+        "avg_sale_price_manwon": 119567.59040018
+      },
+      {
+        "period": "202404",
+        "avg_sale_price_manwon": 119598.06300857
+      },
+      {
+        "period": "202405",
+        "avg_sale_price_manwon": 119773.02496982
+      },
+      {
+        "period": "202406",
+        "avg_sale_price_manwon": 120217.56489542
+      },
+      {
+        "period": "202407",
+        "avg_sale_price_manwon": 121387.4093187
+      },
+      {
+        "period": "202408",
+        "avg_sale_price_manwon": 122914.25193101
+      },
+      {
+        "period": "202409",
+        "avg_sale_price_manwon": 124377.71413347
+      },
+      {
+        "period": "202410",
+        "avg_sale_price_manwon": 125294.33289119
+      },
+      {
+        "period": "202411",
+        "avg_sale_price_manwon": 126233.40238265
+      },
+      {
+        "period": "202412",
+        "avg_sale_price_manwon": 127274.45074911
+      },
+      {
+        "period": "202501",
+        "avg_sale_price_manwon": 127502.54207707
+      },
+      {
+        "period": "202502",
+        "avg_sale_price_manwon": 127908.90515312
+      },
+      {
+        "period": "202503",
+        "avg_sale_price_manwon": 129720.37592486
+      },
+      {
+        "period": "202504",
+        "avg_sale_price_manwon": 132965.20691369
+      },
+      {
+        "period": "202505",
+        "avg_sale_price_manwon": 134542.53454824
+      },
+      {
+        "period": "202506",
+        "avg_sale_price_manwon": 138174.10484996
+      },
+      {
+        "period": "202507",
+        "avg_sale_price_manwon": 140572.3320311
+      },
+      {
+        "period": "202508",
+        "avg_sale_price_manwon": 142223.97805226
+      },
+      {
+        "period": "202509",
+        "avg_sale_price_manwon": 143621.14900904
+      },
+      {
+        "period": "202510",
+        "avg_sale_price_manwon": 146131.76111587
+      },
+      {
+        "period": "202511",
+        "avg_sale_price_manwon": 148890.45764707
+      },
+      {
+        "period": "202512",
+        "avg_sale_price_manwon": 150809.50393983
+      },
+      {
+        "period": "202601",
+        "avg_sale_price_manwon": 152161.59713045
+      },
+      {
+        "period": "202602",
+        "avg_sale_price_manwon": 153765.35796078
+      },
+      {
+        "period": "202603",
+        "avg_sale_price_manwon": 155453.61551181
+      },
+      {
+        "period": "202604",
+        "avg_sale_price_manwon": 156362.61472478
+      },
+      {
+        "period": "202605",
+        "avg_sale_price_manwon": 157119.96881181
+      },
+      {
+        "period": "202606",
+        "avg_sale_price_manwon": 158311.41092534
+      },
+      {
+        "period": "202607",
+        "avg_sale_price_manwon": 159489.84595332
+      },
+      {
+        "period": "202608",
+        "avg_sale_price_manwon": 160738.9729989
+      },
+      {
+        "period": "202609",
+        "avg_sale_price_manwon": 162469.45105927
+      }
+    ],
+    "latest": {
+      "period": "202609",
+      "avg_sale_price_manwon": 162469.45105927
+    },
+    "updated_at": "20260914",
+    "definition": "KB 서울 아파트 평균 매매가격",
+    "endpoint": "https://data-api.kbland.kr/bfmstat/weekMnthlyHuseTrnd/avgPrc"
+  },
+  "collected_at": "2026-09-29T17:08:34.836794+00:00"
+}
