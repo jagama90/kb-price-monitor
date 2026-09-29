@@ -33,6 +33,12 @@ def main():
     ap.add_argument('--roll-baseline',action='store_true')
     ap.add_argument('--as-of')
     a=ap.parse_args()
+    # Outside the scheduled Friday roll, keep the last completed week-to-week
+    # comparison instead of overwriting it with Monday/weekday same-price data.
+    if not a.roll_baseline and OUT.exists():
+        old=load(OUT,{})
+        print(json.dumps({'weekly_change_preserved':True,'latest_friday':old.get('latest_friday_as_of'),'previous_friday':old.get('previous_friday_as_of')},ensure_ascii=False))
+        return
     cur=load(MASTER,{'items':[]});base=load(BASE,{'items':[]})
     ci,bi=flatten(cur),{(int(x['complex_id']),int(x['area_id'])):x for x in base.get('items') or [] if x.get('complex_id') and x.get('area_id')}
     rows=[]
@@ -41,7 +47,8 @@ def main():
         rows.append({**x,'current_manwon':cp,'previous_friday_manwon':pp,
                      'delta_manwon':None if pp is None else cp-pp,
                      'delta_pct':None if not pp else round((cp-pp)*100/pp,2)})
-    payload={'status':'connected','basis':'latest KB general price vs previous Friday snapshot',
+    payload={'status':'connected','basis':'last completed Friday KB general price vs prior Friday',
+             'latest_friday_as_of':a.as_of or datetime.date.today().isoformat(),
              'current_kb_collected_at':cur.get('kb_collected_at'),
              'previous_friday_as_of':base.get('as_of'),
              'previous_friday_kb_collected_at':base.get('source_kb_collected_at'),
