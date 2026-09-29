@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-146"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-147"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
 <details id="refreshCalendar" class="card refresh-calendar-v1" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
     <div class="refresh-summary-copy">
@@ -39,7 +39,6 @@
 <section id="overview" class="card research-overview research-overview-v2">
   <div class="research-head">
     <div><small>연구엔진 · 현재 국면</small><h1>서울 집값은 지금 어디쯤?</h1></div>
-    <span id="cycleStageBadge" class="dbbadge research-badge">판독 중</span>
   </div>
   <div class="cycle-steps research-steps" id="cycleSteps">
     <span data-regime-ref="0" role="button" tabindex="0">하락</span><span data-regime-ref="1" role="button" tabindex="0">둔화</span><span data-regime-ref="2" role="button" tabindex="0">바닥</span><span data-regime-ref="3" role="button" tabindex="0">상승·보합</span><span data-regime-ref="4" role="button" tabindex="0">가속</span>
@@ -48,7 +47,7 @@
     <div class="regime-ref-head-v145"><div><small>과거 대표 사례</small><b id="regimeRefTitle">불러오는 중</b></div><span id="regimeRefPeriod">—</span></div>
     <p id="regimeRefDesc">같은 판정규칙으로 과거 국면을 다시 분류합니다.</p>
     <div class="regime-ref-body-v145">
-      <div class="regime-ref-spark-v145" id="regimeRefSpark"></div>
+      <div class="regime-ref-momentum-v147" id="regimeRefSpark" aria-label="대표 구간 가격 모멘텀"></div>
       <div class="regime-ref-metrics-v145">
         <div><small>월간 가격</small><b id="regimeRefM1">—</b></div>
         <div><small>3개월 가격</small><b id="regimeRefM3">—</b></div>
@@ -225,4 +224,4 @@
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
 
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260929-146"></script></body></html>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260929-147"></script></body></html>
