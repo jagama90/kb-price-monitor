@@ -97,11 +97,13 @@ jobs:
             python3 scripts/collect_kb_sentiment.py & p1=$!
             python3 scripts/collect_kb_statusboard_live.py & p2=$!
             python3 scripts/collect_kb_datahub_batch.py & p3=$!
+            python3 scripts/collect_kb_valuation_sources.py & p4=$!
             wait "$p1"; s1=$?
             wait "$p2"; s2=$?
             wait "$p3"; s3=$?
+            wait "$p4"; s4=$?
             set -e
-            [ "$s1" -eq 0 ] && [ "$s2" -eq 0 ] && [ "$s3" -eq 0 ]
+            [ "$s1" -eq 0 ] && [ "$s2" -eq 0 ] && [ "$s3" -eq 0 ] && [ "$s4" -eq 0 ]
           }
           echo "retried=false" >> "$GITHUB_OUTPUT"
           if ! collect_source; then
@@ -120,6 +122,7 @@ jobs:
             data_sources/kb_datahub_batch.json
             data_sources/kb_weekly_sale_index.json
             data_sources/kb_weekly_rent_index.json
+            data_sources/kb_valuation_sources.json
   molit:
     needs: preflight
     if: needs.preflight.outputs.should_run == 'true'
@@ -324,8 +327,7 @@ jobs:
           PY
       - name: Build connected KB value component
         run: |
-          python3 scripts/collect_garak_geumho_24a.py || echo 'KB value history refresh unavailable; using last-good history'
-          python3 scripts/build_kb_value_live.py
+          python3 scripts/build_kb_value_composite.py --publish
       - name: Build KB sentiment component
         if: needs.kb_sentiment.outputs.artifact_ready == 'true'
         run: python3 scripts/build_kb_sentiment_score.py
@@ -352,7 +354,7 @@ jobs:
           [ -f dist/garak_geumho_24a_history.json ] && cp dist/garak_geumho_24a_history.json /tmp/market-refresh/
           [ -f data/buy_watchlist_listings.json ] && cp data/buy_watchlist_listings.json /tmp/market-refresh/
           [ -f data/buy_watchlist_market.json ] && cp data/buy_watchlist_market.json /tmp/market-refresh/
-          for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json data_sources/refresh_run_status.json data_sources/ecos_mortgage_rate.json data_sources/ecos_base_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json data_sources/watchlist_recent_trades.json; do
+          for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json data_sources/refresh_run_status.json data_sources/ecos_mortgage_rate.json data_sources/ecos_base_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_valuation_sources.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json data_sources/watchlist_recent_trades.json; do
             [ -f "$f" ] && cp "$f" /tmp/market-refresh/$(basename "$f")
           done
           git reset --hard
@@ -366,7 +368,7 @@ jobs:
           [ -f /tmp/market-refresh/condition_index_history.json ] && cp /tmp/market-refresh/condition_index_history.json dist/condition_index_history.json
           [ -f /tmp/market-refresh/index_audit.json ] && cp /tmp/market-refresh/index_audit.json dist/index_audit.json
           [ -f /tmp/market-refresh/validation_report.json ] && cp /tmp/market-refresh/validation_report.json dist/validation_report.json
-          for n in refresh_run_status.json ecos_mortgage_rate.json ecos_base_rate.json ecos_m2.json kb_sentiment.json kb_sentiment_score.json kb_statusboard_live.json kb_weekly_sale_index.json kb_weekly_rent_index.json kb_value_score.json molit.json molit_daily_history.json watchlist_recent_trades.json; do
+          for n in refresh_run_status.json ecos_mortgage_rate.json ecos_base_rate.json ecos_m2.json kb_sentiment.json kb_sentiment_score.json kb_statusboard_live.json kb_weekly_sale_index.json kb_weekly_rent_index.json kb_valuation_sources.json kb_value_score.json molit.json molit_daily_history.json watchlist_recent_trades.json; do
             [ -f /tmp/market-refresh/$n ] && cp /tmp/market-refresh/$n data_sources/$n
           done
           git add -f dist/market_indicators.json
@@ -375,7 +377,7 @@ jobs:
           [ -f data/buy_watchlist_market.json ] && git add -f data/buy_watchlist_market.json
           [ -f dist/buy_watchlist_market.json ] && git add -f dist/buy_watchlist_market.json
           for f in dist/m2_history.json dist/condition_index_history.json dist/index_audit.json dist/validation_report.json; do [ -f "$f" ] && git add -f "$f"; done
-          for f in data_sources/refresh_run_status.json data_sources/ecos_mortgage_rate.json data_sources/ecos_base_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json data_sources/watchlist_recent_trades.json; do [ -f "$f" ] && git add -f "$f"; done
+          for f in data_sources/refresh_run_status.json data_sources/ecos_mortgage_rate.json data_sources/ecos_base_rate.json data_sources/ecos_m2.json data_sources/kb_sentiment.json data_sources/kb_sentiment_score.json data_sources/kb_statusboard_live.json data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_valuation_sources.json data_sources/kb_value_score.json data_sources/molit.json data_sources/molit_daily_history.json data_sources/watchlist_recent_trades.json; do [ -f "$f" ] && git add -f "$f"; done
           git diff --cached --quiet && exit 0
           git commit -m 'Daily parallel market data refresh'
           git push origin HEAD:main
