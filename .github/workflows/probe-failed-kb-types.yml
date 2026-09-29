@@ -34,6 +34,17 @@ jobs:
                   if t and ('평' in t or 'm²' in t or '㎡' in t): vals.append(('V' if el.is_visible() else 'H')+':'+t)
                 except: pass
               print('BUTTONS',vals[:120])
+              desired={1960:'81Am²',46734:'85Bm²',2538:'85m²'}[cid]
+              try:
+                loc=p.get_by_text(desired,exact=True)
+                print('DESIRED_COUNT',desired,loc.count())
+                for z in range(loc.count()-1,-1,-1):
+                  if loc.nth(z).is_visible():
+                    loc.nth(z).click(force=True,timeout=2500);p.wait_for_timeout(1000);break
+                top=[x.strip() for x in p.locator('body').inner_text().splitlines() if x.strip()]
+                ix=top.index('KB시세 일반가') if 'KB시세 일반가' in top else -1
+                print('AFTER_CLICK',desired,top[max(0,ix-2):ix+5])
+              except Exception as e: print('CLICK_ERR',desired,repr(e))
               lines=[x.strip() for x in p.locator('body').inner_text().splitlines() if x.strip()]
               for i,x in enumerate(lines):
                 if x in ('매물평균가','KB시세 일반가','최근 실거래가') or 'm²' in x or '㎡' in x:
