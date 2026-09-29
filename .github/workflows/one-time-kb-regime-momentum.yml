@@ -18,11 +18,13 @@ jobs:
           python3 scripts/collect_kb_statusboard_live.py
           python3 scripts/build_market_snapshot.py
           python3 scripts/build_regime_reference_examples.py
+          python3 scripts/forecast_market_regime.py
           cp data_sources/kb_weekly_sale_index.json /tmp/kb_weekly_sale_index.json
           cp data_sources/kb_weekly_rent_index.json /tmp/kb_weekly_rent_index.json
           cp data_sources/kb_statusboard_live.json /tmp/kb_statusboard_live.json
           cp dist/market_indicators.json /tmp/market_indicators.json
           cp dist/regime_reference_examples.json /tmp/regime_reference_examples.json
+          cp dist/regime_forecast.json /tmp/regime_forecast.json
       - name: Publish refreshed momentum
         run: |
           git config user.name 'github-actions[bot]'
@@ -34,7 +36,8 @@ jobs:
           cp /tmp/kb_statusboard_live.json data_sources/kb_statusboard_live.json
           cp /tmp/market_indicators.json dist/market_indicators.json
           cp /tmp/regime_reference_examples.json dist/regime_reference_examples.json
-          git add data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_statusboard_live.json dist/market_indicators.json dist/regime_reference_examples.json
+          cp /tmp/regime_forecast.json dist/regime_forecast.json
+          git add data_sources/kb_weekly_sale_index.json data_sources/kb_weekly_rent_index.json data_sources/kb_statusboard_live.json dist/market_indicators.json dist/regime_reference_examples.json dist/regime_forecast.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh comparable KB regime momentum'
           git push origin HEAD:main
