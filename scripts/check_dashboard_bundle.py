@@ -14,7 +14,10 @@ if dups: errors.append('duplicate ids: '+', '.join(dups))
 
 required=['conditionScore','scoreFinance','scoreSentiment','scoreDemand','scoreValue','scoreSupply',
           'scoreExplanation','scoreExplainTitle','scoreExplainWeight','scoreExplainBody',
-          'regimeForecast','forecastGrid','forecastMeta','garakHistoryLatest','garakHistoryChart','mobileCards','body']
+          'regimeForecast','forecastGrid','forecastMeta','mobileCards','body',
+          'driverCredit','driverFinance','driverSentiment','driverDemand','driverPrice',
+          'backtestScope','backtestCertified','backtestCorr',
+          'sourceMolitStatus','sourceKbStatus','sourceEcosStatus','sourceWatchStatus']
 for x in required:
     if ids.count(x)!=1: errors.append(f'required id {x}: expected 1, got {ids.count(x)}')
 
@@ -36,14 +39,10 @@ for forbidden in ['.onclick=','.onkeydown=','.after(panel)','appendChild(panel)'
     if forbidden in block: errors.append('legacy score handler still present: '+forbidden)
 
 if not (R/'dist/regime_forecast.json').exists(): errors.append('regime_forecast.json missing')
-hist=R/'dist/garak_geumho_24a_history.json'
-if not hist.exists(): errors.append('garak_geumho_24a_history.json missing')
-else:
-    try:
-        hd=json.loads(hist.read_text(encoding='utf-8')); series=hd.get('series') or []
-        if len(series)<200: errors.append(f'garak history too short: {len(series)}')
-    except Exception as e: errors.append('garak history invalid: '+str(e))
-if 'garak_geumho_24a_history.json' not in js or 'loadGarakHistory()' not in js: errors.append('Garak history loader missing from market.js')
+# The former standalone Garak long-term chart was intentionally removed; the
+# watchlist-wide KB history remains the canonical history source.
+if '가락금호 24A · KB 장기 추이' in html:
+    errors.append('retired standalone Garak long-term chart returned')
 if "const kbKey=x=>" not in js: errors.append('exact complex+area KB key missing')
 if "kb.get(Number(x.complex_id))" in js: errors.append('legacy complex-only KB price lookup remains')
 
@@ -68,7 +67,8 @@ if html.count('class="driver-rail"')!=1: errors.append('deep-dive driver rail mi
 if 'class="transmission compact"' in html: errors.append('legacy boxed driver infographic returned')
 if html.count('class="card method-v4"')!=1: errors.append('methodology v4 status-first layout missing')
 if 'methodology-v3' in html or 'methodology-v2' in html: errors.append('legacy methodology markup returned')
-if html.count('class="method-health-v4"')!=1: errors.append('methodology v4 health summary missing')
+if html.count('class="source-status-v136"')!=1: errors.append('live source status grid missing')
+if html.count('class="method-health-v136"')!=1: errors.append('methodology validation summary missing')
 if "flow-step-v4 '+state[1]" not in js: errors.append('live signal updater does not preserve v4 flow classes')
 
 
