@@ -17,7 +17,9 @@ required=['conditionScore','scoreFinance','scoreSentiment','scoreDemand','scoreV
           'regimeForecast','forecastGrid','forecastMeta','mobileCards','body',
           'driverCredit','driverFinance','driverSentiment','driverDemand','driverPrice',
           'backtestScope','backtestCertified','backtestCorr',
-          'sourceMolitStatus','sourceKbStatus','sourceEcosStatus','sourceWatchStatus']
+          'sourceMolitStatus','sourceKbStatus','sourceEcosStatus','sourceWatchStatus',
+          'conditionTier','confidenceScore','validationUnsold','validationUnsoldPeriod',
+          'b15all','b15to25','b25p']
 for x in required:
     if ids.count(x)!=1: errors.append(f'required id {x}: expected 1, got {ids.count(x)}')
 
@@ -65,10 +67,10 @@ if 'class="analysis-hub"' in html or 'class="hub-summary"' in html or 'class="co
     errors.append('legacy deep-dive wrapper classes returned')
 if html.count('class="driver-rail"')!=1: errors.append('deep-dive driver rail missing')
 if 'class="transmission compact"' in html: errors.append('legacy boxed driver infographic returned')
-if html.count('class="card method-v4"')!=1: errors.append('methodology v4 status-first layout missing')
+if html.count('class="audit-source-grid-v140"')!=1: errors.append('combined validation/data source grid missing')
+if html.count('class="audit-panel-v140"')!=1: errors.append('combined validation/data panel missing')
+if 'class="card method-v4"' in html: errors.append('retired standalone data-validation panel returned')
 if 'methodology-v3' in html or 'methodology-v2' in html: errors.append('legacy methodology markup returned')
-if html.count('class="source-status-v136"')!=1: errors.append('live source status grid missing')
-if html.count('class="method-health-v136"')!=1: errors.append('methodology validation summary missing')
 if "flow-step-v4 '+state[1]" not in js: errors.append('live signal updater does not preserve v4 flow classes')
 
 
@@ -175,3 +177,10 @@ if "hasAsk=x.avg_ask_manwon!=null" not in js or "hasTrade=x.recent_trade_manwon!
 payload={'status':'ok' if not errors else 'failed','checks':'all-dashboard-contracts','errors':errors}
 print(json.dumps(payload,ensure_ascii=False))
 if errors: sys.exit(1)
+
+# change-first v140 contracts
+if 'buckets3' not in js: errors.append('three-band transaction distribution not wired')
+if 'kb_watchlist_weekly_change.json' not in js: errors.append('15eok boundary must use Friday KB comparison')
+if 'scoreBand=' not in js: errors.append('score categories missing')
+if 'coverage-badge-v140' not in html: errors.append('separate data coverage badge missing')
+if '원천 미연결' in html and '미분양' in html: errors.append('unsold housing must not be shown as disconnected')
