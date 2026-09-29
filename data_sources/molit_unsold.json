@@ -1,0 +1,15 @@
+{
+  "status": "connected",
+  "source": "국토교통부 미분양주택현황보고",
+  "region": "서울",
+  "period": "202607",
+  "seoul_units": 994,
+  "previous_period": "202606",
+  "previous_units": 1013,
+  "change_units": -19,
+  "change_pct": -1.9,
+  "published_at": "2026-08-31",
+  "frequency": "monthly",
+  "official_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=32",
+  "note": "국토교통부 2026년 7월 주택통계 공표값"
+}
