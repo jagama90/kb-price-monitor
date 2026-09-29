@@ -8,7 +8,7 @@ Composite prior:
 
 Every historical month uses only observations available at or before that month.
 """
-import json,pathlib,datetime,math,statistics
+import json,pathlib,datetime,math,statistics,argparse
 R=pathlib.Path(__file__).resolve().parents[1]
 SRC=R/'data_sources/kb_valuation_sources.json'
 OUT=R/'dist/kb_value_composite_candidate.json'
@@ -39,6 +39,7 @@ def latest_le(series,period,key):
 def clamp(v,lo=15,hi=85):return max(lo,min(hi,float(v)))
 
 def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--publish',action='store_true');args=ap.parse_args()
     d=json.loads(SRC.read_text())
     pir=d['pir']['series'];ratio=d['rent_to_sale_ratio']['series'];avg=d['avg_sale_price']['series']
     pvals=[];rvals=[];gaps=[];rows=[];prices=[]
@@ -83,5 +84,26 @@ def main():
       'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()
     }
     OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(json.dumps({k:out[k] for k in ('score_0_100','period','components','observations')},ensure_ascii=False,indent=2))
+    published=False
+    if args.publish:
+        vp=R/'dist/kb_value_composite_validation.json'
+        vd=json.loads(vp.read_text()) if vp.exists() else {}
+        if not vd.get('apply_recommended'):
+            raise SystemExit('composite valuation validation gate not passed; keep last-good production score')
+        prod={
+          'status':'connected','model':'kb_seoul_composite_value_v1',
+          'score_0_100':out['score_0_100'],'period':out['period'],
+          'source':out['source'],'method':out['method'],'weights':out['weights'],
+          'components':out['components'],'observations':out['observations'],
+          'validation':{
+            'apply_recommended':True,'rows_compared':vd.get('rows_compared'),
+            'generated_at':vd.get('generated_at')
+          },
+          'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()
+        }
+        text=json.dumps(prod,ensure_ascii=False,indent=2)+'\n'
+        (R/'data_sources/kb_value_score.json').write_text(text,encoding='utf-8')
+        (R/'dist/kb_value_score.json').write_text(text,encoding='utf-8')
+        published=True
+    print(json.dumps({**{k:out[k] for k in ('score_0_100','period','components','observations')},'published':published},ensure_ascii=False,indent=2))
 if __name__=='__main__':main()
