@@ -205,7 +205,7 @@ def main():
         except Exception: pass
     items=[]; errors=[]; validated=0
     sample_pairs={(1960,1847),(1947,1835)}
-    pw=sync_playwright().start(); browser=pw.chromium.launch(headless=True); page=browser.new_page(locale='ko-KR'); page.set_default_timeout(5000)
+    pw=sync_playwright().start(); browser=pw.chromium.launch(headless=True); page=browser.new_page(locale='ko-KR',viewport={'width':5000,'height':1800}); page.set_default_timeout(5000)
     for x in d['items']:
         cid=x.get('complex_id')
         if not cid: continue
