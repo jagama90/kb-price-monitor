@@ -184,3 +184,11 @@ if 'kb_watchlist_weekly_change.json' not in js: errors.append('15eok boundary mu
 if 'scoreBand=' not in js: errors.append('score categories missing')
 if 'coverage-badge-v140' not in html: errors.append('separate data coverage badge missing')
 if '원천 미연결' in html and '미분양' in html: errors.append('unsold housing must not be shown as disconnected')
+
+# Current-regime regression guard: cycleStageBadge was intentionally removed.
+if "badge.textContent=label" in js or "badge.textContent='데이터 확인 중'" in js:
+    errors.append('cycle renderer still depends on removed cycleStageBadge')
+if "renderRegimeReference(window.__currentCycleStage" in js:
+    errors.append('historical regime reference must remain hidden until user taps a phase')
+if "window.__currentCycleStage=stage" not in js:
+    errors.append('current regime stage is not persisted for UI highlighting')
