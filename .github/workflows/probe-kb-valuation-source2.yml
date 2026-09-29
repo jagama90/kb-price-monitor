@@ -1,0 +1,24 @@
+name: Probe final KB valuation sources
+on:
+  push:
+    branches: [main]
+    paths: ['.github/run-probe-kb-valuation-source2']
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 scripts/probe_kb_valuation_source2.py
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data_sources/kb_valuation_source_probe2.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Probe final KB valuation sources'
+          git pull --rebase origin main
+          git push origin HEAD:main
