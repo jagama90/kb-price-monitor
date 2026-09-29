@@ -209,7 +209,10 @@ renderConditionHistory();
 window.__regimeReferences=null;window.__currentCycleStage=0;window.__currentRegimeMetrics=null;window.__selectedRegimeRefStage=null;window.__regimeCompare=false;
 async function renderCycleStage(){ // direction-aware market phase UI
  try{
-  const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('turning signal '+r.status);return r.json()}),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
+  const [d,kb]=await Promise.all([
+   fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('turning signal '+r.status);return r.json()}),
+   fetch('kb_weekly_sale_index.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
+  ]),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
   const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),recent=rows.slice(-4,-1),wasRising=recent.some(r=>Number(r.momentum_3m_pct)>0);
   let stage=0,text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
   if(x.bottom_zone){stage=1;text='하락 압력이 약해지고 있습니다. 다만 아직 가격이 멈췄거나 상승세로 바뀌었다고 보기는 이릅니다.'}
@@ -217,8 +220,16 @@ async function renderCycleStage(){ // direction-aware market phase UI
   if(m3>0){stage=3;text='최근 3개월 가격 흐름이 상승입니다. 상승 흐름이 이어지는지 확인하는 단계입니다.'}
   if(wasRising&&m3<=0&&m1>=0){stage=3;text='앞선 상승세가 멈추고 최근 가격이 보합권에 들어왔습니다. 상승 모멘텀이 식은 상태입니다.'}
   if(x.momentum_zone){stage=4;text='가격 상승과 시장 수요가 함께 강해지는 구간입니다.'}
+  const km=kb?.momentum||{},kbComparable=km.mom_4w_pct!=null&&km.mom_13w_pct!=null;
   window.__currentCycleStage=stage;
-  window.__currentRegimeMetrics={ym:x.ym,price_mom_1m_pct:m1,price_mom_3m_pct:m3,breadth_0_100:Number(x.breadth),reaccel_0_100:Number(x.reaccel)};
+  window.__currentRegimeMetrics={
+   ym:x.ym,label:km.as_of?String(km.as_of).slice(0,4)+'.'+String(km.as_of).slice(4,6)+'.'+String(km.as_of).slice(6,8):x.ym.slice(0,4)+'.'+x.ym.slice(4),
+   price_mom_1m_pct:kbComparable?Number(km.mom_4w_pct):m1,
+   price_mom_3m_pct:kbComparable?Number(km.mom_13w_pct):m3,
+   research_price_mom_1m_pct:m1,research_price_mom_3m_pct:m3,
+   price_source:kbComparable?'kb_seoul_weekly':'research',
+   breadth_0_100:Number(x.breadth),reaccel_0_100:Number(x.reaccel)
+  };
   setText('cycleStageText',text);
   const flow=m3>0?'상승 '+m3.toFixed(1)+'%':m3<0?'하락 '+Math.abs(m3).toFixed(1)+'%':'보합';
   setText('cycleStageEvidence','최근 데이터 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow);
@@ -234,33 +245,38 @@ function renderRegimeReference(stage){
  window.__selectedRegimeRefStage=Number(stage);
  document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(e=>e.setAttribute('aria-pressed',Number(e.dataset.regimeRef)===Number(stage)?'true':'false'));
  const current=window.__currentRegimeMetrics,compare=!!(window.__regimeCompare&&current),period=x.period_start===x.period_end?regimeYm(x.period_start):regimeYm(x.period_start)+' ~ '+regimeYm(x.period_end);
+ const hk=x.kb_seoul_momentum||{},sameKb=hk.mom_4w_pct!=null&&hk.mom_13w_pct!=null&&current?.price_source==='kb_seoul_weekly';
+ const hist1=hk.mom_4w_pct!=null?Number(hk.mom_4w_pct):Number(x.price_mom_1m_pct),hist3=hk.mom_13w_pct!=null?Number(hk.mom_13w_pct):Number(x.price_mom_3m_pct);
+ const cur1=sameKb?Number(current.price_mom_1m_pct):Number(current?.research_price_mom_1m_pct??current?.price_mom_1m_pct),cur3=sameKb?Number(current.price_mom_3m_pct):Number(current?.research_price_mom_3m_pct??current?.price_mom_3m_pct);
+ const priceLabel1=sameKb||hk.mom_4w_pct!=null?'1개월 가격':'월간 가격',priceLabel3=sameKb||hk.mom_13w_pct!=null?'3개월 가격':'3개월 가격';
+ const currentLabel=current?.label||regimeYm(current?.ym);
  setText('regimeRefTitle',x.label+' 대표 '+(x.months>1?'구간':'시점'));
- setText('regimeRefPeriod',compare?period+' ↔ 현재 '+regimeYm(current.ym):period);
- setText('regimeRefDesc',x.description+(compare?' 현재 '+regimeYm(current.ym)+'와 같은 척도로 대조합니다.':''));
+ setText('regimeRefPeriod',compare?period+' ↔ 현재 '+currentLabel:period);
+ setText('regimeRefDesc',x.description+(compare?(sameKb?' 과거와 현재 모두 KB 서울 주간 매매가격지수의 4주·13주 변화율로 비교합니다.':' 현재값과 같은 척도로 대조합니다.'):''));
  const toggle=document.getElementById('regimeCompareToggle');if(toggle){toggle.disabled=!current;toggle.classList.toggle('active',compare);toggle.textContent=compare?'과거만 보기':'현재와 비교';toggle.setAttribute('aria-pressed',compare?'true':'false')}
- const signed2=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
+ const signed2=v=>v==null||!Number.isFinite(Number(v))?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
  const score=v=>v==null?'—':Number(v).toFixed(1)+'/100';
  const metric=(wrapId,bId,label,hv,cv,kind)=>{
   const wrap=document.getElementById(wrapId);if(!wrap)return;
   if(!compare){wrap.innerHTML='<small>'+label+'</small><b id="'+bId+'">'+(kind==='pct'?signed2(hv):score(hv))+'</b>';return}
-  const delta=Number(cv)-Number(hv),unit=kind==='pct'?'%p':'p',hist=kind==='pct'?signed2(hv):score(hv),now=kind==='pct'?signed2(cv):score(cv),d=(delta>0?'+':'')+delta.toFixed(kind==='pct'?2:1)+unit,cls=delta>0?'up':delta<0?'down':'flat';
-  wrap.innerHTML='<small>'+label+'</small><b id="'+bId+'" class="regime-metric-pair-v151"><span>과거 '+hist+'</span><i>→</i><span>현재 '+now+'</span></b><em class="regime-metric-delta-v151 '+cls+'">현재 '+d+'</em>';
+  const delta=Number(cv)-Number(hv),unit=kind==='pct'?'%p':'p',hist=kind==='pct'?signed2(hv):score(hv),now=kind==='pct'?signed2(cv):score(cv),dd=(delta>0?'+':'')+delta.toFixed(kind==='pct'?2:1)+unit,cls=delta>0?'up':delta<0?'down':'flat';
+  wrap.innerHTML='<small>'+label+'</small><b id="'+bId+'" class="regime-metric-pair-v151"><span>과거 '+hist+'</span><i>→</i><span>현재 '+now+'</span></b><em class="regime-metric-delta-v151 '+cls+'">현재 '+dd+'</em>';
  };
- metric('regimeMetricM1','regimeRefM1','월간 가격',x.price_mom_1m_pct,current?.price_mom_1m_pct,'pct');
- metric('regimeMetricM3','regimeRefM3','3개월 가격',x.price_mom_3m_pct,current?.price_mom_3m_pct,'pct');
+ metric('regimeMetricM1','regimeRefM1',priceLabel1,hist1,cur1,'pct');
+ metric('regimeMetricM3','regimeRefM3',priceLabel3,hist3,cur3,'pct');
  metric('regimeMetricBreadth','regimeRefBreadth','시장 확산',x.breadth_0_100,current?.breadth_0_100,'score');
  metric('regimeMetricReaccel','regimeRefReaccel','재가속',x.reaccel_0_100,current?.reaccel_0_100,'score');
  const host=document.getElementById('regimeRefSpark');if(host){
   const rawBar=(tag,v)=>{const n=Number(v)||0,mag=Math.min(50,Math.abs(n)/15*50),side=n<0?'neg':n>0?'pos':'flat';return '<div class="compare-bar-line-v151"><span>'+tag+'</span><div class="momentum-track-v147"><i></i><u class="'+side+'" style="width:'+mag+'%;'+(n<0?'right:50%':'left:50%')+'"></u></div><b class="'+side+'">'+(n>0?'+':'')+n.toFixed(2)+'%</b></div>'};
   const single=(label,v)=>{const n=Number(v)||0,mag=Math.min(50,Math.abs(n)/15*50),side=n<0?'neg':n>0?'pos':'flat';return '<div class="momentum-row-v147"><div class="momentum-label-v147"><span>'+label+'</span><b class="'+side+'">'+(n>0?'+':'')+n.toFixed(2)+'%</b></div><div class="momentum-track-v147"><i></i><u class="'+side+'" style="width:'+mag+'%;'+(n<0?'right:50%':'left:50%')+'"></u></div></div>'};
-  const pchg=x.period_price_change_pct==null?'—':((Number(x.period_price_change_pct)>0?'+':'')+Number(x.period_price_change_pct).toFixed(2)+'%');
+  const src=hk.mom_4w_pct!=null?'KB 서울 매매지수 · '+String(hk.as_of||'').replace(/^(\d{4})(\d{2})(\d{2})$/,'$1.$2.$3'):'대표가격';
   if(compare){
-   host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀 · 과거 vs 현재</b><span>0% 기준 · ±15% 확대</span></div><div class="compare-momentum-group-v151"><strong>월간 가격</strong>'+rawBar('과거',x.price_mom_1m_pct)+rawBar('현재',current.price_mom_1m_pct)+'</div><div class="compare-momentum-group-v151"><strong>3개월 가격</strong>'+rawBar('과거',x.price_mom_3m_pct)+rawBar('현재',current.price_mom_3m_pct)+'</div><div class="momentum-period-v147"><span>'+period+' ↔ 현재 '+regimeYm(current.ym)+'</span><b>대표기간 '+pchg+'</b></div>';
+   host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀 · 과거 vs 현재</b><span>'+(sameKb?'동일 KB 서울지수':'동일 연구척도')+'</span></div><div class="compare-momentum-group-v151"><strong>'+priceLabel1+'</strong>'+rawBar('과거',hist1)+rawBar('현재',cur1)+'</div><div class="compare-momentum-group-v151"><strong>'+priceLabel3+'</strong>'+rawBar('과거',hist3)+rawBar('현재',cur3)+'</div><div class="momentum-period-v147"><span>'+period+' ↔ 현재 '+currentLabel+'</span><b>'+esc(src)+'</b></div>';
   }else{
-   host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀</b><span>0% 기준 · ±15% 확대</span></div>'+single('월간',x.price_mom_1m_pct)+single('3개월',x.price_mom_3m_pct)+'<div class="momentum-period-v147"><span>'+regimeYm(x.period_start)+' → '+regimeYm(x.period_end)+'</span><b>대표기간 '+pchg+'</b></div>';
+   host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀</b><span>'+esc(src)+'</span></div>'+single(priceLabel1,hist1)+single(priceLabel3,hist3)+'<div class="momentum-period-v147"><span>'+period+'</span><b>'+esc(src)+'</b></div>';
   }
  }
- const note=document.querySelector('#regimeReference .regime-ref-note-v145');if(note)note.textContent=compare?'과거 대표값과 현재값을 같은 척도로 비교합니다. 대표사례는 현재 판정에 사용하지 않습니다.':'현재와 비교를 누르면 같은 4개 지표를 대조합니다. 대표사례는 현재 판정에 사용하지 않습니다.';
+ const note=document.querySelector('#regimeReference .regime-ref-note-v145');if(note)note.textContent=compare?(sameKb?'가격은 과거·현재 모두 KB 서울지수 기준입니다. 시장 확산·재가속은 연구엔진 점수를 비교합니다.':'과거 대표값과 현재값을 같은 연구척도로 비교합니다.'):'현재와 비교를 누르면 같은 지표를 대조합니다. 대표사례는 현재 판정에 사용하지 않습니다.';
 }
 async function loadRegimeReferences(){
  try{
@@ -709,3 +725,5 @@ initRefreshCalendar();
    p.scrollIntoView({behavior:'smooth',block:'nearest'});
  };
 })();
+
+const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addEventListener('click',e=>{e.preventDefault();window.location.reload()});
