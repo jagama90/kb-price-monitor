@@ -1,6 +1,6 @@
 {
   "status": "research_reference",
-  "source": "dist/turning_signal_research.json",
+  "source": "dist/turning_signal_research.json + KB Seoul weekly sale index",
   "classification_rule": "same five-stage rule as renderCycleStage; retrospective representative examples only",
   "selection_rule": "exclude latest 9 months; strongest decline, then strongest subsequent slowdown and bottom within 4 months, strongest post-rally consolidation, strongest later acceleration",
   "latest_source_month": "202608",
@@ -17,14 +17,25 @@
       "market_state": 46.4,
       "price_mom_1m_pct": -5.65,
       "price_mom_3m_pct": -9.58,
+      "kb_seoul_momentum": {
+        "as_of": "20230306",
+        "index": 88.643833078521,
+        "four_week_base_date": "20230213",
+        "four_week_base_index": 89.436346739493,
+        "mom_4w_pct": -0.89,
+        "thirteen_week_base_date": "20221212",
+        "thirteen_week_base_index": 92.454160152528,
+        "mom_13w_pct": -4.12,
+        "source": "KB 서울 주간 아파트 매매가격지수"
+      },
       "breadth_0_100": 47.4,
-      "reaccel_0_100": 0,
+      "reaccel_0_100": 0.0,
       "turn_0_100": 28.8,
-      "period_price_change_pct": 0,
+      "period_price_change_pct": 0.0,
       "series": [
         {
           "ym": "202302",
-          "price": 108500,
+          "price": 108500.0,
           "price_mom_1m_pct": -5.65,
           "price_mom_3m_pct": -9.58
         }
@@ -41,20 +52,31 @@
       "market_state": 43.5,
       "price_mom_1m_pct": -1.44,
       "price_mom_3m_pct": -10.43,
-      "breadth_0_100": 38,
-      "reaccel_0_100": 0,
+      "kb_seoul_momentum": {
+        "as_of": "20230501",
+        "index": 87.019029254133,
+        "four_week_base_date": "20230410",
+        "four_week_base_index": 87.532190998931,
+        "mom_4w_pct": -0.59,
+        "thirteen_week_base_date": "20230206",
+        "thirteen_week_base_index": 89.706857434064,
+        "mom_13w_pct": -3.0,
+        "source": "KB 서울 주간 아파트 매매가격지수"
+      },
+      "breadth_0_100": 38.0,
+      "reaccel_0_100": 0.0,
       "turn_0_100": 44.8,
       "period_price_change_pct": -1.44,
       "series": [
         {
           "ym": "202303",
-          "price": 104500,
+          "price": 104500.0,
           "price_mom_1m_pct": -3.69,
           "price_mom_3m_pct": -11.06
         },
         {
           "ym": "202304",
-          "price": 103000,
+          "price": 103000.0,
           "price_mom_1m_pct": -1.44,
           "price_mom_3m_pct": -10.43
         }
@@ -71,20 +93,31 @@
       "market_state": 46.5,
       "price_mom_1m_pct": 0.49,
       "price_mom_3m_pct": -0.96,
+      "kb_seoul_momentum": {
+        "as_of": "20230703",
+        "index": 86.392968439905,
+        "four_week_base_date": "20230612",
+        "four_week_base_index": 86.519586270489,
+        "mom_4w_pct": -0.15,
+        "thirteen_week_base_date": "20230410",
+        "thirteen_week_base_index": 87.532190998931,
+        "mom_13w_pct": -1.3,
+        "source": "KB 서울 주간 아파트 매매가격지수"
+      },
       "breadth_0_100": 40.4,
-      "reaccel_0_100": 35,
+      "reaccel_0_100": 35.0,
       "turn_0_100": 71.1,
       "period_price_change_pct": 0.49,
       "series": [
         {
           "ym": "202305",
-          "price": 103000,
-          "price_mom_1m_pct": 0,
+          "price": 103000.0,
+          "price_mom_1m_pct": 0.0,
           "price_mom_3m_pct": -5.07
         },
         {
           "ym": "202306",
-          "price": 103500,
+          "price": 103500.0,
           "price_mom_1m_pct": 0.49,
           "price_mom_3m_pct": -0.96
         }
@@ -98,43 +131,54 @@
       "period_end": "202402",
       "months": 5,
       "description": "앞선 상승 뒤 3개월 모멘텀이 0% 부근으로 식으며 가격이 쉬어가던 구간입니다.",
-      "market_state": 43,
-      "price_mom_1m_pct": 0,
-      "price_mom_3m_pct": 0,
+      "market_state": 43.0,
+      "price_mom_1m_pct": 0.0,
+      "price_mom_3m_pct": 0.0,
+      "kb_seoul_momentum": {
+        "as_of": "20240304",
+        "index": 86.275673533519,
+        "four_week_base_date": "20240205",
+        "four_week_base_index": 86.373148406315,
+        "mom_4w_pct": -0.11,
+        "thirteen_week_base_date": "20231211",
+        "thirteen_week_base_index": 86.643839916179,
+        "mom_13w_pct": -0.42,
+        "source": "KB 서울 주간 아파트 매매가격지수"
+      },
       "breadth_0_100": 35.7,
-      "reaccel_0_100": 30,
+      "reaccel_0_100": 30.0,
       "turn_0_100": 55.7,
-      "period_price_change_pct": 0,
+      "period_price_change_pct": 0.0,
       "series": [
         {
           "ym": "202310",
-          "price": 110500,
-          "price_mom_1m_pct": 0,
+          "price": 110500.0,
+          "price_mom_1m_pct": 0.0,
           "price_mom_3m_pct": 3.76
         },
         {
           "ym": "202311",
-          "price": 110500,
-          "price_mom_1m_pct": 0,
+          "price": 110500.0,
+          "price_mom_1m_pct": 0.0,
           "price_mom_3m_pct": 0.91
         },
         {
           "ym": "202312",
-          "price": 110500,
-          "price_mom_1m_pct": 0,
-          "price_mom_3m_pct": 0
+          "price": 110500.0,
+          "price_mom_1m_pct": 0.0,
+          "price_mom_3m_pct": 0.0
         },
         {
           "ym": "202401",
-          "price": 110500,
-          "price_mom_1m_pct": 0,
-          "price_mom_3m_pct": 0
+          "price": 110500.0,
+          "price_mom_1m_pct": 0.0,
+          "price_mom_3m_pct": 0.0
         },
         {
           "ym": "202402",
-          "price": 110500,
-          "price_mom_1m_pct": 0,
-          "price_mom_3m_pct": 0
+          "price": 110500.0,
+          "price_mom_1m_pct": 0.0,
+          "price_mom_3m_pct": 0.0
         }
       ]
     },
@@ -149,24 +193,36 @@
       "market_state": 47.9,
       "price_mom_1m_pct": 7.04,
       "price_mom_3m_pct": 11.15,
+      "kb_seoul_momentum": {
+        "as_of": "20250929",
+        "index": 95.789122258265,
+        "four_week_base_date": "20250908",
+        "four_week_base_index": 94.853034668883,
+        "mom_4w_pct": 0.99,
+        "thirteen_week_base_date": "20250707",
+        "thirteen_week_base_index": 93.502509638203,
+        "mom_13w_pct": 2.45,
+        "source": "KB 서울 주간 아파트 매매가격지수"
+      },
       "breadth_0_100": 55.2,
-      "reaccel_0_100": 100,
+      "reaccel_0_100": 100.0,
       "turn_0_100": 97.6,
       "period_price_change_pct": 7.04,
       "series": [
         {
           "ym": "202508",
-          "price": 135000,
+          "price": 135000.0,
           "price_mom_1m_pct": 2.27,
           "price_mom_3m_pct": 6.3
         },
         {
           "ym": "202509",
-          "price": 144500,
+          "price": 144500.0,
           "price_mom_1m_pct": 7.04,
           "price_mom_3m_pct": 11.15
         }
       ]
     }
-  ]
+  ],
+  "generated_at": "2026-09-29T16:30:29.363831+00:00"
 }

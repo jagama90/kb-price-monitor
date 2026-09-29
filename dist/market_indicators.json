@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29",
+  "updated_at": "2026-09-30",
   "sources": [
     {
       "name": "서울특별시/국토교통부 실거래가",
@@ -389,7 +389,111 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-09-29T00:20:41.414486+00:00"
+    "collected_at": "2026-09-29T16:30:18.765048+00:00",
+    "history": [
+      {
+        "date": "20260615",
+        "value": 105.7983526197,
+        "display_value": "105.8",
+        "change_pct": 0.25
+      },
+      {
+        "date": "20260622",
+        "value": 106.0679226602,
+        "display_value": "106.1",
+        "change_pct": 0.25
+      },
+      {
+        "date": "20260629",
+        "value": 106.3195282846,
+        "display_value": "106.3",
+        "change_pct": 0.24
+      },
+      {
+        "date": "20260706",
+        "value": 106.5481334883,
+        "display_value": "106.5",
+        "change_pct": 0.22
+      },
+      {
+        "date": "20260713",
+        "value": 106.9134267569,
+        "display_value": "106.9",
+        "change_pct": 0.34
+      },
+      {
+        "date": "20260720",
+        "value": 107.2769925685,
+        "display_value": "107.3",
+        "change_pct": 0.34
+      },
+      {
+        "date": "20260727",
+        "value": 107.6160325643,
+        "display_value": "107.6",
+        "change_pct": 0.32
+      },
+      {
+        "date": "20260803",
+        "value": 107.8604915655,
+        "display_value": "107.9",
+        "change_pct": 0.23
+      },
+      {
+        "date": "20260810",
+        "value": 108.1337214513,
+        "display_value": "108.1",
+        "change_pct": 0.25
+      },
+      {
+        "date": "20260817",
+        "value": 108.3763656274,
+        "display_value": "108.4",
+        "change_pct": 0.22
+      },
+      {
+        "date": "20260824",
+        "value": 108.649640611,
+        "display_value": "108.6",
+        "change_pct": 0.25
+      },
+      {
+        "date": "20260831",
+        "value": 108.894829759,
+        "display_value": "108.9",
+        "change_pct": 0.23
+      },
+      {
+        "date": "20260907",
+        "value": 109.1331461407,
+        "display_value": "109.1",
+        "change_pct": 0.22
+      },
+      {
+        "date": "20260914",
+        "value": 109.3524416597,
+        "display_value": "109.4",
+        "change_pct": 0.2
+      },
+      {
+        "date": "20260921",
+        "value": 109.5250410404,
+        "display_value": "109.5",
+        "change_pct": 0.16
+      }
+    ],
+    "momentum": {
+      "as_of": "20260921",
+      "index": 109.5250410404,
+      "four_week_base_date": "20260824",
+      "four_week_base_index": 108.649640611,
+      "mom_4w_pct": 0.81,
+      "thirteen_week_base_date": "20260622",
+      "thirteen_week_base_index": 106.0679226602,
+      "mom_13w_pct": 3.26,
+      "definition": "KB 서울 주간 매매가격지수 최신값 대비 4주/13주 전 변화율"
+    },
+    "momentum_source": "KB 서울 주간 아파트 매매가격지수"
   },
   "kb_weekly_rent_index": {
     "status": "connected",
@@ -403,7 +507,7 @@
       "change_pct": 0.12
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-09-29T00:20:41.414499+00:00"
+    "collected_at": "2026-09-29T16:30:19.462165+00:00"
   },
   "base_rate_official": {
     "status": "connected",
