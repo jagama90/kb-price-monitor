@@ -33,7 +33,16 @@ jobs:
           f=json.load(open('dist/regime_forecast.json'))
           assert f.get('as_of')==m.get('updated_at'), 'forecast as_of mismatch'
           assert f.get('latest_research_month'), 'forecast research lineage missing'
-          print({'status':'ok','as_of':f.get('as_of'),'research':f.get('latest_research_month')})
+          try:
+              v=json.load(open('dist/forecast_kb_momentum_validation.json'))
+          except FileNotFoundError:
+              v={}
+          km=((m.get('kb_weekly_sale_index') or {}).get('momentum') or {})
+          if v.get('apply_recommended') and km.get('mom_4w_pct') is not None and km.get('mom_13w_pct') is not None:
+              o=f.get('price_momentum_overlay') or {}
+              assert o.get('applied') is True, 'validated KB momentum overlay was not applied'
+              assert o.get('source','').startswith('KB Seoul weekly sale index'), 'unexpected price momentum source'
+          print({'status':'ok','as_of':f.get('as_of'),'research':f.get('latest_research_month'),'kb_overlay':(f.get('price_momentum_overlay') or {}).get('applied')})
           PY
       - name: Rebase, rebuild and persist forecast
         run: |
@@ -51,6 +60,13 @@ jobs:
           m=json.load(open('dist/market_indicators.json'))
           f=json.load(open('dist/regime_forecast.json'))
           assert f.get('as_of')==m.get('updated_at'), 'forecast as_of mismatch after pull'
+          try:
+              v=json.load(open('dist/forecast_kb_momentum_validation.json'))
+          except FileNotFoundError:
+              v={}
+          km=((m.get('kb_weekly_sale_index') or {}).get('momentum') or {})
+          if v.get('apply_recommended') and km.get('mom_4w_pct') is not None and km.get('mom_13w_pct') is not None:
+              assert (f.get('price_momentum_overlay') or {}).get('applied') is True, 'validated KB overlay missing after pull'
           PY
           git add -f dist/regime_forecast.json
           git diff --cached --quiet && exit 0
