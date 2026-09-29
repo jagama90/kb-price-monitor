@@ -55,52 +55,65 @@ def current_type_text(t):
     return m.group(1) if m else None
 
 def select_type(page,label,area=None):
-    """Select the exact KB type, preferring supply-area identity over ambiguous 평 labels."""
+    """Select exact KB type; preserve already-selected exact type and safely navigate hidden type rails."""
     m=re.search(r'\d+(?:\.\d+)?',str(label or ''))
     if not m: raise RuntimeError(f'invalid type label: {label}')
     pyeong=m.group(0); wanted=pyeong+'평'; supply=(area or {}).get('supply_m2')
+    suffix=re.sub(r'^\d+(?:\.\d+)?','',str(label or '')).strip().upper()
     page.wait_for_timeout(250)
 
-    def click_el(el):
-        try:
-            if el.is_visible():
-                el.click(force=True,timeout=3000);page.wait_for_timeout(900);return True
-        except Exception: pass
-        return False
+    def metric_parts(txt):
+        z=re.search(r'(\d+(?:\.\d+)?)([A-Za-z0-9-]*)\s*(?:m²|㎡)',str(txt or ''),re.I)
+        return (float(z.group(1)),z.group(2).upper()) if z else (None,None)
 
-    # Current KB type controls often expose metric labels. This is the safest
-    # discriminator for A/B variants sharing the same 평 label.
+    # If KB already loaded the exact target type, do not click the selected
+    # control: on some complexes clicking it opens/cycles the type rail.
+    type_button=None
+    buttons=page.get_by_role('button')
+    for i in range(buttons.count()):
+        try:
+            el=buttons.nth(i)
+            if not el.is_visible(): continue
+            txt=el.inner_text() or ''
+            n,sfx=metric_parts(txt)
+            if n is None: continue
+            if type_button is None:type_button=el
+            if supply and abs(n-float(supply))<=1.25 and (not suffix or sfx.startswith(suffix)):
+                return
+        except Exception:
+            pass
+
+    # Open the current type control so KB exposes the horizontal type rail.
+    if type_button is not None:
+        try:type_button.click(force=True,timeout=3000);page.wait_for_timeout(450)
+        except Exception:pass
+
+    # Current KB labels use floor-like supply numbers plus the type suffix,
+    # e.g. 85Bm² for an 85.72m² 25B target.
     if supply:
-        best=None
-        for i in range(page.get_by_role('button').count()):
+        base=float(supply);nums=sorted({int(base),int(round(base)),int(base)+1})
+        suf=re.escape(suffix)
+        pat=re.compile(r'^\s*(?:'+('|'.join(str(x) for x in nums))+r')'+suf+r'\s*(?:m²|㎡)\s*$',re.I)
+        loc=page.get_by_text(pat)
+        for i in range(loc.count()):
             try:
-                el=page.get_by_role('button').nth(i)
-                if not el.is_visible(): continue
-                txt=(el.inner_text() or '').replace('㎡','m²')
-                mm=re.search(r'(\d+(?:\.\d+)?)\s*m²',txt,re.I)
-                if not mm: continue
-                gap=abs(float(mm.group(1))-float(supply))
-                if gap<=1.25 and (best is None or gap<best[0]): best=(gap,el,txt)
-            except Exception: pass
-        if best and click_el(best[1]): return
+                el=loc.nth(i)
+                # Bring horizontally clipped rail items into its scroll viewport.
+                el.evaluate("""e=>{let p=e.parentElement;while(p&&p!==document.body){if(p.scrollWidth>p.clientWidth+4){p.scrollLeft=Math.max(0,e.offsetLeft-p.clientWidth/2);break}p=p.parentElement}}""")
+                page.wait_for_timeout(120)
+                el.click(force=True,timeout=2500);page.wait_for_timeout(900);return
+            except Exception:
+                pass
 
-    # Exact labelled control when KB exposes A/B suffixes.
-    pats=[re.compile(r'^\s*'+re.escape(str(label))+r'(?:\.0+)?평',re.I),
-          re.compile(r'^\s*'+re.escape(pyeong)+r'(?:\.0+)?평')]
-    for pat in pats:
-        try:
-            loc=page.get_by_role('button',name=pat)
-            for i in range(loc.count()-1,-1,-1):
-                if click_el(loc.nth(i)): return
-        except Exception: pass
-
-    # Legacy exact text is last because "24평" can point at another 24A/24B type.
+    # Legacy exact 평 presentation.
     try:
         loc=page.get_by_text(wanted,exact=True)
         for i in range(loc.count()-1,-1,-1):
-            if click_el(loc.nth(i)): return
-    except Exception: pass
-
+            try:
+                if loc.nth(i).is_visible():
+                    loc.nth(i).click(force=True,timeout=2500);page.wait_for_timeout(900);return
+            except Exception:pass
+    except Exception:pass
     raise RuntimeError(f'visible type tab not found: {wanted} / supply={supply}')
 
 
