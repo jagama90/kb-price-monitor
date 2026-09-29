@@ -1,41 +1,24 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260929-153"></head><body><header><div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div><nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav><span id="updated">LOADING</span></header><main>
-<details id="refreshCalendar" class="card refresh-calendar-v1" aria-labelledby="refreshCalendarTitle">
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260930-154"></head><body><header>
+<div class="brand"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></div>
+<details id="refreshCalendar" class="header-refresh-v154" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
-    <div class="refresh-summary-copy">
-      <small>데이터 현행화</small>
-      <div class="refresh-summary-line"><h2 id="refreshCalendarTitle">마지막 데이터 확인</h2><b id="refreshSummaryStatus">변경 확인 중</b></div>
-      <p id="refreshSummaryMeta">실제 값이 바뀐 항목과 확인만 완료된 항목을 구분해 표시합니다.</p>
-    </div>
-    <em class="refresh-summary-toggle" aria-hidden="true">＋</em>
+    <span id="updated">LOADING</span>
+    <b id="refreshSummaryStatus">확인 중</b>
   </summary>
   <div class="refresh-calendar-detail">
-    <div class="refresh-calendar-head">
-      <p>재실행 여부가 아니라 실제 데이터 값의 변화를 기준으로 표시합니다.</p>
-      <div class="refresh-legend refresh-change-summary-v135" id="refreshLegend"><span id="refreshChangedCount" class="refresh-change-chip-v135 changed">변경 계산 중</span><span id="refreshUnchangedCount" class="refresh-change-chip-v135">확인 중</span><span id="refreshWarningCount" class="refresh-change-chip-v135 warning" hidden>원천 확인</span></div>
+    <div class="header-refresh-title-v154"><small>데이터 현행화</small><b id="refreshCalendarTitle">마지막 데이터 확인</b></div>
+    <p id="refreshSummaryMeta">실제 변경 항목을 확인하는 중입니다.</p>
+    <div class="refresh-legend refresh-change-summary-v135" id="refreshLegend"><span id="refreshChangedCount" class="refresh-change-chip-v135 changed">변경 계산 중</span><span id="refreshUnchangedCount" class="refresh-change-chip-v135">확인 중</span><span id="refreshWarningCount" class="refresh-change-chip-v135 warning" hidden>원천 확인</span></div>
+    <div class="refresh-calendar-grid header-refresh-grid-v154">
+      <article id="refreshDaily" class="refresh-cycle-card"><div class="refresh-cycle-top"><span>오늘</span><b>07:05</b></div><strong>시장</strong><small id="refreshDailyLast">확인 중</small><em id="refreshDailyNext">다음 일정 확인 중</em></article>
+      <article id="refreshWeekly" class="refresh-cycle-card"><div class="refresh-cycle-top"><span>주간</span><b>금 21:05</b></div><strong>KB·관심단지</strong><small id="refreshWeeklyLast">확인 중</small><em id="refreshWeeklyNext">다음 일정 확인 중</em></article>
+      <article id="refreshMonthly" class="refresh-cycle-card"><div class="refresh-cycle-top"><span>월간</span><b>3일 07:20</b></div><strong>연구엔진</strong><small id="refreshMonthlyLast">확인 중</small><em id="refreshMonthlyNext">다음 일정 확인 중</em></article>
     </div>
-    <div class="refresh-calendar-grid">
-      <article id="refreshDaily" class="refresh-cycle-card">
-        <div class="refresh-cycle-top"><span>오늘</span><b>매일 07:05</b></div>
-        <strong>시장 현행화</strong>
-        <div class="refresh-items"><span>국토부 실거래 · 거래량</span><span>ECOS 금리 · M2 확인</span><span>KB 심리 · 주간지수 확인</span><span>시장점수 · 전망 재계산</span></div>
-        <small id="refreshDailyLast">마지막 갱신 확인 중</small><em id="refreshDailyNext">다음 갱신 계산 중</em>
-      </article>
-      <article id="refreshWeekly" class="refresh-cycle-card">
-        <div class="refresh-cycle-top"><span>주간</span><b>금요일 21:05</b></div>
-        <strong>KB 전체 가격 점검</strong>
-        <div class="refresh-items"><span>관심단지 KB 일반시세</span><span>15억 경계선</span><span>대표평형 · KB 가격이력</span><span>매물 원천 재점검</span></div>
-        <small id="refreshWeeklyLast">마지막 갱신 확인 중</small><em id="refreshWeeklyNext">다음 갱신 계산 중</em>
-      </article>
-      <article id="refreshMonthly" class="refresh-cycle-card">
-        <div class="refresh-cycle-top"><span>월간</span><b>매월 3일 07:20</b></div>
-        <strong>연구 엔진 재검증</strong>
-        <div class="refresh-items"><span>전체 역사 백테스트</span><span>매수 준비도 · 반전 확인도</span><span>바닥·가짜바닥 검증</span><span>장기 국면 연구</span></div>
-        <small id="refreshMonthlyLast">마지막 연구 확인 중</small><em id="refreshMonthlyNext">다음 갱신 계산 중</em>
-      </article>
-    </div>
-    <div id="refreshHealthSummary" class="refresh-health-summary">원천별 갱신 상태를 확인하는 중입니다.</div>
+    <div id="refreshHealthSummary" class="refresh-health-summary">원천 상태 확인 중</div>
   </div>
 </details>
+<nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav>
+</header><main>
 <section id="overview" class="card research-overview research-overview-v2">
   <div class="research-head">
     <div><small>연구엔진 · 현재 국면</small><h1>서울 집값은 지금 어디쯤?</h1></div>
