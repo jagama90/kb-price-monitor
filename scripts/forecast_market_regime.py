@@ -13,6 +13,7 @@ TURN=R/'dist/turning_signal_research.json'
 MARKET=R/'dist/market_indicators.json'
 FINAL=R/'dist/final_backtest.json'
 LONG=R/'dist/final_long_cycle_validation.json'
+KBVAL=R/'dist/forecast_kb_momentum_validation.json'
 OUT=R/'dist/regime_forecast.json'
 
 def clamp(x): return max(0.0,min(100.0,float(x)))
@@ -121,7 +122,42 @@ def main():
     demand=clamp(50+trade*.35+under*1.5) if mp else 50
     mortgage=n((m.get('mortgage_rate_official') or {}).get('rate_pct'),4.0)
 
-    m1=n(x.get('price_mom_pct')); m3=n(x.get('momentum_3m_pct'))
+    research_m1=n(x.get('price_mom_pct')); research_m3=n(x.get('momentum_3m_pct'))
+    m1,m3=research_m1,research_m3
+    price_overlay={
+      'applied':False,
+      'source':'turning_signal_research',
+      'research_m1_pct':round(research_m1,2),
+      'research_m3_pct':round(research_m3,2)
+    }
+    # The live KB Seoul index is much smoother than the legacy representative-
+    # complex target used to calibrate the research engine. Never insert raw KB
+    # momentum directly. Apply only when historical scale validation passes, and
+    # map 4w/13w KB momentum onto the legacy m1/m3 scale first.
+    if KBVAL.exists():
+        try:
+            kv=json.loads(KBVAL.read_text())
+            km=((m.get('kb_weekly_sale_index') or {}).get('momentum') or {})
+            f1=((kv.get('scale_fit') or {}).get('m1_from_kb4w') or {})
+            f3=((kv.get('scale_fit') or {}).get('m3_from_kb13w') or {})
+            kb4=km.get('mom_4w_pct'); kb13=km.get('mom_13w_pct')
+            valid=bool(kv.get('apply_recommended')) and kb4 is not None and kb13 is not None and f1.get('slope') is not None and f3.get('slope') is not None
+            if valid:
+                m1=n(f1.get('intercept'))+n(f1.get('slope'))*n(kb4)
+                m3=n(f3.get('intercept'))+n(f3.get('slope'))*n(kb13)
+                price_overlay={
+                  'applied':True,
+                  'source':'KB Seoul weekly sale index, scale-aligned to legacy research momentum',
+                  'kb_as_of':km.get('as_of'),
+                  'kb_4w_pct':round(n(kb4),2),'kb_13w_pct':round(n(kb13),2),
+                  'mapped_m1_pct':round(m1,2),'mapped_m3_pct':round(m3,2),
+                  'research_m1_pct':round(research_m1,2),'research_m3_pct':round(research_m3,2),
+                  'm1_fit_r2':round(n(f1.get('r2')),3),'m3_fit_r2':round(n(f3.get('r2')),3),
+                  'validation_apply_recommended':True,
+                  'validation_generated_at':kv.get('generated_at')
+                }
+        except Exception as e:
+            price_overlay['fallback_reason']='validation overlay error: '+str(e)[:160]
     breadth=n(x.get('breadth'),50); reaccel=n(x.get('reaccel'),50)
     peak_m3=max([n(r.get('momentum_3m_pct')) for r in recent] or [0])
     liquidity=clamp(50+n(mm.get('yoy_pct'))*5)
@@ -163,7 +199,10 @@ def main():
       'reacceleration_confirmation':['3개월 가격모멘텀 > 2%','breadth >= 45','reaccel >= 50','동일기간 거래량 감소폭이 -10% 이내로 회복'],
       'downturn_confirmation':['월간 가격모멘텀 < 0','3개월 가격모멘텀 < 0','거래 위축 지속','M2/금융여건 동반 둔화'],
       'current_check':{
-        'price_mom_pct':round(m1,2),'momentum_3m_pct':round(m3,2),'breadth':round(breadth,1),'reaccel':round(reaccel,1),
+        'price_mom_pct':round(m1,2),'momentum_3m_pct':round(m3,2),
+        'research_price_mom_pct':round(research_m1,2),'research_momentum_3m_pct':round(research_m3,2),
+        'price_momentum_source':price_overlay.get('source'),
+        'breadth':round(breadth,1),'reaccel':round(reaccel,1),
         'finance':round(finance,1),'sentiment':round(sent,1),'demand':round(demand,1),'value':round(value,1),'supply':round(supply,1),
         'trade_count_pct':round(trade,1),'m2_yoy_pct':mm.get('yoy_pct'),'mortgage_rate_pct':mortgage
       }
@@ -172,7 +211,7 @@ def main():
     payload={
       'status':'research_only',
       'weights_are_not_calibrated_probabilities':True,
-      'method':'transparent scenario-weight engine: certified turning-state research + freshest live market overlay; no future labels are used in current scoring',
+      'method':'transparent scenario-weight engine: certified turning-state research + freshest live market overlay; KB Seoul 4w/13w momentum is scale-aligned to the legacy research momentum only when historical validation passes; no future labels are used in current scoring',
       'as_of':m.get('updated_at'),
       'latest_research_month':x.get('ym'),
       'latest_research_provisional':bool(x.get('source_provisional',False)),
@@ -199,12 +238,16 @@ def main():
         'hysteresis':'risk worsening changes at the nominal threshold; easing requires 2%p beyond the lower boundary'
       },
       'state':{
-        'current_phase':'post_rally_consolidation' if m3<=0 and m1>=0 else ('uptrend' if m3>0 else 'downtrend'),
+        # Keep the certified research-stage label on the original research
+        # series. The KB overlay affects forward weights only.
+        'current_phase':'post_rally_consolidation' if research_m3<=0 and research_m1>=0 else ('uptrend' if research_m3>0 else 'downtrend'),
+        'forecast_price_phase':'uptrend' if m3>0 else ('post_rally_consolidation' if m1>=0 else 'downtrend'),
         'recent_peak_3m_momentum_pct':round(peak_m3,2),
         'cooling_score_0_100':round(cooling,1),
         'liquidity_support_0_100':round(liquidity,1)
       },
       'triggers':triggers,
+      'price_momentum_overlay':price_overlay,
       'historical_analogs':analog,
       'analog_warning':'small sample; analogs are diagnostic only',
       'long_cycle_guardrail':{'selected_pre2018_only':selected,'sample_is_small':True},
