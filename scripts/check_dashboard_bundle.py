@@ -68,7 +68,7 @@ if 'class="analysis-hub"' in html or 'class="hub-summary"' in html or 'class="co
 if html.count('class="driver-rail"')!=1: errors.append('deep-dive driver rail missing')
 if 'class="transmission compact"' in html: errors.append('legacy boxed driver infographic returned')
 if html.count('class="audit-source-grid-v140"')!=1: errors.append('combined validation/data source grid missing')
-if html.count('class="audit-panel-v140"')!=1: errors.append('combined validation/data panel missing')
+if len(re.findall(r'class="[^"]*\baudit-panel-v140\b[^"]*"',html))!=1: errors.append('combined validation/data panel missing')
 if 'class="card method-v4"' in html: errors.append('retired standalone data-validation panel returned')
 if 'methodology-v3' in html or 'methodology-v2' in html: errors.append('legacy methodology markup returned')
 if "flow-step-v4 '+state[1]" not in js: errors.append('live signal updater does not preserve v4 flow classes')
