@@ -1759,3 +1759,9 @@ header{position:sticky!important;overflow:visible!important}
  .header-refresh-v154 .refresh-cycle-card>strong{grid-column:1!important}
  .header-refresh-v154 .refresh-cycle-card>small,.header-refresh-v154 .refresh-cycle-card>em{grid-column:2!important}
 }
+
+
+/* v155 clickable dashboard brand */
+.brand-home-v155{text-decoration:none!important;color:inherit!important;cursor:pointer}
+.brand-home-v155:visited{color:inherit!important}
+.brand-home-v155:active{opacity:.78}
