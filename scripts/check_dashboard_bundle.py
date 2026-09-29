@@ -178,6 +178,12 @@ if "rowListingFresh(x)&&rowTradeFresh(x)?signal(x)" not in js:
 if "hasAsk=x.avg_ask_manwon!=null" not in js or "hasTrade=x.recent_trade_manwon!=null" not in js:
     errors.append('directional listing signal must fail closed when ask/trade data is missing')
 
+# v160 composite Seoul Price/Value contract
+for token in ("PIR","전세가율","장기추세 괴리"):
+    if token not in js: errors.append(f'composite value detail missing: {token}')
+for legacy in ("현재 KB","36개월 저점","36개월 고점","대표평형","current_position_0_1","window_low_manwon","window_high_manwon"):
+    if legacy in js: errors.append(f'legacy single-complex value detail returned: {legacy}')
+
 payload={'status':'ok' if not errors else 'failed','checks':'all-dashboard-contracts','errors':errors}
 print(json.dumps(payload,ensure_ascii=False))
 if errors: sys.exit(1)
@@ -216,9 +222,3 @@ if "market_indicators.json" not in js or "kb_weekly_sale_index" not in js or "mo
     errors.append('current regime comparison must use KB Seoul 4w/13w momentum')
 if "kb_seoul_momentum" not in js:
     errors.append('historical/current price comparison is not source-aligned')
-
-# v159 composite Seoul Price/Value contract
-for token in ("PIR","전세가율","장기추세 괴리"):
-    if token not in js: errors.append(f'composite value detail missing: {token}')
-for legacy in ("36개월 저점","36개월 고점","대표평형"):
-    if legacy in js: errors.append(f'legacy single-complex value detail returned: {legacy}')
