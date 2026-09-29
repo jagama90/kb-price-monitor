@@ -206,24 +206,26 @@ async function renderConditionHistory(){
 }
 renderConditionHistory();
 
-async function renderCycleStage(){ // direction-aware market phase UI
- const badge=document.getElementById('cycleStageBadge');
- try{const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],x=rows.at(-1),prev=rows.at(-2);if(!x)throw Error('no rows');
-  const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),prev3=Number(prev?.momentum_3m_pct),recent=rows.slice(-4,-1),wasRising=recent.some(r=>Number(r.momentum_3m_pct)>0);
-  let stage=0,label='하락 중',text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
-  if(x.bottom_zone){stage=1;label='하락 둔화';text='하락 압력이 약해지고 있습니다. 다만 아직 가격이 멈췄거나 상승세로 바뀌었다고 보기는 이릅니다.'}
-  if(m1>=0&&m3<=0&&!wasRising){stage=2;label='바닥 확인 중';text='하락 뒤 가격이 더 내려가지 않고 있습니다. 과거 검증상 매수 타이밍을 살펴볼 가치가 높아지는 구간이지만 아직 상승 확인 전입니다.'}
-  if(m3>0){stage=3;label='상승 확인';text='최근 3개월 가격 흐름이 상승입니다. 상승 흐름이 이어지는지 확인하는 단계입니다.'}
-  if(wasRising&&m3<=0&&m1>=0){stage=3;label='상승 후 보합';text='앞선 상승세가 멈추고 최근 가격이 보합권에 들어왔습니다. 하락 뒤 바닥 신호가 아니라 상승 모멘텀이 식은 상태입니다.'}
-  if(x.momentum_zone){stage=4;label='상승 가속';text='가격 상승과 시장 수요가 함께 강해지는 구간입니다.'}
-  badge.textContent=label;document.getElementById('cycleStageText').textContent=text;
-  const flow=m3>0?'상승 '+m3.toFixed(1)+'%':m3<0?'하락 '+Math.abs(m3).toFixed(1)+'%':'보합';
-  document.getElementById('cycleStageEvidence').textContent='최근 데이터 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow;
-  document.querySelectorAll('#cycleSteps span').forEach((e,i)=>e.classList.toggle('active',i===stage));
- }catch(e){badge.textContent='데이터 확인 중';document.getElementById('cycleStageText').textContent='최신 가격 데이터를 확인하고 있습니다.'}}
-renderCycleStage();
-
 window.__regimeReferences=null;window.__currentCycleStage=0;
+async function renderCycleStage(){ // direction-aware market phase UI
+ try{
+  const d=await fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('turning signal '+r.status);return r.json()}),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
+  const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),recent=rows.slice(-4,-1),wasRising=recent.some(r=>Number(r.momentum_3m_pct)>0);
+  let stage=0,text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
+  if(x.bottom_zone){stage=1;text='하락 압력이 약해지고 있습니다. 다만 아직 가격이 멈췄거나 상승세로 바뀌었다고 보기는 이릅니다.'}
+  if(m1>=0&&m3<=0&&!wasRising){stage=2;text='하락 뒤 가격이 더 내려가지 않고 있습니다. 바닥 여부를 확인하는 구간입니다.'}
+  if(m3>0){stage=3;text='최근 3개월 가격 흐름이 상승입니다. 상승 흐름이 이어지는지 확인하는 단계입니다.'}
+  if(wasRising&&m3<=0&&m1>=0){stage=3;text='앞선 상승세가 멈추고 최근 가격이 보합권에 들어왔습니다. 상승 모멘텀이 식은 상태입니다.'}
+  if(x.momentum_zone){stage=4;text='가격 상승과 시장 수요가 함께 강해지는 구간입니다.'}
+  window.__currentCycleStage=stage;
+  setText('cycleStageText',text);
+  const flow=m3>0?'상승 '+m3.toFixed(1)+'%':m3<0?'하락 '+Math.abs(m3).toFixed(1)+'%':'보합';
+  setText('cycleStageEvidence','최근 데이터 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow);
+  document.querySelectorAll('#cycleSteps span').forEach((el,i)=>{el.classList.toggle('active',i===stage);el.setAttribute('aria-current',i===stage?'step':'false')});
+ }catch(e){
+  console.warn('cycle stage',e);setText('cycleStageText','국면 데이터 연결을 확인하고 있습니다.');setText('cycleStageEvidence','연구엔진 원천 확인 중');
+ }
+}
 const regimeYm=v=>{const s=String(v||'');return s.length===6?s.slice(0,4)+'.'+s.slice(4):s};
 function renderRegimeReference(stage){
  const refs=window.__regimeReferences||[],x=refs.find(r=>Number(r.stage)===Number(stage));if(!x)return;
@@ -233,7 +235,7 @@ function renderRegimeReference(stage){
  const signed2=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
  setText('regimeRefM1',signed2(x.price_mom_1m_pct));setText('regimeRefM3',signed2(x.price_mom_3m_pct));
  setText('regimeRefBreadth',Number(x.breadth_0_100).toFixed(0)+'/100');setText('regimeRefReaccel',Number(x.reaccel_0_100).toFixed(0)+'/100');
- const host=document.getElementById('regimeRefSpark'),a=x.series||[];if(host){
+ const host=document.getElementById('regimeRefSpark');if(host){
   const bar=(label,v)=>{const n=Number(v)||0,mag=Math.min(50,Math.abs(n)/15*50),side=n<0?'neg':n>0?'pos':'flat';return '<div class="momentum-row-v147"><div class="momentum-label-v147"><span>'+label+'</span><b class="'+side+'">'+(n>0?'+':'')+n.toFixed(2)+'%</b></div><div class="momentum-track-v147"><i></i><u class="'+side+'" style="width:'+mag+'%;'+(n<0?'right:50%':'left:50%')+'"></u></div></div>'};
   const pchg=x.period_price_change_pct==null?'—':((Number(x.period_price_change_pct)>0?'+':'')+Number(x.period_price_change_pct).toFixed(2)+'%');
   host.innerHTML='<div class="momentum-title-v147"><b>가격 모멘텀</b><span>0% 기준 · ±15% 확대</span></div>'+bar('월간',x.price_mom_1m_pct)+bar('3개월',x.price_mom_3m_pct)+'<div class="momentum-period-v147"><span>'+regimeYm(x.period_start)+' → '+regimeYm(x.period_end)+'</span><b>대표기간 '+pchg+'</b></div>';
@@ -242,13 +244,14 @@ function renderRegimeReference(stage){
 async function loadRegimeReferences(){
  try{
   const d=await fetch('regime_reference_examples.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('references '+r.status);return r.json()});
-  window.__regimeReferences=d.references||[];renderRegimeReference(window.__currentCycleStage||0);
+  window.__regimeReferences=d.references||[];
   document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(el=>{
-   const open=()=>renderRegimeReference(Number(el.dataset.regimeRef));el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+   const open=()=>{const box=document.getElementById('regimeReference');if(box)box.hidden=false;renderRegimeReference(Number(el.dataset.regimeRef))};
+   el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
   });
- }catch(e){setText('regimeRefTitle','대표 사례 확인 중');setText('regimeRefDesc','연구엔진 대표구간 파일을 확인하고 있습니다.')}
+ }catch(e){console.warn('regime references',e)}
 }
-loadRegimeReferences();
+renderCycleStage();loadRegimeReferences();
 
 
 window.__legacyScoreDetailUnused=function(k){
