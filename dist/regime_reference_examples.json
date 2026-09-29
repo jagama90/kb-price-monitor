@@ -1,0 +1,172 @@
+{
+  "status": "research_reference",
+  "source": "dist/turning_signal_research.json",
+  "classification_rule": "same five-stage rule as renderCycleStage; retrospective representative examples only",
+  "selection_rule": "exclude latest 9 months; strongest decline, then strongest subsequent slowdown and bottom within 4 months, strongest post-rally consolidation, strongest later acceleration",
+  "latest_source_month": "202608",
+  "candidate_cutoff": "202511",
+  "references": [
+    {
+      "stage": 0,
+      "label": "하락",
+      "anchor_ym": "202302",
+      "period_start": "202302",
+      "period_end": "202302",
+      "months": 1,
+      "description": "월간·3개월 가격 모멘텀이 함께 음수이고 반전 신호도 약했던 구간입니다.",
+      "market_state": 46.4,
+      "price_mom_1m_pct": -5.65,
+      "price_mom_3m_pct": -9.58,
+      "breadth_0_100": 47.4,
+      "reaccel_0_100": 0,
+      "turn_0_100": 28.8,
+      "period_price_change_pct": 0,
+      "series": [
+        {
+          "ym": "202302",
+          "price": 108500,
+          "price_mom_1m_pct": -5.65,
+          "price_mom_3m_pct": -9.58
+        }
+      ]
+    },
+    {
+      "stage": 1,
+      "label": "둔화",
+      "anchor_ym": "202304",
+      "period_start": "202303",
+      "period_end": "202304",
+      "months": 2,
+      "description": "가격은 계속 내렸지만 하락 속도가 둔화되고 반전 점수가 올라오기 시작한 구간입니다.",
+      "market_state": 43.5,
+      "price_mom_1m_pct": -1.44,
+      "price_mom_3m_pct": -10.43,
+      "breadth_0_100": 38,
+      "reaccel_0_100": 0,
+      "turn_0_100": 44.8,
+      "period_price_change_pct": -1.44,
+      "series": [
+        {
+          "ym": "202303",
+          "price": 104500,
+          "price_mom_1m_pct": -3.69,
+          "price_mom_3m_pct": -11.06
+        },
+        {
+          "ym": "202304",
+          "price": 103000,
+          "price_mom_1m_pct": -1.44,
+          "price_mom_3m_pct": -10.43
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "label": "바닥",
+      "anchor_ym": "202306",
+      "period_start": "202305",
+      "period_end": "202306",
+      "months": 2,
+      "description": "월간 가격이 멈추거나 플러스로 돌아서며 하락 종료를 확인하던 구간입니다.",
+      "market_state": 46.5,
+      "price_mom_1m_pct": 0.49,
+      "price_mom_3m_pct": -0.96,
+      "breadth_0_100": 40.4,
+      "reaccel_0_100": 35,
+      "turn_0_100": 71.1,
+      "period_price_change_pct": 0.49,
+      "series": [
+        {
+          "ym": "202305",
+          "price": 103000,
+          "price_mom_1m_pct": 0,
+          "price_mom_3m_pct": -5.07
+        },
+        {
+          "ym": "202306",
+          "price": 103500,
+          "price_mom_1m_pct": 0.49,
+          "price_mom_3m_pct": -0.96
+        }
+      ]
+    },
+    {
+      "stage": 3,
+      "label": "상승·보합",
+      "anchor_ym": "202402",
+      "period_start": "202310",
+      "period_end": "202402",
+      "months": 5,
+      "description": "앞선 상승 뒤 3개월 모멘텀이 0% 부근으로 식으며 가격이 쉬어가던 구간입니다.",
+      "market_state": 43,
+      "price_mom_1m_pct": 0,
+      "price_mom_3m_pct": 0,
+      "breadth_0_100": 35.7,
+      "reaccel_0_100": 30,
+      "turn_0_100": 55.7,
+      "period_price_change_pct": 0,
+      "series": [
+        {
+          "ym": "202310",
+          "price": 110500,
+          "price_mom_1m_pct": 0,
+          "price_mom_3m_pct": 3.76
+        },
+        {
+          "ym": "202311",
+          "price": 110500,
+          "price_mom_1m_pct": 0,
+          "price_mom_3m_pct": 0.91
+        },
+        {
+          "ym": "202312",
+          "price": 110500,
+          "price_mom_1m_pct": 0,
+          "price_mom_3m_pct": 0
+        },
+        {
+          "ym": "202401",
+          "price": 110500,
+          "price_mom_1m_pct": 0,
+          "price_mom_3m_pct": 0
+        },
+        {
+          "ym": "202402",
+          "price": 110500,
+          "price_mom_1m_pct": 0,
+          "price_mom_3m_pct": 0
+        }
+      ]
+    },
+    {
+      "stage": 4,
+      "label": "가속",
+      "anchor_ym": "202509",
+      "period_start": "202508",
+      "period_end": "202509",
+      "months": 2,
+      "description": "가격 모멘텀과 시장 확산·재가속 신호가 동시에 강했던 구간입니다.",
+      "market_state": 47.9,
+      "price_mom_1m_pct": 7.04,
+      "price_mom_3m_pct": 11.15,
+      "breadth_0_100": 55.2,
+      "reaccel_0_100": 100,
+      "turn_0_100": 97.6,
+      "period_price_change_pct": 7.04,
+      "series": [
+        {
+          "ym": "202508",
+          "price": 135000,
+          "price_mom_1m_pct": 2.27,
+          "price_mom_3m_pct": 6.3
+        },
+        {
+          "ym": "202509",
+          "price": 144500,
+          "price_mom_1m_pct": 7.04,
+          "price_mom_3m_pct": 11.15
+        }
+      ]
+    }
+  ]
+}
