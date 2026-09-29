@@ -1,15 +1,15 @@
 {
   "status": "certified_with_provisional_tail",
   "certified_final": true,
-  "formula": "finance25 + sentiment20 + demand20 + value20 + supply15; identical to production dashboard",
+  "formula": "finance25 + sentiment20 + demand20 + value20 + supply15; value = KB Seoul composite (PIR40 + rent-to-sale30 + 60m trend-gap30); identical to production dashboard",
   "no_future_leakage": true,
   "vintage_rules": {
     "kb_sentiment": "latest observation dated <= month end",
     "m2": "t-2 conservative publication lag",
     "demand": "completed calendar month vs previous completed month",
-    "value": "trailing 36 months through score month only"
+    "value": "KB Seoul composite valuation, expanding historical percentiles only; PIR latest period <= score month, rent ratio <= score month, 60m log-trend gap through score month"
   },
-  "target": "KB Garak Geumho 24A monthly sale general price",
+  "target": "KB Garak Geumho 24A monthly sale general price (validation target only; value component is Seoul-wide composite)",
   "checkpoint": "2022-10..2023-06",
   "period": "2022-09..latest completed month",
   "certified_through": "202607",
@@ -17,14 +17,14 @@
   "checkpoint_rows": [
     {
       "ym": "202210",
-      "score": 37.1,
+      "score": 39.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 71.21,
         "sentiment": 4.7,
         "demand": 46.14,
-        "value": 32.81,
+        "value": 45.0,
         "supply": 17.1
       },
       "target_price": 128500.0,
@@ -37,14 +37,14 @@
     },
     {
       "ym": "202211",
-      "score": 40.1,
+      "score": 40.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 65.34,
         "sentiment": 4.1,
         "demand": 60.99,
-        "value": 43.39,
+        "value": 43.2,
         "supply": 13.7
       },
       "target_price": 120000.0,
@@ -57,14 +57,14 @@
     },
     {
       "ym": "202212",
-      "score": 40.0,
+      "score": 39.7,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 67.66,
         "sentiment": 4.9,
         "demand": 54.37,
-        "value": 47.29,
+        "value": 45.4,
         "supply": 12.1
       },
       "target_price": 117500.0,
@@ -77,14 +77,14 @@
     },
     {
       "ym": "202301",
-      "score": 45.7,
+      "score": 44.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 73.2,
         "sentiment": 6.2,
         "demand": 69.88,
-        "value": 50.61,
+        "value": 44.8,
         "supply": 13.8
       },
       "target_price": 115000.0,
@@ -97,14 +97,14 @@
     },
     {
       "ym": "202302",
-      "score": 46.4,
+      "score": 43.2,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 62.31,
         "sentiment": 6.8,
         "demand": 73.56,
-        "value": 60.26,
+        "value": 44.2,
         "supply": 17.9
       },
       "target_price": 108500.0,
@@ -117,14 +117,14 @@
     },
     {
       "ym": "202303",
-      "score": 45.2,
+      "score": 40.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 62.13,
         "sentiment": 7.8,
         "demand": 59.69,
-        "value": 65.38,
+        "value": 41.3,
         "supply": 20.9
       },
       "target_price": 104500.0,
@@ -137,14 +137,14 @@
     },
     {
       "ym": "202304",
-      "score": 43.5,
+      "score": 38.3,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 60.07,
         "sentiment": 8.7,
         "demand": 49.83,
-        "value": 67.31,
+        "value": 41.0,
         "supply": 22.3
       },
       "target_price": 103000.0,
@@ -157,14 +157,14 @@
     },
     {
       "ym": "202305",
-      "score": 43.1,
+      "score": 37.6,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 55.37,
         "sentiment": 10.7,
         "demand": 46.98,
-        "value": 69.0,
+        "value": 41.3,
         "supply": 26.3
       },
       "target_price": 103000.0,
@@ -177,14 +177,14 @@
     },
     {
       "ym": "202306",
-      "score": 46.5,
+      "score": 41.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 54.29,
         "sentiment": 12.0,
         "demand": 56.49,
-        "value": 74.24,
+        "value": 46.6,
         "supply": 29.2
       },
       "target_price": 103500.0,
@@ -199,14 +199,14 @@
   "rows": [
     {
       "ym": "202209",
-      "score": 35.5,
+      "score": 39.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 68.28,
         "sentiment": 5.3,
         "demand": 43.46,
-        "value": 27.45,
+        "value": 45.2,
         "supply": 21.2
       },
       "target_price": 133500.0,
@@ -219,14 +219,14 @@
     },
     {
       "ym": "202210",
-      "score": 37.1,
+      "score": 39.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 71.21,
         "sentiment": 4.7,
         "demand": 46.14,
-        "value": 32.81,
+        "value": 45.0,
         "supply": 17.1
       },
       "target_price": 128500.0,
@@ -239,14 +239,14 @@
     },
     {
       "ym": "202211",
-      "score": 40.1,
+      "score": 40.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 65.34,
         "sentiment": 4.1,
         "demand": 60.99,
-        "value": 43.39,
+        "value": 43.2,
         "supply": 13.7
       },
       "target_price": 120000.0,
@@ -259,14 +259,14 @@
     },
     {
       "ym": "202212",
-      "score": 40.0,
+      "score": 39.7,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 67.66,
         "sentiment": 4.9,
         "demand": 54.37,
-        "value": 47.29,
+        "value": 45.4,
         "supply": 12.1
       },
       "target_price": 117500.0,
@@ -279,14 +279,14 @@
     },
     {
       "ym": "202301",
-      "score": 45.7,
+      "score": 44.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 73.2,
         "sentiment": 6.2,
         "demand": 69.88,
-        "value": 50.61,
+        "value": 44.8,
         "supply": 13.8
       },
       "target_price": 115000.0,
@@ -299,14 +299,14 @@
     },
     {
       "ym": "202302",
-      "score": 46.4,
+      "score": 43.2,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 62.31,
         "sentiment": 6.8,
         "demand": 73.56,
-        "value": 60.26,
+        "value": 44.2,
         "supply": 17.9
       },
       "target_price": 108500.0,
@@ -319,14 +319,14 @@
     },
     {
       "ym": "202303",
-      "score": 45.2,
+      "score": 40.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 62.13,
         "sentiment": 7.8,
         "demand": 59.69,
-        "value": 65.38,
+        "value": 41.3,
         "supply": 20.9
       },
       "target_price": 104500.0,
@@ -339,14 +339,14 @@
     },
     {
       "ym": "202304",
-      "score": 43.5,
+      "score": 38.3,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 60.07,
         "sentiment": 8.7,
         "demand": 49.83,
-        "value": 67.31,
+        "value": 41.0,
         "supply": 22.3
       },
       "target_price": 103000.0,
@@ -359,14 +359,14 @@
     },
     {
       "ym": "202305",
-      "score": 43.1,
+      "score": 37.6,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 55.37,
         "sentiment": 10.7,
         "demand": 46.98,
-        "value": 69.0,
+        "value": 41.3,
         "supply": 26.3
       },
       "target_price": 103000.0,
@@ -379,14 +379,14 @@
     },
     {
       "ym": "202306",
-      "score": 46.5,
+      "score": 41.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 54.29,
         "sentiment": 12.0,
         "demand": 56.49,
-        "value": 74.24,
+        "value": 46.6,
         "supply": 29.2
       },
       "target_price": 103500.0,
@@ -399,14 +399,14 @@
     },
     {
       "ym": "202307",
-      "score": 44.7,
+      "score": 40.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 53.65,
         "sentiment": 13.7,
         "demand": 48.38,
-        "value": 69.7,
+        "value": 46.1,
         "supply": 32.7
       },
       "target_price": 106500.0,
@@ -419,14 +419,14 @@
     },
     {
       "ym": "202308",
-      "score": 46.9,
+      "score": 43.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 59.07,
         "sentiment": 15.7,
         "demand": 52.43,
-        "value": 65.15,
+        "value": 46.1,
         "supply": 36.2
       },
       "target_price": 109500.0,
@@ -439,14 +439,14 @@
     },
     {
       "ym": "202309",
-      "score": 45.6,
+      "score": 41.9,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 62.29,
         "sentiment": 13.9,
         "demand": 44.5,
-        "value": 63.64,
+        "value": 45.2,
         "supply": 37.7
       },
       "target_price": 110500.0,
@@ -459,14 +459,14 @@
     },
     {
       "ym": "202310",
-      "score": 41.8,
+      "score": 38.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 54.05,
         "sentiment": 9.7,
         "demand": 40.74,
-        "value": 63.64,
+        "value": 45.0,
         "supply": 36.3
       },
       "target_price": 110500.0,
@@ -479,14 +479,14 @@
     },
     {
       "ym": "202311",
-      "score": 41.7,
+      "score": 38.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 55.42,
         "sentiment": 6.1,
         "demand": 43.06,
-        "value": 63.64,
+        "value": 45.0,
         "supply": 35.2
       },
       "target_price": 110500.0,
@@ -499,14 +499,14 @@
     },
     {
       "ym": "202312",
-      "score": 43.6,
+      "score": 40.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 56.88,
         "sentiment": 6.0,
         "demand": 51.82,
-        "value": 63.64,
+        "value": 48.1,
         "supply": 33.9
       },
       "target_price": 110500.0,
@@ -519,14 +519,14 @@
     },
     {
       "ym": "202401",
-      "score": 47.3,
+      "score": 44.3,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 58.95,
         "sentiment": 7.7,
         "demand": 63.79,
-        "value": 63.64,
+        "value": 48.4,
         "supply": 37.2
       },
       "target_price": 110500.0,
@@ -539,14 +539,14 @@
     },
     {
       "ym": "202402",
-      "score": 43.0,
+      "score": 39.9,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 51.17,
         "sentiment": 8.8,
         "demand": 49.55,
-        "value": 63.64,
+        "value": 48.2,
         "supply": 38.5
       },
       "target_price": 110500.0,
@@ -559,14 +559,14 @@
     },
     {
       "ym": "202403",
-      "score": 47.8,
+      "score": 44.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 50.0,
         "sentiment": 11.6,
         "demand": 71.53,
-        "value": 63.64,
+        "value": 47.3,
         "supply": 39.6
       },
       "target_price": 110500.0,
@@ -579,14 +579,14 @@
     },
     {
       "ym": "202404",
-      "score": 45.6,
+      "score": 42.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 58.17,
         "sentiment": 12.0,
         "demand": 50.02,
-        "value": 63.26,
+        "value": 47.3,
         "supply": 39.8
       },
       "target_price": 110750.0,
@@ -599,14 +599,14 @@
     },
     {
       "ym": "202405",
-      "score": 47.8,
+      "score": 44.7,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 63.95,
         "sentiment": 14.7,
         "demand": 49.57,
-        "value": 63.26,
+        "value": 47.4,
         "supply": 42.3
       },
       "target_price": 110750.0,
@@ -619,14 +619,14 @@
     },
     {
       "ym": "202406",
-      "score": 51.1,
+      "score": 48.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 56.42,
         "sentiment": 22.3,
         "demand": 66.02,
-        "value": 63.26,
+        "value": 49.6,
         "supply": 44.6
       },
       "target_price": 110750.0,
@@ -639,14 +639,14 @@
     },
     {
       "ym": "202407",
-      "score": 49.8,
+      "score": 47.6,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 56.44,
         "sentiment": 29.1,
         "demand": 55.59,
-        "value": 59.85,
+        "value": 49.3,
         "supply": 44.9
       },
       "target_price": 113000.0,
@@ -659,14 +659,14 @@
     },
     {
       "ym": "202408",
-      "score": 46.5,
+      "score": 44.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 55.7,
         "sentiment": 26.8,
         "demand": 41.43,
-        "value": 59.85,
+        "value": 49.4,
         "supply": 46.6
       },
       "target_price": 113000.0,
@@ -679,14 +679,14 @@
     },
     {
       "ym": "202409",
-      "score": 40.3,
+      "score": 39.8,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 57.37,
         "sentiment": 16.5,
         "demand": 28.61,
-        "value": 53.03,
+        "value": 50.4,
         "supply": 42.5
       },
       "target_price": 117500.0,
@@ -699,14 +699,14 @@
     },
     {
       "ym": "202410",
-      "score": 45.3,
+      "score": 45.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 57.36,
         "sentiment": 13.6,
         "demand": 61.25,
-        "value": 50.76,
+        "value": 49.7,
         "supply": 38.6
       },
       "target_price": 119000.0,
@@ -719,14 +719,14 @@
     },
     {
       "ym": "202411",
-      "score": 40.5,
+      "score": 40.9,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 58.98,
         "sentiment": 11.6,
         "demand": 42.03,
-        "value": 47.73,
+        "value": 49.8,
         "supply": 36.7
       },
       "target_price": 121000.0,
@@ -739,14 +739,14 @@
     },
     {
       "ym": "202412",
-      "score": 42.0,
+      "score": 42.3,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 56.66,
         "sentiment": 10.7,
         "demand": 53.62,
-        "value": 47.73,
+        "value": 49.0,
         "supply": 36.4
       },
       "target_price": 121000.0,
@@ -759,14 +759,14 @@
     },
     {
       "ym": "202501",
-      "score": 42.0,
+      "score": 42.2,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 59.3,
         "sentiment": 11.9,
         "demand": 48.36,
-        "value": 47.73,
+        "value": 48.7,
         "supply": 37.4
       },
       "target_price": 121000.0,
@@ -786,7 +786,7 @@
         "finance": 60.71,
         "sentiment": 22.4,
         "demand": 67.69,
-        "value": 47.73,
+        "value": 47.9,
         "supply": 42.8
       },
       "target_price": 121000.0,
@@ -799,14 +799,14 @@
     },
     {
       "ym": "202503",
-      "score": 48.5,
+      "score": 49.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 62.37,
         "sentiment": 18.4,
         "demand": 72.43,
-        "value": 43.18,
+        "value": 47.9,
         "supply": 41.0
       },
       "target_price": 124000.0,
@@ -819,14 +819,14 @@
     },
     {
       "ym": "202504",
-      "score": 42.8,
+      "score": 43.7,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 57.95,
         "sentiment": 18.2,
         "demand": 54.25,
-        "value": 38.64,
+        "value": 43.1,
         "supply": 40.4
       },
       "target_price": 127000.0,
@@ -839,14 +839,14 @@
     },
     {
       "ym": "202505",
-      "score": 43.9,
+      "score": 44.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 51.13,
         "sentiment": 24.6,
         "demand": 60.47,
-        "value": 38.64,
+        "value": 41.6,
         "supply": 42.3
       },
       "target_price": 127000.0,
@@ -859,14 +859,14 @@
     },
     {
       "ym": "202506",
-      "score": 45.2,
+      "score": 45.3,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 58.02,
         "sentiment": 27.6,
         "demand": 58.76,
-        "value": 34.09,
+        "value": 35.0,
         "supply": 43.8
       },
       "target_price": 130000.0,
@@ -879,14 +879,14 @@
     },
     {
       "ym": "202507",
-      "score": 37.2,
+      "score": 37.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 60.95,
         "sentiment": 14.4,
         "demand": 34.31,
-        "value": 31.06,
+        "value": 32.3,
         "supply": 40.1
       },
       "target_price": 132000.0,
@@ -899,14 +899,14 @@
     },
     {
       "ym": "202508",
-      "score": 42.3,
+      "score": 43.3,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 60.47,
         "sentiment": 17.2,
         "demand": 61.09,
-        "value": 25,
+        "value": 30.1,
         "supply": 43.4
       },
       "target_price": 135000.0,
@@ -919,14 +919,14 @@
     },
     {
       "ym": "202509",
-      "score": 47.9,
+      "score": 48.7,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 60.45,
         "sentiment": 32.1,
         "demand": 72.18,
-        "value": 25,
+        "value": 29.1,
         "supply": 46.4
       },
       "target_price": 144500.0,
@@ -939,14 +939,14 @@
     },
     {
       "ym": "202510",
-      "score": 42.6,
+      "score": 43.1,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 66.88,
         "sentiment": 23.3,
         "demand": 46.5,
-        "value": 25,
+        "value": 27.4,
         "supply": 46.1
       },
       "target_price": 145000.0,
@@ -959,14 +959,14 @@
     },
     {
       "ym": "202511",
-      "score": 37.6,
+      "score": 37.7,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 62.42,
         "sentiment": 22.3,
         "demand": 28.48,
-        "value": 25,
+        "value": 25.3,
         "supply": 45.9
       },
       "target_price": 146000.0,
@@ -979,14 +979,14 @@
     },
     {
       "ym": "202512",
-      "score": 46.3,
+      "score": 46.7,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 57.51,
         "sentiment": 24.3,
         "demand": 76.48,
-        "value": 25,
+        "value": 26.7,
         "supply": 45.4
       },
       "target_price": 146500.0,
@@ -999,14 +999,14 @@
     },
     {
       "ym": "202601",
-      "score": 43.2,
+      "score": 43.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 58.21,
         "sentiment": 32.5,
         "demand": 49.85,
-        "value": 25,
+        "value": 26.0,
         "supply": 48.1
       },
       "target_price": 155000.0,
@@ -1019,14 +1019,14 @@
     },
     {
       "ym": "202602",
-      "score": 43.9,
+      "score": 44.0,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 60.58,
         "sentiment": 25.0,
         "demand": 56.78,
-        "value": 25,
+        "value": 25.5,
         "supply": 49.4
       },
       "target_price": 167500.0,
@@ -1039,14 +1039,14 @@
     },
     {
       "ym": "202603",
-      "score": 43.5,
+      "score": 43.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 63.56,
         "sentiment": 24.0,
         "demand": 51.75,
-        "value": 25,
+        "value": 24.2,
         "supply": 50.0
       },
       "target_price": 179000.0,
@@ -1059,14 +1059,14 @@
     },
     {
       "ym": "202604",
-      "score": 43.5,
+      "score": 43.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 57.09,
         "sentiment": 25.0,
         "demand": 58.21,
-        "value": 25,
+        "value": 24.6,
         "supply": 50.7
       },
       "target_price": 181500.0,
@@ -1079,14 +1079,14 @@
     },
     {
       "ym": "202605",
-      "score": 42.1,
+      "score": 42.3,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 61.09,
         "sentiment": 25.0,
         "demand": 46.1,
-        "value": 25,
+        "value": 25.9,
         "supply": 50.8
       },
       "target_price": 181500.0,
@@ -1099,14 +1099,14 @@
     },
     {
       "ym": "202606",
-      "score": 42.1,
+      "score": 42.8,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 63.04,
         "sentiment": 26.8,
         "demand": 41.51,
-        "value": 25,
+        "value": 28.7,
         "supply": 51.0
       },
       "target_price": 181500.0,
@@ -1119,14 +1119,14 @@
     },
     {
       "ym": "202607",
-      "score": 45.2,
+      "score": 46.2,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 64.72,
         "sentiment": 24.8,
         "demand": 58.31,
-        "value": 25,
+        "value": 29.7,
         "supply": 49.4
       },
       "target_price": 181500.0,
@@ -1139,14 +1139,14 @@
     },
     {
       "ym": "202608",
-      "score": 40.3,
+      "score": 41.4,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 64.57,
         "sentiment": 23.2,
         "demand": 36.01,
-        "value": 25,
+        "value": 30.4,
         "supply": 49.0
       },
       "target_price": 181500.0,
@@ -1159,12 +1159,12 @@
     }
   ],
   "metrics": {
-    "score_vs_fwd_1m_corr": 0.259,
-    "score_vs_fwd_3m_corr": 0.235,
-    "score_vs_fwd_6m_corr": 0.309,
-    "score_vs_fwd_12m_corr": 0.278,
-    "low_score_mean_fwd_6m_pct": 1.97,
-    "high_score_mean_fwd_6m_pct": 8.39
+    "score_vs_fwd_1m_corr": 0.284,
+    "score_vs_fwd_3m_corr": 0.248,
+    "score_vs_fwd_6m_corr": 0.386,
+    "score_vs_fwd_12m_corr": 0.497,
+    "low_score_mean_fwd_6m_pct": 0.44,
+    "high_score_mean_fwd_6m_pct": 10.29
   },
-  "generated_at": "2026-09-28T03:56:50.449423+00:00"
+  "generated_at": "2026-09-29T17:15:56.034518+00:00"
 }

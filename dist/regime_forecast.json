@@ -11,9 +11,9 @@
       "period": "2026Q4",
       "label": "2026년 말",
       "weights": {
-        "consolidation": 34.5,
-        "reacceleration": 29.8,
-        "downturn": 35.7
+        "consolidation": 34.6,
+        "reacceleration": 29.9,
+        "downturn": 35.5
       },
       "base_case": "consolidation",
       "display": {
@@ -21,8 +21,8 @@
         "headline": "쉬어가기·하방 경계",
         "risk_range": "35~44%",
         "tone": "watch",
-        "downturn_weight": 35.7,
-        "reacceleration_weight": 29.8,
+        "downturn_weight": 35.5,
+        "reacceleration_weight": 29.9,
         "secondary": "하방 위험 주의",
         "easing_hysteresis_pp": 2.0
       }
@@ -31,9 +31,9 @@
       "period": "2027H1",
       "label": "2027년 상반기",
       "weights": {
-        "consolidation": 38.2,
-        "reacceleration": 32.2,
-        "downturn": 29.6
+        "consolidation": 38.3,
+        "reacceleration": 32.3,
+        "downturn": 29.4
       },
       "base_case": "consolidation",
       "display": {
@@ -41,8 +41,8 @@
         "headline": "혼조·방향 탐색",
         "risk_range": "30~34%",
         "tone": "mixed",
-        "downturn_weight": 29.6,
-        "reacceleration_weight": 32.2,
+        "downturn_weight": 29.4,
+        "reacceleration_weight": 32.3,
         "secondary": "방향성 확인 필요",
         "easing_hysteresis_pp": 2.0
       }
@@ -51,9 +51,9 @@
       "period": "2027H2",
       "label": "2027년 하반기",
       "weights": {
-        "consolidation": 36.4,
-        "reacceleration": 38.0,
-        "downturn": 25.6
+        "consolidation": 36.5,
+        "reacceleration": 38.1,
+        "downturn": 25.4
       },
       "base_case": "reacceleration",
       "display": {
@@ -61,8 +61,8 @@
         "headline": "재상승 가능성 확대",
         "risk_range": "20~29%",
         "tone": "low",
-        "downturn_weight": 25.6,
-        "reacceleration_weight": 38.0,
+        "downturn_weight": 25.4,
+        "reacceleration_weight": 38.1,
         "secondary": "재상승 신호 강화",
         "easing_hysteresis_pp": 2.0
       }
@@ -136,7 +136,7 @@
       "finance": 61.1,
       "sentiment": 22.6,
       "demand": 38.5,
-      "value": 25.0,
+      "value": 30.4,
       "supply": 49.3,
       "trade_count_pct": -50.1,
       "m2_yoy_pct": 5.8,
@@ -156,7 +156,7 @@
     "m1_fit_r2": 0.479,
     "m3_fit_r2": 0.71,
     "validation_apply_recommended": true,
-    "validation_generated_at": "2026-09-29T16:44:04.172718+00:00"
+    "validation_generated_at": "2026-09-29T17:16:19.581978+00:00"
   },
   "historical_analogs": [
     {
@@ -185,5 +185,5 @@
     },
     "sample_is_small": true
   },
-  "generated_at": "2026-09-29T16:46:08.025597+00:00"
+  "generated_at": "2026-09-29T17:16:19.637433+00:00"
 }

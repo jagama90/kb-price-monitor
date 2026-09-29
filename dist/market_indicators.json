@@ -286,17 +286,42 @@
   },
   "kb_value": {
     "status": "connected",
-    "score_0_100": 25,
-    "method": "trailing_36m_price_position_inverse_capped_25_75",
-    "observations": 273,
-    "window_months": 36,
-    "current_manwon": 181500.0,
-    "window_low_manwon": 110500.0,
-    "window_high_manwon": 181500.0,
-    "current_position_0_1": 1.0,
-    "source": "KB부동산 가락금호 24A 월별 일반거래가",
+    "model": "kb_seoul_composite_value_v1",
+    "score_0_100": 30.4,
     "period": "202609",
-    "generated_at": "2026-09-25T05:07:36.468362+00:00"
+    "source": "KB 서울: 아파트담보대출 PIR + 아파트 전세가율 + 아파트 평균매매가격",
+    "method": "40% inverse PIR historical percentile + 30% rent-to-sale historical percentile + 30% inverse 60m log-trend-gap historical percentile; expanding-window, no future observations; composite capped 15..85",
+    "weights": {
+      "pir": 0.4,
+      "rent_ratio": 0.3,
+      "trend_gap": 0.3
+    },
+    "components": {
+      "pir": {
+        "value": 9.958,
+        "period": "202606",
+        "score_0_100": 41.2
+      },
+      "rent_ratio": {
+        "value_pct": 50.33,
+        "period": "202609",
+        "score_0_100": 29.8
+      },
+      "trend_gap": {
+        "value_pct": 9.99,
+        "avg_sale_price_manwon": 162469.5,
+        "period": "202609",
+        "score_0_100": 16.5,
+        "window_months": 60
+      }
+    },
+    "observations": 155,
+    "validation": {
+      "apply_recommended": true,
+      "rows_compared": 47,
+      "generated_at": "2026-09-29T17:15:55.829488+00:00"
+    },
+    "generated_at": "2026-09-29T17:15:55.906307+00:00"
   },
   "matched_period": {
     "as_of": "2026-09-29",
