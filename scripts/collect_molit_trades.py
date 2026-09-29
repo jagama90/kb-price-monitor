@@ -130,9 +130,10 @@ def fetch_refresh_pairs(pairs,key,workers,cache):
 
 def summarize(rows):
  prices=[p for _,p in rows];n=len(prices)
- keys={'<=9eok':sum(p<=90000 for p in prices),'9-15eok':sum(90000<p<=150000 for p in prices),'15-25eok':sum(150000<p<=250000 for p in prices),'25eok+':sum(p>250000 for p in prices)}
+ keys={'<=9eok':sum(p<=90000 for p in prices),'9-15eok':sum(90000<p<=150000 for p in prices),'15-25eok':sum(150000<p<250000 for p in prices),'25eok+':sum(p>=250000 for p in prices)}
+ buckets3={'<=15eok':sum(p<=150000 for p in prices),'15-25eok':sum(150000<p<250000 for p in prices),'25eok+':sum(p>=250000 for p in prices)}
  boundary={'13-15eok':sum(130000<p<=150000 for p in prices),'15-17eok':sum(150000<p<=170000 for p in prices),'23-25eok':sum(230000<p<=250000 for p in prices),'25-27eok':sum(250000<p<=270000 for p in prices)}
- return {'total':n,'counts':keys,'boundary_counts':boundary,'under15_share':round((keys['<=9eok']+keys['9-15eok'])*100/n,1) if n else None}
+ return {'total':n,'counts':keys,'buckets3':buckets3,'boundary_counts':boundary,'under15_share':round(buckets3['<=15eok']*100/n,1) if n else None}
 def shift_month(d,delta):
  y=d.year+(d.month-1+delta)//12;m=(d.month-1+delta)%12+1;return y,m
 def main():
@@ -200,7 +201,7 @@ def main():
  for ym in reversed(months):
   if ym not in refresh and ym in previous_bands:
    cached=dict(previous_bands[ym]);cached['period']=ym[:4]+'-'+ym[4:]
-   sm={k:cached.get(k) for k in ('total','counts','boundary_counts','under15_share')}
+   sm={k:cached.get(k) for k in ('total','counts','buckets3','boundary_counts','under15_share')}
   else:
    rows=[]
    missing=[]
