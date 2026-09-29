@@ -1,0 +1,48 @@
+{
+  "source": "KB부동산 데이터허브",
+  "collected_at": "2026-09-29T16:56:03.936527+00:00",
+  "targets": {
+    "weekly_sale_index": {
+      "label": "주간 아파트 매매가격지수",
+      "status": "endpoint_pending",
+      "endpoint": "/bfmstat/weekMnthlyHuseTrnd/priceInx",
+      "error": "HTTP Error 404: Not Found"
+    },
+    "weekly_rent_index": {
+      "label": "주간 아파트 전세가격지수",
+      "status": "endpoint_pending",
+      "endpoint": "/bfmstat/weekMnthlyHuseTrnd/priceInx",
+      "error": "HTTP Error 404: Not Found"
+    },
+    "rent_to_sale_ratio": {
+      "label": "아파트 전세가율",
+      "status": "endpoint_pending",
+      "endpoint": "/bfmstat/weekMnthlyHuseTrnd/rentRatio",
+      "error": "HTTP Error 404: Not Found"
+    },
+    "pir": {
+      "label": "PIR",
+      "status": "endpoint_pending",
+      "endpoint": "/bfmstat/pir/pir",
+      "error": "HTTP Error 404: Not Found"
+    },
+    "hoi": {
+      "label": "KB-HOI",
+      "status": "endpoint_pending",
+      "endpoint": "/bfmstat/hoi/hoi",
+      "error": "HTTP Error 404: Not Found"
+    },
+    "avg_median_price": {
+      "label": "평균·중위가격",
+      "status": "endpoint_pending",
+      "endpoint": "/bfmstat/weekMnthlyHuseTrnd/avgPrice",
+      "error": "HTTP Error 404: Not Found"
+    },
+    "leading50": {
+      "label": "KB선도50",
+      "status": "endpoint_pending",
+      "endpoint": "/bfmstat/weekMnthlyHuseTrnd/leading50",
+      "error": "HTTP Error 404: Not Found"
+    }
+  }
+}
