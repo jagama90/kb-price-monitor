@@ -2,7 +2,7 @@
   "status": "research_only",
   "weights_are_not_calibrated_probabilities": true,
   "method": "transparent scenario-weight engine: certified turning-state research + freshest live market overlay; no future labels are used in current scoring",
-  "as_of": "2026-09-29",
+  "as_of": "2026-09-30",
   "latest_research_month": "202608",
   "latest_research_provisional": true,
   "latest_certified_backtest_month": "202607",
@@ -13,7 +13,7 @@
       "weights": {
         "consolidation": 42.8,
         "reacceleration": 21.2,
-        "downturn": 36
+        "downturn": 36.0
       },
       "base_case": "consolidation",
       "display": {
@@ -21,10 +21,10 @@
         "headline": "쉬어가기·하방 경계",
         "risk_range": "35~44%",
         "tone": "watch",
-        "downturn_weight": 36,
+        "downturn_weight": 36.0,
         "reacceleration_weight": 21.2,
         "secondary": "하방 위험 주의",
-        "easing_hysteresis_pp": 2
+        "easing_hysteresis_pp": 2.0
       }
     },
     {
@@ -44,7 +44,7 @@
         "downturn_weight": 29.6,
         "reacceleration_weight": 32.2,
         "secondary": "방향성 확인 필요",
-        "easing_hysteresis_pp": 2
+        "easing_hysteresis_pp": 2.0
       }
     },
     {
@@ -64,72 +64,10 @@
         "downturn_weight": 24.5,
         "reacceleration_weight": 36.3,
         "secondary": "재상승 신호 강화",
-        "easing_hysteresis_pp": 2
+        "easing_hysteresis_pp": 2.0
       }
     }
   ],
-  "state": {
-    "current_phase": "post_rally_consolidation",
-    "recent_peak_3m_momentum_pct": 22.18,
-    "cooling_score_0_100": 100,
-    "liquidity_support_0_100": 79
-  },
-  "triggers": {
-    "reacceleration_confirmation": [
-      "3개월 가격모멘텀 > 2%",
-      "breadth >= 45",
-      "reaccel >= 50",
-      "동일기간 거래량 감소폭이 -10% 이내로 회복"
-    ],
-    "downturn_confirmation": [
-      "월간 가격모멘텀 < 0",
-      "3개월 가격모멘텀 < 0",
-      "거래 위축 지속",
-      "M2/금융여건 동반 둔화"
-    ],
-    "current_check": {
-      "price_mom_pct": 0,
-      "momentum_3m_pct": 0,
-      "breadth": 38.7,
-      "reaccel": 14.6,
-      "finance": 61.1,
-      "sentiment": 22.6,
-      "demand": 38.4,
-      "value": 25,
-      "supply": 49.3,
-      "trade_count_pct": -50.3,
-      "m2_yoy_pct": 5.8,
-      "mortgage_rate_pct": 4.48
-    }
-  },
-  "historical_analogs": [
-    {
-      "ym": "202311",
-      "price_mom_pct": 0,
-      "momentum_3m_pct": 0.91,
-      "fwd_3m_pct": 0,
-      "fwd_6m_pct": 0.23,
-      "fwd_12m_pct": 9.5
-    },
-    {
-      "ym": "202501",
-      "price_mom_pct": 0,
-      "momentum_3m_pct": 1.68,
-      "fwd_3m_pct": 4.96,
-      "fwd_6m_pct": 9.09,
-      "fwd_12m_pct": 28.1
-    }
-  ],
-  "analog_warning": "small sample; analogs are diagnostic only",
-  "long_cycle_guardrail": {
-    "selected_pre2018_only": {
-      "m12_min_pct": -5,
-      "above_ma12_min_pct": -3,
-      "drawdown_12m_min_pct": -4
-    },
-    "sample_is_small": true
-  },
-  "generated_at": "2026-09-29T00:22:21.224309+00:00",
   "display_rules": {
     "primary": "downturn scenario weight, rounded to visible whole percent",
     "bands": [
@@ -166,5 +104,67 @@
     ],
     "secondary": "reacceleration weight adjusts the supporting phrase, not the primary risk band",
     "hysteresis": "risk worsening changes at the nominal threshold; easing requires 2%p beyond the lower boundary"
-  }
+  },
+  "state": {
+    "current_phase": "post_rally_consolidation",
+    "recent_peak_3m_momentum_pct": 22.18,
+    "cooling_score_0_100": 100.0,
+    "liquidity_support_0_100": 79.0
+  },
+  "triggers": {
+    "reacceleration_confirmation": [
+      "3개월 가격모멘텀 > 2%",
+      "breadth >= 45",
+      "reaccel >= 50",
+      "동일기간 거래량 감소폭이 -10% 이내로 회복"
+    ],
+    "downturn_confirmation": [
+      "월간 가격모멘텀 < 0",
+      "3개월 가격모멘텀 < 0",
+      "거래 위축 지속",
+      "M2/금융여건 동반 둔화"
+    ],
+    "current_check": {
+      "price_mom_pct": 0.0,
+      "momentum_3m_pct": 0.0,
+      "breadth": 38.7,
+      "reaccel": 14.6,
+      "finance": 61.1,
+      "sentiment": 22.6,
+      "demand": 38.5,
+      "value": 25.0,
+      "supply": 49.3,
+      "trade_count_pct": -50.1,
+      "m2_yoy_pct": 5.8,
+      "mortgage_rate_pct": 4.48
+    }
+  },
+  "historical_analogs": [
+    {
+      "ym": "202311",
+      "price_mom_pct": 0.0,
+      "momentum_3m_pct": 0.91,
+      "fwd_3m_pct": 0.0,
+      "fwd_6m_pct": 0.23,
+      "fwd_12m_pct": 9.5
+    },
+    {
+      "ym": "202501",
+      "price_mom_pct": 0.0,
+      "momentum_3m_pct": 1.68,
+      "fwd_3m_pct": 4.96,
+      "fwd_6m_pct": 9.09,
+      "fwd_12m_pct": 28.1
+    }
+  ],
+  "analog_warning": "small sample; analogs are diagnostic only",
+  "long_cycle_guardrail": {
+    "selected_pre2018_only": {
+      "m12_min_pct": -5,
+      "above_ma12_min_pct": -3,
+      "drawdown_12m_min_pct": -4
+    },
+    "sample_is_small": true
+  },
+  "generated_at": "2026-09-29T16:32:58.115779+00:00"
 }
