@@ -7,21 +7,23 @@
       "area_id": 51171,
       "type_label": "31B",
       "name": "올림픽훼밀리타운",
-      "sale_listing_count": 589,
-      "avg_ask_manwon": null,
+      "sale_listing_count": 563,
+      "avg_ask_manwon": 271355,
       "recent_trade_manwon": 268500,
       "recent_trade_date": "20260814",
       "kb_general_check_manwon": 257500.0,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": 0,
+      "sale_listing_week_delta": -26,
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "molit_apt_name": "올림픽훼밀리타운",
       "trade_match_method": "name_area",
-      "trade_refresh_status": "connected"
+      "trade_refresh_status": "connected",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 1986,
@@ -37,7 +39,13 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "건영1",
       "trade_match_method": "name_area",
-      "trade_refresh_status": "connected"
+      "trade_refresh_status": "connected",
+      "sale_listing_count": 27,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": 189407,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 15738,
@@ -54,7 +62,13 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "송파파인타운2단지",
       "trade_match_method": "name_area",
-      "trade_refresh_status": "connected"
+      "trade_refresh_status": "connected",
+      "sale_listing_count": 63,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": 185500,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 15663,
@@ -71,7 +85,13 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "송파파인타운3단지",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_count": 166,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": 191963,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 15308,
@@ -88,7 +108,13 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "송파파인타운7단지",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_count": 39,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": 210000,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 15813,
@@ -96,20 +122,22 @@
       "type_label": "25T1",
       "name": "송파파인타운 8단지",
       "sale_listing_count": 14,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 180000,
       "recent_trade_manwon": 171500,
       "recent_trade_date": "20260523",
       "kb_general_check_manwon": 172500.0,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": -1,
+      "sale_listing_week_delta": 0,
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "molit_apt_name": "송파파인타운8단지",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 15309,
@@ -126,7 +154,13 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "송파파인타운9단지",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_count": 15,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": 185000,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 15041,
@@ -143,7 +177,13 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "송파파인타운10단지",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_count": 28,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": 175321,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 1945,
@@ -181,28 +221,36 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "가락미륭아파트",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_count": 14,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": null,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 1947,
       "area_id": 1835,
       "type_label": "24",
       "name": "가락쌍용1차",
-      "sale_listing_count": 331,
-      "avg_ask_manwon": null,
+      "sale_listing_count": 336,
+      "avg_ask_manwon": 193939,
       "recent_trade_manwon": 194000,
       "recent_trade_date": "20260818",
       "kb_general_check_manwon": 189500.0,
       "market_scope": "target_area_id",
-      "sale_listing_week_delta": 12,
+      "sale_listing_week_delta": 5,
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "molit_apt_name": "가락(1차)쌍용아파트",
       "trade_match_method": "name_area",
-      "trade_refresh_status": "connected"
+      "trade_refresh_status": "connected",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 1984,
@@ -261,10 +309,12 @@
       "kb_price_date": null,
       "recent_trade_source": "MOLIT",
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "molit_apt_name": "마천동금호타운1",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 1868,
@@ -314,7 +364,7 @@
       "type_label": "25A",
       "name": "송파레이크힐",
       "sale_listing_count": 161,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 204000,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": null,
@@ -323,11 +373,13 @@
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "kb_price_date": null,
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "recent_trade_source": null,
       "molit_apt_name": null,
       "trade_match_method": null,
-      "trade_refresh_status": "unmatched"
+      "trade_refresh_status": "unmatched",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 323274,
@@ -351,8 +403,8 @@
       "area_id": 171544,
       "type_label": "30",
       "name": "가락대림",
-      "sale_listing_count": 18,
-      "avg_ask_manwon": null,
+      "sale_listing_count": 19,
+      "avg_ask_manwon": 180400,
       "recent_trade_manwon": 130000,
       "recent_trade_date": "20260407",
       "kb_general_check_manwon": 160000.0,
@@ -360,10 +412,13 @@
       "kb_price_date": null,
       "recent_trade_source": "MOLIT",
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "molit_apt_name": "대림",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_week_delta": 1,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 716,
@@ -380,7 +435,13 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "현대프라임",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_count": 129,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": 217086,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 12530,
@@ -397,15 +458,21 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "왕십리금호어울림",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_count": 5,
+      "sale_listing_week_delta": null,
+      "avg_ask_manwon": 171000,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 1771,
       "area_id": 50972,
       "type_label": "24A",
       "name": "금호대우",
-      "sale_listing_count": 80,
-      "avg_ask_manwon": null,
+      "sale_listing_count": 78,
+      "avg_ask_manwon": 180600,
       "recent_trade_manwon": 186000,
       "recent_trade_date": "20260721",
       "kb_general_check_manwon": 167500.0,
@@ -414,10 +481,13 @@
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "molit_apt_name": "대우",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "sale_listing_week_delta": -2,
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 13487,
@@ -425,7 +495,7 @@
       "type_label": "24",
       "name": "금호동한신휴플러스",
       "sale_listing_count": 32,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 170000,
       "recent_trade_manwon": null,
       "recent_trade_date": null,
       "kb_general_check_manwon": 153500.0,
@@ -434,11 +504,13 @@
       "kb_price_date": null,
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "recent_trade_source": null,
       "molit_apt_name": null,
       "trade_match_method": null,
-      "trade_refresh_status": "unmatched"
+      "trade_refresh_status": "unmatched",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 16151,
@@ -467,7 +539,7 @@
       "type_label": "24",
       "name": "서울숲리버그린아파트",
       "sale_listing_count": 92,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 167648,
       "recent_trade_manwon": 170000,
       "recent_trade_date": "20260619",
       "kb_general_check_manwon": 162500.0,
@@ -477,10 +549,12 @@
       "kb_detail_quality": "sanitized_pending_exact_area_refresh",
       "recent_trade_source": "MOLIT",
       "detail_quality": "exact_area_id",
-      "listing_refresh_status": "fallback_last_good",
+      "listing_refresh_status": "connected",
       "molit_apt_name": "서울숲리버그린동아아파트",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00"
     },
     {
       "complex_id": 31944,
@@ -528,9 +602,9 @@
       "area_id": 1703286,
       "type_label": "25A",
       "name": "힐스테이트e편한세상문정",
-      "sale_listing_count": null,
+      "sale_listing_count": 52,
       "sale_listing_week_delta": null,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 195962,
       "recent_trade_manwon": 189000,
       "recent_trade_date": "20260718",
       "market_scope": "target_area_id",
@@ -541,16 +615,19 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "힐스테이트e편한세상문정",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 25766,
       "area_id": 24694,
       "type_label": "22A",
       "name": "송파더센트레",
-      "sale_listing_count": null,
+      "sale_listing_count": 209,
       "sale_listing_week_delta": null,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 159680,
       "recent_trade_manwon": 156000,
       "recent_trade_date": "20260731",
       "market_scope": "target_area_id",
@@ -561,7 +638,10 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "송파더센트레",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 46734,
@@ -608,9 +688,9 @@
       "area_id": 93863,
       "type_label": "31C",
       "name": "현대6단지",
-      "sale_listing_count": null,
+      "sale_listing_count": 66,
       "sale_listing_week_delta": null,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 203300,
       "recent_trade_manwon": 196000,
       "recent_trade_date": "20260727",
       "market_scope": "target_area_id",
@@ -621,7 +701,10 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "구의현대6단지",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 1758,
@@ -668,9 +751,9 @@
       "area_id": 63539,
       "type_label": "24",
       "name": "행당두산위브",
-      "sale_listing_count": null,
+      "sale_listing_count": 39,
       "sale_listing_week_delta": null,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 179538,
       "recent_trade_manwon": 166000,
       "recent_trade_date": "20260613",
       "market_scope": "target_area_id",
@@ -681,16 +764,19 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "행당두산위브",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 1767,
       "area_id": 1667,
       "type_label": "24",
       "name": "금호두산",
-      "sale_listing_count": null,
+      "sale_listing_count": 123,
       "sale_listing_week_delta": null,
-      "avg_ask_manwon": null,
+      "avg_ask_manwon": 166488,
       "recent_trade_manwon": 177000,
       "recent_trade_date": "20260712",
       "market_scope": "target_area_id",
@@ -701,7 +787,10 @@
       "detail_quality": "exact_area_id",
       "molit_apt_name": "두산",
       "trade_match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade"
+      "trade_refresh_status": "connected_no_newer_trade",
+      "avg_ask_week_delta_manwon": null,
+      "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+      "listing_refresh_status": "connected"
     },
     {
       "complex_id": 1759,
@@ -834,9 +923,9 @@
   "known_unavailable_targets": [
     "성동자이리버뷰"
   ],
-  "listing_collected_at": "2026-09-26T02:14:32.066308+09:00",
-  "listing_refresh_attempted_at": "2026-09-28T04:35:42+00:00",
-  "listing_refresh_matched_rows": 0,
-  "listing_refresh_status": "fallback_last_good",
-  "listing_refresh_error": "weekly KB public-market source unavailable; preserved last-good listing fields"
+  "listing_collected_at": "2026-09-29T18:53:02.777159+09:00",
+  "listing_refresh_attempted_at": "2026-09-29T09:53:03+00:00",
+  "listing_refresh_matched_rows": 23,
+  "listing_refresh_status": "partial_last_good",
+  "listing_source": "KB public complex page / explicitly selected target type"
 }
