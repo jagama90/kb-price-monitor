@@ -298,30 +298,417 @@ window.hideScoreDetail=function(){
 
 async function renderRegimeForecast(){
  const host=document.getElementById('forecastGrid'),meta=document.getElementById('forecastMeta'),headline=document.getElementById('forecastHeadline'),trend=document.getElementById('forecastTrend');if(!host)return;
- const labels={consolidation:'보합·조정',reacceleration:'상승 재가속',downturn:'하락 전환'};
- const short={consolidation:'보합',reacceleration:'재가속',downturn:'하락'};
  const fmtMonth=v=>{const z=String(v||'');return z.length===6?z.slice(0,4)+'.'+z.slice(4):z};
+ const fallbackDisplay=w=>{
+  const d=Number(w?.downturn||0),r=Number(w?.reacceleration||0),v=Math.round(d),band=v<=19?0:v<=29?1:v<=34?2:v<=44?3:v<=54?4:5;
+  const labels=['상승 우위','재상승 가능성 확대','혼조·방향 탐색','쉬어가기·하방 경계','조정 위험 확대','하락 우위'];
+  const tones=['very_low','low','mixed','watch','high','very_high'];
+  let secondary=band===0?(r>=40?'재상승 신호 강함':'하방 위험 낮음'):band===1?(r>=35?'재상승 신호 강화':r>=25?'재상승 여지 확대':'하방 위험 낮아지는 중'):band===2?(r>=35?'재상승 신호와 하방 위험 경합':'방향성 확인 필요'):band===3?(r>=35?'하방 경계 속 재상승 신호 공존':'하방 위험 주의'):band===4?'재상승 신호보다 조정 위험 우세':'하락 시나리오 우세';
+  return{risk_band:band,headline:labels[band],tone:tones[band],downturn_weight:d,reacceleration_weight:r,secondary};
+ };
  try{
   const d=await fetch('regime_forecast.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('forecast '+r.status);return r.json()});
-  const hs=d.horizons||[];
-  const dominant=h=>Object.entries(h.weights||{}).sort((a,b)=>Number(b[1])-Number(a[1]))[0]?.[0]||h.base_case||'consolidation';
-  const phrase=(h,i)=>{
-   const w=h.weights||{},vals=Object.values(w).map(Number),spread=vals.length?Math.max(...vals)-Math.min(...vals):99,top=dominant(h);
-   if(i===1&&spread<10)return '혼조·분기점';
-   if(i===2&&hs[0]&&Number(w.reacceleration||0)>Number(hs[0].weights?.reacceleration||0)&&Number(w.downturn||0)<Number(hs[0].weights?.downturn||0))return '재상승 가능성 확대';
-   if(i===0&&top==='consolidation'&&Number(w.downturn||0)>=Number(w.consolidation||0)-8)return '쉬어가기·하방 경계';
-   return labels[top]||top;
-  };
+  const hs=d.horizons||[],displays=hs.map(h=>h.display||fallbackDisplay(h.weights||{}));
   host.innerHTML=hs.map((h,i)=>{
-   const w=h.weights||{},top=dominant(h),topv=Number(w[top]||0);
-   return '<div class="forecast-stop state-'+top+'"><div class="forecast-stop-head"><small>'+esc(h.label||h.period)+'</small><span>'+topv.toFixed(1)+'</span></div><b>'+esc(phrase(h,i))+'</b><div class="scenario-rail" aria-label="시나리오 가중치"><i class="scenario-flat" style="width:'+Number(w.consolidation||0)+'%"></i><i class="scenario-up" style="width:'+Number(w.reacceleration||0)+'%"></i><i class="scenario-down" style="width:'+Number(w.downturn||0)+'%"></i></div><div class="forecast-mini-values"><span>보합 '+Number(w.consolidation||0).toFixed(0)+'</span><span>재가속 '+Number(w.reacceleration||0).toFixed(0)+'</span><span>하락 '+Number(w.downturn||0).toFixed(0)+'</span></div></div>'
+   const v=displays[i],risk=Math.round(Number(v.downturn_weight||h.weights?.downturn||0)),reacc=Math.round(Number(v.reacceleration_weight||h.weights?.reacceleration||0));
+   return '<div class="forecast-stop forecast-risk-card-v153 risk-'+esc(v.tone||'mixed')+'"><div class="forecast-stop-head"><small>'+esc(h.label||h.period)+'</small></div><b>'+esc(v.headline||'방향 확인 중')+'</b><div class="forecast-risk-label-v153"><span>하락 가능성</span><strong>'+risk+'%</strong></div><div class="forecast-risk-track-v153"><i style="width:'+Math.max(0,Math.min(100,risk))+'%"></i></div><div class="forecast-risk-sub-v153"><span>재상승 신호 '+reacc+'%</span><em>'+esc(v.secondary||'')+'</em></div></div>';
   }).join('');
-  if(headline&&hs.length)headline.textContent=hs.map((h,i)=>phrase(h,i)).join(' → ');
-  if(trend&&hs.length>=2){const a=hs[0].weights||{},z=hs[hs.length-1].weights||{},du=Number(z.reacceleration||0)-Number(a.reacceleration||0),dd=Number(z.downturn||0)-Number(a.downturn||0);trend.innerHTML='<span class="trend-chip trend-up">재가속 '+(du>=0?'＋':'')+du.toFixed(1)+'%p</span><span class="trend-chip trend-down">하락 '+(dd>=0?'＋':'')+dd.toFixed(1)+'%p</span>'}
-  meta.textContent='연구 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' 잠정':'')+' · 인증 '+fmtMonth(d.latest_certified_backtest_month)+'까지';
+  if(headline&&displays.length)headline.textContent=displays.map(x=>x.headline).join(' → ');
+  if(trend&&displays.length)trend.innerHTML='<b>하락 가능성</b><span>'+displays.map(x=>Math.round(Number(x.downturn_weight||0))+'%').join(' → ')+'</span>';
+  meta.textContent='시나리오 가중치 · 확률 예측 아님 · 연구 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' 잠정':'')+' · 인증 '+fmtMonth(d.latest_certified_backtest_month)+'까지';
   const hb=document.getElementById('hubBacktestMeta');if(hb)hb.textContent='인증 '+fmtMonth(d.latest_certified_backtest_month)+' · 연구 '+fmtMonth(d.latest_research_month);
- }catch(e){host.innerHTML='<div class="forecast-stop"><small>전망엔진</small><b>데이터 확인 중</b></div>';if(headline)headline.textContent='최신 전망 데이터를 확인하고 있습니다.';meta.textContent='전망 파일 배포 후 자동 표시됩니다.'}
+ }catch(e){
+  console.warn('forecast render',e);host.innerHTML='<div class="forecast-stop"><small>전망엔진</small><b>데이터 확인 중</b></div>';if(headline)headline.textContent='최신 전망 데이터를 확인하고 있습니다.';if(meta)meta.textContent='전망 파일 배포 후 자동 표시됩니다.';
+ }
 }
+
+
+// Score cards themselves are the controls; no separate "점수 근거 보기" button.
+document.addEventListener('click',e=>{
+ if(e.target.closest?.('.score-detail-close')){e.preventDefault();window.hideScoreDetail?.();return}
+ const card=e.target.closest?.('.score-component[data-score-key]');
+ if(card){e.preventDefault();window.showScoreDetail?.(card.dataset.scoreKey)}
+});
+document.addEventListener('keydown',e=>{
+ const card=e.target.closest?.('.score-component[data-score-key]');
+ if(card&&(e.key==='Enter'||e.key===' ')){e.preventDefault();window.showScoreDetail?.(card.dataset.scoreKey)}
+});
+
+async function loadGarakHistory(){
+ const host=document.getElementById('garakHistoryChart'),latest=document.getElementById('garakHistoryLatest');if(!host)return;
+ try{
+  const d=await fetch('garak_geumho_24a_history.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('history '+r.status);return r.json()});
+  const rows=(d.series||[]).filter(x=>x.ym&&(x.sale!=null||x.rent!=null));
+  if(rows.length<2)throw Error('history rows missing');
+  const W=760,H=220,L=58,R=16,T=14,B=30,vals=rows.flatMap(x=>[x.sale,x.rent]).filter(v=>v!=null).map(Number);
+  let lo=Math.min(...vals),hi=Math.max(...vals),pad=Math.max(5000,(hi-lo)*.08);lo=Math.max(0,lo-pad);hi+=pad;const range=Math.max(1,hi-lo);
+  const x=i=>L+(W-L-R)*(i/(rows.length-1)),y=v=>T+(H-T-B)*(1-(Number(v)-lo)/range);
+  const pts=key=>rows.map((r,i)=>r[key]==null?null:[x(i),y(r[key])]).filter(Boolean).map(p=>p.map(n=>n.toFixed(1)).join(',')).join(' ');
+  const ticks=[0,.25,.5,.75,1].map(q=>hi-(hi-lo)*q);
+  const grids=ticks.map((v,i)=>{const yy=T+(H-T-B)*(i/4);return '<line class="garak-grid" x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'"/><text class="garak-axis" x="4" y="'+(yy+4)+'">'+(v/10000).toFixed(v>=100000?1:2)+'억</text>'}).join('');
+  const years=[];let last='';
+  rows.forEach((r,i)=>{const yr=String(r.ym).slice(0,4);if(yr!==last&&(i===0||Number(yr)%4===0||i===rows.length-1)){years.push('<text class="garak-axis" text-anchor="middle" x="'+x(i).toFixed(1)+'" y="'+(H-6)+'">'+yr+'</text>');last=yr}});
+  host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">'+grids+'<polyline class="garak-sale" points="'+pts('sale')+'"/><polyline class="garak-rent" points="'+pts('rent')+'"/>'+years.join('')+'</svg>';
+  const z=rows[rows.length-1];latest.textContent=z.ym.slice(0,4)+'.'+z.ym.slice(4)+' · 매매 '+eok(z.sale)+' · 전세 '+eok(z.rent)+(d.refresh_status==='fallback_last_good'?' · LAST GOOD':'');
+  latest.title='KB 월별 원자료 '+rows.length+'개월 · '+rows[0].ym+'~'+z.ym;
+ }catch(e){host.innerHTML='<div class="chart-error">장기 추이 데이터를 불러오지 못했습니다.</div>';latest.textContent='데이터 확인 필요';console.error(e)}
+}
+loadGarakHistory();
+
+async function loadMarketExtensions(){
+ const host=document.getElementById('marketContext');if(!host)return;
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+ const pct=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
+ const pp=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%p';
+ try{
+  const d=await fetch('market_extensions.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('extensions '+r.status);return r.json()});
+  const b=d.current?.breadth||{},s25=b.seoul_25||{},g3=b.gangnam3||{},ng=b.non_gangnam3||{},songpa=b.songpa||{};
+  const up=Number(s25.up_share_pct||0);
+  set('breadthHeadline',(s25.up??'—')+'/'+(s25.count??25)+'개구 상승');
+  set('breadthGangnam','강남3구 '+(g3.up??'—')+'/'+(g3.count??3)+'↑');
+  set('breadthNonGangnam','비강남 '+(ng.up??'—')+'/'+(ng.count??22)+'↑');
+  set('breadthSongpa','송파 '+pct(songpa.change_pct));
+  const fill=document.getElementById('breadthFill');if(fill)fill.style.width=Math.max(0,Math.min(100,up))+'%';
+  set('contextBreadthBadge',up>=75?'확산 강함':up>=45?'확산 혼조':'확산 약함');
+
+  const t=d.current?.temperature||{},sg=Number(t.songpa_vs_seoul_gap_pp);
+  set('tempSeoul',pct(t.seoul_m3_pct));
+  set('tempSongpa',pct(t.songpa_m3_median_pct));
+  set('temperatureHeadline',sg<=-1?'송파가 서울보다 느림':sg>=1?'송파가 서울보다 강함':'서울과 비슷한 흐름');
+  set('tempGap',sg<0?'서울 대비 '+Math.abs(sg).toFixed(2)+'%p 뒤처짐 · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4):'서울 대비 '+pp(sg)+' · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4));
+
+  const a=d.current?.affordability||{},ac=Number(a.affordability_change_3m_pct);
+  set('affordHeadline',ac<0?'구매력 약화':'구매력 개선');
+  set('affordRate',a.mortgage_rate_pct==null?'—':Number(a.mortgage_rate_pct).toFixed(2)+'%');
+  set('affordPayment',a.payment_5eok_won==null?'—':Math.round(Number(a.payment_5eok_won)/10000).toLocaleString('ko-KR')+'만원');
+  set('affordChange',a.affordability_change_3m_pct==null?'—':(ac>0?'+':'')+ac.toFixed(1)+'%');
+  const loan=a.max_loan_income100m_dsr40_won==null?null:Number(a.max_loan_income100m_dsr40_won)/100000000;
+  set('affordBenchmark','비교기준: 연소득 1억 · DSR 40% · 30년'+(loan==null?'':' → '+loan.toFixed(2)+'억')+' · 개인 한도 아님');
+
+  window.__marketExtensions=d;renderDriverEvidence();
+  const v=d.validation||{};
+  set('contextValidation',v.breadth_role==='confidence_context'?'상승 확산도 검증 통과 · 국면 신뢰도 보강에 사용':'상승 확산도 연구 검증 중');
+  host.dataset.breadth=up>=75?'strong':up>=45?'mixed':'weak';
+  host.dataset.afford=ac<0?'worse':'better';
+  const hd=document.getElementById('hubDriversMeta');if(hd)hd.textContent='확산 '+(s25.up??'—')+'/'+(s25.count??25)+' · 구매력 '+(ac>0?'+':'')+ac.toFixed(1)+'%';
+ }catch(e){
+  set('contextBreadthBadge','데이터 확인');
+  set('breadthHeadline','확장지표 확인 중');
+  set('temperatureHeadline','확장지표 확인 중');
+  set('affordHeadline','확장지표 확인 중');
+  console.error(e);
+ }
+}
+loadMarketExtensions();
+
+
+
+/* evidence-first detail panels v136 */
+function renderTradeDistribution(x){
+ const host=document.getElementById('volumeChart');if(!host||!x?.current||!x?.previous)return;
+ const get=z=>z.buckets3||{'<=15eok':Number(z.counts?.['<=9eok']||0)+Number(z.counts?.['9-15eok']||0),'15-25eok':Number(z.counts?.['15-25eok']||0),'25eok+':Number(z.counts?.['25eok+']||0)};
+ const keys=[['<=15eok','≤15억'],['15-25eok','15~25억'],['25eok+','25억+']],cb=get(x.current),pb=get(x.previous),ct=Number(x.current.total||0)||1,pt=Number(x.previous.total||0)||1;
+ const rows=keys.map(([k,label])=>{const prev=Number(pb[k]||0)/pt*100,cur=Number(cb[k]||0)/ct*100,delta=cur-prev,max=5,pos=Math.min(100,Math.abs(delta)/max*50),dir=delta>0?'up':delta<0?'down':'flat';return '<div class="share-shift-row-v143"><div class="share-shift-head-v143"><b>'+label+'</b><span>'+prev.toFixed(1)+'% <i>→</i> '+cur.toFixed(1)+'%</span><em class="'+dir+'">'+(delta>0?'+':'')+delta.toFixed(1)+'%p</em></div><div class="share-shift-rail-v143"><i class="zero"></i><u class="'+dir+'" style="width:'+pos+'%;'+(delta>=0?'left:50%':'right:50%')+'"></u></div><small>'+Number(pb[k]||0).toLocaleString('ko-KR')+'건 → '+Number(cb[k]||0).toLocaleString('ko-KR')+'건</small></div>'}).join('');
+ host.innerHTML='<div class="share-shift-chart-v143"><div class="share-shift-title-v143"><b>가격대 구성비 변화</b><span>0%p 기준 · ±5%p 확대</span></div>'+rows+'<div class="share-shift-period-v143"><span>'+sourcePeriodFmt(x.previous.period)+' '+x.previous.range+'</span><i>vs</i><span>'+sourcePeriodFmt(x.current.period)+' '+x.current.range+'*</span></div></div><small class="dist-note-v136">* 당월은 신고 진행 중이라 건수보다 가격대 구성비 변화에 초점을 둡니다.</small>';
+}
+function renderDriverEvidence(){
+ const d=window.__marketIndicators,e=window.__marketExtensions,host=document.getElementById('driverLive');if(!host||(!d&&!e))return;
+ const m=d?.m2_official||d?.m2||{},mort=d?.mortgage_rate_official||{},s=d?.kb_sentiment||{},x=d?.matched_period||{},sale=d?.kb_weekly_sale_index?.latest||{},a=e?.current?.affordability||{};
+ const fmt=(v,n=1)=>v==null||!Number.isFinite(Number(v))?'—':Number(v).toFixed(n),sgn=(v,n=1,suf='')=>v==null||!Number.isFinite(Number(v))?'—':(Number(v)>0?'+':'')+Number(v).toFixed(n)+suf;
+ const arrow=v=>v==null||!Number.isFinite(Number(v))?'':Number(v)>0?'↑':Number(v)<0?'↓':'→';
+ const cls=v=>v==null||!Number.isFinite(Number(v))?'flat':Number(v)>0?'up':Number(v)<0?'down':'flat';
+ const row=(step,title,current,previous,delta,deltaClass,sub,period)=>'<div class="driver-change-row-v143"><i>'+step+'</i><div class="driver-change-copy-v143"><span>'+title+'</span><div class="driver-main-v143"><b>'+current+'</b><em class="'+deltaClass+'">'+delta+'</em></div><small>'+previous+'</small><p>'+sub+'</p></div><time>'+period+'</time></div>';
+ const loan=a.max_loan_income100m_dsr40_won==null?null:Number(a.max_loan_income100m_dsr40_won)/100000000,aff=Number(a.affordability_change_3m_pct);
+ const buy=Number(s.latest?.매수우위?.value),buyPrev=Number(s.previous?.매수우위?.value),buyCh=s.changes?.매수우위;
+ const act=Number(s.latest?.매매거래활발?.value),actCh=s.changes?.매매거래활발;
+ const tradeCh=x.changes?.trade_count_pct,shareCh=x.changes?.under15_share_pp;
+ const rows=[
+  row(1,'신용 여력',loan==null?'—':loan.toFixed(2)+'억','DSR 40% · 연소득 1억 · 30년',arrow(aff)+' '+sgn(aff,1,'%'),cls(aff),'3개월 구매력 변화', '3개월'),
+  row(2,'금융','주담대 '+fmt(mort.rate_pct,2)+'%','직전 '+fmt(mort.previous_rate_pct,2)+'%',arrow(mort.change_pp)+' '+sgn(mort.change_pp,2,'%p'),cls(-Number(mort.change_pp)),'M2 YoY '+fmt(m.yoy_pct,1)+'% ('+sgn(m.yoy_change_pp,2,'%p')+')',sourcePeriodFmt(mort.period)),
+  row(3,'심리','매수우위 '+fmt(buy,1),'직전 '+fmt(buyPrev,1),arrow(buyCh)+' '+sgn(buyCh,2,''),cls(buyCh),'거래활발 '+fmt(act,1)+' ('+sgn(actCh,2,'')+')',sourcePeriodFmt(s.latest?.매수우위?.date)),
+  row(4,'거래',Number(x.current?.total||0).toLocaleString('ko-KR')+'건',Number(x.previous?.total||0).toLocaleString('ko-KR')+'건',arrow(tradeCh)+' '+sgn(tradeCh,1,'%'),cls(tradeCh),'≤15억 비중 '+fmt(x.current?.under15_share,1)+'% ('+sgn(shareCh,1,'%p')+')','동일 '+x.current?.range),
+  row(5,'가격','KB '+fmt(sale.value,2),'전주 대비',arrow(sale.change_pct)+' '+sgn(sale.change_pct,2,'%'),cls(sale.change_pct),'서울 주간 매매가격지수',sourcePeriodFmt(sale.date))
+ ];
+ host.innerHTML=rows.join('');
+ const hd=document.getElementById('hubDriversMeta');if(hd)hd.textContent='구매력 '+sgn(aff,1,'%')+' · 거래 '+sgn(tradeCh,1,'%')+' · 가격 '+sgn(sale.change_pct,2,'%');
+}
+async function renderBacktestSummary(){
+ try{
+  const d=await fetch('final_backtest.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),rows=d.rows||[],first=rows[0]?.ym,last=rows[rows.length-1]?.ym,corr=d.metrics?.score_vs_fwd_6m_corr;
+  const ym=v=>String(v||'').length===6?String(v).slice(0,4)+'.'+String(v).slice(4):String(v||'—');
+  const set=(id,v)=>{const x=document.getElementById(id);if(x)x.textContent=v};
+  set('backtestScope',rows.length+'개월 · '+ym(first)+'~'+ym(last));set('backtestCertified',ym(d.certified_through)+' · 미래정보 차단');set('backtestCorr',corr==null?'—':(Number(corr)>=0?'+':'')+Number(corr).toFixed(2));
+  const low=d.metrics?.low_score_mean_fwd_6m_pct,high=d.metrics?.high_score_mean_fwd_6m_pct;
+  set('backtestCaution',low==null||high==null?'현재 점수공식을 과거 시점 데이터에만 적용해 검증합니다.':'과거 '+rows.length+'개월에서 점수와 이후 6개월 가격의 관계를 확인합니다. 낮은 점수 구간 평균 '+(low>=0?'+':'')+Number(low).toFixed(2)+'%, 높은 점수 구간 '+(high>=0?'+':'')+Number(high).toFixed(2)+'%. 예측값이 아니라 검증 참고치입니다.');
+  const hb=document.getElementById('hubBacktestMeta');if(hb)hb.textContent=rows.length+'개월 검증 · 인증 '+ym(d.certified_through);
+ }catch(e){console.warn('backtest summary',e)}
+}
+function renderDataStatusPanel(){
+ const d=window.__marketIndicators,m=window.__watchMarket;if(!d&&!m)return;
+ const set=(id,v)=>{const x=document.getElementById(id);if(x)x.textContent=v};
+ if(d){
+  const src=d.refresh_run?.sources||{},matched=d.matched_period||{},sent=d.kb_sentiment||{},m2=d.m2_official||d.m2||{},mort=d.mortgage_rate_official||{},base=d.base_rate_official?.latest||{},sale=d.kb_weekly_sale_index?.latest||{},rent=d.kb_weekly_rent_index?.latest||{};
+  const uns=d.unsold_seoul||{};set('sourceMolitStatus',(src.molit==='connected'?'정상':'지연')+(matched.current?.total!=null?' · 실거래 '+Number(matched.current.total).toLocaleString('ko-KR')+'건':''));set('sourceMolitMeta','미분양 '+(uns.seoul_units==null?'—':Number(uns.seoul_units).toLocaleString('ko-KR')+'호')+' · '+(matched.current?.period?sourcePeriodFmt(matched.current.period)+' 계약일 기준':''));
+  set('sourceKbStatus',(src.kb_sentiment==='connected'?'정상':'지연')+(sale.value!=null?' · 매매 '+Number(sale.value).toFixed(2):''));set('sourceKbMeta',(sale.date?sourcePeriodFmt(sale.date)+' · ':'')+'전세 '+(rent.value==null?'—':Number(rent.value).toFixed(2))+' · 심리 포함');
+  set('sourceEcosStatus',(src.ecos==='connected'?'정상':'지연')+(mort.rate_pct!=null?' · 주담대 '+Number(mort.rate_pct).toFixed(2)+'%':''));set('sourceEcosMeta','M2 '+(m2.yoy_pct==null?'—':(Number(m2.yoy_pct)>0?'+':'')+Number(m2.yoy_pct).toFixed(1)+'% YoY')+' · 기준금리 '+(base.rate_pct==null?'—':Number(base.rate_pct).toFixed(2)+'%'));
+ }
+ if(m){
+  const exact=Number(m.exact_kb_rows||0),trade=Number(m.molit_trade_matched_rows||0),list=Number(m.listing_refresh_matched_rows||0),total=(m.items||[]).length,status=String(m.listing_refresh_status||'');
+  set('sourceWatchStatus','KB '+exact+'/'+total+' · 실거래 '+trade+'/'+total);set('sourceWatchMeta',(status==='connected'?'매물 '+list+'/'+total+' 최신 연결':status==='partial_last_good'?'매물 '+list+'/'+total+' 최신 · 나머지 마지막 정상/미연결':'매물 원천 지연')+' · '+(m.listing_collected_at?refreshCalendarStamp(refreshStamp(m.listing_collected_at)):'시각 확인 대기'));
+
+ }
+}
+renderBacktestSummary();
+
+/* refresh calendar + semantic change history v135 */
+const REFRESH_SNAPSHOT_KEY='kbpm.refresh.snapshot.v3';
+const REFRESH_CHANGE_TTL=24*60*60*1000;
+const refreshJson=async path=>{try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' '+r.status);return await r.json()}catch(e){console.warn('refresh-meta',e);return null}};
+const refreshStamp=v=>{const d=new Date(v||0);return Number.isFinite(d.getTime())?d:null};
+const refreshMax=(...vals)=>{const ds=vals.flat().map(refreshStamp).filter(Boolean);return ds.length?new Date(Math.max(...ds.map(d=>d.getTime()))):null};
+const refreshFmt=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):'확인 대기';
+const refreshShortFmt=d=>{if(!d)return'확인 대기';const now=new Date(),parts=z=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(z),same=parts(d)===parts(now);return (same?'오늘 ':new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'}).format(d)+' ')+new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d)};
+const refreshScheduleFmt=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):'—';
+const refreshDayKey=d=>d?new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(d):'';
+const refreshClock=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):'—';
+const refreshDateLabel=d=>d?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',weekday:'short'}).formatToParts(d).reduce((a,p)=>{a[p.type]=p.value;return a},{}):null;
+const refreshDateText=d=>{const p=refreshDateLabel(d);return p?p.month+'/'+p.day+'('+p.weekday+')':'—'};
+const refreshRelativeDay=d=>{
+ if(!d)return'';
+ const now=new Date(),today=refreshDayKey(now),target=refreshDayKey(d);
+ const tomorrow=refreshDayKey(new Date(now.getTime()+86400000));
+ const yesterday=refreshDayKey(new Date(now.getTime()-86400000));
+ if(target===today)return'오늘';
+ if(target===tomorrow)return'내일';
+ if(target===yesterday)return'어제';
+ return'';
+};
+const refreshCalendarStamp=d=>{if(!d)return'확인 대기';const rel=refreshRelativeDay(d),clock=refreshClock(d),date=refreshDateText(d);return rel?(rel+' '+clock+(rel==='오늘'?'':' · '+date)):(date+' '+clock)};
+const refreshCalendarSchedule=d=>{if(!d)return'—';const rel=refreshRelativeDay(d),clock=refreshClock(d),date=refreshDateText(d);if(rel)return rel+' '+clock+' · '+date;const wd=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',weekday:'long'}).format(d);return wd+' '+clock+' · '+date};
+const refreshKstParts=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return{y:+p.year,m:+p.month,d:+p.day,w:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.weekday],hh:+p.hour,mm:+p.minute}};
+const refreshKstDate=(y,m,d,h,min)=>new Date(Date.UTC(y,m-1,d,h-9,min));
+const refreshTodayDaily=()=>{const n=refreshKstParts();return refreshKstDate(n.y,n.m,n.d,7,5)};
+const refreshNextDaily=()=>{const n=refreshKstParts(),after=n.hh>7||(n.hh===7&&n.mm>=5),base=refreshTodayDaily();return after?new Date(base.getTime()+86400000):base};
+const refreshDailyDueState=last=>{const n=refreshKstParts(),due=refreshTodayDaily(),after=n.hh>7||(n.hh===7&&n.mm>=5),lastDate=refreshStamp(last);return{due,after,overdue:Boolean(after&&(!lastDate||lastDate.getTime()<due.getTime()))}};
+const refreshNextWeekly=()=>{const n=refreshKstParts();let delta=(5-n.w+7)%7;if(delta===0&&(n.hh>21||(n.hh===21&&n.mm>=5)))delta=7;return new Date(refreshKstDate(n.y,n.m,n.d,21,5).getTime()+delta*86400000)};
+const refreshNextMonthly=()=>{const n=refreshKstParts();let y=n.y,m=n.m;let d=refreshKstDate(y,m,3,7,20);if(Date.now()>=d.getTime()){m+=1;if(m===13){m=1;y+=1}d=refreshKstDate(y,m,3,7,20)}return d};
+const refreshReadState=()=>{try{const x=JSON.parse(localStorage.getItem(REFRESH_SNAPSHOT_KEY)||'{}');return{xVersion:3,items:x.items||{}}}catch{return{xVersion:3,items:{}}}};
+const refreshWriteState=s=>{try{localStorage.setItem(REFRESH_SNAPSHOT_KEY,JSON.stringify(s))}catch{}};
+const refreshSig=v=>JSON.stringify(v);
+const refreshNum=v=>v==null||!Number.isFinite(Number(v))?null:Number(v);
+const refreshClamp=v=>Math.max(0,Math.min(100,v));
+const refreshComponents=d=>{const m=d?.m2_official||d?.m2,matched=d?.matched_period;return{
+ finance:m?.mom_pct!=null&&m?.yoy_pct!=null?refreshClamp(50+Number(m.mom_pct)*8+Number(m.yoy_pct)*1.5):null,
+ sentiment:d?.kb_sentiment?.score_0_100==null?null:Number(d.kb_sentiment.score_0_100),
+ demand:matched?.changes?.trade_count_pct!=null&&matched?.changes?.under15_share_pp!=null?refreshClamp(50+Number(matched.changes.trade_count_pct)*.35+Number(matched.changes.under15_share_pp)*1.5):null,
+ value:d?.kb_value?.score_0_100==null?null:Number(d.kb_value.score_0_100),
+ supply:d?.kb_sentiment?.jeonse_score_0_100==null?null:Number(d.kb_sentiment.jeonse_score_0_100)
+}};
+function refreshTrack(state,key,label,signature,value,checkedAt,countable=true){
+ const now=Date.now(),sig=refreshSig(signature),prev=state.items[key],changed=Boolean(prev&&prev.sig!==sig);
+ const changedAt=changed?now:(prev&&prev.sig===sig?Number(prev.changedAt||0):0);
+ const from=changed?prev.value:(prev?.from??null),to=value;
+ const active=Boolean(changedAt&&now-changedAt<REFRESH_CHANGE_TTL);
+ state.items[key]={sig,value,from,changedAt,checkedAt:checkedAt||null,label,countable};
+ return{key,label,value,from,changedAt,active,changed,checkedAt:refreshStamp(checkedAt),countable,initialized:Boolean(prev)};
+}
+function decorateRefreshPanel({key,host,anchor,record,checkedAt,warning='',note=true}){
+ if(!host||!anchor)return;
+ host.querySelectorAll('.panel-refresh-dot,.panel-refresh-note,.panel-refresh-chip-v135,.panel-refresh-change-v135').forEach(x=>x.remove());
+ host.classList.toggle('has-fresh-change-v135',Boolean(record?.active&&!warning));
+ const chip=document.createElement('span');chip.className='panel-refresh-chip-v135';
+ const stamp=refreshShortFmt(refreshStamp(checkedAt)||record?.checkedAt);
+ if(warning){chip.classList.add('warning');chip.textContent=stamp+' · 원천 확인'}
+ else if(record?.active){chip.classList.add('changed');chip.textContent=stamp+' · 갱신됨'}
+ else{chip.textContent=stamp+' · 변경 없음'}
+ anchor.insertAdjacentElement('afterend',chip);
+ if(note&&record?.active&&record.from!=null&&record.value!=null&&String(record.from)!==String(record.value)){
+   const detail=document.createElement('span');detail.className='panel-refresh-change-v135';detail.textContent=String(record.from)+' → '+String(record.value);chip.insertAdjacentElement('afterend',detail);
+ }
+}
+function decorateFactorRefresh(card,record,checkedAt){
+ if(!card)return;
+ card.querySelectorAll('.factor-refresh-v135,.factor-change-v135').forEach(x=>x.remove());
+ card.classList.toggle('has-fresh-change-v135',Boolean(record?.active));
+ const head=card.querySelector('.factor-card-head-v134'),score=card.querySelector('.factor-score-v134');
+ const chip=document.createElement('span');chip.className='factor-refresh-v135'+(record?.active?' changed':'');
+ chip.textContent=record?.active?refreshShortFmt(refreshStamp(checkedAt))+' 갱신':refreshShortFmt(refreshStamp(checkedAt))+' 확인 · 변경 없음';
+ if(head)head.insertAdjacentElement('afterend',chip);
+ const a=refreshNum(record?.from),b=refreshNum(record?.value);
+ if(record?.active&&score){
+   const change=document.createElement('div');change.className='factor-change-v135';
+   if(a!=null&&b!=null&&Math.round(a)!==Math.round(b)){const delta=Math.round(b)-Math.round(a);change.innerHTML='<span>이전 '+Math.round(a)+'</span><i>→</i><b>'+Math.round(b)+'</b><em>'+(delta>0?'+':'')+delta+'</em>'}
+   else change.textContent='입력 데이터 갱신';
+   score.insertAdjacentElement('afterend',change);
+ }
+}
+async function initRefreshCalendar(){
+ const [mi,market,master,forecast,extensions,hist,backtest,research]=await Promise.all([
+   refreshJson('market_indicators.json'),refreshJson('buy_watchlist_market.json'),refreshJson('buy_watchlist_master.json'),
+   refreshJson('regime_forecast.json'),refreshJson('market_extensions.json'),refreshJson('kb_watchlist_history.json'),
+   refreshJson('final_backtest.json'),refreshJson('turning_signal_research.json')
+ ]);
+ const src=mi?.refresh_run?.sources||{},delayed=Object.entries(src).filter(([,v])=>v!=='connected').map(([k])=>({molit:'국토부',ecos:'ECOS',kb_sentiment:'KB',watchlist_detail:'단지상세'}[k]||k));
+ const listingFallback=market&&String(market.listing_refresh_status||'')!=='connected';
+ const dailyRev=mi?.refresh_run?.attempted_at||mi?.updated_at;
+ const kbRev=master?.kb_collected_at||master?.generated_at;
+ const watchRev=refreshMax(kbRev,market?.molit_trade_collected_at,market?.kb_detail_collected_at,String(market?.listing_refresh_status)==='connected'?market?.listing_collected_at:null)?.toISOString();
+ const forecastRev=forecast?.generated_at;
+ const extensionRev=extensions?.generated_at;
+ const monthlyRev=refreshMax(backtest?.generated_at,research?.generated_at)?.toISOString();
+ const healthRev=refreshMax(dailyRev,market?.listing_refresh_attempted_at,hist?.generated_at,forecastRev,extensionRev,monthlyRev)?.toISOString();
+ const statuses=mi?.data_status||{},critical=Object.entries(statuses).filter(([k,v])=>v!=='connected'&&!['watchlist_detail_refresh'].includes(k)).map(([k])=>k);
+ const state=refreshReadState(),records=[],components=refreshComponents(mi),m=mi?.m2_official||mi?.m2||{},sent=mi?.kb_sentiment||{},matched=mi?.matched_period||{},val=mi?.kb_value||{};
+
+ const factorDefs={
+  finance:{label:'금융',value:components.finance,sig:{score:components.finance,m2:[m.period,m.mom_pct,m.yoy_pct],mortgage:[mi?.mortgage_rate_official?.period,mi?.mortgage_rate_official?.rate_pct],base:[mi?.base_rate_official?.latest?.date,mi?.base_rate_official?.latest?.rate_pct]}},
+  sentiment:{label:'심리',value:components.sentiment,sig:{score:components.sentiment,buy:[sent.latest?.매수우위?.date,sent.latest?.매수우위?.value],trade:[sent.latest?.매매거래활발?.date,sent.latest?.매매거래활발?.value]}},
+  demand:{label:'거래',value:components.demand,sig:{score:components.demand,period:matched.current?.period,total:matched.current?.total,under15:matched.current?.under15_share,changes:matched.changes}},
+  value:{label:'가격',value:components.value,sig:{score:components.value,period:val.period,current:val.current_manwon,low:val.window_low_manwon,high:val.window_high_manwon}},
+  supply:{label:'전세',value:components.supply,sig:{score:components.supply,supply:[sent.latest?.전세수급?.date,sent.latest?.전세수급?.value],activity:[sent.latest?.전세거래활발?.date,sent.latest?.전세거래활발?.value]}}
+ };
+ for(const [key,d] of Object.entries(factorDefs)){const rec=refreshTrack(state,'factor.'+key,d.label,d.sig,d.value,dailyRev,true);records.push(rec);decorateFactorRefresh(document.querySelector('[data-score-key="'+key+'"]'),rec,dailyRev)}
+
+ const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},avail=Object.keys(components).filter(k=>components[k]!=null),covered=avail.reduce((a,k)=>a+weights[k],0),condition=covered?Math.round(avail.reduce((a,k)=>a+components[k]*weights[k],0)/covered):null;
+ const overviewRec=refreshTrack(state,'panel.overview','현재 국면',{condition,factors:components,weekly:[mi?.kb_weekly_sale_index?.latest?.date,mi?.kb_weekly_sale_index?.latest?.change_pct,mi?.kb_weekly_rent_index?.latest?.change_pct]},condition,dailyRev,false);
+ const forecastSig={research:forecast?.latest_research_month,cert:forecast?.latest_certified_backtest_month,h:(forecast?.horizons||[]).map(x=>[x.period,x.weights])};
+ const forecastValue=(forecast?.horizons||[])[0]?.weights?.consolidation==null?null:Number((forecast.horizons||[])[0].weights.consolidation).toFixed(1);
+ const forecastRec=refreshTrack(state,'panel.forecast','전망',forecastSig,forecastValue,forecastRev,true);
+ const contextSig={breadth:extensions?.current?.breadth,aff:extensions?.current?.affordability,temp:extensions?.current?.temperature};
+ const contextValue=extensions?.current?.breadth?.seoul_25?.up_share_pct??null;
+ const contextRec=refreshTrack(state,'panel.context','보조신호',contextSig,contextValue,extensionRev,true);
+ const watchItems=(market?.items||[]).map(x=>[x.complex_id,x.area_id,x.sale_listing_count,x.sale_listing_week_delta,x.avg_ask_manwon,x.recent_trade_manwon,x.recent_trade_date]);
+ const watchRec=refreshTrack(state,'panel.watchlist','관심단지',{items:watchItems,kb:kbRev},(market?.items||[]).length,watchRev,true);
+ const boundarySig=(master?.items||[]).map(x=>[x.complex_id,(x.types||[]).map(t=>[t.area_id,t.general_price_manwon])]);
+ const boundaryRec=refreshTrack(state,'panel.boundary','15억 경계',boundarySig,kbRev?refreshFmt(refreshStamp(kbRev)):null,kbRev,false);
+ const healthRec=refreshTrack(state,'panel.health','검증상태',{statuses,cert:backtest?.certified_through,research:research?.latest_month||research?.as_of},critical.length,healthRev,false);
+ records.push(forecastRec,contextRec,watchRec);
+
+ decorateRefreshPanel({key:'overview',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),record:overviewRec,checkedAt:dailyRev});
+ decorateRefreshPanel({key:'forecast',host:document.getElementById('regimeForecast'),anchor:document.querySelector('#regimeForecast h2'),record:forecastRec,checkedAt:forecastRev});
+ decorateRefreshPanel({key:'context',host:document.getElementById('marketContext'),anchor:document.querySelector('#marketContext h2'),record:contextRec,checkedAt:extensionRev});
+ decorateRefreshPanel({key:'watchlist',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),record:watchRec,checkedAt:watchRev,note:false});
+ const boundaryHost=document.getElementById('boundary')?.closest('.card');
+ decorateRefreshPanel({key:'boundary',host:boundaryHost,anchor:boundaryHost?.querySelector('.title h2'),record:boundaryRec,checkedAt:kbRev});
+ decorateRefreshPanel({key:'health',host:document.querySelector('.method-v4'),anchor:document.querySelector('.method-v4 summary b'),record:healthRec,checkedAt:healthRev,warning:critical.length?'핵심 원천 확인 필요':'',note:false});
+
+ refreshWriteState(state);
+ const countable=records.filter(x=>x.countable),changed=countable.filter(x=>x.active),unchanged=countable.length-changed.length,warningCount=critical.length;
+ const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+ set('refreshChangedCount',changed.length?'실제 변경 '+changed.length+'개':'실제 변경 없음');
+ set('refreshUnchangedCount','변경 없음 '+unchanged+'개');
+ const wc=document.getElementById('refreshWarningCount');if(wc){wc.hidden=!warningCount;wc.textContent='원천 확인 '+warningCount+'건'}
+ const changedEl=document.getElementById('refreshChangedCount');if(changedEl)changedEl.classList.toggle('changed',changed.length>0);
+ const dailyDue=refreshDailyDueState(dailyRev);
+ if(dailyDue.overdue){
+   set('refreshDailyLast','마지막 '+refreshCalendarStamp(refreshStamp(dailyRev))+' 확인 · 오늘 07:05 예정분 미반영');
+   set('refreshDailyNext','오늘 갱신 지연/미실행 확인 필요 · 다음 정규 '+refreshCalendarSchedule(refreshNextDaily()));
+ }else{
+   set('refreshDailyLast','✓ '+refreshCalendarStamp(refreshStamp(dailyRev))+' 갱신 완료 · '+(changed.length?'변경 '+changed.length+'건':'변경 없음'));
+   set('refreshDailyNext','다음 갱신 '+refreshCalendarSchedule(refreshNextDaily()));
+ }
+ set('refreshWeeklyLast','KB 시세 · '+refreshCalendarStamp(refreshStamp(kbRev))+' 기준'+(listingFallback?' · 매물 원천은 마지막 정상값 유지':' · 확인 완료'));
+ set('refreshWeeklyNext','다음 점검 '+refreshCalendarSchedule(refreshNextWeekly()));
+ set('refreshMonthlyLast','연구엔진 · '+refreshCalendarStamp(refreshStamp(monthlyRev))+' 검증'+(backtest?.certified_through?' · 인증 '+String(backtest.certified_through).slice(0,4)+'.'+String(backtest.certified_through).slice(4):''));
+ set('refreshMonthlyNext','다음 검증 '+refreshCalendarSchedule(refreshNextMonthly()));
+ const hs=document.getElementById('refreshHealthSummary');if(hs){hs.classList.toggle('warning',Boolean(warningCount));hs.textContent=warningCount?'원천 확인 필요 · 문제가 있는 원천만 마지막 정상값을 유지합니다.':'정상 · 핵심 원천이 확인됐고 실제 값 변화만 갱신 표시합니다.'}
+ const ss=document.getElementById('refreshSummaryStatus'),sm=document.getElementById('refreshSummaryMeta');
+ if(ss){const dailyDue=refreshDailyDueState(dailyRev),warn=Boolean(warningCount)||dailyDue.overdue;ss.classList.toggle('warning',warn);ss.classList.toggle('changed',changed.length>0&&!warn);ss.textContent=dailyDue.overdue?'오늘 갱신 미반영':warningCount?'원천 확인 '+warningCount+'건':changed.length?'변경 '+changed.length+'개':'변경 없음'}
+ if(sm){const dailyDue=refreshDailyDueState(dailyRev),names=changed.slice(0,4).map(x=>x.label);sm.textContent=dailyDue.overdue?'오늘 07:05 예정분이 아직 반영되지 않았습니다 · 마지막 '+refreshShortFmt(refreshStamp(dailyRev)):refreshShortFmt(refreshStamp(dailyRev))+' 확인 완료 · '+(names.length?names.join(' · ')+' 갱신'+(changed.length>4?' 외 '+(changed.length-4)+'개':''):'주요 지표 값 변화 없음')}
+}
+initRefreshCalendar();
+
+/* dashboard refinement v133 — infographic details + semantic notification revisions */
+(function(){
+ const fmt1=v=>v==null||!Number.isFinite(Number(v))?'—':Number(v).toFixed(1);
+ const signed1=(v,s='')=>v==null||!Number.isFinite(Number(v))?'—':(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
+ const metric=(label,value,note='')=>'<div class="score-metric-v133"><span>'+label+'</span><b>'+value+'</b>'+(note?'<small>'+note+'</small>':'')+'</div>';
+ const verdict=(v)=>v>=65?'우호적':v>=45?'중립권':v>=30?'부담':'부담 큼';
+ window.__legacyScoreDetailUnused=function(k){
+   const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
+   const w={finance:25,sentiment:20,demand:20,value:20,supply:15};
+   const t={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
+   const m=d.m2_official||d.m2||{},x=d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},score=Math.round(Number(c[k])),band=status(score),mort=d.mortgage_rate_official||{};
+   const blocks={
+    finance:[metric('M2 전월비',signed1(m.mom_pct,'%'),'유동성 단기 변화'),metric('M2 전년비',signed1(m.yoy_pct,'%'),'유동성 장기 변화'),metric('주담대',d.mortgage_rate_official?.rate_pct==null?'—':fmt1(d.mortgage_rate_official.rate_pct)+'%','신규취급액 기준')],
+    sentiment:[metric('매수우위',fmt1(s.latest?.매수우위?.value),'KB 서울'),metric('거래활발',fmt1(s.latest?.매매거래활발?.value),'KB 서울'),metric('심리점수',fmt1(s.score_0_100),'100점 환산')],
+    demand:[metric('동일기간 거래',signed1(x.changes?.trade_count_pct,'%'),'전월 같은 계약일'),metric('≤15억 비중',x.current?.under15_share==null?'—':fmt1(x.current.under15_share)+'%','현재 동일기간'),metric('비중 변화',signed1(x.changes?.under15_share_pp,'%p'),'전월 대비')],
+    value:[metric('현재 KB',typeof eok==='function'?eok(v.current_manwon):fmt1(v.current_manwon),'대표평형'),metric('36개월 저점',typeof eok==='function'?eok(v.window_low_manwon):fmt1(v.window_low_manwon),'가격 범위'),metric('36개월 고점',typeof eok==='function'?eok(v.window_high_manwon):fmt1(v.window_high_manwon),'가격 범위')],
+    supply:[metric('전세수급',fmt1(s.latest?.전세수급?.value),'KB 서울'),metric('전세거래',fmt1(s.latest?.전세거래활발?.value),'KB 서울'),metric('전세점수',fmt1(s.jeonse_score_0_100),'100점 환산')]
+   };
+   const formula={finance:'M2의 전월·전년 변화와 주담대 금리 수준을 함께 반영',sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',value:'최근 36개월 가격 범위 안에서 현재 위치를 역산',supply:'KB 전세수급·전세거래활발 지표를 결합'}[k];
+   const body=document.getElementById('scoreExplainBody'),p=document.getElementById('scoreExplanation');if(!body||!p)return;
+   setText('scoreExplainTitle',t[k]);setText('scoreExplainWeight','전체 점수 가중치 '+w[k]+'%');
+   body.innerHTML='<div class="score-infographic"><div class="score-hero-v133"><div class="score-ring-v133" style="--score:'+Math.max(0,Math.min(100,score))+'"><b>'+score+'<small>/100</small></b></div><div class="score-hero-copy-v133"><strong>'+verdict(score)+'</strong><p>현재 수치를 먼저 보여주고, 아래에서 무엇이 이 점수를 만들었는지 바로 비교합니다.</p></div></div><div class="score-metrics-v133">'+blocks[k].join('')+'</div><div class="score-formula-v133"><b>산정 기준</b> · '+formula+'</div></div>';
+   p.hidden=false;p.style.display='block';document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{const on=card.dataset.scoreKey===k;card.setAttribute('aria-expanded',on?'true':'false');card.classList.toggle('active',on)});p.scrollIntoView({behavior:'smooth',block:'center'});
+ };
+
+
+})();
+
+
+/* v134 factor detail renderer — one stable responsive panel */
+(function(){
+ const fmt1=v=>v==null||!Number.isFinite(Number(v))?'—':Number(v).toFixed(1);
+ const signed1=(v,s='')=>v==null||!Number.isFinite(Number(v))?'—':(Number(v)>0?'+':'')+Number(v).toFixed(1)+s;
+ const metric=(label,value,note='')=>'<div class="factor-detail-metric-v134"><span>'+label+'</span><b>'+value+'</b>'+(note?'<small>'+note+'</small>':'')+'</div>';
+ const status=v=>scoreBand(v);
+ const desc={
+  finance:'금리와 통화량을 묶어 자금 조달 환경을 봅니다.',
+  sentiment:'KB 매수심리와 거래심리를 함께 봅니다.',
+  demand:'실제 계약 건수와 가격대별 수요 이동을 봅니다.',
+  value:'최근 가격 범위에서 현재 가격의 위치를 봅니다.',
+  supply:'전세수급과 전세거래 흐름으로 주거 수요 압력을 봅니다.'
+ };
+ window.showScoreDetail=function(k){
+   const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
+   const weights={finance:25,sentiment:20,demand:20,value:20,supply:15};
+   const title={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
+   const m=d.m2_official||d.m2||{},x=d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},mort=d.mortgage_rate_official||{},score=Math.round(Number(c[k])),band=status(score);
+   const blocks={
+    finance:[
+      metric('M2 전월비',signed1(m.mom_pct,'%'),m.mom_change_pp==null?'전월 변화 대기':'직전월보다 '+signed1(m.mom_change_pp,'%p')),
+      metric('M2 전년비',signed1(m.yoy_pct,'%'),m.yoy_change_pp==null?'전월 변화 대기':'직전월보다 '+signed1(m.yoy_change_pp,'%p')),
+      metric('주담대 금리',mort.rate_pct==null?'—':fmt1(mort.rate_pct)+'%',mort.change_pp==null?'전월 변화 대기':'직전월보다 '+signed1(mort.change_pp,'%p'))
+    ],
+    sentiment:[
+      metric('매수우위',fmt1(s.latest?.매수우위?.value),(s.changes?.매수우위==null?'전주 변화 대기':'전주 '+signed1(s.changes.매수우위,''))),
+      metric('거래활발',fmt1(s.latest?.매매거래활발?.value),(s.changes?.매매거래활발==null?'전주 변화 대기':'전주 '+signed1(s.changes.매매거래활발,''))),
+      metric('심리점수',fmt1(s.score_0_100),(s.score_change==null?'직전 변화 대기':'전주 '+signed1(s.score_change,'')+'점'))
+    ],
+    demand:[
+      metric('동일기간 거래',signed1(x.changes?.trade_count_pct,'%'),'전월 같은 계약일'),
+      metric('15억 이하',x.current?.under15_share==null?'—':fmt1(x.current.under15_share)+'%','현재 비중'),
+      metric('비중 변화',signed1(x.changes?.under15_share_pp,'%p'),'전월 대비')
+    ],
+    value:[
+      metric('현재 KB',typeof eok==='function'?eok(v.current_manwon):fmt1(v.current_manwon),'대표평형'),
+      metric('36개월 저점',typeof eok==='function'?eok(v.window_low_manwon):fmt1(v.window_low_manwon),'가격 범위'),
+      metric('36개월 고점',typeof eok==='function'?eok(v.window_high_manwon):fmt1(v.window_high_manwon),'가격 범위')
+    ],
+    supply:[
+      metric('전세수급',fmt1(s.latest?.전세수급?.value),(s.changes?.전세수급==null?'100=균형':'전주 '+signed1(s.changes.전세수급,'')+' · 100=균형')),
+      metric('전세거래',fmt1(s.latest?.전세거래활발?.value),(s.changes?.전세거래활발==null?'전주 변화 대기':'전주 '+signed1(s.changes.전세거래활발,''))),
+      metric('전세점수',fmt1(s.jeonse_score_0_100),(s.jeonse_score_change==null?'100점 환산':'전주 '+signed1(s.jeonse_score_change,'')+'점'))
+    ]
+   };
+   const method={
+    finance:'M2 전월·전년 변화와 주담대 금리 수준을 함께 반영',
+    sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',
+    demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',
+    value:'최근 36개월 가격 범위 안에서 현재 위치를 역산',
+    supply:'KB 전세수급·전세거래활발 지표를 결합'
+   };
+   const p=document.getElementById('scoreExplanation'),body=document.getElementById('scoreExplainBody');if(!p||!body)return;
+   p.classList.add('factor-detail-shell-v134');
+   setText('scoreExplainTitle',title[k]);
+   setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');
+   body.innerHTML='<div class="factor-detail-v134"><div class="factor-detail-hero-v134"><div class="factor-detail-score-v134"><span>현재 점수</span><strong>'+score+'<small>/100</small></strong><div class="factor-detail-progress-v134"><i style="width:'+Math.max(0,Math.min(100,score))+'%"></i></div></div><div class="factor-detail-copy-v134"><strong>'+band.label+' <small>('+band.range+'점)</small></strong><p><b>'+score+'점은 '+band.label+'입니다.</b> '+band.comment+' · '+desc[k]+'</p><div class="score-band-scale-v140"><i></i><i></i><i></i><i></i><i></i><u style="left:'+Math.max(0,Math.min(100,score))+'%"></u></div><small class="score-band-labels-v140">매우제약 · 제약 · 중립 · 개선 · 우호</small></div></div><div class="factor-detail-metrics-v134">'+blocks[k].join('')+'</div><div class="factor-detail-method-v134"><b>산정 기준</b><span>'+method[k]+'</span></div></div>';
+   p.hidden=false;p.style.display='block';
+   document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{const on=card.dataset.scoreKey===k;card.setAttribute('aria-expanded',on?'true':'false');card.classList.toggle('active',on)});
+   p.scrollIntoView({behavior:'smooth',block:'nearest'});
+ };
+})();
 renderRegimeForecast();
 
 // Score cards themselves are the controls; no separate "점수 근거 보기" button.
