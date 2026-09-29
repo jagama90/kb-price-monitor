@@ -223,6 +223,34 @@ async function renderCycleStage(){ // direction-aware market phase UI
  }catch(e){badge.textContent='데이터 확인 중';document.getElementById('cycleStageText').textContent='최신 가격 데이터를 확인하고 있습니다.'}}
 renderCycleStage();
 
+window.__regimeReferences=null;window.__currentCycleStage=0;
+const regimeYm=v=>{const s=String(v||'');return s.length===6?s.slice(0,4)+'.'+s.slice(4):s};
+function renderRegimeReference(stage){
+ const refs=window.__regimeReferences||[],x=refs.find(r=>Number(r.stage)===Number(stage));if(!x)return;
+ document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(e=>e.classList.toggle('reference-selected',Number(e.dataset.regimeRef)===Number(stage)));
+ const period=x.period_start===x.period_end?regimeYm(x.period_start):regimeYm(x.period_start)+' ~ '+regimeYm(x.period_end);
+ setText('regimeRefTitle',x.label+' 대표 '+(x.months>1?'구간':'시점'));setText('regimeRefPeriod',period);setText('regimeRefDesc',x.description);
+ const signed2=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
+ setText('regimeRefM1',signed2(x.price_mom_1m_pct));setText('regimeRefM3',signed2(x.price_mom_3m_pct));
+ setText('regimeRefBreadth',Number(x.breadth_0_100).toFixed(0)+'/100');setText('regimeRefReaccel',Number(x.reaccel_0_100).toFixed(0)+'/100');
+ const host=document.getElementById('regimeRefSpark'),a=x.series||[];if(host&&a.length){
+  const vals=a.map(z=>Number(z.price)).filter(Number.isFinite),lo=Math.min(...vals),hi=Math.max(...vals),w=230,h=54,p=5,span=hi-lo||1;
+  const pts=a.map((z,i)=>{const px=a.length===1?w/2:p+i*(w-2*p)/(a.length-1),py=h-p-(Number(z.price)-lo)/span*(h-2*p);return[px,py]}),poly=pts.map(q=>q.join(',')).join(' ');
+  host.innerHTML='<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" aria-label="'+x.label+' 대표구간 가격 추이"><line x1="0" y1="'+(h-p)+'" x2="'+w+'" y2="'+(h-p)+'" class="ref-base"></line>'+(a.length>1?'<polyline points="'+poly+'" class="ref-line"></polyline>':'')+pts.map((q,i)=>'<circle cx="'+q[0]+'" cy="'+q[1]+'" r="2.4" class="ref-dot"></circle>').join('')+'</svg><div class="regime-ref-axis-v145"><span>'+regimeYm(a[0].ym)+'</span><b>KB 대표가격</b><span>'+regimeYm(a[a.length-1].ym)+'</span></div>';
+ }
+}
+async function loadRegimeReferences(){
+ try{
+  const d=await fetch('regime_reference_examples.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('references '+r.status);return r.json()});
+  window.__regimeReferences=d.references||[];renderRegimeReference(window.__currentCycleStage||0);
+  document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(el=>{
+   const open=()=>renderRegimeReference(Number(el.dataset.regimeRef));el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+  });
+ }catch(e){setText('regimeRefTitle','대표 사례 확인 중');setText('regimeRefDesc','연구엔진 대표구간 파일을 확인하고 있습니다.')}
+}
+loadRegimeReferences();
+
+
 window.__legacyScoreDetailUnused=function(k){
  const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
  const w={finance:25,sentiment:20,demand:20,value:20,supply:15},t={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'},m=d.m2_official||d.m2,x=d.matched_period,s=d.kb_sentiment||{},v=d.kb_value||{},val=z=>z==null?'—':Number(z).toFixed(1),body={
