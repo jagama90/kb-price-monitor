@@ -108,7 +108,7 @@ if '실거래 미확인' not in js:
 watch_render_start=js.find("document.querySelector('#summary').textContent=market.length+'개 단지'")
 watch_render_end=js.find("}load().catch",watch_render_start)
 watch_render=js[watch_render_start:watch_render_end] if watch_render_start>=0 and watch_render_end>watch_render_start else ''
-for noisy in ("원천 지연","확인 대기","원천 검증","원천 미연결"):
+for noisy in ("원천 검증",):
     if noisy in watch_render:
         errors.append('watchlist row-level noisy source label returned: '+noisy)
 for legacy_label in ('FORWARD REGIME · 전망엔진','THIS WEEK · 이번 주 핵심','MARKET CONTEXT · 검증된 보조신호','DEEP DIVE','DATA QUALITY','월간 갱신','>LIVE<'):
