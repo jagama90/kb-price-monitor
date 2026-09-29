@@ -36,7 +36,73 @@ def norm(d):
     k=max(q,key=q.get); q[k]=round(q[k]+100-sum(q.values()),1)
     return q
 
+RISK_LABELS=[
+  ('상승 우위','0~19%','하방 위험 낮음','very_low'),
+  ('재상승 가능성 확대','20~29%','재상승 여지 확대','low'),
+  ('혼조·방향 탐색','30~34%','방향성 확인 필요','mixed'),
+  ('쉬어가기·하방 경계','35~44%','하방 위험 주의','watch'),
+  ('조정 위험 확대','45~54%','조정 위험 우세','high'),
+  ('하락 우위','55~100%','하락 시나리오 우세','very_high'),
+]
+RISK_LOWER=[0,20,30,35,45,55]
+EASING_HYSTERESIS_PP=2.0
+
+def raw_risk_band(downturn):
+    # Use the same whole-number percentage the user sees on screen so labels
+    # never look inconsistent at 29.6% -> 30%.
+    v=round(n(downturn))
+    if v<=19:return 0
+    if v<=29:return 1
+    if v<=34:return 2
+    if v<=44:return 3
+    if v<=54:return 4
+    return 5
+
+def stable_risk_band(downturn,previous_band=None):
+    candidate=raw_risk_band(downturn)
+    if previous_band is None:
+        return candidate
+    try: band=max(0,min(5,int(previous_band)))
+    except: return candidate
+    # Worsening risk changes immediately. Easing needs 2%p beyond the
+    # boundary, preventing weekly wording from flipping around a cutoff.
+    if candidate>=band:
+        return candidate
+    v=n(downturn)
+    while band>candidate and v<=RISK_LOWER[band]-EASING_HYSTERESIS_PP:
+        band-=1
+    return band
+
+def display_for(weights,previous=None):
+    d=n((weights or {}).get('downturn'))
+    r=n((weights or {}).get('reacceleration'))
+    prev_band=(previous or {}).get('risk_band')
+    band=stable_risk_band(d,prev_band)
+    headline,rng,default_secondary,tone=RISK_LABELS[band]
+    if band==0:
+        secondary='재상승 신호 강함' if r>=40 else '하방 위험 낮음'
+    elif band==1:
+        secondary='재상승 신호 강화' if r>=35 else ('재상승 여지 확대' if r>=25 else '하방 위험 낮아지는 중')
+    elif band==2:
+        secondary='재상승 신호와 하방 위험 경합' if r>=35 else '방향성 확인 필요'
+    elif band==3:
+        secondary='하방 경계 속 재상승 신호 공존' if r>=35 else '하방 위험 주의'
+    elif band==4:
+        secondary='재상승 신호보다 조정 위험 우세'
+    else:
+        secondary='하락 시나리오 우세'
+    return {
+      'risk_band':band,'headline':headline,'risk_range':rng,'tone':tone,
+      'downturn_weight':round(d,1),'reacceleration_weight':round(r,1),
+      'secondary':secondary,'easing_hysteresis_pp':EASING_HYSTERESIS_PP
+    }
+
 def main():
+    previous={}
+    if OUT.exists():
+        try: previous=json.loads(OUT.read_text())
+        except: previous={}
+    previous_display={h.get('period'):h.get('display') or {} for h in (previous.get('horizons') or [])}
     tr=json.loads(TURN.read_text()); rows=tr.get('rows',[])
     if not rows: raise SystemExit('turning_signal_research has no rows')
     x=rows[-1]; recent=rows[-6:]
@@ -112,10 +178,26 @@ def main():
       'latest_research_provisional':bool(x.get('source_provisional',False)),
       'latest_certified_backtest_month':latest_cert,
       'horizons':[
-        {'period':horizon_labels[0][0],'label':horizon_labels[0][1],'weights':q4,'base_case':'consolidation'},
-        {'period':horizon_labels[1][0],'label':horizon_labels[1][1],'weights':h1,'base_case':max(h1,key=h1.get)},
-        {'period':horizon_labels[2][0],'label':horizon_labels[2][1],'weights':h2,'base_case':max(h2,key=h2.get)}
+        {'period':horizon_labels[0][0],'label':horizon_labels[0][1],'weights':q4,'base_case':'consolidation',
+         'display':display_for(q4,previous_display.get(horizon_labels[0][0]))},
+        {'period':horizon_labels[1][0],'label':horizon_labels[1][1],'weights':h1,'base_case':max(h1,key=h1.get),
+         'display':display_for(h1,previous_display.get(horizon_labels[1][0]))},
+        {'period':horizon_labels[2][0],'label':horizon_labels[2][1],'weights':h2,'base_case':max(h2,key=h2.get),
+         'display':display_for(h2,previous_display.get(horizon_labels[2][0]))}
       ],
+      'display_rules':{
+        'primary':'downturn scenario weight, rounded to visible whole percent',
+        'bands':[
+          {'min':0,'max':19,'headline':'상승 우위'},
+          {'min':20,'max':29,'headline':'재상승 가능성 확대'},
+          {'min':30,'max':34,'headline':'혼조·방향 탐색'},
+          {'min':35,'max':44,'headline':'쉬어가기·하방 경계'},
+          {'min':45,'max':54,'headline':'조정 위험 확대'},
+          {'min':55,'max':100,'headline':'하락 우위'}
+        ],
+        'secondary':'reacceleration weight adjusts the supporting phrase, not the primary risk band',
+        'hysteresis':'risk worsening changes at the nominal threshold; easing requires 2%p beyond the lower boundary'
+      },
       'state':{
         'current_phase':'post_rally_consolidation' if m3<=0 and m1>=0 else ('uptrend' if m3>0 else 'downtrend'),
         'recent_peak_3m_momentum_pct':round(peak_m3,2),
