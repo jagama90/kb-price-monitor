@@ -300,7 +300,7 @@ expected_fetch_assets={
     'kb_watchlist_history.json','buy_watchlist_market.json','buy_watchlist_master.json',
     'buy_watchlist_targets.json','market_indicators.json','final_backtest.json',
     'turning_signal_research.json','regime_forecast.json','garak_geumho_24a_history.json',
-    'market_extensions.json'
+    'market_extensions.json','kb_watchlist_weekly_change.json'
 }
 if fetch_assets!=expected_fetch_assets:
     errors.append('dashboard fetch asset set changed without lineage review: '+str(sorted(fetch_assets^expected_fetch_assets)))
@@ -319,6 +319,7 @@ lineage=[
     ('garak_geumho_24a_history.json','parallel','dist/garak_geumho_24a_history.json'),
     ('garak_geumho_24a_history.json','weekly','dist/garak_geumho_24a_history.json'),
     ('market_extensions.json','extensions','dist/market_extensions.json'),
+    ('kb_watchlist_weekly_change.json','weekly','scripts/build_kb_watchlist_weekly_change.py'),
 ]
 for asset,owner,needle in lineage:
     if needle not in wf[owner]: errors.append(f'{asset}: {owner} workflow ownership missing')
