@@ -1,0 +1,36 @@
+name: Validate composite KB valuation
+on:
+  push:
+    branches: [main]
+    paths: ['.github/run-validate-kb-composite-value']
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Collect and validate
+        run: |
+          python3 scripts/collect_kb_valuation_sources.py
+          python3 scripts/build_kb_value_composite.py
+          python3 scripts/validate_kb_value_composite.py
+          cp data_sources/kb_valuation_sources.json /tmp/kb_valuation_sources.json
+          cp dist/kb_value_composite_candidate.json /tmp/kb_value_composite_candidate.json
+          cp dist/kb_value_composite_validation.json /tmp/kb_value_composite_validation.json
+      - name: Persist research outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git reset --hard
+          git pull --ff-only origin main
+          cp /tmp/kb_valuation_sources.json data_sources/kb_valuation_sources.json
+          cp /tmp/kb_value_composite_candidate.json dist/kb_value_composite_candidate.json
+          cp /tmp/kb_value_composite_validation.json dist/kb_value_composite_validation.json
+          git add -f data_sources/kb_valuation_sources.json dist/kb_value_composite_candidate.json dist/kb_value_composite_validation.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Validate composite KB Seoul valuation'
+          git push origin HEAD:main
