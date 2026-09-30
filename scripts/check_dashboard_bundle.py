@@ -96,8 +96,10 @@ if 'REFRESH_CHANGE_TTL=24*60*60*1000' not in js:
     errors.append('24h recent-change visibility contract missing')
 if 'initRefreshCalendar()' not in js or 'decorateRefreshPanel' not in js or 'decorateFactorRefresh' not in js:
     errors.append('semantic refresh renderer missing')
-if js.count("decorateRefreshPanel({key:")<6:
-    errors.append('six core dashboard panels must expose refresh timestamps')
+if js.count("decorateRefreshPanel({key:")<5:
+    errors.append('five supporting dashboard panels must expose refresh timestamps')
+if "decorateRefreshPanel({key:'overview'" in js:
+    errors.append('unified judgment header must not show refresh/change metadata')
 if "dot.className='panel-refresh-dot'" in js:
     errors.append('legacy unread red-dot creator returned')
 if '실제 변경' not in js or '변경 없음' not in js:
