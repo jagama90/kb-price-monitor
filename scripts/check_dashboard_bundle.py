@@ -5,8 +5,15 @@ import re,sys,json
 
 R=Path(__file__).resolve().parents[1]
 html=(R/'dist/market.html').read_text(encoding='utf-8')
+index_html=(R/'dist/index.html').read_text(encoding='utf-8')
 js=(R/'dist/market.js').read_text(encoding='utf-8')
 errors=[]
+
+# Pages root must always resolve to the canonical three-layer market dashboard.
+if './market.html' not in index_html or 'http-equiv="refresh"' not in index_html:
+    errors.append('Pages root must redirect to canonical market.html')
+if 'src="market.js' in index_html or 'class="card user-market-v184"' in index_html:
+    errors.append('Pages root must not carry a second dashboard implementation')
 
 ids=re.findall(r'\bid="([^"]+)"',html)
 dups=sorted({x for x in ids if ids.count(x)>1})
