@@ -13,7 +13,11 @@ def main():
  else:
   a=d.get('price_bands',{}).get('months',[])
   if len(a)>=2:
-   p,c=a[-2],a[-1]; demand=clamp(50+((c['total']/p['total'])-1)*35+(c['under15_share']-p['under15_share'])*1.5)
+   p,c=a[-2],a[-1]
+   p_total,p_share=p.get('total'),p.get('under15_share')
+   c_total,c_share=c.get('total'),c.get('under15_share')
+   if p_total not in (None,0) and c_total is not None and p_share is not None and c_share is not None:
+    demand=clamp(50+((float(c_total)/float(p_total))-1)*35+(float(c_share)-float(p_share))*1.5)
  weights={'finance':25,'demand':20}; vals={'finance':finance,'demand':demand}; avail=[k for k,v in vals.items() if v is not None]; coverage=sum(weights[k] for k in avail)
  score=round(sum(vals[k]*weights[k] for k in avail)/coverage,1) if coverage>=60 else None
  row={'date':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).date().isoformat(),'coverage_weight':coverage,'score':score,'components':vals,'source_updated_at':d.get('updated_at')}
