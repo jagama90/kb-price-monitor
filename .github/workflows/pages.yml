@@ -39,6 +39,7 @@ jobs:
           cp data/buy_watchlist_targets.json dist/buy_watchlist_targets.json
       - name: Validate dashboard and pipeline health
         run: |
+          python3 scripts/test_market_judgment_engine.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_pipeline_health.py
