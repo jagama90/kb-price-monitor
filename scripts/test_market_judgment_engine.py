@@ -6,6 +6,7 @@ import unittest
 from market_judgment_engine import (
     build_judgment,
     buy_condition_head,
+    component_scores,
     current_state_head,
     forward_scenario_head,
     rolling_horizons,
@@ -39,6 +40,16 @@ class UnifiedEngineTests(unittest.TestCase):
         self.assertAlmostEqual(h['score_0_100'],40.5,places=1)
         self.assertEqual(h['coverage_weight'],100)
         self.assertEqual(h['weights'],{'finance':25,'sentiment':20,'demand':20,'value':20,'supply':15})
+
+    def test_month_rollover_uses_last_usable_trade_signal(self):
+        market={
+            'm2_official':{'mom_pct':0.3,'yoy_pct':5.8},
+            'kb_sentiment':{'score_0_100':22.6,'jeonse_score_0_100':49.3},
+            'kb_value':{'score_0_100':30.4},
+            'matched_period':{'changes':{'trade_count_pct':-100.0,'under15_share_pp':None}},
+            'signal_matched_period':{'changes':{'trade_count_pct':-46.4,'under15_share_pp':2.8}},
+        }
+        self.assertAlmostEqual(component_scores(market)['demand'],38.0,places=1)
 
     def test_forward_weights_sum_to_100(self):
         h=forward_scenario_head(feature())
