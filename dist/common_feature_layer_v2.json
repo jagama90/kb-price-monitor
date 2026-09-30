@@ -127,7 +127,7 @@
           "under15_share": 79.4
         },
         "changes": {
-          "trade_count_pct": -100,
+          "trade_count_pct": -100.0,
           "under15_share_pp": null
         },
         "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
@@ -146,7 +146,7 @@
     },
     "finance_v2_candidate": {
       "status": "validated_candidate",
-      "production_applied": false,
+      "production_applied": true,
       "score_0_100": 35.5,
       "liquidity_credit_availability": {
         "score_0_100": 45.5,
@@ -335,7 +335,7 @@
       "n_listing_delta": 31,
       "listing_increase_share_pct": 38.7,
       "median_listing_week_delta": 0.0,
-      "median_ask_vs_recent_trade_gap_pct": 3.81,
+      "median_ask_vs_recent_trade_gap_pct": 4.84,
       "listing_up_and_ask_down_share_pct": 18.5,
       "forced_selling": {
         "status": "not_connected",
@@ -370,7 +370,7 @@
     }
   },
   "production_decision": {
-    "integrated_engine_changed": false,
+    "integrated_engine_changed": true,
     "candidate_decisions": {
       "trade_reporting": {
         "status": "mature_completed_month",
@@ -378,7 +378,7 @@
       },
       "finance_v2_candidate": {
         "status": "validated_candidate",
-        "production_applied": false
+        "production_applied": true
       },
       "valuation_rate_stress_candidate": {
         "status": "research_candidate",
@@ -405,7 +405,7 @@
         "production_applied": false
       }
     },
-    "reason": "candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass"
+    "reason": "finance_v2 passed standalone and integrated leakage-safe validation and is active in production; other candidates remain research-only until their gates pass"
   },
   "lineage": {
     "market": "dist/market_indicators.json",
@@ -413,7 +413,8 @@
     "mortgage_rate": "data_sources/ecos_mortgage_rate.json",
     "housing_credit": "data_sources/ecos_housing_credit.json",
     "leading_segment": "data_sources/kb_leading50_median.json",
-    "policy": "data_sources/housing_policy_events.json"
+    "policy": "data_sources/housing_policy_events.json",
+    "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-09-30T19:19:37.941117+00:00"
+  "generated_at": "2026-09-30T23:40:04.270138+00:00"
 }

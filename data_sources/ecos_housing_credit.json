@@ -2,7 +2,7 @@
   "status": "connected",
   "source": "한국은행 ECOS",
   "candidate_feature": "housing_credit_availability",
-  "generated_at": "2026-09-30T19:19:09.193154+00:00",
+  "generated_at": "2026-09-30T23:39:36.014637+00:00",
   "stat_code": "151Y005",
   "stat_name": "1.2.4.2.2. 예금취급기관 가계대출(용도별, 월)",
   "item_names": [
