@@ -3484,3 +3484,27 @@ header{position:sticky!important;overflow:visible!important}
     font-size:25px!important;
   }
 }
+
+/* v193 force evidence cards to fill raw-source grid cells */
+@media(max-width:800px){
+  .judgment-evidence-drawer-v181 .evidence-factor-list-v181{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    width:100%!important;
+    align-items:stretch!important;
+    justify-items:stretch!important;
+  }
+  .judgment-evidence-drawer-v181 .evidence-factor-list-v181>.score-component,
+  .judgment-evidence-drawer-v181 .evidence-factor-list-v181>.score-component:last-child{
+    flex:none!important;
+    flex-basis:auto!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    justify-self:stretch!important;
+    align-self:stretch!important;
+    margin:0!important;
+    box-sizing:border-box!important;
+  }
+}
