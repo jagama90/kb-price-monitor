@@ -192,8 +192,11 @@ if 'coverage-badge-v140' not in html: errors.append('separate data coverage badg
 if '원천 미연결' in html and '미분양' in html: errors.append('unsold housing must not be shown as disconnected')
 
 # Unified market-judgment regression guard
-for _id in ('judgmentCurrentLabel','judgmentAsOf','judgmentFactorSummary'):
+for _id in ('judgmentCurrentLabel','judgmentFactorSummary'):
     if ids.count(_id)!=1: errors.append(f'unified judgment element missing: {_id}')
+if 'judgmentAsOf' in ids: errors.append('redundant unified snapshot badge returned')
+if 'cycleStageEvidence' in ids: errors.append('redundant current-state metric strip returned')
+if '<h1>서울 시장 판단</h1>' in html: errors.append('duplicate unified judgment title returned')
 cycle_start=js.find('async function renderCycleStage')
 cycle_end=js.find('\nasync function loadRegimeReferences',cycle_start)
 cycle_block=js[cycle_start:cycle_end] if cycle_start>=0 and cycle_end>cycle_start else ''
