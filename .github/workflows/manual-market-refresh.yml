@@ -1,13 +1,7 @@
-name: Manual market refresh poll
+name: Manual market refresh fallback
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/run-manual-refresh-poll'
 
 permissions:
   contents: write
@@ -15,7 +9,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: manual-market-refresh-poll
+  group: manual-market-refresh-fallback
   cancel-in-progress: true
 
 jobs:
