@@ -3267,3 +3267,36 @@ header{position:sticky!important;overflow:visible!important}
     margin-top:5px!important;
   }
 }
+
+/* v190 neutralize legacy .card details spacing */
+/* Legacy rule ".card details" adds a white top strip. New accordions own their spacing. */
+.market-judgment-v181 .judgment-evidence-drawer-v181,
+.market-judgment-v181 .forecast-guide-v181,
+.user-market-v184 .user-watch-v184,
+.user-market-v184 .watch-insights-v2,
+.diagnostics-v184 .diagnostic-block-v184,
+.diagnostics-v184 .deep-source{
+  padding-top:0!important;
+  border-top:0!important;
+}
+.market-judgment-v181 .judgment-evidence-drawer-v181{
+  margin-top:8px!important;
+}
+.market-judgment-v181 .forecast-guide-v181{
+  margin-top:10px!important;
+}
+.user-market-v184 .user-watch-v184{
+  margin-top:8px!important;
+}
+.user-market-v184 .watch-insights-v2{
+  margin-top:8px!important;
+}
+.diagnostics-v184 .diagnostic-block-v184{
+  margin-top:6px!important;
+}
+.diagnostics-v184 .diagnostic-block-v184:first-child{
+  margin-top:0!important;
+}
+.diagnostics-v184 .deep-source{
+  margin-top:8px!important;
+}
