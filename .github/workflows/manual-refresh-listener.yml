@@ -36,7 +36,7 @@ jobs:
           if [ -n "$other" ] && [ "$GITHUB_EVENT_NAME" = "push" ]; then
             echo "Workflow update detected; replacing older listener $other."
             curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$other/cancel" >/dev/null || true
-            for _ in $(seq 1 12); do
+            for _ in $(seq 1 24); do
               sleep 3
               other="$(other_listener)"
               [ -z "$other" ] && break
