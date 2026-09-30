@@ -142,7 +142,7 @@ def valuation_rate_research(final_rows,mortgage):
  gate=len(p)>=30 and parents and metrics['interaction_downside_auc'] is not None and metrics['interaction_downside_auc']>=max(parents)+.01
  return rows,{**metrics,'apply_recommended':bool(gate),'gate':'n>=30 and interaction downside AUC >= best single parent + 0.01'}
 
-def price_tier_feature(market):
+def price_tier_feature(market,tier_history=None):
  sig=market.get('signal_matched_period') or {};cur=sig.get('current') or {};prev=sig.get('previous') or {}
  cc=cur.get('counts') or {};pc=prev.get('counts') or {}
  keys=[('<=9eok','≤9억'),('9-15eok','9~15억'),('15-25eok','15~25억'),('25eok+','25억+')]
@@ -162,7 +162,7 @@ def price_tier_feature(market):
   'signal_period':cur.get('period'),'previous_period':prev.get('period'),'aggregate_trade_change_pct':market_change,
   'bands':out,'high_tier_relative_volume_pp':high.get('relative_volume_vs_market_pp'),
   'relative_quantile_tiers':{'status':'not_connected','reason':'long-enough transaction-level history for market-relative quantiles is not retained yet'},
-  'validation':{'status':'insufficient_history','available_band_months':len((market.get('price_bands') or {}).get('months') or []),'required_for_model':36}
+  'validation':{'status':'insufficient_history','available_band_months':len(((tier_history or {}).get('months') or (market.get('price_bands') or {}).get('months') or [])),'required_for_model':36}
  }
 
 def lead_lag_feature(raw):
@@ -244,7 +244,7 @@ def current_finance_feature(mortgage,base,m2,credit,validation):
          'validation':validation}
 
 def main():
- market=read(DIST/'market_indicators.json');final=read(DIST/'final_backtest.json');mort_raw=read(SRC/'ecos_mortgage_rate.json')
+ market=read(DIST/'market_indicators.json');final=read(DIST/'final_backtest.json');mort_raw=read(SRC/'ecos_mortgage_rate.json');tier_history=read(SRC/'molit_price_tier_history.json')
  base=read(SRC/'ecos_base_rate.json');m2=read(SRC/'ecos_m2.json');credit=read(SRC/'ecos_housing_credit.json')
  leading=read(SRC/'kb_leading50_median.json');watch=read(ROOT/'data/buy_watchlist_market.json');policy=read(SRC/'housing_policy_events.json')
  mortgage=mortgage_monthly(mort_raw);frows=final.get('rows') or []
@@ -256,7 +256,7 @@ def main():
   'valuation_rate_stress_candidate':{'status':'validated_candidate' if vr_val.get('apply_recommended') else 'research_candidate','production_applied':False,'validation':vr_val,
       'current_inputs':{'value_score_0_100':(market.get('kb_value') or {}).get('score_0_100'),'mortgage_rate_pct':(market.get('mortgage_rate_official') or {}).get('rate_pct')},
       'method':'(100 - existing Value Composite) × historical mortgage-rate cost percentile / 100'},
-  'price_tier_liquidity':price_tier_feature(market),
+  'price_tier_liquidity':price_tier_feature(market,tier_history),
   'leader_lag':lead_lag_feature(leading),
   'selling_pressure':selling_pressure_feature(watch),
   'policy_credit_regime':policy_feature(policy),

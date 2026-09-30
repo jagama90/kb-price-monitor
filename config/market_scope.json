@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "market_scope_id": "seoul_city",
+  "data_scope": "Seoul",
+  "market_scope": "city",
+  "region": {
+    "code": "1100000000",
+    "label": "서울"
+  },
+  "district_focus": {
+    "code": "1171000000",
+    "label": "송파"
+  },
+  "complex_focus": {
+    "label": "관심단지"
+  },
+  "display_path": [
+    "서울",
+    "송파",
+    "관심단지"
+  ],
+  "district_codes": [
+    "11110",
+    "11140",
+    "11170",
+    "11200",
+    "11215",
+    "11230",
+    "11260",
+    "11290",
+    "11305",
+    "11320",
+    "11350",
+    "11380",
+    "11410",
+    "11440",
+    "11470",
+    "11500",
+    "11530",
+    "11545",
+    "11560",
+    "11590",
+    "11620",
+    "11650",
+    "11680",
+    "11710",
+    "11740"
+  ],
+  "price_tiers": {
+    "absolute": [
+      {
+        "id": "<=9eok",
+        "label": "≤9억",
+        "max_manwon": 90000,
+        "max_inclusive": true
+      },
+      {
+        "id": "9-15eok",
+        "label": "9~15억",
+        "min_manwon": 90000,
+        "min_inclusive": false,
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-25eok",
+        "label": "15~25억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": false
+      },
+      {
+        "id": "25eok+",
+        "label": "25억+",
+        "min_manwon": 250000,
+        "min_inclusive": true
+      }
+    ],
+    "analysis": [
+      {
+        "id": "<=15eok",
+        "label": "≤15억",
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-25eok",
+        "label": "15~25억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": false
+      },
+      {
+        "id": "25eok+",
+        "label": "25억+",
+        "min_manwon": 250000,
+        "min_inclusive": true
+      }
+    ],
+    "boundary": [
+      {
+        "id": "13-15eok",
+        "label": "13~15억",
+        "min_manwon": 130000,
+        "min_inclusive": false,
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-17eok",
+        "label": "15~17억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 170000,
+        "max_inclusive": true
+      },
+      {
+        "id": "23-25eok",
+        "label": "23~25억",
+        "min_manwon": 230000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": true
+      },
+      {
+        "id": "25-27eok",
+        "label": "25~27억",
+        "min_manwon": 250000,
+        "min_inclusive": false,
+        "max_manwon": 270000,
+        "max_inclusive": true
+      }
+    ]
+  }
+}

@@ -3,8 +3,13 @@ import os,json,datetime,urllib.parse,urllib.request,xml.etree.ElementTree as ET,
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from zoneinfo import ZoneInfo
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-OUT=ROOT/'data_sources/molit.json'; VINTAGE=ROOT/'data_sources/molit_daily_history.json'; SHARED=ROOT/'data_sources/.molit_watchlist_pair_cache.json'
-SEOUL=['11110','11140','11170','11200','11215','11230','11260','11290','11305','11320','11350','11380','11410','11440','11470','11500','11530','11545','11560','11590','11620','11650','11680','11710','11740']
+OUT=ROOT/'data_sources/molit.json'; VINTAGE=ROOT/'data_sources/molit_daily_history.json'; SHARED=ROOT/'data_sources/.molit_watchlist_pair_cache.json'; TIER_HISTORY=ROOT/'data_sources/molit_price_tier_history.json'
+SCOPE_CONFIG=ROOT/'config/market_scope.json'
+if not SCOPE_CONFIG.exists(): raise RuntimeError('config/market_scope.json is required')
+MARKET_SCOPE=json.loads(SCOPE_CONFIG.read_text(encoding='utf-8'))
+DISTRICT_CODES=[str(x) for x in (MARKET_SCOPE.get('district_codes') or [])]
+if not DISTRICT_CODES: raise RuntimeError('market scope district_codes is empty')
+PRICE_TIERS=MARKET_SCOPE.get('price_tiers') or {}
 REPORTING_WINDOW_DAYS=30
 def request_page(code,ym,key,page,timeout):
  q=urllib.parse.urlencode({'serviceKey':key,'LAWD_CD':code,'DEAL_YMD':ym,'numOfRows':1000,'pageNo':page},safe='%')
@@ -43,7 +48,7 @@ def decode_cache(previous):
  for k,v in raw.items():
   try:
    code,ym=k.split(':',1)
-   if code in SEOUL and len(ym)==6:
+   if code in DISTRICT_CODES and len(ym)==6:
     out[(code,ym)]=[(int(x[0]),int(x[1])) for x in (v or [])]
   except Exception:
    pass
@@ -58,7 +63,7 @@ def decode_shared_cache():
  for k,v in raw.items():
   try:
    code,ym=k.split(':',1)
-   if code in SEOUL and len(ym)==6:
+   if code in DISTRICT_CODES and len(ym)==6:
     out[(code,ym)]=[(int(x[0]),int(x[1])) for x in (v or [])]
   except Exception:
    pass
@@ -129,12 +134,21 @@ def fetch_refresh_pairs(pairs,key,workers,cache):
  return results,cache,{'retried':retried,'fallbacks':fallbacks,'elapsed_sec':elapsed}
 
 
+def in_band(price,band):
+ lo=band.get('min_manwon');hi=band.get('max_manwon')
+ if lo is not None:
+  if price<float(lo) or (price==float(lo) and not band.get('min_inclusive',True)):return False
+ if hi is not None:
+  if price>float(hi) or (price==float(hi) and not band.get('max_inclusive',True)):return False
+ return True
+def band_counts(prices,name):
+ bands=PRICE_TIERS.get(name) or []
+ return {str(b['id']):sum(in_band(p,b) for p in prices) for b in bands}
 def summarize(rows):
  prices=[p for _,p in rows];n=len(prices)
- keys={'<=9eok':sum(p<=90000 for p in prices),'9-15eok':sum(90000<p<=150000 for p in prices),'15-25eok':sum(150000<p<250000 for p in prices),'25eok+':sum(p>=250000 for p in prices)}
- buckets3={'<=15eok':sum(p<=150000 for p in prices),'15-25eok':sum(150000<p<250000 for p in prices),'25eok+':sum(p>=250000 for p in prices)}
- boundary={'13-15eok':sum(130000<p<=150000 for p in prices),'15-17eok':sum(150000<p<=170000 for p in prices),'23-25eok':sum(230000<p<=250000 for p in prices),'25-27eok':sum(250000<p<=270000 for p in prices)}
- return {'total':n,'counts':keys,'buckets3':buckets3,'boundary_counts':boundary,'under15_share':round(buckets3['<=15eok']*100/n,1) if n else None}
+ keys=band_counts(prices,'absolute');buckets3=band_counts(prices,'analysis');boundary=band_counts(prices,'boundary')
+ under=buckets3.get('<=15eok')
+ return {'total':n,'counts':keys,'buckets3':buckets3,'boundary_counts':boundary,'under15_share':round(under*100/n,1) if n and under is not None else None}
 def shift_month(d,delta):
  y=d.year+(d.month-1+delta)//12;m=(d.month-1+delta)%12+1;return y,m
 
@@ -239,16 +253,16 @@ def main():
  # Reuse district/month responses already downloaded by the watchlist collector
  # earlier in the same job. Persistent cache never suppresses a requested refresh,
  # but same-run shared cache does.
- pairs_to_fetch={(code,ym) for ym in refresh for code in SEOUL if (code,ym) not in shared_cache}
+ pairs_to_fetch={(code,ym) for ym in refresh for code in DISTRICT_CODES if (code,ym) not in shared_cache}
  # Only if no matched-period vintage exists do we need raw previous-month pairs.
  if cached_prev_match is None and months[1] not in refresh:
-  for code in SEOUL:
+  for code in DISTRICT_CODES:
    if (code,months[1]) not in pair_cache and (code,months[1]) not in shared_cache:
     pairs_to_fetch.add((code,months[1]))
  # Historical bands missing from the repository are repaired lazily.
  for ym in months:
   if ym not in previous_bands:
-   for code in SEOUL:
+   for code in DISTRICT_CODES:
     if (code,ym) not in shared_cache:pairs_to_fetch.add((code,ym))
 
  fetched,pair_cache,fetch_meta=fetch_refresh_pairs(pairs_to_fetch,key,workers,pair_cache)
@@ -261,7 +275,7 @@ def main():
   else:
    rows=[]
    missing=[]
-   for code in SEOUL:
+   for code in DISTRICT_CODES:
     if (code,ym) in pair_rows:rows.extend(pair_rows[(code,ym)])
     else:missing.append(code)
    if missing:raise RuntimeError(f'MOLIT raw pair cache incomplete {ym}: {missing}')
@@ -273,7 +287,7 @@ def main():
  cur=months[0];prev=months[1];cy,cm=now.year,now.month
  if cur not in monthly:
   rows=[]
-  for code in SEOUL:
+  for code in DISTRICT_CODES:
    pair=(code,cur)
    if pair not in pair_rows:raise RuntimeError(f'MOLIT current-month cache missing {code} {cur}')
    rows.extend(pair_rows[pair])
@@ -284,7 +298,7 @@ def main():
  else:
   if prev not in monthly:
    rows=[]
-   for code in SEOUL:
+   for code in DISTRICT_CODES:
     pair=(code,prev)
     if pair not in pair_rows:raise RuntimeError(f'MOLIT previous-month cache missing {code} {prev}')
     rows.extend(pair_rows[pair])
@@ -312,8 +326,18 @@ def main():
       'signal_matched_period':signal_matched,
       'signal_matched_period_status':signal_status,
       'trade_signal_confidence':trade_confidence,
-      'scope':{'data_scope':'Seoul','market_scope':'city','region_code':'1100000000','district_codes':SEOUL}}
+      'scope':{'market_scope_id':MARKET_SCOPE.get('market_scope_id'),'data_scope':MARKET_SCOPE.get('data_scope'),
+       'market_scope':MARKET_SCOPE.get('market_scope'),'region':MARKET_SCOPE.get('region'),'district_focus':MARKET_SCOPE.get('district_focus'),
+       'complex_focus':MARKET_SCOPE.get('complex_focus'),'display_path':MARKET_SCOPE.get('display_path'),'district_codes':DISTRICT_CODES,
+       'dimensions':['region','market_scope','district','complex','price_tier']},
+      'price_tier_config':PRICE_TIERS}
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  history['snapshots']=[x for x in history.get('snapshots',[]) if x.get('as_of')!=now.isoformat()];history['snapshots'].append({'as_of':now.isoformat(),'matched_period':matched,'current_month':bands[-1]});history['snapshots']=history['snapshots'][-400:];VINTAGE.write_text(json.dumps(history,ensure_ascii=False,indent=2))
+ try: tier_hist=json.loads(TIER_HISTORY.read_text(encoding='utf-8')) if TIER_HISTORY.exists() else {'months':[]}
+ except Exception: tier_hist={'months':[]}
+ merged={str(x.get('period')):x for x in (tier_hist.get('months') or []) if x.get('period')}
+ for x in bands:merged[str(x.get('period'))]=x
+ tier_hist={'version':1,'scope':out.get('scope'),'price_tier_config':PRICE_TIERS,'months':[merged[k] for k in sorted(merged)[-120:]],'updated_at':now.isoformat()}
+ TIER_HISTORY.write_text(json.dumps(tier_hist,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps({'collector':'MOLIT','months':len(months),'mode':out['refresh_meta']['mode'],'refreshed_months':sorted(refresh),'queried_pairs':len(pairs_to_fetch),'reused_watchlist_pairs':len(shared_cache),'workers':workers,'retried_pairs':len(fetch_meta['retried']),'cache_fallbacks':len(fetch_meta['fallbacks']),'latest_total':bands[-1]['total'],'matched':matched['changes']},ensure_ascii=False))
 if __name__=='__main__':main()

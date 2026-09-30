@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "scope": {
+    "data_scope": "Seoul",
+    "market_scope": "city",
+    "region_code": "1100000000"
+  },
+  "price_tier_config": {
+    "absolute": [
+      {
+        "id": "<=9eok",
+        "label": "≤9억",
+        "max_manwon": 90000,
+        "max_inclusive": true
+      },
+      {
+        "id": "9-15eok",
+        "label": "9~15억",
+        "min_manwon": 90000,
+        "min_inclusive": false,
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-25eok",
+        "label": "15~25억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": false
+      },
+      {
+        "id": "25eok+",
+        "label": "25억+",
+        "min_manwon": 250000,
+        "min_inclusive": true
+      }
+    ],
+    "analysis": [
+      {
+        "id": "<=15eok",
+        "label": "≤15억",
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-25eok",
+        "label": "15~25억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": false
+      },
+      {
+        "id": "25eok+",
+        "label": "25억+",
+        "min_manwon": 250000,
+        "min_inclusive": true
+      }
+    ],
+    "boundary": [
+      {
+        "id": "13-15eok",
+        "label": "13~15억",
+        "min_manwon": 130000,
+        "min_inclusive": false,
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-17eok",
+        "label": "15~17억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 170000,
+        "max_inclusive": true
+      },
+      {
+        "id": "23-25eok",
+        "label": "23~25억",
+        "min_manwon": 230000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": true
+      },
+      {
+        "id": "25-27eok",
+        "label": "25~27억",
+        "min_manwon": 250000,
+        "min_inclusive": false,
+        "max_manwon": 270000,
+        "max_inclusive": true
+      }
+    ]
+  },
+  "months": [
+    {
+      "period": "2026-04",
+      "total": 8920,
+      "counts": {
+        "<=9eok": 4342,
+        "9-15eok": 2413,
+        "15-25eok": 1387,
+        "25eok+": 778
+      },
+      "buckets3": null,
+      "boundary_counts": {
+        "13-15eok": 628,
+        "15-17eok": 474,
+        "23-25eok": 146,
+        "25-27eok": 109
+      },
+      "under15_share": 75.7
+    },
+    {
+      "period": "2026-05",
+      "total": 9263,
+      "counts": {
+        "<=9eok": 4131,
+        "9-15eok": 2560,
+        "15-25eok": 1642,
+        "25eok+": 930
+      },
+      "buckets3": null,
+      "boundary_counts": {
+        "13-15eok": 640,
+        "15-17eok": 574,
+        "23-25eok": 174,
+        "25-27eok": 147
+      },
+      "under15_share": 72.2
+    },
+    {
+      "period": "2026-06",
+      "total": 5467,
+      "counts": {
+        "<=9eok": 2527,
+        "9-15eok": 1631,
+        "15-25eok": 914,
+        "25eok+": 395
+      },
+      "buckets3": null,
+      "boundary_counts": {
+        "13-15eok": 439,
+        "15-17eok": 319,
+        "23-25eok": 71,
+        "25-27eok": 53
+      },
+      "under15_share": 76.1
+    },
+    {
+      "period": "2026-07",
+      "total": 5993,
+      "counts": {
+        "<=9eok": 2977,
+        "9-15eok": 1781,
+        "15-25eok": 880,
+        "25eok+": 355
+      },
+      "buckets3": null,
+      "boundary_counts": {
+        "13-15eok": 493,
+        "15-17eok": 308,
+        "23-25eok": 79,
+        "25-27eok": 47
+      },
+      "under15_share": 79.4
+    },
+    {
+      "period": "2026-08",
+      "total": 3546,
+      "counts": {
+        "<=9eok": 1865,
+        "9-15eok": 959,
+        "15-25eok": 534,
+        "25eok+": 188
+      },
+      "buckets3": null,
+      "boundary_counts": {
+        "13-15eok": 243,
+        "15-17eok": 185,
+        "23-25eok": 56,
+        "25-27eok": 29
+      },
+      "under15_share": 79.6
+    },
+    {
+      "period": "2026-09",
+      "total": 1873,
+      "counts": {
+        "<=9eok": 1159,
+        "9-15eok": 386,
+        "15-25eok": 230,
+        "25eok+": 98
+      },
+      "buckets3": {
+        "<=15eok": 1545,
+        "15-25eok": 230,
+        "25eok+": 98
+      },
+      "boundary_counts": {
+        "13-15eok": 77,
+        "15-17eok": 74,
+        "23-25eok": 25,
+        "25-27eok": 13
+      },
+      "under15_share": 82.5
+    },
+    {
+      "period": "2026-10",
+      "total": 0,
+      "counts": {
+        "<=9eok": 0,
+        "9-15eok": 0,
+        "15-25eok": 0,
+        "25eok+": 0
+      },
+      "buckets3": {
+        "<=15eok": 0,
+        "15-25eok": 0,
+        "25eok+": 0
+      },
+      "boundary_counts": {
+        "13-15eok": 0,
+        "15-17eok": 0,
+        "23-25eok": 0,
+        "25-27eok": 0
+      },
+      "under15_share": null
+    }
+  ],
+  "updated_at": "2026-10-01"
+}
