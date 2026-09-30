@@ -3181,3 +3181,45 @@ header{position:sticky!important;overflow:visible!important}
     margin-top:14px!important;
   }
 }
+
+/* v188 compact accordion reveal */
+/* Expanded drawers should begin immediately below their summary. */
+.user-watch-v184[open]>.watch{
+  padding:12px 14px!important;
+  min-height:0!important;
+}
+.user-watch-v184[open]>.watch>.title{
+  margin:0 0 9px!important;
+}
+.user-watch-v184[open]>.watch>.title h2{
+  margin:0!important;
+}
+.user-watch-v184[open]>.watch-insights-v2{
+  margin:0 14px 14px!important;
+}
+.diagnostic-block-v184[open]>.diagnostic-source-body-v184{
+  padding:10px 12px 12px!important;
+  min-height:0!important;
+}
+.diagnostic-block-v184[open]>.diagnostic-source-body-v184>.evidence-strip:first-child{
+  margin-top:0!important;
+}
+.diagnostic-block-v184[open]>.diagnostic-source-body-v184>.evidence-strip + .evidence-strip{
+  margin-top:8px!important;
+}
+.diagnostic-block-v184[open]>.compact-body,
+.diagnostic-block-v184[open]>.audit-panel-v140{
+  padding-top:10px!important;
+  min-height:0!important;
+}
+@media(max-width:800px){
+  .user-watch-v184[open]>.watch{
+    padding:10px 12px!important;
+  }
+  .user-watch-v184[open]>.watch-insights-v2{
+    margin:0 12px 12px!important;
+  }
+  .diagnostic-block-v184[open]>.diagnostic-source-body-v184{
+    padding:8px 10px 10px!important;
+  }
+}
