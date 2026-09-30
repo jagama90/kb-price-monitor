@@ -1,14 +1,14 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-10-01T02:07:54.002912+09:00",
+  "collected_at": "2026-10-01T02:10:04.077882+09:00",
   "refresh_meta": {
     "mode": "daily_current_month_only",
     "queried_pairs": 20,
     "reused_watchlist_pairs": 10,
-    "reused_previous_matched_vintage": false,
+    "reused_previous_matched_vintage": true,
     "retried_pairs": [],
     "cache_fallback_pairs": [],
-    "elapsed_sec": 3.9
+    "elapsed_sec": 3.5
   },
   "pair_cache": {
     "11215:202609": [
@@ -22223,11 +22223,6 @@
       "counts": {
         "<=9eok": 58,
         "9-15eok": 19,
-        "15-25eok": 16,
-        "25eok+": 4
-      },
-      "buckets3": {
-        "<=15eok": 77,
         "15-25eok": 16,
         "25eok+": 4
       },
