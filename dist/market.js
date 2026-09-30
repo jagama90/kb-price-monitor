@@ -734,146 +734,101 @@ initRefreshCalendar();
 const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addEventListener('click',e=>{e.preventDefault();window.location.reload()});
 
 
-/* v197 manual five-factor API refresh */
+/* v198 no-token manual five-factor refresh */
 (function(){
- const OWNER='jagama90',REPO='kb-price-monitor',WORKFLOW='parallel-market-refresh.yml';
- const TOKEN_KEY='kbpm.github.actions.token.session.v1';
- const PENDING_KEY='kbpm.manual.refresh.pending.v1';
+ const ENDPOINT='https://iefzffwydvqnleukmljj.supabase.co/functions/v1/manual-market-refresh';
+ const PENDING_KEY='kbpm.manual.refresh.pending.v2';
  const btn=document.getElementById('manualRefreshButton');
  const host=document.getElementById('manualFactorRefresh');
  const statusEl=document.getElementById('manualRefreshStatus');
  if(!btn||!host||!statusEl)return;
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
- const api=(path,token,opts={})=>fetch('https://api.github.com'+path,{
-   ...opts,
-   headers:{
-     Accept:'application/vnd.github+json',
-     'X-GitHub-Api-Version':'2022-11-28',
-     ...(token?{Authorization:'Bearer '+token}:{}),
-     ...(opts.headers||{})
-   },
-   cache:'no-store'
- });
  const setState=(text,state='')=>{
    statusEl.textContent=text;
    host.classList.remove('running','success','error');
    if(state)host.classList.add(state);
  };
- function getToken(){
-   let token='';
-   try{token=sessionStorage.getItem(TOKEN_KEY)||''}catch{}
-   if(token)return token;
-   token=(window.prompt(
-     '수동 갱신을 실행하려면 GitHub fine-grained PAT가 필요합니다.\n\n'+
-     '저장소: jagama90/kb-price-monitor\n권한: Actions · Read and write\n\n'+
-     '토큰은 이 브라우저 탭의 sessionStorage에만 보관됩니다.'
-   )||'').trim();
-   if(token){try{sessionStorage.setItem(TOKEN_KEY,token)}catch{}}
-   return token;
- }
  async function currentRevision(){
    try{
      const d=await fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null);
      return d?.refresh_run?.attempted_at||d?.updated_at||null;
    }catch{return null}
  }
- async function findRun(token,dispatchedAt){
-   const r=await api('/repos/'+OWNER+'/'+REPO+'/actions/workflows/'+WORKFLOW+'/runs?event=workflow_dispatch&branch=main&per_page=8',token);
-   if(!r.ok)throw Error('워크플로우 상태 조회 실패 ('+r.status+')');
-   const data=await r.json(),cut=dispatchedAt-15000;
-   return (data.workflow_runs||[]).find(x=>new Date(x.created_at).getTime()>=cut)||null;
- }
- async function waitRun(token,pending){
-   let run=pending.runId?{id:pending.runId}:null;
-   for(let i=0;i<180;i++){
-     if(!run?.id){
-       run=await findRun(token,pending.dispatchedAt);
-       if(run?.id){
-         pending.runId=run.id;
-         try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(pending))}catch{}
-       }
-     }else{
-       const r=await api('/repos/'+OWNER+'/'+REPO+'/actions/runs/'+run.id,token);
-       if(!r.ok)throw Error('실행 상태 조회 실패 ('+r.status+')');
-       run=await r.json();
-     }
-     if(run?.id){
-       if(run.status==='completed'){
-         if(run.conclusion!=='success')throw Error('API 갱신 실행이 '+(run.conclusion||'실패')+'로 종료됐습니다.');
-         return run;
-       }
-       setState('원천 API 갱신 중 · '+(run.status==='queued'?'대기 중':'수집·검증 실행 중'),'running');
-     }else{
-       setState('갱신 요청 접수 · 실행 시작을 확인하는 중','running');
-     }
-     await sleep(8000);
-   }
-   throw Error('API 갱신 실행 확인 시간이 초과됐습니다.');
- }
- async function waitProduction(beforeRevision){
-   setState('API 수집 완료 · 검증/배포 반영을 확인하는 중','running');
-   for(let i=0;i<120;i++){
+ async function waitProduction(beforeRevision,requestedAt){
+   setState('요청 접수 · 최대 5분 내 수집이 시작됩니다.','running');
+   const deadline=Date.now()+25*60*1000;
+   let seenNewSource=false;
+   while(Date.now()<deadline){
      try{
        const [m,j]=await Promise.all([
          fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null),
          fetch('market_judgment.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null)
        ]);
        const rev=m?.refresh_run?.attempted_at||m?.updated_at||null;
-       const consistent=Boolean(m&&j&&j.as_of===m.updated_at);
-       if(rev&&rev!==beforeRevision&&consistent){
-         setState('최신 데이터 반영 완료 · 화면을 다시 불러옵니다.','success');
-         try{sessionStorage.removeItem(PENDING_KEY)}catch{}
-         await sleep(1200);
-         location.reload();
-         return;
+       if(rev&&rev!==beforeRevision){
+         seenNewSource=true;
+         const consistent=Boolean(m&&j&&j.as_of===m.updated_at);
+         if(consistent){
+           setState('최신 원천 확인 및 반영 완료 · 화면을 다시 불러옵니다.','success');
+           try{sessionStorage.removeItem(PENDING_KEY)}catch{}
+           await sleep(1000);
+           location.reload();
+           return;
+         }
+         setState('원천 수집 완료 · 판단엔진/배포 반영을 확인하는 중','running');
+       }else{
+         const age=Math.max(0,Date.now()-requestedAt);
+         setState(age<6*60*1000?'요청 접수 · 수집 실행을 기다리는 중':'원천 API 수집·검증을 확인하는 중','running');
        }
      }catch{}
-     await sleep(10000);
+     await sleep(seenNewSource?8000:12000);
    }
-   throw Error('갱신은 완료됐지만 Pages 반영 확인 시간이 초과됐습니다. 잠시 후 새로고침해 주세요.');
+   throw Error('갱신 요청은 접수됐지만 반영 확인 시간이 초과됐습니다. 잠시 후 새로고침해 주세요.');
  }
- async function runManualRefresh(resume=false){
+ async function requestRefresh(){
    if(btn.disabled)return;
-   const token=getToken();
-   if(!token){setState('토큰 입력이 취소되어 갱신하지 않았습니다.');return}
    btn.disabled=true;
-   btn.textContent='↻ 갱신 중';
+   btn.textContent='↻ 요청 중';
    try{
-     let pending=null;
-     try{pending=JSON.parse(sessionStorage.getItem(PENDING_KEY)||'null')}catch{}
-     if(!resume||!pending){
-       const beforeRevision=await currentRevision();
-       const dispatchedAt=Date.now();
-       setState('GitHub Actions에 API 갱신을 요청하는 중','running');
-       const r=await api('/repos/'+OWNER+'/'+REPO+'/actions/workflows/'+WORKFLOW+'/dispatches',token,{
-         method:'POST',
-         headers:{'Content-Type':'application/json'},
-         body:JSON.stringify({ref:'main',inputs:{dry_run:'false'}})
-       });
-       if(r.status===401||r.status===403){
-         try{sessionStorage.removeItem(TOKEN_KEY)}catch{}
-         throw Error('GitHub 토큰 권한을 확인해 주세요. Actions Read and write 권한이 필요합니다.');
-       }
-       if(r.status!==204)throw Error('갱신 요청 실패 ('+r.status+')');
-       pending={beforeRevision,dispatchedAt,runId:null};
-       try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(pending))}catch{}
+     const beforeRevision=await currentRevision();
+     setState('수동 갱신 요청을 보내는 중','running');
+     const r=await fetch(ENDPOINT,{
+       method:'POST',
+       headers:{'Content-Type':'application/json'},
+       body:JSON.stringify({source:'dashboard'}),
+       cache:'no-store'
+     });
+     let data={};
+     try{data=await r.json()}catch{}
+     if(!r.ok||data.ok===false)throw Error('갱신 요청 실패'+(r.status?' ('+r.status+')':''));
+     const requestedAt=Date.now();
+     const pending={beforeRevision,requestedAt,requestId:data?.request?.id||null};
+     try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(pending))}catch{}
+     if(data.accepted===false&&data.reason==='cooldown'){
+       setState('최근 갱신 요청이 이미 있어 기존 요청의 반영을 기다립니다.','running');
+     }else{
+       setState('요청 접수 · 최대 5분 내 수집이 시작됩니다.','running');
      }
-     await waitRun(token,pending);
-     await waitProduction(pending.beforeRevision);
+     btn.textContent='↻ 갱신 중';
+     await waitProduction(beforeRevision,requestedAt);
    }catch(e){
      console.error('manual-refresh',e);
      setState(e?.message||'수동 갱신 중 오류가 발생했습니다.','error');
-     try{sessionStorage.removeItem(PENDING_KEY)}catch{}
      btn.disabled=false;
      btn.textContent='↻ 다시 시도';
    }
  }
- btn.addEventListener('click',()=>runManualRefresh(false));
+ btn.addEventListener('click',requestRefresh);
  try{
    const p=JSON.parse(sessionStorage.getItem(PENDING_KEY)||'null');
-   const token=sessionStorage.getItem(TOKEN_KEY)||'';
-   if(p&&token&&Date.now()-Number(p.dispatchedAt||0)<40*60*1000){
-     setTimeout(()=>runManualRefresh(true),400);
+   if(p&&Date.now()-Number(p.requestedAt||0)<25*60*1000){
+     btn.disabled=true;
+     btn.textContent='↻ 갱신 중';
+     setTimeout(()=>waitProduction(p.beforeRevision,p.requestedAt).catch(e=>{
+       setState(e?.message||'반영 확인 중 오류가 발생했습니다.','error');
+       btn.disabled=false;
+       btn.textContent='↻ 다시 시도';
+     }),400);
    }else if(p){
      sessionStorage.removeItem(PENDING_KEY);
    }
