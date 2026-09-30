@@ -28,6 +28,70 @@ def aux():
     mort=json.loads((R/'data_sources/ecos_mortgage_rate.json').read_text()).get('series',[])
     mr={str(x.get('period','')).replace('-','')[:6]:x for x in mort if x.get('item')=='주택담보대출'}
     return mm,mr
+
+def avg(rows,key):
+    vals=[float(x[key]) for x in rows if x.get(key) is not None]
+    return sum(vals)/len(vals) if vals else None
+def share_nonpositive(rows,key='fwd3'):
+    vals=[float(x[key]) for x in rows if x.get(key) is not None]
+    return sum(1 for x in vals if x<=0)/len(vals) if vals else None
+def state_stage(m1,m3,bottom,momentum,was_rising):
+    stage=0
+    if bottom:stage=1
+    if m1>=0 and m3<=0 and not was_rising:stage=2
+    if m3>0:stage=3
+    if was_rising and m3<=0 and m1>=0:stage=3
+    if momentum:stage=4
+    return stage
+def current_state_revalidation(final_rows,tmap,samples):
+    vals=[]
+    yms=[r.get('ym') for r in final_rows]
+    for i,r in enumerate(final_rows):
+      ym=r.get('ym');tr=tmap.get(ym);sp=samples.get(ym)
+      if not tr or not sp or r.get('fwd_3m_pct') is None or r.get('provisional'):continue
+      m1=n(sp.get('mapped1'));m3=n(sp.get('mapped3'))
+      prev=[]
+      for py in yms[max(0,i-3):i]:
+        ps=samples.get(py)
+        if ps:prev.append(n(ps.get('mapped3')))
+      was_rising=any(x>0 for x in prev)
+      breadth=n(tr.get('breadth'));reaccel=n(tr.get('reaccel'))
+      c=r.get('components') or {};demand=n(c.get('demand'));sent=n(c.get('sentiment'))
+      base=state_stage(m1,m3,bool(tr.get('bottom_zone')),bool(tr.get('momentum_zone')),was_rising)
+      confirmed=breadth>=45 and reaccel>=50
+      demoted=2 if base==3 and m3>0 and not confirmed else base
+      internal=.35*breadth+.30*reaccel+.20*demand+.15*sent
+      vals.append({'ym':ym,'m1':m1,'m3':m3,'breadth':breadth,'reaccel':reaccel,'demand':demand,'sentiment':sent,
+                   'internal_composite':internal,'confirmed':confirmed,'base_stage':base,'demotion_stage':demoted,'fwd3':n(r.get('fwd_3m_pct'))})
+    pos=[x for x in vals if x['m3']>0];weak=[x for x in pos if not x['confirmed']];strong=[x for x in pos if x['confirmed']]
+    b3=[x for x in vals if x['base_stage']>=3];d3=[x for x in vals if x['demotion_stage']>=3]
+    base_corr=corr([x['base_stage'] for x in vals],[x['fwd3'] for x in vals]);demo_corr=corr([x['demotion_stage'] for x in vals],[x['fwd3'] for x in vals])
+    base_auc=auc([x['base_stage'] for x in vals],[1 if x['fwd3']>0 else 0 for x in vals]);demo_auc=auc([x['demotion_stage'] for x in vals],[1 if x['fwd3']>0 else 0 for x in vals])
+    weak_mean=avg(weak,'fwd3');strong_mean=avg(strong,'fwd3');weak_np=share_nonpositive(weak);strong_np=share_nonpositive(strong)
+    confirmation_gate=bool(len(weak)>=10 and len(strong)>=10 and weak_mean is not None and strong_mean is not None and
+                           strong_mean-weak_mean>=2.0 and weak_np is not None and strong_np is not None and weak_np-strong_np>=.20)
+    demotion_gate=bool(len(vals)>=30 and len(weak)>=10 and len(strong)>=10 and base_auc is not None and demo_auc is not None and
+                       demo_auc>=base_auc+.02 and base_corr is not None and demo_corr is not None and demo_corr>=base_corr-.02 and
+                       weak_mean is not None and weak_mean<=0)
+    comp_auc=auc([x['internal_composite'] for x in pos],[1 if x['fwd3']>0 else 0 for x in pos])
+    breadth_auc=auc([x['breadth'] for x in pos],[1 if x['fwd3']>0 else 0 for x in pos])
+    separate_composite=bool(comp_auc is not None and breadth_auc is not None and comp_auc>=breadth_auc+.01)
+    pack=lambda z:{'n':len(z),'mean_fwd3_pct':round(avg(z,'fwd3'),3) if z else None,'nonpositive_share_pct':round(100*share_nonpositive(z),1) if z else None}
+    return {
+      'rows':len(vals),'positive_m3_rows':len(pos),'confirmation_rule':'breadth >= 45 AND reaccel >= 50',
+      'positive_m3_split':{'weak_confirmation':pack(weak),'confirmed':pack(strong)},
+      'baseline_stage':{'corr_fwd3':base_corr,'auc_positive_fwd3':base_auc,'stage3plus':pack(b3)},
+      'demotion_candidate':{'corr_fwd3':demo_corr,'auc_positive_fwd3':demo_auc,'stage3plus':pack(d3),'apply_recommended':demotion_gate,
+        'gate':'n>=30; weak/confirmed n>=10; positive AUC +0.02; stage corr no worse than -0.02; weak-confirmation mean fwd3 <= 0'},
+      'confirmation_substate':{'apply_recommended':confirmation_gate,
+        'gate':'weak/confirmed n>=10; confirmed mean fwd3 >= weak +2pp; weak nonpositive share >= confirmed +20pp'},
+      'separate_recursive_composite':{'apply_recommended':separate_composite,'positive_m3_auc':comp_auc,'breadth_auc':breadth_auc,
+        'method':'35% breadth + 30% reaccel + 20% demand + 15% sentiment',
+        'gate':'composite positive-fwd3 AUC must exceed breadth alone by >=0.01'},
+      'decision':('retain_stage3_add_confirmation_substate' if confirmation_gate and not demotion_gate else
+                  'promote_demotion_candidate' if demotion_gate else 'retain_current_state_rule'),
+      'no_future_leakage':True
+    }
 def historical_reaccel(final_rows,i,m1,m3):
     c=final_rows[i]['components']
     def delta(k,lag):
@@ -117,11 +181,14 @@ def main():
     finance_v2_integrated={'apply_recommended':finance_v2_gate,'forecast':f2forecast,'buy_condition':f2buy,'improvements':improvements,
       'gate':'n>=30; forecast downside/reaccel AUC no worse >0.02; buy corr6/corr12 no worse >0.02; at least one material improvement',
       'no_future_leakage':True,'credit_vintage_lag_months':2,'mortgage_rate_vintage_lag_months':1}
+    regime_validation=current_state_revalidation(rows,tmap,samples)
     out={'status':'research_validation','rows_compared':len(evals),'baseline_forecast':baseline,'unified_forecast':unified,
-         'buy_condition_certified_metrics':buy_metrics,'finance_v2_integrated':finance_v2_integrated,'rejected_live_recompute':rejected,'current_candidate':{'snapshot_id':cand['feature_layer']['snapshot_id'],'current_state':cand['heads']['current_state'],
+         'buy_condition_certified_metrics':buy_metrics,'finance_v2_integrated':finance_v2_integrated,'rejected_live_recompute':rejected,
+         'current_state_revalidation':regime_validation,
+         'current_candidate':{'snapshot_id':cand['feature_layer']['snapshot_id'],'current_state':cand['heads']['current_state'],
          'buy_condition':cand['heads']['buy_condition'],'forward':cand['heads']['forward_scenario']},
          'apply_recommended':gate,'gate':'n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45',
          'no_future_leakage':True,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(json.dumps({k:out[k] for k in ('rows_compared','baseline_forecast','unified_forecast','finance_v2_integrated','buy_condition_certified_metrics','current_candidate','apply_recommended')},ensure_ascii=False,indent=2))
+    print(json.dumps({k:out[k] for k in ('rows_compared','baseline_forecast','unified_forecast','finance_v2_integrated','current_state_revalidation','buy_condition_certified_metrics','current_candidate','apply_recommended')},ensure_ascii=False,indent=2))
 if __name__=='__main__':main()
