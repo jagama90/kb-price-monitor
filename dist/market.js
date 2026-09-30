@@ -35,6 +35,7 @@ async function loadMarketIndicators(){
    fetch('market_judgment.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('judgment '+r.status);return r.json()})
   ]);
   window.__marketJudgment=jg;
+  renderCycleStage(jg);
   const vols=d.seoul_apt_trade_count||[];
   if(vols.length){const z=vols[vols.length-1];setText('snapVolume',Number(z[1]).toLocaleString('ko-KR')+'건');setText('snapVolumePeriod',sourcePeriodFmt(z[0])+(z[2]?' · 신고 진행':' · 집계'))}
   const bands=d.price_bands?.months||[],latest=bands[bands.length-1];
@@ -222,8 +223,30 @@ async function renderConditionHistory(){
 renderConditionHistory();
 
 window.__regimeReferences=null;window.__currentCycleStage=0;window.__currentRegimeMetrics=null;window.__selectedRegimeRefStage=null;window.__regimeCompare=false;
-async function renderCycleStage(){ // direction-aware market phase UI
+async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot first; research fallback only
  try{
+  const head=jg?.heads?.current_state||null,feature=jg?.feature_layer||null;
+  if(head&&feature){
+   const stage=Math.max(0,Math.min(4,Number(head.stage)||0)),pm=feature.price_momentum||{},sig=feature.signals||{},ov=pm.overlay||{};
+   const mapped1=Number(pm.m1_pct),mapped3=Number(pm.m3_pct),raw1=ov.kb_4w_pct!=null?Number(ov.kb_4w_pct):mapped1,raw3=ov.kb_13w_pct!=null?Number(ov.kb_13w_pct):mapped3;
+   const kbComparable=ov.kb_4w_pct!=null&&ov.kb_13w_pct!=null,stamp=String(ov.kb_as_of||feature.as_of||jg.as_of||''),label=stamp.replace(/^(\d{4})(\d{2})(\d{2})$/,'$1.$2.$3').replace(/-/g,'.');
+   const pct=v=>Number.isFinite(Number(v))?(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%':'—',score=v=>Number.isFinite(Number(v))?Number(v).toFixed(1):'—';
+   window.__currentCycleStage=stage;
+   window.__currentRegimeMetrics={
+    ym:feature.research_month||'',label:label||feature.research_month||'현재',
+    price_mom_1m_pct:raw1,price_mom_3m_pct:raw3,
+    research_price_mom_1m_pct:mapped1,research_price_mom_3m_pct:mapped3,
+    price_source:kbComparable?'kb_seoul_weekly':'research',
+    breadth_0_100:Number(sig.breadth),reaccel_0_100:Number(sig.reaccel)
+   };
+   setText('judgmentCurrentLabel',head.label||['하락','둔화','바닥','상승·보합','가속'][stage]);
+   setText('cycleStageText',head.summary||'통합 시장 판단 엔진의 현재 국면을 표시합니다.');
+   setText('cycleStageEvidence','1개월 '+pct(mapped1)+' · 3개월 '+pct(mapped3)+' · 시장 확산 '+score(sig.breadth)+' · 재가속 '+score(sig.reaccel));
+   document.querySelectorAll('#cycleSteps span').forEach((el,i)=>{el.classList.toggle('active',i===stage);el.setAttribute('aria-current',i===stage?'step':'false')});
+   const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
+   return;
+  }
+
   const [d,kb]=await Promise.all([
    fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('turning signal '+r.status);return r.json()}),
    fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
@@ -245,13 +268,14 @@ async function renderCycleStage(){ // direction-aware market phase UI
    price_source:kbComparable?'kb_seoul_weekly':'research',
    breadth_0_100:Number(x.breadth),reaccel_0_100:Number(x.reaccel)
   };
+  setText('judgmentCurrentLabel',['하락','둔화','바닥','상승·보합','가속'][stage]);
   setText('cycleStageText',text);
   const flow=m3>0?'상승 '+m3.toFixed(1)+'%':m3<0?'하락 '+Math.abs(m3).toFixed(1)+'%':'보합';
-  setText('cycleStageEvidence','최근 데이터 '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow);
+  setText('cycleStageEvidence','연구 fallback '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow);
   document.querySelectorAll('#cycleSteps span').forEach((el,i)=>{el.classList.toggle('active',i===stage);el.setAttribute('aria-current',i===stage?'step':'false')});
   const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
  }catch(e){
-  console.warn('cycle stage',e);setText('cycleStageText','국면 데이터 연결을 확인하고 있습니다.');setText('cycleStageEvidence','연구엔진 원천 확인 중');
+  console.warn('cycle stage',e);setText('judgmentCurrentLabel','국면 확인 중');setText('cycleStageText','국면 데이터 연결을 확인하고 있습니다.');setText('cycleStageEvidence','통합 시장 판단 원천 확인 중');
  }
 }
 const regimeYm=v=>{const s=String(v||'');return s.length===6?s.slice(0,4)+'.'+s.slice(4):s};
