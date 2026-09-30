@@ -49,8 +49,10 @@ if "const kbKey=x=>" not in js: errors.append('exact complex+area KB key missing
 if "kb.get(Number(x.complex_id))" in js: errors.append('legacy complex-only KB price lookup remains')
 
 # visual remodel contract
-for rid in ('forecastHeadline','forecastTrend','storyHeadline','storySummary','nextSignals','hubDriversMeta','hubValidationMeta','hubWatchMeta','hubBacktestMeta'):
+for rid in ('storyHeadline','storySummary','nextSignals','hubDriversMeta','hubValidationMeta','hubWatchMeta','hubBacktestMeta'):
     if ids.count(rid)!=1: errors.append(f'visual remodel id {rid}: expected 1, got {ids.count(rid)}')
+for rid in ('forecastHeadline','forecastTrend'):
+    if ids.count(rid)!=0: errors.append(f'redundant forecast summary returned: {rid}')
 if html.count('class="card score-component"')!=5: errors.append('condition dashboard must contain five compact score tiles')
 if 'class="forecast-flow"' not in html: errors.append('forward-regime infographic flow missing')
 if 'forecast-risk-track-v153' not in js or 'forecast-risk-sub-v153' not in js: errors.append('simplified forecast risk renderer missing')
@@ -231,7 +233,7 @@ if "s===window.__currentCycleStage" not in js: errors.append('current phase must
 # v153 forecast-language contract
 if 'forecast-rules-v153' not in html: errors.append('forecast expression rules missing')
 if "하락 가능성" not in js: errors.append('forecast must foreground downturn risk')
-if "시나리오 가중치 · 확률 예측 아님" not in js: errors.append('forecast probability disclaimer missing')
+if "실제 발생확률" not in html or "상대 점수" not in html: errors.append('forecast score explanation must be user-readable')
 
 # v155 comparable-current momentum + brand refresh
 if 'id="brandHome"' not in html: errors.append('header brand refresh control missing')
