@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260930-180"></head><body><header>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260930-181"></head><body><header>
 <a class="brand brand-home-v155" id="brandHome" href="./market.html" aria-label="서울 부동산 상황판 새로고침"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></a>
 <details id="refreshCalendar" class="header-refresh-v154" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
@@ -19,15 +19,15 @@
 </details>
 <nav><a href="#overview">한눈에 보기</a><a href="#drivers">왜 움직이나</a><a href="#validation">수요·공급</a><a href="#watchlist">관심단지</a></nav>
 </header><main>
-<section id="overview" class="card market-judgment-v1">
-  <div class="judgment-head-v1">
-    <h1>통합 시장 판단</h1>
-  </div>
-
-  <div class="judgment-block-v1 judgment-current-v1">
-    <div class="judgment-step-title-v1 engine-title-v180"><small>1 · 연구엔진</small><b>현재 국면 · <span id="judgmentCurrentLabel">계산 중</span></b></div>
+<section id="overview" class="card market-judgment-v1 market-judgment-v181">
+  <div class="judgment-block-v1 judgment-current-v1 research-engine-v181">
+    <div class="engine-kicker-v181">연구엔진 · 지금 어디인가?</div>
+    <div class="current-phase-v181">
+      <small>현재 국면</small>
+      <b id="judgmentCurrentLabel">계산 중</b>
+    </div>
     <p id="cycleStageText" class="research-verdict">현재 가격 흐름을 판독하는 중입니다.</p>
-    <div class="cycle-steps research-steps" id="cycleSteps">
+    <div class="cycle-steps research-steps" id="cycleSteps" aria-label="시장 국면">
       <span data-regime-ref="0" role="button" tabindex="0">하락</span><span data-regime-ref="1" role="button" tabindex="0">둔화</span><span data-regime-ref="2" role="button" tabindex="0">바닥</span><span data-regime-ref="3" role="button" tabindex="0">상승·보합</span><span data-regime-ref="4" role="button" tabindex="0">가속</span>
     </div>
     <div class="regime-reference-v145" id="regimeReference" aria-live="polite" hidden>
@@ -45,59 +45,91 @@
           <div id="regimeMetricReaccel"><small>재가속</small><b id="regimeRefReaccel">—</b></div>
         </div>
       </div>
-      <small class="regime-ref-note-v145">국면을 누르면 과거 대표사례와 현재를 비교합니다.</small>
+      <small class="regime-ref-note-v145">현재와 비교를 누르면 같은 지표를 대조합니다. 대표사례는 현재 판정에 사용하지 않습니다.</small>
     </div>
   </div>
 
-  <div class="judgment-block-v1 judgment-forward-v1 forecast-compact-mobile" id="regimeForecast">
-    <div class="judgment-step-title-v1 engine-title-v180"><small>2 · 전망엔진</small><b>앞으로의 흐름</b></div>
-    <div class="forecast-buy-summary-v180">
-      <div class="forecast-buy-main-v180">
-        <small>현재 매수여건</small>
-        <div><b id="conditionScore">산출 준비</b><span id="conditionTier" class="score-tier-v140">범주 판독 중</span></div>
+  <div class="judgment-block-v1 judgment-forward-v1 forecast-compact-mobile forecast-engine-v181" id="regimeForecast">
+    <div class="engine-kicker-v181">전망엔진 · 앞으로 어디로 갈까?</div>
+
+    <div class="forecast-flow forecast-route-v181" id="forecastGrid" aria-label="현재부터 향후 국면 흐름">
+      <div class="forecast-route-node-v181 skeleton"><small>현재</small><b>계산 중</b></div>
+      <i>→</i>
+      <div class="forecast-route-node-v181 skeleton"><small>단기</small><b>산출 중</b></div>
+      <i>→</i>
+      <div class="forecast-route-node-v181 skeleton"><small>중기</small><b>산출 중</b></div>
+      <i>→</i>
+      <div class="forecast-route-node-v181 skeleton"><small>장기</small><b>산출 중</b></div>
+    </div>
+
+    <div class="buy-condition-strip-v181">
+      <div class="buy-condition-line-v181">
+        <span>현재 매수환경</span>
+        <b id="conditionScore">산출 준비</b>
+        <em id="conditionTier" class="score-tier-v140">범주 판독 중</em>
       </div>
       <div class="condition-meter"><i id="heroMeterFill"></i></div>
       <p id="heroVerdict" class="condition-verdict">금융·심리·거래·가격·전세 신호를 함께 확인합니다.</p>
-      <div class="condition-coverage-v140"><span>데이터 연결</span><b id="confidenceScore" class="coverage-badge-v140">확인 중</b></div>
+      <div class="condition-coverage-v140 condition-health-v181" hidden><span>데이터 연결</span><b id="confidenceScore" class="coverage-badge-v140">확인 중</b></div>
     </div>
-    <div class="forecast-flow" id="forecastGrid">
-      <div class="forecast-stop skeleton"><small>단기</small><b>산출 중</b></div>
-      <div class="forecast-stop skeleton"><small>중기</small><b>산출 중</b></div>
-      <div class="forecast-stop skeleton"><small>장기</small><b>산출 중</b></div>
-    </div>
-    <details class="forecast-rules-v153">
-      <summary>표현 기준</summary>
-      <div><span>0~19%</span><b>상승 우위</b><span>20~29%</span><b>재상승 가능성 확대</b><span>30~34%</span><b>혼조·방향 탐색</b><span>35~44%</span><b>쉬어가기·하방 경계</b><span>45~54%</span><b>조정 위험 확대</b><span>55%+</span><b>하락 우위</b></div>
-      <small>각 %는 실제 발생확률이 아니라, 현재 시장 신호가 해당 흐름을 얼마나 강하게 지지하는지 보여주는 상대 점수입니다. 경계선 근처에서 단계가 자주 바뀌지 않도록 위험 단계는 기준보다 2%p 더 낮아질 때 완화합니다.</small>
-    </details>
-    <small class="forecast-meta" id="forecastMeta">최신 전망 데이터를 불러오는 중입니다.</small>
-    <details class="judgment-evidence-drawer-v180" id="judgmentEvidenceDrawer">
-      <summary><b>판단 근거 보기</b><span>금융 · 심리 · 거래 · 밸류 · 전세</span></summary>
-      <div class="judgment-evidence-inner-v180">
+
+    <details class="judgment-evidence-drawer-v180 judgment-evidence-drawer-v181" id="judgmentEvidenceDrawer">
+      <summary><b>왜 이렇게 판단했나?</b><span>5대 입력의 영향 보기</span></summary>
+      <div class="judgment-evidence-inner-v180 judgment-evidence-inner-v181">
         <div id="judgmentFactorSummary" class="judgment-factor-summary-v1" hidden aria-label="5대 지표 요약"></div>
-    <section class="score-dashboard-inline factor-board-v134 evidence-factor-board-v1" aria-label="시장여건 5개 보조지표">
-      <article class="card score-component" data-score="finance" data-score-key="finance" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
-        <div class="factor-card-head-v134"><span>금융</span><em id="stateFinance">—</em></div><div class="factor-score-v134"><b id="scoreFinance">—</b><small>/100</small></div><i class="score-mini-meter factor-meter-v134"><u></u></i><div class="factor-foot-v134"><span>금리 · M2</span><i>자세히 ›</i></div>
-      </article>
-      <article class="card score-component" data-score="sentiment" data-score-key="sentiment" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
-        <div class="factor-card-head-v134"><span>심리</span><em id="stateSentiment">—</em></div><div class="factor-score-v134"><b id="scoreSentiment">—</b><small>/100</small></div><i class="score-mini-meter factor-meter-v134"><u></u></i><div class="factor-foot-v134"><span>매수우위</span><i>자세히 ›</i></div>
-      </article>
-      <article class="card score-component" data-score="demand" data-score-key="demand" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
-        <div class="factor-card-head-v134"><span>거래</span><em id="stateDemand">—</em></div><div class="factor-score-v134"><b id="scoreDemand">—</b><small>/100</small></div><i class="score-mini-meter factor-meter-v134"><u></u></i><div class="factor-foot-v134"><span>실수요</span><i>자세히 ›</i></div>
-      </article>
-      <article class="card score-component" data-score="value" data-score-key="value" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
-        <div class="factor-card-head-v134"><span>밸류</span><em id="stateValue">—</em></div><div class="factor-score-v134"><b id="scoreValue">—</b><small>/100</small></div><i class="score-mini-meter factor-meter-v134"><u></u></i><div class="factor-foot-v134"><span>PIR · 전세가율</span><i>자세히 ›</i></div>
-      </article>
-      <article class="card score-component" data-score="supply" data-score-key="supply" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
-        <div class="factor-card-head-v134"><span>전세</span><em id="stateSupply">—</em></div><div class="factor-score-v134"><b id="scoreSupply">—</b><small>/100</small></div><i class="score-mini-meter factor-meter-v134"><u></u></i><div class="factor-foot-v134"><span>공급 · 전세</span><i>자세히 ›</i></div>
-      </article>
-    </section>
-        <section id="scoreExplanation" class="card score-explanation" hidden><div class="title"><div><small id="scoreExplainWeight">구성요소</small><h2 id="scoreExplainTitle">점수 산정 근거</h2></div><button type="button" class="close-rate score-detail-close">×</button></div><div id="scoreExplainBody"></div></section>
+        <section class="score-dashboard-inline factor-board-v134 evidence-factor-board-v1 evidence-factor-list-v181" aria-label="시장 판단 5대 입력">
+          <article class="card score-component factor-impact-row-v181" data-score="finance" data-score-key="finance" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+            <div class="factor-card-head-v134"><span>금융</span><em id="stateFinance">—</em></div>
+            <div class="factor-score-v134"><b id="scoreFinance">—</b><small>/100</small></div>
+            <p id="impactFinance" class="factor-impact-copy-v181">판단 영향 계산 중</p>
+            <i class="score-mini-meter factor-meter-v134"><u></u></i>
+            <div class="factor-foot-v134"><span>금리 · M2</span><i>상세 ›</i></div>
+          </article>
+          <article class="card score-component factor-impact-row-v181" data-score="sentiment" data-score-key="sentiment" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+            <div class="factor-card-head-v134"><span>심리</span><em id="stateSentiment">—</em></div>
+            <div class="factor-score-v134"><b id="scoreSentiment">—</b><small>/100</small></div>
+            <p id="impactSentiment" class="factor-impact-copy-v181">판단 영향 계산 중</p>
+            <i class="score-mini-meter factor-meter-v134"><u></u></i>
+            <div class="factor-foot-v134"><span>매수우위</span><i>상세 ›</i></div>
+          </article>
+          <article class="card score-component factor-impact-row-v181" data-score="demand" data-score-key="demand" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+            <div class="factor-card-head-v134"><span>거래</span><em id="stateDemand">—</em></div>
+            <div class="factor-score-v134"><b id="scoreDemand">—</b><small>/100</small></div>
+            <p id="impactDemand" class="factor-impact-copy-v181">판단 영향 계산 중</p>
+            <i class="score-mini-meter factor-meter-v134"><u></u></i>
+            <div class="factor-foot-v134"><span>실수요</span><i>상세 ›</i></div>
+          </article>
+          <article class="card score-component factor-impact-row-v181" data-score="value" data-score-key="value" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+            <div class="factor-card-head-v134"><span>밸류</span><em id="stateValue">—</em></div>
+            <div class="factor-score-v134"><b id="scoreValue">—</b><small>/100</small></div>
+            <p id="impactValue" class="factor-impact-copy-v181">판단 영향 계산 중</p>
+            <i class="score-mini-meter factor-meter-v134"><u></u></i>
+            <div class="factor-foot-v134"><span>PIR · 전세가율 · 장기추세</span><i>상세 ›</i></div>
+          </article>
+          <article class="card score-component factor-impact-row-v181" data-score="supply" data-score-key="supply" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
+            <div class="factor-card-head-v134"><span>전세</span><em id="stateSupply">—</em></div>
+            <div class="factor-score-v134"><b id="scoreSupply">—</b><small>/100</small></div>
+            <p id="impactSupply" class="factor-impact-copy-v181">판단 영향 계산 중</p>
+            <i class="score-mini-meter factor-meter-v134"><u></u></i>
+            <div class="factor-foot-v134"><span>공급 · 전세수급</span><i>상세 ›</i></div>
+          </article>
+        </section>
+
+        <section id="scoreExplanation" class="card score-explanation" hidden>
+          <div class="title"><div><small id="scoreExplainWeight">구성요소</small><h2 id="scoreExplainTitle">점수 산정 근거</h2></div><button type="button" class="close-rate score-detail-close">×</button></div>
+          <div id="scoreExplainBody"></div>
+        </section>
       </div>
     </details>
+
+    <details class="forecast-rules-v153 forecast-guide-v181">
+      <summary>전망 읽는 법</summary>
+      <div><span>0~19</span><b>상승 우위</b><span>20~29</span><b>재상승 가능성 확대</b><span>30~34</span><b>혼조·방향 탐색</b><span>35~44</span><b>쉬어가기·하방 경계</b><span>45~54</span><b>조정 위험 확대</b><span>55+</span><b>하락 우위</b></div>
+      <small>표시값은 실제 발생확률이 아니라 현재 시장 신호가 각 흐름을 얼마나 지지하는지 비교하는 점수입니다.</small>
+    </details>
+    <small class="forecast-meta" id="forecastMeta" hidden>최신 전망 데이터를 불러오는 중입니다.</small>
   </div>
 
-</section>
 
 <section class="card decision-brief decision-brief-v2">
   <div class="decision-top">
@@ -202,4 +234,4 @@
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
 
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260930-180"></script></body></html>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260930-181"></script></body></html>
