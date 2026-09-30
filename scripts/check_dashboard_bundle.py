@@ -184,16 +184,29 @@ for token in ("PIR","전세가율","장기추세 괴리"):
 for legacy in ("현재 KB","36개월 저점","36개월 고점","대표평형","current_position_0_1","window_low_manwon","window_high_manwon"):
     if legacy in js: errors.append(f'legacy single-complex value detail returned: {legacy}')
 
-payload={'status':'ok' if not errors else 'failed','checks':'all-dashboard-contracts','errors':errors}
-print(json.dumps(payload,ensure_ascii=False))
-if errors: sys.exit(1)
-
 # change-first v140 contracts
 if 'buckets3' not in js: errors.append('three-band transaction distribution not wired')
 if 'kb_watchlist_weekly_change.json' not in js: errors.append('15eok boundary must use Friday KB comparison')
 if 'scoreBand=' not in js: errors.append('score categories missing')
 if 'coverage-badge-v140' not in html: errors.append('separate data coverage badge missing')
 if '원천 미연결' in html and '미분양' in html: errors.append('unsold housing must not be shown as disconnected')
+
+# Unified market-judgment regression guard
+for _id in ('judgmentCurrentLabel','judgmentAsOf','judgmentFactorSummary'):
+    if ids.count(_id)!=1: errors.append(f'unified judgment element missing: {_id}')
+cycle_start=js.find('async function renderCycleStage')
+cycle_end=js.find('\nasync function loadRegimeReferences',cycle_start)
+cycle_block=js[cycle_start:cycle_end] if cycle_start>=0 and cycle_end>cycle_start else ''
+if "jg?.heads?.current_state" not in cycle_block:
+    errors.append('current regime renderer must consume unified Current State head')
+if "jg?.feature_layer" not in cycle_block:
+    errors.append('current regime renderer must consume unified feature layer')
+if "setText('judgmentCurrentLabel'" not in cycle_block:
+    errors.append('unified current-state label is not rendered')
+if 'renderCycleStage(jg);' not in js:
+    errors.append('current regime is not re-rendered after unified snapshot load')
+if "feature.price_momentum" not in cycle_block:
+    errors.append('current regime evidence must use unified price momentum')
 
 # Current-regime regression guard: cycleStageBadge was intentionally removed.
 if "badge.textContent=label" in js or "badge.textContent='데이터 확인 중'" in js:
@@ -222,3 +235,7 @@ if "market_indicators.json" not in js or "kb_weekly_sale_index" not in js or "mo
     errors.append('current regime comparison must use KB Seoul 4w/13w momentum')
 if "kb_seoul_momentum" not in js:
     errors.append('historical/current price comparison is not source-aligned')
+
+payload={'status':'ok' if not errors else 'failed','checks':'all-dashboard-contracts','errors':errors}
+print(json.dumps(payload,ensure_ascii=False))
+if errors: sys.exit(1)
