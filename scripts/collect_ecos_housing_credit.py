@@ -43,8 +43,8 @@ def select_series(rows,table_name):
   names=tuple(str(r.get(f'ITEM_NAME{i}') or '').strip() for i in range(1,5))
   label=' '.join(x for x in names if x)
   unit=str(r.get('UNIT_NAME') or '').strip()
-  if '주택담보대출' not in label:continue
-  if any(bad in label for bad in ('연체','금리','비율','증가율')):continue
+  if '주택담보대출' not in label and '주택담보대출' not in table_name:continue
+  if any(bad in (table_name+' '+label) for bad in ('연체율','대출금리','금리수준','증가율')):continue
   groups.setdefault((names,unit),{})[period]=value
  candidates=[]
  for (names,unit),by_period in groups.items():
@@ -97,7 +97,7 @@ def main():
     all_candidates.append({**c,'stat_code':code,'stat_name':name})
   all_candidates.sort(key=lambda x:(x['score'],x['periods'][-1],len(x['periods'])),reverse=True)
   if not all_candidates:
-   payload.update({'reason':'No monthly ECOS series with explicit 주택담보대출 label and >=36 observations','tables_checked':len(tables)})
+   payload.update({'reason':'No monthly ECOS housing-mortgage balance candidate with >=36 observations','tables_checked':len(tables),'table_candidates':[{'stat_code':c,'stat_name':n} for c,n in tables]})
   else:
    s=all_candidates[0];series=enrich(s)
    payload.update({

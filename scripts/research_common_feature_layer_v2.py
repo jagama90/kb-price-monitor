@@ -222,7 +222,7 @@ def policy_feature(raw):
 
 def rental_supply_feature(market):
  s=market.get('kb_sentiment') or {};u=market.get('unsold_seoul') or {}
- return {'rental_market_balance':{'status':'connected' if s.get('jeonse_score_0_100') is not None else 'not_connected',
+ return {'status':'semantic_split','production_applied':False,'rental_market_balance':{'status':'connected' if s.get('jeonse_score_0_100') is not None else 'not_connected',
           'score_0_100':s.get('jeonse_score_0_100'),'meaning':'KB 전세수급·전세거래 기반 단기 임대시장 균형','legacy_component_key':'supply'},
          'structural_supply':{'status':'partial_context','unsold_units':u.get('seoul_units'),'unsold_period':u.get('period'),
           'completion_inventory_series_status':'not_connected','meaning':'미분양은 보조 재고지표이며 신규 입주물량과 동일하게 취급하지 않음'}}
@@ -251,7 +251,7 @@ def main():
  finance_rows,finance_val=finance_research(frows,mortgage,credit)
  vr_rows,vr_val=valuation_rate_research(frows,mortgage)
  features={
-  'trade_reporting':{'status':market.get('signal_matched_period_status'),'engine_signal':market.get('signal_matched_period'),'raw_early_signal':market.get('matched_period'),'confidence':market.get('trade_signal_confidence')},
+  'trade_reporting':{'status':market.get('signal_matched_period_status'),'production_applied':market.get('signal_matched_period_status')=='mature_completed_month','engine_signal':market.get('signal_matched_period'),'raw_early_signal':market.get('matched_period'),'confidence':market.get('trade_signal_confidence')},
   'finance_v2_candidate':current_finance_feature(mortgage,base,m2,credit,finance_val),
   'valuation_rate_stress_candidate':{'status':'validated_candidate' if vr_val.get('apply_recommended') else 'research_candidate','production_applied':False,'validation':vr_val,
       'current_inputs':{'value_score_0_100':(market.get('kb_value') or {}).get('score_0_100'),'mortgage_rate_pct':(market.get('mortgage_rate_official') or {}).get('rate_pct')},

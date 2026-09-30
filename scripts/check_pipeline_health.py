@@ -262,7 +262,8 @@ paths={
  'extensions':'.github/workflows/market-extensions.yml',
  'pages':'.github/workflows/pages.yml',
  'repair':'.github/workflows/repair-dashboard-data.yml',
- 'apply':'.github/workflows/apply-unified-market-judgment.yml'
+ 'apply':'.github/workflows/apply-unified-market-judgment.yml',
+ 'common_v2':'.github/workflows/common-feature-layer-v2.yml'
 }
 wf={k:(R/p).read_text(encoding='utf-8') for k,p in paths.items()}
 for bad in ["'dist/market.html'","'dist/market.js'","'dist/index.html'"]:
@@ -302,7 +303,7 @@ expected_fetch_assets={
     'buy_watchlist_targets.json','market_indicators.json','final_backtest.json',
     'turning_signal_research.json','regime_forecast.json','garak_geumho_24a_history.json',
     'market_extensions.json','kb_watchlist_weekly_change.json','regime_reference_examples.json',
-    'market_judgment.json'
+    'market_judgment.json','common_feature_layer_v2.json'
 }
 if fetch_assets!=expected_fetch_assets:
     errors.append('dashboard fetch asset set changed without lineage review: '+str(sorted(fetch_assets^expected_fetch_assets)))
@@ -325,6 +326,7 @@ lineage=[
     ('regime_reference_examples.json','research','scripts/build_regime_reference_examples.py'),
     ('market_judgment.json','apply','dist/market_judgment.json'),
     ('market_judgment.json','forecast','dist/market_judgment.json'),
+    ('common_feature_layer_v2.json','common_v2','dist/common_feature_layer_v2.json'),
 ]
 for asset,owner,needle in lineage:
     if needle not in wf[owner]: errors.append(f'{asset}: {owner} workflow ownership missing')
