@@ -1,19 +1,17 @@
 {
-  "attempted_at": "2026-09-30T18:18:32.401339+00:00",
+  "attempted_at": "2026-09-30T18:19:19.003021+00:00",
   "sources": {
     "molit": "connected",
-    "ecos": "fallback_last_good",
+    "ecos": "connected",
     "kb_sentiment": "connected",
     "watchlist_detail": "connected"
   },
   "attempts": {
     "molit": 1,
-    "ecos": 2,
+    "ecos": 1,
     "kb_sentiment": 1,
     "watchlist_detail": 1
   },
   "recovered_after_retry": [],
-  "failed_after_retry": [
-    "ecos"
-  ]
+  "failed_after_retry": []
 }

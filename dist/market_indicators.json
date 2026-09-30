@@ -220,7 +220,7 @@
     "kb_weekly_rent_index": "connected",
     "ecos_base_rate": "connected",
     "molit_refresh": "connected",
-    "ecos_refresh": "fallback_last_good",
+    "ecos_refresh": "connected",
     "kb_sentiment_refresh": "connected",
     "watchlist_detail_refresh": "connected",
     "molit_unsold": "connected"
@@ -286,7 +286,7 @@
     "jeonse_score_change": 0.6,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-30T18:18:32.510420+00:00"
+    "generated_at": "2026-09-30T18:19:19.205203+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -325,7 +325,7 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-09-30T18:18:32.470699+00:00"
+    "generated_at": "2026-09-30T18:19:19.140463+00:00"
   },
   "matched_period": {
     "as_of": "2026-10-01",
@@ -418,7 +418,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-09-30T18:08:23.741460+00:00",
+    "collected_at": "2026-09-30T18:18:58.652798+00:00",
     "history": [
       {
         "date": "20260615",
@@ -536,7 +536,7 @@
       "change_pct": 0.12
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-09-30T18:08:24.486358+00:00"
+    "collected_at": "2026-09-30T18:18:59.155871+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -672,26 +672,24 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-09-30T18:05:27.238774+00:00"
+    "collected_at": "2026-09-30T18:19:01.187217+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-09-30T18:18:32.401339+00:00",
+    "attempted_at": "2026-09-30T18:19:19.003021+00:00",
     "sources": {
       "molit": "connected",
-      "ecos": "fallback_last_good",
+      "ecos": "connected",
       "kb_sentiment": "connected",
       "watchlist_detail": "connected"
     },
     "attempts": {
       "molit": 1,
-      "ecos": 2,
+      "ecos": 1,
       "kb_sentiment": 1,
       "watchlist_detail": 1
     },
     "recovered_after_retry": [],
-    "failed_after_retry": [
-      "ecos"
-    ]
+    "failed_after_retry": []
   },
   "unsold_seoul": {
     "status": "connected",
