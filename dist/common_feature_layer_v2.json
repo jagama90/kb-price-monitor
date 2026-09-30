@@ -392,5 +392,5 @@
     "leading_segment": "data_sources/kb_leading50_median.json",
     "policy": "data_sources/housing_policy_events.json"
   },
-  "generated_at": "2026-09-30T19:11:02.192912+00:00"
+  "generated_at": "2026-09-30T19:12:49.140486+00:00"
 }
