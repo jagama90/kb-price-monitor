@@ -306,8 +306,8 @@ def main():
            'rule':'source scope is metadata/configuration; model formulas contain no city/district names'},
   'production_baseline':{'buy_weights':{'finance':25,'sentiment':20,'demand':20,'value':20,'supply':15},
     'value_composite_weights':{'pir':.4,'rent_ratio':.3,'trend_gap':.3},'unchanged':True},
-  'features':features,'production_decision':{'integrated_engine_changed':False,'candidate_decisions':decisions,
-    'reason':'candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass'},
+  'features':features,'production_decision':{'integrated_engine_changed':finance_v2_production,'candidate_decisions':decisions,
+    'reason':('finance_v2 passed standalone and integrated leakage-safe validation and is active in production; other candidates remain research-only until their gates pass' if finance_v2_production else 'candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass')},
   'lineage':{'market':'dist/market_indicators.json','final_backtest':'dist/final_backtest.json','mortgage_rate':'data_sources/ecos_mortgage_rate.json',
              'housing_credit':'data_sources/ecos_housing_credit.json','leading_segment':'data_sources/kb_leading50_median.json','policy':'data_sources/housing_policy_events.json','integrated_validation':'dist/market_judgment_validation.json'},
   'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -316,8 +316,9 @@ def main():
    'finance_v2':finance_val,'valuation_rate_stress':vr_val,
    'price_tier_history_sufficient':features['price_tier_liquidity']['validation']['sufficient_for_model'] if 'sufficient_for_model' in features['price_tier_liquidity']['validation'] else False,
    'leader_lag_history_sufficient':features['leader_lag'].get('validation',{}).get('sufficient_for_model',False),
-   'integrated_production_replacement_recommended':False,
-   'integrated_reason':'No candidate is allowed to replace certified production logic until it has adequate history and integrated forecast validation.',
+   'integrated_production_replacement_recommended':finance_v2_production,
+   'finance_v2_integrated':integrated.get('finance_v2_integrated'),
+   'integrated_reason':('finance_v2 is active after standalone + integrated leakage-safe validation' if finance_v2_production else 'No candidate is allowed to replace certified production logic until it has adequate history and integrated forecast validation.'),
    'research_rows':{'finance':finance_rows,'valuation_rate_stress':vr_rows},
    'generated_at':payload['generated_at']}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
