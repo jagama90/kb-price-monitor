@@ -3300,3 +3300,79 @@ header{position:sticky!important;overflow:visible!important}
 .diagnostics-v184 .deep-source{
   margin-top:8px!important;
 }
+
+/* v191 two-column judgment evidence */
+@media(max-width:800px){
+  .evidence-factor-list-v181{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  .evidence-factor-list-v181 .factor-impact-row-v181,
+  .evidence-factor-list-v181 .factor-impact-row-v181:last-child{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    grid-template-areas:
+      "head score"
+      "impact impact"
+      "meter meter"
+      "foot foot"!important;
+    gap:5px 8px!important;
+    min-width:0!important;
+    padding:11px 10px!important;
+  }
+  .evidence-factor-list-v181 .factor-impact-row-v181:last-child{
+    grid-column:1/-1!important;
+  }
+  .evidence-factor-list-v181 .factor-card-head-v134{
+    min-width:0!important;
+    align-items:flex-start!important;
+    gap:5px!important;
+  }
+  .evidence-factor-list-v181 .factor-card-head-v134>span{
+    font-size:11px!important;
+    white-space:nowrap!important;
+  }
+  .evidence-factor-list-v181 .factor-card-head-v134>em{
+    max-width:58px!important;
+    padding:3px 5px!important;
+    font-size:6.8px!important;
+    line-height:1.2!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .evidence-factor-list-v181 .factor-score-v134{
+    align-self:start!important;
+  }
+  .evidence-factor-list-v181 .factor-score-v134>b{
+    font-size:25px!important;
+  }
+  .evidence-factor-list-v181 .factor-score-v134>small{
+    font-size:7px!important;
+  }
+  .evidence-factor-list-v181 .factor-impact-copy-v181{
+    grid-area:impact!important;
+    margin:1px 0 0!important;
+    min-height:34px;
+    font-size:8.6px!important;
+    line-height:1.35!important;
+    overflow:hidden;
+  }
+  .evidence-factor-list-v181 .factor-foot-v134>span,
+  .evidence-factor-list-v181 .factor-foot-v134>i{
+    font-size:7px!important;
+  }
+}
+@media(max-width:360px){
+  .evidence-factor-list-v181{
+    gap:6px!important;
+  }
+  .evidence-factor-list-v181 .factor-impact-row-v181,
+  .evidence-factor-list-v181 .factor-impact-row-v181:last-child{
+    padding:10px 8px!important;
+  }
+  .evidence-factor-list-v181 .factor-score-v134>b{
+    font-size:23px!important;
+  }
+}
