@@ -2330,3 +2330,8 @@ header{position:sticky!important;overflow:visible!important}
     display:none!important;
   }
 }
+
+
+/* v178 regime detail spacing + forecast cleanup */
+#regimeReference.regime-reference-v145{margin-top:22px!important}
+@media(max-width:600px){#regimeReference.regime-reference-v145{margin-top:18px!important}}
