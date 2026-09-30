@@ -3223,3 +3223,47 @@ header{position:sticky!important;overflow:visible!important}
     padding:8px 10px 10px!important;
   }
 }
+
+/* v189 compact internal drawer rhythm */
+/* Internal drawers: remove stacked top whitespace from nested accordion layout. */
+.user-watch-v184{
+  margin-top:8px!important;
+}
+.judgment-evidence-drawer-v181{
+  margin-top:8px!important;
+}
+.diagnostics-body-v184{
+  padding:6px 8px 8px!important;
+}
+.diagnostic-block-v184{
+  margin-top:6px!important;
+}
+.diagnostic-block-v184:first-child{
+  margin-top:0!important;
+}
+.diagnostics-v184[open]>.diagnostics-body-v184{
+  padding-top:6px!important;
+}
+.user-watch-v184>summary,
+.diagnostics-v184>summary,
+.diagnostic-summary-v184,
+.judgment-evidence-drawer-v181>summary{
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:800px){
+  .user-watch-v184{
+    margin-top:7px!important;
+  }
+  .judgment-evidence-drawer-v181{
+    margin-top:7px!important;
+  }
+  .diagnostics-body-v184{
+    padding:5px 7px 7px!important;
+  }
+  .diagnostic-block-v184{
+    margin-top:5px!important;
+  }
+}
