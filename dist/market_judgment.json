@@ -15,6 +15,13 @@
       "value": 30.4,
       "supply": 49.3
     },
+    "component_deltas_vs_research_month": {
+      "finance": -3.5,
+      "sentiment": -0.6,
+      "demand": 2.0,
+      "value": 0.0,
+      "supply": 0.3
+    },
     "buy_weights": {
       "finance": 25,
       "sentiment": 20,
@@ -248,5 +255,5 @@
       }
     }
   },
-  "generated_at": "2026-09-30T02:05:20.679458+00:00"
+  "generated_at": "2026-09-30T02:52:31.874138+00:00"
 }
