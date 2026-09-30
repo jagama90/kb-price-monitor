@@ -31,6 +31,7 @@
   "features": {
     "trade_reporting": {
       "status": "mature_completed_month",
+      "production_applied": true,
       "engine_signal": {
         "as_of": "2026-10-01",
         "basis": "completed_month_after_statutory_reporting_window",
@@ -328,6 +329,8 @@
       "reason": "historical file has announcement events but lacks complete effective-date and quantitative DSR/LTV/loan-limit lineage; narrative intensity is not used as a model input"
     },
     "rental_vs_structural_supply": {
+      "status": "semantic_split",
+      "production_applied": false,
       "rental_market_balance": {
         "status": "connected",
         "score_0_100": 49.3,
@@ -348,7 +351,7 @@
     "candidate_decisions": {
       "trade_reporting": {
         "status": "mature_completed_month",
-        "production_applied": false
+        "production_applied": true
       },
       "finance_v2_candidate": {
         "status": "blocked_core_input_missing",
@@ -375,7 +378,7 @@
         "production_applied": false
       },
       "rental_vs_structural_supply": {
-        "status": null,
+        "status": "semantic_split",
         "production_applied": false
       }
     },
@@ -389,5 +392,5 @@
     "leading_segment": "data_sources/kb_leading50_median.json",
     "policy": "data_sources/housing_policy_events.json"
   },
-  "generated_at": "2026-09-30T19:06:22.510076+00:00"
+  "generated_at": "2026-09-30T19:11:02.192912+00:00"
 }

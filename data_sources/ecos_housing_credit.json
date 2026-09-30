@@ -2,7 +2,25 @@
   "status": "not_connected",
   "source": "한국은행 ECOS",
   "candidate_feature": "credit_availability",
-  "generated_at": "2026-09-30T19:05:46.026311+00:00",
-  "reason": "No monthly ECOS series with explicit 주택담보대출 label and >=36 observations",
-  "tables_checked": 4
+  "generated_at": "2026-09-30T19:10:26.512800+00:00",
+  "reason": "No monthly ECOS housing-mortgage balance candidate with >=36 observations",
+  "tables_checked": 4,
+  "table_candidates": [
+    {
+      "stat_code": "151Y003",
+      "stat_name": "1.2.3.4.2. 예금은행 지역별 가계대출(말잔)"
+    },
+    {
+      "stat_code": "151Y006",
+      "stat_name": "1.2.3.5.2. 비은행금융기관 지역별 가계대출(말잔)"
+    },
+    {
+      "stat_code": "151Y002",
+      "stat_name": "1.2.4.2.1. 예금취급기관 가계대출(업권별, 월)"
+    },
+    {
+      "stat_code": "151Y005",
+      "stat_name": "1.2.4.2.2. 예금취급기관 가계대출(용도별, 월)"
+    }
+  ]
 }
