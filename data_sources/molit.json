@@ -1,6 +1,6 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-10-01T02:45:52.251717+09:00",
+  "collected_at": "2026-10-01T03:05:27.212974+09:00",
   "refresh_meta": {
     "mode": "daily_current_month_only",
     "queried_pairs": 20,
@@ -8,7 +8,7 @@
     "reused_previous_matched_vintage": true,
     "retried_pairs": [],
     "cache_fallback_pairs": [],
-    "elapsed_sec": 2.4
+    "elapsed_sec": 4.3
   },
   "pair_cache": {
     "11215:202609": [
@@ -22239,5 +22239,62 @@
       "under15_share_pp": null
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
-  }
+  },
+  "signal_matched_period": {
+    "as_of": "2026-09-30",
+    "cutoff_day": 30,
+    "basis": "contract_date_equal_calendar_days",
+    "current": {
+      "period": "2026-09",
+      "range": "1~30일",
+      "total": 1873,
+      "counts": {
+        "<=9eok": 1159,
+        "9-15eok": 386,
+        "15-25eok": 230,
+        "25eok+": 98
+      },
+      "buckets3": {
+        "<=15eok": 1545,
+        "15-25eok": 230,
+        "25eok+": 98
+      },
+      "boundary_counts": {
+        "13-15eok": 77,
+        "15-17eok": 74,
+        "23-25eok": 25,
+        "25-27eok": 13
+      },
+      "under15_share": 82.5
+    },
+    "previous": {
+      "period": "2026-08",
+      "range": "1~30일",
+      "total": 3495,
+      "counts": {
+        "<=9eok": 1830,
+        "9-15eok": 954,
+        "15-25eok": 516,
+        "25eok+": 195
+      },
+      "buckets3": {
+        "<=15eok": 2784,
+        "15-25eok": 516,
+        "25eok+": 195
+      },
+      "boundary_counts": {
+        "13-15eok": 242,
+        "15-17eok": 185,
+        "23-25eok": 54,
+        "25-27eok": 28
+      },
+      "under15_share": 79.7
+    },
+    "changes": {
+      "trade_count_pct": -46.4,
+      "under15_share_pp": 2.8
+    },
+    "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+  },
+  "signal_matched_period_status": "carried_forward_last_usable"
 }

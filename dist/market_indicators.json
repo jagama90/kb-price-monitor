@@ -286,7 +286,7 @@
     "jeonse_score_change": 0.6,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-30T17:47:00.485789+00:00"
+    "generated_at": "2026-09-30T18:05:45.705172+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -325,7 +325,7 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-09-30T17:47:00.431855+00:00"
+    "generated_at": "2026-09-30T18:05:45.646768+00:00"
   },
   "matched_period": {
     "as_of": "2026-10-01",
@@ -418,7 +418,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-09-30T17:46:40.996663+00:00",
+    "collected_at": "2026-09-30T18:05:23.751799+00:00",
     "history": [
       {
         "date": "20260615",
@@ -536,7 +536,7 @@
       "change_pct": 0.12
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-09-30T17:46:41.526993+00:00"
+    "collected_at": "2026-09-30T18:05:24.498593+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -672,10 +672,10 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-09-30T17:45:54.000541+00:00"
+    "collected_at": "2026-09-30T18:05:27.238774+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-09-30T17:47:00.291479+00:00",
+    "attempted_at": "2026-09-30T18:05:45.541209+00:00",
     "sources": {
       "molit": "connected",
       "ecos": "connected",
