@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260930-179"></head><body><header>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260930-180"></head><body><header>
 <a class="brand brand-home-v155" id="brandHome" href="./market.html" aria-label="서울 부동산 상황판 새로고침"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></a>
 <details id="refreshCalendar" class="header-refresh-v154" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
@@ -25,7 +25,7 @@
   </div>
 
   <div class="judgment-block-v1 judgment-current-v1">
-    <div class="judgment-step-title-v1"><small>1 · 지금 어디인가</small><b id="judgmentCurrentLabel">현재 국면 계산 중</b></div>
+    <div class="judgment-step-title-v1 engine-title-v180"><small>1 · 연구엔진</small><b>현재 국면 · <span id="judgmentCurrentLabel">계산 중</span></b></div>
     <p id="cycleStageText" class="research-verdict">현재 가격 흐름을 판독하는 중입니다.</p>
     <div class="cycle-steps research-steps" id="cycleSteps">
       <span data-regime-ref="0" role="button" tabindex="0">하락</span><span data-regime-ref="1" role="button" tabindex="0">둔화</span><span data-regime-ref="2" role="button" tabindex="0">바닥</span><span data-regime-ref="3" role="button" tabindex="0">상승·보합</span><span data-regime-ref="4" role="button" tabindex="0">가속</span>
@@ -49,20 +49,17 @@
     </div>
   </div>
 
-  <div class="judgment-block-v1 judgment-buy-v1">
-    <div class="judgment-step-title-v1"><small>2 · 지금 사기 좋은가</small><b>매수여건</b></div>
-    <div class="condition-console">
-      <div class="condition-score-block">
-        <div class="condition-score-line"><b id="conditionScore">산출 준비</b><span id="conditionTier" class="score-tier-v140">범주 판독 중</span></div>
-        <div class="condition-meter"><i id="heroMeterFill"></i></div>
-        <div class="condition-coverage-v140"><span>데이터 연결</span><b id="confidenceScore" class="coverage-badge-v140">확인 중</b></div>
-      </div>
-      <p id="heroVerdict" class="condition-verdict">금융·심리·거래·가격·전세 신호를 함께 확인합니다.</p>
-    </div>
-  </div>
-
   <div class="judgment-block-v1 judgment-forward-v1 forecast-compact-mobile" id="regimeForecast">
-    <div class="judgment-step-title-v1"><small>3 · 앞으로 어디로 갈까</small><b>국면 흐름</b></div>
+    <div class="judgment-step-title-v1 engine-title-v180"><small>2 · 전망엔진</small><b>앞으로의 흐름</b></div>
+    <div class="forecast-buy-summary-v180">
+      <div class="forecast-buy-main-v180">
+        <small>현재 매수여건</small>
+        <div><b id="conditionScore">산출 준비</b><span id="conditionTier" class="score-tier-v140">범주 판독 중</span></div>
+      </div>
+      <div class="condition-meter"><i id="heroMeterFill"></i></div>
+      <p id="heroVerdict" class="condition-verdict">금융·심리·거래·가격·전세 신호를 함께 확인합니다.</p>
+      <div class="condition-coverage-v140"><span>데이터 연결</span><b id="confidenceScore" class="coverage-badge-v140">확인 중</b></div>
+    </div>
     <div class="forecast-flow" id="forecastGrid">
       <div class="forecast-stop skeleton"><small>단기</small><b>산출 중</b></div>
       <div class="forecast-stop skeleton"><small>중기</small><b>산출 중</b></div>
@@ -74,11 +71,10 @@
       <small>각 %는 실제 발생확률이 아니라, 현재 시장 신호가 해당 흐름을 얼마나 강하게 지지하는지 보여주는 상대 점수입니다. 경계선 근처에서 단계가 자주 바뀌지 않도록 위험 단계는 기준보다 2%p 더 낮아질 때 완화합니다.</small>
     </details>
     <small class="forecast-meta" id="forecastMeta">최신 전망 데이터를 불러오는 중입니다.</small>
-  </div>
-
-  <div class="judgment-block-v1 judgment-evidence-v1">
-    <div class="judgment-step-title-v1"><small>4 · 왜 그렇게 판단했나</small><b>공통 입력</b></div>
-    <div id="judgmentFactorSummary" class="judgment-factor-summary-v1" aria-label="5대 지표 요약"></div>
+    <details class="judgment-evidence-drawer-v180" id="judgmentEvidenceDrawer">
+      <summary><b>판단 근거 보기</b><span>금융 · 심리 · 거래 · 밸류 · 전세</span></summary>
+      <div class="judgment-evidence-inner-v180">
+        <div id="judgmentFactorSummary" class="judgment-factor-summary-v1" hidden aria-label="5대 지표 요약"></div>
     <section class="score-dashboard-inline factor-board-v134 evidence-factor-board-v1" aria-label="시장여건 5개 보조지표">
       <article class="card score-component" data-score="finance" data-score-key="finance" role="button" tabindex="0" aria-controls="scoreExplanation" aria-expanded="false">
         <div class="factor-card-head-v134"><span>금융</span><em id="stateFinance">—</em></div><div class="factor-score-v134"><b id="scoreFinance">—</b><small>/100</small></div><i class="score-mini-meter factor-meter-v134"><u></u></i><div class="factor-foot-v134"><span>금리 · M2</span><i>자세히 ›</i></div>
@@ -96,9 +92,13 @@
         <div class="factor-card-head-v134"><span>전세</span><em id="stateSupply">—</em></div><div class="factor-score-v134"><b id="scoreSupply">—</b><small>/100</small></div><i class="score-mini-meter factor-meter-v134"><u></u></i><div class="factor-foot-v134"><span>공급 · 전세</span><i>자세히 ›</i></div>
       </article>
     </section>
+        <section id="scoreExplanation" class="card score-explanation" hidden><div class="title"><div><small id="scoreExplainWeight">구성요소</small><h2 id="scoreExplainTitle">점수 산정 근거</h2></div><button type="button" class="close-rate score-detail-close">×</button></div><div id="scoreExplainBody"></div></section>
+      </div>
+    </details>
   </div>
+
 </section>
-<section id="scoreExplanation" class="card score-explanation" hidden><div class="title"><div><small id="scoreExplainWeight">구성요소</small><h2 id="scoreExplainTitle">점수 산정 근거</h2></div><button type="button" class="close-rate score-detail-close">×</button></div><div id="scoreExplainBody"></div></section>
+
 <section class="card decision-brief decision-brief-v2">
   <div class="decision-top">
     <div><small>이번 주 핵심</small><h2 id="storyHeadline">시장 신호를 연결하는 중입니다.</h2></div>
@@ -202,4 +202,4 @@
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
 
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260930-179"></script></body></html>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260930-180"></script></body></html>
