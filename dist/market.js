@@ -115,7 +115,6 @@ function renderConditionIndex(d,jg=window.__marketJudgment){
   if(d.kb_sentiment?.jeonse_score_0_100!=null)components.supply=Number(d.kb_sentiment.jeonse_score_0_100);
  }
  window.__conditionComponents=components;
- const asof=String(jg?.as_of||d.updated_at||'').replace(/-/g,'.');setText('judgmentAsOf',asof?'동일 snapshot · '+asof:'동일 snapshot');
  const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},labels={finance:'scoreFinance',sentiment:'scoreSentiment',demand:'scoreDemand',value:'scoreValue',supply:'scoreSupply'};
  const deltaMap=shared.component_deltas_vs_research_month||{},factorNames={finance:'금융',sentiment:'심리',demand:'거래',value:'밸류',supply:'전세'};
  const arrow=v=>Number(v)>.5?'↑':Number(v)<-.5?'↓':'→';
@@ -241,7 +240,6 @@ async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot
    };
    setText('judgmentCurrentLabel',head.label||['하락','둔화','바닥','상승·보합','가속'][stage]);
    setText('cycleStageText',head.summary||'통합 시장 판단 엔진의 현재 국면을 표시합니다.');
-   setText('cycleStageEvidence','1개월 '+pct(mapped1)+' · 3개월 '+pct(mapped3)+' · 시장 확산 '+score(sig.breadth)+' · 재가속 '+score(sig.reaccel));
    document.querySelectorAll('#cycleSteps span').forEach((el,i)=>{el.classList.toggle('active',i===stage);el.setAttribute('aria-current',i===stage?'step':'false')});
    const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
    return;
@@ -271,11 +269,10 @@ async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot
   setText('judgmentCurrentLabel',['하락','둔화','바닥','상승·보합','가속'][stage]);
   setText('cycleStageText',text);
   const flow=m3>0?'상승 '+m3.toFixed(1)+'%':m3<0?'하락 '+Math.abs(m3).toFixed(1)+'%':'보합';
-  setText('cycleStageEvidence','연구 fallback '+x.ym.slice(0,4)+'.'+x.ym.slice(4)+' · 최근 3개월 가격 '+flow);
   document.querySelectorAll('#cycleSteps span').forEach((el,i)=>{el.classList.toggle('active',i===stage);el.setAttribute('aria-current',i===stage?'step':'false')});
   const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
  }catch(e){
-  console.warn('cycle stage',e);setText('judgmentCurrentLabel','국면 확인 중');setText('cycleStageText','국면 데이터 연결을 확인하고 있습니다.');setText('cycleStageEvidence','통합 시장 판단 원천 확인 중');
+  console.warn('cycle stage',e);setText('judgmentCurrentLabel','국면 확인 중');setText('cycleStageText','국면 데이터 연결을 확인하고 있습니다.');
  }
 }
 const regimeYm=v=>{const s=String(v||'');return s.length===6?s.slice(0,4)+'.'+s.slice(4):s};
@@ -639,7 +636,6 @@ async function initRefreshCalendar(){
  const healthRec=refreshTrack(state,'panel.health','검증상태',{statuses,cert:backtest?.certified_through,research:research?.latest_month||research?.as_of},critical.length,healthRev,false);
  records.push(forecastRec,contextRec,watchRec);
 
- decorateRefreshPanel({key:'overview',host:document.getElementById('overview'),anchor:document.querySelector('#overview h1'),record:overviewRec,checkedAt:dailyRev});
  decorateRefreshPanel({key:'forecast',host:document.getElementById('regimeForecast'),anchor:document.querySelector('#regimeForecast h2'),record:forecastRec,checkedAt:forecastRev});
  decorateRefreshPanel({key:'context',host:document.getElementById('marketContext'),anchor:document.querySelector('#marketContext h2'),record:contextRec,checkedAt:extensionRev});
  decorateRefreshPanel({key:'watchlist',host:document.getElementById('watchlist'),anchor:document.querySelector('#watchlist .deep-copy-v4 b'),record:watchRec,checkedAt:watchRev,note:false});
