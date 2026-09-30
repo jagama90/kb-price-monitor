@@ -22,7 +22,9 @@ jobs:
         with:
           python-version: '3.11'
       - name: Build forward regime forecast
-        run: python3 scripts/forecast_market_regime.py
+        run: |
+          python3 scripts/test_market_judgment_engine.py
+          python3 scripts/forecast_market_regime.py
       - name: Validate forecast bundle contract
         run: |
           node --check dist/market.js
@@ -55,6 +57,7 @@ jobs:
           git pull --ff-only origin main
           # Recompute after pull so the committed forecast always consumes the
           # newest market/research inputs rather than the workflow-start snapshot.
+          python3 scripts/test_market_judgment_engine.py
           python3 scripts/forecast_market_regime.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
