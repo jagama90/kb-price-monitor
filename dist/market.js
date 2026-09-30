@@ -319,7 +319,7 @@ async function loadRegimeReferences(){
   const d=await fetch('regime_reference_examples.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('references '+r.status);return r.json()});
   window.__regimeReferences=d.references||[];
   document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(el=>{
-   const open=()=>{const s=Number(el.dataset.regimeRef),box=document.getElementById('regimeReference');if(box)box.hidden=false;window.__regimeCompare=!!(window.__currentRegimeMetrics&&s===window.__currentCycleStage);renderRegimeReference(s)};
+   const open=()=>{const s=Number(el.dataset.regimeRef),box=document.getElementById('regimeReference');if(box&&!box.hidden&&window.__selectedRegimeRefStage===s){box.hidden=true;window.__selectedRegimeRefStage=null;window.__regimeCompare=false;document.querySelectorAll('#cycleSteps [data-regime-ref]').forEach(x=>x.setAttribute('aria-pressed','false'));return}if(box)box.hidden=false;window.__regimeCompare=!!(window.__currentRegimeMetrics&&s===window.__currentCycleStage);renderRegimeReference(s)};
    el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
   });
   const toggle=document.getElementById('regimeCompareToggle');if(toggle)toggle.addEventListener('click',()=>{if(window.__selectedRegimeRefStage==null||!window.__currentRegimeMetrics)return;window.__regimeCompare=!window.__regimeCompare;renderRegimeReference(window.__selectedRegimeRefStage)});
@@ -349,7 +349,7 @@ window.hideScoreDetail=function(){
 };
 
 async function renderRegimeForecast(){
- const host=document.getElementById('forecastGrid'),meta=document.getElementById('forecastMeta'),headline=document.getElementById('forecastHeadline'),trend=document.getElementById('forecastTrend');if(!host)return;
+ const host=document.getElementById('forecastGrid'),meta=document.getElementById('forecastMeta');if(!host)return;
  const fmtMonth=v=>{const z=String(v||'');return z.length===6?z.slice(0,4)+'.'+z.slice(4):z};
  const fallbackDisplay=w=>{
   const d=Number(w?.downturn||0),r=Number(w?.reacceleration||0),v=Math.round(d),band=v<=19?0:v<=29?1:v<=34?2:v<=44?3:v<=54?4:5;
@@ -365,12 +365,10 @@ async function renderRegimeForecast(){
    const v=displays[i],risk=Math.round(Number(v.downturn_weight||h.weights?.downturn||0)),reacc=Math.round(Number(v.reacceleration_weight||h.weights?.reacceleration||0));
    return '<div class="forecast-stop forecast-risk-card-v153 risk-'+esc(v.tone||'mixed')+'"><div class="forecast-stop-head"><small>'+esc(h.label||h.period)+'</small></div><b>'+esc(v.headline||'방향 확인 중')+'</b><div class="forecast-risk-label-v153"><span>하락 가능성</span><strong>'+risk+'%</strong></div><div class="forecast-risk-track-v153"><i style="width:'+Math.max(0,Math.min(100,risk))+'%"></i></div><div class="forecast-risk-sub-v153"><span>재상승 신호 '+reacc+'%</span><em>'+esc(v.secondary||'')+'</em></div></div>';
   }).join('');
-  if(headline&&displays.length)headline.textContent=displays.map(x=>x.headline).join(' → ');
-  if(trend&&displays.length)trend.innerHTML='<b>하락 가능성</b><span>'+displays.map(x=>Math.round(Number(x.downturn_weight||0))+'%').join(' → ')+'</span>';
-  if(meta)meta.textContent='시나리오 가중치 · 확률 예측 아님 · 연구 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' 잠정':'')+' · 인증 '+fmtMonth(d.latest_certified_backtest_month)+'까지';
+  if(meta)meta.textContent='현재 판단에 사용한 연구 데이터 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' · 잠정':'')+' · 검증 완료 '+fmtMonth(d.latest_certified_backtest_month)+'까지';
   const hb=document.getElementById('hubBacktestMeta');if(hb)hb.textContent='인증 '+fmtMonth(d.latest_certified_backtest_month)+' · 연구 '+fmtMonth(d.latest_research_month);
  }catch(e){
-  console.warn('forecast render',e);host.innerHTML='<div class="forecast-stop"><small>전망엔진</small><b>데이터 확인 중</b></div>';if(headline)headline.textContent='최신 전망 데이터를 확인하고 있습니다.';if(meta)meta.textContent='전망 파일 배포 후 자동 표시됩니다.';
+  console.warn('forecast render',e);host.innerHTML='<div class="forecast-stop"><small>전망엔진</small><b>데이터 확인 중</b></div>';if(meta)meta.textContent='전망 파일 배포 후 자동 표시됩니다.';
  }
 }
 renderRegimeForecast();
