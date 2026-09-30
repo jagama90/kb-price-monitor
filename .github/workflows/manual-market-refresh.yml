@@ -9,7 +9,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: manual-market-refresh-fallback
+  group: manual-market-refresh-v2
   cancel-in-progress: true
 
 jobs:
