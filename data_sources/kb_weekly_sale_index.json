@@ -10,7 +10,7 @@
     "change_pct": 0.16
   },
   "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-  "collected_at": "2026-09-30T17:38:46.656578+00:00",
+  "collected_at": "2026-09-30T17:46:40.996663+00:00",
   "history": [
     {
       "date": "20260615",
