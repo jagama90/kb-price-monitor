@@ -236,6 +236,18 @@ def main():
   ps=summarize([r for r in monthly.get(prev,[]) if 1<=r[0]<=cutoff])
  pct=lambda a,b:round((a/b-1)*100,1) if b else None
  matched={'as_of':now.isoformat(),'cutoff_day':cutoff,'basis':'contract_date_equal_calendar_days','current':{'period':f'{cy:04d}-{cm:02d}','range':f'1~{cutoff}일',**cs},'previous':{'period':f'{py:04d}-{pm:02d}','range':f'1~{cutoff}일',**ps},'changes':{'trade_count_pct':pct(cs['total'],ps['total']),'under15_share_pp':round(cs['under15_share']-ps['under15_share'],1) if cs['under15_share'] is not None and ps['under15_share'] is not None else None},'warning':'당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용'}
+ def usable_signal(x):
+  cur=(x or {}).get('current') or {};chg=(x or {}).get('changes') or {}
+  return bool((cur.get('total') or 0)>=50 and cur.get('under15_share') is not None and chg.get('trade_count_pct') is not None and chg.get('under15_share_pp') is not None)
+ signal_matched=matched if usable_signal(matched) else None
+ signal_status='current'
+ if signal_matched is None:
+  for snap in reversed(history.get('snapshots') or []):
+   candidate=(snap or {}).get('matched_period') or {}
+   if usable_signal(candidate):
+    signal_matched=candidate;signal_status='carried_forward_last_usable';break
+ if signal_matched is None:
+  signal_matched=matched;signal_status='current_unready'
  cache_months=months[:3]
  out={'source':'MOLIT apartment trade OpenAPI',
       'collected_at':datetime.datetime.now(ZoneInfo('Asia/Seoul')).isoformat(),
@@ -251,7 +263,9 @@ def main():
       'pair_cache':encode_cache(pair_cache,cache_months),
       'seoul_apt_trade_count':series,
       'price_bands':{'status':'partial_last_good' if fetch_meta['fallbacks'] else 'connected','months':bands},
-      'matched_period':matched}
+      'matched_period':matched,
+      'signal_matched_period':signal_matched,
+      'signal_matched_period_status':signal_status}
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  history['snapshots']=[x for x in history.get('snapshots',[]) if x.get('as_of')!=now.isoformat()];history['snapshots'].append({'as_of':now.isoformat(),'matched_period':matched,'current_month':bands[-1]});history['snapshots']=history['snapshots'][-400:];VINTAGE.write_text(json.dumps(history,ensure_ascii=False,indent=2))
  print(json.dumps({'collector':'MOLIT','months':len(months),'mode':out['refresh_meta']['mode'],'refreshed_months':sorted(refresh),'queried_pairs':len(pairs_to_fetch),'reused_watchlist_pairs':len(shared_cache),'workers':workers,'retried_pairs':len(fetch_meta['retried']),'cache_fallbacks':len(fetch_meta['fallbacks']),'latest_total':bands[-1]['total'],'matched':matched['changes']},ensure_ascii=False))
