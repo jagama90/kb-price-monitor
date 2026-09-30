@@ -34,8 +34,10 @@ jobs:
           import json
           x=json.load(open('dist/common_feature_layer_v2_validation.json'))
           assert x.get('no_future_leakage') is True
-          assert x.get('integrated_production_replacement_recommended') is False
-          print({'finance_v2':x.get('finance_v2',{}).get('apply_recommended'),'valuation_rate':x.get('valuation_rate_stress',{}).get('apply_recommended')})
+          p=json.load(open('dist/common_feature_layer_v2.json'))
+          applied=bool((p.get('features',{}).get('finance_v2_candidate') or {}).get('production_applied'))
+          assert applied == bool(x.get('integrated_production_replacement_recommended')), 'finance_v2 production metadata drift'
+          print({'finance_v2':x.get('finance_v2',{}).get('apply_recommended'),'finance_v2_production':applied,'valuation_rate':x.get('valuation_rate_stress',{}).get('apply_recommended')})
           PY
       - name: Existing regression checks
         run: |

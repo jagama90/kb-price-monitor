@@ -115,6 +115,8 @@ function renderConditionIndex(d,jg=window.__marketJudgment){
   if(d.kb_sentiment?.jeonse_score_0_100!=null)components.supply=Number(d.kb_sentiment.jeonse_score_0_100);
  }
  window.__conditionComponents=components;
+ const financeFoot=document.querySelector('[data-score="finance"] .factor-foot-v134 span');
+ if(financeFoot)financeFoot.textContent=shared.context?.finance_model==='finance_v2_credit_cost'?'신용공급 · 조달비용':'M2 · 금융여건';
  const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},labels={finance:'scoreFinance',sentiment:'scoreSentiment',demand:'scoreDemand',value:'scoreValue',supply:'scoreSupply'};
  const deltaMap=shared.component_deltas_vs_research_month||{},factorNames={finance:'금융',sentiment:'심리',demand:'거래',value:'밸류',supply:'전세'};
  const arrow=v=>Number(v)>.5?'↑':Number(v)<-.5?'↓':'→';
@@ -682,7 +684,7 @@ initRefreshCalendar();
  const metric=(label,value,note='')=>'<div class="factor-detail-metric-v134"><span>'+label+'</span><b>'+value+'</b>'+(note?'<small>'+note+'</small>':'')+'</div>';
  const status=v=>scoreBand(v);
  const desc={
-  finance:'현재 production은 M2 기반 점수이며, 신규 신용공급과 조달비용 분리모형은 검증 후보로 따로 봅니다.',
+  finance:'금융여건은 현재 production 엔진의 입력과 산식을 표시합니다.',
   sentiment:'KB 매수심리와 거래심리를 함께 봅니다.',
   demand:'실제 계약 건수와 가격대별 수요 이동을 봅니다.',
   value:'서울 집값을 소득·전세가치·장기 가격추세의 세 축으로 함께 봅니다.',
@@ -695,8 +697,14 @@ initRefreshCalendar();
    const weights={finance:25,sentiment:20,demand:20,value:20,supply:15};
    const title={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
    const m=d.m2_official||d.m2||{},x=d.signal_matched_period||d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},mort=d.mortgage_rate_official||{},score=Math.round(Number(c[k])),band=status(score);
+   const financeCtx=window.__marketJudgment?.feature_layer?.context||{},financeV2=financeCtx.finance_model==='finance_v2_credit_cost';
+   const financeDesc=financeV2?'주택관련 신용공급과 주담대 조달비용을 각각 점수화해 결합합니다. M2는 유동성 맥락으로만 확인합니다.':'M2의 전월·전년 변화를 기반으로 금융여건을 봅니다.';
    const blocks={
-    finance:[
+    finance:financeV2?[
+      metric('신용공급',financeCtx.credit_availability_0_100==null?'—':fmt1(financeCtx.credit_availability_0_100)+'/100','주택관련대출 증가·전년비'),
+      metric('조달비용',financeCtx.funding_cost_0_100==null?'—':fmt1(financeCtx.funding_cost_0_100)+'/100',mort.rate_pct==null?'주담대 금리 확인 중':'주담대 '+fmt1(mort.rate_pct)+'%'),
+      metric('M2 참고',m.yoy_pct==null?'—':signed1(m.yoy_pct,'%'),'점수 미반영 · 광의 유동성 맥락')
+    ]:[
       metric('M2 전월비',signed1(m.mom_pct,'%'),m.mom_change_pp==null?'전월 변화 대기':'직전월보다 '+signed1(m.mom_change_pp,'%p')),
       metric('M2 전년비',signed1(m.yoy_pct,'%'),m.yoy_change_pp==null?'전월 변화 대기':'직전월보다 '+signed1(m.yoy_change_pp,'%p')),
       metric('주담대 금리',mort.rate_pct==null?'—':fmt1(mort.rate_pct)+'%',mort.change_pp==null?'전월 변화 대기':'직전월보다 '+signed1(mort.change_pp,'%p'))
@@ -723,7 +731,7 @@ initRefreshCalendar();
     ]
    };
    const method={
-    finance:'현재 production 산식은 M2 전월·전년 변화로 산출합니다. 주담대 금리는 보조정보이며 Credit Availability / Funding Cost 후보는 별도 검증합니다.',
+    finance:financeV2?'Credit Availability 50% + Funding Cost 50% · 신용공급은 주택관련대출 잔액 증가·전년비, 조달비용은 주담대 금리 수준·3개월 속도 사용 · M2는 참고정보':'M2 전월·전년 변화를 기반으로 산출 · 주담대 금리는 보조정보',
     sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',
     demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',
     value:'PIR 40% + 전세가율 30% + 60개월 장기추세 괴리 30% · 각 지표는 해당 시점까지의 역사 백분위로 환산',
@@ -733,7 +741,7 @@ initRefreshCalendar();
    p.classList.add('factor-detail-shell-v134');
    setText('scoreExplainTitle',title[k]);
    setText('scoreExplainWeight','전체 점수 가중치 '+weights[k]+'%');
-   body.innerHTML='<div class="factor-detail-v134"><div class="factor-detail-hero-v134"><div class="factor-detail-score-v134"><span>현재 점수</span><strong>'+score+'<small>/100</small></strong><div class="factor-detail-progress-v134"><i style="width:'+Math.max(0,Math.min(100,score))+'%"></i></div></div><div class="factor-detail-copy-v134"><strong>'+band.label+' <small>('+band.range+'점)</small></strong><p><b>'+score+'점은 '+band.label+'입니다.</b> '+band.comment+' · '+desc[k]+'</p><div class="score-band-scale-v140"><i></i><i></i><i></i><i></i><i></i><u style="left:'+Math.max(0,Math.min(100,score))+'%"></u></div><small class="score-band-labels-v140">매우제약 · 제약 · 중립 · 개선 · 우호</small></div></div><div class="factor-detail-metrics-v134">'+blocks[k].join('')+'</div><div class="factor-detail-method-v134"><b>산정 기준</b><span>'+method[k]+'</span></div></div>';
+   body.innerHTML='<div class="factor-detail-v134"><div class="factor-detail-hero-v134"><div class="factor-detail-score-v134"><span>현재 점수</span><strong>'+score+'<small>/100</small></strong><div class="factor-detail-progress-v134"><i style="width:'+Math.max(0,Math.min(100,score))+'%"></i></div></div><div class="factor-detail-copy-v134"><strong>'+band.label+' <small>('+band.range+'점)</small></strong><p><b>'+score+'점은 '+band.label+'입니다.</b> '+band.comment+' · '+(k==='finance'?financeDesc:desc[k])+'</p><div class="score-band-scale-v140"><i></i><i></i><i></i><i></i><i></i><u style="left:'+Math.max(0,Math.min(100,score))+'%"></u></div><small class="score-band-labels-v140">매우제약 · 제약 · 중립 · 개선 · 우호</small></div></div><div class="factor-detail-metrics-v134">'+blocks[k].join('')+'</div><div class="factor-detail-method-v134"><b>산정 기준</b><span>'+method[k]+'</span></div></div>';
    p.hidden=false;p.style.display='block';
    document.querySelectorAll('.score-component[data-score-key]').forEach(card=>{const on=card.dataset.scoreKey===k;card.setAttribute('aria-expanded',on?'true':'false');card.classList.toggle('active',on)});
    p.scrollIntoView({behavior:'smooth',block:'nearest'});

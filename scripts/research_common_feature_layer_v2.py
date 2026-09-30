@@ -262,14 +262,14 @@ def rental_supply_feature(market):
          'structural_supply':{'status':'partial_context','unsold_units':u.get('seoul_units'),'unsold_period':u.get('period'),
           'completion_inventory_series_status':'not_connected','meaning':'미분양은 보조 재고지표이며 신규 입주물량과 동일하게 취급하지 않음'}}
 
-def current_finance_feature(mortgage,base,m2,credit,validation):
+def current_finance_feature(mortgage,base,m2,credit,validation,production_applied=False):
  latest_m=mortgage[-1] if mortgage else None;cr=(credit.get('series') or [])
  fund,fr=funding_cost_score_at(mortgage,latest_m.get('period') if latest_m else '999999') if latest_m else (None,None)
  avail,ar=housing_credit_score_at(cr,(cr[-1].get('period') if cr else '000000')) if cr else (None,None)
  score=(fund+avail)/2 if fund is not None and avail is not None else None
  br=(base.get('latest') or {})
  return {'status':'validated_candidate' if validation.get('apply_recommended') else ('research_candidate' if score is not None else 'blocked_core_input_missing'),
-         'production_applied':False,'score_0_100':round(score,1) if score is not None else None,
+         'production_applied':bool(production_applied),'score_0_100':round(score,1) if score is not None else None,
          'liquidity_credit_availability':{'score_0_100':round(avail,1) if avail is not None else None,'source':'한국은행 ECOS 주택관련대출 잔액','period':ar.get('period') if ar else None,
              'balance':ar.get('value') if ar else None,'mom_change':ar.get('mom_change') if ar else None,'yoy_pct':ar.get('yoy_pct') if ar else None},
          'funding_cost':{'score_0_100':round(fund,1) if fund is not None else None,'mortgage_rate_pct':latest_m.get('value') if latest_m else None,'period':latest_m.get('period') if latest_m else None,
@@ -282,12 +282,14 @@ def main():
  market=read(DIST/'market_indicators.json');final=read(DIST/'final_backtest.json');mort_raw=read(SRC/'ecos_mortgage_rate.json');tier_history=read(SRC/'molit_price_tier_history.json')
  base=read(SRC/'ecos_base_rate.json');m2=read(SRC/'ecos_m2.json');credit=read(SRC/'ecos_housing_credit.json')
  leading=read(SRC/'kb_leading50_median.json');watch=read(ROOT/'data/buy_watchlist_market.json');policy=read(SRC/'housing_policy_events.json')
+ integrated=read(DIST/'market_judgment_validation.json',{})
  mortgage=mortgage_monthly(mort_raw);frows=final.get('rows') or []
  finance_rows,finance_val=finance_research(frows,mortgage,credit)
+ finance_v2_production=bool(finance_val.get('apply_recommended') and integrated.get('no_future_leakage') is True and ((integrated.get('finance_v2_integrated') or {}).get('apply_recommended') is True))
  vr_rows,vr_val=valuation_rate_research(frows,mortgage)
  features={
   'trade_reporting':{'status':market.get('signal_matched_period_status'),'production_applied':market.get('signal_matched_period_status')=='mature_completed_month','engine_signal':market.get('signal_matched_period'),'raw_early_signal':market.get('matched_period'),'confidence':market.get('trade_signal_confidence')},
-  'finance_v2_candidate':current_finance_feature(mortgage,base,m2,credit,finance_val),
+  'finance_v2_candidate':current_finance_feature(mortgage,base,m2,credit,finance_val,finance_v2_production),
   'valuation_rate_stress_candidate':{'status':'validated_candidate' if vr_val.get('apply_recommended') else 'research_candidate','production_applied':False,'validation':vr_val,
       'current_inputs':{'value_score_0_100':(market.get('kb_value') or {}).get('score_0_100'),'mortgage_rate_pct':(market.get('mortgage_rate_official') or {}).get('rate_pct')},
       'method':'(100 - existing Value Composite) × historical mortgage-rate cost percentile / 100'},
@@ -307,7 +309,7 @@ def main():
   'features':features,'production_decision':{'integrated_engine_changed':False,'candidate_decisions':decisions,
     'reason':'candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass'},
   'lineage':{'market':'dist/market_indicators.json','final_backtest':'dist/final_backtest.json','mortgage_rate':'data_sources/ecos_mortgage_rate.json',
-             'housing_credit':'data_sources/ecos_housing_credit.json','leading_segment':'data_sources/kb_leading50_median.json','policy':'data_sources/housing_policy_events.json'},
+             'housing_credit':'data_sources/ecos_housing_credit.json','leading_segment':'data_sources/kb_leading50_median.json','policy':'data_sources/housing_policy_events.json','integrated_validation':'dist/market_judgment_validation.json'},
   'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()
  }
  validation={'version':'common_feature_layer_v2_validation','no_future_leakage':True,
