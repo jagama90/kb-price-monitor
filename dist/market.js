@@ -734,10 +734,10 @@ initRefreshCalendar();
 const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addEventListener('click',e=>{e.preventDefault();window.location.reload()});
 
 
-/* v198 no-token manual five-factor refresh */
+/* v199 immediate-listener manual five-factor refresh */
 (function(){
  const ENDPOINT='https://iefzffwydvqnleukmljj.supabase.co/functions/v1/manual-market-refresh';
- const PENDING_KEY='kbpm.manual.refresh.pending.v2';
+ const PENDING_KEY='kbpm.manual.refresh.pending.v3';
  const btn=document.getElementById('manualRefreshButton');
  const host=document.getElementById('manualFactorRefresh');
  const statusEl=document.getElementById('manualRefreshStatus');
@@ -754,11 +754,26 @@ const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addE
      return d?.refresh_run?.attempted_at||d?.updated_at||null;
    }catch{return null}
  }
- async function waitProduction(beforeRevision,requestedAt){
-   setState('요청 접수 · 최대 5분 내 수집이 시작됩니다.','running');
+ async function requestState(id){
+   if(!id)return null;
+   try{
+     const r=await fetch(ENDPOINT+'?id='+encodeURIComponent(id)+'&v='+Date.now(),{cache:'no-store'});
+     if(!r.ok)return null;
+     return (await r.json())?.request||null;
+   }catch{return null}
+ }
+ async function waitProduction(beforeRevision,requestedAt,requestId){
+   setState('요청 접수 · Actions 연결을 기다리는 중','running');
    const deadline=Date.now()+25*60*1000;
-   let seenNewSource=false;
+   let dispatched=false,seenNewSource=false;
    while(Date.now()<deadline){
+     if(!dispatched&&requestId){
+       const rq=await requestState(requestId);
+       if(rq?.dispatched_at){
+         dispatched=true;
+         setState('Actions 시작 · 원천 API 수집 중','running');
+       }
+     }
      try{
        const [m,j]=await Promise.all([
          fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null),
@@ -771,17 +786,19 @@ const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addE
          if(consistent){
            setState('최신 원천 확인 및 반영 완료 · 화면을 다시 불러옵니다.','success');
            try{sessionStorage.removeItem(PENDING_KEY)}catch{}
-           await sleep(1000);
+           await sleep(900);
            location.reload();
            return;
          }
-         setState('원천 수집 완료 · 판단엔진/배포 반영을 확인하는 중','running');
+         setState('원천 수집 완료 · 판단엔진/배포 반영 중','running');
+       }else if(dispatched){
+         setState('Actions 시작 · 원천 API 수집·검증 중','running');
        }else{
          const age=Math.max(0,Date.now()-requestedAt);
-         setState(age<6*60*1000?'요청 접수 · 수집 실행을 기다리는 중':'원천 API 수집·검증을 확인하는 중','running');
+         setState(age<30000?'요청 접수 · Actions 시작 대기 중':'요청 확인 중 · listener 상태를 점검합니다.','running');
        }
      }catch{}
-     await sleep(seenNewSource?8000:12000);
+     await sleep(seenNewSource?7000:6000);
    }
    throw Error('갱신 요청은 접수됐지만 반영 확인 시간이 초과됐습니다. 잠시 후 새로고침해 주세요.');
  }
@@ -795,22 +812,32 @@ const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addE
      const r=await fetch(ENDPOINT,{
        method:'POST',
        headers:{'Content-Type':'application/json'},
-       body:JSON.stringify({source:'dashboard'}),
+       body:JSON.stringify({action:'request',source:'dashboard'}),
        cache:'no-store'
      });
      let data={};
      try{data=await r.json()}catch{}
      if(!r.ok||data.ok===false)throw Error('갱신 요청 실패'+(r.status?' ('+r.status+')':''));
+     const req=data?.request||{};
+     const requestId=req.id||null;
      const requestedAt=Date.now();
-     const pending={beforeRevision,requestedAt,requestId:data?.request?.id||null};
-     try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(pending))}catch{}
      if(data.accepted===false&&data.reason==='cooldown'){
-       setState('최근 갱신 요청이 이미 있어 기존 요청의 반영을 기다립니다.','running');
+       const requestTs=new Date(req.requested_at||0).getTime();
+       const refreshTs=new Date(beforeRevision||0).getTime();
+       if(Number.isFinite(requestTs)&&Number.isFinite(refreshTs)&&refreshTs>=requestTs){
+         setState('최근 갱신이 이미 반영되어 있습니다.','success');
+         btn.disabled=false;
+         btn.textContent='↻ 새로고침';
+         return;
+       }
+       setState(req.dispatched_at?'기존 요청은 이미 Actions에서 처리 중입니다.':'최근 요청을 이어서 기다립니다.','running');
      }else{
-       setState('요청 접수 · 최대 5분 내 수집이 시작됩니다.','running');
+       setState('요청 접수 · 보통 수 초 내 Actions가 시작됩니다.','running');
      }
+     const pending={beforeRevision,requestedAt,requestId};
+     try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(pending))}catch{}
      btn.textContent='↻ 갱신 중';
-     await waitProduction(beforeRevision,requestedAt);
+     await waitProduction(beforeRevision,requestedAt,requestId);
    }catch(e){
      console.error('manual-refresh',e);
      setState(e?.message||'수동 갱신 중 오류가 발생했습니다.','error');
@@ -824,7 +851,7 @@ const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addE
    if(p&&Date.now()-Number(p.requestedAt||0)<25*60*1000){
      btn.disabled=true;
      btn.textContent='↻ 갱신 중';
-     setTimeout(()=>waitProduction(p.beforeRevision,p.requestedAt).catch(e=>{
+     setTimeout(()=>waitProduction(p.beforeRevision,p.requestedAt,p.requestId).catch(e=>{
        setState(e?.message||'반영 확인 중 오류가 발생했습니다.','error');
        btn.disabled=false;
        btn.textContent='↻ 다시 시도';
