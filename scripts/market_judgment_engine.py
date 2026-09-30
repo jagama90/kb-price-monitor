@@ -183,7 +183,8 @@ def build_feature_layer(market,research,final,kbval):
     }
     signals=certified_signals
     mm=market.get('m2_official') or market.get('m2') or {}
-    mp=signal_matched_period(market).get('changes') or {}
+    signal_mp=signal_matched_period(market)
+    mp=signal_mp.get('changes') or {}
     mortgage=n((market.get('mortgage_rate_official') or {}).get('rate_pct'),4.0)
     recent=rows[-6:]
     peak_m3=max([n(r.get('momentum_3m_pct')) for r in recent] or [0])
