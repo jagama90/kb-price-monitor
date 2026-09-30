@@ -5,7 +5,7 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 SRC=ROOT/'dist/market_indicators.json'; OUT=ROOT/'data_sources/condition_index_history.json'; DIST=ROOT/'dist/condition_index_history.json'
 def clamp(v): return max(0,min(100,v))
 def main():
- d=json.loads(SRC.read_text()); m=d.get('m2_official') or d.get('m2') or {}; mp=d.get('matched_period')
+ d=json.loads(SRC.read_text()); m=d.get('m2_official') or d.get('m2') or {}; mp=d.get('signal_matched_period') or d.get('matched_period')
  finance=None; demand=None
  if m.get('mom_pct') is not None and m.get('yoy_pct') is not None: finance=clamp(50+float(m['mom_pct'])*8+float(m['yoy_pct'])*1.5)
  if mp and mp.get('changes',{}).get('trade_count_pct') is not None and mp.get('changes',{}).get('under15_share_pp') is not None:
