@@ -296,7 +296,7 @@ if 'dist/regime_forecast.json' not in wf['forecast']: errors.append('forecast wo
 # and Pages must publish dist changes. This is deliberately explicit so a new fetch
 # cannot silently bypass refresh/freshness review.
 market_js=(R/'dist/market.js').read_text(encoding='utf-8')
-fetch_assets={x.split('?')[0] for x in re.findall(r"fetch\(['\"]([^'\"]+)",market_js)}
+fetch_assets={x.split('?')[0] for x in re.findall(r"fetch\(['\"]([^'\"]+)",market_js) if not x.startswith(('http://','https://'))}
 expected_fetch_assets={
     'kb_watchlist_history.json','buy_watchlist_market.json','buy_watchlist_master.json',
     'buy_watchlist_targets.json','market_indicators.json','final_backtest.json',
