@@ -31,7 +31,10 @@ jobs:
           import json
           m=json.load(open('dist/market_indicators.json'))
           f=json.load(open('dist/regime_forecast.json'))
+          j=json.load(open('dist/market_judgment.json'))
           assert f.get('as_of')==m.get('updated_at'), 'forecast as_of mismatch'
+          assert j.get('as_of')==m.get('updated_at'), 'judgment as_of mismatch'
+          assert f.get('unified_snapshot_id')==j.get('feature_layer',{}).get('snapshot_id'), 'forecast/judgment snapshot mismatch'
           assert f.get('latest_research_month'), 'forecast research lineage missing'
           try:
               v=json.load(open('dist/forecast_kb_momentum_validation.json'))
@@ -59,7 +62,10 @@ jobs:
           import json
           m=json.load(open('dist/market_indicators.json'))
           f=json.load(open('dist/regime_forecast.json'))
+          j=json.load(open('dist/market_judgment.json'))
           assert f.get('as_of')==m.get('updated_at'), 'forecast as_of mismatch after pull'
+          assert j.get('as_of')==m.get('updated_at'), 'judgment as_of mismatch after pull'
+          assert f.get('unified_snapshot_id')==j.get('feature_layer',{}).get('snapshot_id'), 'snapshot mismatch after pull'
           try:
               v=json.load(open('dist/forecast_kb_momentum_validation.json'))
           except FileNotFoundError:
@@ -68,7 +74,7 @@ jobs:
           if v.get('apply_recommended') and km.get('mom_4w_pct') is not None and km.get('mom_13w_pct') is not None:
               assert (f.get('price_momentum_overlay') or {}).get('applied') is True, 'validated KB overlay missing after pull'
           PY
-          git add -f dist/regime_forecast.json
+          git add -f dist/regime_forecast.json dist/market_judgment.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh forward regime forecast'
           git push origin HEAD:main
