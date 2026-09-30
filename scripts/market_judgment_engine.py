@@ -210,7 +210,10 @@ def build_feature_layer(market,research,final,kbval):
       'context':{'trade_count_pct':round(trade,1),'under15_share_pp':round(under,1),'m2_mom_pct':mm.get('mom_pct'),
                  'm2_yoy_pct':mm.get('yoy_pct'),'mortgage_rate_pct':mortgage,'liquidity_support_0_100':round(liquidity,1),
                  'trade_pressure_0_100':round(trade_pressure,1),'rate_pressure_0_100':round(rate_pressure,1),
-                 'recent_peak_3m_momentum_pct':round(peak_m3,2),'cooling_score_0_100':round(cooling,1)},
+                 'recent_peak_3m_momentum_pct':round(peak_m3,2),'cooling_score_0_100':round(cooling,1),
+                 'trade_signal_status':market.get('signal_matched_period_status','current'),
+                 'trade_signal_as_of':signal_mp.get('as_of'),
+                 'raw_matched_as_of':(market.get('matched_period') or {}).get('as_of')},
       'lineage':{'market':'dist/market_indicators.json','research':'dist/turning_signal_research.json',
                  'certified_backtest':'dist/final_backtest.json','price_scale_validation':'dist/forecast_kb_momentum_validation.json'}
     }
