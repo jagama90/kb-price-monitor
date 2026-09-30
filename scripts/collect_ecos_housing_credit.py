@@ -93,8 +93,10 @@ def select_series(rows,table_name):
   label=' / '.join(x for x in names if x)
   score=min(len(periods),240)/10
   if '주택담보대출' in label:score+=40
-  if '가계대출' in (table_name+' '+label):score+=12
-  if '예금은행' in (table_name+' '+label):score+=8
+  if '가계대출' in (table_name+' '+label):score+=8
+  if '주택관련대출-예금취급기관' in label:score+=18
+  elif '주택관련대출-예금은행' in label:score+=10
+  elif '예금은행' in (table_name+' '+label):score+=5
   if '잔액' in (table_name+' '+label):score+=5
   if unit in ('십억원','억원','백만원'):score+=2
   candidates.append({'score':round(score,2),'names':names,'label':label,'unit':unit,'periods':periods,'values':by_period})

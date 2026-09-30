@@ -306,18 +306,38 @@ def build_judgment(root,previous_forecast=None):
         try:previous_forecast=json.loads((root/'dist/regime_forecast.json').read_text())
         except:previous_forecast={}
     feature=build_feature_layer(market,research,final,kbval)
-    common_path=root/'dist/common_feature_layer_v2.json'
+    common_path=root/'dist/common_feature_layer_v2.json';validation_path=root/'dist/market_judgment_validation.json'
     if common_path.exists():
         try:
             common=json.loads(common_path.read_text(encoding='utf-8'))
             feature['scope']=common.get('scope') or {}
+            features=common.get('features') or {};finance_v2=features.get('finance_v2_candidate') or {}
             feature['candidate_research']={
               'artifact':'dist/common_feature_layer_v2.json',
               'version':common.get('version'),
               'features':{k:{'status':v.get('status'),'production_applied':bool(v.get('production_applied'))}
-                          for k,v in (common.get('features') or {}).items() if isinstance(v,dict)}
+                          for k,v in features.items() if isinstance(v,dict)}
             }
+            gate=False
+            if validation_path.exists():
+                try:
+                    mv=json.loads(validation_path.read_text(encoding='utf-8'))
+                    gate=bool(((mv.get('finance_v2_integrated') or {}).get('apply_recommended')))
+                except Exception:gate=False
+            f2=finance_v2.get('score_0_100');credit=(finance_v2.get('liquidity_credit_availability') or {}).get('score_0_100');funding=(finance_v2.get('funding_cost') or {}).get('score_0_100')
+            feature['context']['finance_model']='finance_v1_m2'
+            feature['context']['finance_v1_score_0_100']=feature['components'].get('finance')
+            feature['context']['finance_v2_gate_passed']=gate
+            feature['context']['credit_availability_0_100']=credit
+            feature['context']['funding_cost_0_100']=funding
+            if gate and f2 is not None and credit is not None:
+                feature['components']['finance']=round(n(f2),1)
+                feature['context']['liquidity_support_0_100']=round(n(credit),1)
+                feature['context']['finance_model']='finance_v2_credit_cost'
+                feature['component_deltas_vs_research_month']['finance']=None
+                feature['candidate_research']['features'].setdefault('finance_v2_candidate',{})['production_applied']=True
             feature['lineage']['common_feature_candidates']='dist/common_feature_layer_v2.json'
+            feature['lineage']['finance_v2_validation']='dist/market_judgment_validation.json'
         except Exception as e:
             feature['candidate_research']={'status':'load_error','reason':str(e)[:160]}
     current=current_state_head(feature,research.get('rows') or [])

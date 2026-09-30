@@ -4,7 +4,7 @@ import json,pathlib,math,datetime
 from market_judgment_engine import clamp,n,norm
 R=pathlib.Path(__file__).resolve().parents[1]
 CAND=R/'dist/market_judgment_candidate.json';FINAL=R/'dist/final_backtest.json';TURN=R/'dist/turning_signal_research.json';KBV=R/'dist/forecast_kb_momentum_validation.json'
-OUT=R/'dist/market_judgment_validation.json'
+OUT=R/'dist/market_judgment_validation.json';COMMONV=R/'dist/common_feature_layer_v2_validation.json'
 def corr(a,b):
     z=[(float(x),float(y)) for x,y in zip(a,b) if x is not None and y is not None]
     if len(z)<3:return None
@@ -36,9 +36,9 @@ def historical_reaccel(final_rows,i,m1,m3):
     reaccel=clamp(50+6*m1+3*m3+1.5*delta('demand',1)+1.2*delta('sentiment',1))
     if m3<=0:reaccel=min(reaccel,35)
     return breadth,reaccel
-def weights(c,breadth,reaccel,m1,m3,mmrow,mortrow):
+def weights(c,breadth,reaccel,m1,m3,mmrow,mortrow,liquidity_override=None):
     finance=n(c.get('finance'),50);sent=n(c.get('sentiment'),50);demand=n(c.get('demand'),50);value=n(c.get('value'),50);supply=n(c.get('supply'),50)
-    yoy=n((mmrow or {}).get('yoy_pct'),(finance-50)/1.5 if finance else 0);liquidity=clamp(50+yoy*5)
+    yoy=n((mmrow or {}).get('yoy_pct'),(finance-50)/1.5 if finance else 0);liquidity=clamp(50+yoy*5) if liquidity_override is None else clamp(liquidity_override)
     mortgage=n((mortrow or {}).get('rate_pct'),4.0);rate_pressure=clamp((mortgage-3)*28)
     trade_pressure=clamp(max(0,50-demand)*2)
     q4=norm({'consolidation':62+.18*finance+.14*supply+.22*clamp(100-abs(m3)*12)-.10*trade_pressure,
@@ -47,9 +47,10 @@ def weights(c,breadth,reaccel,m1,m3,mmrow,mortrow):
     return q4
 def main():
     cand=json.loads(CAND.read_text());final=json.loads(FINAL.read_text());turn=json.loads(TURN.read_text());kv=json.loads(KBV.read_text())
+    commonv=json.loads(COMMONV.read_text()) if COMMONV.exists() else {};finmap={x.get('ym'):x for x in (((commonv.get('research_rows') or {}).get('finance')) or [])}
     rows=final.get('rows') or [];samples={x['ym']:x for x in kv.get('sample',[])}
     tmap={x['ym']:x for x in (turn.get('rows') or [])}
-    mm,mr=aux();evals=[];live_recomputed=[]
+    mm,mr=aux();evals=[];live_recomputed=[];finance_v2_evals=[];finance_v2_buy=[]
     for i,r in enumerate(rows):
       ym=r['ym'];s=samples.get(ym);tr=tmap.get(ym)
       if not s or not tr or r.get('fwd_3m_pct') is None or r.get('provisional'):continue
@@ -63,6 +64,13 @@ def main():
       rb,rr=historical_reaccel(rows,i,m1,m3)
       rw=weights(r['components'],rb,rr,m1,m3,mm.get(shift(ym,-2)),mr.get(ym))
       live_recomputed.append({'ym':ym,'down':rw['downturn'],'reaccel':rw['reacceleration'],'fwd3':r.get('fwd_3m_pct')})
+      fv=finmap.get(ym) or {};fv2=fv.get('finance_v2');credit=fv.get('credit_availability_score')
+      if fv2 is not None and credit is not None:
+        c2=dict(r['components']);c2['finance']=float(fv2)
+        w2=weights(c2,breadth,reaccel,m1,m3,mm.get(shift(ym,-2)),mr.get(ym),liquidity_override=credit)
+        finance_v2_evals.append({'ym':ym,'down':w2['downturn'],'reaccel':w2['reacceleration'],'fwd3':r.get('fwd_3m_pct')})
+        score2=.25*n(c2.get('finance'))+.20*n(c2.get('sentiment'))+.20*n(c2.get('demand'))+.20*n(c2.get('value'))+.15*n(c2.get('supply'))
+        finance_v2_buy.append({'ym':ym,'score':score2,'fwd1':r.get('fwd_1m_pct'),'fwd3':r.get('fwd_3m_pct'),'fwd6':r.get('fwd_6m_pct'),'fwd12':r.get('fwd_12m_pct')})
     downs=[x['down'] for x in evals];reas=[x['reaccel'] for x in evals];fwd=[x['fwd3'] for x in evals]
     unified={'n':len(evals),'down_corr_negative_fwd3':corr(downs,[-x for x in fwd]),'down_auc_negative_fwd3':auc(downs,[1 if x<0 else 0 for x in fwd]),
              'reaccel_corr_fwd3':corr(reas,fwd),'reaccel_auc_positive_fwd3':auc(reas,[1 if x>0 else 0 for x in fwd])}
@@ -75,18 +83,45 @@ def main():
     baseline={'n':len(bs),'down_corr_negative_fwd3':base.get('corr_with_negative_fwd3'),'down_auc_negative_fwd3':base.get('auc_fwd3_negative'),
               'reaccel_corr_fwd3':corr([x['new_q4_reaccel'] for x in bs],[x['fwd_3m_pct'] for x in bs]),
               'reaccel_auc_positive_fwd3':auc([x['new_q4_reaccel'] for x in bs],[1 if x['fwd_3m_pct']>0 else 0 for x in bs])}
-    # Buy-condition formula is intentionally unchanged and still certified by final_backtest metrics.
+    # Certified baseline remains the fallback. Finance v2 is evaluated inside the
+    # full buy/forecast heads before any production replacement.
     buy_metrics=final.get('metrics') or {}
     gate=bool(len(evals)>=30 and unified['down_auc_negative_fwd3'] is not None and baseline['down_auc_negative_fwd3'] is not None and
               unified['down_auc_negative_fwd3']>=baseline['down_auc_negative_fwd3']-.02 and
               unified['reaccel_auc_positive_fwd3'] is not None and baseline['reaccel_auc_positive_fwd3'] is not None and
               unified['reaccel_auc_positive_fwd3']>=baseline['reaccel_auc_positive_fwd3']-.02 and
               n(buy_metrics.get('score_vs_fwd_6m_corr'),-9)>=0.30 and n(buy_metrics.get('score_vs_fwd_12m_corr'),-9)>=0.45)
+    f2d=[x['down'] for x in finance_v2_evals];f2r=[x['reaccel'] for x in finance_v2_evals];f2y=[x['fwd3'] for x in finance_v2_evals]
+    f2forecast={'n':len(finance_v2_evals),
+      'down_corr_negative_fwd3':corr(f2d,[-x for x in f2y]) if f2y else None,
+      'down_auc_negative_fwd3':auc(f2d,[1 if x<0 else 0 for x in f2y]) if f2y else None,
+      'reaccel_corr_fwd3':corr(f2r,f2y) if f2y else None,
+      'reaccel_auc_positive_fwd3':auc(f2r,[1 if x>0 else 0 for x in f2y]) if f2y else None}
+    f2buy={'n':len(finance_v2_buy)}
+    for h in (1,3,6,12):
+      pairs=[x for x in finance_v2_buy if x.get(f'fwd{h}') is not None]
+      f2buy[f'corr_fwd_{h}m']=corr([x['score'] for x in pairs],[x[f'fwd{h}'] for x in pairs])
+      f2buy[f'n_fwd_{h}m']=len(pairs)
+    b6=n(buy_metrics.get('score_vs_fwd_6m_corr'),-9);b12=n(buy_metrics.get('score_vs_fwd_12m_corr'),-9)
+    improvements=[]
+    if f2buy.get('corr_fwd_3m') is not None and f2buy['corr_fwd_3m']>=n(buy_metrics.get('score_vs_fwd_3m_corr'))+.02:improvements.append('buy_corr_3m')
+    if f2buy.get('corr_fwd_6m') is not None and f2buy['corr_fwd_6m']>=b6+.02:improvements.append('buy_corr_6m')
+    if f2buy.get('corr_fwd_12m') is not None and f2buy['corr_fwd_12m']>=b12+.02:improvements.append('buy_corr_12m')
+    if f2forecast.get('down_auc_negative_fwd3') is not None and f2forecast['down_auc_negative_fwd3']>=baseline['down_auc_negative_fwd3']+.01:improvements.append('downside_auc')
+    if f2forecast.get('reaccel_auc_positive_fwd3') is not None and f2forecast['reaccel_auc_positive_fwd3']>=baseline['reaccel_auc_positive_fwd3']+.01:improvements.append('reaccel_auc')
+    finance_v2_gate=bool(len(finance_v2_evals)>=30 and
+      f2forecast.get('down_auc_negative_fwd3') is not None and f2forecast['down_auc_negative_fwd3']>=baseline['down_auc_negative_fwd3']-.02 and
+      f2forecast.get('reaccel_auc_positive_fwd3') is not None and f2forecast['reaccel_auc_positive_fwd3']>=baseline['reaccel_auc_positive_fwd3']-.02 and
+      f2buy.get('corr_fwd_6m') is not None and f2buy['corr_fwd_6m']>=b6-.02 and
+      f2buy.get('corr_fwd_12m') is not None and f2buy['corr_fwd_12m']>=b12-.02 and bool(improvements))
+    finance_v2_integrated={'apply_recommended':finance_v2_gate,'forecast':f2forecast,'buy_condition':f2buy,'improvements':improvements,
+      'gate':'n>=30; forecast downside/reaccel AUC no worse >0.02; buy corr6/corr12 no worse >0.02; at least one material improvement',
+      'no_future_leakage':True,'credit_vintage_lag_months':2,'mortgage_rate_vintage_lag_months':1}
     out={'status':'research_validation','rows_compared':len(evals),'baseline_forecast':baseline,'unified_forecast':unified,
-         'buy_condition_certified_metrics':buy_metrics,'rejected_live_recompute':rejected,'current_candidate':{'snapshot_id':cand['feature_layer']['snapshot_id'],'current_state':cand['heads']['current_state'],
+         'buy_condition_certified_metrics':buy_metrics,'finance_v2_integrated':finance_v2_integrated,'rejected_live_recompute':rejected,'current_candidate':{'snapshot_id':cand['feature_layer']['snapshot_id'],'current_state':cand['heads']['current_state'],
          'buy_condition':cand['heads']['buy_condition'],'forward':cand['heads']['forward_scenario']},
          'apply_recommended':gate,'gate':'n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45',
          'no_future_leakage':True,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(json.dumps({k:out[k] for k in ('rows_compared','baseline_forecast','unified_forecast','buy_condition_certified_metrics','current_candidate','apply_recommended')},ensure_ascii=False,indent=2))
+    print(json.dumps({k:out[k] for k in ('rows_compared','baseline_forecast','unified_forecast','finance_v2_integrated','buy_condition_certified_metrics','current_candidate','apply_recommended')},ensure_ascii=False,indent=2))
 if __name__=='__main__':main()
