@@ -5,6 +5,9 @@ on:
     paths: ['.github/run-apply-unified-market-judgment']
 permissions:
   contents: write
+concurrency:
+  group: apply-unified-market-judgment
+  cancel-in-progress: true
 jobs:
   apply:
     runs-on: ubuntu-latest
@@ -13,25 +16,49 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - name: Rebuild and revalidate
+      - name: Validate candidate before publish
         run: |
+          python3 scripts/test_market_judgment_engine.py
           python3 scripts/build_market_judgment.py
           python3 scripts/validate_market_judgment.py
-          python3 scripts/forecast_market_regime.py
-          cp dist/market_judgment_candidate.json /tmp/market_judgment_candidate.json
-          cp dist/market_judgment_validation.json /tmp/market_judgment_validation.json
-          cp dist/market_judgment.json /tmp/market_judgment.json
-          cp dist/regime_forecast.json /tmp/regime_forecast.json
-      - name: Publish unified outputs
+          python3 - <<'PY'
+          import json
+          v=json.load(open('dist/market_judgment_validation.json'))
+          assert v.get('apply_recommended') is True, 'validation gate rejected unified market judgment'
+          assert v.get('no_future_leakage') is True, 'future-leakage guard failed'
+          print({'status':'gate-ok','rows':v.get('rows_compared'),'unified':v.get('unified_forecast')})
+          PY
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+      - name: Rebase, rebuild and publish unified outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git reset --hard
           git pull --ff-only origin main
-          cp /tmp/market_judgment_candidate.json dist/market_judgment_candidate.json
-          cp /tmp/market_judgment_validation.json dist/market_judgment_validation.json
-          cp /tmp/market_judgment.json dist/market_judgment.json
-          cp /tmp/regime_forecast.json dist/regime_forecast.json
+          python3 scripts/test_market_judgment_engine.py
+          python3 scripts/build_market_judgment.py
+          python3 scripts/validate_market_judgment.py
+          python3 - <<'PY'
+          import json
+          v=json.load(open('dist/market_judgment_validation.json'))
+          assert v.get('apply_recommended') is True, 'validation gate rejected after pull'
+          assert v.get('no_future_leakage') is True, 'future-leakage guard failed after pull'
+          PY
+          python3 scripts/forecast_market_regime.py
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 - <<'PY'
+          import json
+          m=json.load(open('dist/market_indicators.json'))
+          j=json.load(open('dist/market_judgment.json'))
+          f=json.load(open('dist/regime_forecast.json'))
+          v=json.load(open('dist/market_judgment_validation.json'))
+          assert j.get('as_of')==m.get('updated_at'), 'judgment/market as_of mismatch'
+          assert f.get('unified_snapshot_id')==j.get('feature_layer',{}).get('snapshot_id'), 'forecast/judgment snapshot mismatch'
+          assert v.get('current_candidate',{}).get('snapshot_id')==j.get('feature_layer',{}).get('snapshot_id'), 'validation/judgment snapshot mismatch'
+          print({'status':'publish-ok','snapshot':j.get('feature_layer',{}).get('snapshot_id')})
+          PY
           git add -f dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json
           git diff --cached --quiet && exit 0
           git commit -m 'Apply unified market judgment engine'
