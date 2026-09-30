@@ -189,10 +189,14 @@ def build_feature_layer(market,research,final,kbval):
     trade_pressure=clamp(max(0,-trade)*1.5)
     rate_pressure=clamp((mortgage-3.0)*28)
     cooling=clamp((peak_m3-max(m3,0))*6+max(0,50-signals['breadth'])*.8+max(0,50-signals['reaccel'])*.6)
+    hist_final=[r for r in (final.get('rows') or []) if r.get('components') and all((r.get('components') or {}).get(k) is not None for k in WEIGHTS)]
+    prev_components=(hist_final[-1].get('components') or {}) if hist_final else {}
+    component_deltas={k:round(n(components.get(k))-n(prev_components.get(k)),1) for k in WEIGHTS}
     return {
       'snapshot_id':str(market.get('updated_at'))+'|KB'+str(overlay.get('kb_as_of') or '')+'|R'+str(x.get('ym') or ''),
       'as_of':market.get('updated_at'),'research_month':x.get('ym'),'research_provisional':bool(x.get('source_provisional',False)),
       'components':{k:round(n(v),1) for k,v in components.items()},
+      'component_deltas_vs_research_month':component_deltas,
       'buy_weights':WEIGHTS,
       'price_momentum':{'m1_pct':round(m1,2),'m3_pct':round(m3,2),'overlay':overlay},
       'signals':signals,
