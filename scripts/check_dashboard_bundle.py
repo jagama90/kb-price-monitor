@@ -53,9 +53,10 @@ for rid in ('storyHeadline','storySummary','nextSignals','hubDriversMeta','hubVa
     if ids.count(rid)!=1: errors.append(f'visual remodel id {rid}: expected 1, got {ids.count(rid)}')
 for rid in ('forecastHeadline','forecastTrend'):
     if ids.count(rid)!=0: errors.append(f'redundant forecast summary returned: {rid}')
-if html.count('class="card score-component"')!=5: errors.append('condition dashboard must contain five compact score tiles')
-if 'class="forecast-flow"' not in html: errors.append('forward-regime infographic flow missing')
-if 'forecast-risk-track-v153' not in js or 'forecast-risk-sub-v153' not in js: errors.append('simplified forecast risk renderer missing')
+if len(re.findall(r'class="[^"]*\\bscore-component\\b[^"]*"',html))!=5: errors.append('reason drawer must contain five factor rows')
+if 'forecast-route-v181' not in html or 'forecast-route-node-v181' not in js: errors.append('research-to-forecast route renderer missing')
+if 'impactFinance' not in html or 'impactSentiment' not in html or 'impactDemand' not in html or 'impactValue' not in html or 'impactSupply' not in html:
+    errors.append('meaning-first factor impacts missing')
 if '<summary><span><small>2 · 왜 움직이고 있나' in html: errors.append('legacy text-heavy analysis menu returned')
 if '점수 근거 보기' in html: errors.append('legacy score CTA returned')
 
@@ -200,7 +201,11 @@ for _id in ('judgmentCurrentLabel','judgmentFactorSummary'):
     if ids.count(_id)!=1: errors.append(f'unified judgment element missing: {_id}')
 if 'judgmentAsOf' in ids: errors.append('redundant unified snapshot badge returned')
 if 'cycleStageEvidence' in ids: errors.append('redundant current-state metric strip returned')
-if '<h1>서울 시장 판단</h1>' in html: errors.append('duplicate unified judgment title returned')
+if '<h1>서울 시장 판단</h1>' in html or '<h1>통합 시장 판단</h1>' in html: errors.append('redundant market judgment title returned')
+if 'id="judgmentEvidenceDrawer"' not in html: errors.append('on-demand judgment evidence drawer missing')
+_evidence_tag=re.search(r'<details[^>]+id="judgmentEvidenceDrawer"[^>]*>',html)
+if not _evidence_tag or re.search(r'\sopen(?:\s|>)',_evidence_tag.group(0)):
+    errors.append('judgment evidence must default closed')
 cycle_start=js.find('async function renderCycleStage')
 cycle_end=js.find('\nasync function loadRegimeReferences',cycle_start)
 cycle_block=js[cycle_start:cycle_end] if cycle_start>=0 and cycle_end>cycle_start else ''
@@ -230,10 +235,10 @@ if 'window.__currentRegimeMetrics=' not in js: errors.append('current regime met
 if 'window.__regimeCompare=' not in js: errors.append('historical/current comparison state missing')
 if "s===window.__currentCycleStage" not in js: errors.append('current phase must auto-open comparison mode')
 
-# v153 forecast-language contract
-if 'forecast-rules-v153' not in html: errors.append('forecast expression rules missing')
-if "하락 가능성" not in js: errors.append('forecast must foreground downturn risk')
-if "실제 발생확률" not in html or "상대 점수" not in html: errors.append('forecast score explanation must be user-readable')
+# v181 forecast-language contract
+if 'forecast-guide-v181' not in html: errors.append('forecast reading guide missing')
+if "currentPhase=d.state?.current_phase" not in js: errors.append('forecast route must start from current research phase')
+if "실제 발생확률" not in html or "지지하는지 비교하는 점수" not in html: errors.append('forecast score explanation must be user-readable')
 
 # v155 comparable-current momentum + brand refresh
 if 'id="brandHome"' not in html: errors.append('header brand refresh control missing')
