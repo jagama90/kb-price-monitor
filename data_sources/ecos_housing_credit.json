@@ -1,0 +1,8 @@
+{
+  "status": "not_connected",
+  "source": "한국은행 ECOS",
+  "candidate_feature": "credit_availability",
+  "generated_at": "2026-09-30T19:05:46.026311+00:00",
+  "reason": "No monthly ECOS series with explicit 주택담보대출 label and >=36 observations",
+  "tables_checked": 4
+}

@@ -1,0 +1,393 @@
+{
+  "status": "research_only",
+  "version": "common_feature_layer_v2",
+  "architecture": "Common Feature Layer -> Current State / Buy Condition / Forward Scenario",
+  "scope": {
+    "dimensions": [
+      "region",
+      "market_scope",
+      "district",
+      "complex",
+      "price_tier"
+    ],
+    "active_data_scope": "Seoul",
+    "rule": "source scope is metadata/configuration; model formulas contain no city/district names"
+  },
+  "production_baseline": {
+    "buy_weights": {
+      "finance": 25,
+      "sentiment": 20,
+      "demand": 20,
+      "value": 20,
+      "supply": 15
+    },
+    "value_composite_weights": {
+      "pir": 0.4,
+      "rent_ratio": 0.3,
+      "trend_gap": 0.3
+    },
+    "unchanged": true
+  },
+  "features": {
+    "trade_reporting": {
+      "status": "mature_completed_month",
+      "engine_signal": {
+        "as_of": "2026-10-01",
+        "basis": "completed_month_after_statutory_reporting_window",
+        "reporting_window_days": 30,
+        "current": {
+          "period": "2026-08",
+          "total": 3546,
+          "counts": {
+            "<=9eok": 1865,
+            "9-15eok": 959,
+            "15-25eok": 534,
+            "25eok+": 188
+          },
+          "buckets3": null,
+          "boundary_counts": {
+            "13-15eok": 243,
+            "15-17eok": 185,
+            "23-25eok": 56,
+            "25-27eok": 29
+          },
+          "under15_share": 79.6,
+          "range": "full month",
+          "reporting_window_elapsed_on": "2026-09-30"
+        },
+        "previous": {
+          "period": "2026-07",
+          "total": 5993,
+          "counts": {
+            "<=9eok": 2977,
+            "9-15eok": 1781,
+            "15-25eok": 880,
+            "25eok+": 355
+          },
+          "buckets3": null,
+          "boundary_counts": {
+            "13-15eok": 493,
+            "15-17eok": 308,
+            "23-25eok": 79,
+            "25-27eok": 47
+          },
+          "under15_share": 79.4,
+          "range": "full month"
+        },
+        "changes": {
+          "trade_count_pct": -40.8,
+          "under15_share_pp": 0.2
+        },
+        "warning": "당월·직전월 조기신고는 진단용이며 엔진 거래 신호는 신고기한이 경과한 최근 완성 월을 사용"
+      },
+      "raw_early_signal": {
+        "as_of": "2026-10-01",
+        "cutoff_day": 1,
+        "basis": "contract_date_equal_calendar_days",
+        "current": {
+          "period": "2026-10",
+          "range": "1~1일",
+          "total": 0,
+          "counts": {
+            "<=9eok": 0,
+            "9-15eok": 0,
+            "15-25eok": 0,
+            "25eok+": 0
+          },
+          "buckets3": {
+            "<=15eok": 0,
+            "15-25eok": 0,
+            "25eok+": 0
+          },
+          "boundary_counts": {
+            "13-15eok": 0,
+            "15-17eok": 0,
+            "23-25eok": 0,
+            "25-27eok": 0
+          },
+          "under15_share": null
+        },
+        "previous": {
+          "period": "2026-09",
+          "range": "1~1일",
+          "total": 97,
+          "counts": {
+            "<=9eok": 58,
+            "9-15eok": 19,
+            "15-25eok": 16,
+            "25eok+": 4
+          },
+          "boundary_counts": {
+            "13-15eok": 3,
+            "15-17eok": 4,
+            "23-25eok": 2,
+            "25-27eok": 2
+          },
+          "under15_share": 79.4
+        },
+        "changes": {
+          "trade_count_pct": -100,
+          "under15_share_pp": null
+        },
+        "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+      },
+      "confidence": {
+        "level": "high",
+        "provisional": false,
+        "basis": "statutory_reporting_window",
+        "reporting_window_days": 30,
+        "as_of": "2026-10-01",
+        "reason": "latest_full_month_reporting_window_elapsed",
+        "signal_period": "2026-08",
+        "previous_period": "2026-07",
+        "reporting_window_elapsed_on": "2026-09-30"
+      }
+    },
+    "finance_v2_candidate": {
+      "status": "blocked_core_input_missing",
+      "production_applied": false,
+      "score_0_100": null,
+      "liquidity_credit_availability": {
+        "score_0_100": null,
+        "source": "한국은행 ECOS 주택담보대출 잔액",
+        "period": null,
+        "balance": null,
+        "mom_change": null,
+        "yoy_pct": null
+      },
+      "funding_cost": {
+        "score_0_100": 32.1,
+        "mortgage_rate_pct": 4.66,
+        "period": "202608",
+        "base_rate_pct": 3.0,
+        "base_rate_date": "20260928"
+      },
+      "broad_liquidity_context": {
+        "m2_period": "202607",
+        "m2_yoy_pct": 5.8
+      },
+      "method": "equal concept split: Credit Availability 50% + Funding Cost 50%; M2 retained as context, not a dominating input; research-only until integrated validation",
+      "validation": {
+        "baseline": {},
+        "candidate": {},
+        "improvements": [],
+        "apply_recommended": false,
+        "reasons": [
+          "official housing-credit series not connected",
+          "fewer than 30 paired forward-3m observations"
+        ],
+        "alignment": {
+          "mortgage_rate": "score month t uses latest monthly rate <= t-1",
+          "housing_credit": "score month t uses latest balance growth <= t-2"
+        }
+      }
+    },
+    "valuation_rate_stress_candidate": {
+      "status": "research_candidate",
+      "production_applied": false,
+      "validation": {
+        "n": 46,
+        "valuation_only_downside_auc": 0.5494505494505495,
+        "rate_only_downside_auc": 0.8974358974358975,
+        "interaction_downside_auc": 0.6813186813186813,
+        "interaction_corr_negative_fwd3": -0.08088009426457952,
+        "apply_recommended": false,
+        "gate": "n>=30 and interaction downside AUC >= best single parent + 0.01"
+      },
+      "current_inputs": {
+        "value_score_0_100": 30.4,
+        "mortgage_rate_pct": 4.66
+      },
+      "method": "(100 - existing Value Composite) × historical mortgage-rate cost percentile / 100"
+    },
+    "price_tier_liquidity": {
+      "status": "current_diagnostic_only",
+      "production_applied": false,
+      "scope": {
+        "data_scope": "Seoul",
+        "price_tier_mode": "absolute_configured_bands"
+      },
+      "signal_period": "2026-08",
+      "previous_period": "2026-07",
+      "aggregate_trade_change_pct": -40.8,
+      "bands": [
+        {
+          "id": "<=9eok",
+          "label": "≤9억",
+          "current_count": 1865.0,
+          "previous_count": 2977.0,
+          "count_change_pct": -37.35,
+          "current_share_pct": 52.59,
+          "previous_share_pct": 49.67,
+          "share_change_pp": 2.92,
+          "relative_volume_vs_market_pp": 3.45
+        },
+        {
+          "id": "9-15eok",
+          "label": "9~15억",
+          "current_count": 959.0,
+          "previous_count": 1781.0,
+          "count_change_pct": -46.15,
+          "current_share_pct": 27.04,
+          "previous_share_pct": 29.72,
+          "share_change_pp": -2.67,
+          "relative_volume_vs_market_pp": -5.35
+        },
+        {
+          "id": "15-25eok",
+          "label": "15~25억",
+          "current_count": 534.0,
+          "previous_count": 880.0,
+          "count_change_pct": -39.32,
+          "current_share_pct": 15.06,
+          "previous_share_pct": 14.68,
+          "share_change_pp": 0.38,
+          "relative_volume_vs_market_pp": 1.48
+        },
+        {
+          "id": "25eok+",
+          "label": "25억+",
+          "current_count": 188.0,
+          "previous_count": 355.0,
+          "count_change_pct": -47.04,
+          "current_share_pct": 5.3,
+          "previous_share_pct": 5.92,
+          "share_change_pp": -0.62,
+          "relative_volume_vs_market_pp": -6.24
+        }
+      ],
+      "high_tier_relative_volume_pp": -6.24,
+      "relative_quantile_tiers": {
+        "status": "not_connected",
+        "reason": "long-enough transaction-level history for market-relative quantiles is not retained yet"
+      },
+      "validation": {
+        "status": "insufficient_history",
+        "available_band_months": 7,
+        "required_for_model": 36
+      }
+    },
+    "leader_lag": {
+      "status": "research_small_sample",
+      "production_applied": false,
+      "leader_definition": "KB 선도아파트 50지수",
+      "market_definition": "KB 서울 아파트 중위가격",
+      "period_start": "202408",
+      "period_end": "202608",
+      "lag_tests": [
+        {
+          "lag_months": 0,
+          "n": 24,
+          "corr_leader_to_future_market": -0.3808307852681426
+        },
+        {
+          "lag_months": 1,
+          "n": 24,
+          "corr_leader_to_future_market": -0.2004135679679968
+        },
+        {
+          "lag_months": 2,
+          "n": 23,
+          "corr_leader_to_future_market": -0.25784845994054384
+        },
+        {
+          "lag_months": 3,
+          "n": 22,
+          "corr_leader_to_future_market": -0.17745280367091065
+        }
+      ],
+      "validation": {
+        "sufficient_for_model": false,
+        "minimum_required": 36,
+        "reason": "lead-lag is descriptive until longer same-definition history is available"
+      }
+    },
+    "selling_pressure": {
+      "status": "local_watchlist_context",
+      "production_applied": false,
+      "representative_market_sample": false,
+      "scope": "configured watchlist complexes/areas",
+      "n_items": 38,
+      "n_listing_delta": 31,
+      "listing_increase_share_pct": 38.7,
+      "median_listing_week_delta": 0.0,
+      "median_ask_vs_recent_trade_gap_pct": 3.81,
+      "listing_up_and_ask_down_share_pct": 18.5,
+      "forced_selling": {
+        "status": "not_connected",
+        "reason": "leverage/forced-sale identity is not observable from current authoritative sources; no inference is made"
+      }
+    },
+    "policy_credit_regime": {
+      "status": "not_connected_for_model",
+      "production_applied": false,
+      "event_count": 5,
+      "announcement_date_coverage": 5,
+      "effective_date_coverage": 0,
+      "quantitative_terms_coverage": 0,
+      "reason": "historical file has announcement events but lacks complete effective-date and quantitative DSR/LTV/loan-limit lineage; narrative intensity is not used as a model input"
+    },
+    "rental_vs_structural_supply": {
+      "rental_market_balance": {
+        "status": "connected",
+        "score_0_100": 49.3,
+        "meaning": "KB 전세수급·전세거래 기반 단기 임대시장 균형",
+        "legacy_component_key": "supply"
+      },
+      "structural_supply": {
+        "status": "partial_context",
+        "unsold_units": 994,
+        "unsold_period": "202607",
+        "completion_inventory_series_status": "not_connected",
+        "meaning": "미분양은 보조 재고지표이며 신규 입주물량과 동일하게 취급하지 않음"
+      }
+    }
+  },
+  "production_decision": {
+    "integrated_engine_changed": false,
+    "candidate_decisions": {
+      "trade_reporting": {
+        "status": "mature_completed_month",
+        "production_applied": false
+      },
+      "finance_v2_candidate": {
+        "status": "blocked_core_input_missing",
+        "production_applied": false
+      },
+      "valuation_rate_stress_candidate": {
+        "status": "research_candidate",
+        "production_applied": false
+      },
+      "price_tier_liquidity": {
+        "status": "current_diagnostic_only",
+        "production_applied": false
+      },
+      "leader_lag": {
+        "status": "research_small_sample",
+        "production_applied": false
+      },
+      "selling_pressure": {
+        "status": "local_watchlist_context",
+        "production_applied": false
+      },
+      "policy_credit_regime": {
+        "status": "not_connected_for_model",
+        "production_applied": false
+      },
+      "rental_vs_structural_supply": {
+        "status": null,
+        "production_applied": false
+      }
+    },
+    "reason": "candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass"
+  },
+  "lineage": {
+    "market": "dist/market_indicators.json",
+    "final_backtest": "dist/final_backtest.json",
+    "mortgage_rate": "data_sources/ecos_mortgage_rate.json",
+    "housing_credit": "data_sources/ecos_housing_credit.json",
+    "leading_segment": "data_sources/kb_leading50_median.json",
+    "policy": "data_sources/housing_policy_events.json"
+  },
+  "generated_at": "2026-09-30T19:06:22.510076+00:00"
+}
