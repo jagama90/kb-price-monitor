@@ -19,7 +19,11 @@ def main():
  if mp and mp.get('changes',{}).get('trade_count_pct') is not None and mp.get('changes',{}).get('under15_share_pp') is not None:
   c=mp['changes']; vals['demand']=clamp(50+float(c['trade_count_pct'])*.35+float(c['under15_share_pp'])*1.5)
  elif len(bands)>=2:
-  p,c=bands[-2],bands[-1]; vals['demand']=clamp(50+((c['total']/p['total'])-1)*35+(c['under15_share']-p['under15_share'])*1.5)
+  p,c=bands[-2],bands[-1]
+  p_total,p_share=p.get('total'),p.get('under15_share')
+  c_total,c_share=c.get('total'),c.get('under15_share')
+  if p_total not in (None,0) and c_total is not None and p_share is not None and c_share is not None:
+   vals['demand']=clamp(50+((float(c_total)/float(p_total))-1)*35+(float(c_share)-float(p_share))*1.5)
  coverage=sum(WEIGHTS[k] for k,v in vals.items() if v is not None)
  contributions={k:(round((v-50)*WEIGHTS[k]/100,2) if v is not None else None) for k,v in vals.items()}
  updated=d.get('updated_at'); age=age_days(updated); freshness=100 if age is not None and age<=1 else 85 if age is not None and age<=7 else 60 if age is not None and age<=31 else 30
