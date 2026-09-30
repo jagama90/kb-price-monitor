@@ -1,4 +1,4 @@
-name: Manual market refresh fallback
+name: Manual market refresh pipeline
 
 on:
   workflow_dispatch:
