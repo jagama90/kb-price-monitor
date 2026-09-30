@@ -3171,3 +3171,13 @@ header{position:sticky!important;overflow:visible!important}
 .header-refresh-v154>.refresh-calendar-summary #refreshSummaryStatus{
   margin-left:0!important;
 }
+
+/* v187 restore top-level section rhythm */
+.user-market-v184 + .diagnostics-v184{
+  margin-top:18px!important;
+}
+@media(max-width:800px){
+  .user-market-v184 + .diagnostics-v184{
+    margin-top:14px!important;
+  }
+}
