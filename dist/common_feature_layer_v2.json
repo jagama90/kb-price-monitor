@@ -147,14 +147,14 @@
     "finance_v2_candidate": {
       "status": "validated_candidate",
       "production_applied": false,
-      "score_0_100": 34.0,
+      "score_0_100": 35.5,
       "liquidity_credit_availability": {
-        "score_0_100": 42.6,
+        "score_0_100": 45.5,
         "source": "한국은행 ECOS 주택관련대출 잔액",
         "period": "202607",
-        "balance": 781727.6,
-        "mom_change": 3542.0,
-        "yoy_pct": 2.8664
+        "balance": 929846.3,
+        "mom_change": 3495.4,
+        "yoy_pct": 5.2132
       },
       "funding_cost": {
         "score_0_100": 25.5,
@@ -181,12 +181,12 @@
         },
         "candidate": {
           "n": 48,
-          "corr_fwd_1m": 0.304820513874567,
-          "corr_fwd_3m": 0.387976538457004,
-          "corr_fwd_6m": 0.5217511711907974,
-          "corr_fwd_12m": 0.7325694296639171,
-          "downside_auc": 0.8827838827838828,
-          "reacceleration_auc": 0.821505376344086,
+          "corr_fwd_1m": 0.44356131912492325,
+          "corr_fwd_3m": 0.5291616993625459,
+          "corr_fwd_6m": 0.674201911094896,
+          "corr_fwd_12m": 0.8284294046990325,
+          "downside_auc": 0.9487179487179487,
+          "reacceleration_auc": 0.8387096774193549,
           "n_fwd3": 46
         },
         "improvements": [
@@ -415,5 +415,5 @@
     "leading_segment": "data_sources/kb_leading50_median.json",
     "policy": "data_sources/housing_policy_events.json"
   },
-  "generated_at": "2026-09-30T19:16:56.555086+00:00"
+  "generated_at": "2026-09-30T19:19:37.941117+00:00"
 }
