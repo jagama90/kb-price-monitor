@@ -1728,17 +1728,17 @@ header{position:sticky!important;overflow:visible!important}
   box-shadow:0 18px 45px rgba(29,66,91,.16);z-index:40
 }
 .header-refresh-title-v154{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.header-refresh-title-v154 small{font-size:8px;font-weight:900;color:#3280ab}
+.header-refresh-title-v154 small{font-size:10px;font-weight:900;color:#3280ab}
 .header-refresh-title-v154 b{font-size:13px;color:#213f54}
-.header-refresh-v154 #refreshSummaryMeta{margin:6px 0 9px;font-size:9px;line-height:1.45;color:#708493}
+.header-refresh-v154 #refreshSummaryMeta{margin:6px 0 9px;font-size:11px;line-height:1.45;color:#708493}
 .header-refresh-v154 .refresh-legend{justify-content:flex-start!important;margin:0 0 9px!important}
 .header-refresh-grid-v154{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:0!important}
 .header-refresh-v154 .refresh-cycle-card{padding:9px!important;border-radius:10px!important;background:#f8fafc!important}
-.header-refresh-v154 .refresh-cycle-top span,.header-refresh-v154 .refresh-cycle-top b{font-size:7px!important}
-.header-refresh-v154 .refresh-cycle-card>strong{margin:5px 0!important;font-size:10px!important}
-.header-refresh-v154 .refresh-cycle-card>small,.header-refresh-v154 .refresh-cycle-card>em{font-size:7px!important;line-height:1.35!important}
+.header-refresh-v154 .refresh-cycle-top span,.header-refresh-v154 .refresh-cycle-top b{font-size:9px!important}
+.header-refresh-v154 .refresh-cycle-card>strong{margin:5px 0!important;font-size:12px!important}
+.header-refresh-v154 .refresh-cycle-card>small,.header-refresh-v154 .refresh-cycle-card>em{font-size:9px!important;line-height:1.4!important}
 .header-refresh-v154 .refresh-cycle-card>small{padding-top:6px!important}
-.header-refresh-v154 .refresh-health-summary{margin-top:8px!important;padding:7px 9px!important;font-size:8px!important}
+.header-refresh-v154 .refresh-health-summary{margin-top:8px!important;padding:7px 9px!important;font-size:10px!important}
 @media(min-width:801px){
  header .brand{margin-right:0!important}
  header nav{margin-left:auto!important}
@@ -1747,10 +1747,10 @@ header{position:sticky!important;overflow:visible!important}
  header{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:8px!important;padding:0 14px!important}
  header .brand{min-width:0!important}
  header .brand b{font-size:16px!important}
- header .brand small{font-size:7px!important}
+ header .brand small{font-size:9px!important}
  .header-refresh-v154>summary{padding:5px 7px!important;gap:5px!important}
  .header-refresh-v154>summary #updated{font-size:7px!important;max-width:118px;overflow:hidden;text-overflow:ellipsis}
- .header-refresh-v154>summary #refreshSummaryStatus{font-size:7px!important;min-height:19px!important;padding:2px 5px!important}
+ .header-refresh-v154>summary #refreshSummaryStatus{font-size:9px!important;min-height:21px!important;padding:2px 6px!important}
  .header-refresh-v154 .refresh-calendar-detail{right:-2px;width:min(430px,calc(100vw - 20px));padding:12px!important}
  .header-refresh-grid-v154{grid-template-columns:1fr!important}
  .header-refresh-v154 .refresh-cycle-card{display:grid!important;grid-template-columns:58px minmax(0,1fr)!important;column-gap:8px!important}
@@ -3421,7 +3421,7 @@ header{position:sticky!important;overflow:visible!important}
     flex:0 1 auto!important;
     max-width:none!important;
     padding:3px 6px!important;
-    font-size:7px!important;
+    font-size:9px!important;
     line-height:1.2!important;
     white-space:nowrap!important;
     overflow:visible!important;
@@ -3440,13 +3440,13 @@ header{position:sticky!important;overflow:visible!important}
   }
   .evidence-factor-list-v181 .factor-score-v134>small{
     margin-left:2px!important;
-    font-size:7px!important;
+    font-size:9px!important;
   }
   .evidence-factor-list-v181 .factor-impact-copy-v181{
     display:block!important;
     min-height:0!important;
     margin:0 0 10px!important;
-    font-size:9px!important;
+    font-size:10px!important;
     line-height:1.45!important;
     overflow:visible!important;
     word-break:keep-all!important;
@@ -3466,7 +3466,7 @@ header{position:sticky!important;overflow:visible!important}
   .evidence-factor-list-v181 .factor-foot-v134>span,
   .evidence-factor-list-v181 .factor-foot-v134>i{
     min-width:0!important;
-    font-size:7px!important;
+    font-size:8.5px!important;
     line-height:1.2!important;
     white-space:nowrap!important;
   }
