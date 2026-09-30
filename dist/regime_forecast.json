@@ -1,7 +1,7 @@
 {
   "status": "research_only",
   "weights_are_not_calibrated_probabilities": true,
-  "method": "transparent scenario-weight engine: certified turning-state research + freshest live market overlay; KB Seoul 4w/13w momentum is scale-aligned to the legacy research momentum only when historical validation passes; no future labels are used in current scoring",
+  "method": "unified market judgment engine; all live heads consume one common feature snapshot",
   "as_of": "2026-09-30",
   "latest_research_month": "202608",
   "latest_research_provisional": true,
@@ -102,11 +102,11 @@
         "headline": "하락 우위"
       }
     ],
-    "secondary": "reacceleration weight adjusts the supporting phrase, not the primary risk band",
-    "hysteresis": "risk worsening changes at the nominal threshold; easing requires 2%p beyond the lower boundary"
+    "secondary": "reacceleration weight adjusts supporting phrase",
+    "hysteresis": "easing requires 2%p beyond boundary"
   },
   "state": {
-    "current_phase": "post_rally_consolidation",
+    "current_phase": "상승·보합",
     "forecast_price_phase": "uptrend",
     "recent_peak_3m_momentum_pct": 22.18,
     "cooling_score_0_100": 100.0,
@@ -126,21 +126,20 @@
       "M2/금융여건 동반 둔화"
     ],
     "current_check": {
-      "price_mom_pct": 1.96,
-      "momentum_3m_pct": 8.1,
-      "research_price_mom_pct": 0.0,
-      "research_momentum_3m_pct": 0.0,
-      "price_momentum_source": "KB Seoul weekly sale index, scale-aligned to legacy research momentum",
-      "breadth": 38.7,
-      "reaccel": 14.6,
       "finance": 61.1,
       "sentiment": 22.6,
       "demand": 38.0,
       "value": 30.4,
       "supply": 49.3,
+      "price_mom_pct": 1.96,
+      "momentum_3m_pct": 8.1,
+      "breadth": 38.7,
+      "reaccel": 14.6,
+      "turn": 30.5,
       "trade_count_pct": -46.4,
       "m2_yoy_pct": 5.8,
-      "mortgage_rate_pct": 4.48
+      "mortgage_rate_pct": 4.48,
+      "snapshot_id": "2026-09-30|KB20260921|R202608"
     }
   },
   "price_momentum_overlay": {
@@ -185,5 +184,6 @@
     },
     "sample_is_small": true
   },
-  "generated_at": "2026-09-30T00:32:25.259690+00:00"
+  "unified_snapshot_id": "2026-09-30|KB20260921|R202608",
+  "generated_at": "2026-09-30T02:05:20.679458+00:00"
 }
