@@ -737,130 +737,44 @@ initRefreshCalendar();
 const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addEventListener('click',e=>{e.preventDefault();window.location.reload()});
 
 
-/* v199 immediate-listener manual five-factor refresh */
+/* v200 timed/progress manual five-factor refresh */
 (function(){
  const ENDPOINT='https://iefzffwydvqnleukmljj.supabase.co/functions/v1/manual-market-refresh';
- const PENDING_KEY='kbpm.manual.refresh.pending.v3';
- const btn=document.getElementById('manualRefreshButton');
- const host=document.getElementById('manualFactorRefresh');
- const statusEl=document.getElementById('manualRefreshStatus');
+ const GH='https://api.github.com/repos/jagama90/kb-price-monitor';
+ const WORKFLOW='manual-market-refresh.yml';
+ const PENDING_KEY='kbpm.manual.refresh.pending.v4',LAST_KEY='kbpm.manual.refresh.last.v1';
+ const btn=document.getElementById('manualRefreshButton'),host=document.getElementById('manualFactorRefresh'),statusEl=document.getElementById('manualRefreshStatus');
+ const timelineEl=document.getElementById('manualRefreshTimeline'),progressEl=document.getElementById('manualRefreshProgress'),fillEl=document.getElementById('manualRefreshProgressFill'),pctEl=document.getElementById('manualRefreshProgressText');
  if(!btn||!host||!statusEl)return;
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
- const setState=(text,state='')=>{
-   statusEl.textContent=text;
-   host.classList.remove('running','success','error');
-   if(state)host.classList.add(state);
- };
- async function currentRevision(){
-   try{
-     const d=await fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null);
-     return d?.refresh_run?.attempted_at||d?.updated_at||null;
-   }catch{return null}
+ const fmt=v=>{const d=new Date(v);return Number.isFinite(d.getTime())?d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}):'—'};
+ const drawTimeline=(r,a,c)=>{if(timelineEl)timelineEl.textContent='요청 '+fmt(r)+' · Actions '+fmt(a)+' · 완료 '+fmt(c)};
+ const progress=p=>{p=Math.max(0,Math.min(100,Math.round(Number(p)||0)));if(progressEl)progressEl.hidden=false;if(fillEl)fillEl.style.width=p+'%';if(pctEl)pctEl.textContent=p+'%'};
+ const state=(msg,cls='',p=null)=>{statusEl.textContent=msg;host.classList.remove('running','success','error');if(cls)host.classList.add(cls);if(p!=null)progress(p)};
+ async function currentRevision(){try{const d=await fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null);return d?.refresh_run?.attempted_at||d?.updated_at||null}catch{return null}}
+ async function requestState(id){if(!id)return null;try{const r=await fetch(ENDPOINT+'?id='+encodeURIComponent(id)+'&v='+Date.now(),{cache:'no-store'});if(!r.ok)return null;return(await r.json())?.request||null}catch{return null}}
+ async function findRun(actionIso){try{const r=await fetch(GH+'/actions/workflows/'+WORKFLOW+'/runs?event=workflow_dispatch&branch=main&per_page=6',{cache:'no-store'});if(!r.ok)return null;const d=await r.json(),t=new Date(actionIso||0).getTime();return(d.workflow_runs||[]).filter(x=>new Date(x.created_at).getTime()>=t-10000).sort((a,b)=>Math.abs(new Date(a.created_at).getTime()-t)-Math.abs(new Date(b.created_at).getTime()-t))[0]||null}catch{return null}}
+ async function githubProgress(runId){try{const r=await fetch(GH+'/actions/runs/'+runId+'/jobs?per_page=50',{cache:'no-store'});if(!r.ok)return null;const jobs=(await r.json()).jobs||[],ok=j=>j?.conclusion==='success',find=re=>jobs.find(j=>re.test(j.name));let p=18,msg='Actions 대기 중',doneAt=null;
+  const gate=find(/^gate$/);if(gate){p=ok(gate)?23:20;msg=ok(gate)?'갱신 게이트 통과':'갱신 게이트 확인 중'}
+  const fg=find(/Freshness gate$/);if(ok(fg)){p=28;msg='원천 API 수집 시작'}
+  const src=jobs.filter(j=>/MOLIT trades|BOK ECOS|KB sentiment|watchlist_details/.test(j.name)),n=src.filter(ok).length;if(src.length){p=Math.max(p,28+n*8);msg='원천 API '+n+'/'+src.length+' 완료'}
+  const agg=find(/Aggregate and validate$/);if(agg){p=Math.max(p,ok(agg)?72:64);msg=ok(agg)?'원천 검증 완료':'집계·검증 중'}
+  const fin=find(/^finalize$/);if(fin){p=Math.max(p,75);msg='판단엔진 반영 중';for(const s of fin.steps||[]){if(s.conclusion!=='success')continue;if(s.name==='Rebuild judgment and forecast from refreshed inputs')p=Math.max(p,84);if(s.name==='Persist derived outputs')p=Math.max(p,89);if(s.name==='Run actions/configure-pages@v6')p=Math.max(p,92);if(s.name==='Run actions/upload-pages-artifact@v5')p=Math.max(p,95);if(s.name==='Deploy refreshed dashboard')p=Math.max(p,99)}if(ok(fin)){p=100;msg='갱신 완료';doneAt=fin.completed_at}}
+  const bad=jobs.find(j=>j.conclusion&& !['success','skipped','cancelled'].includes(j.conclusion));return{p,msg,doneAt,error:bad?bad.name+' 실패':null}
+ }catch{return null}}
+ async function finish(x,doneAt){const last={requestedIso:x.requestedIso,actionIso:x.actionIso,completedIso:doneAt||new Date().toISOString()};try{localStorage.setItem(LAST_KEY,JSON.stringify(last));sessionStorage.removeItem(PENDING_KEY)}catch{}drawTimeline(last.requestedIso,last.actionIso,last.completedIso);state('최신 원천 확인 및 반영 완료','success',100);await sleep(1000);location.reload()}
+ async function wait(x){state('요청 접수 · Actions 시작 대기 중','running',5);drawTimeline(x.requestedIso,x.actionIso,null);const deadline=Date.now()+25*60*1000;let lastGh=0;
+  while(Date.now()<deadline){
+   if(!x.actionIso&&x.requestId){const q=await requestState(x.requestId);if(q?.dispatched_at){x.actionIso=q.dispatched_at;try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(x))}catch{}drawTimeline(x.requestedIso,x.actionIso,null);state('Actions 시작 · 원천 API 수집 중','running',15)}}
+   if(x.actionIso&&!x.runId&&Date.now()-lastGh>5000){lastGh=Date.now();const run=await findRun(x.actionIso);if(run?.id){x.runId=run.id;try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(x))}catch{}}}
+   if(x.runId&&Date.now()-lastGh>7000){lastGh=Date.now();const gp=await githubProgress(x.runId);if(gp){if(gp.error)throw Error(gp.error);state(gp.msg,'running',gp.p);if(gp.doneAt)x.doneAt=gp.doneAt}}
+   try{const [m,j]=await Promise.all([fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null),fetch('market_judgment.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null)]);const rev=m?.refresh_run?.attempted_at||m?.updated_at||null;if(rev&&rev!==x.beforeRevision){progress(Math.max(78,parseInt(pctEl?.textContent)||0));if(m&&j&&j.as_of===m.updated_at){await finish(x,x.doneAt);return}}}catch(e){if(String(e?.message||'').includes('실패'))throw e}
+   if(!x.actionIso)progress(Math.min(14,5+Math.floor((Date.now()-x.requestedAt)/3000)));else if(!x.runId)progress(Math.min(24,15+Math.floor((Date.now()-new Date(x.actionIso).getTime())/5000)));
+   await sleep(6000)
+  }
+  throw Error('갱신 반영 확인 시간이 초과됐습니다. 잠시 후 새로고침해 주세요.')
  }
- async function requestState(id){
-   if(!id)return null;
-   try{
-     const r=await fetch(ENDPOINT+'?id='+encodeURIComponent(id)+'&v='+Date.now(),{cache:'no-store'});
-     if(!r.ok)return null;
-     return (await r.json())?.request||null;
-   }catch{return null}
- }
- async function waitProduction(beforeRevision,requestedAt,requestId){
-   setState('요청 접수 · Actions 연결을 기다리는 중','running');
-   const deadline=Date.now()+25*60*1000;
-   let dispatched=false,seenNewSource=false;
-   while(Date.now()<deadline){
-     if(!dispatched&&requestId){
-       const rq=await requestState(requestId);
-       if(rq?.dispatched_at){
-         dispatched=true;
-         setState('Actions 시작 · 원천 API 수집 중','running');
-       }
-     }
-     try{
-       const [m,j]=await Promise.all([
-         fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null),
-         fetch('market_judgment.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null)
-       ]);
-       const rev=m?.refresh_run?.attempted_at||m?.updated_at||null;
-       if(rev&&rev!==beforeRevision){
-         seenNewSource=true;
-         const consistent=Boolean(m&&j&&j.as_of===m.updated_at);
-         if(consistent){
-           setState('최신 원천 확인 및 반영 완료 · 화면을 다시 불러옵니다.','success');
-           try{sessionStorage.removeItem(PENDING_KEY)}catch{}
-           await sleep(900);
-           location.reload();
-           return;
-         }
-         setState('원천 수집 완료 · 판단엔진/배포 반영 중','running');
-       }else if(dispatched){
-         setState('Actions 시작 · 원천 API 수집·검증 중','running');
-       }else{
-         const age=Math.max(0,Date.now()-requestedAt);
-         setState(age<30000?'요청 접수 · Actions 시작 대기 중':'요청 확인 중 · listener 상태를 점검합니다.','running');
-       }
-     }catch{}
-     await sleep(seenNewSource?7000:6000);
-   }
-   throw Error('갱신 요청은 접수됐지만 반영 확인 시간이 초과됐습니다. 잠시 후 새로고침해 주세요.');
- }
- async function requestRefresh(){
-   if(btn.disabled)return;
-   btn.disabled=true;
-   btn.textContent='↻ 요청 중';
-   try{
-     const beforeRevision=await currentRevision();
-     setState('수동 갱신 요청을 보내는 중','running');
-     const r=await fetch(ENDPOINT,{
-       method:'POST',
-       headers:{'Content-Type':'application/json'},
-       body:JSON.stringify({action:'request',source:'dashboard'}),
-       cache:'no-store'
-     });
-     let data={};
-     try{data=await r.json()}catch{}
-     if(!r.ok||data.ok===false)throw Error('갱신 요청 실패'+(r.status?' ('+r.status+')':''));
-     const req=data?.request||{};
-     const requestId=req.id||null;
-     const requestedAt=Date.now();
-     if(data.accepted===false&&data.reason==='cooldown'){
-       const requestTs=new Date(req.requested_at||0).getTime();
-       const refreshTs=new Date(beforeRevision||0).getTime();
-       if(Number.isFinite(requestTs)&&Number.isFinite(refreshTs)&&refreshTs>=requestTs){
-         setState('최근 갱신이 이미 반영되어 있습니다.','success');
-         btn.disabled=false;
-         btn.textContent='↻ 새로고침';
-         return;
-       }
-       setState(req.dispatched_at?'기존 요청은 이미 Actions에서 처리 중입니다.':'최근 요청을 이어서 기다립니다.','running');
-     }else{
-       setState('요청 접수 · 보통 수 초 내 Actions가 시작됩니다.','running');
-     }
-     const pending={beforeRevision,requestedAt,requestId};
-     try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(pending))}catch{}
-     btn.textContent='↻ 갱신 중';
-     await waitProduction(beforeRevision,requestedAt,requestId);
-   }catch(e){
-     console.error('manual-refresh',e);
-     setState(e?.message||'수동 갱신 중 오류가 발생했습니다.','error');
-     btn.disabled=false;
-     btn.textContent='↻ 다시 시도';
-   }
- }
+ async function requestRefresh(){if(btn.disabled)return;btn.disabled=true;btn.textContent='↻ 요청 중';try{const beforeRevision=await currentRevision();state('수동 갱신 요청을 보내는 중','running',1);const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'request',source:'dashboard'}),cache:'no-store'});let d={};try{d=await r.json()}catch{}if(!r.ok||d.ok===false)throw Error('갱신 요청 실패 ('+r.status+')');const q=d.request||{},requestedIso=q.requested_at||new Date().toISOString(),requestedAt=new Date(requestedIso).getTime()||Date.now(),x={beforeRevision,requestedIso,requestedAt,actionIso:q.dispatched_at||null,requestId:q.id||null,runId:null,doneAt:null};try{sessionStorage.setItem(PENDING_KEY,JSON.stringify(x))}catch{}drawTimeline(x.requestedIso,x.actionIso,null);state(x.actionIso?'Actions 시작 · 원천 API 수집 중':'요청 접수 · 보통 수 초 내 Actions가 시작됩니다.','running',x.actionIso?15:5);btn.textContent='↻ 갱신 중';await wait(x)}catch(e){console.error('manual-refresh',e);state(e?.message||'수동 갱신 중 오류가 발생했습니다.','error');btn.disabled=false;btn.textContent='↻ 다시 시도'}}
  btn.addEventListener('click',requestRefresh);
- try{
-   const p=JSON.parse(sessionStorage.getItem(PENDING_KEY)||'null');
-   if(p&&Date.now()-Number(p.requestedAt||0)<25*60*1000){
-     btn.disabled=true;
-     btn.textContent='↻ 갱신 중';
-     setTimeout(()=>waitProduction(p.beforeRevision,p.requestedAt,p.requestId).catch(e=>{
-       setState(e?.message||'반영 확인 중 오류가 발생했습니다.','error');
-       btn.disabled=false;
-       btn.textContent='↻ 다시 시도';
-     }),400);
-   }else if(p){
-     sessionStorage.removeItem(PENDING_KEY);
-   }
- }catch{}
+ try{const last=JSON.parse(localStorage.getItem(LAST_KEY)||'null');if(last)drawTimeline(last.requestedIso,last.actionIso,last.completedIso);else if(timelineEl)timelineEl.textContent='요청 — · Actions — · 완료 —';const x=JSON.parse(sessionStorage.getItem(PENDING_KEY)||'null');if(x&&Date.now()-Number(x.requestedAt||0)<25*60*1000){btn.disabled=true;btn.textContent='↻ 갱신 중';setTimeout(()=>wait(x).catch(e=>{state(e?.message||'반영 확인 중 오류가 발생했습니다.','error');btn.disabled=false;btn.textContent='↻ 다시 시도'}),400)}else if(x)sessionStorage.removeItem(PENDING_KEY)}catch{}
 })();
