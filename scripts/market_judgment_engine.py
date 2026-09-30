@@ -164,7 +164,21 @@ def build_feature_layer(market,research,final,kbval):
     rows=research.get('rows') or [];x=rows[-1] if rows else {}
     components=component_scores(market)
     m1,m3,overlay=price_overlay(market,x,kbval)
-    signals=live_research_signals(components,m1,m3,final.get('rows') or [],rows)
+    live_signals=live_research_signals(components,m1,m3,final.get('rows') or [],rows)
+    # Do not overwrite historically validated breadth/reaccel/turn with a live
+    # recomputation unless that alternative passes an explicit validation gate.
+    # The first unified-v1 trial degraded reacceleration discrimination, so the
+    # production candidate carries forward the latest certified research signals
+    # while all three heads share the same live components and price overlay.
+    certified_signals={
+      'setup':round(n(x.get('setup'),50),1),'turn':round(n(x.get('turn'),50),1),
+      'opportunity':round(n(x.get('opportunity'),25),1),'cheapness':round(n(x.get('cheapness'),components.get('value')),1),
+      'distress':round(n(x.get('distress'),100-components.get('sentiment')),1),'price_turn':round(n(x.get('price_turn'),50),1),
+      'price_accel_pp':round(n(x.get('price_accel_pp')),2),'early_turn':round(n(x.get('early_turn'),50),1),
+      'breadth':round(n(x.get('breadth'),50),1),'reaccel':round(n(x.get('reaccel'),50),1),
+      'bottom_zone':bool(x.get('bottom_zone',False)),'momentum_zone':bool(x.get('momentum_zone',False))
+    }
+    signals=certified_signals
     mm=market.get('m2_official') or market.get('m2') or {}
     mp=(market.get('matched_period') or {}).get('changes') or {}
     mortgage=n((market.get('mortgage_rate_official') or {}).get('rate_pct'),4.0)
@@ -182,6 +196,9 @@ def build_feature_layer(market,research,final,kbval):
       'buy_weights':WEIGHTS,
       'price_momentum':{'m1_pct':round(m1,2),'m3_pct':round(m3,2),'overlay':overlay},
       'signals':signals,
+      'signal_policy':{'mode':'certified_research_carry_forward','research_month':x.get('ym'),
+                       'reason':'live recomputation is diagnostic only until it passes forecast discrimination validation',
+                       'live_recomputed_candidate':live_signals},
       'context':{'trade_count_pct':round(trade,1),'under15_share_pp':round(under,1),'m2_mom_pct':mm.get('mom_pct'),
                  'm2_yoy_pct':mm.get('yoy_pct'),'mortgage_rate_pct':mortgage,'liquidity_support_0_100':round(liquidity,1),
                  'trade_pressure_0_100':round(trade_pressure,1),'rate_pressure_0_100':round(rate_pressure,1),
