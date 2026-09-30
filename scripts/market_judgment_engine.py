@@ -223,6 +223,8 @@ def build_feature_layer(market,research,final,kbval):
 def current_state_head(feature,research_rows):
     m1=n(feature['price_momentum']['m1_pct']);m3=n(feature['price_momentum']['m3_pct']);sig=feature['signals']
     recent=(research_rows or [])[-3:];was_rising=any(n(r.get('momentum_3m_pct'))>0 for r in recent)
+    breadth=n(sig.get('breadth'));reaccel=n(sig.get('reaccel'))
+    breadth_pass=breadth>=45;reaccel_pass=reaccel>=50;internals_confirmed=breadth_pass and reaccel_pass
     stage=0
     if sig.get('bottom_zone'):stage=1
     if m1>=0 and m3<=0 and not was_rising:stage=2
@@ -230,20 +232,25 @@ def current_state_head(feature,research_rows):
     if was_rising and m3<=0 and m1>=0:stage=3
     if sig.get('momentum_zone'):stage=4
     label=STAGE_LABELS[stage]
+    divergence=bool(stage==3 and m3>0 and not internals_confirmed)
+    confirmation_status='confirmed' if stage>=3 and internals_confirmed else ('weak' if stage>=3 else 'not_applicable')
     if stage==0:summary='1개월·3개월 가격 모멘텀이 약세여서 하락 국면으로 봅니다.'
     elif stage==1:summary='가격 부담과 심리 위축은 남아 있지만 하락 둔화·반전 신호가 강해지고 있습니다.'
     elif stage==2:summary='가격 하락이 멈추는 신호가 나타나 바닥 여부를 확인하는 구간입니다.'
-    elif stage==3 and m3>0 and n(sig.get('breadth'))<45:
-        summary='가격 상승 모멘텀은 유지되지만 거래·심리 확산이 아직 충분하지 않아 상승·보합으로 봅니다.'
-    elif stage==3:summary='가격은 상승 흐름이지만 가속 조건이 완전히 충족되지는 않아 상승·보합으로 봅니다.'
+    elif divergence:
+        summary='가격 상승 모멘텀은 유지되지만 시장 확산·재가속 확인은 약해 상승·보합 내 확인 전 구간으로 봅니다.'
+    elif stage==3:summary='가격 상승과 시장 내부확산이 함께 확인됐지만 가속 국면 조건은 아직 완전히 충족되지 않았습니다.'
     else:summary='가격 모멘텀과 시장 확산·재가속 신호가 함께 강해 가속 국면으로 봅니다.'
     next_gate=None
     if stage==3:
         misses=[]
-        if n(sig.get('breadth'))<45:misses.append('시장 확산 45 이상')
-        if n(sig.get('reaccel'))<50:misses.append('재가속 50 이상')
+        if not breadth_pass:misses.append('시장 확산 45 이상')
+        if not reaccel_pass:misses.append('재가속 50 이상')
         next_gate=' · '.join(misses) if misses else '가속 조건 충족 확인'
     return {'stage':stage,'label':label,'summary':summary,'was_rising':was_rising,'next_gate':next_gate,
+            'confirmation':{'status':confirmation_status,'rule':'breadth >= 45 AND reaccel >= 50',
+                            'breadth_pass':breadth_pass,'reaccel_pass':reaccel_pass,'divergence':divergence,
+                            'validation':'current_state_revalidation'},
             'evidence':{'m1_pct':m1,'m3_pct':m3,'breadth':sig.get('breadth'),'reaccel':sig.get('reaccel'),
                         'turn':sig.get('turn'),'bottom_zone':sig.get('bottom_zone'),'momentum_zone':sig.get('momentum_zone')}}
 

@@ -16,12 +16,12 @@ from market_judgment_engine import (
 R=pathlib.Path(__file__).resolve().parents[1]
 
 
-def feature(m1=-1.0,m3=-2.0,bottom=False,momentum=False):
+def feature(m1=-1.0,m3=-2.0,bottom=False,momentum=False,breadth=40.0,reaccel=30.0):
     return {
         'as_of':'2026-09-30',
         'components':{'finance':60.0,'sentiment':20.0,'demand':40.0,'value':30.0,'supply':50.0},
         'price_momentum':{'m1_pct':m1,'m3_pct':m3},
-        'signals':{'breadth':40.0,'reaccel':30.0,'turn':35.0,'bottom_zone':bottom,'momentum_zone':momentum},
+        'signals':{'breadth':breadth,'reaccel':reaccel,'turn':35.0,'bottom_zone':bottom,'momentum_zone':momentum},
         'context':{'liquidity_support_0_100':60.0,'trade_pressure_0_100':30.0,'rate_pressure_0_100':35.0,'cooling_score_0_100':50.0},
     }
 
@@ -32,8 +32,15 @@ class UnifiedEngineTests(unittest.TestCase):
         self.assertEqual(current_state_head(feature(-1,-2),weak_hist)['stage'],0)
         self.assertEqual(current_state_head(feature(-1,-2,bottom=True),weak_hist)['stage'],1)
         self.assertEqual(current_state_head(feature(.2,-.2),weak_hist)['stage'],2)
-        self.assertEqual(current_state_head(feature(.4,2.0),weak_hist)['stage'],3)
-        self.assertEqual(current_state_head(feature(.4,2.0,momentum=True),weak_hist)['stage'],4)
+        weak_rally=current_state_head(feature(.4,2.0),weak_hist)
+        self.assertEqual(weak_rally['stage'],3)
+        self.assertEqual(weak_rally['confirmation']['status'],'weak')
+        self.assertTrue(weak_rally['confirmation']['divergence'])
+        confirmed=current_state_head(feature(.4,2.0,breadth=48,reaccel=60),weak_hist)
+        self.assertEqual(confirmed['stage'],3)
+        self.assertEqual(confirmed['confirmation']['status'],'confirmed')
+        self.assertFalse(confirmed['confirmation']['divergence'])
+        self.assertEqual(current_state_head(feature(.4,2.0,momentum=True,breadth=48,reaccel=60),weak_hist)['stage'],4)
 
     def test_buy_condition_weights_are_preserved(self):
         h=buy_condition_head(feature())
