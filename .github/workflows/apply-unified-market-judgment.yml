@@ -1,0 +1,38 @@
+name: Apply unified market judgment
+on:
+  push:
+    branches: [main]
+    paths: ['.github/run-apply-unified-market-judgment']
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Rebuild and revalidate
+        run: |
+          python3 scripts/build_market_judgment.py
+          python3 scripts/validate_market_judgment.py
+          python3 scripts/forecast_market_regime.py
+          cp dist/market_judgment_candidate.json /tmp/market_judgment_candidate.json
+          cp dist/market_judgment_validation.json /tmp/market_judgment_validation.json
+          cp dist/market_judgment.json /tmp/market_judgment.json
+          cp dist/regime_forecast.json /tmp/regime_forecast.json
+      - name: Publish unified outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git reset --hard
+          git pull --ff-only origin main
+          cp /tmp/market_judgment_candidate.json dist/market_judgment_candidate.json
+          cp /tmp/market_judgment_validation.json dist/market_judgment_validation.json
+          cp /tmp/market_judgment.json dist/market_judgment.json
+          cp /tmp/regime_forecast.json dist/regime_forecast.json
+          git add -f dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Apply unified market judgment engine'
+          git push origin HEAD:main
