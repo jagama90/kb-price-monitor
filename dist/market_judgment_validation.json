@@ -27,20 +27,20 @@
     "apply_recommended": true,
     "forecast": {
       "n": 46,
-      "down_corr_negative_fwd3": 0.5644187041423604,
-      "down_auc_negative_fwd3": 0.9652014652014652,
-      "reaccel_corr_fwd3": 0.6044096192368896,
-      "reaccel_auc_positive_fwd3": 0.7440860215053764
+      "down_corr_negative_fwd3": 0.5753988269985422,
+      "down_auc_negative_fwd3": 0.9633699633699634,
+      "reaccel_corr_fwd3": 0.601171006732318,
+      "reaccel_auc_positive_fwd3": 0.7354838709677419
     },
     "buy_condition": {
       "n": 46,
-      "corr_fwd_1m": 0.4214771629098691,
+      "corr_fwd_1m": 0.503974161953225,
       "n_fwd_1m": 46,
-      "corr_fwd_3m": 0.4477646991143382,
+      "corr_fwd_3m": 0.5289253907908888,
       "n_fwd_3m": 46,
-      "corr_fwd_6m": 0.5725989243195422,
+      "corr_fwd_6m": 0.6628157588394475,
       "n_fwd_6m": 43,
-      "corr_fwd_12m": 0.7453680138363582,
+      "corr_fwd_12m": 0.8063887580501935,
       "n_fwd_12m": 37
     },
     "improvements": [
@@ -81,7 +81,7 @@
       }
     },
     "buy_condition": {
-      "score_0_100": 40.5,
+      "score_0_100": 34.1,
       "tier": "제약 구간",
       "range": "30~44",
       "coverage_weight": 100,
@@ -93,7 +93,7 @@
         "supply": 15
       },
       "components": {
-        "finance": 61.1,
+        "finance": 35.5,
         "sentiment": 22.6,
         "demand": 36.0,
         "value": 30.4,
@@ -106,9 +106,9 @@
           "period": "2027H1",
           "label": "2027년 상반기",
           "weights": {
-            "consolidation": 35.1,
-            "reacceleration": 29.8,
-            "downturn": 35.1
+            "consolidation": 34.8,
+            "reacceleration": 28.2,
+            "downturn": 37.0
           },
           "base_case": "consolidation",
           "display": {
@@ -116,8 +116,8 @@
             "headline": "쉬어가기·하방 경계",
             "risk_range": "35~44%",
             "tone": "watch",
-            "downturn_weight": 35.1,
-            "reacceleration_weight": 29.8,
+            "downturn_weight": 37.0,
+            "reacceleration_weight": 28.2,
             "secondary": "하방 위험 주의",
             "easing_hysteresis_pp": 2.0
           }
@@ -126,9 +126,9 @@
           "period": "2027H2",
           "label": "2027년 하반기",
           "weights": {
-            "consolidation": 38.4,
-            "reacceleration": 32.4,
-            "downturn": 29.2
+            "consolidation": 37.6,
+            "reacceleration": 28.9,
+            "downturn": 33.5
           },
           "base_case": "consolidation",
           "display": {
@@ -136,8 +136,8 @@
             "headline": "혼조·방향 탐색",
             "risk_range": "30~34%",
             "tone": "mixed",
-            "downturn_weight": 29.2,
-            "reacceleration_weight": 32.4,
+            "downturn_weight": 33.5,
+            "reacceleration_weight": 28.9,
             "secondary": "방향성 확인 필요",
             "easing_hysteresis_pp": 2.0
           }
@@ -146,28 +146,28 @@
           "period": "2028H1",
           "label": "2028년 상반기",
           "weights": {
-            "consolidation": 36.3,
-            "reacceleration": 37.9,
-            "downturn": 25.8
+            "consolidation": 36.2,
+            "reacceleration": 33.7,
+            "downturn": 30.1
           },
-          "base_case": "reacceleration",
+          "base_case": "consolidation",
           "display": {
-            "risk_band": 1,
-            "headline": "재상승 가능성 확대",
-            "risk_range": "20~29%",
-            "tone": "low",
-            "downturn_weight": 25.8,
-            "reacceleration_weight": 37.9,
-            "secondary": "재상승 신호 강화",
+            "risk_band": 2,
+            "headline": "혼조·방향 탐색",
+            "risk_range": "30~34%",
+            "tone": "mixed",
+            "downturn_weight": 30.1,
+            "reacceleration_weight": 33.7,
+            "secondary": "방향성 확인 필요",
             "easing_hysteresis_pp": 2.0
           }
         }
       ],
-      "headline": "쉬어가기·하방 경계 → 혼조·방향 탐색 → 재상승 가능성 확대",
+      "headline": "쉬어가기·하방 경계 → 혼조·방향 탐색 → 혼조·방향 탐색",
       "risk_path": [
-        35,
-        29,
-        26
+        37,
+        34,
+        30
       ],
       "weights_are_not_calibrated_probabilities": true,
       "display_rules": {
@@ -212,5 +212,5 @@
   "apply_recommended": true,
   "gate": "n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45",
   "no_future_leakage": true,
-  "generated_at": "2026-09-30T19:19:08.403900+00:00"
+  "generated_at": "2026-09-30T19:20:25.211625+00:00"
 }
