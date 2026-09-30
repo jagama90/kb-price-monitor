@@ -78,14 +78,17 @@ def display_for(weights,previous=None):
             'downturn_weight':round(d,1),'reacceleration_weight':round(r,1),
             'secondary':secondary,'easing_hysteresis_pp':EASING_HYSTERESIS_PP}
 
+def signal_matched_period(market):
+    return market.get('signal_matched_period') or market.get('matched_period') or {}
+
 def component_scores(market):
     s=market.get('kb_sentiment') or {};mm=market.get('m2_official') or market.get('m2') or {}
-    mp=(market.get('matched_period') or {}).get('changes') or {}
+    mp=signal_matched_period(market).get('changes') or {}
     sent=n(s.get('score_0_100'),50);supply=n(s.get('jeonse_score_0_100'),50)
     value=n((market.get('kb_value') or {}).get('score_0_100'),50)
     finance=clamp(50+n(mm.get('mom_pct'))*8+n(mm.get('yoy_pct'))*1.5)
     trade=n(mp.get('trade_count_pct'));under=n(mp.get('under15_share_pp'))
-    demand=clamp(50+trade*.35+under*1.5) if mp else 50
+    demand=clamp(50+trade*.35+under*1.5) if mp.get('trade_count_pct') is not None and mp.get('under15_share_pp') is not None else 50
     return {'finance':finance,'sentiment':sent,'demand':demand,'value':value,'supply':supply}
 
 def price_overlay(market,research_last,kbval):
@@ -180,7 +183,7 @@ def build_feature_layer(market,research,final,kbval):
     }
     signals=certified_signals
     mm=market.get('m2_official') or market.get('m2') or {}
-    mp=(market.get('matched_period') or {}).get('changes') or {}
+    mp=signal_matched_period(market).get('changes') or {}
     mortgage=n((market.get('mortgage_rate_official') or {}).get('rate_pct'),4.0)
     recent=rows[-6:]
     peak_m3=max([n(r.get('momentum_3m_pct')) for r in recent] or [0])
