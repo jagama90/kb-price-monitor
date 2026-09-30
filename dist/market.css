@@ -2518,10 +2518,10 @@ header{position:sticky!important;overflow:visible!important}
   padding-top:0!important;
   border-top:0!important;
 }
-.engine-kicker-v181{
+ .engine-kicker-v181{
   margin-bottom:12px;
   color:#708598;
-  font-size:12px;
+  font-size:13px;
   font-weight:900;
   letter-spacing:-.01em;
 }
@@ -2533,7 +2533,7 @@ header{position:sticky!important;overflow:visible!important}
 }
 .current-phase-v181 small{
   color:#8a99a6;
-  font-size:10px;
+  font-size:11px;
   font-weight:800;
 }
 .current-phase-v181 b{
@@ -2546,7 +2546,7 @@ header{position:sticky!important;overflow:visible!important}
   max-width:760px;
   margin:0 0 18px!important;
   color:#29475c!important;
-  font-size:14px!important;
+  font-size:15px!important;
   font-weight:720!important;
   line-height:1.65!important;
 }
@@ -2581,12 +2581,12 @@ header{position:sticky!important;overflow:visible!important}
   display:block;
   margin-bottom:6px;
   color:#8192a0;
-  font-size:9px;
+  font-size:10px;
   font-weight:850;
 }
 .forecast-route-node-v181 b{
   color:#16374f;
-  font-size:14px;
+  font-size:15px;
   font-weight:900;
   line-height:1.35;
   letter-spacing:-.025em;
@@ -2627,7 +2627,7 @@ header{position:sticky!important;overflow:visible!important}
 }
 .buy-condition-line-v181>span{
   color:#718596;
-  font-size:10px;
+  font-size:11px;
   font-weight:850;
 }
 .buy-condition-line-v181>b{
@@ -2638,7 +2638,7 @@ header{position:sticky!important;overflow:visible!important}
 .buy-condition-line-v181>em{
   min-width:0;
   margin-left:2px;
-  font-size:8px!important;
+  font-size:10px!important;
 }
 .buy-condition-strip-v181 .condition-meter{
   height:5px!important;
@@ -2648,7 +2648,7 @@ header{position:sticky!important;overflow:visible!important}
 .buy-condition-strip-v181 .condition-verdict{
   margin:0!important;
   color:#61798a!important;
-  font-size:10px!important;
+  font-size:12px!important;
   line-height:1.55!important;
 }
 .condition-health-v181{
@@ -2666,10 +2666,10 @@ header{position:sticky!important;overflow:visible!important}
   padding:12px 13px!important;
 }
 .judgment-evidence-drawer-v181>summary b{
-  font-size:12px!important;
+  font-size:13px!important;
 }
 .judgment-evidence-drawer-v181>summary span{
-  font-size:9px!important;
+  font-size:11px!important;
 }
 .judgment-evidence-inner-v181{
   padding:10px!important;
@@ -2708,7 +2708,7 @@ header{position:sticky!important;overflow:visible!important}
 }
 .evidence-factor-list-v181 .factor-card-head-v134>em{
   padding:3px 6px!important;
-  font-size:7px!important;
+  font-size:9px!important;
 }
 .evidence-factor-list-v181 .factor-score-v134{
   grid-area:score!important;
@@ -2726,7 +2726,7 @@ header{position:sticky!important;overflow:visible!important}
   grid-area:impact;
   margin:0!important;
   color:#526b7d;
-  font-size:10px;
+  font-size:11px;
   font-weight:750;
   line-height:1.45;
 }
@@ -2741,7 +2741,7 @@ header{position:sticky!important;overflow:visible!important}
 }
 .evidence-factor-list-v181 .factor-foot-v134>span,
 .evidence-factor-list-v181 .factor-foot-v134>i{
-  font-size:8px!important;
+  font-size:9px!important;
 }
 .evidence-factor-list-v181 .factor-refresh-v135,
 .evidence-factor-list-v181 .factor-change-v135,
@@ -2781,10 +2781,10 @@ header{position:sticky!important;overflow:visible!important}
   }
   .forecast-route-node-v181 small{
     margin:0;
-    font-size:8px;
+    font-size:10px;
   }
   .forecast-route-node-v181 b{
-    font-size:12px;
+    font-size:14px;
   }
   .forecast-route-arrow-v181{
     height:10px;
@@ -2802,7 +2802,7 @@ header{position:sticky!important;overflow:visible!important}
   .forecast-route-node-v181{grid-template-columns:74px minmax(0,1fr)}
   .buy-condition-line-v181{flex-wrap:wrap}
   .buy-condition-line-v181>em{margin-left:0}
-  .factor-impact-copy-v181{font-size:9px}
+  .factor-impact-copy-v181{font-size:11px}
 }
 
 /* v184 three-layer dashboard */
@@ -2818,7 +2818,7 @@ header{position:sticky!important;overflow:visible!important}
 .next-check-v184>small{
   flex:0 0 auto;
   color:#75899a;
-  font-size:9px;
+  font-size:11px;
   font-weight:900;
   line-height:1.9;
 }
@@ -2837,7 +2837,7 @@ header{position:sticky!important;overflow:visible!important}
   background:#fff;
   border:1px solid #e1e9ef;
   color:#456176;
-  font-size:9px;
+  font-size:10px;
   font-weight:800;
 }
 .next-check-v184>#nextSignals span b{
@@ -2859,7 +2859,7 @@ header{position:sticky!important;overflow:visible!important}
   display:block;
   margin-bottom:3px;
   color:#728799;
-  font-size:10px;
+  font-size:11px;
   font-weight:900;
 }
 .user-market-head-v184 h2{
@@ -2885,21 +2885,21 @@ header{position:sticky!important;overflow:visible!important}
   display:block;
   margin-bottom:6px;
   color:#8394a2;
-  font-size:8px;
+  font-size:10px;
   font-weight:900;
 }
 .market-context-card-v184>b{
   display:block;
   margin-bottom:5px;
   color:#17384f;
-  font-size:16px;
+  font-size:17px;
   line-height:1.3;
   letter-spacing:-.025em;
 }
 .market-context-card-v184>span{
   display:block;
   color:#657c8d;
-  font-size:9px;
+  font-size:10px;
   font-weight:750;
   line-height:1.45;
 }
@@ -2915,7 +2915,7 @@ header{position:sticky!important;overflow:visible!important}
 }
 .market-context-detail-v184 span{
   color:#7d8f9d;
-  font-size:8px;
+  font-size:10px;
   line-height:1.4;
 }
 .market-context-detail-v184 b{
@@ -2925,7 +2925,7 @@ header{position:sticky!important;overflow:visible!important}
   display:block!important;
   margin-top:7px!important;
   color:#91a0ab!important;
-  font-size:7px!important;
+  font-size:9px!important;
   line-height:1.4!important;
 }
 
@@ -2954,19 +2954,19 @@ header{position:sticky!important;overflow:visible!important}
   display:block;
   margin-bottom:2px;
   color:#8394a2;
-  font-size:8px;
+  font-size:10px;
   font-weight:850;
 }
 .user-watch-summary-v184 b{
   color:#21445d;
-  font-size:13px;
+  font-size:15px;
   font-weight:900;
 }
 .user-watch-summary-v184 em{
   display:block;
   margin-top:2px;
   color:#8595a2;
-  font-size:8px;
+  font-size:10px;
   font-style:normal;
   font-weight:700;
 }
@@ -3010,20 +3010,20 @@ header{position:sticky!important;overflow:visible!important}
   display:block;
   margin-bottom:3px;
   color:#8b99a5;
-  font-size:8px;
+  font-size:10px;
   font-weight:850;
 }
 .diagnostics-head-v184 b{
   display:block;
   color:#1d4059;
-  font-size:15px;
+  font-size:16px;
   font-weight:900;
 }
 .diagnostics-head-v184 em{
   display:block;
   margin-top:3px;
   color:#8a99a5;
-  font-size:8px;
+  font-size:10px;
   font-style:normal;
   font-weight:700;
 }
@@ -3062,19 +3062,19 @@ header{position:sticky!important;overflow:visible!important}
   display:block;
   margin-bottom:2px;
   color:#8998a4;
-  font-size:7px;
+  font-size:9px;
   font-weight:850;
 }
 .diagnostic-summary-v184 b{
   color:#34546a;
-  font-size:11px;
+  font-size:13px;
   font-weight:900;
 }
 .diagnostic-summary-v184 em{
   display:block;
   margin-top:2px;
   color:#92a0aa;
-  font-size:7px;
+  font-size:9px;
   font-style:normal;
 }
 .diagnostic-summary-v184>strong{
@@ -3105,7 +3105,7 @@ header{position:sticky!important;overflow:visible!important}
   .user-market-v184{
     padding:18px 14px!important;
   }
-  .user-market-head-v184 h2{font-size:20px}
+  .user-market-head-v184 h2{font-size:22px}
   .market-context-strip-v184{
     grid-template-columns:1fr;
     gap:7px;
@@ -3128,14 +3128,14 @@ header{position:sticky!important;overflow:visible!important}
   .market-context-card-v184>b{
     grid-area:value;
     margin:0;
-    font-size:14px;
+    font-size:16px;
   }
   .market-context-card-v184>span{
     grid-area:badge;
     align-self:center;
     text-align:right;
-    max-width:120px;
-    font-size:8px;
+    max-width:132px;
+    font-size:10px;
   }
   .market-context-card-v184>.breadth-track-v1{
     grid-area:meta;
