@@ -47,17 +47,28 @@ def weights(c,breadth,reaccel,m1,m3,mmrow,mortrow):
     return q4
 def main():
     cand=json.loads(CAND.read_text());final=json.loads(FINAL.read_text());turn=json.loads(TURN.read_text());kv=json.loads(KBV.read_text())
-    rows=final.get('rows') or [];rmap={x['ym']:x for x in rows};samples={x['ym']:x for x in kv.get('sample',[])}
-    mm,mr=aux();evals=[]
+    rows=final.get('rows') or [];samples={x['ym']:x for x in kv.get('sample',[])}
+    tmap={x['ym']:x for x in (turn.get('rows') or [])}
+    mm,mr=aux();evals=[];live_recomputed=[]
     for i,r in enumerate(rows):
-      ym=r['ym'];s=samples.get(ym)
-      if not s or r.get('fwd_3m_pct') is None or r.get('provisional'):continue
-      m1=n(s.get('mapped1'));m3=n(s.get('mapped3'));breadth,reaccel=historical_reaccel(rows,i,m1,m3)
+      ym=r['ym'];s=samples.get(ym);tr=tmap.get(ym)
+      if not s or not tr or r.get('fwd_3m_pct') is None or r.get('provisional'):continue
+      m1=n(s.get('mapped1'));m3=n(s.get('mapped3'))
+      # Production candidate: certified research breadth/reaccel carried into
+      # the common snapshot, exactly preserving the already validated forecast logic.
+      breadth=n(tr.get('breadth'),50);reaccel=n(tr.get('reaccel'),50)
       w=weights(r['components'],breadth,reaccel,m1,m3,mm.get(shift(ym,-2)),mr.get(ym))
       evals.append({'ym':ym,'down':w['downturn'],'reaccel':w['reacceleration'],'fwd3':r.get('fwd_3m_pct')})
+      # Diagnostic rejected alternative: fully live-recomputed breadth/reaccel.
+      rb,rr=historical_reaccel(rows,i,m1,m3)
+      rw=weights(r['components'],rb,rr,m1,m3,mm.get(shift(ym,-2)),mr.get(ym))
+      live_recomputed.append({'ym':ym,'down':rw['downturn'],'reaccel':rw['reacceleration'],'fwd3':r.get('fwd_3m_pct')})
     downs=[x['down'] for x in evals];reas=[x['reaccel'] for x in evals];fwd=[x['fwd3'] for x in evals]
     unified={'n':len(evals),'down_corr_negative_fwd3':corr(downs,[-x for x in fwd]),'down_auc_negative_fwd3':auc(downs,[1 if x<0 else 0 for x in fwd]),
              'reaccel_corr_fwd3':corr(reas,fwd),'reaccel_auc_positive_fwd3':auc(reas,[1 if x>0 else 0 for x in fwd])}
+    rd=[x['down'] for x in live_recomputed];rr=[x['reaccel'] for x in live_recomputed];rf=[x['fwd3'] for x in live_recomputed]
+    rejected={'n':len(live_recomputed),'down_corr_negative_fwd3':corr(rd,[-x for x in rf]),'down_auc_negative_fwd3':auc(rd,[1 if x<0 else 0 for x in rf]),
+              'reaccel_corr_fwd3':corr(rr,rf),'reaccel_auc_positive_fwd3':auc(rr,[1 if x>0 else 0 for x in rf])}
     base=(kv.get('forecast_validation') or {}).get('kb_scale_aligned') or {}
     # Reconstruct baseline reaccel discrimination directly from stored validation sample.
     bs=[x for x in kv.get('sample',[]) if x.get('fwd_3m_pct') is not None and x.get('new_q4_reaccel') is not None and x.get('ym')<=final.get('certified_through','999999')]
@@ -72,7 +83,7 @@ def main():
               unified['reaccel_auc_positive_fwd3']>=baseline['reaccel_auc_positive_fwd3']-.02 and
               n(buy_metrics.get('score_vs_fwd_6m_corr'),-9)>=0.30 and n(buy_metrics.get('score_vs_fwd_12m_corr'),-9)>=0.45)
     out={'status':'research_validation','rows_compared':len(evals),'baseline_forecast':baseline,'unified_forecast':unified,
-         'buy_condition_certified_metrics':buy_metrics,'current_candidate':{'snapshot_id':cand['feature_layer']['snapshot_id'],'current_state':cand['heads']['current_state'],
+         'buy_condition_certified_metrics':buy_metrics,'rejected_live_recompute':rejected,'current_candidate':{'snapshot_id':cand['feature_layer']['snapshot_id'],'current_state':cand['heads']['current_state'],
          'buy_condition':cand['heads']['buy_condition'],'forward':cand['heads']['forward_scenario']},
          'apply_recommended':gate,'gate':'n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45',
          'no_future_leakage':True,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
