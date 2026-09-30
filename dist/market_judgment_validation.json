@@ -117,9 +117,17 @@
     "current_state": {
       "stage": 3,
       "label": "상승·보합",
-      "summary": "가격 상승 모멘텀은 유지되지만 거래·심리 확산이 아직 충분하지 않아 상승·보합으로 봅니다.",
+      "summary": "가격 상승 모멘텀은 유지되지만 시장 확산·재가속 확인은 약해 상승·보합 내 확인 전 구간으로 봅니다.",
       "was_rising": true,
       "next_gate": "시장 확산 45 이상 · 재가속 50 이상",
+      "confirmation": {
+        "status": "weak",
+        "rule": "breadth >= 45 AND reaccel >= 50",
+        "breadth_pass": false,
+        "reaccel_pass": false,
+        "divergence": true,
+        "validation": "current_state_revalidation"
+      },
       "evidence": {
         "m1_pct": 1.96,
         "m3_pct": 8.1,
@@ -262,5 +270,5 @@
   "apply_recommended": true,
   "gate": "n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45",
   "no_future_leakage": true,
-  "generated_at": "2026-09-30T23:56:43.937030+00:00"
+  "generated_at": "2026-09-30T23:58:28.108676+00:00"
 }
