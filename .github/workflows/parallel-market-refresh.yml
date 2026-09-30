@@ -189,9 +189,9 @@ jobs:
           test -n "$BOK_ECOS_KEY"
           collect_source() {
             set +e
-            python3 scripts/collect_ecos_mortgage_rate.py & p1=$!
-            python3 scripts/collect_ecos_base_rate.py & p2=$!
-            python3 scripts/collect_ecos_m2.py & p3=$!
+            timeout 35s python3 scripts/collect_ecos_mortgage_rate.py & p1=$!
+            timeout 35s python3 scripts/collect_ecos_base_rate.py & p2=$!
+            timeout 35s python3 scripts/collect_ecos_m2.py & p3=$!
             wait "$p1"; s1=$?
             wait "$p2"; s2=$?
             wait "$p3"; s3=$?
