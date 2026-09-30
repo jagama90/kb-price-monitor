@@ -53,7 +53,7 @@ for rid in ('storyHeadline','storySummary','nextSignals','hubDriversMeta','hubVa
     if ids.count(rid)!=1: errors.append(f'visual remodel id {rid}: expected 1, got {ids.count(rid)}')
 for rid in ('forecastHeadline','forecastTrend'):
     if ids.count(rid)!=0: errors.append(f'redundant forecast summary returned: {rid}')
-if len(re.findall(r'class="[^"]*\\bscore-component\\b[^"]*"',html))!=5: errors.append('reason drawer must contain five factor rows')
+if len(re.findall(r'class="[^"]*\bscore-component\b[^"]*"',html))!=5: errors.append('reason drawer must contain five factor rows')
 if 'forecast-route-v181' not in html or 'forecast-route-node-v181' not in js: errors.append('research-to-forecast route renderer missing')
 if 'impactFinance' not in html or 'impactSentiment' not in html or 'impactDemand' not in html or 'impactValue' not in html or 'impactSupply' not in html:
     errors.append('meaning-first factor impacts missing')
