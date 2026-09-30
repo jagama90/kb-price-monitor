@@ -66,10 +66,12 @@
       <div class="buy-condition-line-v181">
         <span>현재 매수환경</span>
         <b id="conditionScore">산출 준비</b>
+        <i id="conditionDelta" class="condition-delta-v200" hidden></i>
         <em id="conditionTier" class="score-tier-v140">범주 판독 중</em>
       </div>
       <div class="condition-meter"><i id="heroMeterFill"></i></div>
       <p id="heroVerdict" class="condition-verdict">금융·심리·거래·가격·전세 신호를 함께 확인합니다.</p>
+      <p id="conditionChangeReason" class="condition-change-reason-v200" hidden></p>
       <div class="condition-coverage-v140 condition-health-v181" hidden><span>데이터 연결</span><b id="confidenceScore" class="coverage-badge-v140">확인 중</b></div>
     </div>
 
@@ -79,6 +81,11 @@
         <div>
           <b>5대 입력 최신 확인</b>
           <small id="manualRefreshStatus">인증 없이 갱신 요청을 접수합니다. 보통 수 초 내 Actions가 시작됩니다.</small>
+          <span id="manualRefreshTimeline" class="manual-refresh-timeline-v200">최근 갱신 시각 확인 중</span>
+          <div class="manual-refresh-progress-v200" id="manualRefreshProgress" hidden>
+            <i><u id="manualRefreshProgressFill"></u></i>
+            <b id="manualRefreshProgressText">0%</b>
+          </div>
         </div>
         <button type="button" id="manualRefreshButton">↻ 새로고침</button>
       </div>
