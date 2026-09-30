@@ -309,6 +309,10 @@ def legacy_forecast_payload(judgment,root):
         prev=rows[max(0,i-2):i];pp=max([n(z.get('momentum_3m_pct')) for z in prev] or [0])
         if r.get('fwd_6m_pct') is not None and pp>=5 and 0<=n(r.get('momentum_3m_pct'))<=2 and 0<=n(r.get('price_mom_pct'))<=.5 and not r.get('momentum_zone'):
             analog.append({k:r.get(k) for k in ('ym','price_mom_pct','momentum_3m_pct','fwd_3m_pct','fwd_6m_pct','fwd_12m_pct')})
+    long={}
+    try:long=json.loads((root/'dist/final_long_cycle_validation.json').read_text())
+    except:long={}
+    selected=(long.get('selected_on_pre2018') or {})
     return {'status':'research_only','weights_are_not_calibrated_probabilities':True,
       'method':'unified market judgment engine; all live heads consume one common feature snapshot',
       'as_of':judgment.get('as_of'),'latest_research_month':feature.get('research_month'),'latest_research_provisional':feature.get('research_provisional'),
@@ -323,4 +327,5 @@ def legacy_forecast_payload(judgment,root):
                                    'trade_count_pct':feature['context']['trade_count_pct'],'m2_yoy_pct':feature['context']['m2_yoy_pct'],'mortgage_rate_pct':feature['context']['mortgage_rate_pct'],
                                    'snapshot_id':feature['snapshot_id']}},
       'price_momentum_overlay':feature['price_momentum']['overlay'],'historical_analogs':analog,'analog_warning':'small sample; analogs are diagnostic only',
+      'long_cycle_guardrail':{'selected_pre2018_only':selected,'sample_is_small':True},
       'unified_snapshot_id':feature['snapshot_id'],'generated_at':judgment.get('generated_at')}
