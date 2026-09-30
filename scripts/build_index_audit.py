@@ -8,7 +8,7 @@ def age_days(date):
  try:return (datetime.date.today()-datetime.date.fromisoformat(str(date)[:10])).days
  except:return None
 def main():
- d=json.loads(SRC.read_text()); m=d.get('m2_official') or d.get('m2') or {}; mp=d.get('matched_period'); bands=d.get('price_bands',{}).get('months',[])
+ d=json.loads(SRC.read_text()); m=d.get('m2_official') or d.get('m2') or {}; mp=d.get('signal_matched_period') or d.get('matched_period'); bands=d.get('price_bands',{}).get('months',[])
  vals={'finance':None,'sentiment':None,'demand':None,'value':None,'supply':None}
  v=d.get('kb_value') or {}
  if v.get('score_0_100') is not None: vals['value']=clamp(float(v['score_0_100']))
