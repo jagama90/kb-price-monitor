@@ -3160,3 +3160,14 @@ header{position:sticky!important;overflow:visible!important}
     padding:14px 15px;
   }
 }
+
+/* v185 exception-first header */
+.header-refresh-v154>.refresh-calendar-summary #updated{
+  display:none!important;
+}
+.header-refresh-v154>.refresh-calendar-summary{
+  min-width:0!important;
+}
+.header-refresh-v154>.refresh-calendar-summary #refreshSummaryStatus{
+  margin-left:0!important;
+}
