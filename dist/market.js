@@ -104,7 +104,7 @@ function renderKbOfficial(d){
  setText('validationJeonseSupplyPeriod',jsup?.date?('전주 '+(chg==null?'변화 대기':signed(chg,''))+' · 100=균형 · '+(Number(jsup.value)>100?'수요우위':'공급우위')):'KB 공식');
 }
 function renderConditionIndex(d,jg=window.__marketJudgment){
- const bands=d.price_bands?.months||[],latest=bands[bands.length-1],prev=bands[bands.length-2],m=d.m2_official||d.m2,matched=d.matched_period;
+ const bands=d.price_bands?.months||[],latest=bands[bands.length-1],prev=bands[bands.length-2],m=d.m2_official||d.m2,matched=d.signal_matched_period||d.matched_period;
  const buy=jg?.heads?.buy_condition||null,shared=jg?.feature_layer||{},sharedComponents=buy?.components||shared.components||null;
  const components=sharedComponents?Object.fromEntries(Object.entries(sharedComponents).map(([k,v])=>[k,v==null?null:Number(v)])):{finance:null,sentiment:null,demand:null,value:null,supply:null};
  if(!sharedComponents){
@@ -132,6 +132,9 @@ function renderConditionIndex(d,jg=window.__marketJudgment){
  const cov=document.getElementById('confidenceScore');if(cov){cov.textContent=covered+'%';cov.className='coverage-badge-v140 '+(covered>=95?'full':covered>=80?'partial':'low');const health=cov.closest('.condition-health-v181');if(health)health.hidden=covered>=95}
  if(covered<60){setText('conditionScore','산출 보류');setText('conditionTier','연결 부족');setText('heroMeterValue','—');const meter=document.getElementById('heroMeterFill');if(meter)meter.style.width='0%'}
  else {const rawScore=buy?.score_0_100!=null?Number(buy.score_0_100):available.reduce((a,k)=>a+components[k]*weights[k],0)/covered,score=Math.round(rawScore),band=scoreBand(score);setText('conditionScore',score+'/100');setText('conditionTier',buy?.tier||band.label);const tier=document.getElementById('conditionTier');if(tier)tier.className='score-tier-v140 '+band.cls;setText('heroMeterValue',score+'/100');const meter=document.getElementById('heroMeterFill');if(meter)meter.style.width=score+'%'}
+ const comparison=buy?.comparison||null,deltaEl=document.getElementById('conditionDelta'),reasonEl=document.getElementById('conditionChangeReason');
+ if(deltaEl){const dv=Number(comparison?.score_change);if(comparison&&Number.isFinite(dv)&&Math.abs(dv)>=.05){const rounded=Math.abs(dv)<1?dv.toFixed(1):String(Math.round(dv));deltaEl.textContent=(dv>0?'+':'')+rounded;deltaEl.className='condition-delta-v200 '+(dv>0?'up':dv<0?'down':'flat');deltaEl.hidden=false}else deltaEl.hidden=true}
+ if(reasonEl){if(comparison&&Array.isArray(comparison.dominant_reasons)&&comparison.dominant_reasons.length){const parts=comparison.dominant_reasons.filter(x=>Math.abs(Number(x.weighted_score_delta||0))>=.05).slice(0,2).map(x=>{const d=Number(x.weighted_score_delta),pv=Number(x.previous),cv=Number(x.current);return factorNames[x.factor]+' '+Math.round(pv)+'→'+Math.round(cv)+' ('+(d>0?'+':'')+d.toFixed(1)+'점)'});const status=comparison.trade_signal_status==='carried_forward_last_usable'?' · 월초 신고 미성숙 구간은 마지막 유효 거래신호 사용':'';reasonEl.innerHTML='<b>직전 '+Number(comparison.previous_score_0_100).toFixed(1)+' → 현재 '+Number(comparison.current_score_0_100).toFixed(1)+'</b>'+(parts.length?' · '+esc(parts.join(' / ')):'')+status;reasonEl.hidden=false}else reasonEl.hidden=true}
  const finance=components.finance,sent=components.sentiment,demand=components.demand,value=components.value;
  const trade=matched?.changes?.trade_count_pct,under=matched?.changes?.under15_share_pp,mom=m?.mom_pct;
  const state=(v)=>{const b=scoreBand(v);return[b.label,b.cls==='good'||b.cls==='strong'?'good':b.cls==='bad'||b.cls==='verybad'?'bad':'neutral']};
