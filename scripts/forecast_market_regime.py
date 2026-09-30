@@ -28,6 +28,28 @@ def attach_buy_comparison(judgment,previous_judgment):
         buy['comparison']=old['comparison']
         return
     current=float(buy['score_0_100']);previous=float(old['score_0_100'])
+    ctx=judgment.get('feature_layer',{}).get('context') or {}
+    oldctx=previous_judgment.get('feature_layer',{}).get('context') or {}
+    rollover_correction=bool(
+        ctx.get('trade_signal_status')=='carried_forward_last_usable' and
+        ctx.get('trade_signal_as_of')!=ctx.get('raw_matched_as_of') and
+        float(oldctx.get('trade_count_pct') or 0)<=-99
+    )
+    if rollover_correction:
+        buy['comparison']={
+            'previous_score_0_100':round(current,1),
+            'current_score_0_100':round(current,1),
+            'score_change':0.0,
+            'previous_as_of':previous_judgment.get('as_of'),
+            'current_as_of':judgment.get('as_of'),
+            'component_changes':{},
+            'dominant_reasons':[],
+            'trade_signal_status':ctx.get('trade_signal_status'),
+            'trade_signal_as_of':ctx.get('trade_signal_as_of'),
+            'correction_note':'month_rollover_reporting_gap_excluded',
+            'superseded_display_score':round(previous,1),
+        }
+        return
     oldc=old.get('components') or {};newc=buy.get('components') or {}
     changes={}
     for k,w in WEIGHTS.items():
@@ -45,7 +67,6 @@ def attach_buy_comparison(judgment,previous_judgment):
         key=lambda x:abs(x['weighted_score_delta']),
         reverse=True
     )
-    ctx=judgment.get('feature_layer',{}).get('context') or {}
     buy['comparison']={
         'previous_score_0_100':round(previous,1),
         'current_score_0_100':round(current,1),
