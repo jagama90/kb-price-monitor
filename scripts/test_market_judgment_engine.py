@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unit and integration invariants for the unified Seoul market judgment engine."""
+"""Unit and integration invariants for the unified market judgment engine."""
 import pathlib
 import unittest
 
@@ -50,6 +50,16 @@ class UnifiedEngineTests(unittest.TestCase):
             'signal_matched_period':{'changes':{'trade_count_pct':-46.4,'under15_share_pp':2.8}},
         }
         self.assertAlmostEqual(component_scores(market)['demand'],38.0,places=1)
+
+    def test_unavailable_trade_signal_is_not_hidden_as_neutral(self):
+        market={
+            'm2_official':{'mom_pct':0.3,'yoy_pct':5.8},
+            'kb_sentiment':{'score_0_100':22.6,'jeonse_score_0_100':49.3},
+            'kb_value':{'score_0_100':30.4},
+            'matched_period':{'changes':{'trade_count_pct':-100.0,'under15_share_pp':None}},
+            'signal_matched_period':None,
+        }
+        self.assertIsNone(component_scores(market)['demand'])
 
     def test_forward_weights_sum_to_100(self):
         h=forward_scenario_head(feature())

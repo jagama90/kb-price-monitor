@@ -5,6 +5,7 @@ from zoneinfo import ZoneInfo
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/molit.json'; VINTAGE=ROOT/'data_sources/molit_daily_history.json'; SHARED=ROOT/'data_sources/.molit_watchlist_pair_cache.json'
 SEOUL=['11110','11140','11170','11200','11215','11230','11260','11290','11305','11320','11350','11380','11410','11440','11470','11500','11530','11545','11560','11590','11620','11650','11680','11710','11740']
+REPORTING_WINDOW_DAYS=30
 def request_page(code,ym,key,page,timeout):
  q=urllib.parse.urlencode({'serviceKey':key,'LAWD_CD':code,'DEAL_YMD':ym,'numOfRows':1000,'pageNo':page},safe='%')
  url='https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev?'+q
@@ -136,6 +137,61 @@ def summarize(rows):
  return {'total':n,'counts':keys,'buckets3':buckets3,'boundary_counts':boundary,'under15_share':round(buckets3['<=15eok']*100/n,1) if n else None}
 def shift_month(d,delta):
  y=d.year+(d.month-1+delta)//12;m=(d.month-1+delta)%12+1;return y,m
+
+def period_end(period):
+ y,m=(int(x) for x in str(period).split('-',1))
+ return datetime.date(y,m,calendar.monthrange(y,m)[1])
+
+def mature_trade_signal(bands,as_of,reporting_window_days=REPORTING_WINDOW_DAYS):
+ """Return the latest full-month comparison whose statutory reporting window has elapsed.
+
+ Raw current-month matched data stays available for diagnostics, but the engine
+ signal never interprets not-yet-reportable contracts as missing demand.
+ """
+ mature=[]
+ for row in bands or []:
+  try:
+   end=period_end(row.get('period'))
+  except Exception:
+   continue
+  ready=end+datetime.timedelta(days=int(reporting_window_days))
+  if ready<=as_of and row.get('total') is not None and row.get('under15_share') is not None:
+   mature.append((end,row,ready))
+ mature.sort(key=lambda x:x[0])
+ meta={
+  'level':'low',
+  'provisional':True,
+  'basis':'statutory_reporting_window',
+  'reporting_window_days':int(reporting_window_days),
+  'as_of':as_of.isoformat(),
+ }
+ if len(mature)<2:
+  meta['reason']='fewer_than_two_mature_completed_months'
+  return None,'unavailable_until_reporting_window_elapses',meta
+ _,cur,cur_ready=mature[-1];_,prev,_=mature[-2]
+ pct=lambda a,b:round((a/b-1)*100,1) if b else None
+ signal={
+  'as_of':as_of.isoformat(),
+  'basis':'completed_month_after_statutory_reporting_window',
+  'reporting_window_days':int(reporting_window_days),
+  'current':{**cur,'range':'full month','reporting_window_elapsed_on':cur_ready.isoformat()},
+  'previous':{**prev,'range':'full month'},
+  'changes':{
+   'trade_count_pct':pct(cur.get('total'),prev.get('total')),
+   'under15_share_pp':round(float(cur['under15_share'])-float(prev['under15_share']),1),
+  },
+  'warning':'당월·직전월 조기신고는 진단용이며 엔진 거래 신호는 신고기한이 경과한 최근 완성 월을 사용',
+ }
+ meta.update({
+  'level':'high',
+  'provisional':False,
+  'reason':'latest_full_month_reporting_window_elapsed',
+  'signal_period':cur.get('period'),
+  'previous_period':prev.get('period'),
+  'reporting_window_elapsed_on':cur_ready.isoformat(),
+ })
+ return signal,'mature_completed_month',meta
+
 def main():
  key=os.getenv('MOLIT_SERVICE_KEY')
  if not key:raise SystemExit('MOLIT_SERVICE_KEY secret is required')
@@ -236,18 +292,7 @@ def main():
   ps=summarize([r for r in monthly.get(prev,[]) if 1<=r[0]<=cutoff])
  pct=lambda a,b:round((a/b-1)*100,1) if b else None
  matched={'as_of':now.isoformat(),'cutoff_day':cutoff,'basis':'contract_date_equal_calendar_days','current':{'period':f'{cy:04d}-{cm:02d}','range':f'1~{cutoff}일',**cs},'previous':{'period':f'{py:04d}-{pm:02d}','range':f'1~{cutoff}일',**ps},'changes':{'trade_count_pct':pct(cs['total'],ps['total']),'under15_share_pp':round(cs['under15_share']-ps['under15_share'],1) if cs['under15_share'] is not None and ps['under15_share'] is not None else None},'warning':'당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용'}
- def usable_signal(x):
-  cur=(x or {}).get('current') or {};chg=(x or {}).get('changes') or {}
-  return bool((cur.get('total') or 0)>=50 and cur.get('under15_share') is not None and chg.get('trade_count_pct') is not None and chg.get('under15_share_pp') is not None)
- signal_matched=matched if usable_signal(matched) else None
- signal_status='current'
- if signal_matched is None:
-  for snap in reversed(history.get('snapshots') or []):
-   candidate=(snap or {}).get('matched_period') or {}
-   if usable_signal(candidate):
-    signal_matched=candidate;signal_status='carried_forward_last_usable';break
- if signal_matched is None:
-  signal_matched=matched;signal_status='current_unready'
+ signal_matched,signal_status,trade_confidence=mature_trade_signal(bands,now)
  cache_months=months[:3]
  out={'source':'MOLIT apartment trade OpenAPI',
       'collected_at':datetime.datetime.now(ZoneInfo('Asia/Seoul')).isoformat(),
@@ -265,7 +310,9 @@ def main():
       'price_bands':{'status':'partial_last_good' if fetch_meta['fallbacks'] else 'connected','months':bands},
       'matched_period':matched,
       'signal_matched_period':signal_matched,
-      'signal_matched_period_status':signal_status}
+      'signal_matched_period_status':signal_status,
+      'trade_signal_confidence':trade_confidence,
+      'scope':{'data_scope':'Seoul','market_scope':'city','region_code':'1100000000','district_codes':SEOUL}}
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2))
  history['snapshots']=[x for x in history.get('snapshots',[]) if x.get('as_of')!=now.isoformat()];history['snapshots'].append({'as_of':now.isoformat(),'matched_period':matched,'current_month':bands[-1]});history['snapshots']=history['snapshots'][-400:];VINTAGE.write_text(json.dumps(history,ensure_ascii=False,indent=2))
  print(json.dumps({'collector':'MOLIT','months':len(months),'mode':out['refresh_meta']['mode'],'refreshed_months':sorted(refresh),'queried_pairs':len(pairs_to_fetch),'reused_watchlist_pairs':len(shared_cache),'workers':workers,'retried_pairs':len(fetch_meta['retried']),'cache_fallbacks':len(fetch_meta['fallbacks']),'latest_total':bands[-1]['total'],'matched':matched['changes']},ensure_ascii=False))

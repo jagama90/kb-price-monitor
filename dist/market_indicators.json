@@ -373,7 +373,7 @@
       "under15_share": 79.4
     },
     "changes": {
-      "trade_count_pct": -100.0,
+      "trade_count_pct": -100,
       "under15_share_pp": null
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
@@ -546,7 +546,7 @@
     "frequency": "daily",
     "latest": {
       "date": "20260928",
-      "rate_pct": 3.0,
+      "rate_pct": 3,
       "item": "한국은행 기준금리"
     },
     "latest_observation_date": "20260928",
@@ -598,7 +598,7 @@
       },
       {
         "date": "20211125",
-        "rate_pct": 1.0,
+        "rate_pct": 1,
         "item": "한국은행 기준금리"
       },
       {
@@ -628,7 +628,7 @@
       },
       {
         "date": "20221012",
-        "rate_pct": 3.0,
+        "rate_pct": 3,
         "item": "한국은행 기준금리"
       },
       {
@@ -648,7 +648,7 @@
       },
       {
         "date": "20241128",
-        "rate_pct": 3.0,
+        "rate_pct": 3,
         "item": "한국은행 기준금리"
       },
       {
@@ -668,7 +668,7 @@
       },
       {
         "date": "20260827",
-        "rate_pct": 3.0,
+        "rate_pct": 3,
         "item": "한국은행 기준금리"
       }
     ],
@@ -707,60 +707,69 @@
     "note": "국토교통부 2026년 7월 주택통계 공표값"
   },
   "signal_matched_period": {
-    "as_of": "2026-09-30",
-    "cutoff_day": 30,
-    "basis": "contract_date_equal_calendar_days",
+    "as_of": "2026-10-01",
+    "basis": "completed_month_after_statutory_reporting_window",
+    "reporting_window_days": 30,
     "current": {
-      "period": "2026-09",
-      "range": "1~30일",
-      "total": 1873,
+      "period": "2026-08",
+      "total": 3546,
       "counts": {
-        "<=9eok": 1159,
-        "9-15eok": 386,
-        "15-25eok": 230,
-        "25eok+": 98
+        "<=9eok": 1865,
+        "9-15eok": 959,
+        "15-25eok": 534,
+        "25eok+": 188
       },
-      "buckets3": {
-        "<=15eok": 1545,
-        "15-25eok": 230,
-        "25eok+": 98
-      },
+      "buckets3": null,
       "boundary_counts": {
-        "13-15eok": 77,
-        "15-17eok": 74,
-        "23-25eok": 25,
-        "25-27eok": 13
+        "13-15eok": 243,
+        "15-17eok": 185,
+        "23-25eok": 56,
+        "25-27eok": 29
       },
-      "under15_share": 82.5
+      "under15_share": 79.6,
+      "range": "full month",
+      "reporting_window_elapsed_on": "2026-09-30"
     },
     "previous": {
-      "period": "2026-08",
-      "range": "1~30일",
-      "total": 3495,
+      "period": "2026-07",
+      "total": 5993,
       "counts": {
-        "<=9eok": 1830,
-        "9-15eok": 954,
-        "15-25eok": 516,
-        "25eok+": 195
+        "<=9eok": 2977,
+        "9-15eok": 1781,
+        "15-25eok": 880,
+        "25eok+": 355
       },
-      "buckets3": {
-        "<=15eok": 2784,
-        "15-25eok": 516,
-        "25eok+": 195
-      },
+      "buckets3": null,
       "boundary_counts": {
-        "13-15eok": 242,
-        "15-17eok": 185,
-        "23-25eok": 54,
-        "25-27eok": 28
+        "13-15eok": 493,
+        "15-17eok": 308,
+        "23-25eok": 79,
+        "25-27eok": 47
       },
-      "under15_share": 79.7
+      "under15_share": 79.4,
+      "range": "full month"
     },
     "changes": {
-      "trade_count_pct": -46.4,
-      "under15_share_pp": 2.8
+      "trade_count_pct": -40.8,
+      "under15_share_pp": 0.2
     },
-    "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+    "warning": "당월·직전월 조기신고는 진단용이며 엔진 거래 신호는 신고기한이 경과한 최근 완성 월을 사용"
   },
-  "signal_matched_period_status": "carried_forward_last_usable"
+  "signal_matched_period_status": "mature_completed_month",
+  "trade_signal_confidence": {
+    "level": "high",
+    "provisional": false,
+    "basis": "statutory_reporting_window",
+    "reporting_window_days": 30,
+    "as_of": "2026-10-01",
+    "reason": "latest_full_month_reporting_window_elapsed",
+    "signal_period": "2026-08",
+    "previous_period": "2026-07",
+    "reporting_window_elapsed_on": "2026-09-30"
+  },
+  "scope": {
+    "data_scope": "Seoul",
+    "market_scope": "city",
+    "region_code": "1100000000"
+  }
 }

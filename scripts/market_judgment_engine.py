@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unified Seoul market judgment engine.
+"""Unified market judgment engine.
 
 One common live feature snapshot feeds three heads:
   1) Current State: where the market is now
@@ -87,8 +87,8 @@ def component_scores(market):
     sent=n(s.get('score_0_100'),50);supply=n(s.get('jeonse_score_0_100'),50)
     value=n((market.get('kb_value') or {}).get('score_0_100'),50)
     finance=clamp(50+n(mm.get('mom_pct'))*8+n(mm.get('yoy_pct'))*1.5)
-    trade=n(mp.get('trade_count_pct'));under=n(mp.get('under15_share_pp'))
-    demand=clamp(50+trade*.35+under*1.5) if mp.get('trade_count_pct') is not None and mp.get('under15_share_pp') is not None else 50
+    trade=mp.get('trade_count_pct');under=mp.get('under15_share_pp')
+    demand=clamp(50+n(trade)*.35+n(under)*1.5) if trade is not None and under is not None else None
     return {'finance':finance,'sentiment':sent,'demand':demand,'value':value,'supply':supply}
 
 def price_overlay(market,research_last,kbval):
@@ -189,17 +189,18 @@ def build_feature_layer(market,research,final,kbval):
     recent=rows[-6:]
     peak_m3=max([n(r.get('momentum_3m_pct')) for r in recent] or [0])
     liquidity=clamp(50+n(mm.get('yoy_pct'))*5)
-    trade=n(mp.get('trade_count_pct'));under=n(mp.get('under15_share_pp'))
-    trade_pressure=clamp(max(0,-trade)*1.5)
+    trade_raw=mp.get('trade_count_pct');under_raw=mp.get('under15_share_pp')
+    trade=n(trade_raw) if trade_raw is not None else None;under=n(under_raw) if under_raw is not None else None
+    trade_pressure=clamp(max(0,-trade)*1.5) if trade is not None else None
     rate_pressure=clamp((mortgage-3.0)*28)
     cooling=clamp((peak_m3-max(m3,0))*6+max(0,50-signals['breadth'])*.8+max(0,50-signals['reaccel'])*.6)
     hist_final=[r for r in (final.get('rows') or []) if r.get('components') and all((r.get('components') or {}).get(k) is not None for k in WEIGHTS)]
     prev_components=(hist_final[-1].get('components') or {}) if hist_final else {}
-    component_deltas={k:round(n(components.get(k))-n(prev_components.get(k)),1) for k in WEIGHTS}
+    component_deltas={k:(round(n(components.get(k))-n(prev_components.get(k)),1) if components.get(k) is not None and prev_components.get(k) is not None else None) for k in WEIGHTS}
     return {
       'snapshot_id':str(market.get('updated_at'))+'|KB'+str(overlay.get('kb_as_of') or '')+'|R'+str(x.get('ym') or ''),
       'as_of':market.get('updated_at'),'research_month':x.get('ym'),'research_provisional':bool(x.get('source_provisional',False)),
-      'components':{k:round(n(v),1) for k,v in components.items()},
+      'components':{k:(round(n(v),1) if v is not None else None) for k,v in components.items()},
       'component_deltas_vs_research_month':component_deltas,
       'buy_weights':WEIGHTS,
       'price_momentum':{'m1_pct':round(m1,2),'m3_pct':round(m3,2),'overlay':overlay},
@@ -207,12 +208,13 @@ def build_feature_layer(market,research,final,kbval):
       'signal_policy':{'mode':'certified_research_carry_forward','research_month':x.get('ym'),
                        'reason':'live recomputation is diagnostic only until it passes forecast discrimination validation',
                        'live_recomputed_candidate':live_signals},
-      'context':{'trade_count_pct':round(trade,1),'under15_share_pp':round(under,1),'m2_mom_pct':mm.get('mom_pct'),
+      'context':{'trade_count_pct':(round(trade,1) if trade is not None else None),'under15_share_pp':(round(under,1) if under is not None else None),'m2_mom_pct':mm.get('mom_pct'),
                  'm2_yoy_pct':mm.get('yoy_pct'),'mortgage_rate_pct':mortgage,'liquidity_support_0_100':round(liquidity,1),
-                 'trade_pressure_0_100':round(trade_pressure,1),'rate_pressure_0_100':round(rate_pressure,1),
+                 'trade_pressure_0_100':(round(trade_pressure,1) if trade_pressure is not None else None),'rate_pressure_0_100':round(rate_pressure,1),
                  'recent_peak_3m_momentum_pct':round(peak_m3,2),'cooling_score_0_100':round(cooling,1),
                  'trade_signal_status':market.get('signal_matched_period_status','current'),
                  'trade_signal_as_of':signal_mp.get('as_of'),
+                 'trade_signal_confidence':market.get('trade_signal_confidence') or {},
                  'raw_matched_as_of':(market.get('matched_period') or {}).get('as_of')},
       'lineage':{'market':'dist/market_indicators.json','research':'dist/turning_signal_research.json',
                  'certified_backtest':'dist/final_backtest.json','price_scale_validation':'dist/forecast_kb_momentum_validation.json'}

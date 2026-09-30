@@ -10,7 +10,7 @@ def main():
  d=json.loads(OUT.read_text()) if OUT.exists() else {}
  m=read('molit.json')
  if m:
-  for k in ('seoul_apt_trade_count','price_bands','matched_period','signal_matched_period','signal_matched_period_status'):
+  for k in ('seoul_apt_trade_count','price_bands','matched_period','signal_matched_period','signal_matched_period_status','trade_signal_confidence','scope'):
    if k in m:d[k]=m[k]
   d.setdefault('data_status',{})['molit']='connected'
  r=read('ecos_mortgage_rate.json')
