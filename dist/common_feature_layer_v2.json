@@ -145,19 +145,19 @@
       }
     },
     "finance_v2_candidate": {
-      "status": "blocked_core_input_missing",
+      "status": "validated_candidate",
       "production_applied": false,
-      "score_0_100": null,
+      "score_0_100": 34.0,
       "liquidity_credit_availability": {
-        "score_0_100": null,
-        "source": "한국은행 ECOS 주택담보대출 잔액",
-        "period": null,
-        "balance": null,
-        "mom_change": null,
-        "yoy_pct": null
+        "score_0_100": 42.6,
+        "source": "한국은행 ECOS 주택관련대출 잔액",
+        "period": "202607",
+        "balance": 781727.6,
+        "mom_change": 3542.0,
+        "yoy_pct": 2.8664
       },
       "funding_cost": {
-        "score_0_100": 32.1,
+        "score_0_100": 25.5,
         "mortgage_rate_pct": 4.66,
         "period": "202608",
         "base_rate_pct": 3.0,
@@ -167,16 +167,37 @@
         "m2_period": "202607",
         "m2_yoy_pct": 5.8
       },
-      "method": "equal concept split: Credit Availability 50% + Funding Cost 50%; M2 retained as context, not a dominating input; research-only until integrated validation",
+      "method": "Credit Availability 50% + Funding Cost 50%. Credit Availability uses housing-related loan balance increment and YoY growth; Funding Cost uses mortgage-rate level and 3m speed. M2 is context only.",
       "validation": {
-        "baseline": {},
-        "candidate": {},
-        "improvements": [],
-        "apply_recommended": false,
-        "reasons": [
-          "official housing-credit series not connected",
-          "fewer than 30 paired forward-3m observations"
+        "baseline": {
+          "n": 48,
+          "corr_fwd_1m": -0.49001108668678495,
+          "corr_fwd_3m": -0.465786404895992,
+          "corr_fwd_6m": -0.3556663077586926,
+          "corr_fwd_12m": -0.4096829848129911,
+          "downside_auc": 0.05128205128205128,
+          "reacceleration_auc": 0.2817204301075269,
+          "n_fwd3": 46
+        },
+        "candidate": {
+          "n": 48,
+          "corr_fwd_1m": 0.304820513874567,
+          "corr_fwd_3m": 0.387976538457004,
+          "corr_fwd_6m": 0.5217511711907974,
+          "corr_fwd_12m": 0.7325694296639171,
+          "downside_auc": 0.8827838827838828,
+          "reacceleration_auc": 0.821505376344086,
+          "n_fwd3": 46
+        },
+        "improvements": [
+          "downside_auc",
+          "reacceleration_auc",
+          "corr_fwd_3m",
+          "corr_fwd_6m",
+          "corr_fwd_12m"
         ],
+        "apply_recommended": true,
+        "reasons": [],
         "alignment": {
           "mortgage_rate": "score month t uses latest monthly rate <= t-1",
           "housing_credit": "score month t uses latest balance growth <= t-2"
@@ -189,11 +210,13 @@
       "validation": {
         "n": 46,
         "valuation_only_downside_auc": 0.5494505494505495,
-        "rate_only_downside_auc": 0.8974358974358975,
-        "interaction_downside_auc": 0.6813186813186813,
-        "interaction_corr_negative_fwd3": -0.08088009426457952,
+        "rate_level_downside_auc": 0.8974358974358975,
+        "rate_level_speed_downside_auc": 0.7216117216117216,
+        "interaction_level_downside_auc": 0.6813186813186813,
+        "interaction_level_speed_downside_auc": 0.6446886446886447,
+        "interaction_level_speed_corr_negative_fwd3": -0.014439637760061222,
         "apply_recommended": false,
-        "gate": "n>=30 and interaction downside AUC >= best single parent + 0.01"
+        "gate": "n>=30 and valuation×(rate level + 3m speed) downside AUC >= best single parent + 0.01"
       },
       "current_inputs": {
         "value_score_0_100": 30.4,
@@ -354,7 +377,7 @@
         "production_applied": true
       },
       "finance_v2_candidate": {
-        "status": "blocked_core_input_missing",
+        "status": "validated_candidate",
         "production_applied": false
       },
       "valuation_rate_stress_candidate": {
@@ -392,5 +415,5 @@
     "leading_segment": "data_sources/kb_leading50_median.json",
     "policy": "data_sources/housing_policy_events.json"
   },
-  "generated_at": "2026-09-30T19:14:06.418218+00:00"
+  "generated_at": "2026-09-30T19:16:56.555086+00:00"
 }
