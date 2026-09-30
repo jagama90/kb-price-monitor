@@ -420,6 +420,87 @@
         },
         "under15_share": 82.5
       }
+    },
+    {
+      "as_of": "2026-10-01",
+      "matched_period": {
+        "as_of": "2026-10-01",
+        "cutoff_day": 1,
+        "basis": "contract_date_equal_calendar_days",
+        "current": {
+          "period": "2026-10",
+          "range": "1~1일",
+          "total": 0,
+          "counts": {
+            "<=9eok": 0,
+            "9-15eok": 0,
+            "15-25eok": 0,
+            "25eok+": 0
+          },
+          "buckets3": {
+            "<=15eok": 0,
+            "15-25eok": 0,
+            "25eok+": 0
+          },
+          "boundary_counts": {
+            "13-15eok": 0,
+            "15-17eok": 0,
+            "23-25eok": 0,
+            "25-27eok": 0
+          },
+          "under15_share": null
+        },
+        "previous": {
+          "period": "2026-09",
+          "range": "1~1일",
+          "total": 97,
+          "counts": {
+            "<=9eok": 58,
+            "9-15eok": 19,
+            "15-25eok": 16,
+            "25eok+": 4
+          },
+          "buckets3": {
+            "<=15eok": 77,
+            "15-25eok": 16,
+            "25eok+": 4
+          },
+          "boundary_counts": {
+            "13-15eok": 3,
+            "15-17eok": 4,
+            "23-25eok": 2,
+            "25-27eok": 2
+          },
+          "under15_share": 79.4
+        },
+        "changes": {
+          "trade_count_pct": -100.0,
+          "under15_share_pp": null
+        },
+        "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+      },
+      "current_month": {
+        "period": "2026-10",
+        "total": 0,
+        "counts": {
+          "<=9eok": 0,
+          "9-15eok": 0,
+          "15-25eok": 0,
+          "25eok+": 0
+        },
+        "buckets3": {
+          "<=15eok": 0,
+          "15-25eok": 0,
+          "25eok+": 0
+        },
+        "boundary_counts": {
+          "13-15eok": 0,
+          "15-17eok": 0,
+          "23-25eok": 0,
+          "25-27eok": 0
+        },
+        "under15_share": null
+      }
     }
   ]
 }
