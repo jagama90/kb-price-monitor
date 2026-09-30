@@ -126,12 +126,12 @@ function renderConditionIndex(d,jg=window.__marketJudgment){
   if(card)card.style.setProperty('--score',components[k]==null?0:Math.round(components[k]));
  });
  const historyKey='marketConditionPreviousComponents', previous=(()=>{try{return JSON.parse(localStorage.getItem(historyKey)||'{}')}catch(e){return {}}})(); window.__previousConditionComponents=previous;
- Object.entries(labels).forEach(([k,id])=>{const card=document.querySelector('[data-score="'+k+'"]'),old=previous[k],now=components[k];card?.querySelector('.score-change-badge')?.remove();if(old!=null&&now!=null&&Math.round(Number(old))!==Math.round(Number(now))){const delta=Math.round(Number(now))-Math.round(Number(old)),badge=document.createElement('span');badge.className='score-change-badge '+(delta>0?'score-up':'score-down');badge.textContent=(delta>0?'↑ +':'↓ ')+delta;badge.title='이전 확인값 '+Math.round(Number(old))+' → 현재 '+Math.round(Number(now));card?.appendChild(badge)}});
+ Object.entries(labels).forEach(([k])=>document.querySelector('[data-score="'+k+'"]')?.querySelector('.score-change-badge')?.remove());
  try{localStorage.setItem(historyKey,JSON.stringify(components))}catch(e){}
  const available=Object.keys(components).filter(k=>components[k]!=null),covered=available.reduce((a,k)=>a+weights[k],0);
- const cov=document.getElementById('confidenceScore');if(cov){cov.textContent=covered+'%';cov.className='coverage-badge-v140 '+(covered>=95?'full':covered>=80?'partial':'low')}
+ const cov=document.getElementById('confidenceScore');if(cov){cov.textContent=covered+'%';cov.className='coverage-badge-v140 '+(covered>=95?'full':covered>=80?'partial':'low');const health=cov.closest('.condition-health-v181');if(health)health.hidden=covered>=95}
  if(covered<60){setText('conditionScore','산출 보류');setText('conditionTier','연결 부족');setText('heroMeterValue','—');const meter=document.getElementById('heroMeterFill');if(meter)meter.style.width='0%'}
- else {const rawScore=buy?.score_0_100!=null?Number(buy.score_0_100):available.reduce((a,k)=>a+components[k]*weights[k],0)/covered,score=Math.round(rawScore),band=scoreBand(score);setText('conditionScore',score+'/100');setText('conditionTier',(buy?.tier||band.label)+' · '+(buy?.range||band.range)+'점');const tier=document.getElementById('conditionTier');if(tier)tier.className='score-tier-v140 '+band.cls;setText('heroMeterValue',score+'/100');const meter=document.getElementById('heroMeterFill');if(meter)meter.style.width=score+'%'}
+ else {const rawScore=buy?.score_0_100!=null?Number(buy.score_0_100):available.reduce((a,k)=>a+components[k]*weights[k],0)/covered,score=Math.round(rawScore),band=scoreBand(score);setText('conditionScore',score+'/100');setText('conditionTier',buy?.tier||band.label);const tier=document.getElementById('conditionTier');if(tier)tier.className='score-tier-v140 '+band.cls;setText('heroMeterValue',score+'/100');const meter=document.getElementById('heroMeterFill');if(meter)meter.style.width=score+'%'}
  const finance=components.finance,sent=components.sentiment,demand=components.demand,value=components.value;
  const trade=matched?.changes?.trade_count_pct,under=matched?.changes?.under15_share_pp,mom=m?.mom_pct;
  const state=(v)=>{const b=scoreBand(v);return[b.label,b.cls==='good'||b.cls==='strong'?'good':b.cls==='bad'||b.cls==='verybad'?'bad':'neutral']};
@@ -140,6 +140,21 @@ function renderConditionIndex(d,jg=window.__marketJudgment){
  if(hubDrivers)hubDrivers.textContent='금융 '+(finance==null?'—':Math.round(finance))+' · 심리 '+(sent==null?'—':Math.round(sent));
  const stateLabel=s=>s[0];
  [['Finance',fs],['Sentiment',ss],['Demand',ds],['Value',vs],['Supply',sup]].forEach(([id,s])=>{setText('state'+id,stateLabel(s));const el=document.getElementById('state'+id);if(el)el.className='component-state '+s[1]});
+ const impactFor=(k,v)=>{
+  if(v==null||!Number.isFinite(Number(v)))return'입력 데이터 확인 필요';
+  v=Number(v);
+  if(k==='finance')return v>=55?'매수환경을 끌어올리고 하락 위험을 완화':v<45?'자금여건이 매수환경을 제약':'자금여건은 현재 방향성 중립';
+  if(k==='sentiment')return v>=55?'상승 확산과 재가속을 지지':v<45?'상승 확산을 막고 재가속 판단을 억제':'심리는 아직 뚜렷한 방향을 만들지 못함';
+  if(k==='demand')return v>=55?'실거래 회복이 상승 지속을 지지':v<45?'가속 전환을 막는 핵심 제약':'거래는 방향 확인이 더 필요한 수준';
+  if(k==='value')return v>=55?'가격 안전마진이 매수 판단을 지지':v<45?'가격 안전마진 부족으로 매수를 제약':'가격 부담은 중립권';
+  if(k==='supply')return v>=55?'전세 수요가 가격 하방을 지지':v<45?'전세 여건이 하방 방어를 약화':'전세 신호는 방향성 중립';
+  return'';
+ };
+ setText('impactFinance',impactFor('finance',components.finance));
+ setText('impactSentiment',impactFor('sentiment',components.sentiment));
+ setText('impactDemand',impactFor('demand',components.demand));
+ setText('impactValue',impactFor('value',components.value));
+ setText('impactSupply',impactFor('supply',components.supply));
  const connected=[finance,sent,demand,value,components.supply].filter(v=>v!=null);
  const weak=connected.filter(v=>v<45).length,strong=connected.filter(v=>v>=55).length;
  const lowFactors=Object.entries(components).filter(([,v])=>v!=null).sort((a,b)=>a[1]-b[1]).slice(0,2).map(([k])=>factorNames[k]).join('·');
@@ -361,14 +376,13 @@ async function renderRegimeForecast(){
  try{
   const d=await fetch('regime_forecast.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('forecast '+r.status);return r.json()});
   const hs=d.horizons||[],displays=hs.map(h=>h.display||fallbackDisplay(h.weights||{}));
-  host.innerHTML=hs.map((h,i)=>{
-   const v=displays[i],risk=Math.round(Number(v.downturn_weight||h.weights?.downturn||0)),reacc=Math.round(Number(v.reacceleration_weight||h.weights?.reacceleration||0));
-   return '<div class="forecast-stop forecast-risk-card-v153 risk-'+esc(v.tone||'mixed')+'"><div class="forecast-stop-head"><small>'+esc(h.label||h.period)+'</small></div><b>'+esc(v.headline||'방향 확인 중')+'</b><div class="forecast-risk-label-v153"><span>하락 가능성</span><strong>'+risk+'%</strong></div><div class="forecast-risk-track-v153"><i style="width:'+Math.max(0,Math.min(100,risk))+'%"></i></div><div class="forecast-risk-sub-v153"><span>재상승 신호 '+reacc+'%</span><em>'+esc(v.secondary||'')+'</em></div></div>';
-  }).join('');
-  if(meta)meta.textContent='현재 판단에 사용한 연구 데이터 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' · 잠정':'')+' · 검증 완료 '+fmtMonth(d.latest_certified_backtest_month)+'까지';
+  const currentPhase=d.state?.current_phase||window.__marketJudgment?.heads?.current_state?.label||'현재 국면';
+  const nodes=[{label:'현재',headline:currentPhase,tone:'current'},...hs.map((h,i)=>({label:h.label||h.period,headline:displays[i]?.headline||'방향 확인 중',tone:displays[i]?.tone||'mixed'}))];
+  host.innerHTML=nodes.map((n,i)=>'<div class="forecast-route-node-v181 tone-'+esc(n.tone)+'"><small>'+esc(n.label)+'</small><b>'+esc(n.headline)+'</b></div>'+(i<nodes.length-1?'<i class="forecast-route-arrow-v181">→</i>':'')).join('');
+  if(meta){meta.hidden=true;meta.textContent='현재 판단에 사용한 연구 데이터 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' · 잠정':'')+' · 검증 완료 '+fmtMonth(d.latest_certified_backtest_month)+'까지';}
   const hb=document.getElementById('hubBacktestMeta');if(hb)hb.textContent='인증 '+fmtMonth(d.latest_certified_backtest_month)+' · 연구 '+fmtMonth(d.latest_research_month);
  }catch(e){
-  console.warn('forecast render',e);host.innerHTML='<div class="forecast-stop"><small>전망엔진</small><b>데이터 확인 중</b></div>';if(meta)meta.textContent='전망 파일 배포 후 자동 표시됩니다.';
+  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
  }
 }
 renderRegimeForecast();
@@ -577,7 +591,7 @@ function decorateRefreshPanel({key,host,anchor,record,checkedAt,warning='',note=
  }
 }
 function decorateFactorRefresh(card,record,checkedAt){
- if(!card)return;
+ if(!card||card.closest('#judgmentEvidenceDrawer'))return;
  card.querySelectorAll('.factor-refresh-v135,.factor-change-v135').forEach(x=>x.remove());
  card.classList.toggle('has-fresh-change-v135',Boolean(record?.active));
  const head=card.querySelector('.factor-card-head-v134'),score=card.querySelector('.factor-score-v134');
@@ -711,6 +725,8 @@ initRefreshCalendar();
  };
  window.showScoreDetail=function(k){
    const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
+   const p0=document.getElementById('scoreExplanation'),active=document.querySelector('.score-component[data-score-key="'+k+'"].active');
+   if(p0&&!p0.hidden&&active){window.hideScoreDetail?.();return;}
    const weights={finance:25,sentiment:20,demand:20,value:20,supply:15};
    const title={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
    const m=d.m2_official||d.m2||{},x=d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},mort=d.mortgage_rate_official||{},score=Math.round(Number(c[k])),band=status(score);
