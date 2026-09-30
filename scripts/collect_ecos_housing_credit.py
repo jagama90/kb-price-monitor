@@ -29,9 +29,48 @@ def table_rows(key):
  j=api(key,'StatisticTableList',1,10000)
  return ((j.get('StatisticTableList') or {}).get('row') or [])
 
-def search_rows(key,code,start='200001',end='202612'):
- j=api(key,'StatisticSearch',1,10000,code,'M',start,end)
+def item_rows(key,code):
+ j=api(key,'StatisticItemList',1,10000,code)
+ return ((j.get('StatisticItemList') or {}).get('row') or [])
+
+def search_rows(key,code,start='200001',end='202612',items=None):
+ parts=[code,'M',start,end]+[str(x) for x in (items or [])]
+ j=api(key,'StatisticSearch',1,10000,*parts)
  return ((j.get('StatisticSearch') or {}).get('row') or [])
+
+def mortgage_queries(items):
+ """Build explicit item-code queries, preferring national/total values in other dimensions."""
+ groups={}
+ for x in items or []:
+  g=str(x.get('GRP_CODE') or '1');groups.setdefault(g,[]).append(x)
+ ordered=sorted(groups,key=lambda x:int(x) if x.isdigit() else 99)
+ mortgage=[]
+ for g in ordered:
+  for x in groups[g]:
+   name=str(x.get('ITEM_NAME') or '')
+   if '주택담보대출' in name and not any(z in name for z in ('금리','연체','비율')):
+    mortgage.append((g,x))
+ queries=[]
+ for mg,mx in mortgage:
+  choices=[]
+  valid=True
+  for g in ordered:
+   if g==mg:
+    choices.append([mx])
+    continue
+   xs=groups[g]
+   pref=[x for x in xs if str(x.get('ITEM_NAME') or '').strip() in ('전국','합계','총계','전체')]
+   if not pref:
+    pref=[x for x in xs if any(k in str(x.get('ITEM_NAME') or '') for k in ('전국','합계','총계','전체'))]
+   if not pref:
+    # Single-valued dimensions are safe; ambiguous dimensions are not guessed.
+    if len(xs)==1:pref=xs
+    else: valid=False;break
+   choices.append(pref[:1])
+  if valid:
+   codes=[str(x[0].get('ITEM_CODE') or '') for x in choices]
+   if all(codes):queries.append({'codes':codes,'mortgage_item':str(mx.get('ITEM_NAME') or ''),'groups':ordered})
+ return queries
 
 def select_series(rows,table_name):
  groups={}
@@ -88,16 +127,33 @@ def main():
    if cycle=='M' and ('가계대출' in name or '주택담보대출' in name):
     tables.append((str(t.get('STAT_CODE') or ''),name))
   all_candidates=[]
+  probes=[]
   for code,name in tables[:10]:
    try:
-    rows=search_rows(key,code)
-   except Exception:
-    continue
-   for c in select_series(rows,name):
-    all_candidates.append({**c,'stat_code':code,'stat_name':name})
+    items=item_rows(key,code)
+   except Exception as e:
+    probes.append({'stat_code':code,'stat_name':name,'item_error':repr(e)[:180]});continue
+   matches=[{'group':x.get('GRP_CODE'),'item_code':x.get('ITEM_CODE'),'item_name':x.get('ITEM_NAME'),'unit':x.get('UNIT_NAME')} for x in items if '주택담보대출' in str(x.get('ITEM_NAME') or '')]
+   queries=mortgage_queries(items)
+   probes.append({'stat_code':code,'stat_name':name,'mortgage_items':matches[:20],'query_candidates':queries[:10]})
+   if queries:
+    for q in queries[:10]:
+     try: rows=search_rows(key,code,items=q['codes'])
+     except Exception: continue
+     for c in select_series(rows,name):
+      all_candidates.append({**c,'stat_code':code,'stat_name':name,'query_item_codes':q['codes'],'mortgage_item':q['mortgage_item']})
+   else:
+    # Tables whose name itself is explicitly mortgage-specific can still be queried
+    # without item filters; generic household-loan tables are never guessed.
+    if '주택담보대출' in name:
+     try: rows=search_rows(key,code)
+     except Exception: rows=[]
+     for c in select_series(rows,name):
+      all_candidates.append({**c,'stat_code':code,'stat_name':name,'query_item_codes':[],'mortgage_item':'table-defined'})
+
   all_candidates.sort(key=lambda x:(x['score'],x['periods'][-1],len(x['periods'])),reverse=True)
   if not all_candidates:
-   payload.update({'reason':'No monthly ECOS housing-mortgage balance candidate with >=36 observations','tables_checked':len(tables),'table_candidates':[{'stat_code':c,'stat_name':n} for c,n in tables]})
+   payload.update({'reason':'No monthly ECOS housing-mortgage balance candidate with >=36 observations','tables_checked':len(tables),'table_candidates':[{'stat_code':c,'stat_name':n} for c,n in tables],'item_probes':probes})
   else:
    s=all_candidates[0];series=enrich(s)
    payload.update({
@@ -105,7 +161,8 @@ def main():
     'item_names':list(s['names']),'item_label':s['label'],'unit':s['unit'],
     'series':series,'latest':series[-1],'observations':len(series),
     'selection_rule':'monthly official ECOS series; explicit 주택담보대출 item; >=36 observations; prefer household/bank balance lineage',
-    'alternative_candidates':[{'stat_code':x['stat_code'],'stat_name':x['stat_name'],'item_label':x['label'],'unit':x['unit'],'observations':len(x['periods']),'latest_period':x['periods'][-1],'score':x['score']} for x in all_candidates[:5]],
+    'query_item_codes':s.get('query_item_codes'),'mortgage_item':s.get('mortgage_item'),'item_probes':probes,
+    'alternative_candidates':[{'stat_code':x['stat_code'],'stat_name':x['stat_name'],'item_label':x['label'],'unit':x['unit'],'observations':len(x['periods']),'latest_period':x['periods'][-1],'score':x['score'],'query_item_codes':x.get('query_item_codes')} for x in all_candidates[:5]],
    })
  except Exception as e:
   payload['reason']='collector_error: '+repr(e)[:300]
