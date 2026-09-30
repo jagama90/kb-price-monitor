@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: manual-market-refresh-poll
@@ -80,3 +82,54 @@ jobs:
     with:
       dry_run: false
     secrets: inherit
+
+
+  finalize:
+    needs: refresh
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Rebuild judgment and forecast from refreshed inputs
+        run: |
+          python3 scripts/test_market_judgment_engine.py
+          python3 scripts/build_market_judgment.py
+          python3 scripts/validate_market_judgment.py
+          python3 - <<'PY'
+          import json
+          v=json.load(open('dist/market_judgment_validation.json'))
+          assert v.get('apply_recommended') is True, 'validation gate rejected unified judgment'
+          assert v.get('no_future_leakage') is True, 'future-leakage guard failed'
+          PY
+          python3 scripts/forecast_market_regime.py
+          cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
+          cp data/buy_watchlist_targets.json dist/buy_watchlist_targets.json
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_pipeline_health.py
+      - name: Persist derived outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh judgment after manual market update'
+            git push origin HEAD:main
+          fi
+      - uses: actions/configure-pages@v6
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+      - name: Deploy refreshed dashboard
+        id: deployment
+        uses: actions/deploy-pages@v5
