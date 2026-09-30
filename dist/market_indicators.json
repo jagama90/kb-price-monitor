@@ -220,7 +220,7 @@
     "kb_weekly_rent_index": "connected",
     "ecos_base_rate": "connected",
     "molit_refresh": "connected",
-    "ecos_refresh": "connected",
+    "ecos_refresh": "fallback_last_good",
     "kb_sentiment_refresh": "connected",
     "watchlist_detail_refresh": "connected",
     "molit_unsold": "connected"
@@ -286,7 +286,7 @@
     "jeonse_score_change": 0.6,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-30T18:05:45.705172+00:00"
+    "generated_at": "2026-09-30T18:18:32.510420+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -325,7 +325,7 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-09-30T18:05:45.646768+00:00"
+    "generated_at": "2026-09-30T18:18:32.470699+00:00"
   },
   "matched_period": {
     "as_of": "2026-10-01",
@@ -418,7 +418,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-09-30T18:05:23.751799+00:00",
+    "collected_at": "2026-09-30T18:08:23.741460+00:00",
     "history": [
       {
         "date": "20260615",
@@ -536,7 +536,7 @@
       "change_pct": 0.12
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-09-30T18:05:24.498593+00:00"
+    "collected_at": "2026-09-30T18:08:24.486358+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -675,21 +675,23 @@
     "collected_at": "2026-09-30T18:05:27.238774+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-09-30T18:05:45.541209+00:00",
+    "attempted_at": "2026-09-30T18:18:32.401339+00:00",
     "sources": {
       "molit": "connected",
-      "ecos": "connected",
+      "ecos": "fallback_last_good",
       "kb_sentiment": "connected",
       "watchlist_detail": "connected"
     },
     "attempts": {
       "molit": 1,
-      "ecos": 1,
+      "ecos": 2,
       "kb_sentiment": 1,
       "watchlist_detail": 1
     },
     "recovered_after_retry": [],
-    "failed_after_retry": []
+    "failed_after_retry": [
+      "ecos"
+    ]
   },
   "unsold_seoul": {
     "status": "connected",
@@ -705,5 +707,62 @@
     "frequency": "monthly",
     "official_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=32",
     "note": "국토교통부 2026년 7월 주택통계 공표값"
-  }
+  },
+  "signal_matched_period": {
+    "as_of": "2026-09-30",
+    "cutoff_day": 30,
+    "basis": "contract_date_equal_calendar_days",
+    "current": {
+      "period": "2026-09",
+      "range": "1~30일",
+      "total": 1873,
+      "counts": {
+        "<=9eok": 1159,
+        "9-15eok": 386,
+        "15-25eok": 230,
+        "25eok+": 98
+      },
+      "buckets3": {
+        "<=15eok": 1545,
+        "15-25eok": 230,
+        "25eok+": 98
+      },
+      "boundary_counts": {
+        "13-15eok": 77,
+        "15-17eok": 74,
+        "23-25eok": 25,
+        "25-27eok": 13
+      },
+      "under15_share": 82.5
+    },
+    "previous": {
+      "period": "2026-08",
+      "range": "1~30일",
+      "total": 3495,
+      "counts": {
+        "<=9eok": 1830,
+        "9-15eok": 954,
+        "15-25eok": 516,
+        "25eok+": 195
+      },
+      "buckets3": {
+        "<=15eok": 2784,
+        "15-25eok": 516,
+        "25eok+": 195
+      },
+      "boundary_counts": {
+        "13-15eok": 242,
+        "15-17eok": 185,
+        "23-25eok": 54,
+        "25-27eok": 28
+      },
+      "under15_share": 79.7
+    },
+    "changes": {
+      "trade_count_pct": -46.4,
+      "under15_share_pp": 2.8
+    },
+    "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+  },
+  "signal_matched_period_status": "carried_forward_last_usable"
 }

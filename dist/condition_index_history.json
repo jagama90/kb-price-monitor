@@ -13,11 +13,11 @@
     },
     {
       "date": "2026-10-01",
-      "coverage_weight": 25,
+      "coverage_weight": 45,
       "score": null,
       "components": {
         "finance": 61.099999999999994,
-        "demand": null
+        "demand": 37.96000000000001
       },
       "source_updated_at": "2026-10-01"
     }
