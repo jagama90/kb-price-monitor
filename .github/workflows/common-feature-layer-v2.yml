@@ -1,0 +1,59 @@
+name: Research Common Feature Layer v2
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_ecos_housing_credit.py'
+      - 'scripts/research_common_feature_layer_v2.py'
+      - 'scripts/test_common_feature_layer_v2.py'
+      - '.github/workflows/common-feature-layer-v2.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: common-feature-layer-v2
+  cancel-in-progress: true
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BOK_ECOS_KEY: ${{ secrets.BOK_ECOS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Unit tests
+        run: python3 scripts/test_common_feature_layer_v2.py
+      - name: Collect official housing credit
+        run: python3 scripts/collect_ecos_housing_credit.py
+      - name: Build and validate candidate feature layer
+        run: |
+          python3 scripts/research_common_feature_layer_v2.py
+          python3 - <<'PY'
+          import json
+          x=json.load(open('dist/common_feature_layer_v2_validation.json'))
+          assert x.get('no_future_leakage') is True
+          assert x.get('integrated_production_replacement_recommended') is False
+          print({'finance_v2':x.get('finance_v2',{}).get('apply_recommended'),'valuation_rate':x.get('valuation_rate_stress',{}).get('apply_recommended')})
+          PY
+      - name: Existing regression checks
+        run: |
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+      - name: Rebase and persist research artifacts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          cp data_sources/ecos_housing_credit.json /tmp/ecos_housing_credit.json
+          git reset --hard
+          git clean -fd
+          git pull --ff-only origin main
+          cp /tmp/ecos_housing_credit.json data_sources/ecos_housing_credit.json
+          python3 scripts/research_common_feature_layer_v2.py
+          python3 scripts/test_common_feature_layer_v2.py
+          git add -f data_sources/ecos_housing_credit.json dist/common_feature_layer_v2.json dist/common_feature_layer_v2_validation.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Validate common feature layer v2 candidates'
+          git push origin HEAD:main

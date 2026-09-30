@@ -332,7 +332,7 @@ renderCycleStage();loadRegimeReferences();
 
 window.__legacyScoreDetailUnused=function(k){
  const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
- const w={finance:25,sentiment:20,demand:20,value:20,supply:15},t={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'},m=d.m2_official||d.m2,x=d.matched_period,s=d.kb_sentiment||{},v=d.kb_value||{},val=z=>z==null?'—':Number(z).toFixed(1),body={
+ const w={finance:25,sentiment:20,demand:20,value:20,supply:15},t={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'전세수급'},m=d.m2_official||d.m2,x=d.matched_period,s=d.kb_sentiment||{},v=d.kb_value||{},val=z=>z==null?'—':Number(z).toFixed(1),body={
   finance:'현재 '+Math.round(c.finance)+'/100 · M2 전월비 '+val(m?.mom_pct)+'% · 전년비 '+val(m?.yoy_pct)+'%<br><b>산식</b> 50 + M2 전월비×8 + M2 전년비×1.5',
   sentiment:'현재 '+Math.round(c.sentiment)+'/100 · 매수우위 '+val(s.latest?.매수우위?.value)+' · 거래활발 '+val(s.latest?.매매거래활발?.value),
   demand:'현재 '+Math.round(c.demand)+'/100 · 동일기간 거래 '+(x?.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 비중 '+(x?.changes?.under15_share_pp==null?'—':signed(x.changes.under15_share_pp,'%p')),
@@ -451,6 +451,12 @@ async function loadMarketExtensions(){
  }
 }
 loadMarketExtensions();
+
+async function loadCommonFeatureLayerV2(){
+ try{window.__commonFeatureV2=await fetch('common_feature_layer_v2.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null)}
+ catch(e){window.__commonFeatureV2=null}
+}
+loadCommonFeatureLayerV2();
 
 
 
@@ -658,7 +664,7 @@ initRefreshCalendar();
     value:[metric('PIR',v.components?.pir?.value==null?'—':fmt1(v.components.pir.value)+'배','소득 대비 가격 · 40%'),metric('전세가율',v.components?.rent_ratio?.value_pct==null?'—':fmt1(v.components.rent_ratio.value_pct)+'%','전세가치 지지력 · 30%'),metric('장기추세 괴리',v.components?.trend_gap?.value_pct==null?'—':signed1(v.components.trend_gap.value_pct,'%'),'60개월 로그추세 대비 · 30%')],
     supply:[metric('전세수급',fmt1(s.latest?.전세수급?.value),'KB 서울'),metric('전세거래',fmt1(s.latest?.전세거래활발?.value),'KB 서울'),metric('전세점수',fmt1(s.jeonse_score_0_100),'100점 환산')]
    };
-   const formula={finance:'M2의 전월·전년 변화와 주담대 금리 수준을 함께 반영',sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',value:'KB 서울 PIR 40% + 전세가율 30% + 60개월 장기추세 괴리 30%를 각 시점 역사 백분위로 합성',supply:'KB 전세수급·전세거래활발 지표를 결합'}[k];
+   const formula={finance:'M2의 전월·전년 변화와 주담대 금리 수준을 함께 반영',sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',demand:(x.basis==='completed_month_after_statutory_reporting_window'?'신고기한이 경과한 최근 완성월과 직전 완성월의 거래량·가격대 비중 비교':'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교'),value:'KB 서울 PIR 40% + 전세가율 30% + 60개월 장기추세 괴리 30%를 각 시점 역사 백분위로 합성',supply:'KB 전세수급·전세거래활발 지표를 결합 · 구조적 입주/재고 공급은 이 점수와 분리'}[k];
    const body=document.getElementById('scoreExplainBody'),p=document.getElementById('scoreExplanation');if(!body||!p)return;
    setText('scoreExplainTitle',t[k]);setText('scoreExplainWeight','전체 점수 가중치 '+w[k]+'%');
    body.innerHTML='<div class="score-infographic"><div class="score-hero-v133"><div class="score-ring-v133" style="--score:'+Math.max(0,Math.min(100,score))+'"><b>'+score+'<small>/100</small></b></div><div class="score-hero-copy-v133"><strong>'+verdict(score)+'</strong><p>현재 수치를 먼저 보여주고, 아래에서 무엇이 이 점수를 만들었는지 바로 비교합니다.</p></div></div><div class="score-metrics-v133">'+blocks[k].join('')+'</div><div class="score-formula-v133"><b>산정 기준</b> · '+formula+'</div></div>';
@@ -676,11 +682,11 @@ initRefreshCalendar();
  const metric=(label,value,note='')=>'<div class="factor-detail-metric-v134"><span>'+label+'</span><b>'+value+'</b>'+(note?'<small>'+note+'</small>':'')+'</div>';
  const status=v=>scoreBand(v);
  const desc={
-  finance:'금리와 통화량을 묶어 자금 조달 환경을 봅니다.',
+  finance:'현재 production은 M2 기반 점수이며, 신규 신용공급과 조달비용 분리모형은 검증 후보로 따로 봅니다.',
   sentiment:'KB 매수심리와 거래심리를 함께 봅니다.',
   demand:'실제 계약 건수와 가격대별 수요 이동을 봅니다.',
   value:'서울 집값을 소득·전세가치·장기 가격추세의 세 축으로 함께 봅니다.',
-  supply:'전세수급과 전세거래 흐름으로 주거 수요 압력을 봅니다.'
+  supply:'현재 점수는 KB 전세수급·전세거래를 뜻합니다. 입주·재고 같은 구조적 공급은 별도 연구계층입니다.'
  };
  window.showScoreDetail=function(k){
    const d=window.__marketIndicators,c=window.__conditionComponents||{};if(!d||c[k]==null)return;
@@ -688,7 +694,7 @@ initRefreshCalendar();
    if(p0&&!p0.hidden&&active){window.hideScoreDetail?.();return;}
    const weights={finance:25,sentiment:20,demand:20,value:20,supply:15};
    const title={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
-   const m=d.m2_official||d.m2||{},x=d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},mort=d.mortgage_rate_official||{},score=Math.round(Number(c[k])),band=status(score);
+   const m=d.m2_official||d.m2||{},x=d.signal_matched_period||d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},mort=d.mortgage_rate_official||{},score=Math.round(Number(c[k])),band=status(score);
    const blocks={
     finance:[
       metric('M2 전월비',signed1(m.mom_pct,'%'),m.mom_change_pp==null?'전월 변화 대기':'직전월보다 '+signed1(m.mom_change_pp,'%p')),
@@ -717,7 +723,7 @@ initRefreshCalendar();
     ]
    };
    const method={
-    finance:'M2 전월·전년 변화와 주담대 금리 수준을 함께 반영',
+    finance:'현재 production 산식은 M2 전월·전년 변화로 산출합니다. 주담대 금리는 보조정보이며 Credit Availability / Funding Cost 후보는 별도 검증합니다.',
     sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',
     demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',
     value:'PIR 40% + 전세가율 30% + 60개월 장기추세 괴리 30% · 각 지표는 해당 시점까지의 역사 백분위로 환산',

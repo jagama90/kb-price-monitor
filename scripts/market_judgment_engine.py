@@ -306,6 +306,20 @@ def build_judgment(root,previous_forecast=None):
         try:previous_forecast=json.loads((root/'dist/regime_forecast.json').read_text())
         except:previous_forecast={}
     feature=build_feature_layer(market,research,final,kbval)
+    common_path=root/'dist/common_feature_layer_v2.json'
+    if common_path.exists():
+        try:
+            common=json.loads(common_path.read_text(encoding='utf-8'))
+            feature['scope']=common.get('scope') or {}
+            feature['candidate_research']={
+              'artifact':'dist/common_feature_layer_v2.json',
+              'version':common.get('version'),
+              'features':{k:{'status':v.get('status'),'production_applied':bool(v.get('production_applied'))}
+                          for k,v in (common.get('features') or {}).items() if isinstance(v,dict)}
+            }
+            feature['lineage']['common_feature_candidates']='dist/common_feature_layer_v2.json'
+        except Exception as e:
+            feature['candidate_research']={'status':'load_error','reason':str(e)[:160]}
     current=current_state_head(feature,research.get('rows') or [])
     buy=buy_condition_head(feature)
     forward=forward_scenario_head(feature,previous_forecast or {})
