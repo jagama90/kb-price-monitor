@@ -843,13 +843,13 @@
       "dong": "거여동",
       "exclusive_m2": 59.98,
       "type_label": "25A",
-      "recent_trade_manwon": 184500,
-      "recent_trade_date": "20260821",
+      "recent_trade_manwon": 180000,
+      "recent_trade_date": "20260905",
       "molit_apt_name": "송파시그니처롯데캐슬",
       "matched_exclusive_m2": 59.98,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -861,13 +861,13 @@
       "dong": "거여동",
       "exclusive_m2": 59.98,
       "type_label": "25C",
-      "recent_trade_manwon": 184500,
-      "recent_trade_date": "20260821",
+      "recent_trade_manwon": 180000,
+      "recent_trade_date": "20260905",
       "molit_apt_name": "송파시그니처롯데캐슬",
       "matched_exclusive_m2": 59.98,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -879,13 +879,13 @@
       "dong": "거여동",
       "exclusive_m2": 59.98,
       "type_label": "25B",
-      "recent_trade_manwon": 184500,
-      "recent_trade_date": "20260821",
+      "recent_trade_manwon": 180000,
+      "recent_trade_date": "20260905",
       "molit_apt_name": "송파시그니처롯데캐슬",
       "matched_exclusive_m2": 59.98,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1649,5 +1649,5 @@
   "fetch_errors": [],
   "matched_count": 84,
   "target_area_count": 101,
-  "collected_at": "2026-09-30T18:19:42.461072+00:00"
+  "collected_at": "2026-09-30T23:01:22.029355+00:00"
 }

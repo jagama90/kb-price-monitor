@@ -286,7 +286,7 @@
     "jeonse_score_change": 0.6,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-09-30T18:20:06.905744+00:00"
+    "generated_at": "2026-09-30T23:02:09.285835+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -325,7 +325,7 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-09-30T18:20:06.868490+00:00"
+    "generated_at": "2026-09-30T23:02:09.226190+00:00"
   },
   "matched_period": {
     "as_of": "2026-10-01",
@@ -373,7 +373,7 @@
       "under15_share": 79.4
     },
     "changes": {
-      "trade_count_pct": -100,
+      "trade_count_pct": -100.0,
       "under15_share_pp": null
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
@@ -418,7 +418,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-09-30T18:19:43.143232+00:00",
+    "collected_at": "2026-09-30T23:01:22.782763+00:00",
     "history": [
       {
         "date": "20260615",
@@ -536,7 +536,7 @@
       "change_pct": 0.12
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-09-30T18:19:43.670834+00:00"
+    "collected_at": "2026-09-30T23:01:23.333809+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -546,7 +546,7 @@
     "frequency": "daily",
     "latest": {
       "date": "20260928",
-      "rate_pct": 3,
+      "rate_pct": 3.0,
       "item": "한국은행 기준금리"
     },
     "latest_observation_date": "20260928",
@@ -598,7 +598,7 @@
       },
       {
         "date": "20211125",
-        "rate_pct": 1,
+        "rate_pct": 1.0,
         "item": "한국은행 기준금리"
       },
       {
@@ -628,7 +628,7 @@
       },
       {
         "date": "20221012",
-        "rate_pct": 3,
+        "rate_pct": 3.0,
         "item": "한국은행 기준금리"
       },
       {
@@ -648,7 +648,7 @@
       },
       {
         "date": "20241128",
-        "rate_pct": 3,
+        "rate_pct": 3.0,
         "item": "한국은행 기준금리"
       },
       {
@@ -668,14 +668,14 @@
       },
       {
         "date": "20260827",
-        "rate_pct": 3,
+        "rate_pct": 3.0,
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-09-30T18:19:44.054288+00:00"
+    "collected_at": "2026-09-30T23:01:25.073379+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-09-30T18:20:06.624947+00:00",
+    "attempted_at": "2026-09-30T23:02:09.099325+00:00",
     "sources": {
       "molit": "connected",
       "ecos": "connected",
@@ -768,8 +768,183 @@
     "reporting_window_elapsed_on": "2026-09-30"
   },
   "scope": {
+    "market_scope_id": "seoul_city",
     "data_scope": "Seoul",
     "market_scope": "city",
-    "region_code": "1100000000"
-  }
+    "region": {
+      "code": "1100000000",
+      "label": "서울"
+    },
+    "district_focus": {
+      "code": "1171000000",
+      "label": "송파"
+    },
+    "complex_focus": {
+      "label": "관심단지"
+    },
+    "display_path": [
+      "서울",
+      "송파",
+      "관심단지"
+    ],
+    "district_codes": [
+      "11110",
+      "11140",
+      "11170",
+      "11200",
+      "11215",
+      "11230",
+      "11260",
+      "11290",
+      "11305",
+      "11320",
+      "11350",
+      "11380",
+      "11410",
+      "11440",
+      "11470",
+      "11500",
+      "11530",
+      "11545",
+      "11560",
+      "11590",
+      "11620",
+      "11650",
+      "11680",
+      "11710",
+      "11740"
+    ],
+    "dimensions": [
+      "region",
+      "market_scope",
+      "district",
+      "complex",
+      "price_tier"
+    ]
+  },
+  "price_tier_config": {
+    "absolute": [
+      {
+        "id": "<=9eok",
+        "label": "≤9억",
+        "max_manwon": 90000,
+        "max_inclusive": true
+      },
+      {
+        "id": "9-15eok",
+        "label": "9~15억",
+        "min_manwon": 90000,
+        "min_inclusive": false,
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-25eok",
+        "label": "15~25억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": false
+      },
+      {
+        "id": "25eok+",
+        "label": "25억+",
+        "min_manwon": 250000,
+        "min_inclusive": true
+      }
+    ],
+    "analysis": [
+      {
+        "id": "<=15eok",
+        "label": "≤15억",
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-25eok",
+        "label": "15~25억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": false
+      },
+      {
+        "id": "25eok+",
+        "label": "25억+",
+        "min_manwon": 250000,
+        "min_inclusive": true
+      }
+    ],
+    "boundary": [
+      {
+        "id": "13-15eok",
+        "label": "13~15억",
+        "min_manwon": 130000,
+        "min_inclusive": false,
+        "max_manwon": 150000,
+        "max_inclusive": true
+      },
+      {
+        "id": "15-17eok",
+        "label": "15~17억",
+        "min_manwon": 150000,
+        "min_inclusive": false,
+        "max_manwon": 170000,
+        "max_inclusive": true
+      },
+      {
+        "id": "23-25eok",
+        "label": "23~25억",
+        "min_manwon": 230000,
+        "min_inclusive": false,
+        "max_manwon": 250000,
+        "max_inclusive": true
+      },
+      {
+        "id": "25-27eok",
+        "label": "25~27억",
+        "min_manwon": 250000,
+        "min_inclusive": false,
+        "max_manwon": 270000,
+        "max_inclusive": true
+      }
+    ]
+  },
+  "apt_trade_count": [
+    [
+      "2026-04",
+      8920,
+      false
+    ],
+    [
+      "2026-05",
+      9263,
+      false
+    ],
+    [
+      "2026-06",
+      5467,
+      false
+    ],
+    [
+      "2026-07",
+      5993,
+      false
+    ],
+    [
+      "2026-08",
+      3546,
+      false
+    ],
+    [
+      "2026-09",
+      1873,
+      false
+    ],
+    [
+      "2026-10",
+      0,
+      true
+    ]
+  ]
 }

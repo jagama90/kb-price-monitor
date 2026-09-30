@@ -10,14 +10,14 @@
   "components": {
     "finance": 61.099999999999994,
     "sentiment": 22.6,
-    "demand": 37.96000000000001,
+    "demand": 36.019999999999996,
     "value": 30.4,
     "supply": 49.3
   },
   "contribution_vs_neutral": {
     "finance": 2.77,
     "sentiment": -5.48,
-    "demand": -2.41,
+    "demand": -2.8,
     "value": -3.92,
     "supply": -0.11
   },
