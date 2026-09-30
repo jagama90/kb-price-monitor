@@ -1,0 +1,233 @@
+{
+  "status": "connected",
+  "engine_version": "unified_market_judgment_v1",
+  "as_of": "2026-09-30",
+  "architecture": "Common Feature Layer -> Current State / Buy Condition / Forward Scenario",
+  "feature_layer": {
+    "snapshot_id": "2026-09-30|KB20260921|R202608",
+    "as_of": "2026-09-30",
+    "research_month": "202608",
+    "research_provisional": true,
+    "components": {
+      "finance": 61.1,
+      "sentiment": 22.6,
+      "demand": 38.0,
+      "value": 30.4,
+      "supply": 49.3
+    },
+    "buy_weights": {
+      "finance": 25,
+      "sentiment": 20,
+      "demand": 20,
+      "value": 20,
+      "supply": 15
+    },
+    "price_momentum": {
+      "m1_pct": 1.96,
+      "m3_pct": 8.1,
+      "overlay": {
+        "applied": true,
+        "source": "KB Seoul weekly sale index, scale-aligned to legacy research momentum",
+        "kb_as_of": "20260921",
+        "kb_4w_pct": 0.81,
+        "kb_13w_pct": 3.26,
+        "mapped_m1_pct": 1.96,
+        "mapped_m3_pct": 8.1,
+        "research_m1_pct": 0.0,
+        "research_m3_pct": 0.0,
+        "m1_fit_r2": 0.479,
+        "m3_fit_r2": 0.71,
+        "validation_apply_recommended": true,
+        "validation_generated_at": "2026-09-29T17:16:19.581978+00:00"
+      }
+    },
+    "signals": {
+      "setup": 51.6,
+      "turn": 61.0,
+      "opportunity": 31.4,
+      "cheapness": 30.4,
+      "distress": 77.4,
+      "price_turn": 89.3,
+      "price_accel_pp": 1.96,
+      "early_turn": 44.7,
+      "breadth": 38.4,
+      "reaccel": 88.3,
+      "bottom_zone": false,
+      "momentum_zone": false,
+      "turn_rank": 46.9,
+      "deltas": {
+        "finance_1m": -3.47,
+        "sentiment_1m": -0.6,
+        "demand_1m": 1.95,
+        "finance_3m": -1.94,
+        "sentiment_3m": -4.2,
+        "demand_3m": -3.55
+      }
+    },
+    "context": {
+      "trade_count_pct": -46.4,
+      "under15_share_pp": 2.8,
+      "m2_mom_pct": 0.3,
+      "m2_yoy_pct": 5.8,
+      "mortgage_rate_pct": 4.48,
+      "liquidity_support_0_100": 79.0,
+      "trade_pressure_0_100": 69.6,
+      "rate_pressure_0_100": 41.4,
+      "recent_peak_3m_momentum_pct": 22.18,
+      "cooling_score_0_100": 93.7
+    },
+    "lineage": {
+      "market": "dist/market_indicators.json",
+      "research": "dist/turning_signal_research.json",
+      "certified_backtest": "dist/final_backtest.json",
+      "price_scale_validation": "dist/forecast_kb_momentum_validation.json"
+    }
+  },
+  "heads": {
+    "current_state": {
+      "stage": 3,
+      "label": "상승·보합",
+      "summary": "가격 상승 모멘텀은 유지되지만 거래·심리 확산이 아직 충분하지 않아 상승·보합으로 봅니다.",
+      "was_rising": true,
+      "next_gate": "시장 확산 45 이상",
+      "evidence": {
+        "m1_pct": 1.96,
+        "m3_pct": 8.1,
+        "breadth": 38.4,
+        "reaccel": 88.3,
+        "turn": 61.0,
+        "bottom_zone": false,
+        "momentum_zone": false
+      }
+    },
+    "buy_condition": {
+      "score_0_100": 40.9,
+      "tier": "제약 구간",
+      "range": "30~44",
+      "coverage_weight": 100,
+      "weights": {
+        "finance": 25,
+        "sentiment": 20,
+        "demand": 20,
+        "value": 20,
+        "supply": 15
+      },
+      "components": {
+        "finance": 61.1,
+        "sentiment": 22.6,
+        "demand": 38.0,
+        "value": 30.4,
+        "supply": 49.3
+      }
+    },
+    "forward_scenario": {
+      "horizons": [
+        {
+          "period": "2026Q4",
+          "label": "2026년 말",
+          "weights": {
+            "consolidation": 31.2,
+            "reacceleration": 37.3,
+            "downturn": 31.5
+          },
+          "base_case": "consolidation",
+          "display": {
+            "risk_band": 2,
+            "headline": "혼조·방향 탐색",
+            "risk_range": "30~34%",
+            "tone": "mixed",
+            "downturn_weight": 31.5,
+            "reacceleration_weight": 37.3,
+            "secondary": "재상승 신호와 하방 위험 경합",
+            "easing_hysteresis_pp": 2.0
+          }
+        },
+        {
+          "period": "2027H1",
+          "label": "2027년 상반기",
+          "weights": {
+            "consolidation": 36.9,
+            "reacceleration": 35.5,
+            "downturn": 27.6
+          },
+          "base_case": "consolidation",
+          "display": {
+            "risk_band": 1,
+            "headline": "재상승 가능성 확대",
+            "risk_range": "20~29%",
+            "tone": "low",
+            "downturn_weight": 27.6,
+            "reacceleration_weight": 35.5,
+            "secondary": "재상승 신호 강화",
+            "easing_hysteresis_pp": 2.0
+          }
+        },
+        {
+          "period": "2027H2",
+          "label": "2027년 하반기",
+          "weights": {
+            "consolidation": 36.5,
+            "reacceleration": 38.1,
+            "downturn": 25.4
+          },
+          "base_case": "reacceleration",
+          "display": {
+            "risk_band": 1,
+            "headline": "재상승 가능성 확대",
+            "risk_range": "20~29%",
+            "tone": "low",
+            "downturn_weight": 25.4,
+            "reacceleration_weight": 38.1,
+            "secondary": "재상승 신호 강화",
+            "easing_hysteresis_pp": 2.0
+          }
+        }
+      ],
+      "headline": "혼조·방향 탐색 → 재상승 가능성 확대 → 재상승 가능성 확대",
+      "risk_path": [
+        32,
+        28,
+        25
+      ],
+      "weights_are_not_calibrated_probabilities": true,
+      "display_rules": {
+        "primary": "downturn scenario weight, rounded to visible whole percent",
+        "bands": [
+          {
+            "min": 0,
+            "max": 19,
+            "headline": "상승 우위"
+          },
+          {
+            "min": 20,
+            "max": 29,
+            "headline": "재상승 가능성 확대"
+          },
+          {
+            "min": 30,
+            "max": 34,
+            "headline": "혼조·방향 탐색"
+          },
+          {
+            "min": 35,
+            "max": 44,
+            "headline": "쉬어가기·하방 경계"
+          },
+          {
+            "min": 45,
+            "max": 54,
+            "headline": "조정 위험 확대"
+          },
+          {
+            "min": 55,
+            "max": 100,
+            "headline": "하락 우위"
+          }
+        ],
+        "secondary": "reacceleration weight adjusts supporting phrase",
+        "hysteresis": "easing requires 2%p beyond boundary"
+      }
+    }
+  },
+  "generated_at": "2026-09-30T02:01:53.795938+00:00"
+}
