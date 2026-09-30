@@ -10,6 +10,7 @@ import datetime,json,os,pathlib,urllib.parse,urllib.request
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/ecos_housing_credit.json'
 BASE='https://ecos.bok.or.kr/api'
+HOUSING_TERMS=('주택관련대출','주택담보대출')
 
 def fetch_json(url,timeout=20):
  req=urllib.request.Request(url,headers={'User-Agent':'kb-price-monitor/1.0'})
@@ -48,7 +49,7 @@ def mortgage_queries(items):
  for g in ordered:
   for x in groups[g]:
    name=str(x.get('ITEM_NAME') or '')
-   if '주택담보대출' in name and not any(z in name for z in ('금리','연체','비율')):
+   if any(term in name for term in HOUSING_TERMS) and not any(z in name for z in ('금리','연체','비율')):
     mortgage.append((g,x))
  queries=[]
  for mg,mx in mortgage:
@@ -82,7 +83,7 @@ def select_series(rows,table_name):
   names=tuple(str(r.get(f'ITEM_NAME{i}') or '').strip() for i in range(1,5))
   label=' '.join(x for x in names if x)
   unit=str(r.get('UNIT_NAME') or '').strip()
-  if '주택담보대출' not in label and '주택담보대출' not in table_name:continue
+  if not any(term in (label+' '+table_name) for term in HOUSING_TERMS):continue
   if any(bad in (table_name+' '+label) for bad in ('연체율','대출금리','금리수준','증가율')):continue
   groups.setdefault((names,unit),{})[period]=value
  candidates=[]
@@ -115,7 +116,7 @@ def enrich(selected):
 
 def main():
  key=os.getenv('BOK_ECOS_KEY')
- payload={'status':'not_connected','source':'한국은행 ECOS','candidate_feature':'credit_availability','generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+ payload={'status':'not_connected','source':'한국은행 ECOS','candidate_feature':'housing_credit_availability','generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  if not key:
   payload['reason']='BOK_ECOS_KEY missing'
   OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');return
@@ -124,7 +125,7 @@ def main():
   for t in table_rows(key):
    name=str(t.get('STAT_NAME') or '')
    cycle=str(t.get('CYCLE') or '')
-   if cycle=='M' and ('가계대출' in name or '주택담보대출' in name):
+   if cycle=='M' and ('가계대출' in name or any(term in name for term in HOUSING_TERMS)):
     tables.append((str(t.get('STAT_CODE') or ''),name))
   all_candidates=[]
   probes=[]
@@ -133,7 +134,7 @@ def main():
     items=item_rows(key,code)
    except Exception as e:
     probes.append({'stat_code':code,'stat_name':name,'item_error':repr(e)[:180]});continue
-   matches=[{'group':x.get('GRP_CODE'),'item_code':x.get('ITEM_CODE'),'item_name':x.get('ITEM_NAME'),'unit':x.get('UNIT_NAME')} for x in items if '주택담보대출' in str(x.get('ITEM_NAME') or '')]
+   matches=[{'group':x.get('GRP_CODE'),'item_code':x.get('ITEM_CODE'),'item_name':x.get('ITEM_NAME'),'unit':x.get('UNIT_NAME')} for x in items if any(term in str(x.get('ITEM_NAME') or '') for term in HOUSING_TERMS)]
    queries=mortgage_queries(items)
    probes.append({'stat_code':code,'stat_name':name,'mortgage_items':matches[:20],'query_candidates':queries[:10]})
    if queries:
@@ -145,7 +146,7 @@ def main():
    else:
     # Tables whose name itself is explicitly mortgage-specific can still be queried
     # without item filters; generic household-loan tables are never guessed.
-    if '주택담보대출' in name:
+    if any(term in name for term in HOUSING_TERMS):
      try: rows=search_rows(key,code)
      except Exception: rows=[]
      for c in select_series(rows,name):
@@ -160,7 +161,7 @@ def main():
     'status':'connected','stat_code':s['stat_code'],'stat_name':s['stat_name'],
     'item_names':list(s['names']),'item_label':s['label'],'unit':s['unit'],
     'series':series,'latest':series[-1],'observations':len(series),
-    'selection_rule':'monthly official ECOS series; explicit 주택담보대출 item; >=36 observations; prefer household/bank balance lineage',
+    'selection_rule':'monthly official ECOS series; explicit 주택관련대출/주택담보대출 item; >=36 observations; prefer household/bank balance lineage',
     'query_item_codes':s.get('query_item_codes'),'mortgage_item':s.get('mortgage_item'),'item_probes':probes,
     'alternative_candidates':[{'stat_code':x['stat_code'],'stat_name':x['stat_name'],'item_label':x['label'],'unit':x['unit'],'observations':len(x['periods']),'latest_period':x['periods'][-1],'score':x['score'],'query_item_codes':x.get('query_item_codes')} for x in all_candidates[:5]],
    })

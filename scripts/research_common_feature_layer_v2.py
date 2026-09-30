@@ -68,7 +68,13 @@ def mortgage_monthly(raw):
  for x in raw.get('series') or []:
   if x.get('item')=='주택담보대출' and x.get('rate_pct') is not None:
    by[str(x['period'])]=float(x['rate_pct'])
- return [{'period':k,'value':by[k]} for k in sorted(by)]
+ out=[]
+ for i,k in enumerate(sorted(by)):
+  v=by[k];prev=by[sorted(by)[i-1]] if i else None
+  p3=by[sorted(by)[i-3]] if i>=3 else None
+  out.append({'period':k,'value':v,'mom_change_pp':round(v-prev,4) if prev is not None else None,
+              'change_3m_pp':round(v-p3,4) if p3 is not None else None})
+ return out
 
 def base_rate_monthly(raw):
  by={}
@@ -87,13 +93,33 @@ def score_at(series,available_period,invert=False,value_key='value'):
  cur=float(rows[-1][value_key]);rank=percentile([float(x[value_key]) for x in rows],cur)
  return (100-rank if invert else rank),rows[-1]
 
+def housing_credit_score_at(series,available_period):
+ rows=[x for x in series if str(x.get('period') or '')<=available_period]
+ rows=[x for x in rows if x.get('mom_change') is not None and x.get('yoy_pct') is not None]
+ if not rows:return None,None
+ cur=rows[-1]
+ mom_rank=percentile([float(x['mom_change']) for x in rows],float(cur['mom_change']))
+ yoy_rank=percentile([float(x['yoy_pct']) for x in rows],float(cur['yoy_pct']))
+ return (mom_rank+yoy_rank)/2,cur
+
+def funding_cost_score_at(series,available_period):
+ rows=[x for x in series if str(x.get('period') or '')<=available_period and x.get('value') is not None]
+ if not rows:return None,None
+ cur=rows[-1]
+ level=100-percentile([float(x['value']) for x in rows],float(cur['value']))
+ # Direction/speed is a secondary cost term; missing early values fall back to level only.
+ speed_rows=[x for x in rows if x.get('change_3m_pp') is not None]
+ if not speed_rows or cur.get('change_3m_pp') is None:return level,cur
+ speed=100-percentile([float(x['change_3m_pp']) for x in speed_rows],float(cur['change_3m_pp']))
+ return .7*level+.3*speed,cur
+
 def finance_research(final_rows,mortgage,credit):
  connected=(credit.get('status')=='connected' and len(credit.get('series') or [])>=36)
  cseries=credit.get('series') or []
  rows=[]
  for src in final_rows:
-  ym=str(src.get('ym'));m_score,mrow=score_at(mortgage,ym_shift(ym,-1),invert=True)
-  c_score,crow=score_at(cseries,ym_shift(ym,-2),invert=False,value_key='yoy_pct') if connected else (None,None)
+  ym=str(src.get('ym'));m_score,mrow=funding_cost_score_at(mortgage,ym_shift(ym,-1))
+  c_score,crow=housing_credit_score_at(cseries,ym_shift(ym,-2)) if connected else (None,None)
   v2=(m_score+c_score)/2 if m_score is not None and c_score is not None else None
   rows.append({
    'ym':ym,'baseline_finance':f((src.get('components') or {}).get('finance')),
@@ -126,21 +152,30 @@ def finance_research(final_rows,mortgage,credit):
 def valuation_rate_research(final_rows,mortgage):
  rows=[]
  for src in final_rows:
-  ym=str(src.get('ym'));value=f((src.get('components') or {}).get('value'));fund,mrow=score_at(mortgage,ym_shift(ym,-1),invert=True)
-  if value is None or fund is None:continue
-  rate_cost=100-fund;stress=(100-value)*rate_cost/100
-  rows.append({'ym':ym,'valuation_stress':100-value,'rate_cost':rate_cost,'interaction':stress,'fwd_3m_pct':src.get('fwd_3m_pct'),'mortgage_vintage':mrow.get('period') if mrow else None})
+  ym=str(src.get('ym'));value=f((src.get('components') or {}).get('value'))
+  base_score,mrow=score_at(mortgage,ym_shift(ym,-1),invert=True)
+  full_score,_=funding_cost_score_at(mortgage,ym_shift(ym,-1))
+  if value is None or base_score is None:continue
+  level_cost=100-base_score;full_cost=100-full_score if full_score is not None else level_cost
+  vstress=100-value
+  rows.append({'ym':ym,'valuation_stress':vstress,'rate_level_cost':level_cost,'rate_level_speed_cost':full_cost,
+    'interaction_level':vstress*level_cost/100,'interaction_level_speed':vstress*full_cost/100,
+    'fwd_3m_pct':src.get('fwd_3m_pct'),'mortgage_vintage':mrow.get('period') if mrow else None})
  p=[r for r in rows if r.get('fwd_3m_pct') is not None]
+ labels=[r['fwd_3m_pct']<0 for r in p]
  metrics={
   'n':len(p),
-  'valuation_only_downside_auc':auc([r['fwd_3m_pct']<0 for r in p],[r['valuation_stress'] for r in p]),
-  'rate_only_downside_auc':auc([r['fwd_3m_pct']<0 for r in p],[r['rate_cost'] for r in p]),
-  'interaction_downside_auc':auc([r['fwd_3m_pct']<0 for r in p],[r['interaction'] for r in p]),
-  'interaction_corr_negative_fwd3':pearson([r['interaction'] for r in p],[-float(r['fwd_3m_pct']) for r in p]),
+  'valuation_only_downside_auc':auc(labels,[r['valuation_stress'] for r in p]),
+  'rate_level_downside_auc':auc(labels,[r['rate_level_cost'] for r in p]),
+  'rate_level_speed_downside_auc':auc(labels,[r['rate_level_speed_cost'] for r in p]),
+  'interaction_level_downside_auc':auc(labels,[r['interaction_level'] for r in p]),
+  'interaction_level_speed_downside_auc':auc(labels,[r['interaction_level_speed'] for r in p]),
+  'interaction_level_speed_corr_negative_fwd3':pearson([r['interaction_level_speed'] for r in p],[-float(r['fwd_3m_pct']) for r in p]),
  }
- parents=[x for x in (metrics['valuation_only_downside_auc'],metrics['rate_only_downside_auc']) if x is not None]
- gate=len(p)>=30 and parents and metrics['interaction_downside_auc'] is not None and metrics['interaction_downside_auc']>=max(parents)+.01
- return rows,{**metrics,'apply_recommended':bool(gate),'gate':'n>=30 and interaction downside AUC >= best single parent + 0.01'}
+ parents=[x for x in (metrics['valuation_only_downside_auc'],metrics['rate_level_speed_downside_auc']) if x is not None]
+ cand=metrics['interaction_level_speed_downside_auc']
+ gate=len(p)>=30 and parents and cand is not None and cand>=max(parents)+.01
+ return rows,{**metrics,'apply_recommended':bool(gate),'gate':'n>=30 and valuation×(rate level + 3m speed) downside AUC >= best single parent + 0.01'}
 
 def price_tier_feature(market,tier_history=None):
  sig=market.get('signal_matched_period') or {};cur=sig.get('current') or {};prev=sig.get('previous') or {}
@@ -229,18 +264,18 @@ def rental_supply_feature(market):
 
 def current_finance_feature(mortgage,base,m2,credit,validation):
  latest_m=mortgage[-1] if mortgage else None;cr=(credit.get('series') or [])
- fund,fr=score_at(mortgage,latest_m.get('period') if latest_m else '999999',invert=True) if latest_m else (None,None)
- avail,ar=score_at(cr,(cr[-1].get('period') if cr else '000000'),value_key='yoy_pct') if cr else (None,None)
+ fund,fr=funding_cost_score_at(mortgage,latest_m.get('period') if latest_m else '999999') if latest_m else (None,None)
+ avail,ar=housing_credit_score_at(cr,(cr[-1].get('period') if cr else '000000')) if cr else (None,None)
  score=(fund+avail)/2 if fund is not None and avail is not None else None
  br=(base.get('latest') or {})
  return {'status':'validated_candidate' if validation.get('apply_recommended') else ('research_candidate' if score is not None else 'blocked_core_input_missing'),
          'production_applied':False,'score_0_100':round(score,1) if score is not None else None,
-         'liquidity_credit_availability':{'score_0_100':round(avail,1) if avail is not None else None,'source':'한국은행 ECOS 주택담보대출 잔액','period':ar.get('period') if ar else None,
+         'liquidity_credit_availability':{'score_0_100':round(avail,1) if avail is not None else None,'source':'한국은행 ECOS 주택관련대출 잔액','period':ar.get('period') if ar else None,
              'balance':ar.get('value') if ar else None,'mom_change':ar.get('mom_change') if ar else None,'yoy_pct':ar.get('yoy_pct') if ar else None},
          'funding_cost':{'score_0_100':round(fund,1) if fund is not None else None,'mortgage_rate_pct':latest_m.get('value') if latest_m else None,'period':latest_m.get('period') if latest_m else None,
              'base_rate_pct':br.get('rate_pct'),'base_rate_date':br.get('date')},
          'broad_liquidity_context':{'m2_period':(m2.get('series') or [{}])[-1].get('period'),'m2_yoy_pct':(m2.get('series') or [{}])[-1].get('yoy_pct')},
-         'method':'equal concept split: Credit Availability 50% + Funding Cost 50%; M2 retained as context, not a dominating input; research-only until integrated validation',
+         'method':'Credit Availability 50% + Funding Cost 50%. Credit Availability uses housing-related loan balance increment and YoY growth; Funding Cost uses mortgage-rate level and 3m speed. M2 is context only.',
          'validation':validation}
 
 def main():
