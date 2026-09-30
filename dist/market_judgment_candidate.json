@@ -114,13 +114,69 @@
         "previous_period": "2026-07",
         "reporting_window_elapsed_on": "2026-09-30"
       },
-      "raw_matched_as_of": "2026-10-01"
+      "raw_matched_as_of": "2026-10-01",
+      "finance_model": "finance_v1_m2",
+      "finance_v1_score_0_100": 61.1,
+      "finance_v2_gate_passed": false,
+      "credit_availability_0_100": 42.6,
+      "funding_cost_0_100": 25.5
     },
     "lineage": {
       "market": "dist/market_indicators.json",
       "research": "dist/turning_signal_research.json",
       "certified_backtest": "dist/final_backtest.json",
-      "price_scale_validation": "dist/forecast_kb_momentum_validation.json"
+      "price_scale_validation": "dist/forecast_kb_momentum_validation.json",
+      "common_feature_candidates": "dist/common_feature_layer_v2.json",
+      "finance_v2_validation": "dist/market_judgment_validation.json"
+    },
+    "scope": {
+      "dimensions": [
+        "region",
+        "market_scope",
+        "district",
+        "complex",
+        "price_tier"
+      ],
+      "active_data_scope": "Seoul",
+      "rule": "source scope is metadata/configuration; model formulas contain no city/district names"
+    },
+    "candidate_research": {
+      "artifact": "dist/common_feature_layer_v2.json",
+      "version": "common_feature_layer_v2",
+      "features": {
+        "trade_reporting": {
+          "status": "mature_completed_month",
+          "production_applied": true
+        },
+        "finance_v2_candidate": {
+          "status": "validated_candidate",
+          "production_applied": false
+        },
+        "valuation_rate_stress_candidate": {
+          "status": "research_candidate",
+          "production_applied": false
+        },
+        "price_tier_liquidity": {
+          "status": "current_diagnostic_only",
+          "production_applied": false
+        },
+        "leader_lag": {
+          "status": "research_small_sample",
+          "production_applied": false
+        },
+        "selling_pressure": {
+          "status": "local_watchlist_context",
+          "production_applied": false
+        },
+        "policy_credit_regime": {
+          "status": "not_connected_for_model",
+          "production_applied": false
+        },
+        "rental_vs_structural_supply": {
+          "status": "semantic_split",
+          "production_applied": false
+        }
+      }
     }
   },
   "heads": {
@@ -269,5 +325,5 @@
       }
     }
   },
-  "generated_at": "2026-09-30T19:05:46.379839+00:00"
+  "generated_at": "2026-09-30T19:19:08.361911+00:00"
 }

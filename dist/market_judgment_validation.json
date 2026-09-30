@@ -23,6 +23,38 @@
     "low_score_mean_fwd_6m_pct": 0.44,
     "high_score_mean_fwd_6m_pct": 10.29
   },
+  "finance_v2_integrated": {
+    "apply_recommended": true,
+    "forecast": {
+      "n": 46,
+      "down_corr_negative_fwd3": 0.5644187041423604,
+      "down_auc_negative_fwd3": 0.9652014652014652,
+      "reaccel_corr_fwd3": 0.6044096192368896,
+      "reaccel_auc_positive_fwd3": 0.7440860215053764
+    },
+    "buy_condition": {
+      "n": 46,
+      "corr_fwd_1m": 0.4214771629098691,
+      "n_fwd_1m": 46,
+      "corr_fwd_3m": 0.4477646991143382,
+      "n_fwd_3m": 46,
+      "corr_fwd_6m": 0.5725989243195422,
+      "n_fwd_6m": 43,
+      "corr_fwd_12m": 0.7453680138363582,
+      "n_fwd_12m": 37
+    },
+    "improvements": [
+      "buy_corr_3m",
+      "buy_corr_6m",
+      "buy_corr_12m",
+      "downside_auc",
+      "reaccel_auc"
+    ],
+    "gate": "n>=30; forecast downside/reaccel AUC no worse >0.02; buy corr6/corr12 no worse >0.02; at least one material improvement",
+    "no_future_leakage": true,
+    "credit_vintage_lag_months": 2,
+    "mortgage_rate_vintage_lag_months": 1
+  },
   "rejected_live_recompute": {
     "n": 46,
     "down_corr_negative_fwd3": 0.5004378751471332,
@@ -180,5 +212,5 @@
   "apply_recommended": true,
   "gate": "n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45",
   "no_future_leakage": true,
-  "generated_at": "2026-09-30T19:05:46.449499+00:00"
+  "generated_at": "2026-09-30T19:19:08.403900+00:00"
 }
