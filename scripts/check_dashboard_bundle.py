@@ -15,7 +15,6 @@ if dups: errors.append('duplicate ids: '+', '.join(dups))
 required=['conditionScore','scoreFinance','scoreSentiment','scoreDemand','scoreValue','scoreSupply',
           'scoreExplanation','scoreExplainTitle','scoreExplainWeight','scoreExplainBody',
           'regimeForecast','forecastGrid','forecastMeta','mobileCards','body',
-          'driverLive',
           'backtestScope','backtestCertified','backtestCorr',
           'sourceMolitStatus','sourceKbStatus','sourceEcosStatus','sourceWatchStatus',
           'conditionTier','confidenceScore','validationUnsold','validationUnsoldPeriod',
@@ -48,33 +47,26 @@ if '가락금호 24A · KB 장기 추이' in html:
 if "const kbKey=x=>" not in js: errors.append('exact complex+area KB key missing')
 if "kb.get(Number(x.complex_id))" in js: errors.append('legacy complex-only KB price lookup remains')
 
-# visual remodel contract
-for rid in ('storyHeadline','storySummary','nextSignals','hubDriversMeta','hubValidationMeta','hubWatchMeta','hubBacktestMeta'):
-    if ids.count(rid)!=1: errors.append(f'visual remodel id {rid}: expected 1, got {ids.count(rid)}')
-for rid in ('forecastHeadline','forecastTrend'):
-    if ids.count(rid)!=0: errors.append(f'redundant forecast summary returned: {rid}')
+# v184 three-layer presentation contract
+for rid in ('nextSignals','hubWatchMeta','hubBacktestMeta','diagnostics','marketContext','watchlist'):
+    if ids.count(rid)!=1: errors.append(f'three-layer id {rid}: expected 1, got {ids.count(rid)}')
+for rid in ('storyHeadline','storySummary','hubDriversMeta','hubValidationMeta','driverLive','forecastHeadline','forecastTrend'):
+    if ids.count(rid)!=0: errors.append(f'retired presentation id returned: {rid}')
 if len(re.findall(r'class="[^"]*\bscore-component\b[^"]*"',html))!=5: errors.append('reason drawer must contain five factor rows')
 if 'forecast-route-v181' not in html or 'forecast-route-node-v181' not in js: errors.append('research-to-forecast route renderer missing')
 if 'impactFinance' not in html or 'impactSentiment' not in html or 'impactDemand' not in html or 'impactValue' not in html or 'impactSupply' not in html:
     errors.append('meaning-first factor impacts missing')
-if '<summary><span><small>2 · 왜 움직이고 있나' in html: errors.append('legacy text-heavy analysis menu returned')
-if '점수 근거 보기' in html: errors.append('legacy score CTA returned')
-
-# isolated mobile v4 contract: legacy layout selectors must not be used by live markup.
-if html.count('class="weekly-flow-v4"')!=1: errors.append('weekly v4 flow missing or duplicated')
-if html.count('class="flow-step-v4')!=4: errors.append('weekly v4 flow must contain exactly four steps')
-if 'class="signal-rail"' in html or 'decision-path-mini' in html: errors.append('legacy weekly flow markup returned')
-if html.count('class="deep-row-v4"')!=4: errors.append('deep dive must contain exactly four isolated rows')
-if html.count('class="deep-summary-v4"')!=4: errors.append('deep dive summaries missing')
-if 'class="analysis-hub"' in html or 'class="hub-summary"' in html or 'class="compact-section"' in html:
-    errors.append('legacy deep-dive wrapper classes returned')
-if html.count('class="driver-change-list-v143"')!=1: errors.append('change-first driver list missing')
-if 'class="transmission compact"' in html: errors.append('legacy boxed driver infographic returned')
+if html.count('class="card user-market-v184"')!=1: errors.append('personal market layer missing or duplicated')
+if html.count('class="card diagnostics-v184"')!=1: errors.append('diagnostics layer missing or duplicated')
+if html.count('class="market-context-card-v184"')!=3: errors.append('market context must be exactly three compact summaries')
+if 'class="decision-brief decision-brief-v2"' in html: errors.append('retired weekly brief panel returned')
+if 'class="deep-v4"' in html or 'class="deep-row-v4"' in html or 'class="deep-summary-v4"' in html:
+    errors.append('retired deep-analysis hierarchy returned')
+if '#drivers' in html or 'href="#drivers"' in html: errors.append('retired driver navigation returned')
 if html.count('class="audit-source-grid-v140"')!=1: errors.append('combined validation/data source grid missing')
 if len(re.findall(r'class="[^"]*\baudit-panel-v140\b[^"]*"',html))!=1: errors.append('combined validation/data panel missing')
-if 'class="card method-v4"' in html: errors.append('retired standalone data-validation panel returned')
-if 'methodology-v3' in html or 'methodology-v2' in html: errors.append('legacy methodology markup returned')
-if "flow-step-v4 '+state[1]" not in js: errors.append('live signal updater does not preserve v4 flow classes')
+if 'class="card method-v4"' in html or 'methodology-v3' in html or 'methodology-v2' in html:
+    errors.append('legacy methodology panel returned')
 
 
 
@@ -136,7 +128,7 @@ if 'forecast-compact-mobile' not in html:
     errors.append('compact mobile forecast marker missing')
 if ids.count('watchInsights')!=1:
     errors.append('watchlist supporting analyses drawer missing')
-watch_pos=html.find('<details class="deep-row-v4" id="watchlist"')
+watch_pos=html.find('<details class="user-watch-v184" id="watchlist"')
 watch_primary=html.find('<section class="card watch">',watch_pos)
 watch_insights=html.find('id="watchInsights"',watch_pos)
 if watch_pos<0 or watch_primary<0 or watch_insights<0 or not (watch_pos < watch_primary < watch_insights):
@@ -156,8 +148,14 @@ for rid in ('marketContext','contextBreadthBadge','breadthHeadline','breadthFill
     if ids.count(rid)!=1: errors.append(f'market context id {rid}: expected 1, got {ids.count(rid)}')
 if 'market_extensions.json' not in js or 'loadMarketExtensions()' not in js:
     errors.append('market extension loader missing')
-if html.count('class="card market-context-v1"')!=1:
-    errors.append('market context panel missing or duplicated')
+if html.count('class="card user-market-v184"')!=1:
+    errors.append('merged market context/watchlist panel missing or duplicated')
+_diag_tag=re.search(r'<details[^>]+id="diagnostics"[^>]*>',html)
+if not _diag_tag or re.search(r'\sopen(?:\s|>)',_diag_tag.group(0)):
+    errors.append('diagnostics layer must default closed')
+_watch_tag=re.search(r'<details[^>]+id="watchlist"[^>]*>',html)
+if not _watch_tag or re.search(r'\sopen(?:\s|>)',_watch_tag.group(0)):
+    errors.append('watchlist must default closed inside personal market layer')
 
 # live-data anti-hardcode contract
 if 'const KB_HISTORY=' in js:
