@@ -46,7 +46,7 @@ jobs:
           fi
 
       - name: Listen for dashboard refresh requests
-        if: env.SKIP_LISTENER != 'true'
+        if: ${{ env.SKIP_LISTENER != 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -110,7 +110,7 @@ PY
           done
 
       - name: Hand off to successor listener
-        if: env.SKIP_LISTENER != 'true' && !cancelled()
+        if: ${{ env.SKIP_LISTENER != 'true' && !cancelled() }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
