@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260930-183"></head><body><header>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20260930-184"></head><body><header>
 <a class="brand brand-home-v155" id="brandHome" href="./market.html" aria-label="서울 부동산 상황판 새로고침"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></a>
 <details id="refreshCalendar" class="header-refresh-v154" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
@@ -122,6 +122,8 @@
       </div>
     </details>
 
+    <div class="next-check-v184"><small>다음 확인</small><div id="nextSignals"></div></div>
+
     <details class="forecast-rules-v153 forecast-guide-v181">
       <summary>전망 읽는 법</summary>
       <div><span>0~19</span><b>상승 우위</b><span>20~29</span><b>재상승 가능성 확대</b><span>30~34</span><b>혼조·방향 탐색</b><span>35~44</span><b>쉬어가기·하방 경계</b><span>45~54</span><b>조정 위험 확대</b><span>55+</span><b>하락 우위</b></div>
@@ -131,61 +133,62 @@
   </div>
 </section>
 
-<section class="card decision-brief decision-brief-v2">
-  <div class="decision-top">
-    <div><small>이번 주 핵심</small><h2 id="storyHeadline">시장 신호를 연결하는 중입니다.</h2></div>
-  </div>
-  <p id="storySummary" class="decision-summary">금융 → 심리 → 거래 → 가격으로 이어지는 흐름을 확인합니다.</p>
-  <div class="weekly-flow-v4" aria-label="금융에서 가격까지 시장 전달 경로">
-    <div id="nodeFinance" class="flow-step-v4 neutral"><i></i><small>금융</small><b id="pathFinance">—</b></div>
-    <div id="nodeSentiment" class="flow-step-v4 neutral"><i></i><small>심리</small><b id="pathSentiment">—</b></div>
-    <div id="nodeDemand" class="flow-step-v4 neutral"><i></i><small>거래</small><b id="pathDemand">—</b></div>
-    <div id="nodeValue" class="flow-step-v4 neutral"><i></i><small>가격</small><b id="pathValue">—</b></div>
-  </div>
-  <div class="decision-pulse">
-    <div class="pulse-card positive"><span>＋</span><div><small>개선</small><b id="positiveLead">판독 중</b><em id="positiveSub">—</em></div></div>
-    <div class="pulse-card negative"><span>−</span><div><small>제약</small><b id="negativeLead">판독 중</b><em id="negativeSub">—</em></div></div>
-  </div>
-  <div class="next-signal-row"><small>다음 확인</small><div id="nextSignals"></div></div>
-  <details class="source-drawer"><summary>원자료 보기</summary><div id="kbOfficialData" class="evidence-strip"><div>공식 데이터 불러오는 중</div></div><div class="evidence-strip"><div><span>서울 거래량</span><b id="snapVolume">—</b><small id="snapVolumePeriod">공식 원자료</small></div><div><span>15억 이하</span><b id="snapUnder15">—</b><small>국토부</small></div><div><span>M2 전년비</span><b id="snapM2">—</b><small id="snapM2Period">ECOS</small></div></div></details>
-</section>
-<section class="card market-context-v1" id="marketContext">
-  <div class="context-head-v1">
-    <div><small>검증된 보조신호</small><h2>서울 안의 온도차와 실제 구매력</h2></div>
-    <span id="contextBreadthBadge">연결 중</span>
-  </div>
-  <div class="context-row-v1 breadth-row-v1">
-    <div class="context-label-v1"><small>지역 확산</small><b id="breadthHeadline">집계 중</b></div>
-    <div class="context-main-v1">
-      <div class="breadth-track-v1"><i id="breadthFill"></i></div>
-      <div class="context-sub-v1"><span id="breadthGangnam">강남3구 —</span><span id="breadthNonGangnam">비강남 —</span><span id="breadthSongpa">송파 —</span></div>
-    </div>
-  </div>
-  <div class="context-row-v1 temp-row-v1">
-    <div class="context-label-v1"><small>지역 온도차</small><b id="temperatureHeadline">계산 중</b></div>
-    <div class="context-main-v1">
-      <div class="temperature-line-v1"><span>서울 <b id="tempSeoul">—</b></span><i>›</i><span>송파 관심단지 <b id="tempSongpa">—</b></span></div>
-      <small id="tempGap">상대강도 계산 중</small>
-    </div>
-  </div>
-  <div class="context-row-v1 afford-row-v1">
-    <div class="context-label-v1"><small>실질 구매력</small><b id="affordHeadline">계산 중</b></div>
-    <div class="context-main-v1">
-      <div class="afford-metrics-v1"><span><small>주담대</small><b id="affordRate">—</b></span><span><small>5억 월상환</small><b id="affordPayment">—</b></span><span><small>3개월 구매력</small><b id="affordChange">—</b></span></div>
-      <small id="affordBenchmark">비교기준 계산 중</small>
-    </div>
-  </div>
-  <div class="context-foot-v1"><span id="contextValidation">백테스트 결과 연결 중</span><em>기존 가격전환 공식은 유지</em></div>
-</section>
-<section class="deep-v4">
-  <div class="deep-head-v4"><div><h2>상세 분석</h2></div><span>필요할 때만</span></div>
-  <div class="deep-list-v4">
-    <details class="deep-row-v4" id="drivers"><summary class="deep-summary-v4"><span class="deep-icon-v4">↗</span><span class="deep-copy-v4"><small>원인</small><b>왜 움직이나</b><em id="hubDriversMeta">실제 입력값 연결 중</em></span><strong>＋</strong></summary><section class="card compact-body driver-body-v143">
-  <div class="driver-guide-v143"><b>직전 → 현재 → 변화</b><span>전월 · 전주 · 동일기간 대비</span></div>
-  <div class="driver-change-list-v143" id="driverLive"><div class="driver-loading-v143">실제 입력값을 연결하는 중입니다.</div></div>
-</section></details>
 
-    <details class="deep-row-v4" id="validation"><summary class="deep-summary-v4"><span class="deep-icon-v4">≋</span><span class="deep-copy-v4"><small>검증</small><b>수요·전세</b><em id="hubValidationMeta">거래 · 가격대 · 전세</em></span><strong>＋</strong></summary>
+<section class="card user-market-v184" id="marketContext">
+  <div class="user-market-head-v184">
+    <div><small>내가 보는 시장</small><h2>서울 → 송파 → 관심단지</h2></div>
+  </div>
+  <div class="market-context-strip-v184">
+    <article class="market-context-card-v184">
+      <small>서울 확산</small>
+      <b id="breadthHeadline">집계 중</b>
+      <span id="contextBreadthBadge">연결 중</span>
+      <div class="breadth-track-v1"><i id="breadthFill"></i></div>
+      <div class="market-context-detail-v184"><span id="breadthGangnam">강남3구 —</span><span id="breadthNonGangnam">비강남 —</span><span id="breadthSongpa">송파 —</span></div>
+    </article>
+    <article class="market-context-card-v184">
+      <small>송파 상대강도</small>
+      <b id="temperatureHeadline">계산 중</b>
+      <span id="tempGap">상대강도 계산 중</span>
+      <div class="market-context-detail-v184"><span>서울 <b id="tempSeoul">—</b></span><span>송파 <b id="tempSongpa">—</b></span></div>
+    </article>
+    <article class="market-context-card-v184">
+      <small>실질 구매력</small>
+      <b id="affordHeadline">계산 중</b>
+      <span>3개월 <strong id="affordChange">—</strong></span>
+      <div class="market-context-detail-v184"><span>주담대 <b id="affordRate">—</b></span><span>5억 월상환 <b id="affordPayment">—</b></span></div>
+      <small id="affordBenchmark" class="market-context-note-v184">비교기준 계산 중</small>
+    </article>
+  </div>
+  <details class="user-watch-v184" id="watchlist"><summary class="user-watch-summary-v184"><span><small>내 단지</small><b>관심단지</b><em id="hubWatchMeta">연결 상태 확인 중</em></span><strong>＋</strong></summary>
+<section class="card watch"><div class="title"><div><h2>관심단지 상세</h2><small id="summary">KB · 호가 · 실거래 · 매물</small></div></div><div id="watchSourceNotice" class="watch-source-notice" hidden></div><div class="mobile-cards" id="mobileCards"></div><div class="table"><table><thead><tr><th>단지명</th><th>KB시세</th><th>최근 실거래가</th><th>매물 평균가</th><th>매물 수</th><th>전주 대비</th><th>신호</th></tr></thead><tbody id="body"></tbody></table></div></section>
+<details class="watch-insights-v2" id="watchInsights">
+  <summary><span><b>추이·경계선 자세히 보기</b><small>KB 추이 · 15억 변화 · 매물 증감</small></span><strong>＋</strong></summary>
+  <div class="watch-insights-body">
+    <section class="watch-layout compact-body"><article class="card chartcard"><div class="title"><h2>관심단지 KB 추이</h2><span>KB 월별</span></div><div class="kbchart"><div class="kb-y" id="kbYAxis"></div><div class="kb-plot"><svg viewBox="0 0 420 170" preserveAspectRatio="none" id="kbSvg"></svg><div class="kb-x" id="kbXAxis"></div></div></div><small id="kbHistoryNote">KB 가격 이력 불러오는 중</small></article><article class="card"><div class="title"><h2>15억 경계선</h2><span id="marketDate">전주 금요일 대비</span></div><div id="boundary"></div></article><article class="card"><div class="title"><h2>매물 증감</h2><span>전주비</span></div><div id="radar"></div></article></section>
+  </div>
+</details>
+</details>
+</section>
+
+<details class="card diagnostics-v184" id="diagnostics">
+  <summary class="diagnostics-head-v184">
+    <span><small>필요할 때만</small><b>검증 · 원자료</b><em id="contextValidation">검증 상태 확인 중</em></span>
+    <strong>＋</strong>
+  </summary>
+  <div class="diagnostics-body-v184">
+    <details class="diagnostic-block-v184" id="rawSources">
+      <summary class="diagnostic-summary-v184"><span><small>원천</small><b>현재 원자료</b></span><strong>＋</strong></summary>
+      <div class="diagnostic-source-body-v184">
+        <div id="kbOfficialData" class="evidence-strip"><div>공식 데이터 불러오는 중</div></div>
+        <div class="evidence-strip">
+          <div><span>서울 거래량</span><b id="snapVolume">—</b><small id="snapVolumePeriod">국토부</small></div>
+          <div><span>15억 이하</span><b id="snapUnder15">—</b><small>국토부</small></div>
+          <div><span>M2 전년비</span><b id="snapM2">—</b><small id="snapM2Period">ECOS</small></div>
+        </div>
+      </div>
+    </details>
+    <details class="diagnostic-block-v184" id="validation"><summary class="diagnostic-summary-v184"><span><small>시장 원자료</small><b>거래 · 전세</b></span><strong>＋</strong></summary>
 <section class="compact-body validation-compact-v2">
   <div class="validation-kpis">
     <div><small>동일기간 거래량</small><b id="matchedVolume">집계 중</b><em id="matchedVolumeDelta">—</em></div>
@@ -203,17 +206,7 @@
     <p>당월 거래는 신고기한 때문에 이후 늘어날 수 있어 조기신호로만 사용합니다.</p>
   </details>
 </section></details>
-
-    <details class="deep-row-v4" id="watchlist"><summary class="deep-summary-v4"><span class="deep-icon-v4">◎</span><span class="deep-copy-v4"><small>내 단지</small><b>관심단지</b><em id="hubWatchMeta">연결 상태 확인 중</em></span><strong>＋</strong></summary>
-<section class="card watch"><div class="title"><div><h2>관심단지 상세</h2><small id="summary">KB · 호가 · 실거래 · 매물</small></div></div><div id="watchSourceNotice" class="watch-source-notice" hidden></div><div class="mobile-cards" id="mobileCards"></div><div class="table"><table><thead><tr><th>단지명</th><th>KB시세</th><th>최근 실거래가</th><th>매물 평균가</th><th>매물 수</th><th>전주 대비</th><th>신호</th></tr></thead><tbody id="body"></tbody></table></div></section>
-<details class="watch-insights-v2" id="watchInsights">
-  <summary><span><b>추이·경계선 자세히 보기</b><small>KB 추이 · 15억 변화 · 매물 증감</small></span><strong>＋</strong></summary>
-  <div class="watch-insights-body">
-    <section class="watch-layout compact-body"><article class="card chartcard"><div class="title"><h2>관심단지 KB 추이</h2><span>KB 월별</span></div><div class="kbchart"><div class="kb-y" id="kbYAxis"></div><div class="kb-plot"><svg viewBox="0 0 420 170" preserveAspectRatio="none" id="kbSvg"></svg><div class="kb-x" id="kbXAxis"></div></div></div><small id="kbHistoryNote">KB 가격 이력 불러오는 중</small></article><article class="card"><div class="title"><h2>15억 경계선</h2><span id="marketDate">전주 금요일 대비</span></div><div id="boundary"></div></article><article class="card"><div class="title"><h2>매물 증감</h2><span>전주비</span></div><div id="radar"></div></article></section>
-  </div>
-</details>
-</details>
-    <details class="deep-row-v4" id="backtest"><summary class="deep-summary-v4"><span class="deep-icon-v4">✓</span><span class="deep-copy-v4"><small>검증</small><b>검증·데이터</b><em id="hubBacktestMeta">과거검증 + 현재 원천</em></span><strong>＋</strong></summary>
+    <details class="diagnostic-block-v184" id="backtest"><summary class="diagnostic-summary-v184"><span><small>신뢰성</small><b>백테스트 · 데이터 상태</b><em id="hubBacktestMeta">과거검증 + 현재 원천</em></span><strong>＋</strong></summary>
 <section class="card compact-body audit-panel-v140">
   <div class="audit-hero-v140">
     <div><small>과거검증</small><b id="backtestScope">불러오는 중</b><span id="backtestCertified">미래정보 차단 확인 중</span></div>
@@ -228,10 +221,9 @@
   </div>
   <div class="audit-foot-v140"><span>배포 전 자동검증</span><span>지연 원천은 마지막 정상값 분리</span></div>
 </section></details>
-
   </div>
-</section>
+</details>
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
 
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260930-183"></script></body></html>
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20260930-184"></script></body></html>
