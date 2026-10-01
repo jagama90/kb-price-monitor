@@ -298,37 +298,56 @@ def lead_lag_feature(raw,scope=None):
  except Exception as e:
   return {'status':'not_connected','production_applied':False,'reason':repr(e)[:240]}
 
-def selling_pressure_feature(watch):
- items=watch.get('items') or [];deltas=[];gaps=[];soft=0;usable=0
+def selling_pressure_feature(watch,history=None):
+ items=watch.get('items') or [];deltas=[];gaps=[];soft=0;usable=0;ask_deltas=[];listing_obs=0
  for x in items:
   d=f(x.get('sale_listing_week_delta'));a=f(x.get('avg_ask_manwon'));t=f(x.get('recent_trade_manwon'));ad=f(x.get('avg_ask_week_delta_manwon'))
+  if f(x.get('sale_listing_count')) is not None:listing_obs+=1
   if d is not None:deltas.append(d)
+  if ad is not None:ask_deltas.append(ad)
   if a is not None and t not in (None,0):gaps.append((a/t-1)*100)
   if d is not None and ad is not None:
    usable+=1
    if d>0 and ad<0:soft+=1
+ hist=(history or {}).get('snapshots') or []
  return {'status':'local_watchlist_context','production_applied':False,'representative_market_sample':False,
-         'scope':'configured watchlist complexes/areas','n_items':len(items),'n_listing_delta':len(deltas),
+         'scope':'configured watchlist target types','n_items':len(items),'listing_observed_rows':listing_obs,
+         'listing_coverage_pct':round(100*listing_obs/len(items),1) if items else None,'n_listing_delta':len(deltas),
          'listing_increase_share_pct':round(100*sum(x>0 for x in deltas)/len(deltas),1) if deltas else None,
          'median_listing_week_delta':round(statistics.median(deltas),2) if deltas else None,
+         'ask_cut_share_pct':round(100*sum(x<0 for x in ask_deltas)/len(ask_deltas),1) if ask_deltas else None,
          'median_ask_vs_recent_trade_gap_pct':round(statistics.median(gaps),2) if gaps else None,
          'listing_up_and_ask_down_share_pct':round(100*soft/usable,1) if usable else None,
-         'forced_selling':{'status':'not_connected','reason':'leverage/forced-sale identity is not observable from current authoritative sources; no inference is made'}}
+         'history':{'available_snapshots':len(hist),'sufficient_for_time_series_research':len(hist)>=12,'minimum_required':12},
+         'forced_selling':{'status':'not_observable','reason':'seller leverage/default status and sale motive are not observable from authoritative sources; no inference is made'}}
 
-def policy_feature(raw):
- events=raw.get('events') or []
- effective=sum(bool(x.get('effective_date')) for x in events);quant=sum(bool(x.get('quantitative_terms')) for x in events)
- return {'status':'not_connected_for_model','production_applied':False,'event_count':len(events),
-         'announcement_date_coverage':sum(bool(x.get('date') or x.get('announcement_date')) for x in events),
-         'effective_date_coverage':effective,'quantitative_terms_coverage':quant,
-         'reason':'historical file has announcement events but lacks complete effective-date and quantitative DSR/LTV/loan-limit lineage; narrative intensity is not used as a model input'}
+def policy_feature(raw,scope_cfg=None):
+ scope_cfg=scope_cfg or {};tags=set(str(x) for x in (scope_cfg.get('credit_policy_scope_tags') or []))
+ asof=str(raw.get('as_of') or datetime.date.today().isoformat());events=raw.get('events') or [];active=[]
+ for e in events:
+  start=str(e.get('effective_date') or '9999-12-31');end=str(e.get('end_date') or '9999-12-31')
+  if not (start<=asof<=end):continue
+  anytags=set(str(x) for x in (e.get('scope_match_any') or []))
+  if anytags and not (tags & anytags):continue
+  active.append({'id':e.get('id'),'effective_date':e.get('effective_date'),'end_date':e.get('end_date'),
+                 'terms':e.get('terms'),'source':e.get('source'),'source_authority':e.get('source_authority')})
+ return {'status':'connected_current_context' if raw.get('status')=='connected_current_context' else 'not_connected_for_model',
+         'production_applied':False,'scope_tags':sorted(tags),'active_rules':active,'active_rule_count':len(active),
+         'historical_backtest_ready':bool(raw.get('historical_backtest_ready')),
+         'reason':'objective effective-date and quantitative credit rules are connected for current context; historical lineage is not yet complete enough for model/backtest use' if active else 'no applicable structured rule for the configured scope'}
 
-def rental_supply_feature(market):
- s=market.get('kb_sentiment') or {};u=market.get('unsold_seoul') or {}
- return {'status':'semantic_split','production_applied':False,'rental_market_balance':{'status':'connected' if s.get('jeonse_score_0_100') is not None else 'not_connected',
+def rental_supply_feature(market,structural=None):
+ s=market.get('kb_sentiment') or {};u=market.get('unsold_inventory') or market.get('unsold_seoul') or {};structural=structural or {}
+ units=u.get('region_units')
+ if units is None:units=u.get('seoul_units')
+ series=structural.get('series') or {};connected=sum((series.get(k) or {}).get('status')=='connected_probe' for k in ('permit','start','completion'))
+ return {'status':'semantic_split','production_applied':False,
+         'rental_market_balance':{'status':'connected' if s.get('jeonse_score_0_100') is not None else 'not_connected',
           'score_0_100':s.get('jeonse_score_0_100'),'meaning':'KB 전세수급·전세거래 기반 단기 임대시장 균형','legacy_component_key':'supply'},
-         'structural_supply':{'status':'partial_context','unsold_units':u.get('seoul_units'),'unsold_period':u.get('period'),
-          'completion_inventory_series_status':'not_connected','meaning':'미분양은 보조 재고지표이며 신규 입주물량과 동일하게 취급하지 않음'}}
+         'structural_supply':{'status':'connected_context' if connected else ('partial_context' if units is not None else 'source_blocked'),
+          'unsold_inventory':{'units':units,'period':u.get('period'),'region_code':u.get('region_code'),'region_label':u.get('region_label') or u.get('region'),'source':u.get('source')},
+          'construction_statistics':{'status':structural.get('status') or 'not_connected','series':series,'official_meta':structural.get('official_meta'),'automation_blocker':structural.get('automation_blocker')},
+          'meaning':'미분양 재고와 인허가·착공·준공은 구조공급 context로 분리하며 기존 전세수급 15% 점수에는 아직 합산하지 않음'}}
 
 def current_finance_feature(mortgage,base,m2,credit,validation,production_applied=False):
  latest_m=mortgage[-1] if mortgage else None;cr=(credit.get('series') or [])
@@ -349,7 +368,8 @@ def current_finance_feature(mortgage,base,m2,credit,validation,production_applie
 def main():
  market=read(DIST/'market_indicators.json');final=read(DIST/'final_backtest.json');mort_raw=read(SRC/'ecos_mortgage_rate.json');tier_history=read(SRC/'molit_price_tier_history.json')
  base=read(SRC/'ecos_base_rate.json');m2=read(SRC/'ecos_m2.json');credit=read(SRC/'ecos_housing_credit.json')
- leading=read(SRC/'kb_leading50_median.json');watch=read(ROOT/'data/buy_watchlist_market.json');policy=read(SRC/'housing_policy_events.json')
+ leading=read(SRC/'kb_leading50_median.json');watch=read(ROOT/'data/buy_watchlist_market.json')
+ selling_history=read(SRC/'watchlist_selling_pressure_history.json');policy=read(SRC/'credit_policy_regime.json');structural=read(SRC/'molit_structural_supply.json')
  kb_momentum=read(DIST/'forecast_kb_momentum_validation.json');scope_cfg=read(ROOT/'config/market_scope.json')
  integrated=read(DIST/'market_judgment_validation.json',{})
  mortgage=mortgage_monthly(mort_raw);frows=final.get('rows') or []
@@ -364,9 +384,9 @@ def main():
       'method':'(100 - existing Value Composite) × historical mortgage-rate cost percentile / 100'},
   'price_tier_liquidity':price_tier_feature(market,tier_history,kb_momentum),
   'leader_lag':lead_lag_feature(leading,scope_cfg),
-  'selling_pressure':selling_pressure_feature(watch),
-  'policy_credit_regime':policy_feature(policy),
-  'rental_vs_structural_supply':rental_supply_feature(market),
+  'selling_pressure':selling_pressure_feature(watch,selling_history),
+  'policy_credit_regime':policy_feature(policy,scope_cfg),
+  'rental_vs_structural_supply':rental_supply_feature(market,structural),
  }
  decisions={k:{'status':v.get('status'),'production_applied':bool(v.get('production_applied'))} for k,v in features.items() if isinstance(v,dict)}
  payload={
@@ -378,7 +398,7 @@ def main():
   'features':features,'production_decision':{'integrated_engine_changed':finance_v2_production,'candidate_decisions':decisions,
     'reason':('finance_v2 passed standalone and integrated leakage-safe validation and is active in production; other candidates remain research-only until their gates pass' if finance_v2_production else 'candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass')},
   'lineage':{'market':'dist/market_indicators.json','final_backtest':'dist/final_backtest.json','mortgage_rate':'data_sources/ecos_mortgage_rate.json',
-             'housing_credit':'data_sources/ecos_housing_credit.json','price_tier_history':'data_sources/molit_price_tier_history.json','leading_segment':'data_sources/kb_leading50_median.json','kb_momentum_validation':'dist/forecast_kb_momentum_validation.json','policy':'data_sources/housing_policy_events.json','integrated_validation':'dist/market_judgment_validation.json'},
+             'housing_credit':'data_sources/ecos_housing_credit.json','price_tier_history':'data_sources/molit_price_tier_history.json','leading_segment':'data_sources/kb_leading50_median.json','kb_momentum_validation':'dist/forecast_kb_momentum_validation.json','selling_pressure_history':'data_sources/watchlist_selling_pressure_history.json','policy_credit_regime':'data_sources/credit_policy_regime.json','structural_supply':'data_sources/molit_structural_supply.json','integrated_validation':'dist/market_judgment_validation.json'},
   'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()
  }
  validation={'version':'common_feature_layer_v2_validation','no_future_leakage':True,
