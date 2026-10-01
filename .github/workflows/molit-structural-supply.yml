@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Install parser
-        run: pip install --quiet pandas lxml
+        run: pip install --quiet pandas lxml html5lib beautifulsoup4
       - name: Collect official construction statistics
         run: python3 scripts/collect_molit_structural_supply.py
       - name: Persist source snapshot
