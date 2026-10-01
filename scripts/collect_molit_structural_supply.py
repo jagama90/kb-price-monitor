@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import datetime,json,pathlib,urllib.parse,urllib.request,urllib.error,re,sys,io
+import datetime,json,pathlib,urllib.parse,urllib.request,urllib.error,re,sys,io,os,xml.etree.ElementTree as ET
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/molit_structural_supply.json'
 SCOPE=json.loads((ROOT/'config/market_scope.json').read_text(encoding='utf-8'))
@@ -8,6 +8,7 @@ REGION_LABEL=str(REGION.get('label') or '')
 REGION_CODE=str(REGION.get('code') or '')
 if not REGION_LABEL: raise RuntimeError('market_scope.region.label is required')
 BASE='https://stat.molit.go.kr/portal/cate/statView.do'
+API='https://stat.molit.go.kr/portal/openapi/service/rest/getList.do'
 SERIES={
  'permit':{'hRsId':'31','hFormId':'1948','label':'주택건설실적통계(인허가)'},
  'start':{'hRsId':'471','hFormId':'5386','label':'주택건설실적통계(착공)'},
@@ -24,6 +25,28 @@ def fetch_html(kind,start,end):
  req=urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0','Accept':'text/html,application/xhtml+xml','Referer':'https://stat.molit.go.kr/'})
  with urllib.request.urlopen(req,timeout=30) as r:
   return r.read().decode('utf-8','replace'),u
+def fetch_api(kind,start,end):
+ key=os.getenv('MOLIT_STAT_KEY') or os.getenv('MOLIT_SERVICE_KEY')
+ if not key:return None
+ spec=SERIES[kind]
+ q=urllib.parse.urlencode({'key':key,'form_id':spec['hFormId'],'style_num':1,'start_dt':start,'end_dt':end},safe='%')
+ req=urllib.request.Request(API+'?'+q,headers={'User-Agent':'kb-price-monitor/1.0','Accept':'application/xml,text/xml,*/*'})
+ raw=urllib.request.urlopen(req,timeout=25).read()
+ text=raw.decode('utf-8','replace')
+ diag={'bytes':len(raw),'prefix':text[:500].replace(key,'***')}
+ try:
+  root=ET.fromstring(raw);diag['root_tag']=root.tag
+  rows=[]
+  for elem in root.iter():
+   children=list(elem)
+   if not children:continue
+   vals={str(c.tag).split('}')[-1]:str(c.text or '').strip() for c in children if str(c.text or '').strip()}
+   joined=' | '.join(vals.values())
+   if REGION_LABEL and REGION_LABEL in joined:rows.append(vals)
+  diag['region_rows']=rows[:40];diag['region_row_count']=len(rows)
+ except Exception as e:diag['xml_error']=repr(e)[:200]
+ return diag
+
 def flatten(x):
  if isinstance(x,tuple): return ' '.join(str(v) for v in x if str(v)!='nan')
  return str(x)
@@ -76,9 +99,18 @@ def main():
  failures=[]
  for kind in SERIES:
   spec=SERIES[kind];html='';url=''
+  api_diag=None
+  try:
+   api_diag=fetch_api(kind,start,end)
+   if api_diag and api_diag.get('region_row_count',0)>0:
+    out['series'][kind]={'status':'connected_api_probe','official_name':spec['label'],'api_diagnostics':api_diag}
+    print(json.dumps({'kind':kind,'status':'connected_api_probe','region_rows':api_diag.get('region_row_count')},ensure_ascii=False),flush=True)
+    continue
+  except Exception as api_e:
+   api_diag={'status':'api_error','error':repr(api_e)[:300]}
   try:
    html,url=fetch_html(kind,start,end);row,nt,nc=parse(kind,html)
-   out['series'][kind]={'status':'connected_probe','official_name':spec['label'],'query_url':url,'table_count':nt,'region_candidate_rows':nc,'selected_row':row}
+   out['series'][kind]={'status':'connected_probe','official_name':spec['label'],'query_url':url,'table_count':nt,'region_candidate_rows':nc,'selected_row':row,'api_diagnostics':api_diag}
    print(json.dumps({'kind':kind,'status':'connected','tables':nt,'candidates':nc},ensure_ascii=False),flush=True)
   except Exception as e:
    failures.append(kind)
@@ -88,7 +120,7 @@ def main():
    if html:
     links=list(dict.fromkeys(re.findall(r'''[A-Za-z0-9_./?=&%:-]+\.do[^"'<> ]*''',html)))[:40]
    out['series'][kind]={'status':state,'official_name':spec['label'],'query_url':url or None,'official_meta_url':out['official_meta'][kind],
-                        'error':repr(e)[:300],'html_diagnostics':{'length':len(html),'do_links':links}}
+                        'error':repr(e)[:300],'api_diagnostics':api_diag,'html_diagnostics':{'length':len(html),'do_links':links}}
    print(json.dumps({'kind':kind,'status':state,'error':repr(e)[:200],'do_links':links[:15]},ensure_ascii=False),flush=True)
  if failures:
   states=[(out['series'].get(k) or {}).get('status') for k in failures]
