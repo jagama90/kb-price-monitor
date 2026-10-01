@@ -43,7 +43,13 @@ jobs:
           p=json.load(open('dist/common_feature_layer_v2.json'))
           applied=bool((p.get('features',{}).get('finance_v2_candidate') or {}).get('production_applied'))
           assert applied == bool(x.get('integrated_production_replacement_recommended')), 'finance_v2 production metadata drift'
-          print({'finance_v2':x.get('finance_v2',{}).get('apply_recommended'),'finance_v2_production':applied,'valuation_rate':x.get('valuation_rate_stress',{}).get('apply_recommended')})
+          f=p.get('features',{})
+          assert (f.get('selling_pressure') or {}).get('production_applied') is False
+          assert ((f.get('selling_pressure') or {}).get('forced_selling') or {}).get('status')=='not_observable'
+          assert (f.get('policy_credit_regime') or {}).get('production_applied') is False
+          assert (f.get('rental_vs_structural_supply') or {}).get('production_applied') is False
+          assert (x.get('phase4_context') or {}).get('production_replacement_recommended') is False
+          print({'finance_v2':x.get('finance_v2',{}).get('apply_recommended'),'finance_v2_production':applied,'valuation_rate':x.get('valuation_rate_stress',{}).get('apply_recommended'),'phase4':x.get('phase4_context')})
           PY
       - name: Existing regression checks
         run: |
