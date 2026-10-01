@@ -133,5 +133,9 @@
         "max_inclusive": true
       }
     ]
-  }
+  },
+  "credit_policy_scope_tags": [
+    "capital_region",
+    "regulated_area"
+  ]
 }
