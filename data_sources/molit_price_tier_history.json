@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "scope": {
     "data_scope": "Seoul",
     "market_scope": "city",
@@ -95,6 +95,894 @@
   },
   "months": [
     {
+      "period": "2023-03",
+      "total": 3110,
+      "counts": {
+        "<=9eok": 1870,
+        "9-15eok": 773,
+        "15-25eok": 365,
+        "25eok+": 102
+      },
+      "buckets3": {
+        "<=15eok": 2643,
+        "15-25eok": 365,
+        "25eok+": 102
+      },
+      "boundary_counts": {
+        "13-15eok": 141,
+        "15-17eok": 121,
+        "23-25eok": 43,
+        "25-27eok": 21
+      },
+      "under15_share": 85.0,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-04-30"
+    },
+    {
+      "period": "2023-04",
+      "total": 3335,
+      "counts": {
+        "<=9eok": 1812,
+        "9-15eok": 964,
+        "15-25eok": 418,
+        "25eok+": 141
+      },
+      "buckets3": {
+        "<=15eok": 2776,
+        "15-25eok": 418,
+        "25eok+": 141
+      },
+      "boundary_counts": {
+        "13-15eok": 197,
+        "15-17eok": 127,
+        "23-25eok": 54,
+        "25-27eok": 26
+      },
+      "under15_share": 83.2,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-05-30"
+    },
+    {
+      "period": "2023-05",
+      "total": 3490,
+      "counts": {
+        "<=9eok": 1754,
+        "9-15eok": 1041,
+        "15-25eok": 543,
+        "25eok+": 152
+      },
+      "buckets3": {
+        "<=15eok": 2795,
+        "15-25eok": 543,
+        "25eok+": 152
+      },
+      "boundary_counts": {
+        "13-15eok": 239,
+        "15-17eok": 151,
+        "23-25eok": 60,
+        "25-27eok": 40
+      },
+      "under15_share": 80.1,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-06-30"
+    },
+    {
+      "period": "2023-06",
+      "total": 4032,
+      "counts": {
+        "<=9eok": 2054,
+        "9-15eok": 1203,
+        "15-25eok": 579,
+        "25eok+": 196
+      },
+      "buckets3": {
+        "<=15eok": 3257,
+        "15-25eok": 579,
+        "25eok+": 196
+      },
+      "boundary_counts": {
+        "13-15eok": 277,
+        "15-17eok": 176,
+        "23-25eok": 74,
+        "25-27eok": 41
+      },
+      "under15_share": 80.8,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-07-30"
+    },
+    {
+      "period": "2023-07",
+      "total": 3759,
+      "counts": {
+        "<=9eok": 1872,
+        "9-15eok": 1184,
+        "15-25eok": 477,
+        "25eok+": 226
+      },
+      "buckets3": {
+        "<=15eok": 3056,
+        "15-25eok": 477,
+        "25eok+": 226
+      },
+      "boundary_counts": {
+        "13-15eok": 256,
+        "15-17eok": 128,
+        "23-25eok": 51,
+        "25-27eok": 59
+      },
+      "under15_share": 81.3,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-08-30"
+    },
+    {
+      "period": "2023-08",
+      "total": 4052,
+      "counts": {
+        "<=9eok": 2050,
+        "9-15eok": 1235,
+        "15-25eok": 519,
+        "25eok+": 248
+      },
+      "buckets3": {
+        "<=15eok": 3285,
+        "15-25eok": 519,
+        "25eok+": 248
+      },
+      "boundary_counts": {
+        "13-15eok": 290,
+        "15-17eok": 145,
+        "23-25eok": 74,
+        "25-27eok": 49
+      },
+      "under15_share": 81.1,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-09-30"
+    },
+    {
+      "period": "2023-09",
+      "total": 3520,
+      "counts": {
+        "<=9eok": 1751,
+        "9-15eok": 1083,
+        "15-25eok": 500,
+        "25eok+": 186
+      },
+      "buckets3": {
+        "<=15eok": 2834,
+        "15-25eok": 500,
+        "25eok+": 186
+      },
+      "boundary_counts": {
+        "13-15eok": 267,
+        "15-17eok": 169,
+        "23-25eok": 72,
+        "25-27eok": 29
+      },
+      "under15_share": 80.5,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-10-30"
+    },
+    {
+      "period": "2023-10",
+      "total": 2423,
+      "counts": {
+        "<=9eok": 1336,
+        "9-15eok": 642,
+        "15-25eok": 312,
+        "25eok+": 133
+      },
+      "buckets3": {
+        "<=15eok": 1978,
+        "15-25eok": 312,
+        "25eok+": 133
+      },
+      "boundary_counts": {
+        "13-15eok": 157,
+        "15-17eok": 90,
+        "23-25eok": 44,
+        "25-27eok": 21
+      },
+      "under15_share": 81.6,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-11-30"
+    },
+    {
+      "period": "2023-11",
+      "total": 1932,
+      "counts": {
+        "<=9eok": 1116,
+        "9-15eok": 462,
+        "15-25eok": 246,
+        "25eok+": 108
+      },
+      "buckets3": {
+        "<=15eok": 1578,
+        "15-25eok": 246,
+        "25eok+": 108
+      },
+      "boundary_counts": {
+        "13-15eok": 111,
+        "15-17eok": 80,
+        "23-25eok": 36,
+        "25-27eok": 10
+      },
+      "under15_share": 81.7,
+      "mature": true,
+      "reporting_window_elapsed_on": "2023-12-30"
+    },
+    {
+      "period": "2023-12",
+      "total": 1875,
+      "counts": {
+        "<=9eok": 1049,
+        "9-15eok": 519,
+        "15-25eok": 214,
+        "25eok+": 93
+      },
+      "buckets3": {
+        "<=15eok": 1568,
+        "15-25eok": 214,
+        "25eok+": 93
+      },
+      "boundary_counts": {
+        "13-15eok": 117,
+        "15-17eok": 64,
+        "23-25eok": 28,
+        "25-27eok": 27
+      },
+      "under15_share": 83.6,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-01-30"
+    },
+    {
+      "period": "2024-01",
+      "total": 2694,
+      "counts": {
+        "<=9eok": 1471,
+        "9-15eok": 753,
+        "15-25eok": 334,
+        "25eok+": 136
+      },
+      "buckets3": {
+        "<=15eok": 2224,
+        "15-25eok": 334,
+        "25eok+": 136
+      },
+      "boundary_counts": {
+        "13-15eok": 169,
+        "15-17eok": 99,
+        "23-25eok": 49,
+        "25-27eok": 29
+      },
+      "under15_share": 82.6,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-03-01"
+    },
+    {
+      "period": "2024-02",
+      "total": 2729,
+      "counts": {
+        "<=9eok": 1466,
+        "9-15eok": 773,
+        "15-25eok": 338,
+        "25eok+": 152
+      },
+      "buckets3": {
+        "<=15eok": 2239,
+        "15-25eok": 338,
+        "25eok+": 152
+      },
+      "boundary_counts": {
+        "13-15eok": 179,
+        "15-17eok": 100,
+        "23-25eok": 41,
+        "25-27eok": 27
+      },
+      "under15_share": 82.0,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-03-30"
+    },
+    {
+      "period": "2024-03",
+      "total": 4466,
+      "counts": {
+        "<=9eok": 2216,
+        "9-15eok": 1424,
+        "15-25eok": 579,
+        "25eok+": 247
+      },
+      "buckets3": {
+        "<=15eok": 3640,
+        "15-25eok": 579,
+        "25eok+": 247
+      },
+      "boundary_counts": {
+        "13-15eok": 336,
+        "15-17eok": 195,
+        "23-25eok": 78,
+        "25-27eok": 47
+      },
+      "under15_share": 81.5,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-04-30"
+    },
+    {
+      "period": "2024-04",
+      "total": 4660,
+      "counts": {
+        "<=9eok": 2226,
+        "9-15eok": 1526,
+        "15-25eok": 626,
+        "25eok+": 282
+      },
+      "buckets3": {
+        "<=15eok": 3752,
+        "15-25eok": 626,
+        "25eok+": 282
+      },
+      "boundary_counts": {
+        "13-15eok": 378,
+        "15-17eok": 204,
+        "23-25eok": 75,
+        "25-27eok": 64
+      },
+      "under15_share": 80.5,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-05-30"
+    },
+    {
+      "period": "2024-05",
+      "total": 5322,
+      "counts": {
+        "<=9eok": 2365,
+        "9-15eok": 1728,
+        "15-25eok": 866,
+        "25eok+": 363
+      },
+      "buckets3": {
+        "<=15eok": 4093,
+        "15-25eok": 866,
+        "25eok+": 363
+      },
+      "boundary_counts": {
+        "13-15eok": 416,
+        "15-17eok": 298,
+        "23-25eok": 108,
+        "25-27eok": 65
+      },
+      "under15_share": 76.9,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-06-30"
+    },
+    {
+      "period": "2024-06",
+      "total": 7963,
+      "counts": {
+        "<=9eok": 3220,
+        "9-15eok": 2835,
+        "15-25eok": 1380,
+        "25eok+": 528
+      },
+      "buckets3": {
+        "<=15eok": 6055,
+        "15-25eok": 1380,
+        "25eok+": 528
+      },
+      "boundary_counts": {
+        "13-15eok": 743,
+        "15-17eok": 487,
+        "23-25eok": 132,
+        "25-27eok": 93
+      },
+      "under15_share": 76.0,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-07-30"
+    },
+    {
+      "period": "2024-07",
+      "total": 9269,
+      "counts": {
+        "<=9eok": 3876,
+        "9-15eok": 3162,
+        "15-25eok": 1563,
+        "25eok+": 668
+      },
+      "buckets3": {
+        "<=15eok": 7038,
+        "15-25eok": 1563,
+        "25eok+": 668
+      },
+      "boundary_counts": {
+        "13-15eok": 774,
+        "15-17eok": 577,
+        "23-25eok": 205,
+        "25-27eok": 140
+      },
+      "under15_share": 75.9,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-08-30"
+    },
+    {
+      "period": "2024-08",
+      "total": 6563,
+      "counts": {
+        "<=9eok": 2959,
+        "9-15eok": 2092,
+        "15-25eok": 985,
+        "25eok+": 527
+      },
+      "buckets3": {
+        "<=15eok": 5051,
+        "15-25eok": 985,
+        "25eok+": 527
+      },
+      "boundary_counts": {
+        "13-15eok": 482,
+        "15-17eok": 354,
+        "23-25eok": 116,
+        "25-27eok": 90
+      },
+      "under15_share": 77.0,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-09-30"
+    },
+    {
+      "period": "2024-09",
+      "total": 3199,
+      "counts": {
+        "<=9eok": 1551,
+        "9-15eok": 838,
+        "15-25eok": 460,
+        "25eok+": 350
+      },
+      "buckets3": {
+        "<=15eok": 2389,
+        "15-25eok": 460,
+        "25eok+": 350
+      },
+      "boundary_counts": {
+        "13-15eok": 214,
+        "15-17eok": 153,
+        "23-25eok": 54,
+        "25-27eok": 55
+      },
+      "under15_share": 74.7,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-10-30"
+    },
+    {
+      "period": "2024-10",
+      "total": 3939,
+      "counts": {
+        "<=9eok": 1924,
+        "9-15eok": 1103,
+        "15-25eok": 557,
+        "25eok+": 355
+      },
+      "buckets3": {
+        "<=15eok": 3027,
+        "15-25eok": 557,
+        "25eok+": 355
+      },
+      "boundary_counts": {
+        "13-15eok": 221,
+        "15-17eok": 176,
+        "23-25eok": 75,
+        "25-27eok": 55
+      },
+      "under15_share": 76.8,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-11-30"
+    },
+    {
+      "period": "2024-11",
+      "total": 3565,
+      "counts": {
+        "<=9eok": 1671,
+        "9-15eok": 956,
+        "15-25eok": 611,
+        "25eok+": 327
+      },
+      "buckets3": {
+        "<=15eok": 2627,
+        "15-25eok": 611,
+        "25eok+": 327
+      },
+      "boundary_counts": {
+        "13-15eok": 231,
+        "15-17eok": 208,
+        "23-25eok": 74,
+        "25-27eok": 45
+      },
+      "under15_share": 73.7,
+      "mature": true,
+      "reporting_window_elapsed_on": "2024-12-30"
+    },
+    {
+      "period": "2024-12",
+      "total": 3399,
+      "counts": {
+        "<=9eok": 1741,
+        "9-15eok": 883,
+        "15-25eok": 469,
+        "25eok+": 306
+      },
+      "buckets3": {
+        "<=15eok": 2624,
+        "15-25eok": 469,
+        "25eok+": 306
+      },
+      "boundary_counts": {
+        "13-15eok": 214,
+        "15-17eok": 154,
+        "23-25eok": 66,
+        "25-27eok": 57
+      },
+      "under15_share": 77.2,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-01-30"
+    },
+    {
+      "period": "2025-01",
+      "total": 3589,
+      "counts": {
+        "<=9eok": 1561,
+        "9-15eok": 1122,
+        "15-25eok": 584,
+        "25eok+": 322
+      },
+      "buckets3": {
+        "<=15eok": 2683,
+        "15-25eok": 584,
+        "25eok+": 322
+      },
+      "boundary_counts": {
+        "13-15eok": 308,
+        "15-17eok": 213,
+        "23-25eok": 68,
+        "25-27eok": 56
+      },
+      "under15_share": 74.8,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-03-02"
+    },
+    {
+      "period": "2025-02",
+      "total": 6818,
+      "counts": {
+        "<=9eok": 2378,
+        "9-15eok": 2097,
+        "15-25eok": 1413,
+        "25eok+": 930
+      },
+      "buckets3": {
+        "<=15eok": 4475,
+        "15-25eok": 1413,
+        "25eok+": 930
+      },
+      "boundary_counts": {
+        "13-15eok": 573,
+        "15-17eok": 472,
+        "23-25eok": 230,
+        "25-27eok": 141
+      },
+      "under15_share": 65.6,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-03-30"
+    },
+    {
+      "period": "2025-03",
+      "total": 10691,
+      "counts": {
+        "<=9eok": 3671,
+        "9-15eok": 3522,
+        "15-25eok": 2214,
+        "25eok+": 1284
+      },
+      "buckets3": {
+        "<=15eok": 7193,
+        "15-25eok": 2214,
+        "25eok+": 1284
+      },
+      "boundary_counts": {
+        "13-15eok": 1010,
+        "15-17eok": 773,
+        "23-25eok": 320,
+        "25-27eok": 208
+      },
+      "under15_share": 67.3,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-04-30"
+    },
+    {
+      "period": "2025-04",
+      "total": 5757,
+      "counts": {
+        "<=9eok": 2831,
+        "9-15eok": 1824,
+        "15-25eok": 815,
+        "25eok+": 287
+      },
+      "buckets3": {
+        "<=15eok": 4655,
+        "15-25eok": 815,
+        "25eok+": 287
+      },
+      "boundary_counts": {
+        "13-15eok": 444,
+        "15-17eok": 309,
+        "23-25eok": 50,
+        "25-27eok": 44
+      },
+      "under15_share": 80.9,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-05-30"
+    },
+    {
+      "period": "2025-05",
+      "total": 8565,
+      "counts": {
+        "<=9eok": 3774,
+        "9-15eok": 2778,
+        "15-25eok": 1477,
+        "25eok+": 536
+      },
+      "buckets3": {
+        "<=15eok": 6552,
+        "15-25eok": 1477,
+        "25eok+": 536
+      },
+      "boundary_counts": {
+        "13-15eok": 771,
+        "15-17eok": 581,
+        "23-25eok": 127,
+        "25-27eok": 101
+      },
+      "under15_share": 76.5,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-06-30"
+    },
+    {
+      "period": "2025-06",
+      "total": 12618,
+      "counts": {
+        "<=9eok": 4705,
+        "9-15eok": 4290,
+        "15-25eok": 2445,
+        "25eok+": 1178
+      },
+      "buckets3": {
+        "<=15eok": 8995,
+        "15-25eok": 2445,
+        "25eok+": 1178
+      },
+      "boundary_counts": {
+        "13-15eok": 1262,
+        "15-17eok": 952,
+        "23-25eok": 222,
+        "25-27eok": 203
+      },
+      "under15_share": 71.3,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-07-30"
+    },
+    {
+      "period": "2025-07",
+      "total": 4635,
+      "counts": {
+        "<=9eok": 2166,
+        "9-15eok": 1338,
+        "15-25eok": 617,
+        "25eok+": 514
+      },
+      "buckets3": {
+        "<=15eok": 3504,
+        "15-25eok": 617,
+        "25eok+": 514
+      },
+      "boundary_counts": {
+        "13-15eok": 301,
+        "15-17eok": 223,
+        "23-25eok": 61,
+        "25-27eok": 61
+      },
+      "under15_share": 75.6,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-08-30"
+    },
+    {
+      "period": "2025-08",
+      "total": 4614,
+      "counts": {
+        "<=9eok": 2390,
+        "9-15eok": 1442,
+        "15-25eok": 594,
+        "25eok+": 188
+      },
+      "buckets3": {
+        "<=15eok": 3832,
+        "15-25eok": 594,
+        "25eok+": 188
+      },
+      "boundary_counts": {
+        "13-15eok": 342,
+        "15-17eok": 238,
+        "23-25eok": 27,
+        "25-27eok": 34
+      },
+      "under15_share": 83.1,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-09-30"
+    },
+    {
+      "period": "2025-09",
+      "total": 9081,
+      "counts": {
+        "<=9eok": 3382,
+        "9-15eok": 3459,
+        "15-25eok": 1822,
+        "25eok+": 418
+      },
+      "buckets3": {
+        "<=15eok": 6841,
+        "15-25eok": 1822,
+        "25eok+": 418
+      },
+      "boundary_counts": {
+        "13-15eok": 954,
+        "15-17eok": 706,
+        "23-25eok": 117,
+        "25-27eok": 83
+      },
+      "under15_share": 75.3,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-10-30"
+    },
+    {
+      "period": "2025-10",
+      "total": 8950,
+      "counts": {
+        "<=9eok": 3419,
+        "9-15eok": 3145,
+        "15-25eok": 1730,
+        "25eok+": 656
+      },
+      "buckets3": {
+        "<=15eok": 6564,
+        "15-25eok": 1730,
+        "25eok+": 656
+      },
+      "boundary_counts": {
+        "13-15eok": 883,
+        "15-17eok": 648,
+        "23-25eok": 133,
+        "25-27eok": 117
+      },
+      "under15_share": 73.3,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-11-30"
+    },
+    {
+      "period": "2025-11",
+      "total": 3523,
+      "counts": {
+        "<=9eok": 1540,
+        "9-15eok": 1037,
+        "15-25eok": 556,
+        "25eok+": 390
+      },
+      "buckets3": {
+        "<=15eok": 2577,
+        "15-25eok": 556,
+        "25eok+": 390
+      },
+      "boundary_counts": {
+        "13-15eok": 264,
+        "15-17eok": 184,
+        "23-25eok": 59,
+        "25-27eok": 38
+      },
+      "under15_share": 73.1,
+      "mature": true,
+      "reporting_window_elapsed_on": "2025-12-30"
+    },
+    {
+      "period": "2025-12",
+      "total": 4935,
+      "counts": {
+        "<=9eok": 2518,
+        "9-15eok": 1499,
+        "15-25eok": 665,
+        "25eok+": 253
+      },
+      "buckets3": {
+        "<=15eok": 4017,
+        "15-25eok": 665,
+        "25eok+": 253
+      },
+      "boundary_counts": {
+        "13-15eok": 374,
+        "15-17eok": 250,
+        "23-25eok": 61,
+        "25-27eok": 29
+      },
+      "under15_share": 81.4,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-01-30"
+    },
+    {
+      "period": "2026-01",
+      "total": 5549,
+      "counts": {
+        "<=9eok": 2600,
+        "9-15eok": 1753,
+        "15-25eok": 846,
+        "25eok+": 350
+      },
+      "buckets3": {
+        "<=15eok": 4353,
+        "15-25eok": 846,
+        "25eok+": 350
+      },
+      "boundary_counts": {
+        "13-15eok": 497,
+        "15-17eok": 315,
+        "23-25eok": 84,
+        "25-27eok": 40
+      },
+      "under15_share": 78.4,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-03-02"
+    },
+    {
+      "period": "2026-02",
+      "total": 5983,
+      "counts": {
+        "<=9eok": 2995,
+        "9-15eok": 1858,
+        "15-25eok": 819,
+        "25eok+": 311
+      },
+      "buckets3": {
+        "<=15eok": 4853,
+        "15-25eok": 819,
+        "25eok+": 311
+      },
+      "boundary_counts": {
+        "13-15eok": 404,
+        "15-17eok": 311,
+        "23-25eok": 67,
+        "25-27eok": 39
+      },
+      "under15_share": 81.1,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-03-30"
+    },
+    {
+      "period": "2026-03",
+      "total": 5717,
+      "counts": {
+        "<=9eok": 3156,
+        "9-15eok": 1607,
+        "15-25eok": 682,
+        "25eok+": 272
+      },
+      "buckets3": {
+        "<=15eok": 4763,
+        "15-25eok": 682,
+        "25eok+": 272
+      },
+      "boundary_counts": {
+        "13-15eok": 401,
+        "15-17eok": 265,
+        "23-25eok": 62,
+        "25-27eok": 29
+      },
+      "under15_share": 83.3,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-04-30"
+    },
+    {
       "period": "2026-04",
       "total": 8920,
       "counts": {
@@ -110,7 +998,9 @@
         "23-25eok": 146,
         "25-27eok": 109
       },
-      "under15_share": 75.7
+      "under15_share": 75.7,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-05-30"
     },
     {
       "period": "2026-05",
@@ -128,7 +1018,9 @@
         "23-25eok": 174,
         "25-27eok": 147
       },
-      "under15_share": 72.2
+      "under15_share": 72.2,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-06-30"
     },
     {
       "period": "2026-06",
@@ -146,7 +1038,9 @@
         "23-25eok": 71,
         "25-27eok": 53
       },
-      "under15_share": 76.1
+      "under15_share": 76.1,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-07-30"
     },
     {
       "period": "2026-07",
@@ -164,7 +1058,9 @@
         "23-25eok": 79,
         "25-27eok": 47
       },
-      "under15_share": 79.4
+      "under15_share": 79.4,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-08-30"
     },
     {
       "period": "2026-08",
@@ -182,7 +1078,9 @@
         "23-25eok": 56,
         "25-27eok": 29
       },
-      "under15_share": 79.6
+      "under15_share": 79.6,
+      "mature": true,
+      "reporting_window_elapsed_on": "2026-09-30"
     },
     {
       "period": "2026-09",
@@ -204,7 +1102,9 @@
         "23-25eok": 25,
         "25-27eok": 13
       },
-      "under15_share": 82.5
+      "under15_share": 82.5,
+      "mature": false,
+      "reporting_window_elapsed_on": "2026-10-30"
     },
     {
       "period": "2026-10",
@@ -226,8 +1126,18 @@
         "23-25eok": 0,
         "25-27eok": 0
       },
-      "under15_share": null
+      "under15_share": null,
+      "mature": false,
+      "reporting_window_elapsed_on": "2026-11-30"
     }
   ],
+  "backfill_meta": {
+    "requested_mature_months": 42,
+    "mature_months_available": 42,
+    "fetched_months": 37,
+    "reused_months": 5,
+    "reporting_window_days": 30,
+    "raw_transactions_retained": false
+  },
   "updated_at": "2026-10-01"
 }
