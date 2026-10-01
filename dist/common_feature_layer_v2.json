@@ -145,16 +145,16 @@
       }
     },
     "finance_v2_candidate": {
-      "status": "blocked_core_input_missing",
-      "production_applied": false,
-      "score_0_100": null,
+      "status": "validated_candidate",
+      "production_applied": true,
+      "score_0_100": 35.5,
       "liquidity_credit_availability": {
-        "score_0_100": null,
+        "score_0_100": 45.5,
         "source": "한국은행 ECOS 주택관련대출 잔액",
-        "period": null,
-        "balance": null,
-        "mom_change": null,
-        "yoy_pct": null
+        "period": "202607",
+        "balance": 929846.3,
+        "mom_change": 3495.4,
+        "yoy_pct": 5.2132
       },
       "funding_cost": {
         "score_0_100": 25.5,
@@ -169,14 +169,35 @@
       },
       "method": "Credit Availability 50% + Funding Cost 50%. Credit Availability uses housing-related loan balance increment and YoY growth; Funding Cost uses mortgage-rate level and 3m speed. M2 is context only.",
       "validation": {
-        "baseline": {},
-        "candidate": {},
-        "improvements": [],
-        "apply_recommended": false,
-        "reasons": [
-          "official housing-credit series not connected",
-          "fewer than 30 paired forward-3m observations"
+        "baseline": {
+          "n": 48,
+          "corr_fwd_1m": -0.49001108668678495,
+          "corr_fwd_3m": -0.465786404895992,
+          "corr_fwd_6m": -0.3556663077586926,
+          "corr_fwd_12m": -0.4096829848129911,
+          "downside_auc": 0.05128205128205128,
+          "reacceleration_auc": 0.2817204301075269,
+          "n_fwd3": 46
+        },
+        "candidate": {
+          "n": 48,
+          "corr_fwd_1m": 0.44356131912492325,
+          "corr_fwd_3m": 0.5291616993625459,
+          "corr_fwd_6m": 0.674201911094896,
+          "corr_fwd_12m": 0.8284294046990325,
+          "downside_auc": 0.9487179487179487,
+          "reacceleration_auc": 0.8387096774193549,
+          "n_fwd3": 46
+        },
+        "improvements": [
+          "downside_auc",
+          "reacceleration_auc",
+          "corr_fwd_3m",
+          "corr_fwd_6m",
+          "corr_fwd_12m"
         ],
+        "apply_recommended": true,
+        "reasons": [],
         "alignment": {
           "mortgage_rate": "score month t uses latest monthly rate <= t-1",
           "housing_credit": "score month t uses latest balance growth <= t-2"
@@ -794,26 +815,76 @@
       "status": "local_watchlist_context",
       "production_applied": false,
       "representative_market_sample": false,
-      "scope": "configured watchlist complexes/areas",
+      "scope": "configured watchlist target types",
       "n_items": 38,
+      "listing_observed_rows": 34,
+      "listing_coverage_pct": 89.5,
       "n_listing_delta": 31,
       "listing_increase_share_pct": 38.7,
       "median_listing_week_delta": 0.0,
+      "ask_cut_share_pct": 22.2,
       "median_ask_vs_recent_trade_gap_pct": 4.84,
       "listing_up_and_ask_down_share_pct": 18.5,
+      "history": {
+        "available_snapshots": 1,
+        "sufficient_for_time_series_research": false,
+        "minimum_required": 12
+      },
       "forced_selling": {
-        "status": "not_connected",
-        "reason": "leverage/forced-sale identity is not observable from current authoritative sources; no inference is made"
+        "status": "not_observable",
+        "reason": "seller leverage/default status and sale motive are not observable from authoritative sources; no inference is made"
       }
     },
     "policy_credit_regime": {
-      "status": "not_connected_for_model",
+      "status": "connected_current_context",
       "production_applied": false,
-      "event_count": 5,
-      "announcement_date_coverage": 5,
-      "effective_date_coverage": 0,
-      "quantitative_terms_coverage": 0,
-      "reason": "historical file has announcement events but lacks complete effective-date and quantitative DSR/LTV/loan-limit lineage; narrative intensity is not used as a model input"
+      "scope_tags": [
+        "capital_region",
+        "regulated_area"
+      ],
+      "active_rules": [
+        {
+          "id": "capital_region_credit_rules_20251016",
+          "effective_date": "2025-10-16",
+          "end_date": null,
+          "terms": {
+            "purchase_mortgage_max_won_by_home_price": [
+              {
+                "home_price_max_won": 1500000000,
+                "max_loan_won": 600000000
+              },
+              {
+                "home_price_min_exclusive_won": 1500000000,
+                "home_price_max_won": 2500000000,
+                "max_loan_won": 400000000
+              },
+              {
+                "home_price_min_exclusive_won": 2500000000,
+                "max_loan_won": 200000000
+              }
+            ],
+            "mortgage_stress_rate_floor_pct": 3,
+            "one_homeowner_jeonse_loan_interest_in_dsr": true
+          },
+          "source": "https://www.fsc.go.kr/no010101/85432",
+          "source_authority": "금융위원회"
+        },
+        {
+          "id": "stress_dsr_h2_2026",
+          "effective_date": "2026-07-01",
+          "end_date": "2026-12-31",
+          "terms": {
+            "capital_region_or_regulated_mortgage_stress_rate_floor_pct": 3,
+            "outside_capital_and_nonregulated_mortgage_calculated_stress_rate_multiplier": 0.5,
+            "credit_loan_applies_when_balance_over_won": 100000000
+          },
+          "source": "https://better.fsc.go.kr/fsc_new/status/adminMap/OpertnDetail.do?muNo=145&postNo=4215&stNo=11",
+          "source_authority": "금융위원회"
+        }
+      ],
+      "active_rule_count": 2,
+      "historical_backtest_ready": false,
+      "reason": "objective effective-date and quantitative credit rules are connected for current context; historical lineage is not yet complete enough for model/backtest use"
     },
     "rental_vs_structural_supply": {
       "status": "semantic_split",
@@ -826,23 +897,56 @@
       },
       "structural_supply": {
         "status": "partial_context",
-        "unsold_units": 994,
-        "unsold_period": "202607",
-        "completion_inventory_series_status": "not_connected",
-        "meaning": "미분양은 보조 재고지표이며 신규 입주물량과 동일하게 취급하지 않음"
+        "unsold_inventory": {
+          "units": 994,
+          "period": "202607",
+          "region_code": null,
+          "region_label": "서울",
+          "source": "국토교통부 미분양주택현황보고"
+        },
+        "construction_statistics": {
+          "status": "source_unreachable_from_actions",
+          "series": {
+            "permit": {
+              "status": "source_unreachable_from_actions",
+              "official_name": "주택건설실적통계(인허가)",
+              "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
+              "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+            },
+            "start": {
+              "status": "source_unreachable_from_actions",
+              "official_name": "주택건설실적통계(착공)",
+              "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
+              "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+            },
+            "completion": {
+              "status": "source_unreachable_from_actions",
+              "official_name": "주택건설실적통계(준공)",
+              "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468",
+              "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+            }
+          },
+          "official_meta": {
+            "permit": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
+            "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
+            "completion": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468"
+          },
+          "automation_blocker": "stat.molit.go.kr was not reachable from the GitHub-hosted runner; no values were fabricated or copied from secondary sources"
+        },
+        "meaning": "미분양 재고와 인허가·착공·준공은 구조공급 context로 분리하며 기존 전세수급 15% 점수에는 아직 합산하지 않음"
       }
     }
   },
   "production_decision": {
-    "integrated_engine_changed": false,
+    "integrated_engine_changed": true,
     "candidate_decisions": {
       "trade_reporting": {
         "status": "mature_completed_month",
         "production_applied": true
       },
       "finance_v2_candidate": {
-        "status": "blocked_core_input_missing",
-        "production_applied": false
+        "status": "validated_candidate",
+        "production_applied": true
       },
       "valuation_rate_stress_candidate": {
         "status": "research_candidate",
@@ -861,7 +965,7 @@
         "production_applied": false
       },
       "policy_credit_regime": {
-        "status": "not_connected_for_model",
+        "status": "connected_current_context",
         "production_applied": false
       },
       "rental_vs_structural_supply": {
@@ -869,7 +973,7 @@
         "production_applied": false
       }
     },
-    "reason": "candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass"
+    "reason": "finance_v2 passed standalone and integrated leakage-safe validation and is active in production; other candidates remain research-only until their gates pass"
   },
   "lineage": {
     "market": "dist/market_indicators.json",
@@ -879,8 +983,10 @@
     "price_tier_history": "data_sources/molit_price_tier_history.json",
     "leading_segment": "data_sources/kb_leading50_median.json",
     "kb_momentum_validation": "dist/forecast_kb_momentum_validation.json",
-    "policy": "data_sources/housing_policy_events.json",
+    "selling_pressure_history": "data_sources/watchlist_selling_pressure_history.json",
+    "policy_credit_regime": "data_sources/credit_policy_regime.json",
+    "structural_supply": "data_sources/molit_structural_supply.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-10-01T00:18:03.627528+00:00"
+  "generated_at": "2026-10-01T00:38:00.190679+00:00"
 }
