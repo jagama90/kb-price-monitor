@@ -118,10 +118,23 @@ def enrich(selected):
 
 def main():
  key=os.getenv('BOK_ECOS_KEY')
+ try:previous=json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
+ except Exception:previous={}
  payload={'status':'not_connected','source':'한국은행 ECOS','candidate_feature':'housing_credit_availability','generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+ def preserve_last_good(reason):
+  nonlocal payload
+  if previous.get('status') in ('connected','connected_last_good') and len(previous.get('series') or [])>=36:
+   payload=dict(previous)
+   payload['status']='connected_last_good'
+   payload['generated_at']=datetime.datetime.now(datetime.timezone.utc).isoformat()
+   payload['refresh_error']=str(reason)[:300]
+   payload['last_good_preserved']=True
+   payload.pop('reason',None)
+   return True
+  return False
  if not key:
-  payload['reason']='BOK_ECOS_KEY missing'
-  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');return
+  if not preserve_last_good('BOK_ECOS_KEY missing'):payload['reason']='BOK_ECOS_KEY missing'
+  OUT.parent.mkdir(exist_ok=True);OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');return
  try:
   tables=[]
   for t in table_rows(key):
@@ -156,7 +169,9 @@ def main():
 
   all_candidates.sort(key=lambda x:(x['score'],x['periods'][-1],len(x['periods'])),reverse=True)
   if not all_candidates:
-   payload.update({'reason':'No monthly ECOS housing-mortgage balance candidate with >=36 observations','tables_checked':len(tables),'table_candidates':[{'stat_code':c,'stat_name':n} for c,n in tables],'item_probes':probes})
+   reason='No monthly ECOS housing-mortgage balance candidate with >=36 observations'
+   if not preserve_last_good(reason):
+    payload.update({'reason':reason,'tables_checked':len(tables),'table_candidates':[{'stat_code':c,'stat_name':n} for c,n in tables],'item_probes':probes})
   else:
    s=all_candidates[0];series=enrich(s)
    payload.update({
@@ -168,7 +183,8 @@ def main():
     'alternative_candidates':[{'stat_code':x['stat_code'],'stat_name':x['stat_name'],'item_label':x['label'],'unit':x['unit'],'observations':len(x['periods']),'latest_period':x['periods'][-1],'score':x['score'],'query_item_codes':x.get('query_item_codes')} for x in all_candidates[:5]],
    })
  except Exception as e:
-  payload['reason']='collector_error: '+repr(e)[:300]
+  reason='collector_error: '+repr(e)[:300]
+  if not preserve_last_good(reason):payload['reason']=reason
  OUT.parent.mkdir(exist_ok=True)
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps({'status':payload.get('status'),'stat_code':payload.get('stat_code'),'item':payload.get('item_label'),'observations':payload.get('observations'),'reason':payload.get('reason')},ensure_ascii=False))
