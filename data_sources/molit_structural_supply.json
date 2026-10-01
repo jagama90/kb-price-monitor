@@ -1,5 +1,5 @@
 {
-  "status": "parse_error",
+  "status": "source_unreachable_from_actions",
   "source": "국토교통부 국토교통통계누리 승인통계",
   "scope": {
     "market_scope_id": "seoul_city",
@@ -12,25 +12,40 @@
   },
   "series": {
     "permit": {
-      "status": "parse_error",
+      "status": "source_unreachable_from_actions",
       "official_name": "주택건설실적통계(인허가)",
+      "query_url": null,
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
-      "error": "ValueError('No tables found')"
+      "error": "URLError(TimeoutError('timed out'))",
+      "html_diagnostics": {
+        "length": 0,
+        "do_links": []
+      }
     },
     "start": {
-      "status": "parse_error",
+      "status": "source_unreachable_from_actions",
       "official_name": "주택건설실적통계(착공)",
+      "query_url": null,
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
-      "error": "ValueError('No tables found')"
+      "error": "URLError(TimeoutError('timed out'))",
+      "html_diagnostics": {
+        "length": 0,
+        "do_links": []
+      }
     },
     "completion": {
-      "status": "parse_error",
+      "status": "source_unreachable_from_actions",
       "official_name": "주택건설실적통계(준공)",
+      "query_url": null,
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468",
-      "error": "ValueError('No tables found')"
+      "error": "URLError(TimeoutError('timed out'))",
+      "html_diagnostics": {
+        "length": 0,
+        "do_links": []
+      }
     }
   },
-  "generated_at": "2026-10-01T00:40:54.271875+00:00",
+  "generated_at": "2026-10-01T00:42:03.921151+00:00",
   "official_meta": {
     "permit": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
     "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
