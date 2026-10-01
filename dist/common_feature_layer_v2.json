@@ -2412,7 +2412,128 @@
                   "소분류": "아파트",
                   "중분류": "아파트"
                 }
-              ]
+              ],
+              "normalized_total": {
+                "basis": "monthly_cumulative_households_with_within_year_difference",
+                "series": [
+                  {
+                    "period": "202410",
+                    "cumulative_households": 26733,
+                    "monthly_households": null
+                  },
+                  {
+                    "period": "202411",
+                    "cumulative_households": 33305,
+                    "monthly_households": 6572
+                  },
+                  {
+                    "period": "202412",
+                    "cumulative_households": 51792,
+                    "monthly_households": 18487
+                  },
+                  {
+                    "period": "202501",
+                    "cumulative_households": 2895,
+                    "monthly_households": 2895
+                  },
+                  {
+                    "period": "202502",
+                    "cumulative_households": 7756,
+                    "monthly_households": 4861
+                  },
+                  {
+                    "period": "202503",
+                    "cumulative_households": 15013,
+                    "monthly_households": 7257
+                  },
+                  {
+                    "period": "202504",
+                    "cumulative_households": 16853,
+                    "monthly_households": 1840
+                  },
+                  {
+                    "period": "202505",
+                    "cumulative_households": 19447,
+                    "monthly_households": 2594
+                  },
+                  {
+                    "period": "202506",
+                    "cumulative_households": 22925,
+                    "monthly_households": 3478
+                  },
+                  {
+                    "period": "202507",
+                    "cumulative_households": 27029,
+                    "monthly_households": 4104
+                  },
+                  {
+                    "period": "202508",
+                    "cumulative_households": 28666,
+                    "monthly_households": 1637
+                  },
+                  {
+                    "period": "202509",
+                    "cumulative_households": 33542,
+                    "monthly_households": 4876
+                  },
+                  {
+                    "period": "202510",
+                    "cumulative_households": 35537,
+                    "monthly_households": 1995
+                  },
+                  {
+                    "period": "202511",
+                    "cumulative_households": 39081,
+                    "monthly_households": 3544
+                  },
+                  {
+                    "period": "202512",
+                    "cumulative_households": 42280,
+                    "monthly_households": 3199
+                  },
+                  {
+                    "period": "202601",
+                    "cumulative_households": 1250,
+                    "monthly_households": 1250
+                  },
+                  {
+                    "period": "202602",
+                    "cumulative_households": 3856,
+                    "monthly_households": 2606
+                  },
+                  {
+                    "period": "202603",
+                    "cumulative_households": 5715,
+                    "monthly_households": 1859
+                  },
+                  {
+                    "period": "202604",
+                    "cumulative_households": 12890,
+                    "monthly_households": 7175
+                  },
+                  {
+                    "period": "202605",
+                    "cumulative_households": 19208,
+                    "monthly_households": 6318
+                  },
+                  {
+                    "period": "202606",
+                    "cumulative_households": 20838,
+                    "monthly_households": 1630
+                  },
+                  {
+                    "period": "202607",
+                    "cumulative_households": 28846,
+                    "monthly_households": 8008
+                  },
+                  {
+                    "period": "202608",
+                    "cumulative_households": 40178,
+                    "monthly_households": 11332
+                  }
+                ],
+                "note": "first observed non-January month has no monthly value because prior cumulative month is outside the requested window"
+              }
             },
             "start": {
               "status": "connected_api",
@@ -5667,7 +5788,104 @@
                   "시도별": "서울",
                   "구  분": "민간"
                 }
-              ]
+              ],
+              "normalized_total": {
+                "basis": "monthly_total_households",
+                "series": [
+                  {
+                    "period": "202410",
+                    "value": 1028
+                  },
+                  {
+                    "period": "202411",
+                    "value": 3882
+                  },
+                  {
+                    "period": "202412",
+                    "value": 3620
+                  },
+                  {
+                    "period": "202501",
+                    "value": 2050
+                  },
+                  {
+                    "period": "202502",
+                    "value": 941
+                  },
+                  {
+                    "period": "202503",
+                    "value": 2319
+                  },
+                  {
+                    "period": "202504",
+                    "value": 3106
+                  },
+                  {
+                    "period": "202505",
+                    "value": 2483
+                  },
+                  {
+                    "period": "202506",
+                    "value": 2085
+                  },
+                  {
+                    "period": "202507",
+                    "value": 647
+                  },
+                  {
+                    "period": "202508",
+                    "value": 1023
+                  },
+                  {
+                    "period": "202509",
+                    "value": 1359
+                  },
+                  {
+                    "period": "202510",
+                    "value": 2872
+                  },
+                  {
+                    "period": "202511",
+                    "value": 3330
+                  },
+                  {
+                    "period": "202512",
+                    "value": 10009
+                  },
+                  {
+                    "period": "202601",
+                    "value": 741
+                  },
+                  {
+                    "period": "202602",
+                    "value": 3031
+                  },
+                  {
+                    "period": "202603",
+                    "value": 1239
+                  },
+                  {
+                    "period": "202604",
+                    "value": 2012
+                  },
+                  {
+                    "period": "202605",
+                    "value": 2607
+                  },
+                  {
+                    "period": "202606",
+                    "value": 3491
+                  },
+                  {
+                    "period": "202607",
+                    "value": 6386
+                  },
+                  {
+                    "period": "202608",
+                    "value": 1172
+                  }
+                ]
+              }
             },
             "completion": {
               "status": "connected_api",
@@ -7174,7 +7392,104 @@
                   "중분류": "아파트",
                   "사용검사실적": 2864
                 }
-              ]
+              ],
+              "normalized_total": {
+                "basis": "monthly_total_households",
+                "series": [
+                  {
+                    "period": "202410",
+                    "value": 3435
+                  },
+                  {
+                    "period": "202411",
+                    "value": 13754
+                  },
+                  {
+                    "period": "202412",
+                    "value": 3966
+                  },
+                  {
+                    "period": "202501",
+                    "value": 4793
+                  },
+                  {
+                    "period": "202502",
+                    "value": 2019
+                  },
+                  {
+                    "period": "202503",
+                    "value": 2903
+                  },
+                  {
+                    "period": "202504",
+                    "value": 5840
+                  },
+                  {
+                    "period": "202505",
+                    "value": 2310
+                  },
+                  {
+                    "period": "202506",
+                    "value": 8227
+                  },
+                  {
+                    "period": "202507",
+                    "value": 4145
+                  },
+                  {
+                    "period": "202508",
+                    "value": 1735
+                  },
+                  {
+                    "period": "202509",
+                    "value": 936
+                  },
+                  {
+                    "period": "202510",
+                    "value": 2072
+                  },
+                  {
+                    "period": "202511",
+                    "value": 8886
+                  },
+                  {
+                    "period": "202512",
+                    "value": 3239
+                  },
+                  {
+                    "period": "202601",
+                    "value": 3866
+                  },
+                  {
+                    "period": "202602",
+                    "value": 1710
+                  },
+                  {
+                    "period": "202603",
+                    "value": 1872
+                  },
+                  {
+                    "period": "202604",
+                    "value": 3825
+                  },
+                  {
+                    "period": "202605",
+                    "value": 1929
+                  },
+                  {
+                    "period": "202606",
+                    "value": 2072
+                  },
+                  {
+                    "period": "202607",
+                    "value": 5783
+                  },
+                  {
+                    "period": "202608",
+                    "value": 4755
+                  }
+                ]
+              }
             }
           },
           "official_meta": {
@@ -7239,5 +7554,5 @@
     "structural_supply": "data_sources/molit_structural_supply.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-10-01T02:18:05.775447+00:00"
+  "generated_at": "2026-10-01T02:20:13.024889+00:00"
 }
