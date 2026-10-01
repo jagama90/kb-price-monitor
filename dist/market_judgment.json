@@ -117,7 +117,7 @@
       "raw_matched_as_of": "2026-10-01",
       "finance_model": "finance_v1_m2",
       "finance_v1_score_0_100": 61.1,
-      "finance_v2_gate_passed": true,
+      "finance_v2_gate_passed": false,
       "credit_availability_0_100": null,
       "funding_cost_0_100": 25.5
     },
@@ -169,7 +169,7 @@
           "production_applied": false
         },
         "policy_credit_regime": {
-          "status": "not_connected_for_model",
+          "status": "connected_current_context",
           "production_applied": false
         },
         "rental_vs_structural_supply": {
@@ -397,5 +397,5 @@
       }
     }
   },
-  "generated_at": "2026-10-01T00:35:49.524338+00:00"
+  "generated_at": "2026-10-01T00:53:06.676456+00:00"
 }
