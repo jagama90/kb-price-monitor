@@ -984,14 +984,18 @@
     },
     {
       "period": "2026-04",
-      "total": 8920,
+      "total": 8921,
       "counts": {
         "<=9eok": 4342,
-        "9-15eok": 2413,
-        "15-25eok": 1387,
-        "25eok+": 778
+        "9-15eok": 2414,
+        "15-25eok": 1360,
+        "25eok+": 805
       },
-      "buckets3": null,
+      "buckets3": {
+        "<=15eok": 6756,
+        "15-25eok": 1360,
+        "25eok+": 805
+      },
       "boundary_counts": {
         "13-15eok": 628,
         "15-17eok": 474,
@@ -1006,15 +1010,19 @@
       "period": "2026-05",
       "total": 9263,
       "counts": {
-        "<=9eok": 4131,
-        "9-15eok": 2560,
-        "15-25eok": 1642,
-        "25eok+": 930
+        "<=9eok": 4129,
+        "9-15eok": 2561,
+        "15-25eok": 1614,
+        "25eok+": 959
       },
-      "buckets3": null,
+      "buckets3": {
+        "<=15eok": 6690,
+        "15-25eok": 1614,
+        "25eok+": 959
+      },
       "boundary_counts": {
         "13-15eok": 640,
-        "15-17eok": 574,
+        "15-17eok": 575,
         "23-25eok": 174,
         "25-27eok": 147
       },
@@ -1024,39 +1032,47 @@
     },
     {
       "period": "2026-06",
-      "total": 5467,
+      "total": 5468,
       "counts": {
-        "<=9eok": 2527,
-        "9-15eok": 1631,
-        "15-25eok": 914,
-        "25eok+": 395
+        "<=9eok": 2526,
+        "9-15eok": 1632,
+        "15-25eok": 906,
+        "25eok+": 404
       },
-      "buckets3": null,
+      "buckets3": {
+        "<=15eok": 4158,
+        "15-25eok": 906,
+        "25eok+": 404
+      },
       "boundary_counts": {
         "13-15eok": 439,
-        "15-17eok": 319,
+        "15-17eok": 318,
         "23-25eok": 71,
         "25-27eok": 53
       },
-      "under15_share": 76.1,
+      "under15_share": 76.0,
       "mature": true,
       "reporting_window_elapsed_on": "2026-07-30"
     },
     {
       "period": "2026-07",
-      "total": 5993,
+      "total": 6005,
       "counts": {
-        "<=9eok": 2977,
-        "9-15eok": 1781,
-        "15-25eok": 880,
-        "25eok+": 355
+        "<=9eok": 2982,
+        "9-15eok": 1785,
+        "15-25eok": 871,
+        "25eok+": 367
       },
-      "buckets3": null,
+      "buckets3": {
+        "<=15eok": 4767,
+        "15-25eok": 871,
+        "25eok+": 367
+      },
       "boundary_counts": {
-        "13-15eok": 493,
+        "13-15eok": 494,
         "15-17eok": 308,
         "23-25eok": 79,
-        "25-27eok": 47
+        "25-27eok": 48
       },
       "under15_share": 79.4,
       "mature": true,
@@ -1064,19 +1080,23 @@
     },
     {
       "period": "2026-08",
-      "total": 3546,
+      "total": 3622,
       "counts": {
-        "<=9eok": 1865,
-        "9-15eok": 959,
-        "15-25eok": 534,
-        "25eok+": 188
+        "<=9eok": 1904,
+        "9-15eok": 978,
+        "15-25eok": 538,
+        "25eok+": 202
       },
-      "buckets3": null,
+      "buckets3": {
+        "<=15eok": 2882,
+        "15-25eok": 538,
+        "25eok+": 202
+      },
       "boundary_counts": {
-        "13-15eok": 243,
-        "15-17eok": 185,
+        "13-15eok": 245,
+        "15-17eok": 189,
         "23-25eok": 56,
-        "25-27eok": 29
+        "25-27eok": 30
       },
       "under15_share": 79.6,
       "mature": true,
@@ -1134,8 +1154,8 @@
   "backfill_meta": {
     "requested_mature_months": 42,
     "mature_months_available": 42,
-    "fetched_months": 37,
-    "reused_months": 5,
+    "fetched_months": 5,
+    "reused_months": 37,
     "reporting_window_days": 30,
     "raw_transactions_retained": false
   },
