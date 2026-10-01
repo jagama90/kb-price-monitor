@@ -1,0 +1,31 @@
+name: Selling pressure history
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/buy_watchlist_market.json'
+      - 'scripts/update_selling_pressure_history.py'
+      - '.github/workflows/selling-pressure-history.yml'
+permissions:
+  contents: write
+concurrency:
+  group: selling-pressure-history
+  cancel-in-progress: true
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 scripts/update_selling_pressure_history.py
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data_sources/watchlist_selling_pressure_history.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Update selling pressure history'
+          git pull --rebase origin main || true
+          git push origin HEAD:main
