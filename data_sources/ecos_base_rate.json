@@ -5,11 +5,11 @@
   "item_code": "0101000",
   "frequency": "daily",
   "latest": {
-    "date": "20260928",
+    "date": "20261001",
     "rate_pct": 3.0,
     "item": "한국은행 기준금리"
   },
-  "latest_observation_date": "20260928",
+  "latest_observation_date": "20261001",
   "series": [
     {
       "date": "20160101",
@@ -132,5 +132,5 @@
       "item": "한국은행 기준금리"
     }
   ],
-  "collected_at": "2026-09-30T23:01:25.073379+00:00"
+  "collected_at": "2026-10-01T23:13:27.892182+00:00"
 }
