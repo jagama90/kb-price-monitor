@@ -1,5 +1,5 @@
 {
-  "status": "source_unreachable_from_actions",
+  "status": "parse_error",
   "source": "국토교통부 국토교통통계누리 승인통계",
   "scope": {
     "market_scope_id": "seoul_city",
@@ -12,40 +12,70 @@
   },
   "series": {
     "permit": {
-      "status": "source_unreachable_from_actions",
+      "status": "parse_error",
       "official_name": "주택건설실적통계(인허가)",
-      "query_url": null,
+      "query_url": "https://stat.molit.go.kr/portal/cate/statView.do?hAppr=1&hPoint=00&hRsId=31&hFormId=1948&hSelectId=1948&hDivEng=&oFileName=&rFileName=&midpath=&month_yn=N&sFormId=1948&sStart=202410&sEnd=202609&sStyleNum=1&EXPORT=",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
-      "error": "URLError(TimeoutError('timed out'))",
+      "error": "ValueError('No tables found')",
+      "api_diagnostics": null,
       "html_diagnostics": {
-        "length": 0,
-        "do_links": []
+        "length": 62457,
+        "do_links": [
+          "/portal/cate/statView.do",
+          "/portal/cate/statMetaView.do",
+          "/portal/cate/statPolicyView.do",
+          "/portal/cate/statAnalsView.do",
+          "/portal/stat/columns.do",
+          "/portal/stat/data.do",
+          "/portal/main/portalMain.do",
+          "/portal/info/protect.do"
+        ]
       }
     },
     "start": {
-      "status": "source_unreachable_from_actions",
+      "status": "parse_error",
       "official_name": "주택건설실적통계(착공)",
-      "query_url": null,
+      "query_url": "https://stat.molit.go.kr/portal/cate/statView.do?hAppr=1&hPoint=00&hRsId=471&hFormId=5386&hSelectId=5386&hDivEng=&oFileName=&rFileName=&midpath=&month_yn=N&sFormId=5386&sStart=202410&sEnd=202609&sStyleNum=1&EXPORT=",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
-      "error": "URLError(TimeoutError('timed out'))",
+      "error": "ValueError('No tables found')",
+      "api_diagnostics": null,
       "html_diagnostics": {
-        "length": 0,
-        "do_links": []
+        "length": 58397,
+        "do_links": [
+          "/portal/cate/statView.do",
+          "/portal/cate/statMetaView.do",
+          "/portal/cate/statPolicyView.do",
+          "/portal/cate/statAnalsView.do",
+          "/portal/stat/columns.do",
+          "/portal/stat/data.do",
+          "/portal/main/portalMain.do",
+          "/portal/info/protect.do"
+        ]
       }
     },
     "completion": {
-      "status": "source_unreachable_from_actions",
+      "status": "parse_error",
       "official_name": "주택건설실적통계(준공)",
-      "query_url": null,
+      "query_url": "https://stat.molit.go.kr/portal/cate/statView.do?hAppr=1&hPoint=00&hRsId=468&hFormId=5373&hSelectId=5373&hDivEng=&oFileName=&rFileName=&midpath=&month_yn=N&sFormId=5373&sStart=202410&sEnd=202609&sStyleNum=1&EXPORT=",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468",
-      "error": "URLError(TimeoutError('timed out'))",
+      "error": "ValueError('No tables found')",
+      "api_diagnostics": null,
       "html_diagnostics": {
-        "length": 0,
-        "do_links": []
+        "length": 58771,
+        "do_links": [
+          "/portal/cate/statView.do",
+          "/portal/cate/statMetaView.do",
+          "/portal/cate/statPolicyView.do",
+          "/portal/cate/statAnalsView.do",
+          "/portal/stat/columns.do",
+          "/portal/stat/data.do",
+          "/portal/main/portalMain.do",
+          "/portal/info/protect.do"
+        ]
       }
     }
   },
-  "generated_at": "2026-10-01T00:42:03.921151+00:00",
+  "generated_at": "2026-10-01T00:45:37.780210+00:00",
   "official_meta": {
     "permit": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
     "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
