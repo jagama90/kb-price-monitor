@@ -145,16 +145,16 @@
       }
     },
     "finance_v2_candidate": {
-      "status": "blocked_core_input_missing",
+      "status": "validated_candidate",
       "production_applied": false,
-      "score_0_100": null,
+      "score_0_100": 35.5,
       "liquidity_credit_availability": {
-        "score_0_100": null,
+        "score_0_100": 45.5,
         "source": "한국은행 ECOS 주택관련대출 잔액",
-        "period": null,
-        "balance": null,
-        "mom_change": null,
-        "yoy_pct": null
+        "period": "202607",
+        "balance": 929846.3,
+        "mom_change": 3495.4,
+        "yoy_pct": 5.2132
       },
       "funding_cost": {
         "score_0_100": 25.5,
@@ -169,14 +169,35 @@
       },
       "method": "Credit Availability 50% + Funding Cost 50%. Credit Availability uses housing-related loan balance increment and YoY growth; Funding Cost uses mortgage-rate level and 3m speed. M2 is context only.",
       "validation": {
-        "baseline": {},
-        "candidate": {},
-        "improvements": [],
-        "apply_recommended": false,
-        "reasons": [
-          "official housing-credit series not connected",
-          "fewer than 30 paired forward-3m observations"
+        "baseline": {
+          "n": 48,
+          "corr_fwd_1m": -0.49001108668678495,
+          "corr_fwd_3m": -0.465786404895992,
+          "corr_fwd_6m": -0.3556663077586926,
+          "corr_fwd_12m": -0.4096829848129911,
+          "downside_auc": 0.05128205128205128,
+          "reacceleration_auc": 0.2817204301075269,
+          "n_fwd3": 46
+        },
+        "candidate": {
+          "n": 48,
+          "corr_fwd_1m": 0.44356131912492325,
+          "corr_fwd_3m": 0.5291616993625459,
+          "corr_fwd_6m": 0.674201911094896,
+          "corr_fwd_12m": 0.8284294046990325,
+          "downside_auc": 0.9487179487179487,
+          "reacceleration_auc": 0.8387096774193549,
+          "n_fwd3": 46
+        },
+        "improvements": [
+          "downside_auc",
+          "reacceleration_auc",
+          "corr_fwd_3m",
+          "corr_fwd_6m",
+          "corr_fwd_12m"
         ],
+        "apply_recommended": true,
+        "reasons": [],
         "alignment": {
           "mortgage_rate": "score month t uses latest monthly rate <= t-1",
           "housing_credit": "score month t uses latest balance growth <= t-2"
@@ -978,7 +999,7 @@
         "production_applied": true
       },
       "finance_v2_candidate": {
-        "status": "blocked_core_input_missing",
+        "status": "validated_candidate",
         "production_applied": false
       },
       "valuation_rate_stress_candidate": {
@@ -1021,5 +1042,5 @@
     "structural_supply": "data_sources/molit_structural_supply.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-10-01T00:52:17.873971+00:00"
+  "generated_at": "2026-10-01T00:56:02.961871+00:00"
 }

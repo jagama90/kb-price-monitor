@@ -1,8 +1,8 @@
 {
-  "status": "connected_last_good",
+  "status": "connected",
   "source": "한국은행 ECOS",
   "candidate_feature": "housing_credit_availability",
-  "generated_at": "2026-10-01T00:55:50.976Z",
+  "generated_at": "2026-10-01T00:55:35.639842+00:00",
   "stat_code": "151Y005",
   "stat_name": "1.2.4.2.2. 예금취급기관 가계대출(용도별, 월)",
   "item_names": [
@@ -32,7 +32,7 @@
     },
     {
       "period": "200802",
-      "value": 290639,
+      "value": 290639.0,
       "mom_change": -984.3,
       "mom_pct": -0.3375,
       "yoy_change": null,
@@ -73,14 +73,14 @@
     {
       "period": "200807",
       "value": 300567.5,
-      "mom_change": 2780,
+      "mom_change": 2780.0,
       "mom_pct": 0.9336,
       "yoy_change": null,
       "yoy_pct": null
     },
     {
       "period": "200808",
-      "value": 302169,
+      "value": 302169.0,
       "mom_change": 1601.5,
       "mom_pct": 0.5328,
       "yoy_change": null,
@@ -113,7 +113,7 @@
     {
       "period": "200812",
       "value": 308879.2,
-      "mom_change": 2025,
+      "mom_change": 2025.0,
       "mom_pct": 0.6599,
       "yoy_change": 17796.3,
       "yoy_pct": 6.1138
@@ -184,7 +184,7 @@
     },
     {
       "period": "200909",
-      "value": 328843,
+      "value": 328843.0,
       "mom_change": -631.6,
       "mom_pct": -0.1917,
       "yoy_change": 24895.9,
@@ -243,7 +243,7 @@
       "value": 341352.9,
       "mom_change": 2155.1,
       "mom_pct": 0.6354,
-      "yoy_change": 25848,
+      "yoy_change": 25848.0,
       "yoy_pct": 8.1926
     },
     {
@@ -329,7 +329,7 @@
     {
       "period": "201103",
       "value": 366083.7,
-      "mom_change": 2623,
+      "mom_change": 2623.0,
       "mom_pct": 0.7217,
       "yoy_change": 26885.9,
       "yoy_pct": 7.9263
@@ -385,7 +385,7 @@
     {
       "period": "201110",
       "value": 382936.1,
-      "mom_change": 2989,
+      "mom_change": 2989.0,
       "mom_pct": 0.7867,
       "yoy_change": 29535.5,
       "yoy_pct": 8.3575
@@ -425,7 +425,7 @@
     {
       "period": "201203",
       "value": 389347.6,
-      "mom_change": 1046,
+      "mom_change": 1046.0,
       "mom_pct": 0.2694,
       "yoy_change": 23263.9,
       "yoy_pct": 6.3548
@@ -459,7 +459,7 @@
       "value": 393148.1,
       "mom_change": 306.9,
       "mom_pct": 0.0781,
-      "yoy_change": 17085,
+      "yoy_change": 17085.0,
       "yoy_pct": 4.5431
     },
     {
@@ -555,7 +555,7 @@
       "value": 399803.1,
       "mom_change": 39.5,
       "mom_pct": 0.0099,
-      "yoy_change": 6655,
+      "yoy_change": 6655.0,
       "yoy_pct": 1.6927
     },
     {
@@ -584,7 +584,7 @@
     },
     {
       "period": "201311",
-      "value": 406464,
+      "value": 406464.0,
       "mom_change": 2706.4,
       "mom_pct": 0.6703,
       "yoy_change": 13560.2,
@@ -609,14 +609,14 @@
     {
       "period": "201402",
       "value": 411749.8,
-      "mom_change": 1771,
+      "mom_change": 1771.0,
       "mom_pct": 0.432,
       "yoy_change": 17677.4,
       "yoy_pct": 4.4858
     },
     {
       "period": "201403",
-      "value": 413961,
+      "value": 413961.0,
       "mom_change": 2211.2,
       "mom_pct": 0.537,
       "yoy_change": 19476.2,
@@ -675,7 +675,7 @@
       "value": 442106.6,
       "mom_change": 5450.2,
       "mom_pct": 1.2482,
-      "yoy_change": 38349,
+      "yoy_change": 38349.0,
       "yoy_pct": 9.498
     },
     {
@@ -689,14 +689,14 @@
     {
       "period": "201412",
       "value": 452031.3,
-      "mom_change": 5001,
+      "mom_change": 5001.0,
       "mom_pct": 1.1187,
       "yoy_change": 41854.1,
       "yoy_pct": 10.2039
     },
     {
       "period": "201501",
-      "value": 453264,
+      "value": 453264.0,
       "mom_change": 1232.7,
       "mom_pct": 0.2727,
       "yoy_change": 43285.2,
@@ -720,7 +720,7 @@
     },
     {
       "period": "201504",
-      "value": 468824,
+      "value": 468824.0,
       "mom_change": 7841.6,
       "mom_pct": 1.7011,
       "yoy_change": 51534.6,
@@ -728,8 +728,8 @@
     },
     {
       "period": "201505",
-      "value": 469218,
-      "mom_change": 394,
+      "value": 469218.0,
+      "mom_change": 394.0,
       "mom_pct": 0.084,
       "yoy_change": 49453.5,
       "yoy_pct": 11.7812
@@ -744,7 +744,7 @@
     },
     {
       "period": "201507",
-      "value": 458250,
+      "value": 458250.0,
       "mom_change": 635.5,
       "mom_pct": 0.1389,
       "yoy_change": 30893.1,
@@ -760,7 +760,7 @@
     },
     {
       "period": "201509",
-      "value": 470243,
+      "value": 470243.0,
       "mom_change": 5565.9,
       "mom_pct": 1.1978,
       "yoy_change": 33586.6,
@@ -771,7 +771,7 @@
       "value": 477560.6,
       "mom_change": 7317.6,
       "mom_pct": 1.5561,
-      "yoy_change": 35454,
+      "yoy_change": 35454.0,
       "yoy_pct": 8.0193
     },
     {
@@ -793,7 +793,7 @@
     {
       "period": "201601",
       "value": 492905.1,
-      "mom_change": 2079,
+      "mom_change": 2079.0,
       "mom_pct": 0.4236,
       "yoy_change": 39641.1,
       "yoy_pct": 8.7457
@@ -849,17 +849,17 @@
     {
       "period": "201608",
       "value": 527287.5,
-      "mom_change": 6087,
+      "mom_change": 6087.0,
       "mom_pct": 1.1679,
       "yoy_change": 62610.4,
       "yoy_pct": 13.474
     },
     {
       "period": "201609",
-      "value": 530809,
+      "value": 530809.0,
       "mom_change": 3521.5,
       "mom_pct": 0.6679,
-      "yoy_change": 60566,
+      "yoy_change": 60566.0,
       "yoy_pct": 12.8797
     },
     {
@@ -872,7 +872,7 @@
     },
     {
       "period": "201611",
-      "value": 542494,
+      "value": 542494.0,
       "mom_change": 6353.6,
       "mom_pct": 1.1851,
       "yoy_change": 59577.6,
@@ -896,7 +896,7 @@
     },
     {
       "period": "201702",
-      "value": 547746,
+      "value": 547746.0,
       "mom_change": 1865.3,
       "mom_pct": 0.3417,
       "yoy_change": 53300.1,
@@ -969,7 +969,7 @@
     {
       "period": "201711",
       "value": 575798.6,
-      "mom_change": 2801,
+      "mom_change": 2801.0,
       "mom_pct": 0.4888,
       "yoy_change": 33304.6,
       "yoy_pct": 6.1392
@@ -993,7 +993,7 @@
     {
       "period": "201802",
       "value": 580343.8,
-      "mom_change": 1300,
+      "mom_change": 1300.0,
       "mom_pct": 0.2245,
       "yoy_change": 32597.8,
       "yoy_pct": 5.9513
@@ -1017,14 +1017,14 @@
     {
       "period": "201805",
       "value": 585568.5,
-      "mom_change": 1641,
+      "mom_change": 1641.0,
       "mom_pct": 0.281,
       "yoy_change": 29039.6,
       "yoy_pct": 5.218
     },
     {
       "period": "201806",
-      "value": 587738,
+      "value": 587738.0,
       "mom_change": 2169.5,
       "mom_pct": 0.3705,
       "yoy_change": 27596.5,
@@ -1147,13 +1147,13 @@
       "value": 625799.4,
       "mom_change": 3260.3,
       "mom_pct": 0.5237,
-      "yoy_change": 30862,
+      "yoy_change": 30862.0,
       "yoy_pct": 5.1874
     },
     {
       "period": "201910",
       "value": 630051.4,
-      "mom_change": 4252,
+      "mom_change": 4252.0,
       "mom_pct": 0.6795,
       "yoy_change": 32838.5,
       "yoy_pct": 5.4986
@@ -1193,7 +1193,7 @@
     {
       "period": "202003",
       "value": 640263.3,
-      "mom_change": 4423,
+      "mom_change": 4423.0,
       "mom_pct": 0.6956,
       "yoy_change": 32050.1,
       "yoy_pct": 5.2696
@@ -1345,7 +1345,7 @@
     {
       "period": "202110",
       "value": 728201.2,
-      "mom_change": 5459,
+      "mom_change": 5459.0,
       "mom_pct": 0.7553,
       "yoy_change": 59839.9,
       "yoy_pct": 8.9532
@@ -1355,7 +1355,7 @@
       "value": 732455.5,
       "mom_change": 4254.3,
       "mom_pct": 0.5842,
-      "yoy_change": 58055,
+      "yoy_change": 58055.0,
       "yoy_pct": 8.6084
     },
     {
@@ -1376,7 +1376,7 @@
     },
     {
       "period": "202202",
-      "value": 738614,
+      "value": 738614.0,
       "mom_change": 1119.9,
       "mom_pct": 0.1519,
       "yoy_change": 46857.1,
@@ -1401,7 +1401,7 @@
     {
       "period": "202205",
       "value": 742300.8,
-      "mom_change": 169,
+      "mom_change": 169.0,
       "mom_pct": 0.0228,
       "yoy_change": 41880.4,
       "yoy_pct": 5.9793
@@ -1433,7 +1433,7 @@
     {
       "period": "202209",
       "value": 750225.6,
-      "mom_change": 2043,
+      "mom_change": 2043.0,
       "mom_pct": 0.2731,
       "yoy_change": 27483.4,
       "yoy_pct": 3.8027
@@ -1481,9 +1481,9 @@
     {
       "period": "202303",
       "value": 751736.1,
-      "mom_change": -3081,
+      "mom_change": -3081.0,
       "mom_pct": -0.4082,
-      "yoy_change": 12039,
+      "yoy_change": 12039.0,
       "yoy_pct": 1.6276
     },
     {
@@ -1499,7 +1499,7 @@
       "value": 751482.8,
       "mom_change": 1982.3,
       "mom_pct": 0.2645,
-      "yoy_change": 9182,
+      "yoy_change": 9182.0,
       "yoy_pct": 1.237
     },
     {
@@ -1547,12 +1547,12 @@
       "value": 775585.7,
       "mom_change": 5051.3,
       "mom_pct": 0.6556,
-      "yoy_change": 21846,
+      "yoy_change": 21846.0,
       "yoy_pct": 2.8983
     },
     {
       "period": "202312",
-      "value": 779612,
+      "value": 779612.0,
       "mom_change": 4026.3,
       "mom_pct": 0.5191,
       "yoy_change": 23287.7,
@@ -1601,7 +1601,7 @@
     {
       "period": "202406",
       "value": 804343.1,
-      "mom_change": 5963,
+      "mom_change": 5963.0,
       "mom_pct": 0.7469,
       "yoy_change": 48718.4,
       "yoy_pct": 6.4474
@@ -1696,7 +1696,7 @@
     },
     {
       "period": "202506",
-      "value": 878107,
+      "value": 878107.0,
       "mom_change": 7886.7,
       "mom_pct": 0.9063,
       "yoy_change": 73763.9,
@@ -1721,7 +1721,7 @@
     {
       "period": "202509",
       "value": 893712.1,
-      "mom_change": 3861,
+      "mom_change": 3861.0,
       "mom_pct": 0.4339,
       "yoy_change": 66388.7,
       "yoy_pct": 8.0245
@@ -1753,7 +1753,7 @@
     {
       "period": "202601",
       "value": 907402.2,
-      "mom_change": 2406,
+      "mom_change": 2406.0,
       "mom_pct": 0.2659,
       "yoy_change": 61213.7,
       "yoy_pct": 7.2341
@@ -2134,7 +2134,7 @@
       "unit": "십억원",
       "observations": 248,
       "latest_period": "202607",
-      "score": 44,
+      "score": 44.0,
       "query_item_codes": [
         "11110A0"
       ]
@@ -2146,12 +2146,10 @@
       "unit": "십억원",
       "observations": 248,
       "latest_period": "202607",
-      "score": 44,
+      "score": 44.0,
       "query_item_codes": [
         "11110A0"
       ]
     }
-  ],
-  "refresh_error": "restored after transient ECOS timeout overwrote last-good source",
-  "last_good_preserved": true
+  ]
 }
