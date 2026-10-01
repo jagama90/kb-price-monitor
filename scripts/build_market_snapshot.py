@@ -58,8 +58,14 @@ def main():
  if rent and rent.get('status')=='connected':
   d['kb_weekly_rent_index']=rent;d.setdefault('data_status',{})['kb_weekly_rent_index']='connected'
  unsold=read('molit_unsold.json')
- if unsold and unsold.get('seoul_units') is not None:
-  d['unsold_seoul']=unsold;d.setdefault('data_status',{})['molit_unsold']='connected'
+ if unsold:
+  scope=d.get('scope') or {};units=unsold.get('region_units')
+  if units is None and str((scope.get('region') or {}).get('code') or '')=='1100000000':units=unsold.get('seoul_units')
+  if units is not None:
+   generic={**unsold,'region_units':units,'region_code':(scope.get('region') or {}).get('code'),'region_label':(scope.get('region') or {}).get('label') or unsold.get('region')}
+   d['unsold_inventory']=generic
+   if str((scope.get('region') or {}).get('code') or '')=='1100000000':d['unsold_seoul']=unsold
+   d.setdefault('data_status',{})['molit_unsold']='connected'
  kb=read('kb_history_status.json')
  if kb and not sale:d.setdefault('data_status',{})['kb_history']=kb.get('status')
  refresh=read('refresh_run_status.json')
