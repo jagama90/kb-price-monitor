@@ -30,22 +30,19 @@ def fetch_api(kind,start,end):
  if not key:return None
  spec=SERIES[kind]
  q=urllib.parse.urlencode({'key':key,'form_id':spec['hFormId'],'style_num':1,'start_dt':start,'end_dt':end},safe='%')
- req=urllib.request.Request(API+'?'+q,headers={'User-Agent':'kb-price-monitor/1.0','Accept':'application/xml,text/xml,*/*'})
- raw=urllib.request.urlopen(req,timeout=25).read()
- text=raw.decode('utf-8','replace')
- diag={'bytes':len(raw),'prefix':text[:500].replace(key,'***')}
- try:
-  root=ET.fromstring(raw);diag['root_tag']=root.tag
-  rows=[]
-  for elem in root.iter():
-   children=list(elem)
-   if not children:continue
-   vals={str(c.tag).split('}')[-1]:str(c.text or '').strip() for c in children if str(c.text or '').strip()}
-   joined=' | '.join(vals.values())
-   if REGION_LABEL and REGION_LABEL in joined:rows.append(vals)
-  diag['region_rows']=rows[:40];diag['region_row_count']=len(rows)
- except Exception as e:diag['xml_error']=repr(e)[:200]
- return diag
+ req=urllib.request.Request(API+'?'+q,headers={'User-Agent':'kb-price-monitor/1.0','Accept':'application/json,*/*'})
+ raw=urllib.request.urlopen(req,timeout=35).read()
+ obj=json.loads(raw.decode('utf-8','replace'))
+ status=(obj.get('result_status') or {})
+ if status.get('status_code')!='INFO-000':raise RuntimeError('MOLIT statistics API: '+json.dumps(status,ensure_ascii=False))
+ data=obj.get('result_data') or {};rows=data.get('formList') or []
+ region_rows=[r for r in rows if REGION_LABEL in [str(v).strip() for v in r.values()]]
+ # Keep raw official rows for the configured region. Do not collapse categories here:
+ # permit is cumulative and needs a separately validated monthly transform.
+ return {'status':'connected','form_name':data.get('formName'),'unit':data.get('unitName'),
+         'row_count':len(rows),'region_row_count':len(region_rows),'region_rows':region_rows,
+         'periods':sorted({str(r.get('date')) for r in region_rows if r.get('date')})}
+
 
 def flatten(x):
  if isinstance(x,tuple): return ' '.join(str(v) for v in x if str(v)!='nan')
