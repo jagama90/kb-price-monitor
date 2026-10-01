@@ -75,7 +75,7 @@ def main():
                        'completion':'https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468'}}
  failures=[]
  for kind in SERIES:
-  spec=SERIES[kind]
+  spec=SERIES[kind];html='';url=''
   try:
    html,url=fetch_html(kind,start,end);row,nt,nc=parse(kind,html)
    out['series'][kind]={'status':'connected_probe','official_name':spec['label'],'query_url':url,'table_count':nt,'region_candidate_rows':nc,'selected_row':row}
@@ -84,8 +84,12 @@ def main():
    failures.append(kind)
    unreachable=isinstance(e,(urllib.error.URLError,TimeoutError))
    state='source_unreachable_from_actions' if unreachable else 'parse_error'
-   out['series'][kind]={'status':state,'official_name':spec['label'],'official_meta_url':out['official_meta'][kind],'error':repr(e)[:300]}
-   print(json.dumps({'kind':kind,'status':state,'error':repr(e)[:200]},ensure_ascii=False),flush=True)
+   links=[]
+   if html:
+    links=list(dict.fromkeys(re.findall(r'''[A-Za-z0-9_./?=&%:-]+\.do[^"'<> ]*''',html)))[:40]
+   out['series'][kind]={'status':state,'official_name':spec['label'],'query_url':url or None,'official_meta_url':out['official_meta'][kind],
+                        'error':repr(e)[:300],'html_diagnostics':{'length':len(html),'do_links':links}}
+   print(json.dumps({'kind':kind,'status':state,'error':repr(e)[:200],'do_links':links[:15]},ensure_ascii=False),flush=True)
  if failures:
   states=[(out['series'].get(k) or {}).get('status') for k in failures]
   out['status']='partial_connected' if len(failures)<len(SERIES) else ('source_unreachable_from_actions' if all(x=='source_unreachable_from_actions' for x in states) else 'parse_error')
