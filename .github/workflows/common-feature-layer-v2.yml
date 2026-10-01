@@ -64,7 +64,25 @@ jobs:
           git reset --hard
           git clean -fd
           git pull --ff-only origin main
-          cp /tmp/ecos_housing_credit.json data_sources/ecos_housing_credit.json
+          python3 - <<'PY'
+          import json,pathlib,shutil
+          cur=pathlib.Path('data_sources/ecos_housing_credit.json')
+          cand=pathlib.Path('/tmp/ecos_housing_credit.json')
+          def good(p):
+              try:
+                  x=json.loads(p.read_text())
+                  return x.get('status') in ('connected','connected_last_good') and len(x.get('series') or [])>=36
+              except Exception:
+                  return False
+          if good(cand):
+              shutil.copy2(cand,cur)
+              print({'housing_credit_source':'fresh_or_last_good_candidate'})
+          elif good(cur):
+              print({'housing_credit_source':'preserve_main_last_good'})
+          elif cand.exists():
+              shutil.copy2(cand,cur)
+              print({'housing_credit_source':'no_last_good_available'})
+          PY
           python3 scripts/research_common_feature_layer_v2.py
           python3 scripts/test_common_feature_layer_v2.py
           git add -f data_sources/ecos_housing_credit.json dist/common_feature_layer_v2.json dist/common_feature_layer_v2_validation.json
