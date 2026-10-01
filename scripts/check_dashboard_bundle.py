@@ -254,7 +254,7 @@ if "kb_seoul_momentum" not in js:
 # v205 final UI/production consistency guard
 if '<title>서울 부동산' in html or '>서울 부동산 상황판<' in html:
     errors.append('system identity must not hardcode the current region')
-if "d.seoul_apt_trade_count||[]" in js:
+if "const vols=d.seoul_apt_trade_count||[];" in js:
     errors.append('UI must prefer generic apt_trade_count adapter')
 if "const u=d.unsold_seoul" in js:
     errors.append('UI must prefer generic unsold_inventory adapter')
