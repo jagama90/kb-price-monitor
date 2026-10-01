@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "status": "connected_current_context",
   "as_of": "2026-10-01",
   "source_policy": "official regulator sources only; objective effective dates and quantitative terms; no policy-intensity score",
@@ -67,5 +67,14 @@
       "source_authority": "금융위원회",
       "status": "in_force"
     }
-  ]
+  ],
+  "verified_at": "2026-10-01",
+  "verification": {
+    "method": "official regulator source cross-check",
+    "sources": [
+      "https://www.fsc.go.kr/no010101/85432",
+      "https://better.fsc.go.kr/fsc_new/status/adminMap/OpertnDetail.do?muNo=145&postNo=4215&stNo=11"
+    ],
+    "note": "current context only; no policy-intensity score and no historical model use until effective-date lineage is sufficiently complete"
+  }
 }

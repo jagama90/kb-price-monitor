@@ -51,11 +51,18 @@ class CommonFeatureLayerV2Tests(unittest.TestCase):
   self.assertEqual(x['listing_increase_share_pct'],100.0)
   self.assertEqual(x['ask_cut_share_pct'],100.0)
  def test_policy_context_applies_scope_tags_without_score(self):
-  raw={'status':'connected_current_context','as_of':'2026-10-01','historical_backtest_ready':False,'events':[{'id':'x','effective_date':'2026-07-01','end_date':'2026-12-31','scope_match_any':['capital_region'],'terms':{'stress':3.0},'source':'official'}]}
+  raw={'status':'connected_current_context','as_of':'2026-10-01','verified_at':'2026-10-01','historical_backtest_ready':False,'events':[
+   {'id':'expired','effective_date':'2025-07-01','end_date':'2025-10-15','terms':{'mortgage_stress_rate_floor_pct':1.5},'source':'official'},
+   {'id':'scope','effective_date':'2025-10-16','scope_match_any':['capital_region'],'terms':{'purchase_mortgage_max_won_by_home_price':[{'max_loan_won':600000000}],'mortgage_stress_rate_floor_pct':3.0,'one_homeowner_jeonse_loan_interest_in_dsr':True},'source':'official'},
+   {'id':'global','effective_date':'2026-07-01','end_date':'2026-12-31','terms':{'capital_region_or_regulated_mortgage_stress_rate_floor_pct':3.0,'outside_capital_and_nonregulated_mortgage_calculated_stress_rate_multiplier':0.5,'credit_loan_applies_when_balance_over_won':100000000},'source':'official'}]}
   x=policy_feature(raw,{'credit_policy_scope_tags':['capital_region']})
-  self.assertEqual(x['active_rule_count'],1)
+  self.assertEqual(x['active_rule_count'],2)
   self.assertFalse(x['production_applied'])
   self.assertFalse(x['historical_backtest_ready'])
+  self.assertEqual(x['current_constraints']['mortgage_stress_rate_floor_pct'],3.0)
+  self.assertEqual(x['current_constraints']['credit_loan_stress_applies_when_balance_over_won'],100000000)
+  self.assertTrue(x['current_constraints']['one_homeowner_jeonse_loan_interest_in_dsr'])
+  self.assertNotIn('mortgage_stress_rate_multiplier',x['current_constraints'])
  def test_structural_supply_does_not_replace_legacy_supply_score(self):
   m={'kb_sentiment':{'jeonse_score_0_100':55},'unsold_inventory':{'region_units':100,'period':'202601','region_code':'X'}}
   x=rental_supply_feature(m,{'status':'source_unreachable_from_actions','series':{}})

@@ -340,16 +340,31 @@ def selling_pressure_feature(watch,history=None):
 def policy_feature(raw,scope_cfg=None):
  scope_cfg=scope_cfg or {};tags=set(str(x) for x in (scope_cfg.get('credit_policy_scope_tags') or []))
  asof=str(raw.get('as_of') or datetime.date.today().isoformat());events=raw.get('events') or [];active=[]
+ constraints={}
  for e in events:
   start=str(e.get('effective_date') or '9999-12-31');end=str(e.get('end_date') or '9999-12-31')
   if not (start<=asof<=end):continue
   anytags=set(str(x) for x in (e.get('scope_match_any') or []))
   if anytags and not (tags & anytags):continue
+  terms=e.get('terms') or {}
   active.append({'id':e.get('id'),'effective_date':e.get('effective_date'),'end_date':e.get('end_date'),
-                 'terms':e.get('terms'),'source':e.get('source'),'source_authority':e.get('source_authority')})
+                 'terms':terms,'source':e.get('source'),'source_authority':e.get('source_authority')})
+  if terms.get('purchase_mortgage_max_won_by_home_price') is not None:
+   constraints['purchase_mortgage_max_won_by_home_price']=terms.get('purchase_mortgage_max_won_by_home_price')
+  if terms.get('mortgage_stress_rate_floor_pct') is not None:
+   constraints['mortgage_stress_rate_floor_pct']=terms.get('mortgage_stress_rate_floor_pct')
+  if terms.get('one_homeowner_jeonse_loan_interest_in_dsr') is not None:
+   constraints['one_homeowner_jeonse_loan_interest_in_dsr']=terms.get('one_homeowner_jeonse_loan_interest_in_dsr')
+  if tags & {'capital_region','regulated_area'} and terms.get('capital_region_or_regulated_mortgage_stress_rate_floor_pct') is not None:
+   constraints['mortgage_stress_rate_floor_pct']=terms.get('capital_region_or_regulated_mortgage_stress_rate_floor_pct')
+  if not (tags & {'capital_region','regulated_area'}) and terms.get('outside_capital_and_nonregulated_mortgage_calculated_stress_rate_multiplier') is not None:
+   constraints['mortgage_stress_rate_multiplier']=terms.get('outside_capital_and_nonregulated_mortgage_calculated_stress_rate_multiplier')
+  if terms.get('credit_loan_applies_when_balance_over_won') is not None:
+   constraints['credit_loan_stress_applies_when_balance_over_won']=terms.get('credit_loan_applies_when_balance_over_won')
  return {'status':'connected_current_context' if raw.get('status')=='connected_current_context' else 'not_connected_for_model',
-         'production_applied':False,'scope_tags':sorted(tags),'active_rules':active,'active_rule_count':len(active),
-         'historical_backtest_ready':bool(raw.get('historical_backtest_ready')),
+         'production_applied':False,'scope_tags':sorted(tags),'as_of':asof,'active_rules':active,'active_rule_count':len(active),
+         'current_constraints':constraints,'quantitative_terms_connected':bool(constraints),
+         'source_verified_at':raw.get('verified_at'),'historical_backtest_ready':bool(raw.get('historical_backtest_ready')),
          'reason':'objective effective-date and quantitative credit rules are connected for current context; historical lineage is not yet complete enough for model/backtest use' if active else 'no applicable structured rule for the configured scope'}
 
 def rental_supply_feature(market,structural=None):
