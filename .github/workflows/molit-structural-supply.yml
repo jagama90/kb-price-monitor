@@ -11,6 +11,9 @@ permissions:
 jobs:
   collect:
     runs-on: ubuntu-latest
+    env:
+      MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
+      MOLIT_STAT_KEY: ${{ secrets.MOLIT_STAT_KEY }}
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
