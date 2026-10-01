@@ -90,9 +90,13 @@ def parse(kind,html):
  return best[1],len(tables),len(candidates)
 def main():
  today=datetime.date.today(); y,m=shift(today.year,today.month,-1);end=f'{y:04d}{m:02d}';sy,sm=shift(y,m,-23);start=f'{sy:04d}{sm:02d}'
+ stat_key_configured=bool(os.getenv('MOLIT_STAT_KEY'));trade_key_configured=bool(os.getenv('MOLIT_SERVICE_KEY'))
  out={'status':'connected','source':'국토교통부 국토교통통계누리 승인통계',
       'scope':{'market_scope_id':SCOPE.get('market_scope_id'),'region_code':REGION_CODE,'region_label':REGION_LABEL},
       'period_query':{'start':start,'end':end},'series':{},'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+      'openapi':{'endpoint':API,'dedicated_stat_key_configured':stat_key_configured,
+                 'transaction_api_key_fallback_configured':trade_key_configured,
+                 'form_ids':{k:v['hFormId'] for k,v in SERIES.items()}},
       'official_meta':{'permit':'https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31',
                        'start':'https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471',
                        'completion':'https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468'}}
@@ -126,8 +130,15 @@ def main():
    print(json.dumps({'kind':kind,'status':state,'error':repr(e)[:200],'do_links':links[:15]},ensure_ascii=False),flush=True)
  if failures:
   states=[(out['series'].get(k) or {}).get('status') for k in failures]
-  out['status']='partial_connected' if len(failures)<len(SERIES) else ('source_unreachable_from_actions' if all(x=='source_unreachable_from_actions' for x in states) else 'parse_error')
-  out['automation_blocker']='official source could not be fully parsed/reached in this run; no values were fabricated or copied from secondary sources'
+  api_errors=[((out['series'].get(k) or {}).get('api_diagnostics') or {}).get('status')=='api_error' for k in failures]
+  if len(failures)<len(SERIES):out['status']='partial_connected'
+  elif not stat_key_configured and all(api_errors):out['status']='stat_openapi_key_required'
+  elif all(x=='source_unreachable_from_actions' for x in states):out['status']='source_unreachable_from_actions'
+  else:out['status']='parse_error'
+  if out['status']=='stat_openapi_key_required':
+   out['automation_blocker']='dedicated MOLIT statistics OpenAPI key is not configured; the transaction OpenAPI key fallback was rejected by the statistics endpoint. No values were fabricated.'
+  else:
+   out['automation_blocker']='official source could not be fully parsed/reached in this run; no values were fabricated or copied from secondary sources'
  OUT.parent.mkdir(exist_ok=True)
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps({'status':out['status'],'failures':failures,'out':str(OUT),'region':REGION_LABEL},ensure_ascii=False))
