@@ -145,3 +145,5 @@ def main():
  return 0
 
 if __name__=='__main__':main()
+
+# trigger dedicated MOLIT_STAT_KEY verification
