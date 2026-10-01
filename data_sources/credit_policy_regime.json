@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "status": "connected_current_context",
+  "as_of": "2026-10-01",
+  "source_policy": "official regulator sources only; objective effective dates and quantitative terms; no policy-intensity score",
+  "historical_backtest_ready": false,
+  "history_limitation": "structured effective-date lineage is currently complete only for recent credit-policy changes; do not use as a historical forecast feature yet",
+  "events": [
+    {
+      "id": "stress_dsr_stage3_20250701",
+      "effective_date": "2025-07-01",
+      "end_date": "2025-10-15",
+      "scope_tags": [
+        "all_dsr_covered_household_loans"
+      ],
+      "terms": {
+        "stress_dsr_stage": 3,
+        "base_stress_rate_pct": 1.5,
+        "non_capital_mortgage_temporary_rate_pct": 0.75,
+        "credit_loan_applies_when_balance_over_won": 100000000
+      },
+      "source": "https://www.fsc.go.kr/no010101/84617",
+      "source_authority": "금융위원회"
+    },
+    {
+      "id": "capital_region_credit_rules_20251016",
+      "effective_date": "2025-10-16",
+      "scope_match_any": [
+        "capital_region",
+        "regulated_area"
+      ],
+      "terms": {
+        "purchase_mortgage_max_won_by_home_price": [
+          {
+            "home_price_max_won": 1500000000,
+            "max_loan_won": 600000000
+          },
+          {
+            "home_price_min_exclusive_won": 1500000000,
+            "home_price_max_won": 2500000000,
+            "max_loan_won": 400000000
+          },
+          {
+            "home_price_min_exclusive_won": 2500000000,
+            "max_loan_won": 200000000
+          }
+        ],
+        "mortgage_stress_rate_floor_pct": 3,
+        "one_homeowner_jeonse_loan_interest_in_dsr": true
+      },
+      "source": "https://www.fsc.go.kr/no010101/85432",
+      "source_authority": "금융위원회"
+    },
+    {
+      "id": "stress_dsr_h2_2026",
+      "effective_date": "2026-07-01",
+      "end_date": "2026-12-31",
+      "scope_tags": [
+        "all_dsr_covered_household_loans"
+      ],
+      "terms": {
+        "capital_region_or_regulated_mortgage_stress_rate_floor_pct": 3,
+        "outside_capital_and_nonregulated_mortgage_calculated_stress_rate_multiplier": 0.5,
+        "credit_loan_applies_when_balance_over_won": 100000000
+      },
+      "source": "https://better.fsc.go.kr/fsc_new/status/adminMap/OpertnDetail.do?muNo=145&postNo=4215&stNo=11",
+      "source_authority": "금융위원회",
+      "status": "in_force"
+    }
+  ]
+}
