@@ -15,22 +15,22 @@
       "status": "parse_error",
       "official_name": "주택건설실적통계(인허가)",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
-      "error": "ImportError('`Import html5lib` failed.  Use pip or conda to install the html5lib package.')"
+      "error": "ValueError('No tables found')"
     },
     "start": {
       "status": "parse_error",
       "official_name": "주택건설실적통계(착공)",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
-      "error": "ImportError('`Import html5lib` failed.  Use pip or conda to install the html5lib package.')"
+      "error": "ValueError('No tables found')"
     },
     "completion": {
       "status": "parse_error",
       "official_name": "주택건설실적통계(준공)",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468",
-      "error": "ImportError('`Import html5lib` failed.  Use pip or conda to install the html5lib package.')"
+      "error": "ValueError('No tables found')"
     }
   },
-  "generated_at": "2026-10-01T00:38:56.083571+00:00",
+  "generated_at": "2026-10-01T00:39:52.613370+00:00",
   "official_meta": {
     "permit": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
     "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
