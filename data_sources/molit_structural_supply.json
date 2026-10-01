@@ -30,7 +30,7 @@
       "error": "ValueError('No tables found')"
     }
   },
-  "generated_at": "2026-10-01T00:39:52.613370+00:00",
+  "generated_at": "2026-10-01T00:40:54.271875+00:00",
   "official_meta": {
     "permit": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
     "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
