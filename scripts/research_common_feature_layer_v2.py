@@ -405,6 +405,15 @@ def main():
    'finance_v2':finance_val,'valuation_rate_stress':vr_val,
    'price_tier_history_sufficient':features['price_tier_liquidity']['validation']['sufficient_for_model'] if 'sufficient_for_model' in features['price_tier_liquidity']['validation'] else False,
    'leader_lag_history_sufficient':features['leader_lag'].get('validation',{}).get('sufficient_for_model',False),
+   'phase4_context':{
+     'selling_pressure_history_sufficient':features['selling_pressure'].get('history',{}).get('sufficient_for_time_series_research',False),
+     'forced_selling_observable':features['selling_pressure'].get('forced_selling',{}).get('status')!='not_observable',
+     'policy_historical_backtest_ready':features['policy_credit_regime'].get('historical_backtest_ready',False),
+     'policy_active_rule_count':features['policy_credit_regime'].get('active_rule_count',0),
+     'structural_supply_source_status':features['rental_vs_structural_supply'].get('structural_supply',{}).get('construction_statistics',{}).get('status'),
+     'production_replacement_recommended':False,
+     'reason':'phase 4 sources are context/research inputs only; legacy rental-market supply weight remains unchanged until representative history and integrated validation exist'
+   },
    'integrated_production_replacement_recommended':finance_v2_production,
    'finance_v2_integrated':integrated.get('finance_v2_integrated'),
    'integrated_reason':('finance_v2 is active after standalone + integrated leakage-safe validation' if finance_v2_production else 'No candidate is allowed to replace certified production logic until it has adequate history and integrated forecast validation.'),
