@@ -44,6 +44,31 @@ def fetch_api(kind,start,end):
          'periods':sorted({str(r.get('date')) for r in region_rows if r.get('date')})}
 
 
+def total_series(kind,rows):
+ def is_total(r):
+  if kind=='start':return str(r.get('시도별'))==REGION_LABEL and str(r.get('부문명'))=='총계' and str(r.get('구  분'))=='총계'
+  target='합계(가구수기준)' if kind=='permit' else '계(다가구가구수기준)'
+  region_key='시도명' if kind=='permit' else '구  분'
+  return str(r.get(region_key))==REGION_LABEL and all(str(r.get(k))==target for k in ('대분류','중분류','소분류'))
+ value_key={'permit':'인허가실적','start':'착공실적','completion':'사용검사실적'}[kind]
+ vals=[]
+ for r in rows:
+  if not is_total(r):continue
+  try:v=float(r.get(value_key))
+  except:continue
+  vals.append({'period':str(r.get('date')),'value':v})
+ vals.sort(key=lambda x:x['period'])
+ if kind!='permit':return {'basis':'monthly_total_households','series':vals}
+ out=[];prev=None
+ for x in vals:
+  ym=x['period'];monthly=None
+  if ym.endswith('01'):monthly=x['value']
+  elif prev and prev['period'][:4]==ym[:4]:monthly=x['value']-prev['value']
+  out.append({'period':ym,'cumulative_households':x['value'],'monthly_households':monthly})
+  prev=x
+ return {'basis':'monthly_cumulative_households_with_within_year_difference','series':out,
+         'note':'first observed non-January month has no monthly value because prior cumulative month is outside the requested window'}
+
 def flatten(x):
  if isinstance(x,tuple): return ' '.join(str(v) for v in x if str(v)!='nan')
  return str(x)
@@ -106,7 +131,8 @@ def main():
    if api_diag:
     print(json.dumps({'kind':kind,'stage':'openapi','status':api_diag.get('status'),'form_name':api_diag.get('form_name'),'region_rows':api_diag.get('region_row_count'),'periods':api_diag.get('periods')},ensure_ascii=False),flush=True)
    if api_diag and api_diag.get('region_row_count',0)>0:
-    out['series'][kind]={'status':'connected_api','official_name':spec['label'],'form_name':api_diag.get('form_name'),'unit':api_diag.get('unit'),'row_count':api_diag.get('row_count'),'region_row_count':api_diag.get('region_row_count'),'periods':api_diag.get('periods'),'region_rows':api_diag.get('region_rows')}
+    normalized=total_series(kind,api_diag.get('region_rows') or [])
+    out['series'][kind]={'status':'connected_api','official_name':spec['label'],'form_name':api_diag.get('form_name'),'unit':api_diag.get('unit'),'row_count':api_diag.get('row_count'),'region_row_count':api_diag.get('region_row_count'),'periods':api_diag.get('periods'),'normalized_total':normalized,'region_rows':api_diag.get('region_rows')}
     print(json.dumps({'kind':kind,'status':'connected_api','region_rows':api_diag.get('region_row_count')},ensure_ascii=False),flush=True)
     continue
   except Exception as api_e:
