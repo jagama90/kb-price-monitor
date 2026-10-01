@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import datetime,json,pathlib,urllib.parse,urllib.request,re,sys
+import datetime,json,pathlib,urllib.parse,urllib.request,urllib.error,re,sys,io
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/molit_structural_supply.json'
 SCOPE=json.loads((ROOT/'config/market_scope.json').read_text(encoding='utf-8'))
@@ -32,7 +32,7 @@ def parse(kind,html):
   import pandas as pd
  except Exception as e:
   raise RuntimeError('pandas is required in workflow: '+repr(e))
- tables=pd.read_html(html)
+ tables=pd.read_html(io.StringIO(html))
  candidates=[]
  for ti,t in enumerate(tables):
   t.columns=[flatten(c) for c in t.columns]
@@ -82,11 +82,14 @@ def main():
    print(json.dumps({'kind':kind,'status':'connected','tables':nt,'candidates':nc},ensure_ascii=False),flush=True)
   except Exception as e:
    failures.append(kind)
-   out['series'][kind]={'status':'source_unreachable_from_actions','official_name':spec['label'],'official_meta_url':out['official_meta'][kind],'error':repr(e)[:300]}
-   print(json.dumps({'kind':kind,'status':'source_unreachable_from_actions','error':repr(e)[:200]},ensure_ascii=False),flush=True)
+   unreachable=isinstance(e,(urllib.error.URLError,TimeoutError))
+   state='source_unreachable_from_actions' if unreachable else 'parse_error'
+   out['series'][kind]={'status':state,'official_name':spec['label'],'official_meta_url':out['official_meta'][kind],'error':repr(e)[:300]}
+   print(json.dumps({'kind':kind,'status':state,'error':repr(e)[:200]},ensure_ascii=False),flush=True)
  if failures:
-  out['status']='partial_source_unreachable' if len(failures)<len(SERIES) else 'source_unreachable_from_actions'
-  out['automation_blocker']='stat.molit.go.kr was not reachable from the GitHub-hosted runner; no values were fabricated or copied from secondary sources'
+  states=[(out['series'].get(k) or {}).get('status') for k in failures]
+  out['status']='partial_connected' if len(failures)<len(SERIES) else ('source_unreachable_from_actions' if all(x=='source_unreachable_from_actions' for x in states) else 'parse_error')
+  out['automation_blocker']='official source could not be fully parsed/reached in this run; no values were fabricated or copied from secondary sources'
  OUT.parent.mkdir(exist_ok=True)
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps({'status':out['status'],'failures':failures,'out':str(OUT),'region':REGION_LABEL},ensure_ascii=False))
