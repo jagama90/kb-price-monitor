@@ -177,56 +177,109 @@ def valuation_rate_research(final_rows,mortgage):
  gate=len(p)>=30 and parents and cand is not None and cand>=max(parents)+.01
  return rows,{**metrics,'apply_recommended':bool(gate),'gate':'n>=30 and valuation×(rate level + 3m speed) downside AUC >= best single parent + 0.01'}
 
-def price_tier_feature(market,tier_history=None):
+def price_tier_feature(market,tier_history=None,kb_momentum=None):
+ tier_history=tier_history or {};cfg=(tier_history.get('price_tier_config') or market.get('price_tier_config') or {})
  sig=market.get('signal_matched_period') or {};cur=sig.get('current') or {};prev=sig.get('previous') or {}
  cc=cur.get('counts') or {};pc=prev.get('counts') or {}
- keys=[('<=9eok','≤9억'),('9-15eok','9~15억'),('15-25eok','15~25억'),('25eok+','25억+')]
+ abs_cfg=cfg.get('absolute') or [{'id':k,'label':k} for k in cc.keys()]
  out=[];ct=f(cur.get('total'));pt=f(prev.get('total'));market_change=f((sig.get('changes') or {}).get('trade_count_pct'))
- for key,label in keys:
-  a=f(cc.get(key));b=f(pc.get(key))
+ for band in abs_cfg:
+  key=str(band.get('id'));label=str(band.get('label') or key);a=f(cc.get(key));b=f(pc.get(key))
   cp=(a/b-1)*100 if a is not None and b not in (None,0) else None
   cs=a/ct*100 if a is not None and ct else None;ps=b/pt*100 if b is not None and pt else None
   out.append({'id':key,'label':label,'current_count':a,'previous_count':b,'count_change_pct':round(cp,2) if cp is not None else None,
               'current_share_pct':round(cs,2) if cs is not None else None,'previous_share_pct':round(ps,2) if ps is not None else None,
               'share_change_pp':round(cs-ps,2) if cs is not None and ps is not None else None,
               'relative_volume_vs_market_pp':round(cp-market_change,2) if cp is not None and market_change is not None else None})
- high=next((x for x in out if x['id']=='25eok+'),{})
+ high_id=str((abs_cfg[-1] if abs_cfg else {}).get('id') or '')
+ high=next((x for x in out if x['id']==high_id),{})
+ hist=[x for x in (tier_history.get('months') or []) if x.get('mature') is True and f(x.get('total')) not in (None,0)]
+ analysis_cfg=cfg.get('analysis') or [];analysis_ids=[str(x.get('id')) for x in analysis_cfg if x.get('id') is not None]
+ high_analysis=analysis_ids[-1] if analysis_ids else None;upper_ids=analysis_ids[1:] if len(analysis_ids)>=2 else []
+ target={str(x.get('ym')):x for x in ((kb_momentum or {}).get('sample') or []) if x.get('ym')}
+ aligned=[]
+ def share(row,ids):
+  total=f(row.get('total'));b=row.get('buckets3') or {}
+  vals=[f(b.get(k)) for k in ids]
+  return sum(vals)/total*100 if total and vals and all(v is not None for v in vals) else None
+ for i,row in enumerate(hist):
+  if i<3 or not analysis_ids:continue
+  ym=str(row.get('period') or '').replace('-','')[:6];avail_ym=ym_shift(ym,1);prev3=hist[i-3]
+  hs=share(row,[high_analysis]) if high_analysis else None;hp=share(prev3,[high_analysis]) if high_analysis else None
+  us=share(row,upper_ids) if upper_ids else None;up=share(prev3,upper_ids) if upper_ids else None
+  y=target.get(avail_ym) or {};fwd=f(y.get('fwd_3m_pct'))
+  aligned.append({'trade_period':ym,'available_score_month':avail_ym,
+                  'high_share_3m_change_pp':(hs-hp if hs is not None and hp is not None else None),
+                  'upper_share_3m_change_pp':(us-up if us is not None and up is not None else None),
+                  'fwd_3m_pct':fwd})
+ def sig_metrics(key):
+  z=[x for x in aligned if x.get(key) is not None and x.get('fwd_3m_pct') is not None]
+  return {'n':len(z),'corr_fwd3':pearson([x[key] for x in z],[x['fwd_3m_pct'] for x in z]),
+          'auc_positive_fwd3':auc([1 if x['fwd_3m_pct']>0 else 0 for x in z],[x[key] for x in z])}
+ hm=sig_metrics('high_share_3m_change_pp');um=sig_metrics('upper_share_3m_change_pp')
+ enough=len(hist)>=36 and max(hm['n'],um['n'])>=24
+ candidates=[('high_share_3m_change_pp',hm),('upper_share_3m_change_pp',um)]
+ valid=[x for x in candidates if x[1].get('auc_positive_fwd3') is not None]
+ best=max(valid,key=lambda x:x[1]['auc_positive_fwd3']) if valid else (None,{})
+ supported=bool(enough and best[1].get('auc_positive_fwd3',0)>=.60 and (best[1].get('corr_fwd3') or 0)>=.10)
  return {
-  'status':'current_diagnostic_only','production_applied':False,
-  'scope':{'data_scope':(market.get('scope') or {}).get('data_scope','Seoul'),'price_tier_mode':'absolute_configured_bands'},
+  'status':'research_candidate' if enough else 'current_diagnostic_only','production_applied':False,
+  'scope':{'data_scope':(market.get('scope') or {}).get('data_scope'),'price_tier_mode':'configured_absolute_and_analysis_bands'},
   'signal_period':cur.get('period'),'previous_period':prev.get('period'),'aggregate_trade_change_pct':market_change,
   'bands':out,'high_tier_relative_volume_pp':high.get('relative_volume_vs_market_pp'),
-  'relative_quantile_tiers':{'status':'not_connected','reason':'long-enough transaction-level history for market-relative quantiles is not retained yet'},
-  'validation':{'status':'insufficient_history','available_band_months':len(((tier_history or {}).get('months') or (market.get('price_bands') or {}).get('months') or [])),'required_for_model':36}
+  'relative_quantile_tiers':{'status':'not_connected','reason':'monthly configured-band aggregates are retained; historical transaction-level rows are intentionally not retained'},
+  'validation':{'status':'validated_history' if enough else 'insufficient_history','available_band_months':len(hist),'required_for_model':36,
+                'aligned_target_rows':max(hm['n'],um['n']),'minimum_aligned_rows':24,'sufficient_for_model':enough,
+                'publication_alignment':'trade month t becomes eligible at score month t+1 after the reporting window; no current-month partial counts are used',
+                'high_share_3m_change':hm,'upper_share_3m_change':um,
+                'best_research_signal':best[0],'signal_supported':supported,
+                'production_gate':'history and standalone signal support are necessary but not sufficient; integrated engine validation is still required',
+                'no_future_leakage':True},
+  'research_sample':aligned[-60:]
  }
 
-def lead_lag_feature(raw):
+def lead_lag_feature(raw,scope=None):
  try:
+  scope=scope or {};region=scope.get('region') or {};region_code=str(region.get('code') or scope.get('region_code') or '')
+  region_label=str(region.get('label') or scope.get('data_scope') or region_code)
+  if not region_code:raise ValueError('configured region code is required for median-market selection')
   lead=(((raw.get('targets') or {}).get('leading50') or {}).get('payload') or {}).get('dataBody',{}).get('data',{})
   med=(((raw.get('targets') or {}).get('median') or {}).get('payload') or {}).get('dataBody',{}).get('data',{})
   dates=[str(x) for x in lead.get('날짜리스트') or []];lr=[f(x) for x in lead.get('전월대비증감률리스트') or []]
-  seoul=next(x for x in (med.get('데이터리스트') or []) if str(x.get('지역코드'))=='1100000000' or str(x.get('지역명'))=='서울')
-  vals=[f(x) for x in seoul.get('dataList') or []];md=[str(x) for x in med.get('날짜리스트') or dates[-len(vals):]]
-  byv={d:v for d,v in zip(md,vals) if v is not None};sr={}
-  prev=None
+  market_row=next(x for x in (med.get('데이터리스트') or []) if str(x.get('지역코드'))==region_code)
+  vals=[f(x) for x in market_row.get('dataList') or []];md=[str(x) for x in med.get('날짜리스트') or dates[-len(vals):]]
+  byv={d:v for d,v in zip(md,vals) if v is not None};sr={};prev=None
   for d in md:
    v=byv.get(d)
    if v is not None and prev not in (None,0):sr[d]=(v/prev-1)*100
    if v is not None:prev=v
-  leadret={d:v for d,v in zip(dates,lr) if v is not None}
-  stats=[]
+  leadret={d:v for d,v in zip(dates,lr) if v is not None};stats=[]
   for lag in range(4):
-   xs=[];ys=[]
+   pairs=[]
    for i,d in enumerate(dates):
     if i+lag>=len(dates):break
     td=dates[i+lag]
-    if d in leadret and td in sr:xs.append(leadret[d]);ys.append(sr[td])
-   stats.append({'lag_months':lag,'n':len(xs),'corr_leader_to_future_market':pearson(xs,ys)})
-  maxn=max((x['n'] for x in stats),default=0)
-  return {'status':'research_small_sample' if maxn<36 else 'research_candidate','production_applied':False,
-          'leader_definition':'KB 선도아파트 50지수','market_definition':'KB 서울 아파트 중위가격',
-          'period_start':dates[0] if dates else None,'period_end':dates[-1] if dates else None,'lag_tests':stats,
-          'validation':{'sufficient_for_model':maxn>=36,'minimum_required':36,'reason':'lead-lag is descriptive until longer same-definition history is available'}}
+    if d in leadret and td in sr:pairs.append((leadret[d],sr[td]))
+   xs=[x for x,_ in pairs];ys=[y for _,y in pairs];mid=len(pairs)//2
+   stats.append({'lag_months':lag,'n':len(pairs),'corr_leader_to_future_market':pearson(xs,ys),
+                 'auc_future_market_positive':auc([1 if y>0 else 0 for y in ys],xs),
+                 'first_half_corr':pearson(xs[:mid],ys[:mid]),'second_half_corr':pearson(xs[mid:],ys[mid:])})
+  maxn=max((x['n'] for x in stats),default=0);sufficient=maxn>=36;base=stats[0] if stats else {}
+  leads=[x for x in stats if x['lag_months']>0 and x.get('corr_leader_to_future_market') is not None and x.get('auc_future_market_positive') is not None]
+  best=max(leads,key=lambda x:(x['auc_future_market_positive'],x['corr_leader_to_future_market'])) if leads else None
+  superiority=False
+  if sufficient and best:
+   superiority=bool(best['corr_leader_to_future_market']>=.20 and best['auc_future_market_positive']>=.60 and
+                    (best.get('first_half_corr') or 0)>0 and (best.get('second_half_corr') or 0)>0 and
+                    (best['corr_leader_to_future_market']>=(base.get('corr_leader_to_future_market') or 0)+.05 or
+                     best['auc_future_market_positive']>=(base.get('auc_future_market_positive') or 0)+.03))
+  return {'status':'research_candidate' if sufficient else 'research_small_sample','production_applied':False,
+          'leader_definition':'KB 선도아파트 50지수','market_definition':f'KB {region_label} 아파트 중위가격',
+          'market_region_code':region_code,'period_start':dates[0] if dates else None,'period_end':dates[-1] if dates else None,'lag_tests':stats,
+          'validation':{'sufficient_for_model':sufficient,'minimum_required':36,'lead_lag_hypothesis_supported':superiority,
+                        'best_positive_lag_months':best.get('lag_months') if best else None,
+                        'gate':'n>=36; positive lag corr>=0.20 and direction AUC>=0.60; both half-sample correlations >0; lag must beat contemporaneous corr by 0.05 or AUC by 0.03',
+                        'reason':'history is sufficient; production use still requires clear lag superiority and integrated validation' if sufficient else 'lead-lag is descriptive until longer same-definition history is available'}}
  except Exception as e:
   return {'status':'not_connected','production_applied':False,'reason':repr(e)[:240]}
 
@@ -282,6 +335,7 @@ def main():
  market=read(DIST/'market_indicators.json');final=read(DIST/'final_backtest.json');mort_raw=read(SRC/'ecos_mortgage_rate.json');tier_history=read(SRC/'molit_price_tier_history.json')
  base=read(SRC/'ecos_base_rate.json');m2=read(SRC/'ecos_m2.json');credit=read(SRC/'ecos_housing_credit.json')
  leading=read(SRC/'kb_leading50_median.json');watch=read(ROOT/'data/buy_watchlist_market.json');policy=read(SRC/'housing_policy_events.json')
+ kb_momentum=read(DIST/'forecast_kb_momentum_validation.json');scope_cfg=read(ROOT/'config/market_scope.json')
  integrated=read(DIST/'market_judgment_validation.json',{})
  mortgage=mortgage_monthly(mort_raw);frows=final.get('rows') or []
  finance_rows,finance_val=finance_research(frows,mortgage,credit)
@@ -293,8 +347,8 @@ def main():
   'valuation_rate_stress_candidate':{'status':'validated_candidate' if vr_val.get('apply_recommended') else 'research_candidate','production_applied':False,'validation':vr_val,
       'current_inputs':{'value_score_0_100':(market.get('kb_value') or {}).get('score_0_100'),'mortgage_rate_pct':(market.get('mortgage_rate_official') or {}).get('rate_pct')},
       'method':'(100 - existing Value Composite) × historical mortgage-rate cost percentile / 100'},
-  'price_tier_liquidity':price_tier_feature(market,tier_history),
-  'leader_lag':lead_lag_feature(leading),
+  'price_tier_liquidity':price_tier_feature(market,tier_history,kb_momentum),
+  'leader_lag':lead_lag_feature(leading,scope_cfg),
   'selling_pressure':selling_pressure_feature(watch),
   'policy_credit_regime':policy_feature(policy),
   'rental_vs_structural_supply':rental_supply_feature(market),
@@ -309,7 +363,7 @@ def main():
   'features':features,'production_decision':{'integrated_engine_changed':finance_v2_production,'candidate_decisions':decisions,
     'reason':('finance_v2 passed standalone and integrated leakage-safe validation and is active in production; other candidates remain research-only until their gates pass' if finance_v2_production else 'candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass')},
   'lineage':{'market':'dist/market_indicators.json','final_backtest':'dist/final_backtest.json','mortgage_rate':'data_sources/ecos_mortgage_rate.json',
-             'housing_credit':'data_sources/ecos_housing_credit.json','leading_segment':'data_sources/kb_leading50_median.json','policy':'data_sources/housing_policy_events.json','integrated_validation':'dist/market_judgment_validation.json'},
+             'housing_credit':'data_sources/ecos_housing_credit.json','price_tier_history':'data_sources/molit_price_tier_history.json','leading_segment':'data_sources/kb_leading50_median.json','kb_momentum_validation':'dist/forecast_kb_momentum_validation.json','policy':'data_sources/housing_policy_events.json','integrated_validation':'dist/market_judgment_validation.json'},
   'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()
  }
  validation={'version':'common_feature_layer_v2_validation','no_future_leakage':True,
