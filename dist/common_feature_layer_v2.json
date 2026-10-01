@@ -145,16 +145,16 @@
       }
     },
     "finance_v2_candidate": {
-      "status": "validated_candidate",
-      "production_applied": true,
-      "score_0_100": 35.5,
+      "status": "blocked_core_input_missing",
+      "production_applied": false,
+      "score_0_100": null,
       "liquidity_credit_availability": {
-        "score_0_100": 45.5,
+        "score_0_100": null,
         "source": "한국은행 ECOS 주택관련대출 잔액",
-        "period": "202607",
-        "balance": 929846.3,
-        "mom_change": 3495.4,
-        "yoy_pct": 5.2132
+        "period": null,
+        "balance": null,
+        "mom_change": null,
+        "yoy_pct": null
       },
       "funding_cost": {
         "score_0_100": 25.5,
@@ -169,35 +169,14 @@
       },
       "method": "Credit Availability 50% + Funding Cost 50%. Credit Availability uses housing-related loan balance increment and YoY growth; Funding Cost uses mortgage-rate level and 3m speed. M2 is context only.",
       "validation": {
-        "baseline": {
-          "n": 48,
-          "corr_fwd_1m": -0.49001108668678495,
-          "corr_fwd_3m": -0.465786404895992,
-          "corr_fwd_6m": -0.3556663077586926,
-          "corr_fwd_12m": -0.4096829848129911,
-          "downside_auc": 0.05128205128205128,
-          "reacceleration_auc": 0.2817204301075269,
-          "n_fwd3": 46
-        },
-        "candidate": {
-          "n": 48,
-          "corr_fwd_1m": 0.44356131912492325,
-          "corr_fwd_3m": 0.5291616993625459,
-          "corr_fwd_6m": 0.674201911094896,
-          "corr_fwd_12m": 0.8284294046990325,
-          "downside_auc": 0.9487179487179487,
-          "reacceleration_auc": 0.8387096774193549,
-          "n_fwd3": 46
-        },
-        "improvements": [
-          "downside_auc",
-          "reacceleration_auc",
-          "corr_fwd_3m",
-          "corr_fwd_6m",
-          "corr_fwd_12m"
+        "baseline": {},
+        "candidate": {},
+        "improvements": [],
+        "apply_recommended": false,
+        "reasons": [
+          "official housing-credit series not connected",
+          "fewer than 30 paired forward-3m observations"
         ],
-        "apply_recommended": true,
-        "reasons": [],
         "alignment": {
           "mortgage_rate": "score month t uses latest monthly rate <= t-1",
           "housing_credit": "score month t uses latest balance growth <= t-2"
@@ -303,7 +282,27 @@
           "corr_fwd3": 0.03235695999231742,
           "auc_positive_fwd3": 0.5
         },
-        "best_research_signal": "upper_share_3m_change_pp",
+        "high_count_3m_change": {
+          "n": 36,
+          "corr_fwd3": 0.007995638651402865,
+          "auc_positive_fwd3": 0.53125
+        },
+        "upper_count_3m_change": {
+          "n": 36,
+          "corr_fwd3": 0.022440862424552416,
+          "auc_positive_fwd3": 0.6116071428571429
+        },
+        "high_relative_volume_3m": {
+          "n": 36,
+          "corr_fwd3": 0.010120360953655504,
+          "auc_positive_fwd3": 0.40625
+        },
+        "upper_relative_volume_3m": {
+          "n": 36,
+          "corr_fwd3": 0.05097109105498689,
+          "auc_positive_fwd3": 0.5044642857142857
+        },
+        "best_research_signal": "upper_count_3m_change_pct",
         "signal_supported": false,
         "production_gate": "history and standalone signal support are necessary but not sufficient; integrated engine validation is still required",
         "no_future_leakage": true
@@ -314,6 +313,10 @@
           "available_score_month": "202307",
           "high_share_3m_change_pp": 1.5813683458377996,
           "upper_share_3m_change_pp": 4.20515298831215,
+          "high_count_3m_change_pct": 92.15686274509804,
+          "upper_count_3m_change_pct": 65.95289079229123,
+          "high_relative_volume_3m_pp": 62.51056049429417,
+          "upper_relative_volume_3m_pp": 36.30658854148736,
           "fwd_3m_pct": 3.76
         },
         {
@@ -321,6 +324,10 @@
           "available_score_month": "202308",
           "high_share_3m_change_pp": 1.7843512401819837,
           "upper_share_3m_change_pp": 1.940163198528431,
+          "high_count_3m_change_pct": 60.28368794326242,
+          "upper_count_3m_change_pct": 25.760286225402496,
+          "high_relative_volume_3m_pp": 47.57004476485163,
+          "upper_relative_volume_3m_pp": 13.0466430469917,
           "fwd_3m_pct": 0.91
         },
         {
@@ -328,6 +335,10 @@
           "available_score_month": "202309",
           "high_share_3m_change_pp": 1.7651334938068715,
           "upper_share_3m_change_pp": -0.9851161264591823,
+          "high_count_3m_change_pct": 63.1578947368421,
+          "upper_count_3m_change_pct": 10.359712230215834,
+          "high_relative_volume_3m_pp": 47.05474287437792,
+          "upper_relative_volume_3m_pp": -5.7434396322483465,
           "fwd_3m_pct": 0.0
         },
         {
@@ -335,6 +346,10 @@
           "available_score_month": "202310",
           "high_share_3m_change_pp": 0.42297979797979757,
           "upper_share_3m_change_pp": 0.26740620490620515,
+          "high_count_3m_change_pct": -5.102040816326525,
+          "upper_count_3m_change_pct": -11.483870967741938,
+          "high_relative_volume_3m_pp": 7.5963718820861725,
+          "upper_relative_volume_3m_pp": 1.21454173067076,
           "fwd_3m_pct": 0.0
         },
         {
@@ -342,6 +357,10 @@
           "available_score_month": "202311",
           "high_share_3m_change_pp": -0.5231741522917561,
           "upper_share_3m_change_pp": -0.33611998695221246,
+          "high_count_3m_change_pct": -41.150442477876105,
+          "upper_count_3m_change_pct": -36.69985775248933,
+          "high_relative_volume_3m_pp": -5.609075092933303,
+          "upper_relative_volume_3m_pp": -1.158490367546527,
           "fwd_3m_pct": 0.0
         },
         {
@@ -349,6 +368,10 @@
           "available_score_month": "202312",
           "high_share_3m_change_pp": -0.5303722416044829,
           "upper_share_3m_change_pp": -0.6059426216943677,
+          "high_count_3m_change_pct": -56.4516129032258,
+          "upper_count_3m_change_pct": -53.84615384615385,
+          "high_relative_volume_3m_pp": -4.131770849918794,
+          "upper_relative_volume_3m_pp": -1.5263117928468404,
           "fwd_3m_pct": 0.0
         },
         {
@@ -356,6 +379,10 @@
           "available_score_month": "202401",
           "high_share_3m_change_pp": -0.3240909090909092,
           "upper_share_3m_change_pp": -3.1153030303030285,
+          "high_count_3m_change_pct": -50.0,
+          "upper_count_3m_change_pct": -55.24781341107872,
+          "high_relative_volume_3m_pp": -3.2670454545454604,
+          "upper_relative_volume_3m_pp": -8.514858865624177,
           "fwd_3m_pct": 0.23
         },
         {
@@ -363,6 +390,10 @@
           "available_score_month": "202402",
           "high_share_3m_change_pp": -0.44080776253063547,
           "upper_share_3m_change_pp": -0.9194857130426364,
+          "high_count_3m_change_pct": 2.2556390977443552,
+          "upper_count_3m_change_pct": 5.617977528089879,
+          "high_relative_volume_3m_pp": -8.92884294930476,
+          "upper_relative_volume_3m_pp": -5.566504518959237,
           "fwd_3m_pct": 0.23
         },
         {
@@ -370,6 +401,10 @@
           "available_score_month": "202403",
           "high_share_3m_change_pp": -0.0202563221346983,
           "upper_share_3m_change_pp": -0.36768638661353137,
+          "high_count_3m_change_pct": 40.74074074074075,
+          "upper_count_3m_change_pct": 38.4180790960452,
+          "high_relative_volume_3m_pp": -0.5118472509776808,
+          "upper_relative_volume_3m_pp": -2.834508895673231,
           "fwd_3m_pct": 0.23
         },
         {
@@ -377,6 +412,10 @@
           "available_score_month": "202404",
           "high_share_3m_change_pp": 0.5706762203313929,
           "upper_share_3m_change_pp": 2.1219644723092976,
+          "high_count_3m_change_pct": 165.59139784946234,
+          "upper_count_3m_change_pct": 169.05537459283386,
+          "high_relative_volume_3m_pp": 27.404731182795672,
+          "upper_relative_volume_3m_pp": 30.86870792616719,
           "fwd_3m_pct": 2.03
         },
         {
@@ -384,6 +423,10 @@
           "available_score_month": "202405",
           "high_share_3m_change_pp": 1.0032467635916404,
           "upper_share_3m_change_pp": 2.038801851834151,
+          "high_count_3m_change_pct": 107.35294117647061,
+          "upper_count_3m_change_pct": 93.19148936170211,
+          "high_relative_volume_3m_pp": 34.37595528189006,
+          "upper_relative_volume_3m_pp": 20.21450346712156,
           "fwd_3m_pct": 2.03
         },
         {
@@ -391,6 +434,10 @@
           "available_score_month": "202406",
           "high_share_3m_change_pp": 1.250938291505948,
           "upper_share_3m_change_pp": 5.137527267429363,
+          "high_count_3m_change_pct": 138.8157894736842,
+          "upper_count_3m_change_pct": 150.81632653061226,
+          "high_relative_volume_3m_pp": 43.799299917070044,
+          "upper_relative_volume_3m_pp": 55.79983697399811,
           "fwd_3m_pct": 6.09
         },
         {
@@ -398,6 +445,10 @@
           "available_score_month": "202407",
           "high_share_3m_change_pp": 1.099990613776356,
           "upper_share_3m_change_pp": 5.46552098124673,
+          "high_count_3m_change_pct": 113.76518218623484,
+          "upper_count_3m_change_pct": 130.99273607748185,
+          "high_relative_volume_3m_pp": 35.462450435227225,
+          "upper_relative_volume_3m_pp": 52.69000432647424,
           "fwd_3m_pct": 5.31
         },
         {
@@ -405,6 +456,10 @@
           "available_score_month": "202408",
           "high_share_3m_change_pp": 1.1553162810920332,
           "upper_share_3m_change_pp": 4.584500367416055,
+          "high_count_3m_change_pct": 136.8794326241135,
+          "upper_count_3m_change_pct": 145.70484581497797,
+          "high_relative_volume_3m_pp": 37.97385322497185,
+          "upper_relative_volume_3m_pp": 46.79926641583633,
           "fwd_3m_pct": 7.08
         },
         {
@@ -412,6 +467,10 @@
           "available_score_month": "202409",
           "high_share_3m_change_pp": 1.209120310111981,
           "upper_share_3m_change_pp": -0.054577542110141763,
+          "high_count_3m_change_pct": 45.179063360881536,
+          "upper_count_3m_change_pct": 23.02685109845404,
+          "high_relative_volume_3m_pp": 21.860761970426815,
+          "upper_relative_volume_3m_pp": -0.2914502920006825,
           "fwd_3m_pct": 2.98
         },
         {
@@ -419,6 +478,10 @@
           "available_score_month": "202410",
           "high_share_3m_change_pp": 4.310252203091376,
           "upper_share_3m_change_pp": 1.359593842057187,
+          "high_count_3m_change_pct": -33.71212121212122,
+          "upper_count_3m_change_pct": -57.54716981132076,
+          "high_relative_volume_3m_pp": 26.114577268350963,
+          "upper_relative_volume_3m_pp": 2.279528669151425,
           "fwd_3m_pct": 1.68
         },
         {
@@ -426,6 +489,10 @@
           "available_score_month": "202411",
           "high_share_3m_change_pp": 1.8056212784942316,
           "upper_share_3m_change_pp": -0.916394368965431,
+          "high_count_3m_change_pct": -46.8562874251497,
+          "upper_count_3m_change_pct": -59.12147019273868,
+          "high_relative_volume_3m_pp": 10.647218886210752,
+          "upper_relative_volume_3m_pp": -1.6179638813782233,
           "fwd_3m_pct": 0.0
         },
         {
@@ -433,6 +500,10 @@
           "available_score_month": "202412",
           "high_share_3m_change_pp": 1.1426461276496074,
           "upper_share_3m_change_pp": 3.273115743642535,
+          "high_count_3m_change_pct": -37.95066413662239,
+          "upper_count_3m_change_pct": -37.96296296296296,
+          "high_relative_volume_3m_pp": 7.729664981159111,
+          "upper_relative_volume_3m_pp": 7.717366154818542,
           "fwd_3m_pct": 2.48
         },
         {
@@ -440,6 +511,10 @@
           "available_score_month": "202501",
           "high_share_3m_change_pp": -1.9382711995998303,
           "upper_share_3m_change_pp": -2.5195888572489906,
+          "high_count_3m_change_pct": -12.571428571428566,
+          "upper_count_3m_change_pct": -4.320987654320985,
+          "high_relative_volume_3m_pp": -18.823382306970913,
+          "upper_relative_volume_3m_pp": -10.572941389863333,
           "fwd_3m_pct": 4.96
         },
         {
@@ -447,6 +522,10 @@
           "available_score_month": "202502",
           "high_share_3m_change_pp": -0.040581249114472584,
           "upper_share_3m_change_pp": 2.0907159623093037,
+          "high_count_3m_change_pct": -9.295774647887322,
+          "upper_count_3m_change_pct": -0.6578947368421018,
+          "high_relative_volume_3m_pp": -0.4102707128784342,
+          "upper_relative_volume_3m_pp": 8.227609198166785,
           "fwd_3m_pct": 4.96
         },
         {
@@ -454,6 +533,10 @@
           "available_score_month": "202503",
           "high_share_3m_change_pp": 4.467853224099068,
           "upper_share_3m_change_pp": 8.053555948962753,
+          "high_count_3m_change_pct": 184.40366972477062,
+          "upper_count_3m_change_pct": 149.7867803837953,
+          "high_relative_volume_3m_pp": 93.15542288045084,
+          "upper_relative_volume_3m_pp": 58.53853353947552,
           "fwd_3m_pct": 4.84
         },
         {
@@ -461,6 +544,10 @@
           "available_score_month": "202504",
           "high_share_3m_change_pp": 3.0074541173160547,
           "upper_share_3m_change_pp": 9.918285759683975,
+          "high_count_3m_change_pct": 319.6078431372549,
+          "upper_count_3m_change_pct": 351.35483870967744,
+          "high_relative_volume_3m_pp": 105.07415675890837,
+          "upper_relative_volume_3m_pp": 136.8211523313309,
           "fwd_3m_pct": 3.94
         },
         {
@@ -468,6 +555,10 @@
           "available_score_month": "202505",
           "high_share_3m_change_pp": -3.986623090752712,
           "upper_share_3m_change_pp": -6.101886310113315,
+          "high_count_3m_change_pct": -10.869565217391308,
+          "upper_count_3m_change_pct": 21.63355408388521,
+          "high_relative_volume_3m_pp": -71.27636376851976,
+          "upper_relative_volume_3m_pp": -38.77324446724324,
           "fwd_3m_pct": 6.3
         },
         {
@@ -475,6 +566,10 @@
           "available_score_month": "202506",
           "high_share_3m_change_pp": -7.38233688955971,
           "upper_share_3m_change_pp": -10.862289427542933,
+          "high_count_3m_change_pct": -42.365591397849464,
+          "upper_count_3m_change_pct": -14.084507042253524,
+          "high_relative_volume_3m_pp": -67.98894135384828,
+          "upper_relative_volume_3m_pp": -39.70785699825234,
           "fwd_3m_pct": 11.15
         },
         {
@@ -482,6 +577,10 @@
           "available_score_month": "202507",
           "high_share_3m_change_pp": -2.6742325619846152,
           "upper_share_3m_change_pp": -4.0061597770623045,
+          "high_count_3m_change_pct": -8.255451713395633,
+          "upper_count_3m_change_pct": 3.57347055460262,
+          "high_relative_volume_3m_pp": -26.279958307727313,
+          "upper_relative_volume_3m_pp": -14.45103603972906,
           "fwd_3m_pct": 9.85
         },
         {
@@ -489,6 +588,10 @@
           "available_score_month": "202508",
           "high_share_3m_change_pp": 6.104300772438,
           "upper_share_3m_change_pp": 5.259380306962733,
+          "high_count_3m_change_pct": 79.09407665505226,
+          "upper_count_3m_change_pct": 2.6315789473684292,
+          "high_relative_volume_3m_pp": 98.58339400784017,
+          "upper_relative_volume_3m_pp": 22.120896300156332,
           "fwd_3m_pct": 8.15
         },
         {
@@ -496,6 +599,10 @@
           "available_score_month": "202509",
           "high_share_3m_change_pp": -2.1834711534300926,
           "upper_share_3m_change_pp": -6.554209111536736,
+          "high_count_3m_change_pct": -64.92537313432835,
+          "upper_count_3m_change_pct": -61.1525086934923,
+          "high_relative_volume_3m_pp": -18.795775936429933,
+          "upper_relative_volume_3m_pp": -15.022911495593881,
           "fwd_3m_pct": 1.38
         },
         {
@@ -503,6 +610,10 @@
           "available_score_month": "202510",
           "high_share_3m_change_pp": -4.732852104085893,
           "upper_share_3m_change_pp": -4.046062847590896,
+          "high_count_3m_change_pct": -64.51612903225806,
+          "upper_count_3m_change_pct": -38.17278498481921,
+          "high_relative_volume_3m_pp": -36.48474529474023,
+          "upper_relative_volume_3m_pp": -10.141401247301374,
           "fwd_3m_pct": 6.9
         },
         {
@@ -510,6 +621,10 @@
           "available_score_month": "202511",
           "high_share_3m_change_pp": -3.759927199532342,
           "upper_share_3m_change_pp": 2.2579233787130946,
+          "high_count_3m_change_pct": 27.626459143968862,
+          "upper_count_3m_change_pct": 110.9637488947834,
+          "high_relative_volume_3m_pp": -65.46954948602036,
+          "upper_relative_volume_3m_pp": 17.86774026479418,
           "fwd_3m_pct": 14.73
         },
         {
@@ -517,6 +632,10 @@
           "available_score_month": "202512",
           "high_share_3m_change_pp": 6.995555001063664,
           "upper_share_3m_change_pp": 9.903696816301967,
+          "high_count_3m_change_pct": 107.44680851063828,
+          "upper_count_3m_change_pct": 20.97186700767264,
+          "high_relative_volume_3m_pp": 131.09223547206003,
+          "upper_relative_volume_3m_pp": 44.61729396909439,
           "fwd_3m_pct": 22.18
         },
         {
@@ -524,6 +643,10 @@
           "available_score_month": "202601",
           "high_share_3m_change_pp": 0.5236291143973073,
           "upper_share_3m_change_pp": -6.065063198521649,
+          "high_count_3m_change_pct": -39.473684210526315,
+          "upper_count_3m_change_pct": -59.017857142857146,
+          "high_relative_volume_3m_pp": 6.182080573087823,
+          "upper_relative_volume_3m_pp": -13.362092359243007,
           "fwd_3m_pct": 17.1
         },
         {
@@ -531,6 +654,10 @@
           "available_score_month": "202602",
           "high_share_3m_change_pp": -1.0221661560641557,
           "upper_share_3m_change_pp": -5.105784826094791,
+          "high_count_3m_change_pct": -46.64634146341463,
+          "upper_count_3m_change_pct": -49.8742665549036,
+          "high_relative_volume_3m_pp": -8.646341463414629,
+          "upper_relative_volume_3m_pp": -11.874266554903599,
           "fwd_3m_pct": 8.36
         },
         {
@@ -538,6 +665,10 @@
           "available_score_month": "202603",
           "high_share_3m_change_pp": -5.8720495277825915,
           "upper_share_3m_change_pp": -7.965268611145337,
+          "high_count_3m_change_pct": -20.256410256410252,
+          "upper_count_3m_change_pct": 19.450317124735726,
+          "high_relative_volume_3m_pp": -90.08326237108524,
+          "upper_relative_volume_3m_pp": -50.376534989939266,
           "fwd_3m_pct": 1.4
         },
         {
@@ -545,6 +676,10 @@
           "available_score_month": "202604",
           "high_share_3m_change_pp": -0.36890632977704385,
           "upper_share_3m_change_pp": -1.9147500681856933,
+          "high_count_3m_change_pct": 7.509881422924902,
+          "upper_count_3m_change_pct": 3.9215686274509887,
+          "high_relative_volume_3m_pp": -8.336116550732653,
+          "upper_relative_volume_3m_pp": -11.924429346206566,
           "fwd_3m_pct": 0.0
         },
         {
@@ -552,6 +687,10 @@
           "available_score_month": "202605",
           "high_share_3m_change_pp": 2.716209274460958,
           "upper_share_3m_change_pp": 2.7151467046325983,
+          "high_count_3m_change_pct": 129.99999999999997,
+          "upper_count_3m_change_pct": 81.0200668896321,
+          "high_relative_volume_3m_pp": 69.23229410704629,
+          "upper_relative_volume_3m_pp": 20.25236099667842,
           "fwd_3m_pct": 0.0
         },
         {
@@ -559,6 +698,10 @@
           "available_score_month": "202606",
           "high_share_3m_change_pp": 5.154956207653665,
           "upper_share_3m_change_pp": 8.890331956232323,
+          "high_count_3m_change_pct": 208.36012861736336,
+          "upper_count_3m_change_pct": 127.69911504424778,
+          "high_relative_volume_3m_pp": 153.53813296300936,
+          "upper_relative_volume_3m_pp": 72.87711938989378,
           "fwd_3m_pct": 0.0
         },
         {
@@ -566,6 +709,10 @@
           "available_score_month": "202607",
           "high_share_3m_change_pp": 2.630701769987713,
           "upper_share_3m_change_pp": 7.270497684046308,
+          "high_count_3m_change_pct": 48.529411764705884,
+          "upper_count_3m_change_pct": 37.31656184486374,
+          "high_relative_volume_3m_pp": 52.88484293490004,
+          "upper_relative_volume_3m_pp": 41.6719930150579,
           "fwd_3m_pct": null
         },
         {
@@ -573,6 +720,10 @@
           "available_score_month": "202608",
           "high_share_3m_change_pp": -2.912078368351449,
           "upper_share_3m_change_pp": -3.65242654997083,
+          "high_count_3m_change_pct": -54.409937888198755,
+          "upper_count_3m_change_pct": -42.817551963048494,
+          "high_relative_volume_3m_pp": -21.72301938130491,
+          "upper_relative_volume_3m_pp": -10.130633456154648,
           "fwd_3m_pct": null
         },
         {
@@ -580,6 +731,10 @@
           "available_score_month": "202609",
           "high_share_3m_change_pp": -4.775988115378968,
           "upper_share_3m_change_pp": -7.346476750063324,
+          "high_count_3m_change_pct": -78.9363920750782,
+          "upper_count_3m_change_pct": -71.23979790128254,
+          "high_relative_volume_3m_pp": -18.038194946718058,
+          "upper_relative_volume_3m_pp": -10.341600772922398,
           "fwd_3m_pct": null
         }
       ]
@@ -679,15 +834,15 @@
     }
   },
   "production_decision": {
-    "integrated_engine_changed": true,
+    "integrated_engine_changed": false,
     "candidate_decisions": {
       "trade_reporting": {
         "status": "mature_completed_month",
         "production_applied": true
       },
       "finance_v2_candidate": {
-        "status": "validated_candidate",
-        "production_applied": true
+        "status": "blocked_core_input_missing",
+        "production_applied": false
       },
       "valuation_rate_stress_candidate": {
         "status": "research_candidate",
@@ -714,7 +869,7 @@
         "production_applied": false
       }
     },
-    "reason": "finance_v2 passed standalone and integrated leakage-safe validation and is active in production; other candidates remain research-only until their gates pass"
+    "reason": "candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass"
   },
   "lineage": {
     "market": "dist/market_indicators.json",
@@ -727,5 +882,5 @@
     "policy": "data_sources/housing_policy_events.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-10-01T00:15:47.876820+00:00"
+  "generated_at": "2026-10-01T00:18:03.627528+00:00"
 }
