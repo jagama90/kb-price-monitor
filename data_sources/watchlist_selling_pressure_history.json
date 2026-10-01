@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "status": "connected_local_context",
+  "source": "KB public complex page + MOLIT recent trade for configured watchlist",
+  "representative_market_sample": false,
+  "snapshots": [
+    {
+      "as_of": "2026-09-29",
+      "configured_items": 38,
+      "listing_observed_rows": 34,
+      "listing_coverage_pct": 89.5,
+      "ask_observed_rows": 29,
+      "trade_matched_rows": 34,
+      "listing_delta_rows": 31,
+      "ask_delta_rows": 27,
+      "listing_increase_share_pct": 38.7,
+      "listing_decrease_share_pct": 16.1,
+      "median_listing_week_delta": 0.0,
+      "ask_cut_share_pct": 22.2,
+      "median_ask_week_delta_manwon": 0.0,
+      "listing_up_and_ask_down_share_pct": 18.5,
+      "median_ask_vs_recent_trade_gap_pct": 4.84,
+      "listing_source_status": {
+        "connected": 24,
+        "fallback_last_good": 10,
+        "unknown": 4
+      },
+      "representative_market_sample": false,
+      "sample_definition": "configured watchlist target types; not a probability sample of the active market",
+      "forced_selling": {
+        "status": "not_observable",
+        "reason": "seller leverage, delinquency, insolvency, and sale motive are absent from the source; no forced-sale identity is inferred"
+      }
+    }
+  ],
+  "latest": {
+    "as_of": "2026-09-29",
+    "configured_items": 38,
+    "listing_observed_rows": 34,
+    "listing_coverage_pct": 89.5,
+    "ask_observed_rows": 29,
+    "trade_matched_rows": 34,
+    "listing_delta_rows": 31,
+    "ask_delta_rows": 27,
+    "listing_increase_share_pct": 38.7,
+    "listing_decrease_share_pct": 16.1,
+    "median_listing_week_delta": 0.0,
+    "ask_cut_share_pct": 22.2,
+    "median_ask_week_delta_manwon": 0.0,
+    "listing_up_and_ask_down_share_pct": 18.5,
+    "median_ask_vs_recent_trade_gap_pct": 4.84,
+    "listing_source_status": {
+      "connected": 24,
+      "fallback_last_good": 10,
+      "unknown": 4
+    },
+    "representative_market_sample": false,
+    "sample_definition": "configured watchlist target types; not a probability sample of the active market",
+    "forced_selling": {
+      "status": "not_observable",
+      "reason": "seller leverage, delinquency, insolvency, and sale motive are absent from the source; no forced-sale identity is inferred"
+    }
+  },
+  "history_validation": {
+    "available_snapshots": 1,
+    "minimum_for_time_series_research": 12,
+    "sufficient": false
+  },
+  "generated_at": "2026-10-01T00:36:24.861176+00:00"
+}
