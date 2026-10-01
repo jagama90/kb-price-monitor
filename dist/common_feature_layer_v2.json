@@ -850,6 +850,7 @@
         "capital_region",
         "regulated_area"
       ],
+      "as_of": "2026-10-01",
       "active_rules": [
         {
           "id": "capital_region_credit_rules_20251016",
@@ -891,6 +892,28 @@
         }
       ],
       "active_rule_count": 2,
+      "current_constraints": {
+        "purchase_mortgage_max_won_by_home_price": [
+          {
+            "home_price_max_won": 1500000000,
+            "max_loan_won": 600000000
+          },
+          {
+            "home_price_min_exclusive_won": 1500000000,
+            "home_price_max_won": 2500000000,
+            "max_loan_won": 400000000
+          },
+          {
+            "home_price_min_exclusive_won": 2500000000,
+            "max_loan_won": 200000000
+          }
+        ],
+        "mortgage_stress_rate_floor_pct": 3,
+        "one_homeowner_jeonse_loan_interest_in_dsr": true,
+        "credit_loan_stress_applies_when_balance_over_won": 100000000
+      },
+      "quantitative_terms_connected": true,
+      "source_verified_at": "2026-10-01",
       "historical_backtest_ready": false,
       "reason": "objective effective-date and quantitative credit rules are connected for current context; historical lineage is not yet complete enough for model/backtest use"
     },
@@ -1037,5 +1060,5 @@
     "structural_supply": "data_sources/molit_structural_supply.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-10-01T03:42:17.707270+00:00"
+  "generated_at": "2026-10-01T03:45:58.121840+00:00"
 }
