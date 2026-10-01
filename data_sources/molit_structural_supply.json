@@ -1,5 +1,5 @@
 {
-  "status": "parse_error",
+  "status": "stat_openapi_key_required",
   "source": "국토교통부 국토교통통계누리 승인통계",
   "scope": {
     "market_scope_id": "seoul_city",
@@ -84,11 +84,21 @@
       }
     }
   },
-  "generated_at": "2026-10-01T00:48:32.749441+00:00",
+  "generated_at": "2026-10-01T00:50:36.635820+00:00",
+  "openapi": {
+    "endpoint": "https://stat.molit.go.kr/portal/openapi/service/rest/getList.do",
+    "dedicated_stat_key_configured": false,
+    "transaction_api_key_fallback_configured": true,
+    "form_ids": {
+      "permit": "1948",
+      "start": "5386",
+      "completion": "5373"
+    }
+  },
   "official_meta": {
     "permit": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
     "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
     "completion": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468"
   },
-  "automation_blocker": "official source could not be fully parsed/reached in this run; no values were fabricated or copied from secondary sources"
+  "automation_blocker": "dedicated MOLIT statistics OpenAPI key is not configured; the transaction OpenAPI key fallback was rejected by the statistics endpoint. No values were fabricated."
 }
