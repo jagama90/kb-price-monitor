@@ -905,25 +905,25 @@
           "source": "국토교통부 미분양주택현황보고"
         },
         "construction_statistics": {
-          "status": "source_unreachable_from_actions",
+          "status": "parse_error",
           "series": {
             "permit": {
-              "status": "source_unreachable_from_actions",
+              "status": "parse_error",
               "official_name": "주택건설실적통계(인허가)",
               "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
-              "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+              "error": "ValueError('No tables found')"
             },
             "start": {
-              "status": "source_unreachable_from_actions",
+              "status": "parse_error",
               "official_name": "주택건설실적통계(착공)",
               "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
-              "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+              "error": "ValueError('No tables found')"
             },
             "completion": {
-              "status": "source_unreachable_from_actions",
+              "status": "parse_error",
               "official_name": "주택건설실적통계(준공)",
               "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468",
-              "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+              "error": "ValueError('No tables found')"
             }
           },
           "official_meta": {
@@ -931,7 +931,7 @@
             "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
             "completion": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468"
           },
-          "automation_blocker": "stat.molit.go.kr was not reachable from the GitHub-hosted runner; no values were fabricated or copied from secondary sources"
+          "automation_blocker": "official source could not be fully parsed/reached in this run; no values were fabricated or copied from secondary sources"
         },
         "meaning": "미분양 재고와 인허가·착공·준공은 구조공급 context로 분리하며 기존 전세수급 15% 점수에는 아직 합산하지 않음"
       }
@@ -988,5 +988,5 @@
     "structural_supply": "data_sources/molit_structural_supply.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-10-01T00:38:00.190679+00:00"
+  "generated_at": "2026-10-01T00:43:29.508200+00:00"
 }
