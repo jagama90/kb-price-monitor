@@ -74,7 +74,9 @@ def main():
     for ym,ready in desired:
         period=ym[:4]+'-'+ym[4:]
         row=existing.get(period)
-        if row and row.get('total',0)>0:
+        analysis_ids=[str(x.get('id')) for x in (base.PRICE_TIERS.get('analysis') or []) if x.get('id') is not None]
+        bucket_ok=bool(row and row.get('buckets3') and all(k in (row.get('buckets3') or {}) for k in analysis_ids))
+        if row and row.get('total',0)>0 and bucket_ok:
             row={**row,'mature':True,'reporting_window_elapsed_on':ready.isoformat()}
             existing[period]=row;reused.append(period);continue
         sm=fetch_month(ym,key)
