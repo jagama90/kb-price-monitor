@@ -1,0 +1,52 @@
+name: Backfill price-tier history
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/backfill_molit_price_tier_history.py'
+      - '.github/workflows/backfill-price-tier-history.yml'
+      - '.github/run-backfill-price-tier-history'
+permissions:
+  contents: write
+concurrency:
+  group: backfill-price-tier-history
+  cancel-in-progress: true
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
+      PRICE_TIER_BACKFILL_MONTHS: '42'
+      MOLIT_BACKFILL_WORKERS: '8'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Backfill mature price-tier months
+        run: |
+          test -n "$MOLIT_SERVICE_KEY"
+          python3 scripts/backfill_molit_price_tier_history.py
+      - name: Validate history
+        run: |
+          python3 - <<'PY'
+          import json
+          x=json.load(open('data_sources/molit_price_tier_history.json'))
+          m=[r for r in x.get('months',[]) if r.get('mature') and r.get('total',0)>0]
+          assert len(m)>=36, len(m)
+          assert all(sum((r.get('counts') or {}).values())==r.get('total') for r in m)
+          print({'mature_months':len(m),'start':m[0]['period'],'end':m[-1]['period']})
+          PY
+      - name: Persist backfill
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          cp data_sources/molit_price_tier_history.json /tmp/molit_price_tier_history.json
+          git reset --hard
+          git pull --ff-only origin main
+          cp /tmp/molit_price_tier_history.json data_sources/molit_price_tier_history.json
+          git add -f data_sources/molit_price_tier_history.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Backfill mature price-tier history'
+          git push origin HEAD:main

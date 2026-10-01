@@ -4,6 +4,9 @@ R=pathlib.Path(__file__).resolve().parents[1];O=R/'data_sources/kb_leading50_med
 BASE='https://data-api.kbland.kr/bfmstat/weekMnthlyHuseTrnd/'
 TARGETS={'leading50':'leadApt50Indx','median':'mdpsPrc'}
 PARAMS=[
+ {'기간':'10','월간주간구분코드':'01'},
+ {'기간':'5','월간주간구분코드':'01'},
+ {'기간':'3','월간주간구분코드':'01'},
  {'기간':'2','월간주간구분코드':'01'},
  {'기간':'2','월간주간구분코드':'02'},
  {'기간':'1','월간주간구분코드':'01'},
