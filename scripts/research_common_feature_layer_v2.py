@@ -299,26 +299,42 @@ def lead_lag_feature(raw,scope=None):
   return {'status':'not_connected','production_applied':False,'reason':repr(e)[:240]}
 
 def selling_pressure_feature(watch,history=None):
- items=watch.get('items') or [];deltas=[];gaps=[];soft=0;usable=0;ask_deltas=[];listing_obs=0
- for x in items:
-  d=f(x.get('sale_listing_week_delta'));a=f(x.get('avg_ask_manwon'));t=f(x.get('recent_trade_manwon'));ad=f(x.get('avg_ask_week_delta_manwon'))
-  if f(x.get('sale_listing_count')) is not None:listing_obs+=1
-  if d is not None:deltas.append(d)
-  if ad is not None:ask_deltas.append(ad)
-  if a is not None and t not in (None,0):gaps.append((a/t-1)*100)
-  if d is not None and ad is not None:
-   usable+=1
-   if d>0 and ad<0:soft+=1
- hist=(history or {}).get('snapshots') or []
+ items=watch.get('items') or [];hist=(history or {}).get('snapshots') or [];latest=(history or {}).get('latest') or {}
+ if latest.get('metric_version')=='fresh_connected_v2':
+  cur=latest
+ else:
+  fresh=[x for x in items if str(x.get('listing_refresh_status') or 'unknown')=='connected'];deltas=[];gaps=[];ask_deltas=[];paired=[];listing_obs=0;ask_obs=0;trade_obs=0
+  for x in fresh:
+   d=f(x.get('sale_listing_week_delta'));a=f(x.get('avg_ask_manwon'));t=f(x.get('recent_trade_manwon'));ad=f(x.get('avg_ask_week_delta_manwon'))
+   if f(x.get('sale_listing_count')) is not None:listing_obs+=1
+   if a is not None:ask_obs+=1
+   if t is not None:trade_obs+=1
+   if d is not None:deltas.append(d)
+   if ad is not None:ask_deltas.append(ad)
+   if a is not None and t not in (None,0):gaps.append((a/t-1)*100)
+   if d is not None and ad is not None:paired.append((d,ad))
+  cur={'metric_version':'fresh_connected_v2','configured_items':len(items),'fresh_connected_rows':len(fresh),'listing_observed_rows':listing_obs,
+       'fresh_listing_coverage_pct':round(100*listing_obs/len(items),1) if items else None,'ask_observed_rows':ask_obs,'trade_matched_rows':trade_obs,
+       'listing_delta_rows':len(deltas),'ask_delta_rows':len(ask_deltas),
+       'listing_increase_share_pct':round(100*sum(x>0 for x in deltas)/len(deltas),1) if deltas else None,
+       'listing_decrease_share_pct':round(100*sum(x<0 for x in deltas)/len(deltas),1) if deltas else None,
+       'median_listing_week_delta':round(statistics.median(deltas),2) if deltas else None,
+       'ask_cut_share_pct':round(100*sum(x<0 for x in ask_deltas)/len(ask_deltas),1) if ask_deltas else None,
+       'listing_up_and_ask_down_share_pct':round(100*sum(d>0 and a<0 for d,a in paired)/len(paired),1) if paired else None,
+       'median_ask_vs_recent_trade_gap_pct':round(statistics.median(gaps),2) if gaps else None}
+ statuses=latest.get('listing_source_status') or {}
  return {'status':'local_watchlist_context','production_applied':False,'representative_market_sample':False,
-         'scope':'configured watchlist target types','n_items':len(items),'listing_observed_rows':listing_obs,
-         'listing_coverage_pct':round(100*listing_obs/len(items),1) if items else None,'n_listing_delta':len(deltas),
-         'listing_increase_share_pct':round(100*sum(x>0 for x in deltas)/len(deltas),1) if deltas else None,
-         'median_listing_week_delta':round(statistics.median(deltas),2) if deltas else None,
-         'ask_cut_share_pct':round(100*sum(x<0 for x in ask_deltas)/len(ask_deltas),1) if ask_deltas else None,
-         'median_ask_vs_recent_trade_gap_pct':round(statistics.median(gaps),2) if gaps else None,
-         'listing_up_and_ask_down_share_pct':round(100*soft/usable,1) if usable else None,
+         'scope':'configured watchlist target types','metric_version':cur.get('metric_version'),'signal_basis':'fresh connected listing rows only',
+         'n_items':cur.get('configured_items',len(items)),'fresh_connected_rows':cur.get('fresh_connected_rows'),
+         'fresh_listing_coverage_pct':cur.get('fresh_listing_coverage_pct'),'observed_including_last_good_coverage_pct':cur.get('observed_including_last_good_coverage_pct'),
+         'fallback_last_good_rows':cur.get('fallback_last_good_rows',statuses.get('fallback_last_good')),'unknown_rows':cur.get('unknown_rows',statuses.get('unknown')),
+         'n_listing_delta':cur.get('listing_delta_rows'),'n_ask_delta':cur.get('ask_delta_rows'),
+         'listing_increase_share_pct':cur.get('listing_increase_share_pct'),'listing_decrease_share_pct':cur.get('listing_decrease_share_pct'),
+         'median_listing_week_delta':cur.get('median_listing_week_delta'),'ask_cut_share_pct':cur.get('ask_cut_share_pct'),
+         'median_ask_vs_recent_trade_gap_pct':cur.get('median_ask_vs_recent_trade_gap_pct'),
+         'listing_up_and_ask_down_share_pct':cur.get('listing_up_and_ask_down_share_pct'),
          'history':{'available_snapshots':len(hist),'sufficient_for_time_series_research':len(hist)>=12,'minimum_required':12},
+         'interpretation':'local pressure context only; fallback-last-good rows are excluded from current pressure percentages',
          'forced_selling':{'status':'not_observable','reason':'seller leverage/default status and sale motive are not observable from authoritative sources; no inference is made'}}
 
 def policy_feature(raw,scope_cfg=None):

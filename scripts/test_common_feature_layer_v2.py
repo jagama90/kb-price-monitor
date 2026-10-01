@@ -40,10 +40,16 @@ class CommonFeatureLayerV2Tests(unittest.TestCase):
   x=price_tier_feature(m,hist,{'sample':[]})
   self.assertEqual(x['validation']['available_band_months'],1)
  def test_selling_pressure_never_infers_forced_sale(self):
-  w={'items':[{'sale_listing_count':10,'sale_listing_week_delta':2,'avg_ask_manwon':110,'recent_trade_manwon':100,'avg_ask_week_delta_manwon':-1}]}
+  w={'items':[
+   {'listing_refresh_status':'connected','sale_listing_count':10,'sale_listing_week_delta':2,'avg_ask_manwon':110,'recent_trade_manwon':100,'avg_ask_week_delta_manwon':-1},
+   {'listing_refresh_status':'fallback_last_good','sale_listing_count':99,'sale_listing_week_delta':-20,'avg_ask_manwon':90,'recent_trade_manwon':100,'avg_ask_week_delta_manwon':-10}
+  ]}
   x=selling_pressure_feature(w,{'snapshots':[{'as_of':'2026-09-01'}]})
   self.assertFalse(x['representative_market_sample'])
   self.assertEqual(x['forced_selling']['status'],'not_observable')
+  self.assertEqual(x['fresh_connected_rows'],1)
+  self.assertEqual(x['listing_increase_share_pct'],100.0)
+  self.assertEqual(x['ask_cut_share_pct'],100.0)
  def test_policy_context_applies_scope_tags_without_score(self):
   raw={'status':'connected_current_context','as_of':'2026-10-01','historical_backtest_ready':False,'events':[{'id':'x','effective_date':'2026-07-01','end_date':'2026-12-31','scope_match_any':['capital_region'],'terms':{'stress':3.0},'source':'official'}]}
   x=policy_feature(raw,{'credit_policy_scope_tags':['capital_region']})
