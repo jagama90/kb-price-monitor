@@ -145,16 +145,16 @@
       }
     },
     "finance_v2_candidate": {
-      "status": "validated_candidate",
-      "production_applied": true,
-      "score_0_100": 35.5,
+      "status": "blocked_core_input_missing",
+      "production_applied": false,
+      "score_0_100": null,
       "liquidity_credit_availability": {
-        "score_0_100": 45.5,
+        "score_0_100": null,
         "source": "한국은행 ECOS 주택관련대출 잔액",
-        "period": "202607",
-        "balance": 929846.3,
-        "mom_change": 3495.4,
-        "yoy_pct": 5.2132
+        "period": null,
+        "balance": null,
+        "mom_change": null,
+        "yoy_pct": null
       },
       "funding_cost": {
         "score_0_100": 25.5,
@@ -169,35 +169,14 @@
       },
       "method": "Credit Availability 50% + Funding Cost 50%. Credit Availability uses housing-related loan balance increment and YoY growth; Funding Cost uses mortgage-rate level and 3m speed. M2 is context only.",
       "validation": {
-        "baseline": {
-          "n": 48,
-          "corr_fwd_1m": -0.49001108668678495,
-          "corr_fwd_3m": -0.465786404895992,
-          "corr_fwd_6m": -0.3556663077586926,
-          "corr_fwd_12m": -0.4096829848129911,
-          "downside_auc": 0.05128205128205128,
-          "reacceleration_auc": 0.2817204301075269,
-          "n_fwd3": 46
-        },
-        "candidate": {
-          "n": 48,
-          "corr_fwd_1m": 0.44356131912492325,
-          "corr_fwd_3m": 0.5291616993625459,
-          "corr_fwd_6m": 0.674201911094896,
-          "corr_fwd_12m": 0.8284294046990325,
-          "downside_auc": 0.9487179487179487,
-          "reacceleration_auc": 0.8387096774193549,
-          "n_fwd3": 46
-        },
-        "improvements": [
-          "downside_auc",
-          "reacceleration_auc",
-          "corr_fwd_3m",
-          "corr_fwd_6m",
-          "corr_fwd_12m"
+        "baseline": {},
+        "candidate": {},
+        "improvements": [],
+        "apply_recommended": false,
+        "reasons": [
+          "official housing-credit series not connected",
+          "fewer than 30 paired forward-3m observations"
         ],
-        "apply_recommended": true,
-        "reasons": [],
         "alignment": {
           "mortgage_rate": "score month t uses latest monthly rate <= t-1",
           "housing_credit": "score month t uses latest balance growth <= t-2"
@@ -225,11 +204,11 @@
       "method": "(100 - existing Value Composite) × historical mortgage-rate cost percentile / 100"
     },
     "price_tier_liquidity": {
-      "status": "current_diagnostic_only",
+      "status": "research_candidate",
       "production_applied": false,
       "scope": {
         "data_scope": "Seoul",
-        "price_tier_mode": "absolute_configured_bands"
+        "price_tier_mode": "configured_absolute_and_analysis_bands"
       },
       "signal_period": "2026-08",
       "previous_period": "2026-07",
@@ -283,47 +262,356 @@
       "high_tier_relative_volume_pp": -6.24,
       "relative_quantile_tiers": {
         "status": "not_connected",
-        "reason": "long-enough transaction-level history for market-relative quantiles is not retained yet"
+        "reason": "monthly configured-band aggregates are retained; historical transaction-level rows are intentionally not retained"
       },
       "validation": {
-        "status": "insufficient_history",
-        "available_band_months": 7,
-        "required_for_model": 36
-      }
+        "status": "validated_history",
+        "available_band_months": 42,
+        "required_for_model": 36,
+        "aligned_target_rows": 36,
+        "minimum_aligned_rows": 24,
+        "sufficient_for_model": true,
+        "publication_alignment": "trade month t becomes eligible at score month t+1 after the reporting window; no current-month partial counts are used",
+        "high_share_3m_change": {
+          "n": 36,
+          "corr_fwd3": -0.02271234883754728,
+          "auc_positive_fwd3": 0.39732142857142855
+        },
+        "upper_share_3m_change": {
+          "n": 36,
+          "corr_fwd3": 0.03235695999231742,
+          "auc_positive_fwd3": 0.5
+        },
+        "best_research_signal": "upper_share_3m_change_pp",
+        "signal_supported": false,
+        "production_gate": "history and standalone signal support are necessary but not sufficient; integrated engine validation is still required",
+        "no_future_leakage": true
+      },
+      "research_sample": [
+        {
+          "trade_period": "202306",
+          "available_score_month": "202307",
+          "high_share_3m_change_pp": 1.5813683458377996,
+          "upper_share_3m_change_pp": 4.20515298831215,
+          "fwd_3m_pct": 3.76
+        },
+        {
+          "trade_period": "202307",
+          "available_score_month": "202308",
+          "high_share_3m_change_pp": 1.7843512401819837,
+          "upper_share_3m_change_pp": 1.940163198528431,
+          "fwd_3m_pct": 0.91
+        },
+        {
+          "trade_period": "202308",
+          "available_score_month": "202309",
+          "high_share_3m_change_pp": 1.7651334938068715,
+          "upper_share_3m_change_pp": -0.9851161264591823,
+          "fwd_3m_pct": 0.0
+        },
+        {
+          "trade_period": "202309",
+          "available_score_month": "202310",
+          "high_share_3m_change_pp": 0.42297979797979757,
+          "upper_share_3m_change_pp": 0.26740620490620515,
+          "fwd_3m_pct": 0.0
+        },
+        {
+          "trade_period": "202310",
+          "available_score_month": "202311",
+          "high_share_3m_change_pp": -0.5231741522917561,
+          "upper_share_3m_change_pp": -0.33611998695221246,
+          "fwd_3m_pct": 0.0
+        },
+        {
+          "trade_period": "202311",
+          "available_score_month": "202312",
+          "high_share_3m_change_pp": -0.5303722416044829,
+          "upper_share_3m_change_pp": -0.6059426216943677,
+          "fwd_3m_pct": 0.0
+        },
+        {
+          "trade_period": "202312",
+          "available_score_month": "202401",
+          "high_share_3m_change_pp": -0.3240909090909092,
+          "upper_share_3m_change_pp": -3.1153030303030285,
+          "fwd_3m_pct": 0.23
+        },
+        {
+          "trade_period": "202401",
+          "available_score_month": "202402",
+          "high_share_3m_change_pp": -0.44080776253063547,
+          "upper_share_3m_change_pp": -0.9194857130426364,
+          "fwd_3m_pct": 0.23
+        },
+        {
+          "trade_period": "202402",
+          "available_score_month": "202403",
+          "high_share_3m_change_pp": -0.0202563221346983,
+          "upper_share_3m_change_pp": -0.36768638661353137,
+          "fwd_3m_pct": 0.23
+        },
+        {
+          "trade_period": "202403",
+          "available_score_month": "202404",
+          "high_share_3m_change_pp": 0.5706762203313929,
+          "upper_share_3m_change_pp": 2.1219644723092976,
+          "fwd_3m_pct": 2.03
+        },
+        {
+          "trade_period": "202404",
+          "available_score_month": "202405",
+          "high_share_3m_change_pp": 1.0032467635916404,
+          "upper_share_3m_change_pp": 2.038801851834151,
+          "fwd_3m_pct": 2.03
+        },
+        {
+          "trade_period": "202405",
+          "available_score_month": "202406",
+          "high_share_3m_change_pp": 1.250938291505948,
+          "upper_share_3m_change_pp": 5.137527267429363,
+          "fwd_3m_pct": 6.09
+        },
+        {
+          "trade_period": "202406",
+          "available_score_month": "202407",
+          "high_share_3m_change_pp": 1.099990613776356,
+          "upper_share_3m_change_pp": 5.46552098124673,
+          "fwd_3m_pct": 5.31
+        },
+        {
+          "trade_period": "202407",
+          "available_score_month": "202408",
+          "high_share_3m_change_pp": 1.1553162810920332,
+          "upper_share_3m_change_pp": 4.584500367416055,
+          "fwd_3m_pct": 7.08
+        },
+        {
+          "trade_period": "202408",
+          "available_score_month": "202409",
+          "high_share_3m_change_pp": 1.209120310111981,
+          "upper_share_3m_change_pp": -0.054577542110141763,
+          "fwd_3m_pct": 2.98
+        },
+        {
+          "trade_period": "202409",
+          "available_score_month": "202410",
+          "high_share_3m_change_pp": 4.310252203091376,
+          "upper_share_3m_change_pp": 1.359593842057187,
+          "fwd_3m_pct": 1.68
+        },
+        {
+          "trade_period": "202410",
+          "available_score_month": "202411",
+          "high_share_3m_change_pp": 1.8056212784942316,
+          "upper_share_3m_change_pp": -0.916394368965431,
+          "fwd_3m_pct": 0.0
+        },
+        {
+          "trade_period": "202411",
+          "available_score_month": "202412",
+          "high_share_3m_change_pp": 1.1426461276496074,
+          "upper_share_3m_change_pp": 3.273115743642535,
+          "fwd_3m_pct": 2.48
+        },
+        {
+          "trade_period": "202412",
+          "available_score_month": "202501",
+          "high_share_3m_change_pp": -1.9382711995998303,
+          "upper_share_3m_change_pp": -2.5195888572489906,
+          "fwd_3m_pct": 4.96
+        },
+        {
+          "trade_period": "202501",
+          "available_score_month": "202502",
+          "high_share_3m_change_pp": -0.040581249114472584,
+          "upper_share_3m_change_pp": 2.0907159623093037,
+          "fwd_3m_pct": 4.96
+        },
+        {
+          "trade_period": "202502",
+          "available_score_month": "202503",
+          "high_share_3m_change_pp": 4.467853224099068,
+          "upper_share_3m_change_pp": 8.053555948962753,
+          "fwd_3m_pct": 4.84
+        },
+        {
+          "trade_period": "202503",
+          "available_score_month": "202504",
+          "high_share_3m_change_pp": 3.0074541173160547,
+          "upper_share_3m_change_pp": 9.918285759683975,
+          "fwd_3m_pct": 3.94
+        },
+        {
+          "trade_period": "202504",
+          "available_score_month": "202505",
+          "high_share_3m_change_pp": -3.986623090752712,
+          "upper_share_3m_change_pp": -6.101886310113315,
+          "fwd_3m_pct": 6.3
+        },
+        {
+          "trade_period": "202505",
+          "available_score_month": "202506",
+          "high_share_3m_change_pp": -7.38233688955971,
+          "upper_share_3m_change_pp": -10.862289427542933,
+          "fwd_3m_pct": 11.15
+        },
+        {
+          "trade_period": "202506",
+          "available_score_month": "202507",
+          "high_share_3m_change_pp": -2.6742325619846152,
+          "upper_share_3m_change_pp": -4.0061597770623045,
+          "fwd_3m_pct": 9.85
+        },
+        {
+          "trade_period": "202507",
+          "available_score_month": "202508",
+          "high_share_3m_change_pp": 6.104300772438,
+          "upper_share_3m_change_pp": 5.259380306962733,
+          "fwd_3m_pct": 8.15
+        },
+        {
+          "trade_period": "202508",
+          "available_score_month": "202509",
+          "high_share_3m_change_pp": -2.1834711534300926,
+          "upper_share_3m_change_pp": -6.554209111536736,
+          "fwd_3m_pct": 1.38
+        },
+        {
+          "trade_period": "202509",
+          "available_score_month": "202510",
+          "high_share_3m_change_pp": -4.732852104085893,
+          "upper_share_3m_change_pp": -4.046062847590896,
+          "fwd_3m_pct": 6.9
+        },
+        {
+          "trade_period": "202510",
+          "available_score_month": "202511",
+          "high_share_3m_change_pp": -3.759927199532342,
+          "upper_share_3m_change_pp": 2.2579233787130946,
+          "fwd_3m_pct": 14.73
+        },
+        {
+          "trade_period": "202511",
+          "available_score_month": "202512",
+          "high_share_3m_change_pp": 6.995555001063664,
+          "upper_share_3m_change_pp": 9.903696816301967,
+          "fwd_3m_pct": 22.18
+        },
+        {
+          "trade_period": "202512",
+          "available_score_month": "202601",
+          "high_share_3m_change_pp": 0.5236291143973073,
+          "upper_share_3m_change_pp": -6.065063198521649,
+          "fwd_3m_pct": 17.1
+        },
+        {
+          "trade_period": "202601",
+          "available_score_month": "202602",
+          "high_share_3m_change_pp": -1.0221661560641557,
+          "upper_share_3m_change_pp": -5.105784826094791,
+          "fwd_3m_pct": 8.36
+        },
+        {
+          "trade_period": "202602",
+          "available_score_month": "202603",
+          "high_share_3m_change_pp": -5.8720495277825915,
+          "upper_share_3m_change_pp": -7.965268611145337,
+          "fwd_3m_pct": 1.4
+        },
+        {
+          "trade_period": "202603",
+          "available_score_month": "202604",
+          "high_share_3m_change_pp": -0.36890632977704385,
+          "upper_share_3m_change_pp": -1.9147500681856933,
+          "fwd_3m_pct": 0.0
+        },
+        {
+          "trade_period": "202604",
+          "available_score_month": "202605",
+          "high_share_3m_change_pp": 2.716209274460958,
+          "upper_share_3m_change_pp": 2.7151467046325983,
+          "fwd_3m_pct": 0.0
+        },
+        {
+          "trade_period": "202605",
+          "available_score_month": "202606",
+          "high_share_3m_change_pp": 5.154956207653665,
+          "upper_share_3m_change_pp": 8.890331956232323,
+          "fwd_3m_pct": 0.0
+        },
+        {
+          "trade_period": "202606",
+          "available_score_month": "202607",
+          "high_share_3m_change_pp": 2.630701769987713,
+          "upper_share_3m_change_pp": 7.270497684046308,
+          "fwd_3m_pct": null
+        },
+        {
+          "trade_period": "202607",
+          "available_score_month": "202608",
+          "high_share_3m_change_pp": -2.912078368351449,
+          "upper_share_3m_change_pp": -3.65242654997083,
+          "fwd_3m_pct": null
+        },
+        {
+          "trade_period": "202608",
+          "available_score_month": "202609",
+          "high_share_3m_change_pp": -4.775988115378968,
+          "upper_share_3m_change_pp": -7.346476750063324,
+          "fwd_3m_pct": null
+        }
+      ]
     },
     "leader_lag": {
-      "status": "research_small_sample",
+      "status": "research_candidate",
       "production_applied": false,
       "leader_definition": "KB 선도아파트 50지수",
       "market_definition": "KB 서울 아파트 중위가격",
-      "period_start": "202408",
-      "period_end": "202608",
+      "market_region_code": "1100000000",
+      "period_start": "201609",
+      "period_end": "202609",
       "lag_tests": [
         {
           "lag_months": 0,
-          "n": 24,
-          "corr_leader_to_future_market": -0.3808307852681426
+          "n": 120,
+          "corr_leader_to_future_market": 0.6155885603835071,
+          "auc_future_market_positive": 0.8473813420621932,
+          "first_half_corr": 0.7342221350093637,
+          "second_half_corr": 0.42914267775642007
         },
         {
           "lag_months": 1,
-          "n": 24,
-          "corr_leader_to_future_market": -0.2004135679679968
+          "n": 120,
+          "corr_leader_to_future_market": 0.4728489803398718,
+          "auc_future_market_positive": 0.8604746317512275,
+          "first_half_corr": 0.3499372684807082,
+          "second_half_corr": 0.5361561154877722
         },
         {
           "lag_months": 2,
-          "n": 23,
-          "corr_leader_to_future_market": -0.25784845994054384
+          "n": 119,
+          "corr_leader_to_future_market": 0.37052140061461913,
+          "auc_future_market_positive": 0.825062034739454,
+          "first_half_corr": 0.14487922001286102,
+          "second_half_corr": 0.5374150719484554
         },
         {
           "lag_months": 3,
-          "n": 22,
-          "corr_leader_to_future_market": -0.17745280367091065
+          "n": 118,
+          "corr_leader_to_future_market": 0.27042175847606287,
+          "auc_future_market_positive": 0.7788461538461539,
+          "first_half_corr": -0.04676991477854612,
+          "second_half_corr": 0.524648111814098
         }
       ],
       "validation": {
-        "sufficient_for_model": false,
+        "sufficient_for_model": true,
         "minimum_required": 36,
-        "reason": "lead-lag is descriptive until longer same-definition history is available"
+        "lead_lag_hypothesis_supported": false,
+        "best_positive_lag_months": 1,
+        "gate": "n>=36; positive lag corr>=0.20 and direction AUC>=0.60; both half-sample correlations >0; lag must beat contemporaneous corr by 0.05 or AUC by 0.03",
+        "reason": "history is sufficient; production use still requires clear lag superiority and integrated validation"
       }
     },
     "selling_pressure": {
@@ -370,26 +658,26 @@
     }
   },
   "production_decision": {
-    "integrated_engine_changed": true,
+    "integrated_engine_changed": false,
     "candidate_decisions": {
       "trade_reporting": {
         "status": "mature_completed_month",
         "production_applied": true
       },
       "finance_v2_candidate": {
-        "status": "validated_candidate",
-        "production_applied": true
+        "status": "blocked_core_input_missing",
+        "production_applied": false
       },
       "valuation_rate_stress_candidate": {
         "status": "research_candidate",
         "production_applied": false
       },
       "price_tier_liquidity": {
-        "status": "current_diagnostic_only",
+        "status": "research_candidate",
         "production_applied": false
       },
       "leader_lag": {
-        "status": "research_small_sample",
+        "status": "research_candidate",
         "production_applied": false
       },
       "selling_pressure": {
@@ -405,16 +693,18 @@
         "production_applied": false
       }
     },
-    "reason": "finance_v2 passed standalone and integrated leakage-safe validation and is active in production; other candidates remain research-only until their gates pass"
+    "reason": "candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass"
   },
   "lineage": {
     "market": "dist/market_indicators.json",
     "final_backtest": "dist/final_backtest.json",
     "mortgage_rate": "data_sources/ecos_mortgage_rate.json",
     "housing_credit": "data_sources/ecos_housing_credit.json",
+    "price_tier_history": "data_sources/molit_price_tier_history.json",
     "leading_segment": "data_sources/kb_leading50_median.json",
+    "kb_momentum_validation": "dist/forecast_kb_momentum_validation.json",
     "policy": "data_sources/housing_policy_events.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-09-30T23:40:04.270138+00:00"
+  "generated_at": "2026-10-01T00:15:04.572441+00:00"
 }
