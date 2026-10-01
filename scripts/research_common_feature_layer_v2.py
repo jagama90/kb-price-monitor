@@ -340,7 +340,7 @@ def rental_supply_feature(market,structural=None):
  s=market.get('kb_sentiment') or {};u=market.get('unsold_inventory') or market.get('unsold_seoul') or {};structural=structural or {}
  units=u.get('region_units')
  if units is None:units=u.get('seoul_units')
- series=structural.get('series') or {};connected=sum((series.get(k) or {}).get('status')=='connected_probe' for k in ('permit','start','completion'))
+ series=structural.get('series') or {};connected=sum((series.get(k) or {}).get('status') in ('connected_probe','connected_api') for k in ('permit','start','completion'))
  return {'status':'semantic_split','production_applied':False,
          'rental_market_balance':{'status':'connected' if s.get('jeonse_score_0_100') is not None else 'not_connected',
           'score_0_100':s.get('jeonse_score_0_100'),'meaning':'KB 전세수급·전세거래 기반 단기 임대시장 균형','legacy_component_key':'supply'},
