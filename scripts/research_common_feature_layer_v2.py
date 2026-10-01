@@ -207,18 +207,31 @@ def price_tier_feature(market,tier_history=None,kb_momentum=None):
   ym=str(row.get('period') or '').replace('-','')[:6];avail_ym=ym_shift(ym,1);prev3=hist[i-3]
   hs=share(row,[high_analysis]) if high_analysis else None;hp=share(prev3,[high_analysis]) if high_analysis else None
   us=share(row,upper_ids) if upper_ids else None;up=share(prev3,upper_ids) if upper_ids else None
+  cb=row.get('buckets3') or {};pb=prev3.get('buckets3') or {}
+  hc=f(cb.get(high_analysis)) if high_analysis else None;hpc=f(pb.get(high_analysis)) if high_analysis else None
+  uc=sum(f(cb.get(k)) or 0 for k in upper_ids) if upper_ids else None;upc=sum(f(pb.get(k)) or 0 for k in upper_ids) if upper_ids else None
+  total=f(row.get('total'));ptotal=f(prev3.get('total'))
+  def pctchg(a,b):return (a/b-1)*100 if a is not None and b not in (None,0) else None
+  hchg=pctchg(hc,hpc);uchg=pctchg(uc,upc);tchg=pctchg(total,ptotal)
   y=target.get(avail_ym) or {};fwd=f(y.get('fwd_3m_pct'))
   aligned.append({'trade_period':ym,'available_score_month':avail_ym,
                   'high_share_3m_change_pp':(hs-hp if hs is not None and hp is not None else None),
                   'upper_share_3m_change_pp':(us-up if us is not None and up is not None else None),
+                  'high_count_3m_change_pct':hchg,'upper_count_3m_change_pct':uchg,
+                  'high_relative_volume_3m_pp':(hchg-tchg if hchg is not None and tchg is not None else None),
+                  'upper_relative_volume_3m_pp':(uchg-tchg if uchg is not None and tchg is not None else None),
                   'fwd_3m_pct':fwd})
  def sig_metrics(key):
   z=[x for x in aligned if x.get(key) is not None and x.get('fwd_3m_pct') is not None]
   return {'n':len(z),'corr_fwd3':pearson([x[key] for x in z],[x['fwd_3m_pct'] for x in z]),
           'auc_positive_fwd3':auc([1 if x['fwd_3m_pct']>0 else 0 for x in z],[x[key] for x in z])}
  hm=sig_metrics('high_share_3m_change_pp');um=sig_metrics('upper_share_3m_change_pp')
- enough=len(hist)>=36 and max(hm['n'],um['n'])>=24
- candidates=[('high_share_3m_change_pp',hm),('upper_share_3m_change_pp',um)]
+ hcm=sig_metrics('high_count_3m_change_pct');ucm=sig_metrics('upper_count_3m_change_pct')
+ hrm=sig_metrics('high_relative_volume_3m_pp');urm=sig_metrics('upper_relative_volume_3m_pp')
+ enough=len(hist)>=36 and max(hm['n'],um['n'],hcm['n'],ucm['n'],hrm['n'],urm['n'])>=24
+ candidates=[('high_share_3m_change_pp',hm),('upper_share_3m_change_pp',um),
+             ('high_count_3m_change_pct',hcm),('upper_count_3m_change_pct',ucm),
+             ('high_relative_volume_3m_pp',hrm),('upper_relative_volume_3m_pp',urm)]
  valid=[x for x in candidates if x[1].get('auc_positive_fwd3') is not None]
  best=max(valid,key=lambda x:x[1]['auc_positive_fwd3']) if valid else (None,{})
  supported=bool(enough and best[1].get('auc_positive_fwd3',0)>=.60 and (best[1].get('corr_fwd3') or 0)>=.10)
@@ -232,6 +245,8 @@ def price_tier_feature(market,tier_history=None,kb_momentum=None):
                 'aligned_target_rows':max(hm['n'],um['n']),'minimum_aligned_rows':24,'sufficient_for_model':enough,
                 'publication_alignment':'trade month t becomes eligible at score month t+1 after the reporting window; no current-month partial counts are used',
                 'high_share_3m_change':hm,'upper_share_3m_change':um,
+                'high_count_3m_change':hcm,'upper_count_3m_change':ucm,
+                'high_relative_volume_3m':hrm,'upper_relative_volume_3m':urm,
                 'best_research_signal':best[0],'signal_supported':supported,
                 'production_gate':'history and standalone signal support are necessary but not sufficient; integrated engine validation is still required',
                 'no_future_leakage':True},
