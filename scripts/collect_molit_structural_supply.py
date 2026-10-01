@@ -67,12 +67,29 @@ def parse(kind,html):
  return best[1],len(tables),len(candidates)
 def main():
  today=datetime.date.today(); y,m=shift(today.year,today.month,-1);end=f'{y:04d}{m:02d}';sy,sm=shift(y,m,-23);start=f'{sy:04d}{sm:02d}'
- out={'status':'probe_connected','source':'국토교통부 국토교통통계누리 승인통계','scope':{'market_scope_id':SCOPE.get('market_scope_id'),'region_code':REGION_CODE,'region_label':REGION_LABEL},
-      'period_query':{'start':start,'end':end},'series':{},'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+ out={'status':'connected','source':'국토교통부 국토교통통계누리 승인통계',
+      'scope':{'market_scope_id':SCOPE.get('market_scope_id'),'region_code':REGION_CODE,'region_label':REGION_LABEL},
+      'period_query':{'start':start,'end':end},'series':{},'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+      'official_meta':{'permit':'https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31',
+                       'start':'https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471',
+                       'completion':'https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468'}}
+ failures=[]
  for kind in SERIES:
-  html,url=fetch_html(kind,start,end);row,nt,nc=parse(kind,html)
-  out['series'][kind]={'status':'connected_probe','official_name':SERIES[kind]['label'],'query_url':url,'table_count':nt,'region_candidate_rows':nc,'selected_row':row}
-  print(json.dumps({'kind':kind,'tables':nt,'candidates':nc,'selected':row},ensure_ascii=False),flush=True)
+  spec=SERIES[kind]
+  try:
+   html,url=fetch_html(kind,start,end);row,nt,nc=parse(kind,html)
+   out['series'][kind]={'status':'connected_probe','official_name':spec['label'],'query_url':url,'table_count':nt,'region_candidate_rows':nc,'selected_row':row}
+   print(json.dumps({'kind':kind,'status':'connected','tables':nt,'candidates':nc},ensure_ascii=False),flush=True)
+  except Exception as e:
+   failures.append(kind)
+   out['series'][kind]={'status':'source_unreachable_from_actions','official_name':spec['label'],'official_meta_url':out['official_meta'][kind],'error':repr(e)[:300]}
+   print(json.dumps({'kind':kind,'status':'source_unreachable_from_actions','error':repr(e)[:200]},ensure_ascii=False),flush=True)
+ if failures:
+  out['status']='partial_source_unreachable' if len(failures)<len(SERIES) else 'source_unreachable_from_actions'
+  out['automation_blocker']='stat.molit.go.kr was not reachable from the GitHub-hosted runner; no values were fabricated or copied from secondary sources'
+ OUT.parent.mkdir(exist_ok=True)
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
- print(json.dumps({'status':'ok','out':str(OUT),'region':REGION_LABEL},ensure_ascii=False))
+ print(json.dumps({'status':out['status'],'failures':failures,'out':str(OUT),'region':REGION_LABEL},ensure_ascii=False))
+ return 0
+
 if __name__=='__main__':main()
