@@ -425,3 +425,5 @@ def main():
    'valuation_rate':vr_val.get('apply_recommended'),'leader':features['leader_lag'].get('status'),'price_tier':features['price_tier_liquidity'].get('status')},ensure_ascii=False))
 
 if __name__=='__main__':main()
+
+# phase4 structural supply connected refresh
