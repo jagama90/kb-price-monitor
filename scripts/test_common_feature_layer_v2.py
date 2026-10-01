@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import unittest
-from research_common_feature_layer_v2 import auc,pearson,percentile,price_tier_feature,lead_lag_feature
+from research_common_feature_layer_v2 import auc,pearson,percentile,price_tier_feature,lead_lag_feature,selling_pressure_feature,policy_feature,rental_supply_feature
 
 class CommonFeatureLayerV2Tests(unittest.TestCase):
  def test_percentile_is_rank_based(self):
@@ -39,6 +39,23 @@ class CommonFeatureLayerV2Tests(unittest.TestCase):
     'changes':{'trade_count_pct':0}}}
   x=price_tier_feature(m,hist,{'sample':[]})
   self.assertEqual(x['validation']['available_band_months'],1)
+ def test_selling_pressure_never_infers_forced_sale(self):
+  w={'items':[{'sale_listing_count':10,'sale_listing_week_delta':2,'avg_ask_manwon':110,'recent_trade_manwon':100,'avg_ask_week_delta_manwon':-1}]}
+  x=selling_pressure_feature(w,{'snapshots':[{'as_of':'2026-09-01'}]})
+  self.assertFalse(x['representative_market_sample'])
+  self.assertEqual(x['forced_selling']['status'],'not_observable')
+ def test_policy_context_applies_scope_tags_without_score(self):
+  raw={'status':'connected_current_context','as_of':'2026-10-01','historical_backtest_ready':False,'events':[{'id':'x','effective_date':'2026-07-01','end_date':'2026-12-31','scope_match_any':['capital_region'],'terms':{'stress':3.0},'source':'official'}]}
+  x=policy_feature(raw,{'credit_policy_scope_tags':['capital_region']})
+  self.assertEqual(x['active_rule_count'],1)
+  self.assertFalse(x['production_applied'])
+  self.assertFalse(x['historical_backtest_ready'])
+ def test_structural_supply_does_not_replace_legacy_supply_score(self):
+  m={'kb_sentiment':{'jeonse_score_0_100':55},'unsold_inventory':{'region_units':100,'period':'202601','region_code':'X'}}
+  x=rental_supply_feature(m,{'status':'source_unreachable_from_actions','series':{}})
+  self.assertEqual(x['rental_market_balance']['score_0_100'],55)
+  self.assertFalse(x['production_applied'])
+  self.assertEqual(x['structural_supply']['unsold_inventory']['units'],100)
  def test_pearson(self):
   self.assertAlmostEqual(pearson([1,2,3],[2,4,6]),1)
 
