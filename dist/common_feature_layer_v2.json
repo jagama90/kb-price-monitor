@@ -145,16 +145,16 @@
       }
     },
     "finance_v2_candidate": {
-      "status": "validated_candidate",
-      "production_applied": true,
-      "score_0_100": 35.5,
+      "status": "blocked_core_input_missing",
+      "production_applied": false,
+      "score_0_100": null,
       "liquidity_credit_availability": {
-        "score_0_100": 45.5,
+        "score_0_100": null,
         "source": "한국은행 ECOS 주택관련대출 잔액",
-        "period": "202607",
-        "balance": 929846.3,
-        "mom_change": 3495.4,
-        "yoy_pct": 5.2132
+        "period": null,
+        "balance": null,
+        "mom_change": null,
+        "yoy_pct": null
       },
       "funding_cost": {
         "score_0_100": 25.5,
@@ -169,35 +169,14 @@
       },
       "method": "Credit Availability 50% + Funding Cost 50%. Credit Availability uses housing-related loan balance increment and YoY growth; Funding Cost uses mortgage-rate level and 3m speed. M2 is context only.",
       "validation": {
-        "baseline": {
-          "n": 48,
-          "corr_fwd_1m": -0.49001108668678495,
-          "corr_fwd_3m": -0.465786404895992,
-          "corr_fwd_6m": -0.3556663077586926,
-          "corr_fwd_12m": -0.4096829848129911,
-          "downside_auc": 0.05128205128205128,
-          "reacceleration_auc": 0.2817204301075269,
-          "n_fwd3": 46
-        },
-        "candidate": {
-          "n": 48,
-          "corr_fwd_1m": 0.44356131912492325,
-          "corr_fwd_3m": 0.5291616993625459,
-          "corr_fwd_6m": 0.674201911094896,
-          "corr_fwd_12m": 0.8284294046990325,
-          "downside_auc": 0.9487179487179487,
-          "reacceleration_auc": 0.8387096774193549,
-          "n_fwd3": 46
-        },
-        "improvements": [
-          "downside_auc",
-          "reacceleration_auc",
-          "corr_fwd_3m",
-          "corr_fwd_6m",
-          "corr_fwd_12m"
+        "baseline": {},
+        "candidate": {},
+        "improvements": [],
+        "apply_recommended": false,
+        "reasons": [
+          "official housing-credit series not connected",
+          "fewer than 30 paired forward-3m observations"
         ],
-        "apply_recommended": true,
-        "reasons": [],
         "alignment": {
           "mortgage_rate": "score month t uses latest monthly rate <= t-1",
           "housing_credit": "score month t uses latest balance growth <= t-2"
@@ -900,30 +879,84 @@
         "unsold_inventory": {
           "units": 994,
           "period": "202607",
-          "region_code": null,
+          "region_code": "1100000000",
           "region_label": "서울",
           "source": "국토교통부 미분양주택현황보고"
         },
         "construction_statistics": {
-          "status": "parse_error",
+          "status": "stat_openapi_key_required",
           "series": {
             "permit": {
               "status": "parse_error",
               "official_name": "주택건설실적통계(인허가)",
+              "query_url": "https://stat.molit.go.kr/portal/cate/statView.do?hAppr=1&hPoint=00&hRsId=31&hFormId=1948&hSelectId=1948&hDivEng=&oFileName=&rFileName=&midpath=&month_yn=N&sFormId=1948&sStart=202410&sEnd=202609&sStyleNum=1&EXPORT=",
               "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
-              "error": "ValueError('No tables found')"
+              "error": "ValueError('No tables found')",
+              "api_diagnostics": {
+                "status": "api_error",
+                "error": "<HTTPError 500: 'Internal Server Error'>"
+              },
+              "html_diagnostics": {
+                "length": 62457,
+                "do_links": [
+                  "/portal/cate/statView.do",
+                  "/portal/cate/statMetaView.do",
+                  "/portal/cate/statPolicyView.do",
+                  "/portal/cate/statAnalsView.do",
+                  "/portal/stat/columns.do",
+                  "/portal/stat/data.do",
+                  "/portal/main/portalMain.do",
+                  "/portal/info/protect.do"
+                ]
+              }
             },
             "start": {
               "status": "parse_error",
               "official_name": "주택건설실적통계(착공)",
+              "query_url": "https://stat.molit.go.kr/portal/cate/statView.do?hAppr=1&hPoint=00&hRsId=471&hFormId=5386&hSelectId=5386&hDivEng=&oFileName=&rFileName=&midpath=&month_yn=N&sFormId=5386&sStart=202410&sEnd=202609&sStyleNum=1&EXPORT=",
               "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
-              "error": "ValueError('No tables found')"
+              "error": "ValueError('No tables found')",
+              "api_diagnostics": {
+                "status": "api_error",
+                "error": "<HTTPError 500: 'Internal Server Error'>"
+              },
+              "html_diagnostics": {
+                "length": 58397,
+                "do_links": [
+                  "/portal/cate/statView.do",
+                  "/portal/cate/statMetaView.do",
+                  "/portal/cate/statPolicyView.do",
+                  "/portal/cate/statAnalsView.do",
+                  "/portal/stat/columns.do",
+                  "/portal/stat/data.do",
+                  "/portal/main/portalMain.do",
+                  "/portal/info/protect.do"
+                ]
+              }
             },
             "completion": {
               "status": "parse_error",
               "official_name": "주택건설실적통계(준공)",
+              "query_url": "https://stat.molit.go.kr/portal/cate/statView.do?hAppr=1&hPoint=00&hRsId=468&hFormId=5373&hSelectId=5373&hDivEng=&oFileName=&rFileName=&midpath=&month_yn=N&sFormId=5373&sStart=202410&sEnd=202609&sStyleNum=1&EXPORT=",
               "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468",
-              "error": "ValueError('No tables found')"
+              "error": "ValueError('No tables found')",
+              "api_diagnostics": {
+                "status": "api_error",
+                "error": "<HTTPError 500: 'Internal Server Error'>"
+              },
+              "html_diagnostics": {
+                "length": 58771,
+                "do_links": [
+                  "/portal/cate/statView.do",
+                  "/portal/cate/statMetaView.do",
+                  "/portal/cate/statPolicyView.do",
+                  "/portal/cate/statAnalsView.do",
+                  "/portal/stat/columns.do",
+                  "/portal/stat/data.do",
+                  "/portal/main/portalMain.do",
+                  "/portal/info/protect.do"
+                ]
+              }
             }
           },
           "official_meta": {
@@ -931,22 +964,22 @@
             "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
             "completion": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468"
           },
-          "automation_blocker": "official source could not be fully parsed/reached in this run; no values were fabricated or copied from secondary sources"
+          "automation_blocker": "dedicated MOLIT statistics OpenAPI key is not configured; the transaction OpenAPI key fallback was rejected by the statistics endpoint. No values were fabricated."
         },
         "meaning": "미분양 재고와 인허가·착공·준공은 구조공급 context로 분리하며 기존 전세수급 15% 점수에는 아직 합산하지 않음"
       }
     }
   },
   "production_decision": {
-    "integrated_engine_changed": true,
+    "integrated_engine_changed": false,
     "candidate_decisions": {
       "trade_reporting": {
         "status": "mature_completed_month",
         "production_applied": true
       },
       "finance_v2_candidate": {
-        "status": "validated_candidate",
-        "production_applied": true
+        "status": "blocked_core_input_missing",
+        "production_applied": false
       },
       "valuation_rate_stress_candidate": {
         "status": "research_candidate",
@@ -973,7 +1006,7 @@
         "production_applied": false
       }
     },
-    "reason": "finance_v2 passed standalone and integrated leakage-safe validation and is active in production; other candidates remain research-only until their gates pass"
+    "reason": "candidate features stay research-only unless adequate history, leakage-safe validation, and integrated certified-model comparison all pass"
   },
   "lineage": {
     "market": "dist/market_indicators.json",
@@ -988,5 +1021,5 @@
     "structural_supply": "data_sources/molit_structural_supply.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-10-01T00:43:29.508200+00:00"
+  "generated_at": "2026-10-01T00:52:17.873971+00:00"
 }
