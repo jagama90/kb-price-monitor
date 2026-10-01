@@ -147,9 +147,9 @@ cssv=re.search(r'market\.css\?v=([^"]+)',html)
 if not jsv or not cssv: errors.append('asset cache versions missing')
 
 # market context extension contract
-for rid in ('marketContext','contextBreadthBadge','breadthHeadline','breadthFill','breadthGangnam','breadthNonGangnam','breadthSongpa',
+for rid in ('marketContext','contextRegionBreadthLabel','contextDistrictStrengthLabel','contextBreadthBadge','breadthHeadline','breadthFill','breadthGangnam','breadthNonGangnam','breadthSongpa',
             'temperatureHeadline','tempSeoul','tempSongpa','tempGap','affordHeadline','affordRate','affordPayment','affordChange',
-            'affordBenchmark','contextValidation'):
+            'affordBenchmark','contextValidation','rawTradeLabel','validationUnsoldLabel'):
     if ids.count(rid)!=1: errors.append(f'market context id {rid}: expected 1, got {ids.count(rid)}')
 if 'market_extensions.json' not in js or 'loadMarketExtensions()' not in js:
     errors.append('market extension loader missing')
@@ -250,6 +250,22 @@ if "market_indicators.json" not in js or "kb_weekly_sale_index" not in js or "mo
     errors.append('current regime comparison must use KB Seoul 4w/13w momentum')
 if "kb_seoul_momentum" not in js:
     errors.append('historical/current price comparison is not source-aligned')
+
+# v205 final UI/production consistency guard
+if '<title>서울 부동산' in html or '>서울 부동산 상황판<' in html:
+    errors.append('system identity must not hardcode the current region')
+if "d.seoul_apt_trade_count||[]" in js:
+    errors.append('UI must prefer generic apt_trade_count adapter')
+if "const u=d.unsold_seoul" in js:
+    errors.append('UI must prefer generic unsold_inventory adapter')
+if "refreshJson('market_judgment.json')" not in js:
+    errors.append('refresh calendar must consume production market judgment')
+if "prod=judgment?.feature_layer?.components" not in js:
+    errors.append('refresh factor change detection must use production components')
+if "matureTrade?'신고완료 거래':'동일기간 거래'" not in js:
+    errors.append('demand detail must distinguish mature completed-month signal')
+if 'M2 참고' not in html:
+    errors.append('M2 raw-source context must be labeled as reference-only')
 
 payload={'status':'ok' if not errors else 'failed','checks':'all-dashboard-contracts','errors':errors}
 print(json.dumps(payload,ensure_ascii=False))

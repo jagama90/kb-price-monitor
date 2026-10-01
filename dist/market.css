@@ -1563,8 +1563,8 @@ main{max-width:1180px;padding-top:24px}
  .regime-ref-spark-v145 svg{height:40px}
  .regime-ref-metrics-v145{grid-template-columns:repeat(4,minmax(0,1fr))}
  .regime-ref-metrics-v145>div{padding:7px 5px;text-align:center}
- .regime-ref-metrics-v145 b{font-size:9px}
- .regime-ref-metrics-v145 small{font-size:6px}
+ .regime-ref-metrics-v145 b{font-size:12px}
+ .regime-ref-metrics-v145 small{font-size:9px}
 }
 
 
@@ -2799,7 +2799,7 @@ header{position:sticky!important;overflow:visible!important}
   .current-phase-v181{display:block}
   .current-phase-v181 small{display:block;margin-bottom:4px}
   .current-phase-v181 b{font-size:25px}
-  .market-judgment-v181 .research-verdict{font-size:12px!important}
+  .market-judgment-v181 .research-verdict{font-size:13.5px!important;line-height:1.6!important}
   .forecast-route-node-v181{grid-template-columns:74px minmax(0,1fr)}
   .buy-condition-line-v181{flex-wrap:wrap}
   .buy-condition-line-v181>em{margin-left:0}
@@ -3303,7 +3303,7 @@ header{position:sticky!important;overflow:visible!important}
 }
 
 /* v191 two-column judgment evidence */
-@media(max-width:800px){
+@media(min-width:521px) and (max-width:800px){
   .evidence-factor-list-v181{
     display:grid!important;
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -3379,7 +3379,7 @@ header{position:sticky!important;overflow:visible!important}
 }
 
 /* v192 evidence cards mirror raw-source grid */
-@media(max-width:800px){
+@media(min-width:521px) and (max-width:800px){
   .evidence-factor-list-v181{
     display:grid!important;
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -3472,22 +3472,26 @@ header{position:sticky!important;overflow:visible!important}
     white-space:nowrap!important;
   }
 }
-@media(max-width:360px){
-  .evidence-factor-list-v181{
+@media(max-width:520px){
+  .judgment-evidence-drawer-v181 .evidence-factor-list-v181{
+    grid-template-columns:1fr!important;
     gap:8px!important;
   }
   .evidence-factor-list-v181 .factor-impact-row-v181,
   .evidence-factor-list-v181 .factor-impact-row-v181:last-child{
-    min-height:158px!important;
-    padding:12px 10px!important;
+    min-height:0!important;
+    padding:13px 12px!important;
   }
-  .evidence-factor-list-v181 .factor-score-v134>b{
-    font-size:25px!important;
-  }
+  .evidence-factor-list-v181 .factor-card-head-v134>span{font-size:13px!important}
+  .evidence-factor-list-v181 .factor-card-head-v134>em{font-size:10px!important}
+  .evidence-factor-list-v181 .factor-score-v134>b{font-size:28px!important}
+  .evidence-factor-list-v181 .factor-impact-copy-v181{font-size:11.5px!important;line-height:1.5!important}
+  .evidence-factor-list-v181 .factor-foot-v134>span,
+  .evidence-factor-list-v181 .factor-foot-v134>i{font-size:10px!important;white-space:normal!important}
 }
 
 /* v193 force evidence cards to fill raw-source grid cells */
-@media(max-width:800px){
+@media(min-width:521px) and (max-width:800px){
   .judgment-evidence-drawer-v181 .evidence-factor-list-v181{
     display:grid!important;
     grid-template-columns:repeat(2,minmax(0,1fr))!important;

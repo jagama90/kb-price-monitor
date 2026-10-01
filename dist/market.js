@@ -36,14 +36,14 @@ async function loadMarketIndicators(){
   ]);
   window.__marketJudgment=jg;
   renderCycleStage(jg);
-  const vols=d.seoul_apt_trade_count||[];
+  const vols=d.apt_trade_count||d.seoul_apt_trade_count||[];
   if(vols.length){const z=vols[vols.length-1];setText('snapVolume',Number(z[1]).toLocaleString('ko-KR')+'건');setText('snapVolumePeriod',sourcePeriodFmt(z[0])+(z[2]?' · 신고 진행':' · 집계'))}
   const bands=d.price_bands?.months||[],latest=bands[bands.length-1];
   if(latest){setText('snapUnder15',latest.under15_share+'%');const b3=latest.buckets3||{'<=15eok':Number(latest.counts?.['<=9eok']||0)+Number(latest.counts?.['9-15eok']||0),'15-25eok':latest.counts?.['15-25eok'],'25eok+':latest.counts?.['25eok+']};setText('b15all',Number(b3['<=15eok']||0).toLocaleString('ko-KR')+'건');setText('b15to25',Number(b3['15-25eok']||0).toLocaleString('ko-KR')+'건');setText('b25p',Number(b3['25eok+']||0).toLocaleString('ko-KR')+'건')}
   const m=d.m2_official||d.m2;if(m){setText('snapM2',m.yoy_pct==null?'—':m.yoy_pct+'%');setText('snapM2Period',sourcePeriodFmt(m.period)+(m.yoy_change_pp==null?'':' · 전월보다 '+signed(m.yoy_change_pp,'%p')));setText('m2Detail','ECOS M2 · 전월비 '+(m.mom_pct??'—')+'% ('+(m.mom_change_pp==null?'변화 대기':signed(m.mom_change_pp,'%p'))+') · 전년비 '+(m.yoy_pct??'—')+'% ('+(m.yoy_change_pp==null?'변화 대기':signed(m.yoy_change_pp,'%p'))+')')}
   if(d.matched_period){const x=d.matched_period,c=x.current,p=x.previous,fmt=v=>v==null?'—':Number(v).toLocaleString('ko-KR');setText('matchedRange',sourcePeriodFmt(p.period)+' '+p.range+' ↔ '+sourcePeriodFmt(c.period)+' '+c.range+' · 계약일 기준');setText('matchedVolume',fmt(p.total)+' → '+fmt(c.total)+'건');setText('matchedVolumeDelta',x.changes?.trade_count_pct==null?'증감 계산 대기':signed(x.changes.trade_count_pct,'%')+' · 당월 신고 진행');setText('matchedUnder15',(p.under15_share??'—')+' → '+(c.under15_share??'—')+'%');setText('matchedUnder15Delta',x.changes?.under15_share_pp==null?'증감 계산 대기':signed(x.changes.under15_share_pp,'%p'));const hv=document.getElementById('hubValidationMeta');if(hv)hv.textContent='거래 '+(x.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 '+(c.under15_share??'—')+'%';renderTradeDistribution(x)}
-  const u=d.unsold_seoul;if(u){setText('validationUnsold',Number(u.seoul_units).toLocaleString('ko-KR')+'호');setText('validationUnsoldPeriod',sourcePeriodFmt(u.period)+' · 전월 '+(Number(u.change_units)>0?'+':'')+Number(u.change_units).toLocaleString('ko-KR')+'호 ('+(Number(u.change_pct)>0?'+':'')+Number(u.change_pct).toFixed(1)+'%)')}
-  window.__marketIndicators=d;const scopePath=(d.scope?.display_path||[]).filter(Boolean);setText('marketScopePath',scopePath.length?scopePath.join(' → '):'분석 시장 → 관심 권역 → 관심단지');renderDataStatusPanel();
+  const u=d.unsold_inventory||d.unsold_seoul;if(u){const units=u.region_units??u.seoul_units;setText('validationUnsold',units==null?'—':Number(units).toLocaleString('ko-KR')+'호');setText('validationUnsoldPeriod',sourcePeriodFmt(u.period)+' · 전월 '+(Number(u.change_units)>0?'+':'')+Number(u.change_units).toLocaleString('ko-KR')+'호 ('+(Number(u.change_pct)>0?'+':'')+Number(u.change_pct).toFixed(1)+'%)')}
+  window.__marketIndicators=d;const scopePath=(d.scope?.display_path||[]).filter(Boolean),regionLabel=d.scope?.region?.label||'분석 지역',districtLabel=d.scope?.district_focus?.label||'관심 권역';setText('marketScopePath',scopePath.length?scopePath.join(' → '):'분석 시장 → 관심 권역 → 관심단지');setText('contextRegionBreadthLabel',regionLabel+' 확산');setText('contextDistrictStrengthLabel',districtLabel+' 상대강도');setText('rawTradeLabel',regionLabel+' 거래량');setText('validationUnsoldLabel',regionLabel+' 미분양');document.title=regionLabel+' 부동산 시장 상황판';renderDataStatusPanel();
   const src=d.refresh_run?.sources||{},srcLabel={molit:'국토부',ecos:'ECOS',kb_sentiment:'KB지수',watchlist_detail:'단지상세'},delayed=Object.entries(src).filter(([,v])=>v!=='connected').map(([k])=>srcLabel[k]||k);
   sourceRefreshNote=delayed.length?' · 일부 지연':' · 정상';
   const updatedNow=document.querySelector('#updated');
@@ -415,20 +415,20 @@ async function loadMarketExtensions(){
  const pp=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%p';
  try{
   const d=await fetch('market_extensions.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('extensions '+r.status);return r.json()});
-  const b=d.current?.breadth||{},s25=b.seoul_25||{},g3=b.gangnam3||{},ng=b.non_gangnam3||{},songpa=b.songpa||{};
+  const b=d.current?.breadth||{},s25=b.seoul_25||{},g3=b.gangnam3||{},ng=b.non_gangnam3||{},songpa=b.songpa||{},scope=window.__marketIndicators?.scope||{},regionLabel=scope.region?.label||'서울',districtLabel=scope.district_focus?.label||'송파';
   const up=Number(s25.up_share_pct||0);
   set('breadthHeadline',(s25.up??'—')+'/'+(s25.count??25)+'개구 상승');
   set('breadthGangnam','강남3구 '+(g3.up??'—')+'/'+(g3.count??3)+'↑');
   set('breadthNonGangnam','비강남 '+(ng.up??'—')+'/'+(ng.count??22)+'↑');
-  set('breadthSongpa','송파 '+pct(songpa.change_pct));
+  set('breadthSongpa',districtLabel+' '+pct(songpa.change_pct));
   const fill=document.getElementById('breadthFill');if(fill)fill.style.width=Math.max(0,Math.min(100,up))+'%';
   set('contextBreadthBadge',up>=75?'확산 강함':up>=45?'확산 혼조':'확산 약함');
 
   const t=d.current?.temperature||{},sg=Number(t.songpa_vs_seoul_gap_pp);
   set('tempSeoul',pct(t.seoul_m3_pct));
   set('tempSongpa',pct(t.songpa_m3_median_pct));
-  set('temperatureHeadline',sg<=-1?'송파가 서울보다 느림':sg>=1?'송파가 서울보다 강함':'서울과 비슷한 흐름');
-  set('tempGap',sg<0?'서울 대비 '+Math.abs(sg).toFixed(2)+'%p 뒤처짐 · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4):'서울 대비 '+pp(sg)+' · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4));
+  set('temperatureHeadline',sg<=-1?districtLabel+'가 '+regionLabel+'보다 느림':sg>=1?districtLabel+'가 '+regionLabel+'보다 강함':regionLabel+'과 비슷한 흐름');
+  set('tempGap',sg<0?regionLabel+' 대비 '+Math.abs(sg).toFixed(2)+'%p 뒤처짐 · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4):regionLabel+' 대비 '+pp(sg)+' · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4));
 
   const a=d.current?.affordability||{},ac=Number(a.affordability_change_3m_pct);
   set('affordHeadline',ac<0?'구매력 약화':'구매력 개선');
@@ -581,10 +581,10 @@ function decorateFactorRefresh(card,record,checkedAt){
  }
 }
 async function initRefreshCalendar(){
- const [mi,market,master,forecast,extensions,hist,backtest,research]=await Promise.all([
+ const [mi,market,master,forecast,extensions,hist,backtest,research,judgment]=await Promise.all([
    refreshJson('market_indicators.json'),refreshJson('buy_watchlist_market.json'),refreshJson('buy_watchlist_master.json'),
    refreshJson('regime_forecast.json'),refreshJson('market_extensions.json'),refreshJson('kb_watchlist_history.json'),
-   refreshJson('final_backtest.json'),refreshJson('turning_signal_research.json')
+   refreshJson('final_backtest.json'),refreshJson('turning_signal_research.json'),refreshJson('market_judgment.json')
  ]);
  const src=mi?.refresh_run?.sources||{},delayed=Object.entries(src).filter(([,v])=>v!=='connected').map(([k])=>({molit:'국토부',ecos:'ECOS',kb_sentiment:'KB',watchlist_detail:'단지상세'}[k]||k));
  const listingFallback=market&&String(market.listing_refresh_status||'')!=='connected';
@@ -596,10 +596,10 @@ async function initRefreshCalendar(){
  const monthlyRev=refreshMax(backtest?.generated_at,research?.generated_at)?.toISOString();
  const healthRev=refreshMax(dailyRev,market?.listing_refresh_attempted_at,hist?.generated_at,forecastRev,extensionRev,monthlyRev)?.toISOString();
  const statuses=mi?.data_status||{},critical=Object.entries(statuses).filter(([k,v])=>v!=='connected'&&!['watchlist_detail_refresh'].includes(k)).map(([k])=>k);
- const state=refreshReadState(),records=[],components=refreshComponents(mi),m=mi?.m2_official||mi?.m2||{},sent=mi?.kb_sentiment||{},matched=mi?.matched_period||{},val=mi?.kb_value||{};
+ const state=refreshReadState(),records=[],prod=judgment?.feature_layer?.components||judgment?.heads?.buy_condition?.components||null,components=prod?Object.fromEntries(Object.entries(prod).map(([k,v])=>[k,v==null?null:Number(v)])):refreshComponents(mi),financeCtx=judgment?.feature_layer?.context||{},m=mi?.m2_official||mi?.m2||{},sent=mi?.kb_sentiment||{},matched=mi?.signal_matched_period||mi?.matched_period||{},val=mi?.kb_value||{};
 
  const factorDefs={
-  finance:{label:'금융',value:components.finance,sig:{score:components.finance,m2:[m.period,m.mom_pct,m.yoy_pct],mortgage:[mi?.mortgage_rate_official?.period,mi?.mortgage_rate_official?.rate_pct],base:[mi?.base_rate_official?.latest?.date,mi?.base_rate_official?.latest?.rate_pct]}},
+  finance:{label:'금융',value:components.finance,sig:{score:components.finance,model:financeCtx.finance_model,credit:[financeCtx.credit_availability_0_100,financeCtx.housing_credit_period],funding:[financeCtx.funding_cost_0_100,mi?.mortgage_rate_official?.period,mi?.mortgage_rate_official?.rate_pct],m2_context:[m.period,m.yoy_pct]}},
   sentiment:{label:'심리',value:components.sentiment,sig:{score:components.sentiment,buy:[sent.latest?.매수우위?.date,sent.latest?.매수우위?.value],trade:[sent.latest?.매매거래활발?.date,sent.latest?.매매거래활발?.value]}},
   demand:{label:'거래',value:components.demand,sig:{score:components.demand,period:matched.current?.period,total:matched.current?.total,under15:matched.current?.under15_share,changes:matched.changes}},
   value:{label:'가격',value:components.value,sig:{score:components.value,period:val.period,pir:[val.components?.pir?.period,val.components?.pir?.value,val.components?.pir?.score_0_100],rent:[val.components?.rent_ratio?.period,val.components?.rent_ratio?.value_pct,val.components?.rent_ratio?.score_0_100],trend:[val.components?.trend_gap?.period,val.components?.trend_gap?.value_pct,val.components?.trend_gap?.score_0_100]}},
@@ -607,7 +607,7 @@ async function initRefreshCalendar(){
  };
  for(const [key,d] of Object.entries(factorDefs)){const rec=refreshTrack(state,'factor.'+key,d.label,d.sig,d.value,dailyRev,true);records.push(rec);decorateFactorRefresh(document.querySelector('[data-score-key="'+key+'"]'),rec,dailyRev)}
 
- const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},avail=Object.keys(components).filter(k=>components[k]!=null),covered=avail.reduce((a,k)=>a+weights[k],0),condition=covered?Math.round(avail.reduce((a,k)=>a+components[k]*weights[k],0)/covered):null;
+ const weights={finance:25,sentiment:20,demand:20,value:20,supply:15},avail=Object.keys(components).filter(k=>components[k]!=null),covered=avail.reduce((a,k)=>a+weights[k],0),fallbackCondition=covered?Math.round(avail.reduce((a,k)=>a+components[k]*weights[k],0)/covered):null,condition=judgment?.heads?.buy_condition?.score_0_100??fallbackCondition;
  const overviewRec=refreshTrack(state,'panel.overview','현재 국면',{condition,factors:components,weekly:[mi?.kb_weekly_sale_index?.latest?.date,mi?.kb_weekly_sale_index?.latest?.change_pct,mi?.kb_weekly_rent_index?.latest?.change_pct]},condition,dailyRev,false);
  const forecastSig={research:forecast?.latest_research_month,cert:forecast?.latest_certified_backtest_month,h:(forecast?.horizons||[]).map(x=>[x.period,x.weights])};
  const forecastValue=(forecast?.horizons||[])[0]?.weights?.consolidation==null?null:Number((forecast.horizons||[])[0].weights.consolidation).toFixed(1);
@@ -662,7 +662,7 @@ initRefreshCalendar();
    const blocks={
     finance:[metric('M2 전월비',signed1(m.mom_pct,'%'),'유동성 단기 변화'),metric('M2 전년비',signed1(m.yoy_pct,'%'),'유동성 장기 변화'),metric('주담대',d.mortgage_rate_official?.rate_pct==null?'—':fmt1(d.mortgage_rate_official.rate_pct)+'%','신규취급액 기준')],
     sentiment:[metric('매수우위',fmt1(s.latest?.매수우위?.value),'KB 서울'),metric('거래활발',fmt1(s.latest?.매매거래활발?.value),'KB 서울'),metric('심리점수',fmt1(s.score_0_100),'100점 환산')],
-    demand:[metric('동일기간 거래',signed1(x.changes?.trade_count_pct,'%'),'전월 같은 계약일'),metric('≤15억 비중',x.current?.under15_share==null?'—':fmt1(x.current.under15_share)+'%','현재 동일기간'),metric('비중 변화',signed1(x.changes?.under15_share_pp,'%p'),'전월 대비')],
+    demand:[metric(matureTrade?'신고완료 거래':'동일기간 거래',signed1(x.changes?.trade_count_pct,'%'),matureTrade?'완성월 전월 대비':'전월 같은 계약일'),metric('≤15억 비중',x.current?.under15_share==null?'—':fmt1(x.current.under15_share)+'%','현재 동일기간'),metric('비중 변화',signed1(x.changes?.under15_share_pp,'%p'),'전월 대비')],
     value:[metric('PIR',v.components?.pir?.value==null?'—':fmt1(v.components.pir.value)+'배','소득 대비 가격 · 40%'),metric('전세가율',v.components?.rent_ratio?.value_pct==null?'—':fmt1(v.components.rent_ratio.value_pct)+'%','전세가치 지지력 · 30%'),metric('장기추세 괴리',v.components?.trend_gap?.value_pct==null?'—':signed1(v.components.trend_gap.value_pct,'%'),'60개월 로그추세 대비 · 30%')],
     supply:[metric('전세수급',fmt1(s.latest?.전세수급?.value),'KB 서울'),metric('전세거래',fmt1(s.latest?.전세거래활발?.value),'KB 서울'),metric('전세점수',fmt1(s.jeonse_score_0_100),'100점 환산')]
    };
@@ -687,7 +687,7 @@ initRefreshCalendar();
   finance:'금융여건은 현재 production 엔진의 입력과 산식을 표시합니다.',
   sentiment:'KB 매수심리와 거래심리를 함께 봅니다.',
   demand:'실제 계약 건수와 가격대별 수요 이동을 봅니다.',
-  value:'서울 집값을 소득·전세가치·장기 가격추세의 세 축으로 함께 봅니다.',
+  value:'분석 지역 집값을 소득·전세가치·장기 가격추세의 세 축으로 함께 봅니다.',
   supply:'현재 점수는 KB 전세수급·전세거래를 뜻합니다. 입주·재고 같은 구조적 공급은 별도 연구계층입니다.'
  };
  window.showScoreDetail=function(k){
@@ -696,7 +696,7 @@ initRefreshCalendar();
    if(p0&&!p0.hidden&&active){window.hideScoreDetail?.();return;}
    const weights={finance:25,sentiment:20,demand:20,value:20,supply:15};
    const title={finance:'금융여건',sentiment:'시장심리',demand:'실수요·거래',value:'가격·밸류',supply:'공급·전세'};
-   const m=d.m2_official||d.m2||{},x=d.signal_matched_period||d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},mort=d.mortgage_rate_official||{},score=Math.round(Number(c[k])),band=status(score);
+   const m=d.m2_official||d.m2||{},x=d.signal_matched_period||d.matched_period||{},s=d.kb_sentiment||{},v=d.kb_value||{},mort=d.mortgage_rate_official||{},score=Math.round(Number(c[k])),band=status(score),regionLabel=d.scope?.region?.label||'분석 지역',matureTrade=x.basis==='completed_month_after_statutory_reporting_window';
    const financeCtx=window.__marketJudgment?.feature_layer?.context||{},financeV2=financeCtx.finance_model==='finance_v2_credit_cost';
    const financeDesc=financeV2?'주택관련 신용공급과 주담대 조달비용을 각각 점수화해 결합합니다. M2는 유동성 맥락으로만 확인합니다.':'M2의 전월·전년 변화를 기반으로 금융여건을 봅니다.';
    const blocks={
@@ -710,8 +710,8 @@ initRefreshCalendar();
       metric('주담대 금리',mort.rate_pct==null?'—':fmt1(mort.rate_pct)+'%',mort.change_pp==null?'전월 변화 대기':'직전월보다 '+signed1(mort.change_pp,'%p'))
     ],
     sentiment:[
-      metric('매수우위',fmt1(s.latest?.매수우위?.value),(s.changes?.매수우위==null?'전주 변화 대기':'전주 '+signed1(s.changes.매수우위,''))),
-      metric('거래활발',fmt1(s.latest?.매매거래활발?.value),(s.changes?.매매거래활발==null?'전주 변화 대기':'전주 '+signed1(s.changes.매매거래활발,''))),
+      metric('매수우위',fmt1(s.latest?.매수우위?.value),(s.changes?.매수우위==null?'KB '+regionLabel:'KB '+regionLabel+' · 전주 '+signed1(s.changes.매수우위,''))),
+      metric('거래활발',fmt1(s.latest?.매매거래활발?.value),(s.changes?.매매거래활발==null?'KB '+regionLabel:'KB '+regionLabel+' · 전주 '+signed1(s.changes.매매거래활발,''))),
       metric('심리점수',fmt1(s.score_0_100),(s.score_change==null?'직전 변화 대기':'전주 '+signed1(s.score_change,'')+'점'))
     ],
     demand:[
@@ -733,7 +733,7 @@ initRefreshCalendar();
    const method={
     finance:financeV2?'Credit Availability 50% + Funding Cost 50% · 신용공급은 주택관련대출 잔액 증가·전년비, 조달비용은 주담대 금리 수준·3개월 속도 사용 · M2는 참고정보':'M2 전월·전년 변화를 기반으로 산출 · 주담대 금리는 보조정보',
     sentiment:'KB 매수우위·매매거래활발 지수를 동일 기준으로 환산',
-    demand:'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',
+    demand:matureTrade?'신고기한이 경과한 최근 완성월과 직전 완성월의 거래량·가격대 비중 비교':'당월과 전월의 동일 계약일 구간 거래량·가격대 비중 비교',
     value:'PIR 40% + 전세가율 30% + 60개월 장기추세 괴리 30% · 각 지표는 해당 시점까지의 역사 백분위로 환산',
     supply:'KB 전세수급·전세거래활발 지표를 결합'
    };

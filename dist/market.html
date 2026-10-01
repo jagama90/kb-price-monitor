@@ -1,5 +1,5 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>서울 부동산 매수여건 상황판</title><link rel="stylesheet" href="market.css?v=20261001-200"></head><body><header>
-<a class="brand brand-home-v155" id="brandHome" href="./market.html" aria-label="서울 부동산 상황판 새로고침"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>서울 부동산 상황판</b></div></a>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8fc"><title>부동산 시장 상황판</title><link rel="stylesheet" href="market.css?v=20261001-205"></head><body><header>
+<a class="brand brand-home-v155" id="brandHome" href="./market.html" aria-label="부동산 상황판 새로고침"><span>⌂</span><div><small>데이터 기반 시장 모니터</small><b>부동산 상황판</b></div></a>
 <details id="refreshCalendar" class="header-refresh-v154" aria-labelledby="refreshCalendarTitle">
   <summary class="refresh-calendar-summary">
     <span id="updated">LOADING</span>
@@ -154,14 +154,14 @@
   </div>
   <div class="market-context-strip-v184">
     <article class="market-context-card-v184">
-      <small>서울 확산</small>
+      <small id="contextRegionBreadthLabel">분석 지역 확산</small>
       <b id="breadthHeadline">집계 중</b>
       <span id="contextBreadthBadge">연결 중</span>
       <div class="breadth-track-v1"><i id="breadthFill"></i></div>
       <div class="market-context-detail-v184"><span id="breadthGangnam">강남3구 —</span><span id="breadthNonGangnam">비강남 —</span><span id="breadthSongpa">송파 —</span></div>
     </article>
     <article class="market-context-card-v184">
-      <small>송파 상대강도</small>
+      <small id="contextDistrictStrengthLabel">관심 권역 상대강도</small>
       <b id="temperatureHeadline">계산 중</b>
       <span id="tempGap">상대강도 계산 중</span>
       <div class="market-context-detail-v184"><span>서울 <b id="tempSeoul">—</b></span><span>송파 <b id="tempSongpa">—</b></span></div>
@@ -196,9 +196,9 @@
       <div class="diagnostic-source-body-v184">
         <div id="kbOfficialData" class="evidence-strip"><div>공식 데이터 불러오는 중</div></div>
         <div class="evidence-strip">
-          <div><span>서울 거래량</span><b id="snapVolume">—</b><small id="snapVolumePeriod">국토부</small></div>
+          <div><span id="rawTradeLabel">분석 지역 거래량</span><b id="snapVolume">—</b><small id="snapVolumePeriod">국토부</small></div>
           <div><span>15억 이하</span><b id="snapUnder15">—</b><small>국토부</small></div>
-          <div><span>M2 전년비</span><b id="snapM2">—</b><small id="snapM2Period">ECOS</small></div>
+          <div><span>M2 참고</span><b id="snapM2">—</b><small id="snapM2Period">ECOS · 금융점수 미반영</small></div>
         </div>
       </div>
     </details>
@@ -212,7 +212,7 @@
   <div class="validation-secondary">
     <div><span>주간 전세</span><b id="validationRentChange">—</b><small id="validationRentPeriod">KB 공식</small></div>
     <div><span>전세수급</span><b id="validationJeonseSupply">—</b><small id="validationJeonseSupplyPeriod">KB 공식</small></div>
-    <div><span>서울 미분양</span><b id="validationUnsold">—</b><small id="validationUnsoldPeriod">국토부 월간</small></div>
+    <div><span id="validationUnsoldLabel">분석 지역 미분양</span><b id="validationUnsold">—</b><small id="validationUnsoldPeriod">국토부 월간</small></div>
   </div>
   <details class="deep-source"><summary>거래 분포 자세히 보기</summary>
     <div class="volume-chart" id="volumeChart"></div>
@@ -240,6 +240,6 @@
 <section class="card rate-detail" id="rateDetail" hidden><div class="title"><div><h2>한국은행 기준금리 추이</h2><small>실제 변경일 기준</small></div><button class="close-rate" id="closeRate">×</button></div><div class="chart-nav"><button id="ratePrev">‹</button><span id="rateRange"></span><button id="rateNext">›</button></div><div class="rate-chart"><div class="rate-y" id="rateY"></div><div class="rate-plot"><svg id="rateSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="rateX"></div></div></div><div class="rate-history" id="rateHistory"></div></section>
 <section class="card macro-detail" id="macroDetail" hidden><div class="title"><div><h2 id="macroTitle"></h2><small id="macroSource"></small></div><button class="close-rate" id="closeMacro">×</button></div><div class="rate-current" id="macroCurrent"></div><div class="chart-nav"><button id="macroPrev">‹</button><span id="macroRange"></span><button id="macroNext">›</button></div><div class="rate-chart"><div class="rate-y" id="macroY"></div><div class="rate-plot"><svg id="macroSvg" viewBox="0 0 620 240" preserveAspectRatio="none"></svg><div class="rate-x" id="macroX"></div></div></div><div class="rate-history" id="macroHistory"></div></section>
 
-<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20261001-204"></script><!-- phase4-context-sync: 2026-10-01 structural-supply-connected -->
+<p class="foot">공표되지 않은 값이나 검증되지 않은 공급 추정치는 임의로 채우지 않습니다.</p></main><script src="cards.js?v=20260923-15"></script><script src="market.js?v=20261001-205"></script><!-- phase4-context-sync: 2026-10-01 structural-supply-connected -->
 <!-- phase4-final-sync: 2026-10-01-1248-kst -->
 </body></html>
