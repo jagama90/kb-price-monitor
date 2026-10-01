@@ -1,5 +1,5 @@
 {
-  "status": "stat_openapi_key_required",
+  "status": "parse_error",
   "source": "국토교통부 국토교통통계누리 승인통계",
   "scope": {
     "market_scope_id": "seoul_city",
@@ -18,8 +18,9 @@
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
       "error": "ValueError('No tables found')",
       "api_diagnostics": {
-        "status": "api_error",
-        "error": "<HTTPError 500: 'Internal Server Error'>"
+        "bytes": 863815,
+        "prefix": "{\n  \"result_status\": {\n    \"status_code\": \"INFO-000\",\n    \"message\": \"정상 처리되었습니다.\"\n  },\n  \"result_data\": {\n    \"unitName\": \"호\",\n    \"formName\": \"주택유형별 주택건설 인허가실적(월별 누계)\",\n    \"cert_id\": \"***\",\n    \"formList\": [\n      {\n        \"date\": \"202410\",\n        \"인허가실적\": 244512,\n        \"대분류\": \"합계(동수기준)\",\n        \"시도명\": \"전국\",\n        \"소분류\": \"합계(동수기준)\",\n        \"중분류\": \"합계(동수기준)\"\n      },\n      {\n        \"date\": \"202410\",\n        \"인허가실적\": 249792,\n        \"대분류\": \"합계(가구수기준)\",\n    ",
+        "xml_error": "ParseError('not well-formed (invalid token): line 1, column 0')"
       },
       "html_diagnostics": {
         "length": 62457,
@@ -42,8 +43,9 @@
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
       "error": "ValueError('No tables found')",
       "api_diagnostics": {
-        "status": "api_error",
-        "error": "<HTTPError 500: 'Internal Server Error'>"
+        "bytes": 1375671,
+        "prefix": "{\n  \"result_status\": {\n    \"status_code\": \"INFO-000\",\n    \"message\": \"정상 처리되었습니다.\"\n  },\n  \"result_data\": {\n    \"unitName\": \"호\",\n    \"formName\": \"주택건설 착공실적(월계)\",\n    \"cert_id\": \"***\",\n    \"formList\": [\n      {\n        \"date\": \"202410\",\n        \"부문명\": \"총계\",\n        \"착공실적\": 23206,\n        \"시도별\": \"전국\",\n        \"구  분\": \"총계\"\n      },\n      {\n        \"date\": \"202410\",\n        \"부문명\": \"총계\",\n        \"착공실적\": 1028,\n        \"시도별\": \"서울\",\n        \"구  분\": \"총계\"\n      },\n      {\n     ",
+        "xml_error": "ParseError('not well-formed (invalid token): line 1, column 0')"
       },
       "html_diagnostics": {
         "length": 58397,
@@ -66,8 +68,9 @@
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468",
       "error": "ValueError('No tables found')",
       "api_diagnostics": {
-        "status": "api_error",
-        "error": "<HTTPError 500: 'Internal Server Error'>"
+        "bytes": 885946,
+        "prefix": "{\n  \"result_status\": {\n    \"status_code\": \"INFO-000\",\n    \"message\": \"정상 처리되었습니다.\"\n  },\n  \"result_data\": {\n    \"unitName\": \"호\",\n    \"formName\": \"주택유형별 주택건설 준공실적(월계)\",\n    \"cert_id\": \"***\",\n    \"formList\": [\n      {\n        \"date\": \"202410\",\n        \"대분류\": \"계(다가구동수기준)\",\n        \"구  분\": \"총계\",\n        \"소분류\": \"계(다가구동수기준)\",\n        \"중분류\": \"계(다가구동수기준)\",\n        \"사용검사실적\": 32909\n      },\n      {\n        \"date\": \"202410\",\n        \"대분류\": \"계(다가구가구수기준)\",\n        \"구  분\": \"총계\",\n  ",
+        "xml_error": "ParseError('not well-formed (invalid token): line 1, column 0')"
       },
       "html_diagnostics": {
         "length": 58771,
@@ -84,10 +87,10 @@
       }
     }
   },
-  "generated_at": "2026-10-01T00:50:36.635820+00:00",
+  "generated_at": "2026-10-01T02:12:26.312560+00:00",
   "openapi": {
     "endpoint": "https://stat.molit.go.kr/portal/openapi/service/rest/getList.do",
-    "dedicated_stat_key_configured": false,
+    "dedicated_stat_key_configured": true,
     "transaction_api_key_fallback_configured": true,
     "form_ids": {
       "permit": "1948",
@@ -100,5 +103,5 @@
     "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
     "completion": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468"
   },
-  "automation_blocker": "dedicated MOLIT statistics OpenAPI key is not configured; the transaction OpenAPI key fallback was rejected by the statistics endpoint. No values were fabricated."
+  "automation_blocker": "official source could not be fully parsed/reached in this run; no values were fabricated or copied from secondary sources"
 }
