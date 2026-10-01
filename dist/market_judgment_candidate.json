@@ -117,8 +117,8 @@
       "raw_matched_as_of": "2026-10-01",
       "finance_model": "finance_v1_m2",
       "finance_v1_score_0_100": 61.1,
-      "finance_v2_gate_passed": true,
-      "credit_availability_0_100": null,
+      "finance_v2_gate_passed": false,
+      "credit_availability_0_100": 45.5,
       "funding_cost_0_100": 25.5
     },
     "lineage": {
@@ -149,7 +149,7 @@
           "production_applied": true
         },
         "finance_v2_candidate": {
-          "status": "blocked_core_input_missing",
+          "status": "validated_candidate",
           "production_applied": false
         },
         "valuation_rate_stress_candidate": {
@@ -333,5 +333,5 @@
       }
     }
   },
-  "generated_at": "2026-10-01T00:53:06.616230+00:00"
+  "generated_at": "2026-10-01T00:58:02.851368+00:00"
 }

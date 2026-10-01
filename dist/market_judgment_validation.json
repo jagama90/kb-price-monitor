@@ -24,26 +24,32 @@
     "high_score_mean_fwd_6m_pct": 10.29
   },
   "finance_v2_integrated": {
-    "apply_recommended": false,
+    "apply_recommended": true,
     "forecast": {
-      "n": 0,
-      "down_corr_negative_fwd3": null,
-      "down_auc_negative_fwd3": null,
-      "reaccel_corr_fwd3": null,
-      "reaccel_auc_positive_fwd3": null
+      "n": 46,
+      "down_corr_negative_fwd3": 0.5753988269985422,
+      "down_auc_negative_fwd3": 0.9633699633699634,
+      "reaccel_corr_fwd3": 0.601171006732318,
+      "reaccel_auc_positive_fwd3": 0.7354838709677419
     },
     "buy_condition": {
-      "n": 0,
-      "corr_fwd_1m": null,
-      "n_fwd_1m": 0,
-      "corr_fwd_3m": null,
-      "n_fwd_3m": 0,
-      "corr_fwd_6m": null,
-      "n_fwd_6m": 0,
-      "corr_fwd_12m": null,
-      "n_fwd_12m": 0
+      "n": 46,
+      "corr_fwd_1m": 0.503974161953225,
+      "n_fwd_1m": 46,
+      "corr_fwd_3m": 0.5289253907908888,
+      "n_fwd_3m": 46,
+      "corr_fwd_6m": 0.6628157588394475,
+      "n_fwd_6m": 43,
+      "corr_fwd_12m": 0.8063887580501935,
+      "n_fwd_12m": 37
     },
-    "improvements": [],
+    "improvements": [
+      "buy_corr_3m",
+      "buy_corr_6m",
+      "buy_corr_12m",
+      "downside_auc",
+      "reaccel_auc"
+    ],
     "gate": "n>=30; forecast downside/reaccel AUC no worse >0.02; buy corr6/corr12 no worse >0.02; at least one material improvement",
     "no_future_leakage": true,
     "credit_vintage_lag_months": 2,
@@ -264,5 +270,5 @@
   "apply_recommended": true,
   "gate": "n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45",
   "no_future_leakage": true,
-  "generated_at": "2026-10-01T00:53:06.640967+00:00"
+  "generated_at": "2026-10-01T00:58:02.893176+00:00"
 }
