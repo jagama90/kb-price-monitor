@@ -114,7 +114,7 @@ def funding_cost_score_at(series,available_period):
  return .7*level+.3*speed,cur
 
 def finance_research(final_rows,mortgage,credit):
- connected=(credit.get('status')=='connected' and len(credit.get('series') or [])>=36)
+ connected=(credit.get('status') in ('connected','connected_last_good') and len(credit.get('series') or [])>=36)
  cseries=credit.get('series') or []
  rows=[]
  for src in final_rows:
