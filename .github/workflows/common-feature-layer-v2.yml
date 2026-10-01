@@ -6,6 +6,8 @@ on:
       - 'scripts/collect_ecos_housing_credit.py'
       - 'scripts/research_common_feature_layer_v2.py'
       - 'scripts/test_common_feature_layer_v2.py'
+      - 'data_sources/molit_price_tier_history.json'
+      - 'data_sources/kb_leading50_median.json'
       - '.github/workflows/common-feature-layer-v2.yml'
   workflow_dispatch:
 permissions:
