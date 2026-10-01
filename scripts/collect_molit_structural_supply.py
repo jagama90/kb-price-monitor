@@ -7,7 +7,7 @@ REGION=(SCOPE.get('region') or {})
 REGION_LABEL=str(REGION.get('label') or '')
 REGION_CODE=str(REGION.get('code') or '')
 if not REGION_LABEL: raise RuntimeError('market_scope.region.label is required')
-BASE='https://stat.molit.go.kr/portal/cate/viewChk.do'
+BASE='https://stat.molit.go.kr/portal/cate/statView.do'
 SERIES={
  'permit':{'hRsId':'31','hFormId':'1948','label':'주택건설실적통계(인허가)'},
  'start':{'hRsId':'471','hFormId':'5386','label':'주택건설실적통계(착공)'},
@@ -19,7 +19,7 @@ def shift(y,m,d):
 def fetch_html(kind,start,end):
  spec=SERIES[kind]
  q={'hAppr':'1','hPoint':'00','hRsId':spec['hRsId'],'hFormId':spec['hFormId'],'hSelectId':spec['hFormId'],
-    'sFormId':spec['hFormId'],'sStart':start,'sEnd':end,'sStyleNum':'1'}
+    'hDivEng':'','oFileName':'','rFileName':'','midpath':'','month_yn':'N','sFormId':spec['hFormId'],'sStart':start,'sEnd':end,'sStyleNum':'1','EXPORT':''}
  u=BASE+'?'+urllib.parse.urlencode(q)
  req=urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0','Accept':'text/html,application/xhtml+xml','Referer':'https://stat.molit.go.kr/'})
  with urllib.request.urlopen(req,timeout=30) as r:
