@@ -1042,5 +1042,5 @@
     "structural_supply": "data_sources/molit_structural_supply.json",
     "integrated_validation": "dist/market_judgment_validation.json"
   },
-  "generated_at": "2026-10-01T00:56:02.961871+00:00"
+  "generated_at": "2026-10-01T00:56:43.574390+00:00"
 }
