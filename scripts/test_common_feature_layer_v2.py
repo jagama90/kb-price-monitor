@@ -56,6 +56,25 @@ class CommonFeatureLayerV2Tests(unittest.TestCase):
   self.assertEqual(x['rental_market_balance']['score_0_100'],55)
   self.assertFalse(x['production_applied'])
   self.assertEqual(x['structural_supply']['unsold_inventory']['units'],100)
+ def test_structural_supply_builds_compact_normalized_context(self):
+  m={'kb_sentiment':{'jeonse_score_0_100':49.3},'unsold_inventory':{'region_units':994,'period':'202607','region_code':'X'}}
+  structural={'status':'connected','scope':{'region_code':'X'},'source':'official','series':{
+   'permit':{'status':'connected_api','form_name':'permit cumulative','unit':'호','normalized_total':{'basis':'monthly_cumulative_households_with_within_year_difference','series':[
+    {'period':'202508','cumulative_households':100,'monthly_households':20},{'period':'202607','cumulative_households':80,'monthly_households':30},{'period':'202608','cumulative_households':140,'monthly_households':60}]}},
+   'start':{'status':'connected_api','form_name':'start monthly','unit':'호','normalized_total':{'basis':'monthly_total_households','series':[
+    {'period':'202508','value':10},{'period':'202607','value':20},{'period':'202608','value':30}]}},
+   'completion':{'status':'connected_api','form_name':'completion monthly','unit':'호','normalized_total':{'basis':'monthly_total_households','series':[
+    {'period':'202508','value':15},{'period':'202607','value':25},{'period':'202608','value':35}]}}
+  }}
+  x=rental_supply_feature(m,structural)
+  c=x['structural_supply']['construction_statistics']
+  self.assertEqual(x['structural_supply']['status'],'connected_context')
+  self.assertEqual(c['series']['permit']['latest_month_households'],60)
+  self.assertEqual(c['series']['permit']['ytd_households'],140)
+  self.assertEqual(c['series']['permit']['prior_year_same_period_households'],100)
+  self.assertEqual(c['series']['permit']['ytd_yoy_pct'],40.0)
+  self.assertNotIn('region_rows',c['series']['permit'])
+  self.assertFalse(x['production_applied'])
  def test_pearson(self):
   self.assertAlmostEqual(pearson([1,2,3],[2,4,6]),1)
 

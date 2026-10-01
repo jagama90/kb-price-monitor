@@ -340,13 +340,48 @@ def rental_supply_feature(market,structural=None):
  s=market.get('kb_sentiment') or {};u=market.get('unsold_inventory') or market.get('unsold_seoul') or {};structural=structural or {}
  units=u.get('region_units')
  if units is None:units=u.get('seoul_units')
- series=structural.get('series') or {};connected=sum((series.get(k) or {}).get('status') in ('connected_probe','connected_api') for k in ('permit','start','completion'))
+ series=structural.get('series') or {}
+ def summarize(kind):
+  raw=series.get(kind) or {};norm=raw.get('normalized_total') or {};rows=norm.get('series') or []
+  value_key='monthly_households' if kind=='permit' else 'value'
+  valid=[x for x in rows if f(x.get(value_key)) is not None and str(x.get('period') or '')]
+  latest=valid[-1] if valid else None
+  latest_period=str((latest or {}).get('period') or '')
+  latest_value=f((latest or {}).get(value_key))
+  latest_year=latest_period[:4] if len(latest_period)>=6 else None
+  latest_month=latest_period[4:6] if len(latest_period)>=6 else None
+  current_ytd=[x for x in valid if latest_year and str(x.get('period','')).startswith(latest_year) and str(x.get('period',''))<=latest_period]
+  prior_period=(str(int(latest_year)-1)+latest_month) if latest_year and latest_month else None
+  prior_ytd=[x for x in valid if prior_period and str(x.get('period','')).startswith(str(int(latest_year)-1)) and str(x.get('period',''))<=prior_period]
+  cur_ytd=sum(f(x.get(value_key)) or 0 for x in current_ytd) if current_ytd else None
+  prior_ytd_sum=sum(f(x.get(value_key)) or 0 for x in prior_ytd) if prior_ytd else None
+  if kind=='permit' and latest is not None:
+   cur_ytd=f(latest.get('cumulative_households'))
+   prior_row=next((x for x in rows if str(x.get('period'))==prior_period),None)
+   prior_ytd_sum=f((prior_row or {}).get('cumulative_households'))
+  yoy=(cur_ytd/prior_ytd_sum-1)*100 if cur_ytd is not None and prior_ytd_sum not in (None,0) else None
+  vals=[f(x.get(value_key)) for x in valid]
+  return {
+   'status':raw.get('status'),'official_name':raw.get('official_name'),'form_name':raw.get('form_name'),'unit':raw.get('unit'),
+   'basis':norm.get('basis'),'history_months':len(valid),'period_start':str(valid[0].get('period')) if valid else None,'period_end':latest_period or None,
+   'latest_month_households':latest_value,
+   'trailing_3m_households':round(sum(vals[-3:]),1) if len(vals)>=3 else None,
+   'trailing_12m_households':round(sum(vals[-12:]),1) if len(vals)>=12 else None,
+   'ytd_households':round(cur_ytd,1) if cur_ytd is not None else None,
+   'prior_year_same_period_households':round(prior_ytd_sum,1) if prior_ytd_sum is not None else None,
+   'ytd_yoy_pct':round(yoy,2) if yoy is not None else None
+  }
+ construction={k:summarize(k) for k in ('permit','start','completion')}
+ connected=sum((construction.get(k) or {}).get('status') in ('connected_probe','connected_api') for k in construction)
+ hist_months=min([x.get('history_months') or 0 for x in construction.values()] or [0])
  return {'status':'semantic_split','production_applied':False,
          'rental_market_balance':{'status':'connected' if s.get('jeonse_score_0_100') is not None else 'not_connected',
           'score_0_100':s.get('jeonse_score_0_100'),'meaning':'KB 전세수급·전세거래 기반 단기 임대시장 균형','legacy_component_key':'supply'},
-         'structural_supply':{'status':'connected_context' if connected else ('partial_context' if units is not None else 'source_blocked'),
-          'unsold_inventory':{'units':units,'period':u.get('period'),'region_code':u.get('region_code'),'region_label':u.get('region_label') or u.get('region'),'source':u.get('source')},
-          'construction_statistics':{'status':structural.get('status') or 'not_connected','series':series,'official_meta':structural.get('official_meta'),'automation_blocker':structural.get('automation_blocker')},
+         'structural_supply':{'status':'connected_context' if connected==3 else ('partial_context' if connected or units is not None else 'source_blocked'),
+          'scope':structural.get('scope'),'unsold_inventory':{'units':units,'period':u.get('period'),'region_code':u.get('region_code'),'region_label':u.get('region_label') or u.get('region'),'source':u.get('source')},
+          'construction_statistics':{'status':structural.get('status') or 'not_connected','source':structural.get('source'),'series':construction,
+             'history_validation':{'available_months':hist_months,'minimum_for_model_research':36,'sufficient_for_model':hist_months>=36},
+             'raw_source':'data_sources/molit_structural_supply.json','official_meta':structural.get('official_meta')},
           'meaning':'미분양 재고와 인허가·착공·준공은 구조공급 context로 분리하며 기존 전세수급 15% 점수에는 아직 합산하지 않음'}}
 
 def current_finance_feature(mortgage,base,m2,credit,validation,production_applied=False):
