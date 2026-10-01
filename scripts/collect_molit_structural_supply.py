@@ -104,10 +104,10 @@ def main():
   try:
    api_diag=fetch_api(kind,start,end)
    if api_diag:
-    print(json.dumps({'kind':kind,'stage':'openapi','root_tag':api_diag.get('root_tag'),'region_rows':api_diag.get('region_row_count'),'prefix':api_diag.get('prefix')},ensure_ascii=False),flush=True)
+    print(json.dumps({'kind':kind,'stage':'openapi','status':api_diag.get('status'),'form_name':api_diag.get('form_name'),'region_rows':api_diag.get('region_row_count'),'periods':api_diag.get('periods')},ensure_ascii=False),flush=True)
    if api_diag and api_diag.get('region_row_count',0)>0:
-    out['series'][kind]={'status':'connected_api_probe','official_name':spec['label'],'api_diagnostics':api_diag}
-    print(json.dumps({'kind':kind,'status':'connected_api_probe','region_rows':api_diag.get('region_row_count')},ensure_ascii=False),flush=True)
+    out['series'][kind]={'status':'connected_api','official_name':spec['label'],'form_name':api_diag.get('form_name'),'unit':api_diag.get('unit'),'row_count':api_diag.get('row_count'),'region_row_count':api_diag.get('region_row_count'),'periods':api_diag.get('periods'),'region_rows':api_diag.get('region_rows')}
+    print(json.dumps({'kind':kind,'status':'connected_api','region_rows':api_diag.get('region_row_count')},ensure_ascii=False),flush=True)
     continue
   except Exception as api_e:
    api_diag={'status':'api_error','error':repr(api_e)[:300]}
