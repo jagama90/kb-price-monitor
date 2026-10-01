@@ -1,0 +1,31 @@
+name: MOLIT structural supply probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_molit_structural_supply.py'
+      - '.github/workflows/molit-structural-supply.yml'
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install parser
+        run: pip install --quiet pandas lxml
+      - name: Collect official construction statistics
+        run: python3 scripts/collect_molit_structural_supply.py
+      - name: Persist source snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data_sources/molit_structural_supply.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Connect MOLIT structural supply statistics'
+          git pull --rebase origin main || true
+          git push origin HEAD:main
