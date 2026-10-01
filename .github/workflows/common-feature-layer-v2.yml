@@ -64,4 +64,14 @@ jobs:
           git add -f data_sources/ecos_housing_credit.json dist/common_feature_layer_v2.json dist/common_feature_layer_v2_validation.json
           git diff --cached --quiet && exit 0
           git commit -m 'Validate common feature layer v2 candidates'
-          git push origin HEAD:main
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            echo "::warning::artifact push raced another source commit; rebuilding after rebase (attempt $attempt)"
+            git pull --rebase origin main
+            cp /tmp/ecos_housing_credit.json data_sources/ecos_housing_credit.json
+            python3 scripts/research_common_feature_layer_v2.py
+            python3 scripts/test_common_feature_layer_v2.py
+            git add -f data_sources/ecos_housing_credit.json dist/common_feature_layer_v2.json dist/common_feature_layer_v2_validation.json
+            git commit --amend --no-edit
+          done
+          exit 1
