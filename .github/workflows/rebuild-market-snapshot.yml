@@ -1,0 +1,37 @@
+name: Rebuild market snapshot adapters
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_market_snapshot.py'
+      - '.github/workflows/rebuild-market-snapshot.yml'
+      - 'data_sources/molit_structural_supply.json'
+permissions:
+  contents: write
+concurrency:
+  group: rebuild-market-snapshot
+  cancel-in-progress: true
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Rebuild from repository sources
+        run: |
+          python3 scripts/build_market_snapshot.py
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+      - name: Persist snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f dist/market_indicators.json dist/m2_history.json dist/kb_history_status.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Rebuild market snapshot adapters'
+          git pull --rebase origin main || true
+          git push origin HEAD:main
