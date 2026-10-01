@@ -8,6 +8,10 @@ on:
       - 'scripts/test_common_feature_layer_v2.py'
       - 'data_sources/molit_price_tier_history.json'
       - 'data_sources/kb_leading50_median.json'
+      - 'data_sources/molit_structural_supply.json'
+      - 'data_sources/watchlist_selling_pressure_history.json'
+      - 'data_sources/credit_policy_regime.json'
+      - 'config/market_scope.json'
       - '.github/workflows/common-feature-layer-v2.yml'
   workflow_dispatch:
 permissions:
