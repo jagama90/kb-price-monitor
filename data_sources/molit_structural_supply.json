@@ -1,5 +1,5 @@
 {
-  "status": "source_unreachable_from_actions",
+  "status": "parse_error",
   "source": "국토교통부 국토교통통계누리 승인통계",
   "scope": {
     "market_scope_id": "seoul_city",
@@ -12,29 +12,29 @@
   },
   "series": {
     "permit": {
-      "status": "source_unreachable_from_actions",
+      "status": "parse_error",
       "official_name": "주택건설실적통계(인허가)",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
-      "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+      "error": "ImportError('`Import html5lib` failed.  Use pip or conda to install the html5lib package.')"
     },
     "start": {
-      "status": "source_unreachable_from_actions",
+      "status": "parse_error",
       "official_name": "주택건설실적통계(착공)",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
-      "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+      "error": "ImportError('`Import html5lib` failed.  Use pip or conda to install the html5lib package.')"
     },
     "completion": {
-      "status": "source_unreachable_from_actions",
+      "status": "parse_error",
       "official_name": "주택건설실적통계(준공)",
       "official_meta_url": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468",
-      "error": "FileNotFoundError('[Errno 2] No such file or directory: \\r\\n \\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n \\r\\n\\r\\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\\r\\n   \"http://www.w3.org/TR/html4/loose.dtd\">\\r\\n<html>\\r\\n<head>\\r\\n<meta http-equiv=\"content-type\" content=\"text/html; charse"
+      "error": "ImportError('`Import html5lib` failed.  Use pip or conda to install the html5lib package.')"
     }
   },
-  "generated_at": "2026-10-01T00:36:53.035920+00:00",
+  "generated_at": "2026-10-01T00:38:56.083571+00:00",
   "official_meta": {
     "permit": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=31",
     "start": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=471",
     "completion": "https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=468"
   },
-  "automation_blocker": "stat.molit.go.kr was not reachable from the GitHub-hosted runner; no values were fabricated or copied from secondary sources"
+  "automation_blocker": "official source could not be fully parsed/reached in this run; no values were fabricated or copied from secondary sources"
 }
