@@ -1,4 +1,4 @@
-'use strict';const finiteNum=v=>v==null||v===''?null:(Number.isFinite(Number(v))?Number(v):null),safeDate=v=>{if(v==null||String(v).trim()==='')return null;const d=new Date(v);return Number.isFinite(d.getTime())?d:null},fmtCount=v=>{const n=finiteNum(v);return n==null?'—':n.toLocaleString('ko-KR')+'건'},eok=n=>{const v=finiteNum(n);return v==null?'—':(v/10000).toLocaleString('ko-KR',{maximumFractionDigits:2})+'억'};async function renderKbHistory(){
+'use strict';const finiteNum=v=>v==null||(typeof v==='string'&&v.trim()==='')?null:(Number.isFinite(Number(v))?Number(v):null),safeDate=v=>{if(v==null||String(v).trim()==='')return null;const d=new Date(v);return Number.isFinite(d.getTime())?d:null},fmtCount=v=>{const n=finiteNum(v);return n==null?'—':n.toLocaleString('ko-KR')+'건'},eok=n=>{const v=finiteNum(n);return v==null?'—':(v/10000).toLocaleString('ko-KR',{maximumFractionDigits:2})+'억'};async function renderKbHistory(){
  const note=document.querySelector('#kbHistoryNote'),svg=document.querySelector('#kbSvg'),axis=document.querySelector('#kbXAxis'),yaxis=document.querySelector('#kbYAxis');
  if(!svg||!axis||!yaxis)return;
  try{
@@ -25,7 +25,7 @@
  }
 }
 renderKbHistory();let sourceRefreshNote='';const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const signal=x=>{const hasDelta=x.sale_listing_week_delta!=null,hasTrade=x.recent_trade_manwon!=null,hasAsk=x.avg_ask_manwon!=null,d=Number(x.sale_listing_week_delta),trade=Number(x.recent_trade_manwon),ask=Number(x.avg_ask_manwon);if(!hasDelta||!hasTrade||!hasAsk||!Number.isFinite(d)||!Number.isFinite(trade)||!Number.isFinite(ask)||trade<=0||ask<=0)return['관찰','watch'];const t=trade-ask;if(d>0&&t<0)return['하락','down'];if(d<0&&t>=0)return['상승','up'];return['관찰','watch']};async function load(){const [m,k,tg,wc]=await Promise.all([fetch('buy_watchlist_market.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),fetch('buy_watchlist_master.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),fetch('buy_watchlist_targets.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()),fetch('kb_watchlist_weekly_change.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()).catch(()=>({items:[]}))]);const market=m.items||[],master=k.items||[],targets=tg.items||[];window.__watchMarket=m;const masterById=new Map(master.map(x=>[Number(x.complex_id),x]));
-const listingCollected=new Date(m.listing_collected_at||m.collected_at||0),listingAgeDays=isNaN(listingCollected)?999:(Date.now()-listingCollected.getTime())/86400000,rowListingFresh=x=>{const d=new Date(x.listing_collected_at||m.listing_collected_at||m.collected_at||0),age=isNaN(d)?999:(Date.now()-d.getTime())/86400000,status=String(x.listing_refresh_status||m.listing_refresh_status||'legacy');return age<=10&&(status==='connected'||status==='legacy')},rowTradeFresh=x=>{const s=String(x.trade_refresh_status||'legacy');return x.recent_trade_manwon!=null&&(s==='connected'||s==='connected_no_newer_trade'||s==='legacy')},freshListingRows=market.filter(rowListingFresh).length,listingFresh=freshListingRows>0;
+const listingCollected=safeDate(m.listing_collected_at||m.collected_at),listingAgeDays=listingCollected?(Date.now()-listingCollected.getTime())/86400000:null,rowListingFresh=x=>{const d=safeDate(x.listing_collected_at||m.listing_collected_at||m.collected_at),age=d?(Date.now()-d.getTime())/86400000:null,status=String(x.listing_refresh_status||m.listing_refresh_status||'legacy');return age!=null&&age<=10&&(status==='connected'||status==='legacy')},rowTradeFresh=x=>{const s=String(x.trade_refresh_status||'legacy');return x.recent_trade_manwon!=null&&(s==='connected'||s==='connected_no_newer_trade'||s==='legacy')},freshListingRows=market.filter(rowListingFresh).length,listingFresh=freshListingRows>0;
 const hubWatch=document.getElementById('hubWatchMeta');if(hubWatch){const traded=market.filter(rowTradeFresh).length,liveListings=market.filter(rowListingFresh).length;hubWatch.textContent=market.length+'개 연결 · 실거래 '+traded+'개 · 매물 '+liveListings+'개'}
 const kbKey=x=>Number(x.complex_id)+':'+Number(x.area_id);const kb=new Map(market.map(x=>{const z=masterById.get(Number(x.complex_id)),t=(z?.types||[]).find(a=>Number(a.area_id)===Number(x.area_id)),p=t?.general_price_manwon;return [kbKey(x),p==null?null:Number(p)]}));const validDate=safeDate,marketDates=[m.molit_trade_collected_at,m.kb_detail_collected_at,m.collected_at].map(validDate).filter(Boolean),marketUpdated=marketDates.length?new Date(Math.max(...marketDates.map(d=>d.getTime()))):null,kbUpdated=validDate(k.kb_collected_at),marketUpdatedText=marketUpdated?marketUpdated.toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'}):'날짜 미확인',kbUpdatedText=kbUpdated?kbUpdated.toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'}):'날짜 미확인';document.querySelector('#updated').textContent='시장 '+marketUpdatedText+' · KB '+kbUpdatedText+sourceRefreshNote;const collected=safeDate(m.listing_collected_at||m.collected_at),collectedText=collected?collected.toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'시각 미확인';const watchNotice=document.getElementById('watchSourceNotice'),listingStatus=String(m.listing_refresh_status||'');if(watchNotice){const liveRows=market.filter(rowListingFresh).length,partial=listingStatus==='partial_last_good';watchNotice.hidden=listingStatus==='connected';watchNotice.textContent=listingStatus==='connected'?'':partial?'KB 매물 일부 복구 · '+liveRows+'/'+market.length+'개 최신 연결 · 나머지는 마지막 정상값 또는 미연결':'KB 매물 원천 지연 · 마지막 정상 수집 '+collectedText+' · 매물 관련 값은 마지막 정상값과 구분 표시'}document.querySelector('#marketDate').textContent=kbUpdated?kbUpdated.toLocaleDateString('ko-KR'):'날짜 미확인';const rowSignal=x=>rowListingFresh(x)&&rowTradeFresh(x)?signal(x):['관찰','watch'];const norm=s=>String(s||'').replace(/\s|아파트|\(|\)|마천역/g,'');const targetMap=new Map(targets.map(t=>[norm(t.name),t]));const preferred=x=>{const t=targetMap.get(norm(x.user_name||x.kb_name)),types=x.types||[];if(!t)return types;const aids=new Set((t.area_ids||[]).map(Number));if(aids.size)return types.filter(a=>aids.has(Number(a.area_id)));if(t.min_pyeong==null)return types;return types.filter(a=>{const m=String(a.type_label||'').match(/\d+(?:\.\d+)?/);return m&&Number(m[0])>=Number(t.min_pyeong)&&Number(m[0])<=Number(t.max_pyeong)})};const weekByKey=new Map((wc.items||[]).map(x=>[Number(x.complex_id)+':'+Number(x.area_id),x]));let boundary=(wc.items||[]).map(w=>({name:w.name,p:Number(w.current_manwon),type:w.type_label,delta:w.delta_manwon==null?null:Number(w.delta_manwon),deltaPct:w.delta_pct==null?null:Number(w.delta_pct),prev:w.previous_friday_manwon==null?null:Number(w.previous_friday_manwon)})).filter(x=>Number.isFinite(x.p)&&x.p>=130000&&x.p<=170000).sort((a,b)=>Math.abs(a.p-150000)-Math.abs(b.p-150000)).slice(0,7);const boundaryEl=document.querySelector('#boundary'),latestFriday=wc.latest_friday_as_of?sourcePeriodFmt(wc.latest_friday_as_of):'최근 금요일',prevFriday=wc.previous_friday_as_of?sourcePeriodFmt(wc.previous_friday_as_of):'직전 금요일';const md=document.querySelector('#marketDate');if(md)md.textContent=latestFriday+' vs '+prevFriday;let boundaryMode='near';const renderBoundary=()=>{const a=[...boundary].sort((x,y)=>boundaryMode==='asc'?x.p-y.p:boundaryMode==='desc'?y.p-x.p:Math.abs(x.p-150000)-Math.abs(y.p-150000));boundaryEl.innerHTML='<small class="boundary-period-v136">KB 일반가 · 완료 주간 '+latestFriday+' vs '+prevFriday+'</small><div class="mini-sort"><button data-b="near" class="'+(boundaryMode==='near'?'active':'')+'">15억 근접</button><button data-b="asc" class="'+(boundaryMode==='asc'?'active':'')+'">낮은순</button><button data-b="desc" class="'+(boundaryMode==='desc'?'active':'')+'">높은순</button></div>'+(a.map(x=>{const cls=x.delta>0?'rise':x.delta<0?'fall':'flat',move=x.delta==null?'비교 기준 없음':x.delta===0?'변동 없음':(x.delta>0?'+':'')+eok(x.delta)+' · '+(x.deltaPct>0?'+':'')+x.deltaPct.toFixed(1)+'%';return'<div class="row boundary-row-v136"><span>'+esc(x.name)+' <small>'+esc(x.type)+'평</small></span><b>'+eok(x.p)+'<small class="boundary-move-v136 '+cls+'">'+move+'</small></b></div>'}).join('')||'<small>13~17억 구간 데이터 없음</small>');boundaryEl.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{boundaryMode=b.dataset.b;renderBoundary()})};renderBoundary();const freshRadar=[...market].filter(x=>rowListingFresh(x)&&x.sale_listing_week_delta!=null&&Number(x.sale_listing_week_delta)!==0),fallbackRadar=[...market].filter(x=>x.sale_listing_week_delta!=null&&Number(x.sale_listing_week_delta)!==0),radarUsesFallback=!freshRadar.length&&fallbackRadar.length>0,radarBase=radarUsesFallback?fallbackRadar:freshRadar;let radarMode='abs';const radarEl=document.querySelector('#radar');const renderRadar=()=>{const radar=[...radarBase].sort((a,b)=>radarMode==='up'?Number(b.sale_listing_week_delta)-Number(a.sale_listing_week_delta):radarMode==='down'?Number(a.sale_listing_week_delta)-Number(b.sale_listing_week_delta):Math.abs(Number(b.sale_listing_week_delta))-Math.abs(Number(a.sale_listing_week_delta))).slice(0,7),period=radarUsesFallback?'매물 원천 지연 · '+collectedText+' 마지막 정상값':'최근 수집 '+collectedText+' · 직전 주간 스냅샷 대비';radarEl.innerHTML='<small class="radar-period">'+period+'</small><div class="mini-sort"><button data-r="abs" class="'+(radarMode==='abs'?'active':'')+'">변동폭</button><button data-r="up" class="'+(radarMode==='up'?'active':'')+'">증가순</button><button data-r="down" class="'+(radarMode==='down'?'active':'')+'">감소순</button></div>'+(radar.length?radar.map(x=>'<div class="radar-row"><span>'+esc(x.name)+'</span><b class="'+(x.sale_listing_week_delta>0?'down':'up')+'">'+(x.sale_listing_week_delta>0?'+':'')+Number(x.sale_listing_week_delta)+'건</b></div>').join(''):'<small class="no-change">'+(listingStatus==='connected'?'변동이 있는 단지가 없습니다.':'현재 매물 원천이 일부 지연되어 증감 계산 가능한 최신 단지가 없습니다.')+'</small>');radarEl.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{radarMode=b.dataset.r;renderRadar()})};renderRadar();const priceOf=x=>Number(kb.get(kbKey(x)))||(rowListingFresh(x)?Number(x.avg_ask_manwon):0)||Number(x.recent_trade_manwon)||Infinity;const rows=[...market].sort((a,b)=>{const da=Math.abs(priceOf(a)-150000),db=Math.abs(priceOf(b)-150000);return da-db||priceOf(b)-priceOf(a)});const unavailableCount=(m.known_unavailable_targets||[]).length;renderDataStatusPanel();document.querySelector('#summary').textContent=market.length+'개 단지'+(unavailableCount?' · '+unavailableCount+'개 입주 전':'')+' · KB시세 · 실거래 · 매물';document.querySelector('#body').innerHTML=rows.map(x=>{const s=rowSignal(x),lf=rowListingFresh(x),tf=rowTradeFresh(x),lc=lf&&x.sale_listing_count!=null?Number(x.sale_listing_count).toLocaleString()+'건':'—',wd=lf&&x.sale_listing_week_delta!=null?(x.sale_listing_week_delta>0?'+':'')+Number(x.sale_listing_week_delta)+'건':'—',ask=lf&&x.avg_ask_manwon!=null?eok(x.avg_ask_manwon):'—',trade=tf?eok(x.recent_trade_manwon):'<span class="data-missing">실거래 미확인</span>',tradeDate=tf?'<small> '+esc(x.recent_trade_date||'')+'</small>':'';return'<tr><td><b>'+esc(x.name)+'</b><small> '+esc(x.type_label||'')+'평</small></td><td>'+eok(kb.get(kbKey(x)))+'</td><td>'+trade+tradeDate+'</td><td class="'+(!lf||x.avg_ask_manwon==null?'data-missing':'')+'">'+ask+'</td><td class="'+(!lf||x.sale_listing_count==null?'data-missing':'')+'">'+lc+'</td><td class="'+(!lf||x.sale_listing_week_delta==null?'data-missing':x.sale_listing_week_delta>0?'down':x.sale_listing_week_delta<0?'up':'')+'">'+wd+'</td><td><span class="pill '+s[1]+'">'+s[0]+'</span></td></tr>'}).join('');document.querySelector('#mobileCards').innerHTML=rows.map(x=>{const s=rowSignal(x),lf=rowListingFresh(x),tf=rowTradeFresh(x),stale=String(x.listing_refresh_status||'').includes('last_good'),lc=x.sale_listing_count!=null?Number(x.sale_listing_count).toLocaleString()+'건':'—',wd=x.sale_listing_week_delta!=null?(x.sale_listing_week_delta>0?'+':'')+Number(x.sale_listing_week_delta)+'건':'—',ask=x.avg_ask_manwon!=null?eok(x.avg_ask_manwon):'—',tradeDate=tf?sourcePeriodFmt(x.recent_trade_date||''):'—',listMeta=stale?'마지막 정상값':lf?'KB 최신':'KB 원천 미연결';return'<article class="complex"><div class="complex-head"><b>'+esc(x.name)+' <small>'+esc(x.type_label||'')+'평</small></b><span class="pill '+s[1]+'">'+s[0]+'</span></div><div class="complex-grid compact-watch-v136"><div><span>KB시세</span><b>'+eok(kb.get(kbKey(x)))+'</b><small>KB 일반가</small></div><div><span>최근 실거래</span><b class="'+(tf?'':'data-missing')+'">'+(tf?eok(x.recent_trade_manwon):'미확인')+'</b><small>'+tradeDate+'</small></div><div><span>매물 평균</span><b class="'+(x.avg_ask_manwon!=null?'':'data-missing')+'">'+ask+'</b><small>'+listMeta+'</small></div><div><span>매물 수</span><b class="'+(x.sale_listing_count!=null?'':'data-missing')+'">'+lc+(x.sale_listing_week_delta!=null?' <i class="watch-delta-v136 '+(x.sale_listing_week_delta>0?'rise':x.sale_listing_week_delta<0?'fall':'flat')+'">'+wd+'</i>':'')+'</b><small>'+listMeta+'</small></div></div></article>'}).join('')+'<button id="moreComplexes" class="more-btn">↓ 더보기 ('+Math.max(0,rows.length-5)+'개)</button>';const mc=document.querySelector('#mobileCards'),mb=document.querySelector('#moreComplexes');if(rows.length<=5)mb.style.display='none';mb.addEventListener('click',()=>{const open=mc.classList.toggle('expanded');mb.textContent=open?'↑ 접기':'↓ 더보기 ('+Math.max(0,rows.length-5)+'개)'})}load().catch(e=>{document.querySelector('#updated').textContent='관심단지 일부 데이터 확인 필요';console.error(e)});
 async function loadMarketIndicators(){
@@ -55,7 +55,7 @@ async function loadMarketIndicators(){
   setupScoreDetails(d,window.__conditionComponents||{});
   renderLeadChanges();
   setupSnapshotEvidence(d);
-  const updated=document.querySelector('#updated');if(updated&&/LOADING|DATA ERROR|관심단지 일부/.test(updated.textContent))updated.textContent='MARKET '+(d.updated_at||new Date().toLocaleDateString('ko-KR'));
+  const updated=document.querySelector('#updated');if(updated&&/LOADING|DATA ERROR|관심단지 일부/.test(updated.textContent)){const updatedStamp=safeDate(d.updated_at);updated.textContent='MARKET '+(updatedStamp?updatedStamp.toLocaleDateString('ko-KR'):'날짜 미확인')};
  }catch(e){console.error(e)}
 }
 const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
@@ -136,7 +136,7 @@ function renderConditionIndex(d,jg=window.__marketJudgment){
  else {const rawScore=buy?.score_0_100!=null?Number(buy.score_0_100):available.reduce((a,k)=>a+components[k]*weights[k],0)/covered,score=Math.round(rawScore),band=scoreBand(score);setText('conditionScore',score+'/100');setText('conditionTier',buy?.tier||band.label);const tier=document.getElementById('conditionTier');if(tier)tier.className='score-tier-v140 '+band.cls;setText('heroMeterValue',score+'/100');const meter=document.getElementById('heroMeterFill');if(meter)meter.style.width=score+'%'}
  const comparison=buy?.comparison||null,deltaEl=document.getElementById('conditionDelta'),reasonEl=document.getElementById('conditionChangeReason');
  if(deltaEl){const dv=Number(comparison?.score_change);if(comparison&&Number.isFinite(dv)&&Math.abs(dv)>=.05){const rounded=Math.abs(dv)<1?dv.toFixed(1):String(Math.round(dv));deltaEl.textContent=(dv>0?'+':'')+rounded;deltaEl.className='condition-delta-v200 '+(dv>0?'up':dv<0?'down':'flat');deltaEl.hidden=false}else deltaEl.hidden=true}
- if(reasonEl){if(comparison&&Array.isArray(comparison.dominant_reasons)&&comparison.dominant_reasons.length){const parts=comparison.dominant_reasons.filter(x=>Math.abs(Number(x.weighted_score_delta||0))>=.05).slice(0,2).map(x=>{const d=Number(x.weighted_score_delta),pv=Number(x.previous),cv=Number(x.current);return factorNames[x.factor]+' '+Math.round(pv)+'→'+Math.round(cv)+' ('+(d>0?'+':'')+d.toFixed(1)+'점)'});const status=comparison.trade_signal_status==='mature_completed_month'?' · 거래 신호는 신고기한 경과 완료월 기준':comparison.trade_signal_status==='carried_forward_last_usable'?' · 월초 신고 미성숙 구간은 마지막 유효 거래신호 사용':'';reasonEl.innerHTML='<b>직전 '+Number(comparison.previous_score_0_100).toFixed(1)+' → 현재 '+Number(comparison.current_score_0_100).toFixed(1)+'</b>'+(parts.length?' · '+esc(parts.join(' / ')):'')+status;reasonEl.hidden=false}else reasonEl.hidden=true}
+ if(reasonEl){if(comparison&&Array.isArray(comparison.dominant_reasons)&&comparison.dominant_reasons.length){const parts=comparison.dominant_reasons.filter(x=>{const d=finiteNum(x.weighted_score_delta);return d!=null&&Math.abs(d)>=.05}).slice(0,2).map(x=>{const d=Number(x.weighted_score_delta),pv=Number(x.previous),cv=Number(x.current);return factorNames[x.factor]+' '+Math.round(pv)+'→'+Math.round(cv)+' ('+(d>0?'+':'')+d.toFixed(1)+'점)'});const status=comparison.trade_signal_status==='mature_completed_month'?' · 거래 신호는 신고기한 경과 완료월 기준':comparison.trade_signal_status==='carried_forward_last_usable'?' · 월초 신고 미성숙 구간은 마지막 유효 거래신호 사용':'';reasonEl.innerHTML='<b>직전 '+Number(comparison.previous_score_0_100).toFixed(1)+' → 현재 '+Number(comparison.current_score_0_100).toFixed(1)+'</b>'+(parts.length?' · '+esc(parts.join(' / ')):'')+status;reasonEl.hidden=false}else reasonEl.hidden=true}
  const finance=components.finance,sent=components.sentiment,demand=components.demand,value=components.value;
  const trade=matched?.changes?.trade_count_pct,under=matched?.changes?.under15_share_pp,mom=m?.mom_pct;
  const state=(v)=>{const b=scoreBand(v);return[b.label,b.cls==='good'||b.cls==='strong'?'good':b.cls==='bad'||b.cls==='verybad'?'bad':'neutral']};
@@ -225,22 +225,22 @@ async function renderConditionHistory(){
 }
 renderConditionHistory();
 
-window.__regimeReferences=null;window.__currentCycleStage=0;window.__currentRegimeMetrics=null;window.__selectedRegimeRefStage=null;window.__regimeCompare=false;
+window.__regimeReferences=null;window.__currentCycleStage=null;window.__currentRegimeMetrics=null;window.__selectedRegimeRefStage=null;window.__regimeCompare=false;
 async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot first; research fallback only
  try{
   const head=jg?.heads?.current_state||null,feature=jg?.feature_layer||null;
   if(head&&feature){
-   const stage=Math.max(0,Math.min(4,Number(head.stage)||0)),pm=feature.price_momentum||{},sig=feature.signals||{},ov=pm.overlay||{};
-   const mapped1=Number(pm.m1_pct),mapped3=Number(pm.m3_pct),raw1=ov.kb_4w_pct!=null?Number(ov.kb_4w_pct):mapped1,raw3=ov.kb_13w_pct!=null?Number(ov.kb_13w_pct):mapped3;
-   const kbComparable=ov.kb_4w_pct!=null&&ov.kb_13w_pct!=null,stamp=String(ov.kb_as_of||feature.as_of||jg.as_of||''),label=stamp.replace(/^(\d{4})(\d{2})(\d{2})$/,'$1.$2.$3').replace(/-/g,'.');
-   const pct=v=>Number.isFinite(Number(v))?(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%':'—',score=v=>Number.isFinite(Number(v))?Number(v).toFixed(1):'—';
+   const stageRaw=finiteNum(head.stage);if(stageRaw==null)throw Error('missing unified stage');const stage=Math.max(0,Math.min(4,Math.round(stageRaw))),pm=feature.price_momentum||{},sig=feature.signals||{},ov=pm.overlay||{};
+   const mapped1=finiteNum(pm.m1_pct),mapped3=finiteNum(pm.m3_pct),kb4=finiteNum(ov.kb_4w_pct),kb13=finiteNum(ov.kb_13w_pct),raw1=kb4??mapped1,raw3=kb13??mapped3;
+   const kbComparable=kb4!=null&&kb13!=null,stamp=String(ov.kb_as_of||feature.as_of||jg.as_of||''),label=stamp.replace(/^(\d{4})(\d{2})(\d{2})$/,'$1.$2.$3').replace(/-/g,'.');
+   const pct=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'},score=v=>{const n=finiteNum(v);return n==null?'—':n.toFixed(1)};
    window.__currentCycleStage=stage;
    window.__currentRegimeMetrics={
     ym:feature.research_month||'',label:label||feature.research_month||'현재',
     price_mom_1m_pct:raw1,price_mom_3m_pct:raw3,
     research_price_mom_1m_pct:mapped1,research_price_mom_3m_pct:mapped3,
     price_source:kbComparable?'kb_seoul_weekly':'research',
-    breadth_0_100:Number(sig.breadth),reaccel_0_100:Number(sig.reaccel)
+    breadth_0_100:finiteNum(sig.breadth),reaccel_0_100:finiteNum(sig.reaccel)
    };
    setText('judgmentCurrentLabel',head.label||['하락','둔화','바닥','상승·보합','가속'][stage]);
    setText('cycleStageText',head.summary||'통합 시장 판단 엔진의 현재 국면을 표시합니다.');
@@ -253,22 +253,22 @@ async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot
    fetch('turning_signal_research.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('turning signal '+r.status);return r.json()}),
    fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
   ]),rows=d.rows||[],x=rows.at(-1);if(!x)throw Error('no rows');
-  const m1=Number(x.price_mom_pct),m3=Number(x.momentum_3m_pct),recent=rows.slice(-4,-1),wasRising=recent.some(r=>Number(r.momentum_3m_pct)>0);
+  const m1=finiteNum(x.price_mom_pct),m3=finiteNum(x.momentum_3m_pct);if(m1==null||m3==null)throw Error('missing research momentum');const recent=rows.slice(-4,-1),wasRising=recent.some(r=>{const n=finiteNum(r.momentum_3m_pct);return n!=null&&n>0});
   let stage=0,text='가격 하락 흐름이 이어지고 있습니다. 아직 하락이 멈췄다고 보기 어렵습니다.';
   if(x.bottom_zone){stage=1;text='하락 압력이 약해지고 있습니다. 다만 아직 가격이 멈췄거나 상승세로 바뀌었다고 보기는 이릅니다.'}
   if(m1>=0&&m3<=0&&!wasRising){stage=2;text='하락 뒤 가격이 더 내려가지 않고 있습니다. 바닥 여부를 확인하는 구간입니다.'}
   if(m3>0){stage=3;text='최근 3개월 가격 흐름이 상승입니다. 상승 흐름이 이어지는지 확인하는 단계입니다.'}
   if(wasRising&&m3<=0&&m1>=0){stage=3;text='앞선 상승세가 멈추고 최근 가격이 보합권에 들어왔습니다. 상승 모멘텀이 식은 상태입니다.'}
   if(x.momentum_zone){stage=4;text='가격 상승과 시장 수요가 함께 강해지는 구간입니다.'}
-  const km=kb?.kb_weekly_sale_index?.momentum||{},kbComparable=km.mom_4w_pct!=null&&km.mom_13w_pct!=null;
+  const km=kb?.kb_weekly_sale_index?.momentum||{},kb4=finiteNum(km.mom_4w_pct),kb13=finiteNum(km.mom_13w_pct),kbComparable=kb4!=null&&kb13!=null;
   window.__currentCycleStage=stage;
   window.__currentRegimeMetrics={
    ym:x.ym,label:km.as_of?String(km.as_of).slice(0,4)+'.'+String(km.as_of).slice(4,6)+'.'+String(km.as_of).slice(6,8):x.ym.slice(0,4)+'.'+x.ym.slice(4),
-   price_mom_1m_pct:kbComparable?Number(km.mom_4w_pct):m1,
-   price_mom_3m_pct:kbComparable?Number(km.mom_13w_pct):m3,
+   price_mom_1m_pct:kbComparable?kb4:m1,
+   price_mom_3m_pct:kbComparable?kb13:m3,
    research_price_mom_1m_pct:m1,research_price_mom_3m_pct:m3,
    price_source:kbComparable?'kb_seoul_weekly':'research',
-   breadth_0_100:Number(x.breadth),reaccel_0_100:Number(x.reaccel)
+   breadth_0_100:finiteNum(x.breadth),reaccel_0_100:finiteNum(x.reaccel)
   };
   setText('judgmentCurrentLabel',['하락','둔화','바닥','상승·보합','가속'][stage]);
   setText('cycleStageText',text);
@@ -411,39 +411,41 @@ loadGarakHistory();
 async function loadMarketExtensions(){
  const host=document.getElementById('marketContext');if(!host)return;
  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
- const pct=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
- const pp=v=>v==null?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%p';
+ const pct=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'};
+ const pp=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%p'};
+ const count=v=>{const n=finiteNum(v);return n==null?'—':Math.round(n)};
+ const ym=v=>{const s=String(v||'');return /^\d{6}$/.test(s)?s.slice(0,4)+'.'+s.slice(4):'기간 미확인'};
  try{
   const d=await fetch('market_extensions.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('extensions '+r.status);return r.json()});
-  const b=d.current?.breadth||{},s25=b.seoul_25||{},g3=b.gangnam3||{},ng=b.non_gangnam3||{},songpa=b.songpa||{},scope=window.__marketIndicators?.scope||{},regionLabel=scope.region?.label||'서울',districtLabel=scope.district_focus?.label||'송파';
-  const up=Number(s25.up_share_pct||0);
-  set('breadthHeadline',(s25.up??'—')+'/'+(s25.count??25)+'개구 상승');
-  set('breadthGangnam','강남3구 '+(g3.up??'—')+'/'+(g3.count??3)+'↑');
-  set('breadthNonGangnam','비강남 '+(ng.up??'—')+'/'+(ng.count??22)+'↑');
+  const b=d.current?.breadth||{},s25=b.seoul_25||{},g3=b.gangnam3||{},ng=b.non_gangnam3||{},songpa=b.songpa||{},scope=window.__marketIndicators?.scope||{},regionLabel=scope.region?.label||'광역시장',districtLabel=scope.district_focus?.label||'관심권역';
+  const up=finiteNum(s25.up_share_pct);
+  set('breadthHeadline',regionLabel+' '+count(s25.up)+'/'+count(s25.count)+'개 권역 상승');
+  set('breadthGangnam','강남3구 '+count(g3.up)+'/'+count(g3.count)+'↑');
+  set('breadthNonGangnam','비강남 '+count(ng.up)+'/'+count(ng.count)+'↑');
   set('breadthSongpa',districtLabel+' '+pct(songpa.change_pct));
-  const fill=document.getElementById('breadthFill');if(fill)fill.style.width=Math.max(0,Math.min(100,up))+'%';
-  set('contextBreadthBadge',up>=75?'확산 강함':up>=45?'확산 혼조':'확산 약함');
+  const fill=document.getElementById('breadthFill');if(fill)fill.style.width=(up==null?0:Math.max(0,Math.min(100,up)))+'%';
+  set('contextBreadthBadge',up==null?'데이터 확인 중':up>=75?'확산 강함':up>=45?'확산 혼조':'확산 약함');
 
-  const t=d.current?.temperature||{},sg=Number(t.songpa_vs_seoul_gap_pp);
+  const t=d.current?.temperature||{},sg=finiteNum(t.songpa_vs_seoul_gap_pp);
   set('tempSeoul',pct(t.seoul_m3_pct));
   set('tempSongpa',pct(t.songpa_m3_median_pct));
   set('temperatureHeadline',sg==null?'상대강도 확인 중':sg<=-1?districtLabel+'가 '+regionLabel+'보다 느림':sg>=1?districtLabel+'가 '+regionLabel+'보다 강함':regionLabel+'과 비슷한 흐름');
-  set('tempGap',sg<0?regionLabel+' 대비 '+Math.abs(sg).toFixed(2)+'%p 뒤처짐 · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4):regionLabel+' 대비 '+pp(sg)+' · '+String(t.ym||'').slice(0,4)+'.'+String(t.ym||'').slice(4));
+  set('tempGap',sg==null?'상대강도 데이터 확인 중':sg<0?regionLabel+' 대비 '+Math.abs(sg).toFixed(2)+'%p 뒤처짐 · '+ym(t.ym):regionLabel+' 대비 '+pp(sg)+' · '+ym(t.ym));
 
-  const a=d.current?.affordability||{},ac=Number(a.affordability_change_3m_pct);
-  set('affordHeadline',ac<0?'구매력 약화':'구매력 개선');
+  const a=d.current?.affordability||{},ac=finiteNum(a.affordability_change_3m_pct);
+  set('affordHeadline',ac==null?'데이터 확인 중':ac<0?'구매력 약화':'구매력 개선');
   set('affordRate',a.mortgage_rate_pct==null?'—':Number(a.mortgage_rate_pct).toFixed(2)+'%');
   set('affordPayment',a.payment_5eok_won==null?'—':Math.round(Number(a.payment_5eok_won)/10000).toLocaleString('ko-KR')+'만원');
-  set('affordChange',a.affordability_change_3m_pct==null?'—':(ac>0?'+':'')+ac.toFixed(1)+'%');
-  const loan=a.max_loan_income100m_dsr40_won==null?null:Number(a.max_loan_income100m_dsr40_won)/100000000;
+  set('affordChange',ac==null?'—':(ac>0?'+':'')+ac.toFixed(1)+'%');
+  const loanBase=finiteNum(a.max_loan_income100m_dsr40_won),loan=loanBase==null?null:loanBase/100000000;
   set('affordBenchmark','비교기준: 연소득 1억 · DSR 40% · 30년'+(loan==null?'':' → '+loan.toFixed(2)+'억')+' · 개인 한도 아님');
 
   window.__marketExtensions=d;
   const v=d.validation||{};
   set('contextValidation',v.breadth_role==='confidence_context'?'상승 확산도 검증 통과 · 국면 신뢰도 보강에 사용':'상승 확산도 연구 검증 중');
-  host.dataset.breadth=up>=75?'strong':up>=45?'mixed':'weak';
-  host.dataset.afford=ac<0?'worse':'better';
-  const hd=document.getElementById('hubDriversMeta');if(hd)hd.textContent='확산 '+(s25.up??'—')+'/'+(s25.count??25)+' · 구매력 '+(ac>0?'+':'')+ac.toFixed(1)+'%';
+  host.dataset.breadth=up==null?'unknown':up>=75?'strong':up>=45?'mixed':'weak';
+  host.dataset.afford=ac==null?'unknown':ac<0?'worse':'better';
+  const hd=document.getElementById('hubDriversMeta');if(hd)hd.textContent='확산 '+count(s25.up)+'/'+count(s25.count)+' · 구매력 '+(ac==null?'—':(ac>0?'+':'')+ac.toFixed(1)+'%');
  }catch(e){
   set('contextBreadthBadge','데이터 확인');
   set('breadthHeadline','확장지표 확인 중');
@@ -828,7 +830,7 @@ const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addE
  const state=(msg,cls='',p=null)=>{statusEl.textContent=msg;host.classList.remove('running','success','error');if(cls)host.classList.add(cls);if(p!=null)progress(p)};
  async function currentRevision(){try{const d=await fetch('market_indicators.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null);return d?.refresh_run?.attempted_at||d?.updated_at||null}catch{return null}}
  async function requestState(id){if(!id)return null;try{const r=await fetch(ENDPOINT+'?id='+encodeURIComponent(id)+'&v='+Date.now(),{cache:'no-store'});if(!r.ok)return null;return(await r.json())?.request||null}catch{return null}}
- async function findRun(actionIso){try{const r=await fetch(GH+'/actions/workflows/'+WORKFLOW+'/runs?event=workflow_dispatch&branch=main&per_page=6',{cache:'no-store'});if(!r.ok)return null;const d=await r.json(),t=new Date(actionIso||0).getTime();return(d.workflow_runs||[]).filter(x=>new Date(x.created_at).getTime()>=t-10000).sort((a,b)=>Math.abs(new Date(a.created_at).getTime()-t)-Math.abs(new Date(b.created_at).getTime()-t))[0]||null}catch{return null}}
+ async function findRun(actionIso){try{const r=await fetch(GH+'/actions/workflows/'+WORKFLOW+'/runs?event=workflow_dispatch&branch=main&per_page=6',{cache:'no-store'});if(!r.ok)return null;const d=await r.json(),actionTime=safeDate(actionIso),t=actionTime?actionTime.getTime():null;if(t==null)return null;return(d.workflow_runs||[]).filter(x=>new Date(x.created_at).getTime()>=t-10000).sort((a,b)=>Math.abs(new Date(a.created_at).getTime()-t)-Math.abs(new Date(b.created_at).getTime()-t))[0]||null}catch{return null}}
  async function githubProgress(runId){try{const r=await fetch(GH+'/actions/runs/'+runId+'/jobs?per_page=50',{cache:'no-store'});if(!r.ok)return null;const jobs=(await r.json()).jobs||[],ok=j=>j?.conclusion==='success',find=re=>jobs.find(j=>re.test(j.name));let p=18,msg='자동 갱신 작업 대기 중',doneAt=null;
   const gate=find(/^gate$/);if(gate){p=ok(gate)?23:20;msg=ok(gate)?'갱신 게이트 통과':'갱신 게이트 확인 중'}
   const fg=find(/Freshness gate$/);if(ok(fg)){p=28;msg='원천 API 수집 시작'}
