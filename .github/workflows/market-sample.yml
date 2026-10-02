@@ -23,7 +23,6 @@ on:
       - '.github/workflows/system-health.yml'
       - '.github/workflows/research-turning-signal.yml'
       - '.github/workflows/final-backtest.yml'
-      - '.github/workflows/pages.yml'
       - '.github/workflows/market-sample.yml'
 
 permissions:

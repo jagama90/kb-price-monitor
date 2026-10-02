@@ -16,9 +16,18 @@ on:
         required: false
         default: false
         type: boolean
+      skip_preflight:
+        description: 'Skip freshness runner when an upstream dispatcher already gated the run'
+        required: false
+        default: false
+        type: boolean
   workflow_call:
     inputs:
       dry_run:
+        required: false
+        default: false
+        type: boolean
+      skip_preflight:
         required: false
         default: false
         type: boolean
@@ -32,6 +41,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   preflight:
+    if: inputs.skip_preflight != true
     name: 0 · Freshness gate
     runs-on: ubuntu-latest
     outputs:
@@ -75,7 +85,7 @@ jobs:
 
   kb_sentiment:
     needs: preflight
-    if: needs.preflight.outputs.should_run == 'true'
+    if: ${{ always() && (inputs.skip_preflight == true || needs.preflight.outputs.should_run == 'true') }}
     name: C · KB sentiment
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -125,7 +135,7 @@ jobs:
             data_sources/kb_valuation_sources.json
   molit:
     needs: preflight
-    if: needs.preflight.outputs.should_run == 'true'
+    if: ${{ always() && (inputs.skip_preflight == true || needs.preflight.outputs.should_run == 'true') }}
     name: A · MOLIT trades
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -167,7 +177,7 @@ jobs:
             data_sources/watchlist_recent_trades.json
   ecos:
     needs: preflight
-    if: needs.preflight.outputs.should_run == 'true'
+    if: ${{ always() && (inputs.skip_preflight == true || needs.preflight.outputs.should_run == 'true') }}
     name: B · BOK ECOS
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -217,7 +227,7 @@ jobs:
             data_sources/ecos_base_rate.json
   watchlist_details:
     needs: preflight
-    if: needs.preflight.outputs.should_run == 'true'
+    if: ${{ always() && (inputs.skip_preflight == true || needs.preflight.outputs.should_run == 'true') }}
     runs-on: ubuntu-latest
     timeout-minutes: 12
     outputs:
@@ -249,7 +259,7 @@ jobs:
 
   aggregate:
     name: E · Aggregate and validate
-    if: ${{ always() && needs.preflight.outputs.should_run == 'true' }}
+    if: ${{ always() && (inputs.skip_preflight == true || needs.preflight.outputs.should_run == 'true') }}
     needs: [preflight, molit, ecos, kb_sentiment, watchlist_details]
     runs-on: ubuntu-latest
     timeout-minutes: 15

@@ -13,68 +13,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  gate:
-    runs-on: ubuntu-latest
-    outputs:
-      should_run: ${{ steps.check.outputs.should_run }}
-      requested_at: ${{ steps.check.outputs.requested_at }}
-    steps:
-      - uses: actions/checkout@v7
-      - name: Check dashboard refresh queue
-        id: check
-        env:
-          REFRESH_QUEUE_URL: https://iefzffwydvqnleukmljj.supabase.co/functions/v1/manual-market-refresh
-        run: |
-          python3 - <<'PY'
-          import json, os, urllib.request
-          from datetime import datetime, timezone
-          from pathlib import Path
-
-          out = os.environ["GITHUB_OUTPUT"]
-          should = False
-          requested_at = ""
-
-          try:
-              req = urllib.request.Request(
-                  os.environ["REFRESH_QUEUE_URL"],
-                  headers={"User-Agent":"kb-price-monitor-actions/1.0"}
-              )
-              with urllib.request.urlopen(req, timeout=15) as r:
-                  queue = json.load(r)
-              latest = queue.get("latest") or {}
-              requested_at = str(latest.get("requested_at") or "")
-          except Exception as e:
-              print({"queue_error": repr(e)})
-              requested_at = ""
-
-          try:
-              market = json.loads(Path("dist/market_indicators.json").read_text(encoding="utf-8"))
-              refreshed_at = str((market.get("refresh_run") or {}).get("attempted_at") or market.get("updated_at") or "")
-          except Exception:
-              refreshed_at = ""
-
-          def dt(v):
-              if not v:
-                  return None
-              try:
-                  return datetime.fromisoformat(v.replace("Z","+00:00"))
-              except Exception:
-                  return None
-
-          rq, rf = dt(requested_at), dt(refreshed_at)
-          should = bool(rq and (not rf or rq > rf))
-          with open(out,"a",encoding="utf-8") as fh:
-              fh.write(f"should_run={'true' if should else 'false'}\n")
-              fh.write(f"requested_at={requested_at}\n")
-          print({"requested_at":requested_at,"last_refresh":refreshed_at,"should_run":should})
-          PY
-
   refresh:
-    needs: gate
-    if: needs.gate.outputs.should_run == 'true'
     uses: ./.github/workflows/parallel-market-refresh.yml
     with:
       dry_run: false
+      skip_preflight: true
     secrets: inherit
 
 
@@ -108,6 +51,7 @@ jobs:
           cp data/buy_watchlist_targets.json dist/buy_watchlist_targets.json
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_render_safety.py
           python3 scripts/check_pipeline_health.py
       - name: Persist derived outputs
         run: |

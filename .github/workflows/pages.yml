@@ -15,6 +15,8 @@ on:
       - 'scripts/test_market_judgment_engine.py'
       - 'scripts/check_dashboard_bundle.py'
       - 'scripts/check_pipeline_health.py'
+      - 'scripts/check_render_safety.py'
+      - 'scripts/prepare_pages.py'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -45,6 +47,7 @@ jobs:
           python3 scripts/test_market_judgment_engine.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_render_safety.py
           python3 scripts/check_pipeline_health.py
       - name: Prepare deploy artifact with automatic cache version
         run: python3 scripts/prepare_pages.py --source dist --output site --version "$GITHUB_SHA"
