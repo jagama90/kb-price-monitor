@@ -240,7 +240,8 @@ if "s===window.__currentCycleStage" not in js: errors.append('current phase must
 
 # v181 forecast-language contract
 if 'forecast-guide-v181' not in html: errors.append('forecast reading guide missing')
-if "currentPhase=currentPhaseDisplay(window.__currentCycleStage" not in js: errors.append('forecast route must start from refined current research phase')
+if "const nodes=hs.map" not in js: errors.append('forecast route must contain future horizons only')
+if "nodes=[{label:'현재'" in js: errors.append('forecast route must not duplicate the research-engine current phase')
 if "실제 발생확률" not in html or "상대 지지점수" not in html: errors.append('forecast score explanation must be user-readable')
 if 'current-regime-evidence-v209' not in html or 'renderCurrentRegimeEvidence' not in js:
     errors.append('current regime numeric evidence missing')

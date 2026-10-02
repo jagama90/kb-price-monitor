@@ -446,8 +446,7 @@ async function renderRegimeForecast(){
   const hs=d.horizons||[],displays=hs.map(h=>h.display||fallbackDisplay(h.weights||{}));
   window.__forecastMapPosition=hs.length?forecastMapPosition(hs[0]):null;
   renderRegimeMap(window.__currentCycleStage,window.__forecastMapPosition);
-  const currentPhase=currentPhaseDisplay(window.__currentCycleStage,window.__currentRegimeMetrics||{})||d.state?.current_phase||'현재 국면';
-  const nodes=[{label:'현재',headline:currentPhase,tone:'current',support:''},...hs.map((h,i)=>({label:h.label||h.period,headline:displays[i]?.headline||'방향 확인 중',tone:displays[i]?.tone||'mixed',support:supportPanel(h.weights||{})}))];
+  const nodes=hs.map((h,i)=>({label:h.label||h.period,headline:displays[i]?.headline||'방향 확인 중',tone:displays[i]?.tone||'mixed',support:supportPanel(h.weights||{})}));
   host.innerHTML=nodes.map((n,i)=>'<div class="forecast-route-node-v181 tone-'+esc(n.tone)+'"><small>'+esc(n.label)+'</small><b>'+esc(n.headline)+'</b>'+n.support+'</div>'+(i<nodes.length-1?'<i class="forecast-route-arrow-v181">→</i>':'')).join('');
   if(drivers){
    const check=d.triggers?.current_check||{},ov=d.price_momentum_overlay||{};
