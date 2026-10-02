@@ -40,16 +40,19 @@
       </div>
       <small>● 현재 · ○ 향후 신호 방향 · 미래 확정 위치가 아닙니다</small>
     </div>
-    <div id="currentRegimeEvidence" class="current-regime-evidence-v209" aria-label="현재 국면 수치 근거">
-      <div><small>단기 가격</small><b>—</b><span>데이터 확인 중</span></div>
-      <div><small>중기 가격</small><b>—</b><span>데이터 확인 중</span></div>
-      <div><small>시장 확산</small><b>—</b><span>가속 확인 45+</span></div>
-      <div><small>재가속</small><b>—</b><span>가속 확인 50+</span></div>
-    </div>
-    <small id="rebCrosscheck" class="reb-crosscheck-v210" hidden></small>
-    <div class="cycle-steps research-steps" id="cycleSteps" aria-label="시장 국면">
-      <span data-regime-ref="0" data-display-stage="0" role="button" tabindex="0">하락</span><span data-regime-ref="1" data-display-stage="1" role="button" tabindex="0">둔화</span><span data-regime-ref="2" data-display-stage="2" role="button" tabindex="0">바닥</span><span data-regime-ref="3" data-display-stage="3" role="button" tabindex="0">보합</span><span data-regime-ref="3" data-display-stage="4" role="button" tabindex="0">상승</span><span data-regime-ref="4" data-display-stage="5" role="button" tabindex="0">가속</span>
-    </div>
+    <details class="engine-detail-drawer-v214 research-detail-drawer-v214">
+      <summary><b>수치 · 과거사례 보기</b><span>판단 근거를 펼쳐봅니다</span></summary>
+      <div id="currentRegimeEvidence" class="current-regime-evidence-v209" aria-label="현재 국면 수치 근거">
+        <div><small>단기 가격</small><b>—</b><span>데이터 확인 중</span></div>
+        <div><small>중기 가격</small><b>—</b><span>데이터 확인 중</span></div>
+        <div><small>시장 확산</small><b>—</b><span>가속 확인 45+</span></div>
+        <div><small>재가속</small><b>—</b><span>가속 확인 50+</span></div>
+      </div>
+      <small id="rebCrosscheck" class="reb-crosscheck-v210" hidden></small>
+      <div class="cycle-steps research-steps" id="cycleSteps" aria-label="시장 국면">
+        <span data-regime-ref="0" data-display-stage="0" role="button" tabindex="0">하락</span><span data-regime-ref="1" data-display-stage="1" role="button" tabindex="0">둔화</span><span data-regime-ref="2" data-display-stage="2" role="button" tabindex="0">바닥</span><span data-regime-ref="3" data-display-stage="3" role="button" tabindex="0">보합</span><span data-regime-ref="3" data-display-stage="4" role="button" tabindex="0">상승</span><span data-regime-ref="4" data-display-stage="5" role="button" tabindex="0">가속</span>
+      </div>
+    </details>
     <div class="regime-reference-v145" id="regimeReference" aria-live="polite" hidden>
       <div class="regime-ref-head-v145">
         <div><small>과거 대표 사례</small><b id="regimeRefTitle">불러오는 중</b></div>
@@ -72,23 +75,32 @@
   <div class="judgment-block-v1 judgment-forward-v1 forecast-compact-mobile forecast-engine-v181" id="regimeForecast">
     <div class="engine-kicker-v181">전망엔진 · 앞으로 어디로 갈까?</div>
 
+    <div class="forecast-quick-v214" aria-label="전망 핵심 요약">
+      <div><small>지금</small><b id="forecastCurrentPosition">현재 위치 계산 중</b></div>
+      <i aria-hidden="true">→</i>
+      <div><small>가까운 방향</small><b id="forecastPrimaryDirection">전망 방향 계산 중</b><span id="forecastPrimarySupport">신호 확인 중</span></div>
+    </div>
+
     <div id="forecastPathMap" class="forecast-path-map-v213" aria-label="향후 국면 방향 지도">
       <div class="forecast-path-head-v213"><b>전망 흐름 지도</b><span id="forecastPathSummary">전망 방향 계산 중</span></div>
       <div id="forecastPathRows" class="forecast-path-rows-v213">
         <div class="forecast-path-loading-v213">향후 국면 흐름을 계산하고 있습니다.</div>
       </div>
       <div class="forecast-path-scale-v213"><span>하락</span><span>둔화</span><span>바닥</span><span>보합</span><span>상승</span><span>가속</span></div>
-      <small>점은 각 기간의 상대 지지점수를 국면 축에 투영한 위치이며 실제 발생확률이 아닙니다.</small>
+      <small>신호 위치이며 실제 발생확률이 아닙니다.</small>
     </div>
 
-    <div class="forecast-flow forecast-route-v181" id="forecastGrid" aria-label="향후 국면 흐름">
-      <div class="forecast-route-node-v181 skeleton"><small>단기</small><b>산출 중</b></div>
-      <i>→</i>
-      <div class="forecast-route-node-v181 skeleton"><small>중기</small><b>산출 중</b></div>
-      <i>→</i>
-      <div class="forecast-route-node-v181 skeleton"><small>장기</small><b>산출 중</b></div>
-    </div>
-    <div id="forecastDrivers" class="forecast-drivers-v209" aria-label="전망 현재 입력 근거">전망 근거 데이터를 확인하고 있습니다.</div>
+    <details class="engine-detail-drawer-v214 forecast-detail-drawer-v214">
+      <summary><b>세부 전망 수치 보기</b><span>시나리오 지지도 · 현재 입력</span></summary>
+      <div class="forecast-flow forecast-route-v181" id="forecastGrid" aria-label="향후 국면 흐름">
+        <div class="forecast-route-node-v181 skeleton"><small>단기</small><b>산출 중</b></div>
+        <i>→</i>
+        <div class="forecast-route-node-v181 skeleton"><small>중기</small><b>산출 중</b></div>
+        <i>→</i>
+        <div class="forecast-route-node-v181 skeleton"><small>장기</small><b>산출 중</b></div>
+      </div>
+      <div id="forecastDrivers" class="forecast-drivers-v209" aria-label="전망 현재 입력 근거">전망 근거 데이터를 확인하고 있습니다.</div>
+    </details>
 
     <div class="buy-condition-strip-v181">
       <div class="buy-condition-line-v181">

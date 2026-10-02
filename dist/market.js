@@ -303,6 +303,19 @@ function renderForecastPathMap(horizons=[]){
  summary.textContent='단기 '+firstLabel+(overall?' · '+overall.replace('‹ ','').replace('› ',''):'')+(rows.length>1?' → '+lastLabel:'');
 }
 
+function renderForecastQuick(horizons=[]){
+ const curEl=document.getElementById('forecastCurrentPosition'),dirEl=document.getElementById('forecastPrimaryDirection'),supEl=document.getElementById('forecastPrimarySupport');
+ if(!curEl||!dirEl||!supEl)return;
+ const current=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{}),h=(horizons||[])[0],pos=forecastMapPosition(h);
+ if(!h||finiteNum(pos)==null){curEl.textContent=current?.label||'현재 위치 확인 중';dirEl.textContent='전망 데이터 확인 중';supEl.textContent='신호 확인 중';return}
+ const c=finiteNum(h?.weights?.consolidation),r=finiteNum(h?.weights?.reacceleration),d=finiteNum(h?.weights?.downturn),weak=(c==null||d==null)?null:c+d;
+ const target=forecastAxisLabel(pos),cp=finiteNum(current?.index),delta=cp==null?null:pos-cp;
+ curEl.textContent=current?.label||'현재 위치 확인 중';
+ dirEl.textContent=delta!=null&&delta<-.12?(target==='보합'?'보합권 쪽으로 둔화':target+' 쪽으로 둔화'):(delta!=null&&delta>.12?target+' 쪽으로 강화':target+'권 유지');
+ supEl.textContent=weak==null?'신호 확인 중':'상승 지속보다 약해지는 쪽 신호 '+Math.round(weak)+'/100';
+ supEl.title=(c==null||r==null||d==null)?'':'보합·쉬어가기 '+c.toFixed(1)+' · 재가속 '+r.toFixed(1)+' · 하방 '+d.toFixed(1)+' / 상대 지지도이며 실제 확률이 아닙니다.';
+}
+
 function renderCurrentRegimeEvidence(metrics={}){
  const host=document.getElementById('currentRegimeEvidence');if(!host)return;
  const signedPct=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'};
@@ -472,6 +485,7 @@ async function renderRegimeForecast(){
   window.__forecastMapPosition=hs.length?forecastMapPosition(hs[0]):null;
   renderRegimeMap(window.__currentCycleStage,window.__forecastMapPosition);
   renderForecastPathMap(hs);
+  renderForecastQuick(hs);
   const currentState=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{});
   if(currentState.label==='상승'&&finiteNum(window.__forecastMapPosition)!=null&&window.__forecastMapPosition<currentState.index-.12){
    setText('judgmentCurrentLabel','상승 · 둔화 신호');
@@ -494,7 +508,7 @@ async function renderRegimeForecast(){
   if(meta){meta.hidden=true;meta.textContent='현재 판단에 사용한 연구 데이터 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' · 잠정':'')+' · 검증 완료 '+fmtMonth(d.latest_certified_backtest_month)+'까지';}
   const hb=document.getElementById('hubBacktestMeta');if(hb)hb.textContent='인증 '+fmtMonth(d.latest_certified_backtest_month)+' · 연구 '+fmtMonth(d.latest_research_month);
  }catch(e){
-  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';renderForecastPathMap([]);if(drivers)drivers.textContent='전망 근거 데이터를 확인하고 있습니다.';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
+  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';renderForecastPathMap([]);renderForecastQuick([]);if(drivers)drivers.textContent='전망 근거 데이터를 확인하고 있습니다.';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
  }
 }
 renderRegimeForecast();

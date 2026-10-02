@@ -3760,3 +3760,22 @@ header{position:sticky!important;overflow:visible!important}
  .forecast-path-map-v213{padding-left:8px;padding-right:8px}
  .forecast-path-scale-v213>span{font-size:6px}
 }
+
+
+/* v214 summary-first research / forecast readability */
+.engine-detail-drawer-v214{margin-top:14px!important;border:1px solid var(--line)!important;border-radius:14px!important;padding:0!important;overflow:hidden;background:#fff}
+.engine-detail-drawer-v214>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;list-style:none;padding:13px 14px;cursor:pointer;color:#35516f}
+.engine-detail-drawer-v214>summary::-webkit-details-marker{display:none}
+.engine-detail-drawer-v214>summary b{font-size:13px}.engine-detail-drawer-v214>summary span{font-size:10px;color:var(--muted);font-weight:700}
+.engine-detail-drawer-v214[open]>summary{border-bottom:1px solid var(--line)}
+.engine-detail-drawer-v214 .current-regime-evidence-v209,.engine-detail-drawer-v214 .research-steps,.engine-detail-drawer-v214 .forecast-route-v181,.engine-detail-drawer-v214 .forecast-drivers-v209{margin:12px}
+.forecast-quick-v214{display:grid;grid-template-columns:minmax(0,1fr) 24px minmax(0,1.35fr);align-items:center;gap:8px;margin:12px 0 14px;padding:14px;border:1px solid #dfeaf5;border-radius:15px;background:#f8fbfe}
+.forecast-quick-v214>div{min-width:0}.forecast-quick-v214 small,.forecast-quick-v214 b,.forecast-quick-v214 span{display:block}
+.forecast-quick-v214 small{font-size:10px;color:var(--muted);font-weight:800}.forecast-quick-v214 b{margin-top:4px;font-size:17px;line-height:1.3;color:#163d5d}
+.forecast-quick-v214 span{margin-top:4px;font-size:10px;line-height:1.45;color:#64788b}.forecast-quick-v214>i{font-style:normal;text-align:center;color:#7d99b3;font-weight:900}
+@media(max-width:640px){
+ .forecast-quick-v214{grid-template-columns:minmax(0,.9fr) 18px minmax(0,1.4fr);padding:12px 11px;gap:5px}
+ .forecast-quick-v214 b{font-size:15px}.forecast-quick-v214 span{font-size:9.5px}
+ .engine-detail-drawer-v214>summary{padding:12px}.engine-detail-drawer-v214>summary b{font-size:12px}.engine-detail-drawer-v214>summary span{font-size:9px}
+ .engine-detail-drawer-v214 .current-regime-evidence-v209,.engine-detail-drawer-v214 .research-steps,.engine-detail-drawer-v214 .forecast-route-v181,.engine-detail-drawer-v214 .forecast-drivers-v209{margin:10px}
+}
