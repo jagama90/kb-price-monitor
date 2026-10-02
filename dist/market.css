@@ -3720,3 +3720,9 @@ header{position:sticky!important;overflow:visible!important}
  .regime-map-labels-v211>span{font-size:7px}
  .regime-map-v211>small{font-size:7px}
 }
+
+
+/* v212 static turn-signal direction cue */
+.regime-map-direction-v212{position:absolute;top:10px;transform:translateX(-50%);z-index:3;color:#557f98;font-size:17px;font-weight:950;line-height:1;letter-spacing:1px;white-space:nowrap;pointer-events:none}
+@media(max-width:412px){.regime-map-direction-v212{top:11px;font-size:15px;letter-spacing:0}}
+@media(max-width:360px){.regime-map-direction-v212{font-size:14px}}
