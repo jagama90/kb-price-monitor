@@ -582,10 +582,33 @@ function refreshChangedDetails(record,market){
  }
  return '<div class="refresh-change-line-v206"><span>값</span><b>'+refreshDetailValue(before)+' → '+refreshDetailValue(after)+'</b></div>';
 }
+function refreshChangedSummary(record,market){
+ if(record.key.startsWith('factor.'))return refreshDetailValue(record.from)+' → '+refreshDetailValue(record.value);
+ if(record.key==='panel.forecast')return refreshDetailValue(record.from)+' → '+refreshDetailValue(record.value);
+ if(record.key==='panel.context')return refreshDetailValue(record.from)+'% → '+refreshDetailValue(record.value)+'%';
+ if(record.key==='panel.watchlist'){
+   const prev=record.previousSignature?.items||[],cur=record.signature?.items||[];
+   const prevMap=new Map(prev.map(x=>[String(x[0])+'|'+String(x[1]),x]));
+   let count=0;
+   for(const row of cur){
+     const old=prevMap.get(String(row[0])+'|'+String(row[1]));
+     if(!old){count+=1;continue}
+     for(let i=2;i<row.length;i++)if(refreshSig(old[i])!==refreshSig(row[i]))count+=1;
+     prevMap.delete(String(row[0])+'|'+String(row[1]));
+   }
+   count+=prevMap.size;
+   return (count||1)+'개 항목 변경';
+ }
+ return refreshDetailValue(record.from)+' → '+refreshDetailValue(record.value);
+}
 function renderRefreshChangedList(changed,market){
  const host=document.getElementById('refreshChangedList');if(!host)return;
- if(!changed.length){host.innerHTML='<div class="refresh-changed-empty-v206"><b>이번 확인에서 바뀐 데이터가 없습니다.</b><small>변경이 생기면 이곳에 해당 항목만 표시합니다.</small></div>';return}
- host.innerHTML=changed.map((r,i)=>'<article class="refresh-changed-card-v206"><div class="refresh-changed-head-v206"><span>'+(i+1)+'</span><b>'+r.label+'</b><small>'+refreshShortFmt(r.checkedAt)+'</small></div><div class="refresh-changed-body-v206">'+refreshChangedDetails(r,market)+'</div></article>').join('');
+ if(!changed.length){host.innerHTML='<div class="refresh-changed-empty-v206 compact-v207"><b>실제 변경 없음</b></div>';return}
+ host.innerHTML=changed.map((r,i)=>{
+   const detail=refreshChangedDetails(r,market),summary=refreshChangedSummary(r,market);
+   const hasDetail=r.key==='panel.watchlist';
+   return '<details class="refresh-changed-row-v207" '+(hasDetail?'':'data-static="true"')+'><summary><span class="refresh-row-index-v207">'+(i+1)+'</span><b>'+r.label+'</b><strong>'+summary+'</strong><small>'+refreshShortFmt(r.checkedAt)+'</small>'+(hasDetail?'<i>상세</i>':'')+'</summary>'+(hasDetail?'<div class="refresh-row-detail-v207">'+detail+'</div>':'')+'</details>';
+ }).join('');
 }
 function decorateRefreshPanel({key,host,anchor,record,checkedAt,warning='',note=true}){
  if(!host||!anchor)return;
