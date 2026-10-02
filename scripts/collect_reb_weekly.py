@@ -109,9 +109,14 @@ def download_workbook(dest:pathlib.Path):
                 books=[n for n in names if n.lower().endswith('.xlsx')]
                 if not books:
                     raise RuntimeError('REB zip has no xlsx workbook: '+json.dumps(names,ensure_ascii=False))
-                preferred=next((n for n in books if '시계열' in n or '주간' in n),books[0])
-                dest.write_bytes(z.read(preferred))
-                print(json.dumps({'downloaded_zip':raw_path.name,'workbook_entry':preferred,'entries':names[:40]},ensure_ascii=False))
+                sale_entry=next((n for n in books if '매매가격지수/' in n and '(주) 매매가격지수.xlsx' in n),None)
+                rent_entry=next((n for n in books if '전세가격지수/' in n and '(주) 전세가격지수.xlsx' in n),None)
+                if not sale_entry or not rent_entry:
+                    raise RuntimeError('REB exact sale/rent workbooks missing: '+json.dumps(books,ensure_ascii=False))
+                rent_dest=dest.with_name(dest.stem+'_rent.xlsx')
+                dest.write_bytes(z.read(sale_entry))
+                rent_dest.write_bytes(z.read(rent_entry))
+                print(json.dumps({'downloaded_zip':raw_path.name,'sale_entry':sale_entry,'rent_entry':rent_entry,'entries':names[:40]},ensure_ascii=False))
         else:
             if raw_path!=dest:dest.write_bytes(raw_path.read_bytes())
         browser.close()
@@ -166,8 +171,10 @@ def main():
     with tempfile.TemporaryDirectory() as td:
         book=pathlib.Path(td)/'reb_weekly.xlsx'
         download_workbook(book)
-        wb=load_workbook(book,read_only=True,data_only=True)
-        sws=sheet_for(wb,'sale');rws=sheet_for(wb,'rent')
+        rent_book=book.with_name(book.stem+'_rent.xlsx')
+        swb=load_workbook(book,read_only=True,data_only=True)
+        rwb=load_workbook(rent_book,read_only=True,data_only=True)
+        sws=swb[swb.sheetnames[0]];rws=rwb[rwb.sheetnames[0]]
         sale,scol=extract(sws);rent,rcol=extract(rws)
     sm={x['date']:x for x in sale};rm={x['date']:x for x in rent}
     common=sorted(set(sm)&set(rm))
