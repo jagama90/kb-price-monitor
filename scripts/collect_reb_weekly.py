@@ -201,6 +201,18 @@ def main():
         swb=load_workbook(book,read_only=False,data_only=True)
         rwb=load_workbook(rent_book,read_only=False,data_only=True)
         sws=swb[swb.sheetnames[0]];rws=rwb[rwb.sheetnames[0]]
+        for label,ws in [('sale',sws),('rent',rws)]:
+            sample=[]
+            for rr in range(1,min(ws.max_row,30)+1):
+                sample.append([ws.cell(rr,cc).value for cc in range(1,min(ws.max_column,45)+1)])
+            seoul_pos=[];date_pos=[]
+            for rr in range(1,min(ws.max_row,80)+1):
+                for cc in range(1,min(ws.max_column,400)+1):
+                    v=ws.cell(rr,cc).value
+                    if str(v or '').strip().replace(' ','') in ('서울','서울특별시'):seoul_pos.append([rr,cc])
+                    d=norm_date(v)
+                    if d:date_pos.append([rr,cc,d])
+            print(json.dumps({'debug':'reb_layout','kind':label,'max_row':ws.max_row,'max_col':ws.max_column,'seoul_pos':seoul_pos[:20],'date_pos':date_pos[:80],'sample':sample},ensure_ascii=False,default=str))
         sale,scol=extract(sws);rent,rcol=extract(rws)
     sm={x['date']:x for x in sale};rm={x['date']:x for x in rent}
     common=sorted(set(sm)&set(rm))
