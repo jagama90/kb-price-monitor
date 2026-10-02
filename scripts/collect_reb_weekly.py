@@ -196,8 +196,10 @@ def main():
                     try:snippets[n]=zz.read(n)[:1200].decode('utf-8',errors='replace')
                     except Exception:pass
                 print(json.dumps({'debug':'reb_xlsx_structure','kind':label,'names':names,'sizes':sizes,'snippets':snippets},ensure_ascii=False))
-        swb=load_workbook(book,read_only=True,data_only=True)
-        rwb=load_workbook(rent_book,read_only=True,data_only=True)
+        # REB workbooks declare the incorrect dimension A1 even though sheet XML contains
+        # the full table. Normal mode parses actual cell records instead of trusting that dimension.
+        swb=load_workbook(book,read_only=False,data_only=True)
+        rwb=load_workbook(rent_book,read_only=False,data_only=True)
         sws=swb[swb.sheetnames[0]];rws=rwb[rwb.sheetnames[0]]
         sale,scol=extract(sws);rent,rcol=extract(rws)
     sm={x['date']:x for x in sale};rm={x['date']:x for x in rent}
