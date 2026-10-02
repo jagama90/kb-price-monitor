@@ -3684,3 +3684,8 @@ header{position:sticky!important;overflow:visible!important}
   .forecast-support-v209 span b{font-size:10px}
   .forecast-drivers-v209{font-size:8px}
 }
+
+/* v210 REB sale/rent cross-check context */
+.reb-crosscheck-v210{display:block;margin:-7px 0 15px;color:#748896;font-size:9px;font-weight:750;line-height:1.45}
+.reb-crosscheck-v210[hidden]{display:none!important}
+@media(max-width:390px){.reb-crosscheck-v210{font-size:8px;margin-top:-5px;margin-bottom:13px}}

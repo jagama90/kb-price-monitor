@@ -25,7 +25,7 @@ required=['conditionScore','scoreFinance','scoreSentiment','scoreDemand','scoreV
           'backtestScope','backtestCertified','backtestCorr',
           'sourceMolitStatus','sourceKbStatus','sourceEcosStatus','sourceWatchStatus',
           'conditionTier','confidenceScore','validationUnsold','validationUnsoldPeriod',
-          'b15all','b15to25','b25p','currentRegimeEvidence','forecastDrivers']
+          'b15all','b15to25','b25p','currentRegimeEvidence','forecastDrivers','rebCrosscheck']
 for x in required:
     if ids.count(x)!=1: errors.append(f'required id {x}: expected 1, got {ids.count(x)}')
 
@@ -244,6 +244,8 @@ if "currentPhase=d.state?.current_phase" not in js: errors.append('forecast rout
 if "실제 발생확률" not in html or "상대 지지점수" not in html: errors.append('forecast score explanation must be user-readable')
 if 'current-regime-evidence-v209' not in html or 'renderCurrentRegimeEvidence' not in js:
     errors.append('current regime numeric evidence missing')
+if 'reb-crosscheck-v210' not in html or 'renderRebCrosscheck' not in js:
+    errors.append('REB sale/rent cross-check UI missing')
 if 'forecast-support-v209' not in js or "상대 지지 · 확률 아님" not in js or 'forecastDrivers' not in js:
     errors.append('forecast scenario support numbers missing')
 

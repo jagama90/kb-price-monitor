@@ -43,7 +43,7 @@ async function loadMarketIndicators(){
   const m=d.m2_official||d.m2;if(m){setText('snapM2',m.yoy_pct==null?'—':m.yoy_pct+'%');setText('snapM2Period',sourcePeriodFmt(m.period)+(m.yoy_change_pp==null?'':' · 전월보다 '+signed(m.yoy_change_pp,'%p')));setText('m2Detail','ECOS M2 · 전월비 '+(m.mom_pct??'—')+'% ('+(m.mom_change_pp==null?'변화 대기':signed(m.mom_change_pp,'%p'))+') · 전년비 '+(m.yoy_pct??'—')+'% ('+(m.yoy_change_pp==null?'변화 대기':signed(m.yoy_change_pp,'%p'))+')')}
   if(d.matched_period){const x=d.matched_period,c=x.current,p=x.previous,fmt=v=>v==null?'—':Number(v).toLocaleString('ko-KR');setText('matchedRange',sourcePeriodFmt(p.period)+' '+p.range+' ↔ '+sourcePeriodFmt(c.period)+' '+c.range+' · 계약일 기준');setText('matchedVolume',fmt(p.total)+' → '+fmt(c.total)+'건');setText('matchedVolumeDelta',x.changes?.trade_count_pct==null?'증감 계산 대기':signed(x.changes.trade_count_pct,'%')+' · 당월 신고 진행');setText('matchedUnder15',(p.under15_share??'—')+' → '+(c.under15_share??'—')+'%');setText('matchedUnder15Delta',x.changes?.under15_share_pp==null?'증감 계산 대기':signed(x.changes.under15_share_pp,'%p'));const hv=document.getElementById('hubValidationMeta');if(hv)hv.textContent='거래 '+(x.changes?.trade_count_pct==null?'—':signed(x.changes.trade_count_pct,'%'))+' · ≤15억 '+(c.under15_share??'—')+'%';renderTradeDistribution(x)}
   const u=d.unsold_inventory||d.unsold_seoul;if(u){const units=finiteNum(u.region_units??u.seoul_units),du=finiteNum(u.change_units),dp=finiteNum(u.change_pct);setText('validationUnsold',units==null?'—':units.toLocaleString('ko-KR')+'호');setText('validationUnsoldPeriod',sourcePeriodFmt(u.period)+(du==null||dp==null?' · 전월 변화 대기':' · 전월 '+(du>0?'+':'')+du.toLocaleString('ko-KR')+'호 ('+(dp>0?'+':'')+dp.toFixed(1)+'%)'))}
-  window.__marketIndicators=d;const scopePath=(d.scope?.display_path||[]).filter(Boolean),regionLabel=d.scope?.region?.label||'분석 지역',districtLabel=d.scope?.district_focus?.label||'관심 권역';setText('marketScopePath',scopePath.length?scopePath.join(' → '):'분석 시장 → 관심 권역 → 관심단지');setText('contextRegionBreadthLabel',regionLabel+' 확산');setText('contextDistrictStrengthLabel',districtLabel+' 상대강도');setText('rawTradeLabel',regionLabel+' 거래량');setText('validationUnsoldLabel',regionLabel+' 미분양');document.title=regionLabel+' 부동산 시장 상황판';renderDataStatusPanel();
+  window.__marketIndicators=d;renderRebCrosscheck(d);const scopePath=(d.scope?.display_path||[]).filter(Boolean),regionLabel=d.scope?.region?.label||'분석 지역',districtLabel=d.scope?.district_focus?.label||'관심 권역';setText('marketScopePath',scopePath.length?scopePath.join(' → '):'분석 시장 → 관심 권역 → 관심단지');setText('contextRegionBreadthLabel',regionLabel+' 확산');setText('contextDistrictStrengthLabel',districtLabel+' 상대강도');setText('rawTradeLabel',regionLabel+' 거래량');setText('validationUnsoldLabel',regionLabel+' 미분양');document.title=regionLabel+' 부동산 시장 상황판';renderDataStatusPanel();
   const src=d.refresh_run?.sources||{},srcLabel={molit:'국토부',ecos:'ECOS',kb_sentiment:'KB지수',watchlist_detail:'단지상세'},delayed=Object.entries(src).filter(([,v])=>v!=='connected').map(([k])=>srcLabel[k]||k);
   sourceRefreshNote=delayed.length?' · 일부 지연':' · 정상';
   const updatedNow=document.querySelector('#updated');
@@ -226,6 +226,15 @@ async function renderConditionHistory(){
 renderConditionHistory();
 
 window.__regimeReferences=null;window.__currentCycleStage=null;window.__currentRegimeMetrics=null;window.__selectedRegimeRefStage=null;window.__regimeCompare=false;
+function renderRebCrosscheck(d=window.__marketIndicators){
+ const el=document.getElementById('rebCrosscheck');if(!el)return;
+ const r=d?.reb_crosscheck,a=r?.accumulation,sale=finiteNum(a?.sale_pct),rent=finiteNum(a?.rent_pct);
+ if(r?.status!=='connected'||sale==null||rent==null){el.hidden=true;el.textContent='';return}
+ const ym=v=>{const s=String(v||'');return /^\\d{6}$/.test(s)?s.slice(0,4)+'.'+s.slice(4,6):'기간 미확인'};
+ const p=v=>(v>0?'+':'')+v.toFixed(2)+'%';
+ el.textContent='한국부동산원 월간 교차검증 · '+ym(a.start_ym)+' → '+ym(a.end_ym)+' · 매매 '+p(sale)+' · 전세 '+p(rent)+' · 판정 직접입력 아님';
+ el.hidden=false;
+}
 function renderCurrentRegimeEvidence(metrics={}){
  const host=document.getElementById('currentRegimeEvidence');if(!host)return;
  const signedPct=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'};
