@@ -71,6 +71,19 @@ def download_workbook(dest:pathlib.Path):
             if frame:break
             page.wait_for_timeout(250)
         if frame is None:
+            anchors=[]
+            for i in range(min(page.locator('a').count(),120)):
+                a=page.locator('a').nth(i)
+                try:
+                    txt=a.inner_text().strip()
+                    href=a.get_attribute('href')
+                    onclick=a.get_attribute('onclick')
+                    if txt or href or onclick: anchors.append({'text':txt[:120],'href':href,'onclick':onclick})
+                except Exception: pass
+            print(json.dumps({'debug':'reb_detail_dom','url':page.url,'title':page.title(),
+                              'frames':[{'name':fr.name,'url':fr.url} for fr in page.frames],
+                              'anchors':anchors,
+                              'body':page.locator('body').inner_text()[:9000]},ensure_ascii=False))
             raise RuntimeError('REB attachment frame not available')
         files=frame.locator('#file_list > li')
         if files.count()<1:
