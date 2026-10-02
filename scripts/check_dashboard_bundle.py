@@ -244,6 +244,12 @@ if "currentPhase=d.state?.current_phase" not in js: errors.append('forecast rout
 if "실제 발생확률" not in html or "상대 지지점수" not in html: errors.append('forecast score explanation must be user-readable')
 if 'current-regime-evidence-v209' not in html or 'renderCurrentRegimeEvidence' not in js:
     errors.append('current regime numeric evidence missing')
+for _id in ('regimeMap','regimeMapCurrent','regimeMapFuture','regimeMapProgress','regimeMapCaption'):
+    if f'id="{_id}"' not in html: errors.append(f'regime map element missing: {_id}')
+if 'renderRegimeMap' not in js or 'forecastMapPosition' not in js:
+    errors.append('shared current/forecast regime map renderer missing')
+if '미래 확정 위치가 아닙니다' not in html:
+    errors.append('regime map uncertainty disclosure missing')
 if 'reb-crosscheck-v210' not in html or 'renderRebCrosscheck' not in js:
     errors.append('REB sale/rent cross-check UI missing')
 if "d?.reb_weekly" not in js or "주간 교차검증" not in js:

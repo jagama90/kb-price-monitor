@@ -243,6 +243,24 @@ function renderRebCrosscheck(d=window.__marketIndicators){
  }
  el.hidden=true;el.textContent='';
 }
+function renderRegimeMap(stage,future=null){
+ const host=document.getElementById('regimeMap'),cur=document.getElementById('regimeMapCurrent'),fut=document.getElementById('regimeMapFuture'),prog=document.getElementById('regimeMapProgress'),cap=document.getElementById('regimeMapCaption');
+ if(!host||!cur||!fut||!prog||!cap)return;
+ const s=finiteNum(stage);if(s==null){cur.hidden=true;fut.hidden=true;prog.style.width='0%';cap.textContent='현재 위치 확인 중';return}
+ const pos=v=>Math.max(2,Math.min(98,(Math.max(0,Math.min(4,v))/4)*100));
+ const cp=pos(s);cur.style.left=cp+'%';cur.hidden=false;
+ const labels=['하락','둔화','바닥','상승·보합','가속'];cap.textContent='현재 · '+labels[Math.max(0,Math.min(4,Math.round(s)))];
+ const fp=finiteNum(future);
+ if(fp==null){fut.hidden=true;prog.style.left=cp+'%';prog.style.width='0%';return}
+ const pp=pos(fp),lo=Math.min(cp,pp),hi=Math.max(cp,pp);fut.style.left=pp+'%';fut.hidden=false;prog.style.left=lo+'%';prog.style.width=(hi-lo)+'%';
+}
+function forecastMapPosition(horizon){
+ const c=finiteNum(horizon?.weights?.consolidation),r=finiteNum(horizon?.weights?.reacceleration),d=finiteNum(horizon?.weights?.downturn);
+ if(c==null||r==null||d==null)return null;
+ const total=c+r+d;if(total<=0)return null;
+ // Display-only projection: downturn→둔화(1), consolidation→상승·보합(3), reacceleration→가속(4).
+ return (d*1+c*3+r*4)/total;
+}
 function renderCurrentRegimeEvidence(metrics={}){
  const host=document.getElementById('currentRegimeEvidence');if(!host)return;
  const signedPct=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'};
@@ -265,6 +283,7 @@ async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot
    const kbComparable=kb4!=null&&kb13!=null,stamp=String(ov.kb_as_of||feature.as_of||jg.as_of||''),label=stamp.replace(/^(\d{4})(\d{2})(\d{2})$/,'$1.$2.$3').replace(/-/g,'.');
    const pct=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'},score=v=>{const n=finiteNum(v);return n==null?'—':n.toFixed(1)};
    window.__currentCycleStage=stage;
+   renderRegimeMap(stage,window.__forecastMapPosition);
    window.__currentRegimeMetrics={
     ym:feature.research_month||'',label:label||feature.research_month||'현재',
     price_mom_1m_pct:raw1,price_mom_3m_pct:raw3,
@@ -405,6 +424,8 @@ async function renderRegimeForecast(){
  try{
   const d=await fetch('regime_forecast.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('forecast '+r.status);return r.json()});
   const hs=d.horizons||[],displays=hs.map(h=>h.display||fallbackDisplay(h.weights||{}));
+  window.__forecastMapPosition=hs.length?forecastMapPosition(hs[0]):null;
+  renderRegimeMap(window.__currentCycleStage,window.__forecastMapPosition);
   const currentPhase=d.state?.current_phase||window.__marketJudgment?.heads?.current_state?.label||'현재 국면';
   const nodes=[{label:'현재',headline:currentPhase,tone:'current',support:''},...hs.map((h,i)=>({label:h.label||h.period,headline:displays[i]?.headline||'방향 확인 중',tone:displays[i]?.tone||'mixed',support:supportPanel(h.weights||{})}))];
   host.innerHTML=nodes.map((n,i)=>'<div class="forecast-route-node-v181 tone-'+esc(n.tone)+'"><small>'+esc(n.label)+'</small><b>'+esc(n.headline)+'</b>'+n.support+'</div>'+(i<nodes.length-1?'<i class="forecast-route-arrow-v181">→</i>':'')).join('');
