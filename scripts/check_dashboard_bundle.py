@@ -263,6 +263,12 @@ if "d?.reb_weekly" not in js or "주간 교차검증" not in js:
     errors.append('REB exact weekly cross-check preference missing')
 if 'forecast-support-v209' not in js or "상대 지지 · 확률 아님" not in js or 'forecastDrivers' not in js:
     errors.append('forecast scenario support numbers missing')
+for _id in ('forecastPathMap','forecastPathRows','forecastPathSummary'):
+    if f'id="{_id}"' not in html: errors.append(f'forecast path map element missing: {_id}')
+if 'renderForecastPathMap' not in js or 'forecastAxisLabel' not in js:
+    errors.append('forecast visual path renderer missing')
+if "상승 · 둔화 신호" not in js:
+    errors.append('current rising phase must expose forecast slowdown signal when applicable')
 
 # v155 comparable-current momentum + brand refresh
 if 'id="brandHome"' not in html: errors.append('header brand refresh control missing')

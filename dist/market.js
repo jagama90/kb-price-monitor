@@ -278,6 +278,31 @@ function forecastMapPosition(horizon){
  // Display-axis projection: downturn→둔화(1), consolidation→보합(3), reacceleration→가속(5).
  return (d*1+c*3+r*5)/total;
 }
+function forecastAxisLabel(pos){
+ const p=finiteNum(pos);if(p==null)return '데이터 확인 중';
+ return ['하락','둔화','바닥','보합','상승','가속'][Math.max(0,Math.min(5,Math.round(p)))];
+}
+function renderForecastPathMap(horizons=[]){
+ const host=document.getElementById('forecastPathRows'),summary=document.getElementById('forecastPathSummary');if(!host||!summary)return;
+ const rows=(horizons||[]).map(h=>({h,pos:forecastMapPosition(h)})).filter(x=>finiteNum(x.pos)!=null);
+ if(!rows.length){host.innerHTML='<div class="forecast-path-loading-v213">전망 데이터를 확인하고 있습니다.</div>';summary.textContent='전망 방향 확인 중';return}
+ const current=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{}),currentPos=finiteNum(current.index);
+ const posPct=v=>Math.max(2,Math.min(98,(Math.max(0,Math.min(5,v))/5)*100));
+ const shortLabel=h=>String(h?.label||h?.period||'향후').replace('년 ',' · ');
+ const cue=(from,to)=>{
+  const a=finiteNum(from),b=finiteNum(to);if(a==null||b==null)return '';
+  const d=b-a;if(Math.abs(d)<.12)return '→ 유지';
+  return d<0?'‹ 둔화 방향':'› 상방 방향';
+ };
+ host.innerHTML=rows.map((x,i)=>{
+  const prev=i===0?currentPos:rows[i-1].pos,label=forecastAxisLabel(x.pos),direction=cue(prev,x.pos);
+  return '<div class="forecast-path-row-v213"><div class="forecast-path-row-head-v213"><b>'+esc(shortLabel(x.h))+'</b><span>'+esc(label)+(direction?' · '+esc(direction):'')+'</span></div><div class="forecast-path-track-v213"><i></i><u style="left:'+posPct(x.pos)+'%"></u></div></div>';
+ }).join('');
+ const first=rows[0],last=rows[rows.length-1],firstLabel=forecastAxisLabel(first.pos),lastLabel=forecastAxisLabel(last.pos);
+ const overall=cue(currentPos,first.pos);
+ summary.textContent='단기 '+firstLabel+(overall?' · '+overall.replace('‹ ','').replace('› ',''):'')+(rows.length>1?' → '+lastLabel:'');
+}
+
 function renderCurrentRegimeEvidence(metrics={}){
  const host=document.getElementById('currentRegimeEvidence');if(!host)return;
  const signedPct=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'};
@@ -446,6 +471,11 @@ async function renderRegimeForecast(){
   const hs=d.horizons||[],displays=hs.map(h=>h.display||fallbackDisplay(h.weights||{}));
   window.__forecastMapPosition=hs.length?forecastMapPosition(hs[0]):null;
   renderRegimeMap(window.__currentCycleStage,window.__forecastMapPosition);
+  renderForecastPathMap(hs);
+  const currentState=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{});
+  if(currentState.label==='상승'&&finiteNum(window.__forecastMapPosition)!=null&&window.__forecastMapPosition<currentState.index-.12){
+   setText('judgmentCurrentLabel','상승 · 둔화 신호');
+  }
   const nodes=hs.map((h,i)=>({label:h.label||h.period,headline:displays[i]?.headline||'방향 확인 중',tone:displays[i]?.tone||'mixed',support:supportPanel(h.weights||{})}));
   host.innerHTML=nodes.map((n,i)=>'<div class="forecast-route-node-v181 tone-'+esc(n.tone)+'"><small>'+esc(n.label)+'</small><b>'+esc(n.headline)+'</b>'+n.support+'</div>'+(i<nodes.length-1?'<i class="forecast-route-arrow-v181">→</i>':'')).join('');
   if(drivers){
@@ -464,7 +494,7 @@ async function renderRegimeForecast(){
   if(meta){meta.hidden=true;meta.textContent='현재 판단에 사용한 연구 데이터 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' · 잠정':'')+' · 검증 완료 '+fmtMonth(d.latest_certified_backtest_month)+'까지';}
   const hb=document.getElementById('hubBacktestMeta');if(hb)hb.textContent='인증 '+fmtMonth(d.latest_certified_backtest_month)+' · 연구 '+fmtMonth(d.latest_research_month);
  }catch(e){
-  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';if(drivers)drivers.textContent='전망 근거 데이터를 확인하고 있습니다.';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
+  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';renderForecastPathMap([]);if(drivers)drivers.textContent='전망 근거 데이터를 확인하고 있습니다.';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
  }
 }
 renderRegimeForecast();
