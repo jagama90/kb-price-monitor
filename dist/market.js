@@ -243,23 +243,27 @@ function renderRebCrosscheck(d=window.__marketIndicators){
  }
  el.hidden=true;el.textContent='';
 }
-function currentPhaseDisplay(stage,metrics={}){
- const s=finiteNum(stage);if(s==null)return '현재 위치 확인 중';
+function currentPhaseState(stage,metrics={}){
+ const s=finiteNum(stage);if(s==null)return{index:null,label:'국면 확인 중',summary:'현재 가격 흐름을 확인하고 있습니다.'};
  const rounded=Math.max(0,Math.min(4,Math.round(s)));
- if(rounded!==3)return ['하락','둔화','바닥','상승','가속'][rounded];
+ if(rounded===0)return{index:0,label:'하락',summary:'가격 하락 흐름이 이어지고 있습니다.'};
+ if(rounded===1)return{index:1,label:'둔화',summary:'하락 압력이 약해지는 구간입니다.'};
+ if(rounded===2)return{index:2,label:'바닥',summary:'가격이 더 내려가지 않는지 확인하는 구간입니다.'};
+ if(rounded===4)return{index:5,label:'가속',summary:'가격 상승과 시장 확산이 함께 강해지는 구간입니다.'};
  const m1=finiteNum(metrics?.price_mom_1m_pct),m3=finiteNum(metrics?.price_mom_3m_pct);
- // Stage 3 is the model's broad non-declining regime. Clarify its observed price direction without changing the model stage.
- if(m1==null&&m3==null)return '상승권 · 가격 방향 확인 중';
- if((m1??0)>0&&(m3??0)>0)return '상승권 · 가격 상승 중';
- if((m1??0)<0&&(m3??0)<0)return '상승권 · 최근 약세';
- return '상승권 · 보합권';
+ if(m1==null||m3==null)return{index:3,label:'보합',summary:'가격 방향을 확인 중입니다.'};
+ if(m1>0&&m3>0)return{index:4,label:'상승',summary:'단기·중기 가격이 모두 상승 흐름입니다.'};
+ return{index:3,label:'보합',summary:'상승과 하락 어느 한쪽으로 뚜렷하게 기울지 않은 구간입니다.'};
 }
+function currentPhaseDisplay(stage,metrics={}){return currentPhaseState(stage,metrics).label}
+
 function renderRegimeMap(stage,future=null){
  const host=document.getElementById('regimeMap'),cur=document.getElementById('regimeMapCurrent'),fut=document.getElementById('regimeMapFuture'),dir=document.getElementById('regimeMapDirection'),prog=document.getElementById('regimeMapProgress'),cap=document.getElementById('regimeMapCaption');
  if(!host||!cur||!fut||!dir||!prog||!cap)return;
- const s=finiteNum(stage);if(s==null){cur.hidden=true;fut.hidden=true;dir.hidden=true;prog.style.width='0%';cap.textContent='현재 위치 확인 중';return}
- const pos=v=>Math.max(2,Math.min(98,(Math.max(0,Math.min(4,v))/4)*100));
- const cp=pos(s);cur.style.left=cp+'%';cur.hidden=false;cap.textContent='현재 · '+currentPhaseDisplay(s,window.__currentRegimeMetrics||{});
+ const state=currentPhaseState(stage,window.__currentRegimeMetrics||{}),s=finiteNum(state.index);
+ if(s==null){cur.hidden=true;fut.hidden=true;dir.hidden=true;prog.style.width='0%';cap.textContent='현재 위치 확인 중';return}
+ const pos=v=>Math.max(2,Math.min(98,(Math.max(0,Math.min(5,v))/5)*100));
+ const cp=pos(s);cur.style.left=cp+'%';cur.hidden=false;cap.textContent='현재 · '+state.label;
  const fp=finiteNum(future);
  if(fp==null){fut.hidden=true;dir.hidden=true;prog.style.left=cp+'%';prog.style.width='0%';return}
  const pp=pos(fp),lo=Math.min(cp,pp),hi=Math.max(cp,pp);fut.style.left=pp+'%';fut.hidden=false;prog.style.left=lo+'%';prog.style.width=(hi-lo)+'%';
@@ -271,8 +275,8 @@ function forecastMapPosition(horizon){
  const c=finiteNum(horizon?.weights?.consolidation),r=finiteNum(horizon?.weights?.reacceleration),d=finiteNum(horizon?.weights?.downturn);
  if(c==null||r==null||d==null)return null;
  const total=c+r+d;if(total<=0)return null;
- // Display-only projection: downturn→둔화(1), consolidation→상승·보합(3), reacceleration→가속(4).
- return (d*1+c*3+r*4)/total;
+ // Display-axis projection: downturn→둔화(1), consolidation→보합(3), reacceleration→가속(5).
+ return (d*1+c*3+r*5)/total;
 }
 function renderCurrentRegimeEvidence(metrics={}){
  const host=document.getElementById('currentRegimeEvidence');if(!host)return;
@@ -306,12 +310,10 @@ async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot
    };
    renderCurrentRegimeEvidence(window.__currentRegimeMetrics);
    renderRegimeMap(stage,window.__forecastMapPosition);
-   const displayPhase=currentPhaseDisplay(stage,window.__currentRegimeMetrics);
-   setText('judgmentCurrentLabel',displayPhase);
-   setText('cycleStageText',stage===3
-    ? displayPhase+'입니다. 기존 연구모델의 ‘상승·보합’ 구간을 가격 모멘텀으로 풀어 표시하며, 모델 국면 자체는 변경하지 않습니다.'
-    : (head.summary||'통합 시장 판단 엔진의 현재 국면을 표시합니다.'));
-   document.querySelectorAll('#cycleSteps span').forEach((el,i)=>{el.classList.toggle('active',i===stage);el.setAttribute('aria-current',i===stage?'step':'false')});
+   const displayState=currentPhaseState(stage,window.__currentRegimeMetrics);
+   setText('judgmentCurrentLabel',displayState.label);
+   setText('cycleStageText',displayState.summary);
+   document.querySelectorAll('#cycleSteps span').forEach(el=>{const on=Number(el.dataset.displayStage)===displayState.index;el.classList.toggle('active',on);el.setAttribute('aria-current',on?'step':'false')});
    const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
    return;
   }
@@ -338,10 +340,11 @@ async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot
    breadth_0_100:finiteNum(x.breadth),reaccel_0_100:finiteNum(x.reaccel)
   };
   renderCurrentRegimeEvidence(window.__currentRegimeMetrics);
-  setText('judgmentCurrentLabel',['하락','둔화','바닥','상승·보합','가속'][stage]);
-  setText('cycleStageText',text);
-  const flow=m3>0?'상승 '+m3.toFixed(1)+'%':m3<0?'하락 '+Math.abs(m3).toFixed(1)+'%':'보합';
-  document.querySelectorAll('#cycleSteps span').forEach((el,i)=>{el.classList.toggle('active',i===stage);el.setAttribute('aria-current',i===stage?'step':'false')});
+  const displayState=currentPhaseState(stage,window.__currentRegimeMetrics);
+  renderRegimeMap(stage,window.__forecastMapPosition);
+  setText('judgmentCurrentLabel',displayState.label);
+  setText('cycleStageText',displayState.summary);
+  document.querySelectorAll('#cycleSteps span').forEach(el=>{const on=Number(el.dataset.displayStage)===displayState.index;el.classList.toggle('active',on);el.setAttribute('aria-current',on?'step':'false')});
   const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
  }catch(e){
   console.warn('cycle stage',e);setText('judgmentCurrentLabel','국면 확인 중');setText('cycleStageText','국면 데이터 연결을 확인하고 있습니다.');
@@ -443,7 +446,7 @@ async function renderRegimeForecast(){
   const hs=d.horizons||[],displays=hs.map(h=>h.display||fallbackDisplay(h.weights||{}));
   window.__forecastMapPosition=hs.length?forecastMapPosition(hs[0]):null;
   renderRegimeMap(window.__currentCycleStage,window.__forecastMapPosition);
-  const currentPhase=d.state?.current_phase||window.__marketJudgment?.heads?.current_state?.label||'현재 국면';
+  const currentPhase=currentPhaseDisplay(window.__currentCycleStage,window.__currentRegimeMetrics||{})||d.state?.current_phase||'현재 국면';
   const nodes=[{label:'현재',headline:currentPhase,tone:'current',support:''},...hs.map((h,i)=>({label:h.label||h.period,headline:displays[i]?.headline||'방향 확인 중',tone:displays[i]?.tone||'mixed',support:supportPanel(h.weights||{})}))];
   host.innerHTML=nodes.map((n,i)=>'<div class="forecast-route-node-v181 tone-'+esc(n.tone)+'"><small>'+esc(n.label)+'</small><b>'+esc(n.headline)+'</b>'+n.support+'</div>'+(i<nodes.length-1?'<i class="forecast-route-arrow-v181">→</i>':'')).join('');
   if(drivers){

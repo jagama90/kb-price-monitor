@@ -248,8 +248,12 @@ for _id in ('regimeMap','regimeMapCurrent','regimeMapDirection','regimeMapFuture
     if f'id="{_id}"' not in html: errors.append(f'regime map element missing: {_id}')
 if 'renderRegimeMap' not in js or 'forecastMapPosition' not in js:
     errors.append('shared current/forecast regime map renderer missing')
-if 'currentPhaseDisplay' not in js or "'› › ›':'‹ ‹ ‹'" not in js:
-    errors.append('regime direction cue or clarified stage-3 display missing')
+if 'currentPhaseState' not in js or "'› › ›':'‹ ‹ ‹'" not in js:
+    errors.append('regime direction cue or six-stage display missing')
+if '<span>보합</span><span>상승</span>' not in html:
+    errors.append('regime map must split flat and rising stages')
+if '기존 연구모델의 ‘상승·보합’' in js:
+    errors.append('research verdict must not expose implementation explanation')
 if '미래 확정 위치가 아닙니다' not in html:
     errors.append('regime map uncertainty disclosure missing')
 if 'reb-crosscheck-v210' not in html or 'renderRebCrosscheck' not in js:
