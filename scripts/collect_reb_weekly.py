@@ -133,25 +133,39 @@ def sheet_for(wb,kind):
 def find_seoul_col(ws):
     candidates=[]
     for c in range(1,ws.max_column+1):
-        vals=[]
-        exact=False
-        for r in range(1,min(ws.max_row,12)+1):
+        hit=False
+        for r in range(1,min(ws.max_row,60)+1):
             v=ws.cell(r,c).value
             if v is None:continue
-            s=str(v).strip()
-            vals.append(s)
-            if s=='서울':exact=True
-        if exact:candidates.append(c)
+            s=str(v).strip().replace(' ','')
+            if s=='서울' or s=='서울특별시':
+                hit=True;break
+        if hit:candidates.append(c)
     if not candidates:
+        sample=[]
+        for r in range(1,min(ws.max_row,25)+1):
+            row=[ws.cell(r,c).value for c in range(1,min(ws.max_column,25)+1)]
+            sample.append(row)
+        print(json.dumps({'debug':'reb_sheet_header','sheet':ws.title,'max_row':ws.max_row,'max_col':ws.max_column,'rows':sample},ensure_ascii=False,default=str))
         raise RuntimeError(f'Seoul column not found in {ws.title}')
-    # Prefer the left-most exact 서울 aggregate column.
     return min(candidates)
 
+def find_date_col(ws):
+    scored=[]
+    for c in range(1,min(ws.max_column,12)+1):
+        n=0
+        for r in range(1,ws.max_row+1):
+            if norm_date(ws.cell(r,c).value):n+=1
+        scored.append((n,c))
+    n,c=max(scored)
+    if n<50:raise RuntimeError(f'date column not found in {ws.title}: {scored}')
+    return c
+
 def extract(ws):
-    c=find_seoul_col(ws)
+    c=find_seoul_col(ws);dc=find_date_col(ws)
     out=[]
     for r in range(1,ws.max_row+1):
-        d=norm_date(ws.cell(r,1).value)
+        d=norm_date(ws.cell(r,dc).value)
         v=number(ws.cell(r,c).value)
         if d and v is not None and 40<=v<=180:
             out.append({'date':d,'value':v})
