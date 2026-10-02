@@ -59,7 +59,7 @@ def download_workbook(dest:pathlib.Path):
         # Open attachment layer from the title cell/link.
         links=hit.locator('a')
         if links.count():
-            links.first.click()
+            links.first.click(force=True)
         else:
             tds=hit.locator('td')
             if tds.count()<3:raise RuntimeError('REB bulletin row malformed')
