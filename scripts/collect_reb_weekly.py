@@ -186,6 +186,16 @@ def main():
         book=pathlib.Path(td)/'reb_weekly.xlsx'
         download_workbook(book)
         rent_book=book.with_name(book.stem+'_rent.xlsx')
+        for label,pth in [('sale',book),('rent',rent_book)]:
+            with zipfile.ZipFile(pth) as zz:
+                names=zz.namelist()
+                sizes={n:zz.getinfo(n).file_size for n in names}
+                inspect=[n for n in names if n.startswith(('xl/worksheets/','xl/sharedStrings','xl/externalLinks/','xl/queryTables/','xl/connections'))]
+                snippets={}
+                for n in inspect[:20]:
+                    try:snippets[n]=zz.read(n)[:1200].decode('utf-8',errors='replace')
+                    except Exception:pass
+                print(json.dumps({'debug':'reb_xlsx_structure','kind':label,'names':names,'sizes':sizes,'snippets':snippets},ensure_ascii=False))
         swb=load_workbook(book,read_only=True,data_only=True)
         rwb=load_workbook(rent_book,read_only=True,data_only=True)
         sws=swb[swb.sheetnames[0]];rws=rwb[rwb.sheetnames[0]]
