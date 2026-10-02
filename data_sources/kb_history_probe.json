@@ -40,7 +40,7 @@
     "/statusBoard/mntlyVillaYrpayPrcIndx",
     "/statusBoard/mntlyVillaPrice",
     "/statusBoard/mntlyVillaYrpayPrice",
-    ",t)},An.preparse=Sn,An.postformat=Sn,An.relativeTime=function(t,e,n,r){var i=this._relativeTime[n];return P(i)?i(t,e,n,r):i.replace(/%d/i,t)},An.pastFuture=function(t,e){var n=this._relativeTime[t>0?",
+    ",t)},Sn.preparse=An,Sn.postformat=An,Sn.relativeTime=function(t,e,n,r){var i=this._relativeTime[n];return P(i)?i(t,e,n,r):i.replace(/%d/i,t)},Sn.pastFuture=function(t,e){var n=this._relativeTime[t>0?",
     "/land-price/price/SmlrSqrmsr/QuotLncrdcRate",
     "/land-price/price/SmlrSqrmsr/RealTranNoitm",
     "/land-complex/vlaHscmDtail/vlaDealDtailPriceInq",
@@ -101,5 +101,5 @@
     "/images/img_menu_villaprice.png",
     "/land-lots/lots/nghbMvihsHscmCmprInq"
   ],
-  "collected_at": "2026-09-28T04:35:41.937380+00:00"
+  "collected_at": "2026-10-02T18:01:26.082803+00:00"
 }
