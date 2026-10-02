@@ -2,7 +2,7 @@ name: System health audit
 # Single final gate for daily/weekly/monthly pipelines. No duplicate scheduled or code-push audits.
 on:
   workflow_run:
-    workflows: ['Forward regime forecast', 'Validate market extensions', 'Collect REB crosscheck', 'Collect REB weekly KOSIS']
+    workflows: ['Forward regime forecast', 'Validate market extensions', 'Collect REB crosscheck', 'Collect REB weekly official']
     types: [completed]
   workflow_dispatch:
 permissions:

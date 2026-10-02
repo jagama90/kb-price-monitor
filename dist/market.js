@@ -234,7 +234,7 @@ function renderRebCrosscheck(d=window.__marketIndicators){
  const d8=v=>{const s=String(v||'');return /^\d{8}$/.test(s)?s.slice(0,4)+'.'+s.slice(4,6)+'.'+s.slice(6,8):'기간 미확인'};
  const ym=v=>{const s=String(v||'');return /^\d{6}$/.test(s)?s.slice(0,4)+'.'+s.slice(4,6):'기간 미확인'};
  if(w?.status==='connected'&&ws!=null&&wr!=null){
-  el.textContent='한국부동산원 주간(KOSIS) 교차검증 · '+d8(wm.start_date)+' → '+d8(wm.end_date)+' · 매매 '+p(ws)+' · 전세 '+p(wr)+' · 판정 직접입력 아님';
+  el.textContent='한국부동산원 주간 교차검증 · '+d8(wm.start_date)+' → '+d8(wm.end_date)+' · 매매 '+p(ws)+' · 전세 '+p(wr)+' · 판정 직접입력 아님';
   el.hidden=false;return;
  }
  if(m?.status==='connected'&&ms!=null&&mr!=null){

@@ -246,7 +246,7 @@ if 'current-regime-evidence-v209' not in html or 'renderCurrentRegimeEvidence' n
     errors.append('current regime numeric evidence missing')
 if 'reb-crosscheck-v210' not in html or 'renderRebCrosscheck' not in js:
     errors.append('REB sale/rent cross-check UI missing')
-if "d?.reb_weekly" not in js or "주간(KOSIS) 교차검증" not in js:
+if "d?.reb_weekly" not in js or "주간 교차검증" not in js:
     errors.append('REB exact weekly cross-check preference missing')
 if 'forecast-support-v209' not in js or "상대 지지 · 확률 아님" not in js or 'forecastDrivers' not in js:
     errors.append('forecast scenario support numbers missing')
