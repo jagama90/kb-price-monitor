@@ -32,11 +32,11 @@ def norm_date(v):
     z=''.join(ch for ch in str(v or '') if ch.isdigit())
     return z[:8] if len(z)>=8 else None
 
-def fetch_series(key,table,cls_id,itm_id,start_year,end_year):
+def fetch_series(key,table,cls_id,itm_id,start_date,end_date):
     out=[]
     for page in range(1,5):
         raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':table,'DTACYCLE_CD':'WK',
-            'CLS_ID':cls_id,'ITM_ID':itm_id,'START_WRTTIME':str(start_year),'END_WRTTIME':str(end_year),
+            'CLS_ID':cls_id,'ITM_ID':itm_id,'START_WRTTIME':str(start_date),'END_WRTTIME':str(end_date),
             'pIndex':page,'pSize':1000})
         rr=rows(raw)
         for x in rr:
@@ -49,17 +49,20 @@ def fetch_series(key,table,cls_id,itm_id,start_year,end_year):
     by={x['date']:x for x in out}
     return [by[k] for k in sorted(by)]
 
-def discover_pair(key,table,year):
-    for page in range(1,7):
-        raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':table,'DTACYCLE_CD':'WK',
-            'START_WRTTIME':str(year),'END_WRTTIME':str(year),'pIndex':page,'pSize':1000})
-        rr=rows(raw)
-        for x in rr:
-            region=str(x.get('CLS_FULLNM') or x.get('CLS_NM') or '')
-            item=str(x.get('ITM_FULLNM') or x.get('ITM_NM') or '')
-            if '서울' in region and ('지수' in item or item in ('가격','')):
-                return str(x.get('CLS_ID')),str(x.get('ITM_ID'))
-        if len(rr)<1000:break
+def discover_pair(key,table,today):
+    monday=today-datetime.timedelta(days=today.weekday())
+    for back in range(0,8):
+        probe=(monday-datetime.timedelta(days=7*back)).strftime('%Y%m%d')
+        for page in range(1,5):
+            raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':table,'DTACYCLE_CD':'WK',
+                'WRTTIME_IDTFR_ID':probe,'pIndex':page,'pSize':1000})
+            rr=rows(raw)
+            for x in rr:
+                region=str(x.get('CLS_FULLNM') or x.get('CLS_NM') or '')
+                item=str(x.get('ITM_FULLNM') or x.get('ITM_NM') or '')
+                if '서울' in region and ('지수' in item or item in ('가격','')):
+                    return str(x.get('CLS_ID')),str(x.get('ITM_ID')),probe
+            if len(rr)<1000:break
     return None
 
 def pct(a,b):
@@ -83,17 +86,21 @@ def closest_start(series,target):
 def main():
     key=os.getenv('RONE_API_KEY','').strip()
     if not key:raise RuntimeError('RONE_API_KEY is required')
-    today=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date();start_year=today.year-2;end_year=today.year
+    today=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date()
+    end_date=today.strftime('%Y%m%d')
+    start_date=(today-datetime.timedelta(days=7*110)).strftime('%Y%m%d')
     series={};contracts={}
     for kind,table in TABLES.items():
         cls_id,itm_id=KNOWN_PAIR
-        data=fetch_series(key,table,cls_id,itm_id,start_year,end_year)
+        data=fetch_series(key,table,cls_id,itm_id,start_date,end_date)
+        probe_date=None
         if not data:
-            pair=discover_pair(key,table,end_year)
+            pair=discover_pair(key,table,today)
             if not pair:raise RuntimeError(f'R-ONE weekly {kind}: Seoul index pair not found')
-            cls_id,itm_id=pair;data=fetch_series(key,table,cls_id,itm_id,start_year,end_year)
+            cls_id,itm_id,probe_date=pair
+            data=fetch_series(key,table,cls_id,itm_id,start_date,end_date)
         if len(data)<40:raise RuntimeError(f'R-ONE weekly {kind}: insufficient rows {len(data)}')
-        series[kind]=enrich(data);contracts[kind]={'statbl_id':table,'dtacycle_cd':'WK','cls_id':cls_id,'itm_id':itm_id}
+        series[kind]=enrich(data);contracts[kind]={'statbl_id':table,'dtacycle_cd':'WK','cls_id':cls_id,'itm_id':itm_id,'probe_date':probe_date}
     sm={x['date']:x for x in series['sale']};rm={x['date']:x for x in series['rent']};common=sorted(set(sm)&set(rm))
     if len(common)<40:raise RuntimeError('R-ONE weekly: insufficient common sale/rent dates')
     latest_date=common[-1];latest_s=sm[latest_date];latest_r=rm[latest_date]
