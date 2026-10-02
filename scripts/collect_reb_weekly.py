@@ -32,12 +32,11 @@ def norm_date(v):
     z=''.join(ch for ch in str(v or '') if ch.isdigit())
     return z[:8] if len(z)>=8 else None
 
-def fetch_series(key,table,cls_id,itm_id,start_date,end_date):
+def fetch_series(key,table,cls_id,itm_id):
     out=[]
     for page in range(1,5):
         raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':table,'DTACYCLE_CD':'WK',
-            'CLS_ID':cls_id,'ITM_ID':itm_id,'START_WRTTIME':str(start_date),'END_WRTTIME':str(end_date),
-            'pIndex':page,'pSize':1000})
+            'CLS_ID':cls_id,'ITM_ID':itm_id,'pIndex':page,'pSize':1000})
         rr=rows(raw)
         for x in rr:
             d=norm_date(x.get('WRTTIME_IDTFR_ID'));v=x.get('DTA_VAL')
@@ -49,20 +48,17 @@ def fetch_series(key,table,cls_id,itm_id,start_date,end_date):
     by={x['date']:x for x in out}
     return [by[k] for k in sorted(by)]
 
-def discover_pair(key,table,today):
-    monday=today-datetime.timedelta(days=today.weekday())
-    for back in range(0,8):
-        probe=(monday-datetime.timedelta(days=7*back)).strftime('%Y%m%d')
-        for page in range(1,5):
-            raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':table,'DTACYCLE_CD':'WK',
-                'WRTTIME_IDTFR_ID':probe,'pIndex':page,'pSize':1000})
-            rr=rows(raw)
-            for x in rr:
-                region=str(x.get('CLS_FULLNM') or x.get('CLS_NM') or '')
-                item=str(x.get('ITM_FULLNM') or x.get('ITM_NM') or '')
-                if '서울' in region and ('지수' in item or item in ('가격','')):
-                    return str(x.get('CLS_ID')),str(x.get('ITM_ID')),probe
-            if len(rr)<1000:break
+def discover_pair(key,table):
+    for page in range(1,9):
+        raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':table,'DTACYCLE_CD':'WK',
+            'pIndex':page,'pSize':1000})
+        rr=rows(raw)
+        for x in rr:
+            region=str(x.get('CLS_FULLNM') or x.get('CLS_NM') or '')
+            item=str(x.get('ITM_FULLNM') or x.get('ITM_NM') or '')
+            if '서울' in region and ('지수' in item or item in ('가격','')):
+                return str(x.get('CLS_ID')),str(x.get('ITM_ID'))
+        if len(rr)<1000:break
     return None
 
 def pct(a,b):
@@ -100,7 +96,8 @@ def main():
             cls_id,itm_id,probe_date=pair
             data=fetch_series(key,table,cls_id,itm_id,start_date,end_date)
         if len(data)<40:raise RuntimeError(f'R-ONE weekly {kind}: insufficient rows {len(data)}')
-        series[kind]=enrich(data);contracts[kind]={'statbl_id':table,'dtacycle_cd':'WK','cls_id':cls_id,'itm_id':itm_id,'probe_date':probe_date}
+        data=[x for x in data if x.get('date') and x['date']>=(today-datetime.timedelta(days=7*110)).strftime('%Y%m%d')]
+        series[kind]=enrich(data);contracts[kind]={'statbl_id':table,'dtacycle_cd':'WK','cls_id':cls_id,'itm_id':itm_id}
     sm={x['date']:x for x in series['sale']};rm={x['date']:x for x in series['rent']};common=sorted(set(sm)&set(rm))
     if len(common)<40:raise RuntimeError('R-ONE weekly: insufficient common sale/rent dates')
     latest_date=common[-1];latest_s=sm[latest_date];latest_r=rm[latest_date]
