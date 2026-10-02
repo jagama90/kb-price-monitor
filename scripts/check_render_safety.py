@@ -31,8 +31,8 @@ for token,reason in {
     if token in js: errors.append(f'{reason}: {token}')
 
 for pattern,reason in (
-    (r'new Date\\([^\\n)]*\\|\\|0\\)', 'empty timestamp can become epoch/09:00'),
-    (r'updated_at\\s*\\|\\|\\s*new Date\\(', 'missing updated_at can become current date'),
+    (r'new Date\([^\n)]*\|\|0\)', 'empty timestamp can become epoch/09:00'),
+    (r'updated_at\s*\|\|\s*new Date\(', 'missing updated_at can become current date'),
 ):
     if re.search(pattern, js): errors.append(reason+': '+pattern)
 
