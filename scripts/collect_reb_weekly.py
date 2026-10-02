@@ -33,11 +33,12 @@ def norm_date(v):
     return z[:8] if len(z)>=8 else None
 
 def fetch_series(key,table,cls_id,itm_id):
-    out=[]
+    out=[];first_meta=None
     for page in range(1,5):
         raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':table,'DTACYCLE_CD':'WK',
             'CLS_ID':cls_id,'ITM_ID':itm_id,'pIndex':page,'pSize':1000})
         rr=rows(raw)
+        if page==1:first_meta=raw.get('SttsApiTblData')
         for x in rr:
             d=norm_date(x.get('WRTTIME_IDTFR_ID'));v=x.get('DTA_VAL')
             if d and v not in (None,''):
@@ -46,6 +47,7 @@ def fetch_series(key,table,cls_id,itm_id):
                     'itm_name':x.get('ITM_NM'),'unit':x.get('UI_NM')})
         if len(rr)<1000:break
     by={x['date']:x for x in out}
+    if not by: print(json.dumps({'debug':'fetch_series_empty','table':table,'cls_id':cls_id,'itm_id':itm_id,'response':first_meta},ensure_ascii=False)[:6000])
     return [by[k] for k in sorted(by)]
 
 def discover_pair(key,table):
@@ -59,6 +61,7 @@ def discover_pair(key,table):
             if '서울' in region and ('지수' in item or item in ('가격','')):
                 return str(x.get('CLS_ID')),str(x.get('ITM_ID'))
         if len(rr)<1000:break
+    print(json.dumps({'debug':'discover_pair_empty','table':table},ensure_ascii=False))
     return None
 
 def pct(a,b):
