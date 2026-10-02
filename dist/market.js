@@ -547,8 +547,45 @@ function refreshTrack(state,key,label,signature,value,checkedAt,countable=true){
  const changedAt=changed?now:(prev&&prev.sig===sig?Number(prev.changedAt||0):0);
  const from=changed?prev.value:(prev?.from??null),to=value;
  const active=Boolean(changedAt&&now-changedAt<REFRESH_CHANGE_TTL);
+ let previousSignature=null;try{previousSignature=prev?.sig?JSON.parse(prev.sig):null}catch{}
  state.items[key]={sig,value,from,changedAt,checkedAt:checkedAt||null,label,countable};
- return{key,label,value,from,changedAt,active,changed,checkedAt:refreshStamp(checkedAt),countable,initialized:Boolean(prev)};
+ return{key,label,value,from,signature,previousSignature,changedAt,active,changed,checkedAt:refreshStamp(checkedAt),countable,initialized:Boolean(prev)};
+}
+const refreshDetailValue=v=>{
+ if(v==null)return '—';
+ if(typeof v==='number')return Number.isInteger(v)?String(v):Number(v).toFixed(1).replace(/\.0$/,'');
+ return String(v);
+};
+const refreshMoney=v=>v==null?'—':Number(v).toLocaleString('ko-KR')+'만원';
+function refreshChangedDetails(record,market){
+ const before=record?.from,after=record?.value;
+ if(record.key.startsWith('factor.'))return '<div class="refresh-change-line-v206"><span>매수환경 점수</span><b>'+refreshDetailValue(before)+'점 → '+refreshDetailValue(after)+'점</b></div>';
+ if(record.key==='panel.forecast')return '<div class="refresh-change-line-v206"><span>단기 횡보 지지점수</span><b>'+refreshDetailValue(before)+' → '+refreshDetailValue(after)+'</b></div>';
+ if(record.key==='panel.context')return '<div class="refresh-change-line-v206"><span>시장 확산도</span><b>'+refreshDetailValue(before)+'% → '+refreshDetailValue(after)+'%</b></div>';
+ if(record.key==='panel.watchlist'){
+   const prev=record.previousSignature?.items||[],cur=record.signature?.items||[];
+   const prevMap=new Map(prev.map(x=>[String(x[0])+'|'+String(x[1]),x]));
+   const names=new Map((market?.items||[]).map(x=>[String(x.complex_id)+'|'+String(x.area_id),x.complex_name||x.name||x.complex_id]));
+   const labels=['','', '매물 수','주간 매물 증감','평균 호가','최근 실거래가','최근 거래일'],lines=[];
+   for(const row of cur){
+     const key=String(row[0])+'|'+String(row[1]),old=prevMap.get(key);
+     if(!old){lines.push('<div class="refresh-change-line-v206"><span>'+String(names.get(key)||row[0])+' · '+String(row[1])+'</span><b>신규 반영</b></div>');continue}
+     for(let i=2;i<row.length;i++){
+       if(refreshSig(old[i])===refreshSig(row[i]))continue;
+       const fmt=i===4||i===5?refreshMoney:refreshDetailValue;
+       lines.push('<div class="refresh-change-line-v206"><span>'+String(names.get(key)||row[0])+' · '+String(row[1])+' · '+labels[i]+'</span><b>'+fmt(old[i])+' → '+fmt(row[i])+'</b></div>');
+     }
+     prevMap.delete(key);
+   }
+   for(const row of prevMap.values())lines.push('<div class="refresh-change-line-v206"><span>'+String(row[0])+' · '+String(row[1])+'</span><b>목록에서 제외</b></div>');
+   return lines.join('')||'<div class="refresh-change-line-v206"><span>관심단지 데이터</span><b>구성 변경</b></div>';
+ }
+ return '<div class="refresh-change-line-v206"><span>값</span><b>'+refreshDetailValue(before)+' → '+refreshDetailValue(after)+'</b></div>';
+}
+function renderRefreshChangedList(changed,market){
+ const host=document.getElementById('refreshChangedList');if(!host)return;
+ if(!changed.length){host.innerHTML='<div class="refresh-changed-empty-v206"><b>이번 확인에서 바뀐 데이터가 없습니다.</b><small>변경이 생기면 이곳에 해당 항목만 표시합니다.</small></div>';return}
+ host.innerHTML=changed.map((r,i)=>'<article class="refresh-changed-card-v206"><div class="refresh-changed-head-v206"><span>'+(i+1)+'</span><b>'+r.label+'</b><small>'+refreshShortFmt(r.checkedAt)+'</small></div><div class="refresh-changed-body-v206">'+refreshChangedDetails(r,market)+'</div></article>').join('');
 }
 function decorateRefreshPanel({key,host,anchor,record,checkedAt,warning='',note=true}){
  if(!host||!anchor)return;
@@ -629,6 +666,7 @@ async function initRefreshCalendar(){
  set('refreshUnchangedCount','변경 없음 '+unchanged+'개');
  const wc=document.getElementById('refreshWarningCount');if(wc){wc.hidden=!warningCount;wc.textContent='원천 확인 '+warningCount+'건'}
  const changedEl=document.getElementById('refreshChangedCount');if(changedEl)changedEl.classList.toggle('changed',changed.length>0);
+ renderRefreshChangedList(changed,market);
  const dailyDue=refreshDailyDueState(dailyRev);
  if(dailyDue.overdue){
    set('refreshDailyLast','마지막 '+refreshCalendarStamp(refreshStamp(dailyRev))+' 확인 · 오늘 07:05 예정분 미반영');
@@ -644,7 +682,7 @@ async function initRefreshCalendar(){
  const hs=document.getElementById('refreshHealthSummary');if(hs){hs.classList.toggle('warning',Boolean(warningCount));hs.textContent=warningCount?'원천 확인 필요 · 문제가 있는 원천만 마지막 정상값을 유지합니다.':'정상 · 핵심 원천이 확인됐고 실제 값 변화만 갱신 표시합니다.'}
  const ss=document.getElementById('refreshSummaryStatus'),sm=document.getElementById('refreshSummaryMeta');
  if(ss){const dailyDue=refreshDailyDueState(dailyRev),warn=Boolean(warningCount)||dailyDue.overdue;ss.classList.toggle('warning',warn);ss.classList.remove('changed');ss.textContent=dailyDue.overdue?'오늘 갱신 미반영':warningCount?'원천 확인 '+warningCount+'건':'정상'}
- if(sm){const dailyDue=refreshDailyDueState(dailyRev),names=changed.slice(0,4).map(x=>x.label);sm.textContent=dailyDue.overdue?'오늘 07:05 예정분이 아직 반영되지 않았습니다 · 마지막 '+refreshShortFmt(refreshStamp(dailyRev)):refreshShortFmt(refreshStamp(dailyRev))+' 확인 완료 · '+(names.length?names.join(' · ')+' 갱신'+(changed.length>4?' 외 '+(changed.length-4)+'개':''):'주요 지표 값 변화 없음')}
+ if(sm){const dailyDue=refreshDailyDueState(dailyRev);sm.textContent=dailyDue.overdue?'오늘 07:05 예정분이 아직 반영되지 않았습니다 · 마지막 '+refreshShortFmt(refreshStamp(dailyRev)):changed.length?refreshShortFmt(refreshStamp(dailyRev))+' 확인 완료 · 실제 변경 '+changed.length+'건만 표시합니다.':refreshShortFmt(refreshStamp(dailyRev))+' 확인 완료 · 실제 변경 없음'}
 }
 initRefreshCalendar();
 
