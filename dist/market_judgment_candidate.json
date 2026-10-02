@@ -1,26 +1,26 @@
 {
   "status": "connected",
   "engine_version": "unified_market_judgment_v1",
-  "as_of": "2026-10-01",
+  "as_of": "2026-10-02",
   "architecture": "Common Feature Layer -> Current State / Buy Condition / Forward Scenario",
   "feature_layer": {
-    "snapshot_id": "2026-10-01|KB20260921|R202608",
-    "as_of": "2026-10-01",
+    "snapshot_id": "2026-10-02|KB20260928|R202608",
+    "as_of": "2026-10-02",
     "research_month": "202608",
     "research_provisional": true,
     "components": {
       "finance": 35.5,
-      "sentiment": 22.6,
-      "demand": 36.0,
+      "sentiment": 21.2,
+      "demand": 36.4,
       "value": 30.4,
-      "supply": 49.3
+      "supply": 49.2
     },
     "component_deltas_vs_research_month": {
       "finance": null,
-      "sentiment": -0.6,
-      "demand": 0.0,
+      "sentiment": -2.0,
+      "demand": 0.4,
       "value": 0.0,
-      "supply": 0.3
+      "supply": 0.2
     },
     "buy_weights": {
       "finance": 25,
@@ -30,16 +30,16 @@
       "supply": 15
     },
     "price_momentum": {
-      "m1_pct": 1.96,
-      "m3_pct": 8.1,
+      "m1_pct": 1.81,
+      "m3_pct": 7.92,
       "overlay": {
         "applied": true,
         "source": "KB Seoul weekly sale index, scale-aligned to legacy research momentum",
-        "kb_as_of": "20260921",
-        "kb_4w_pct": 0.81,
-        "kb_13w_pct": 3.26,
-        "mapped_m1_pct": 1.96,
-        "mapped_m3_pct": 8.1,
+        "kb_as_of": "20260928",
+        "kb_4w_pct": 0.74,
+        "kb_13w_pct": 3.18,
+        "mapped_m1_pct": 1.81,
+        "mapped_m3_pct": 7.92,
         "research_m1_pct": 0.0,
         "research_m3_pct": 0.0,
         "m1_fit_r2": 0.479,
@@ -67,54 +67,54 @@
       "research_month": "202608",
       "reason": "live recomputation is diagnostic only until it passes forecast discrimination validation",
       "live_recomputed_candidate": {
-        "setup": 51.6,
-        "turn": 59.5,
-        "opportunity": 30.7,
+        "setup": 52.2,
+        "turn": 54.4,
+        "opportunity": 28.4,
         "cheapness": 30.4,
-        "distress": 77.4,
-        "price_turn": 89.3,
-        "price_accel_pp": 1.96,
-        "early_turn": 42.4,
-        "breadth": 37.6,
-        "reaccel": 85.4,
+        "distress": 78.8,
+        "price_turn": 86.1,
+        "price_accel_pp": 1.81,
+        "early_turn": 30.7,
+        "breadth": 37.3,
+        "reaccel": 82.8,
         "bottom_zone": false,
         "momentum_zone": false,
         "turn_rank": 44.9,
         "deltas": {
           "finance_1m": -3.47,
-          "sentiment_1m": -0.6,
-          "demand_1m": 0.01,
+          "sentiment_1m": -2.0,
+          "demand_1m": 0.4,
           "finance_3m": -1.94,
-          "sentiment_3m": -4.2,
-          "demand_3m": -5.49
+          "sentiment_3m": -5.6,
+          "demand_3m": -5.1
         }
       }
     },
     "context": {
-      "trade_count_pct": -40.8,
+      "trade_count_pct": -39.7,
       "under15_share_pp": 0.2,
       "m2_mom_pct": 0.3,
       "m2_yoy_pct": 5.8,
       "mortgage_rate_pct": 4.66,
       "liquidity_support_0_100": 45.5,
-      "trade_pressure_0_100": 61.2,
+      "trade_pressure_0_100": 59.6,
       "rate_pressure_0_100": 46.5,
       "recent_peak_3m_momentum_pct": 22.18,
       "cooling_score_0_100": 100.0,
       "trade_signal_status": "mature_completed_month",
-      "trade_signal_as_of": "2026-10-01",
+      "trade_signal_as_of": "2026-10-02",
       "trade_signal_confidence": {
         "level": "high",
         "provisional": false,
         "basis": "statutory_reporting_window",
         "reporting_window_days": 30,
-        "as_of": "2026-10-01",
+        "as_of": "2026-10-02",
         "reason": "latest_full_month_reporting_window_elapsed",
         "signal_period": "2026-08",
         "previous_period": "2026-07",
         "reporting_window_elapsed_on": "2026-09-30"
       },
-      "raw_matched_as_of": "2026-10-01",
+      "raw_matched_as_of": "2026-10-02",
       "finance_model": "finance_v2_credit_cost",
       "finance_v1_score_0_100": 61.1,
       "finance_v2_gate_passed": true,
@@ -195,8 +195,8 @@
         "validation": "current_state_revalidation"
       },
       "evidence": {
-        "m1_pct": 1.96,
-        "m3_pct": 8.1,
+        "m1_pct": 1.81,
+        "m3_pct": 7.92,
         "breadth": 38.7,
         "reaccel": 14.6,
         "turn": 30.5,
@@ -205,7 +205,7 @@
       }
     },
     "buy_condition": {
-      "score_0_100": 34.1,
+      "score_0_100": 33.9,
       "tier": "제약 구간",
       "range": "30~44",
       "coverage_weight": 100,
@@ -218,10 +218,10 @@
       },
       "components": {
         "finance": 35.5,
-        "sentiment": 22.6,
-        "demand": 36.0,
+        "sentiment": 21.2,
+        "demand": 36.4,
         "value": 30.4,
-        "supply": 49.3
+        "supply": 49.2
       }
     },
     "forward_scenario": {
@@ -230,8 +230,8 @@
           "period": "2027H1",
           "label": "2027년 상반기",
           "weights": {
-            "consolidation": 34.8,
-            "reacceleration": 28.2,
+            "consolidation": 35.1,
+            "reacceleration": 27.9,
             "downturn": 37.0
           },
           "base_case": "consolidation",
@@ -241,7 +241,7 @@
             "risk_range": "35~44%",
             "tone": "watch",
             "downturn_weight": 37.0,
-            "reacceleration_weight": 28.2,
+            "reacceleration_weight": 27.9,
             "secondary": "하방 위험 주의",
             "easing_hysteresis_pp": 2.0
           }
@@ -250,8 +250,8 @@
           "period": "2027H2",
           "label": "2027년 하반기",
           "weights": {
-            "consolidation": 37.6,
-            "reacceleration": 28.9,
+            "consolidation": 37.7,
+            "reacceleration": 28.8,
             "downturn": 33.5
           },
           "base_case": "consolidation",
@@ -261,7 +261,7 @@
             "risk_range": "30~34%",
             "tone": "mixed",
             "downturn_weight": 33.5,
-            "reacceleration_weight": 28.9,
+            "reacceleration_weight": 28.8,
             "secondary": "방향성 확인 필요",
             "easing_hysteresis_pp": 2.0
           }
@@ -270,8 +270,8 @@
           "period": "2028H1",
           "label": "2028년 상반기",
           "weights": {
-            "consolidation": 36.2,
-            "reacceleration": 33.7,
+            "consolidation": 36.3,
+            "reacceleration": 33.6,
             "downturn": 30.1
           },
           "base_case": "consolidation",
@@ -281,7 +281,7 @@
             "risk_range": "30~34%",
             "tone": "mixed",
             "downturn_weight": 30.1,
-            "reacceleration_weight": 33.7,
+            "reacceleration_weight": 33.6,
             "secondary": "방향성 확인 필요",
             "easing_hysteresis_pp": 2.0
           }
@@ -333,5 +333,5 @@
       }
     }
   },
-  "generated_at": "2026-10-01T03:46:38.890918+00:00"
+  "generated_at": "2026-10-02T03:12:10.911576+00:00"
 }

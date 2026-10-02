@@ -113,7 +113,7 @@
     "no_future_leakage": true
   },
   "current_candidate": {
-    "snapshot_id": "2026-10-01|KB20260921|R202608",
+    "snapshot_id": "2026-10-02|KB20260928|R202608",
     "current_state": {
       "stage": 3,
       "label": "상승·보합",
@@ -129,8 +129,8 @@
         "validation": "current_state_revalidation"
       },
       "evidence": {
-        "m1_pct": 1.96,
-        "m3_pct": 8.1,
+        "m1_pct": 1.81,
+        "m3_pct": 7.92,
         "breadth": 38.7,
         "reaccel": 14.6,
         "turn": 30.5,
@@ -139,7 +139,7 @@
       }
     },
     "buy_condition": {
-      "score_0_100": 34.1,
+      "score_0_100": 33.9,
       "tier": "제약 구간",
       "range": "30~44",
       "coverage_weight": 100,
@@ -152,10 +152,10 @@
       },
       "components": {
         "finance": 35.5,
-        "sentiment": 22.6,
-        "demand": 36.0,
+        "sentiment": 21.2,
+        "demand": 36.4,
         "value": 30.4,
-        "supply": 49.3
+        "supply": 49.2
       }
     },
     "forward": {
@@ -164,8 +164,8 @@
           "period": "2027H1",
           "label": "2027년 상반기",
           "weights": {
-            "consolidation": 34.8,
-            "reacceleration": 28.2,
+            "consolidation": 35.1,
+            "reacceleration": 27.9,
             "downturn": 37.0
           },
           "base_case": "consolidation",
@@ -175,7 +175,7 @@
             "risk_range": "35~44%",
             "tone": "watch",
             "downturn_weight": 37.0,
-            "reacceleration_weight": 28.2,
+            "reacceleration_weight": 27.9,
             "secondary": "하방 위험 주의",
             "easing_hysteresis_pp": 2.0
           }
@@ -184,8 +184,8 @@
           "period": "2027H2",
           "label": "2027년 하반기",
           "weights": {
-            "consolidation": 37.6,
-            "reacceleration": 28.9,
+            "consolidation": 37.7,
+            "reacceleration": 28.8,
             "downturn": 33.5
           },
           "base_case": "consolidation",
@@ -195,7 +195,7 @@
             "risk_range": "30~34%",
             "tone": "mixed",
             "downturn_weight": 33.5,
-            "reacceleration_weight": 28.9,
+            "reacceleration_weight": 28.8,
             "secondary": "방향성 확인 필요",
             "easing_hysteresis_pp": 2.0
           }
@@ -204,8 +204,8 @@
           "period": "2028H1",
           "label": "2028년 상반기",
           "weights": {
-            "consolidation": 36.2,
-            "reacceleration": 33.7,
+            "consolidation": 36.3,
+            "reacceleration": 33.6,
             "downturn": 30.1
           },
           "base_case": "consolidation",
@@ -215,7 +215,7 @@
             "risk_range": "30~34%",
             "tone": "mixed",
             "downturn_weight": 30.1,
-            "reacceleration_weight": 33.7,
+            "reacceleration_weight": 33.6,
             "secondary": "방향성 확인 필요",
             "easing_hysteresis_pp": 2.0
           }
@@ -270,5 +270,5 @@
   "apply_recommended": true,
   "gate": "n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45",
   "no_future_leakage": true,
-  "generated_at": "2026-10-01T03:46:38.931444+00:00"
+  "generated_at": "2026-10-02T03:12:10.939196+00:00"
 }
