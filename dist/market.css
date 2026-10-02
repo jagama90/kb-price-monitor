@@ -320,7 +320,7 @@ main{max-width:1180px;padding-top:24px}
 .forecast-meta{display:block;margin-top:9px;color:#94a2ae}
 
 /* five compact condition gauges */
-.score-dashboard{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:14px 0 0}
+.score-dashboard{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:14px 0 0}
 .score-dashboard .score-component{cursor:pointer!important;min-height:132px;padding:17px 16px 14px;border-radius:18px;display:flex;flex-direction:column;justify-content:flex-start;position:relative;overflow:hidden;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
 .score-dashboard .score-component:hover,.score-dashboard .score-component:focus-visible{border-color:#86bde5;box-shadow:0 8px 22px rgba(24,91,139,.09);outline:none}
 .score-dashboard .score-component:active{transform:scale(.985)!important}
@@ -446,7 +446,7 @@ main{max-width:1180px;padding-top:24px}
 
 /* driver flow: sturdy step rail */
 .driver-body-v2{padding:17px!important}
-.driver-rail{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;position:relative;margin-bottom:14px}
+.driver-rail{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;position:relative;margin-bottom:14px}
 .driver-rail:before{content:"";position:absolute;left:6%;right:6%;top:16px;height:2px;background:#e3ebf0}
 .driver-rail>div{position:relative;z-index:1;text-align:center;min-width:0}
 .driver-rail i{display:flex;width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;margin:0 auto 7px;background:#eef7fd;color:#2282c2;font-style:normal;font-weight:900;font-size:11px;border:4px solid #fff}
@@ -808,7 +808,7 @@ main{max-width:1180px;padding-top:24px}
   .forecast-compact-mobile .forecast-meta{margin-top:7px;font-size:8px}
 
   /* Five indicators become one compact, tappable gauge strip */
-  .score-dashboard-inline{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:0!important;margin:10px 0 0!important;padding:8px 5px!important;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:0 4px 14px rgba(22,55,78,.035);overflow:hidden}
+  .score-dashboard-inline{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:0!important;margin:10px 0 0!important;padding:8px 5px!important;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:0 4px 14px rgba(22,55,78,.035);overflow:hidden}
   .score-dashboard-inline .score-component{grid-column:auto!important;min-height:58px!important;margin:0!important;padding:7px 3px!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;align-items:center;text-align:center;justify-content:center!important;overflow:visible}
   .score-dashboard-inline .score-component+ .score-component{border-left:1px solid #edf1f4!important}
   .score-dashboard-inline .score-tile-head{display:block}
@@ -880,7 +880,7 @@ main{max-width:1180px;padding-top:24px}
 /* v134 five-factor rebuild — robust modern cards */
 .factor-board-v134{
   display:grid!important;
-  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
   gap:10px!important;
   margin:14px 0 12px!important;
   padding:0!important;
@@ -1221,7 +1221,7 @@ main{max-width:1180px;padding-top:24px}
 
 /* evidence-first refinements v136 */
 .driver-data-v136{
-  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;
   margin:13px 0 2px
 }
 .driver-data-v136>div{
