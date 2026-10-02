@@ -9,17 +9,17 @@
   },
   "components": {
     "finance": 61.099999999999994,
-    "sentiment": 22.6,
+    "sentiment": 21.2,
     "demand": 36.405,
     "value": 30.4,
-    "supply": 49.3
+    "supply": 49.2
   },
   "contribution_vs_neutral": {
     "finance": 2.77,
-    "sentiment": -5.48,
+    "sentiment": -5.76,
     "demand": -2.72,
     "value": -3.92,
-    "supply": -0.11
+    "supply": -0.12
   },
   "coverage_weight": 100,
   "freshness_score": 100,

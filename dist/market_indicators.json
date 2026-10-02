@@ -234,6 +234,28 @@
     "region": "서울",
     "latest": {
       "매수우위": {
+        "date": "20260928",
+        "value": 71.72022691,
+        "field": "매수우위지수"
+      },
+      "매매거래활발": {
+        "date": "20260928",
+        "value": 13.03317888,
+        "field": "매매거래지수"
+      },
+      "전세수급": {
+        "date": "20260928",
+        "value": 177.26135299,
+        "field": "전세수급지수"
+      },
+      "전세거래활발": {
+        "date": "20260928",
+        "value": 19.6665452,
+        "field": "전세거래지수"
+      }
+    },
+    "previous": {
+      "매수우위": {
         "date": "20260921",
         "value": 75.21262033,
         "field": "매수우위지수"
@@ -254,43 +276,21 @@
         "field": "전세거래지수"
       }
     },
-    "previous": {
-      "매수우위": {
-        "date": "20260914",
-        "value": 77.04347331,
-        "field": "매수우위지수"
-      },
-      "매매거래활발": {
-        "date": "20260914",
-        "value": 14.11817566,
-        "field": "매매거래지수"
-      },
-      "전세수급": {
-        "date": "20260914",
-        "value": 177.56295886,
-        "field": "전세수급지수"
-      },
-      "전세거래활발": {
-        "date": "20260914",
-        "value": 17.36413004,
-        "field": "전세거래지수"
-      }
-    },
     "changes": {
-      "매수우위": -1.83,
-      "매매거래활발": 1.16,
-      "전세수급": -0.24,
-      "전세거래활발": 2.4
+      "매수우위": -3.49,
+      "매매거래활발": -2.24,
+      "전세수급": -0.06,
+      "전세거래활발": -0.09
     },
-    "score_0_100": 22.6,
-    "previous_score_0_100": 22.8,
-    "score_change": -0.2,
-    "jeonse_score_0_100": 49.3,
-    "previous_jeonse_score_0_100": 48.7,
-    "jeonse_score_change": 0.6,
+    "score_0_100": 21.2,
+    "previous_score_0_100": 22.6,
+    "score_change": -1.4,
+    "jeonse_score_0_100": 49.2,
+    "previous_jeonse_score_0_100": 49.3,
+    "jeonse_score_change": -0.1,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-10-01T23:14:01.636031+00:00"
+    "generated_at": "2026-10-02T03:11:57.604957+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -329,7 +329,7 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-10-01T23:14:01.579550+00:00"
+    "generated_at": "2026-10-02T03:11:57.547491+00:00"
   },
   "matched_period": {
     "as_of": "2026-10-02",
@@ -421,13 +421,13 @@
     "region": "서울",
     "frequency": "weekly",
     "latest": {
-      "date": "20260921",
-      "value": 109.5250410404,
-      "display_value": "109.5",
+      "date": "20260928",
+      "value": 109.699319469,
+      "display_value": "109.7",
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-10-01T23:13:26.733754+00:00",
+    "collected_at": "2026-10-02T03:11:34.401054+00:00",
     "history": [
       {
         "date": "20260615",
@@ -518,17 +518,23 @@
         "value": 109.5250410404,
         "display_value": "109.5",
         "change_pct": 0.16
+      },
+      {
+        "date": "20260928",
+        "value": 109.699319469,
+        "display_value": "109.7",
+        "change_pct": 0.16
       }
     ],
     "momentum": {
-      "as_of": "20260921",
-      "index": 109.5250410404,
-      "four_week_base_date": "20260824",
-      "four_week_base_index": 108.649640611,
-      "mom_4w_pct": 0.81,
-      "thirteen_week_base_date": "20260622",
-      "thirteen_week_base_index": 106.0679226602,
-      "mom_13w_pct": 3.26,
+      "as_of": "20260928",
+      "index": 109.699319469,
+      "four_week_base_date": "20260831",
+      "four_week_base_index": 108.894829759,
+      "mom_4w_pct": 0.74,
+      "thirteen_week_base_date": "20260629",
+      "thirteen_week_base_index": 106.3195282846,
+      "mom_13w_pct": 3.18,
       "definition": "KB 서울 주간 매매가격지수 최신값 대비 4주/13주 전 변화율"
     },
     "momentum_source": "KB 서울 주간 아파트 매매가격지수"
@@ -539,13 +545,13 @@
     "region": "서울",
     "frequency": "weekly",
     "latest": {
-      "date": "20260921",
-      "value": 108.2919038601,
-      "display_value": "108.3",
-      "change_pct": 0.12
+      "date": "20260928",
+      "value": 108.4088325639,
+      "display_value": "108.4",
+      "change_pct": 0.11
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-10-01T23:13:27.391724+00:00"
+    "collected_at": "2026-10-02T03:11:35.083800+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -681,10 +687,10 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-10-01T23:13:27.892182+00:00"
+    "collected_at": "2026-10-02T03:11:37.310210+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-10-01T23:14:01.472392+00:00",
+    "attempted_at": "2026-10-02T03:11:57.444854+00:00",
     "sources": {
       "molit": "connected",
       "ecos": "connected",
