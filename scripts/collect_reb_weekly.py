@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright,TimeoutError as PlaywrightTimeou
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/reb_weekly.json'
-LIST_URL='https://www.reb.or.kr/r-one/na/ntt/selectNttList.do?mi=9509&bbsId=1106'
+LIST_URL='https://www.reb.or.kr/r-one/portal/bbs/statdata/searchBulletinPage.do'
 TARGET_TITLE='주간아파트가격동향조사 시계열통계표'
 
 def norm_date(v):
@@ -41,8 +41,10 @@ def download_workbook(dest:pathlib.Path):
         ctx=browser.new_context(accept_downloads=True,locale='ko-KR')
         page=ctx.new_page()
         page.goto(LIST_URL,wait_until='domcontentloaded',timeout=45000)
-        page.wait_for_timeout(1500)
-        rows=page.locator('#contView table tbody tr')
+        page.wait_for_timeout(5000)
+        rows=page.locator('table tbody tr')
+        if rows.count()==0:
+            print(json.dumps({'debug':'reb_board_empty','url':page.url,'title':page.title(),'body':page.locator('body').inner_text()[:5000]},ensure_ascii=False))
         hit=None
         for i in range(rows.count()):
             row=rows.nth(i)
@@ -51,6 +53,8 @@ def download_workbook(dest:pathlib.Path):
                 hit=row
                 break
         if hit is None:
+            texts=[rows.nth(i).inner_text().strip() for i in range(min(rows.count(),30))]
+            print(json.dumps({'debug':'reb_board_rows','url':page.url,'rows':texts},ensure_ascii=False))
             raise RuntimeError('REB weekly time-series bulletin row not found')
         # Open attachment layer from the title cell/link.
         links=hit.locator('a')
