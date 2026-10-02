@@ -25,7 +25,7 @@ required=['conditionScore','scoreFinance','scoreSentiment','scoreDemand','scoreV
           'backtestScope','backtestCertified','backtestCorr',
           'sourceMolitStatus','sourceKbStatus','sourceEcosStatus','sourceWatchStatus',
           'conditionTier','confidenceScore','validationUnsold','validationUnsoldPeriod',
-          'b15all','b15to25','b25p']
+          'b15all','b15to25','b25p','currentRegimeEvidence','forecastDrivers']
 for x in required:
     if ids.count(x)!=1: errors.append(f'required id {x}: expected 1, got {ids.count(x)}')
 
@@ -241,7 +241,11 @@ if "s===window.__currentCycleStage" not in js: errors.append('current phase must
 # v181 forecast-language contract
 if 'forecast-guide-v181' not in html: errors.append('forecast reading guide missing')
 if "currentPhase=d.state?.current_phase" not in js: errors.append('forecast route must start from current research phase')
-if "실제 발생확률" not in html or "지지하는지 비교하는 점수" not in html: errors.append('forecast score explanation must be user-readable')
+if "실제 발생확률" not in html or "상대 지지점수" not in html: errors.append('forecast score explanation must be user-readable')
+if 'current-regime-evidence-v209' not in html or 'renderCurrentRegimeEvidence' not in js:
+    errors.append('current regime numeric evidence missing')
+if 'forecast-support-v209' not in js or "상대 지지 · 확률 아님" not in js or 'forecastDrivers' not in js:
+    errors.append('forecast scenario support numbers missing')
 
 # v155 comparable-current momentum + brand refresh
 if 'id="brandHome"' not in html: errors.append('header brand refresh control missing')

@@ -29,6 +29,12 @@
       <b id="judgmentCurrentLabel">계산 중</b>
     </div>
     <p id="cycleStageText" class="research-verdict">현재 가격 흐름을 판독하는 중입니다.</p>
+    <div id="currentRegimeEvidence" class="current-regime-evidence-v209" aria-label="현재 국면 수치 근거">
+      <div><small>단기 가격</small><b>—</b><span>데이터 확인 중</span></div>
+      <div><small>중기 가격</small><b>—</b><span>데이터 확인 중</span></div>
+      <div><small>시장 확산</small><b>—</b><span>가속 확인 45+</span></div>
+      <div><small>재가속</small><b>—</b><span>가속 확인 50+</span></div>
+    </div>
     <div class="cycle-steps research-steps" id="cycleSteps" aria-label="시장 국면">
       <span data-regime-ref="0" role="button" tabindex="0">하락</span><span data-regime-ref="1" role="button" tabindex="0">둔화</span><span data-regime-ref="2" role="button" tabindex="0">바닥</span><span data-regime-ref="3" role="button" tabindex="0">상승·보합</span><span data-regime-ref="4" role="button" tabindex="0">가속</span>
     </div>
@@ -63,6 +69,7 @@
       <i>→</i>
       <div class="forecast-route-node-v181 skeleton"><small>장기</small><b>산출 중</b></div>
     </div>
+    <div id="forecastDrivers" class="forecast-drivers-v209" aria-label="전망 현재 입력 근거">전망 근거 데이터를 확인하고 있습니다.</div>
 
     <div class="buy-condition-strip-v181">
       <div class="buy-condition-line-v181">
@@ -143,7 +150,7 @@
     <details class="forecast-rules-v153 forecast-guide-v181">
       <summary>전망 읽는 법</summary>
       <div><span>0~19</span><b>상승 우위</b><span>20~29</span><b>재상승 가능성 확대</b><span>30~34</span><b>혼조·방향 탐색</b><span>35~44</span><b>쉬어가기·하방 경계</b><span>45~54</span><b>조정 위험 확대</b><span>55+</span><b>하락 우위</b></div>
-      <small>표시값은 실제 발생확률이 아니라 현재 시장 신호가 각 흐름을 얼마나 지지하는지 비교하는 점수입니다.</small>
+      <small>각 기간의 보합·쉬어가기 / 재가속 / 하방 숫자는 합계 100의 상대 지지점수이며 실제 발생확률이 아닙니다. 대표 문구는 하방 지지 구간과 재가속 신호를 함께 반영합니다.</small>
     </details>
     <small class="forecast-meta" id="forecastMeta" hidden>최신 전망 데이터를 불러오는 중입니다.</small>
   </div>
