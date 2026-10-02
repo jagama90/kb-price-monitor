@@ -25,6 +25,7 @@ watch_hist=load('dist/kb_watchlist_history.json')
 trade_detail=load('data_sources/watchlist_recent_trades.json')
 garak=load('dist/garak_geumho_24a_history.json')
 market_ext=load('dist/market_extensions.json')
+reb_weekly=load('data_sources/reb_weekly.json') if (R/'data_sources/reb_weekly.json').exists() else {}
 
 if fb and not fb.get('certified_final'): errors.append('final_backtest is not certified')
 fbrows=fb.get('rows') or []
@@ -95,6 +96,16 @@ for key in ('kb_weekly_sale_index','kb_weekly_rent_index'):
     if src.get('status')=='connected' and (src.get('latest') or {}).get('value'):
         kday=ymd((src.get('latest') or {}).get('date'))
         if not kday or (today-kday).days>14: errors.append(key+' is stale')
+if reb_weekly:
+    if reb_weekly.get('status')!='connected': errors.append('REB weekly cross-check disconnected')
+    rday=ymd((reb_weekly.get('latest') or {}).get('date'))
+    if not rday or (today-rday).days>14: errors.append('REB weekly cross-check is stale')
+    if len(((reb_weekly.get('series') or {}).get('sale') or []))<40 or len(((reb_weekly.get('series') or {}).get('rent') or []))<40:
+        errors.append('REB weekly cross-check history too short')
+    acc=reb_weekly.get('accumulation') or {}
+    if acc.get('sale_pct') is None or acc.get('rent_pct') is None: errors.append('REB weekly accumulation missing')
+    if reb_weekly.get('production_model_weight_changed') is not False: errors.append('REB weekly cross-check must not change model weight')
+    if (mi.get('reb_weekly') or {}).get('latest')!=reb_weekly.get('latest'): errors.append('market snapshot REB weekly adapter mismatch')
 # Validated market extension freshness and integrity.
 if market_ext:
     cur=market_ext.get('current') or {}
@@ -263,7 +274,8 @@ paths={
  'pages':'.github/workflows/pages.yml',
  'repair':'.github/workflows/repair-dashboard-data.yml',
  'apply':'.github/workflows/apply-unified-market-judgment.yml',
- 'common_v2':'.github/workflows/common-feature-layer-v2.yml'
+ 'common_v2':'.github/workflows/common-feature-layer-v2.yml',
+ 'reb_weekly':'.github/workflows/collect-reb-weekly.yml'
 }
 wf={k:(R/p).read_text(encoding='utf-8') for k,p in paths.items()}
 for bad in ["'dist/market.html'","'dist/market.js'","'dist/index.html'"]:
@@ -292,6 +304,8 @@ if "'scripts/forecast_market_regime.py'" in wf['research']: errors.append('resea
 if 'dist/regime_forecast.json' in wf['parallel']: errors.append('parallel workflow must not own regime_forecast output')
 if 'dist/regime_forecast.json' in wf['research']: errors.append('research workflow must not own regime_forecast output')
 if 'dist/regime_forecast.json' not in wf['forecast']: errors.append('forecast workflow does not own regime_forecast output')
+if 'scripts/collect_reb_weekly.py' not in wf['reb_weekly'] or 'data_sources/reb_weekly.json' not in wf['reb_weekly']: errors.append('REB weekly workflow ownership missing')
+if 'RONE_API_KEY' not in wf['reb_weekly']: errors.append('REB weekly workflow missing R-ONE credential wiring')
 
 # Dashboard live-data lineage: every fetched asset must have a repository producer/owner
 # and Pages must publish dist changes. This is deliberately explicit so a new fetch

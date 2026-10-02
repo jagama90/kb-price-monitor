@@ -38,6 +38,9 @@ def main():
   d['kb_sentiment']=s;d.setdefault('data_status',{})['kb_sentiment']='connected'
   if s.get('jeonse_score_0_100') is not None: d.setdefault('data_status',{})['kb_jeonse_supply']='connected'
  sale=read('kb_weekly_sale_index.json');rent=read('kb_weekly_rent_index.json')
+ reb=read('reb_weekly.json')
+ if reb and reb.get('status')=='connected' and (reb.get('latest') or {}).get('date'):
+  d['reb_weekly']=reb;d.setdefault('data_status',{})['reb_weekly']='connected'
  # Fallback directly to the already-connected statusBoard payload so the dashboard
  # never shows "수집 대기" merely because an adapter filename is missing.
  sb=read('kb_statusboard_live.json')

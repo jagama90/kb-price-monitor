@@ -1,0 +1,71 @@
+name: Collect REB weekly
+on:
+  schedule:
+    - cron: '10 22 * * 4'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_reb_weekly.py'
+      - 'scripts/build_market_snapshot.py'
+      - 'scripts/check_pipeline_health.py'
+      - '.github/workflows/collect-reb-weekly.yml'
+      - '.github/workflows/system-health.yml'
+permissions:
+  contents: write
+concurrency:
+  group: reb-weekly-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      RONE_API_KEY: ${{ secrets.RONE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Collect live REB weekly sale/rent indices
+        run: |
+          test -n "$RONE_API_KEY"
+          python3 scripts/collect_reb_weekly.py
+      - name: Validate live source payload
+        run: |
+          python3 - <<'PY'
+          import datetime,json
+          p=json.load(open('data_sources/reb_weekly.json',encoding='utf-8'))
+          assert p.get('status')=='connected'
+          assert len((p.get('series') or {}).get('sale') or [])>=40
+          assert len((p.get('series') or {}).get('rent') or [])>=40
+          latest=(p.get('latest') or {}).get('date');d=datetime.datetime.strptime(latest,'%Y%m%d').date()
+          assert 0 <= (datetime.date.today()-d).days <= 14
+          a=p.get('accumulation') or {}
+          assert a.get('sale_pct') is not None and a.get('rent_pct') is not None
+          assert p.get('production_model_weight_changed') is False
+          print({'latest':latest,'accumulation':a})
+          PY
+      - name: Rebuild dashboard adapter
+        run: python3 scripts/build_market_snapshot.py
+      - name: Validate dashboard and pipeline
+        run: |
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_render_safety.py
+          python3 scripts/check_pipeline_health.py
+      - name: Persist REB weekly cross-check
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p /tmp/reb-weekly
+          cp data_sources/reb_weekly.json /tmp/reb-weekly/
+          cp dist/market_indicators.json /tmp/reb-weekly/
+          git reset --hard
+          git clean -fd
+          git pull --ff-only origin main
+          cp /tmp/reb-weekly/reb_weekly.json data_sources/reb_weekly.json
+          cp /tmp/reb-weekly/market_indicators.json dist/market_indicators.json
+          git add -f data_sources/reb_weekly.json dist/market_indicators.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh REB weekly price crosscheck'
+          git push origin HEAD:main
