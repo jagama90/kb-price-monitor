@@ -12,7 +12,7 @@ from playwright.sync_api import sync_playwright,TimeoutError as PlaywrightTimeou
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'data_sources/reb_weekly.json'
 LIST_URL='https://www.reb.or.kr/r-one/portal/bbs/statdata/searchBulletinPage.do'
-TARGET_TITLE='주간아파트가격동향조사 시계열통계표'
+TARGET_TITLE='주간아파트가격동향조사'
 
 def norm_date(v):
     if isinstance(v,(datetime.datetime,datetime.date)):
