@@ -48,6 +48,21 @@ def fetch_series(key,contract,start_year,end_year):
     by={x['ym']:x for x in data}
     return [by[k] for k in sorted(by)]
 
+def fill_tail(key,contract,series,last_ym):
+    by={x['ym']:x for x in series if x.get('ym')}
+    year=int(last_ym[:4])
+    for m in range(1,int(last_ym[4:6])+1):
+        ym=f'{year:04d}{m:02d}'
+        if ym in by:continue
+        raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':contract['statbl_id'],'DTACYCLE_CD':'MM',
+            'CLS_ID':contract['cls_id'],'ITM_ID':contract['itm_id'],'WRTTIME_IDTFR_ID':ym,'pIndex':1,'pSize':1000})
+        for x in rows(raw):
+            z=norm(x)
+            if z.get('ym')==ym and z.get('value') is not None:
+                by[ym]=z
+                break
+    return [by[k] for k in sorted(by)]
+
 def pct(a,b):
     return round((b/a-1)*100,2) if a not in (None,0) and b is not None else None
 
@@ -61,6 +76,9 @@ def main():
     start_year=today.year-3;end_year=today.year
     sale=fetch_series(key,CONTRACTS['sale'],start_year,end_year)
     rent=fetch_series(key,CONTRACTS['rent'],start_year,end_year)
+    last_ym=(today.replace(day=1)-datetime.timedelta(days=1)).strftime('%Y%m')
+    sale=fill_tail(key,CONTRACTS['sale'],sale,last_ym)
+    rent=fill_tail(key,CONTRACTS['rent'],rent,last_ym)
     sm={x['ym']:x for x in sale};rm={x['ym']:x for x in rent};common=sorted(set(sm)&set(rm))
     if len(common)<24:raise RuntimeError(f'R-ONE sale/rent common history too short: {len(common)}')
     sale=[sm[m] for m in common];rent=[rm[m] for m in common]
