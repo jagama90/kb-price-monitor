@@ -223,7 +223,7 @@
     "kb_weekly_sale_index": "connected",
     "kb_weekly_rent_index": "connected",
     "ecos_base_rate": "connected",
-    "molit_refresh": "fallback_last_good",
+    "molit_refresh": "connected",
     "ecos_refresh": "connected",
     "kb_sentiment_refresh": "connected",
     "watchlist_detail_refresh": "connected",
@@ -290,7 +290,7 @@
     "jeonse_score_change": -0.1,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-10-02T03:45:40.157761+00:00"
+    "generated_at": "2026-10-02T03:54:38.474549+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -329,7 +329,7 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-10-02T03:45:40.102263+00:00"
+    "generated_at": "2026-10-02T03:54:38.412354+00:00"
   },
   "matched_period": {
     "as_of": "2026-10-02",
@@ -427,7 +427,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-10-02T03:44:29.649891+00:00",
+    "collected_at": "2026-10-02T03:54:06.880794+00:00",
     "history": [
       {
         "date": "20260615",
@@ -551,7 +551,7 @@
       "change_pct": 0.11
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-10-02T03:44:30.166460+00:00"
+    "collected_at": "2026-10-02T03:54:07.554359+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -687,12 +687,12 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-10-02T03:44:30.613374+00:00"
+    "collected_at": "2026-10-02T03:54:09.605733+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-10-02T03:45:39.997118+00:00",
+    "attempted_at": "2026-10-02T03:54:38.303256+00:00",
     "sources": {
-      "molit": "fallback_last_good",
+      "molit": "connected",
       "ecos": "connected",
       "kb_sentiment": "connected",
       "watchlist_detail": "connected"
