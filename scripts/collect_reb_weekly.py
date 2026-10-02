@@ -38,7 +38,7 @@ def fetch_series(key,table,cls_id,itm_id):
         raw=get('SttsApiTblData.do',{'KEY':key,'Type':'json','STATBL_ID':table,'DTACYCLE_CD':'WK',
             'CLS_ID':cls_id,'ITM_ID':itm_id,'pIndex':page,'pSize':1000})
         rr=rows(raw)
-        if page==1:first_meta=raw.get('SttsApiTblData')
+        if page==1:first_meta=raw
         for x in rr:
             d=norm_date(x.get('WRTTIME_IDTFR_ID'));v=x.get('DTA_VAL')
             if d and v not in (None,''):
