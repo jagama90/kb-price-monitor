@@ -228,12 +228,20 @@ renderConditionHistory();
 window.__regimeReferences=null;window.__currentCycleStage=null;window.__currentRegimeMetrics=null;window.__selectedRegimeRefStage=null;window.__regimeCompare=false;
 function renderRebCrosscheck(d=window.__marketIndicators){
  const el=document.getElementById('rebCrosscheck');if(!el)return;
- const r=d?.reb_crosscheck,a=r?.accumulation,sale=finiteNum(a?.sale_pct),rent=finiteNum(a?.rent_pct);
- if(r?.status!=='connected'||sale==null||rent==null){el.hidden=true;el.textContent='';return}
- const ym=v=>{const s=String(v||'');return /^\\d{6}$/.test(s)?s.slice(0,4)+'.'+s.slice(4,6):'기간 미확인'};
+ const w=d?.reb_weekly,wm=w?.accumulation,ws=finiteNum(wm?.sale_pct),wr=finiteNum(wm?.rent_pct);
+ const m=d?.reb_crosscheck,mm=m?.accumulation,ms=finiteNum(mm?.sale_pct),mr=finiteNum(mm?.rent_pct);
  const p=v=>(v>0?'+':'')+v.toFixed(2)+'%';
- el.textContent='한국부동산원 월간 교차검증 · '+ym(a.start_ym)+' → '+ym(a.end_ym)+' · 매매 '+p(sale)+' · 전세 '+p(rent)+' · 판정 직접입력 아님';
- el.hidden=false;
+ const d8=v=>{const s=String(v||'');return /^\d{8}$/.test(s)?s.slice(0,4)+'.'+s.slice(4,6)+'.'+s.slice(6,8):'기간 미확인'};
+ const ym=v=>{const s=String(v||'');return /^\d{6}$/.test(s)?s.slice(0,4)+'.'+s.slice(4,6):'기간 미확인'};
+ if(w?.status==='connected'&&ws!=null&&wr!=null){
+  el.textContent='한국부동산원 주간(KOSIS) 교차검증 · '+d8(wm.start_date)+' → '+d8(wm.end_date)+' · 매매 '+p(ws)+' · 전세 '+p(wr)+' · 판정 직접입력 아님';
+  el.hidden=false;return;
+ }
+ if(m?.status==='connected'&&ms!=null&&mr!=null){
+  el.textContent='한국부동산원 월간 교차검증 · '+ym(mm.start_ym)+' → '+ym(mm.end_ym)+' · 매매 '+p(ms)+' · 전세 '+p(mr)+' · 주간 원천 확인 중';
+  el.hidden=false;return;
+ }
+ el.hidden=true;el.textContent='';
 }
 function renderCurrentRegimeEvidence(metrics={}){
  const host=document.getElementById('currentRegimeEvidence');if(!host)return;

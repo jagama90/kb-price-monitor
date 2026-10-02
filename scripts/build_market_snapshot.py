@@ -41,6 +41,9 @@ def main():
  reb=read('reb_crosscheck.json')
  if reb and reb.get('status')=='connected' and (reb.get('latest') or {}).get('ym'):
   d['reb_crosscheck']=reb;d.setdefault('data_status',{})['reb_crosscheck']='connected'
+ rebw=read('reb_weekly.json')
+ if rebw and rebw.get('status')=='connected' and (rebw.get('latest') or {}).get('date'):
+  d['reb_weekly']=rebw;d.setdefault('data_status',{})['reb_weekly']='connected'
  # Fallback directly to the already-connected statusBoard payload so the dashboard
  # never shows "수집 대기" merely because an adapter filename is missing.
  sb=read('kb_statusboard_live.json')

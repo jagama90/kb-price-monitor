@@ -1,0 +1,72 @@
+name: Collect REB weekly KOSIS
+on:
+  schedule:
+    - cron: '30 6 * * 4' # Thu 15:30 KST, after weekly publication
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_reb_weekly_kosis.py'
+      - 'scripts/build_market_snapshot.py'
+      - 'scripts/check_pipeline_health.py'
+      - '.github/workflows/collect-reb-weekly-kosis.yml'
+      - '.github/workflows/system-health.yml'
+permissions:
+  contents: write
+concurrency:
+  group: reb-weekly-kosis-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install browser collector
+        run: |
+          python -m pip install --disable-pip-version-check playwright
+          python -m playwright install chromium
+      - name: Collect exact weekly REB indices from KOSIS
+        run: python3 scripts/collect_reb_weekly_kosis.py
+      - name: Validate live weekly source
+        run: |
+          python3 - <<'PY'
+          import datetime,json
+          p=json.load(open('data_sources/reb_weekly.json',encoding='utf-8'))
+          assert p.get('status')=='connected'
+          assert p.get('frequency')=='weekly'
+          assert p.get('production_model_weight_changed') is False
+          assert len((p.get('series') or {}).get('sale') or [])>=70
+          assert len((p.get('series') or {}).get('rent') or [])>=70
+          d=datetime.datetime.strptime((p.get('latest') or {}).get('date'),'%Y%m%d').date()
+          assert 0 <= (datetime.date.today()-d).days <= 14
+          a=p.get('accumulation') or {}
+          assert a.get('sale_pct') is not None and a.get('rent_pct') is not None
+          print({'latest':p.get('latest'),'accumulation':a,'contracts':p.get('contracts')})
+          PY
+      - name: Rebuild dashboard adapter
+        run: python3 scripts/build_market_snapshot.py
+      - name: Validate dashboard and pipeline
+        run: |
+          node --check dist/market.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_render_safety.py
+          python3 scripts/check_pipeline_health.py
+      - name: Persist exact REB weekly cross-check
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p /tmp/reb-weekly-kosis
+          cp data_sources/reb_weekly.json /tmp/reb-weekly-kosis/
+          cp dist/market_indicators.json /tmp/reb-weekly-kosis/
+          git reset --hard
+          git clean -fd
+          git pull --ff-only origin main
+          cp /tmp/reb-weekly-kosis/reb_weekly.json data_sources/reb_weekly.json
+          cp /tmp/reb-weekly-kosis/market_indicators.json dist/market_indicators.json
+          git add -f data_sources/reb_weekly.json dist/market_indicators.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh exact REB weekly crosscheck'
+          git push origin HEAD:main
