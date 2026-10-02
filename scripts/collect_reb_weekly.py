@@ -130,50 +130,36 @@ def sheet_for(wb,kind):
             return wb[name]
     raise RuntimeError(f'{kind} index sheet missing: {wb.sheetnames}')
 
-def find_seoul_col(ws):
-    candidates=[]
-    for c in range(1,ws.max_column+1):
-        hit=False
-        for r in range(1,min(ws.max_row,60)+1):
-            v=ws.cell(r,c).value
-            if v is None:continue
-            s=str(v).strip().replace(' ','')
-            if s=='서울' or s=='서울특별시':
-                hit=True;break
-        if hit:candidates.append(c)
-    if not candidates:
-        sample=[]
-        for r in range(1,min(ws.max_row,25)+1):
-            row=[ws.cell(r,c).value for c in range(1,min(ws.max_column,25)+1)]
-            sample.append(row)
-        print(json.dumps({'debug':'reb_sheet_header','sheet':ws.title,'max_row':ws.max_row,'max_col':ws.max_column,'rows':sample},ensure_ascii=False,default=str))
-        raise RuntimeError(f'Seoul column not found in {ws.title}')
-    return min(candidates)
+def find_seoul_row(ws):
+    # Exact aggregate Seoul row: all four hierarchy cells are 서울.
+    for r in range(1,min(ws.max_row,100)+1):
+        labels=[str(ws.cell(r,c).value or '').strip().replace(' ','') for c in range(1,5)]
+        if labels==['서울','서울','서울','서울']:
+            return r
+    raise RuntimeError(f'aggregate Seoul row not found in {ws.title}')
 
-def find_date_col(ws):
+def find_date_row(ws):
     scored=[]
-    for c in range(1,min(ws.max_column,12)+1):
-        n=0
-        for r in range(1,ws.max_row+1):
-            if norm_date(ws.cell(r,c).value):n+=1
-        scored.append((n,c))
-    n,c=max(scored)
-    if n<50:raise RuntimeError(f'date column not found in {ws.title}: {scored}')
-    return c
+    for r in range(1,min(ws.max_row,20)+1):
+        n=sum(1 for c in range(1,ws.max_column+1) if norm_date(ws.cell(r,c).value))
+        scored.append((n,r))
+    n,r=max(scored)
+    if n<100:raise RuntimeError(f'date row not found in {ws.title}: {scored}')
+    return r
 
 def extract(ws):
-    c=find_seoul_col(ws);dc=find_date_col(ws)
+    sr=find_seoul_row(ws);dr=find_date_row(ws)
     out=[]
-    for r in range(1,ws.max_row+1):
-        d=norm_date(ws.cell(r,dc).value)
-        v=number(ws.cell(r,c).value)
+    for c in range(1,ws.max_column+1):
+        d=norm_date(ws.cell(dr,c).value)
+        v=number(ws.cell(sr,c).value)
         if d and v is not None and 40<=v<=180:
             out.append({'date':d,'value':v})
     by={x['date']:x for x in out}
     out=[by[k] for k in sorted(by)]
     if len(out)<100:
         raise RuntimeError(f'{ws.title} Seoul history too short: {len(out)}')
-    return out,c
+    return out,sr
 
 def pct(a,b):
     return round((b/a-1)*100,2) if a not in (None,0) and b is not None else None
@@ -186,34 +172,12 @@ def main():
         book=pathlib.Path(td)/'reb_weekly.xlsx'
         download_workbook(book)
         rent_book=book.with_name(book.stem+'_rent.xlsx')
-        for label,pth in [('sale',book),('rent',rent_book)]:
-            with zipfile.ZipFile(pth) as zz:
-                names=zz.namelist()
-                sizes={n:zz.getinfo(n).file_size for n in names}
-                inspect=[n for n in names if n.startswith(('xl/worksheets/','xl/sharedStrings','xl/externalLinks/','xl/queryTables/','xl/connections'))]
-                snippets={}
-                for n in inspect[:20]:
-                    try:snippets[n]=zz.read(n)[:1200].decode('utf-8',errors='replace')
-                    except Exception:pass
-                print(json.dumps({'debug':'reb_xlsx_structure','kind':label,'names':names,'sizes':sizes,'snippets':snippets},ensure_ascii=False))
         # REB workbooks declare the incorrect dimension A1 even though sheet XML contains
         # the full table. Normal mode parses actual cell records instead of trusting that dimension.
         swb=load_workbook(book,read_only=False,data_only=True)
         rwb=load_workbook(rent_book,read_only=False,data_only=True)
         sws=swb[swb.sheetnames[0]];rws=rwb[rwb.sheetnames[0]]
-        for label,ws in [('sale',sws),('rent',rws)]:
-            sample=[]
-            for rr in range(1,min(ws.max_row,30)+1):
-                sample.append([ws.cell(rr,cc).value for cc in range(1,min(ws.max_column,45)+1)])
-            seoul_pos=[];date_pos=[]
-            for rr in range(1,min(ws.max_row,80)+1):
-                for cc in range(1,min(ws.max_column,400)+1):
-                    v=ws.cell(rr,cc).value
-                    if str(v or '').strip().replace(' ','') in ('서울','서울특별시'):seoul_pos.append([rr,cc])
-                    d=norm_date(v)
-                    if d:date_pos.append([rr,cc,d])
-            print(json.dumps({'debug':'reb_layout','kind':label,'max_row':ws.max_row,'max_col':ws.max_column,'seoul_pos':seoul_pos[:20],'date_pos':date_pos[:80],'sample':sample},ensure_ascii=False,default=str))
-        sale,scol=extract(sws);rent,rcol=extract(rws)
+        sale,srow=extract(sws);rent,rrow=extract(rws)
     sm={x['date']:x for x in sale};rm={x['date']:x for x in rent}
     common=sorted(set(sm)&set(rm))
     if len(common)<100:raise RuntimeError(f'common REB weekly history too short: {len(common)}')
@@ -238,7 +202,7 @@ def main():
                      'rent_4w_pct':lag(rent,4),'rent_13w_pct':lag(rent,13)},
          'accumulation':acc,'series':{'sale':sale,'rent':rent},
          'workbook':{'bulletin_title':TARGET_TITLE,'sale_sheet':sws.title,'rent_sheet':rws.title,
-                     'sale_seoul_column':scol,'rent_seoul_column':rcol},
+                     'sale_seoul_row':srow,'rent_seoul_row':rrow},
          'role':'crosscheck_context_only','production_model_weight_changed':False,
          'collection_method':'public_reb_timeseries_workbook',
          'collected_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
