@@ -2745,10 +2745,21 @@ header{position:sticky!important;overflow:visible!important}
   font-size:9px!important;
 }
 .evidence-factor-list-v181 .factor-refresh-v135,
-.evidence-factor-list-v181 .factor-change-v135,
 .evidence-factor-list-v181 .score-change-badge{
   display:none!important;
 }
+.evidence-factor-list-v181 .factor-change-v135{
+  display:flex;
+  gap:6px;
+  align-items:baseline;
+  flex-wrap:wrap;
+  margin:0 0 8px!important;
+  color:#637889;
+  font-size:10px;
+  line-height:1.3;
+}
+.evidence-factor-list-v181 .factor-change-v135 b,
+.evidence-factor-list-v181 .factor-change-v135 em{color:#294c64;font-style:normal;font-weight:900}
 .judgment-evidence-inner-v181 #scoreExplanation{
   margin:9px 0 0!important;
   box-shadow:none!important;
@@ -3474,8 +3485,19 @@ header{position:sticky!important;overflow:visible!important}
 }
 @media(max-width:520px){
   .judgment-evidence-drawer-v181 .evidence-factor-list-v181{
-    grid-template-columns:1fr!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
     gap:8px!important;
+    width:100%!important;
+    align-items:stretch!important;
+  }
+  .judgment-evidence-drawer-v181 .evidence-factor-list-v181>.score-component,
+  .judgment-evidence-drawer-v181 .evidence-factor-list-v181>.score-component:last-child{
+    width:auto!important;
+    max-width:none!important;
+    min-width:0!important;
+    overflow:hidden!important;
+    margin:0!important;
   }
   .evidence-factor-list-v181 .factor-impact-row-v181,
   .evidence-factor-list-v181 .factor-impact-row-v181:last-child{
@@ -3485,7 +3507,14 @@ header{position:sticky!important;overflow:visible!important}
   .evidence-factor-list-v181 .factor-card-head-v134>span{font-size:13px!important}
   .evidence-factor-list-v181 .factor-card-head-v134>em{font-size:10px!important}
   .evidence-factor-list-v181 .factor-score-v134>b{font-size:28px!important}
-  .evidence-factor-list-v181 .factor-impact-copy-v181{font-size:11.5px!important;line-height:1.5!important}
+  .evidence-factor-list-v181 .factor-impact-copy-v181{font-size:10px!important;line-height:1.45!important;overflow-wrap:anywhere!important;word-break:keep-all!important}
+  .evidence-factor-list-v181 .factor-card-head-v134,
+  .evidence-factor-list-v181 .factor-foot-v134{min-width:0!important}
+  .evidence-factor-list-v181 .factor-card-head-v134>span,
+  .evidence-factor-list-v181 .factor-card-head-v134>em,
+  .evidence-factor-list-v181 .factor-foot-v134>span,
+  .evidence-factor-list-v181 .factor-foot-v134>i{overflow-wrap:anywhere;word-break:keep-all}
+  .evidence-factor-list-v181 .factor-change-v135{font-size:9px;margin-bottom:7px!important}
   .evidence-factor-list-v181 .factor-foot-v134>span,
   .evidence-factor-list-v181 .factor-foot-v134>i{font-size:10px!important;white-space:normal!important}
 }
