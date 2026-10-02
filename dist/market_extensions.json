@@ -6,18 +6,18 @@
       "seoul_25": {
         "count": 25,
         "up": 23,
-        "flat": 0,
-        "down": 2,
+        "flat": 1,
+        "down": 1,
         "up_share_pct": 92.0,
-        "median_change_pct": 0.15
+        "median_change_pct": 0.13
       },
       "gangnam3": {
         "count": 3,
         "up": 1,
-        "flat": 0,
-        "down": 2,
+        "flat": 1,
+        "down": 1,
         "up_share_pct": 33.3,
-        "median_change_pct": -0.02
+        "median_change_pct": 0.0
       },
       "non_gangnam3": {
         "count": 22,
@@ -25,40 +25,40 @@
         "flat": 0,
         "down": 0,
         "up_share_pct": 100.0,
-        "median_change_pct": 0.16
+        "median_change_pct": 0.14
       },
       "songpa": {
         "region": "송파구",
         "code": "1171000000",
-        "date": "20260921",
-        "index": 106.4835282854,
-        "change_pct": 0.03
+        "date": "20260928",
+        "index": 106.537648152,
+        "change_pct": 0.05
       }
     },
     "affordability": {
-      "ym": "202607",
-      "mortgage_rate_pct": 4.48,
-      "fixed_rate_pct": 4.76,
-      "variable_rate_pct": 4.35,
-      "payment_5eok_won": 2527488,
-      "max_loan_income100m_dsr40_won": 659416190,
-      "seoul_price_index": 101.265836456747,
-      "rate_change_1m_pp": 0.12,
-      "payment_change_1m_pct": 1.424,
-      "loan_capacity_change_1m_pct": -1.404,
-      "affordability_change_1m_pct": -2.636,
-      "rate_change_3m_pp": 0.17,
-      "payment_change_3m_pct": 2.026,
-      "loan_capacity_change_3m_pct": -1.986,
-      "affordability_change_3m_pct": -5.372,
-      "rate_change_6m_pp": 0.19,
-      "payment_change_6m_pct": 2.269,
-      "loan_capacity_change_6m_pct": -2.218,
-      "affordability_change_6m_pct": -7.116,
-      "rate_change_12m_pp": 0.52,
-      "payment_change_12m_pct": 6.395,
-      "loan_capacity_change_12m_pct": -6.011,
-      "affordability_change_12m_pct": -15.262
+      "ym": "202608",
+      "mortgage_rate_pct": 4.66,
+      "fixed_rate_pct": 4.88,
+      "variable_rate_pct": 4.53,
+      "payment_5eok_won": 2581182,
+      "max_loan_income100m_dsr40_won": 645699106,
+      "seoul_price_index": 102.331049252088,
+      "rate_change_1m_pp": 0.18,
+      "payment_change_1m_pct": 2.124,
+      "loan_capacity_change_1m_pct": -2.08,
+      "affordability_change_1m_pct": -3.099,
+      "rate_change_3m_pp": 0.34,
+      "payment_change_3m_pct": 4.07,
+      "loan_capacity_change_3m_pct": -3.911,
+      "affordability_change_3m_pct": -7.223,
+      "rate_change_6m_pp": 0.34,
+      "payment_change_6m_pct": 4.07,
+      "loan_capacity_change_6m_pct": -3.911,
+      "affordability_change_6m_pct": -9.006,
+      "rate_change_12m_pp": 0.7,
+      "payment_change_12m_pct": 8.656,
+      "loan_capacity_change_12m_pct": -7.966,
+      "affordability_change_12m_pct": -17.492
     },
     "temperature": {
       "ym": "202608",
@@ -94,5 +94,5 @@
     "production_price_turn_formula_changed": false,
     "reason": "breadth improves holdout discrimination but hard filtering leaves too few entry signals; affordability timing effect is inconsistent; Songpa relative strength is local rather than Seoul-wide."
   },
-  "generated_at": "2026-09-28T04:36:18.407476+00:00"
+  "generated_at": "2026-10-02T18:02:03.495061+00:00"
 }

@@ -5276,7 +5276,27 @@
       "afford_ok": false,
       "breadth_ok": true,
       "enhanced_both": false
+    },
+    {
+      "ym": "202608",
+      "m1": 1.0518974933821479,
+      "m3": 3.570187663460178,
+      "afford_impulse": -3.911,
+      "payment_pressure": 4.07,
+      "breadth": 80.0,
+      "songpa_breadth": 76.2,
+      "songpa_gap": -2.055,
+      "songpa_fwd_3m": null,
+      "songpa_fwd_6m": null,
+      "songpa_fwd_12m": null,
+      "fwd_3m": null,
+      "fwd_6m": null,
+      "fwd_12m": null,
+      "baseline_turn": false,
+      "afford_ok": false,
+      "breadth_ok": true,
+      "enhanced_both": false
     }
   ],
-  "generated_at": "2026-09-28T04:36:18.361992+00:00"
+  "generated_at": "2026-10-02T18:02:03.453866+00:00"
 }

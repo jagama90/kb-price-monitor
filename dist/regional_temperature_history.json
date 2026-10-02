@@ -6023,7 +6023,7 @@
       "all_interest_m3_median_pct": 5.455,
       "all_interest_breadth_up_pct": 85.7,
       "all_interest_fwd_3m_median_pct": 2.318,
-      "all_interest_fwd_6m_median_pct": 4.545,
+      "all_interest_fwd_6m_median_pct": 4.636,
       "all_interest_fwd_12m_median_pct": null,
       "songpa_vs_seoul_gap_pp": 3.493,
       "non_songpa_vs_seoul_gap_pp": 3.199
@@ -6154,5 +6154,5 @@
       "non_songpa_vs_seoul_gap_pp": -1.57
     }
   ],
-  "generated_at": "2026-09-28T04:36:18.298913+00:00"
+  "generated_at": "2026-10-02T18:02:03.393105+00:00"
 }
