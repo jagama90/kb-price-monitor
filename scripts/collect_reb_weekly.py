@@ -71,6 +71,19 @@ def download_workbook(dest:pathlib.Path):
             if frame:break
             page.wait_for_timeout(250)
         if frame is None:
+            att=page.get_by_text(re.compile(r'주택아파트가격동향_.*\\.zip'))
+            att_html=[]
+            for i in range(min(att.count(),10)):
+                try:
+                    att_html.append(att.nth(i).evaluate("el => ({tag:el.tagName,html:el.outerHTML,parent:el.parentElement?el.parentElement.outerHTML:null,grand:el.parentElement&&el.parentElement.parentElement?el.parentElement.parentElement.outerHTML:null})"))
+                except Exception: pass
+            forms=[]
+            for i in range(min(page.locator('form').count(),20)):
+                try:
+                    fm=page.locator('form').nth(i)
+                    forms.append({'action':fm.get_attribute('action'),'method':fm.get_attribute('method'),'html':fm.evaluate("el=>el.outerHTML.slice(0,5000)")})
+                except Exception:pass
+            print(json.dumps({'debug':'reb_attachment_candidates','matches':att_html,'forms':forms},ensure_ascii=False))
             anchors=[]
             for i in range(min(page.locator('a').count(),120)):
                 a=page.locator('a').nth(i)
