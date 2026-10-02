@@ -5,7 +5,7 @@ Source: 한국부동산원 R-ONE 공개자료실 > 주간아파트가격동향�
 The workbook is downloaded from the public attachment UI and parsed without a private API.
 """
 from __future__ import annotations
-import datetime,json,pathlib,re,tempfile
+import datetime,json,pathlib,re,tempfile,zipfile
 from openpyxl import load_workbook
 from playwright.sync_api import sync_playwright,TimeoutError as PlaywrightTimeoutError
 
@@ -70,63 +70,50 @@ def download_workbook(dest:pathlib.Path):
             frame=page.frame(name='raonkuploader_frame_kupload')
             if frame:break
             page.wait_for_timeout(250)
-        if frame is None:
-            att=page.get_by_text(re.compile(r'주택아파트가격동향_.*\\.zip'))
-            att_html=[]
-            for i in range(min(att.count(),10)):
-                try:
-                    att_html.append(att.nth(i).evaluate("el => ({tag:el.tagName,html:el.outerHTML,parent:el.parentElement?el.parentElement.outerHTML:null,grand:el.parentElement&&el.parentElement.parentElement?el.parentElement.parentElement.outerHTML:null})"))
-                except Exception: pass
-            forms=[]
-            for i in range(min(page.locator('form').count(),20)):
-                try:
-                    fm=page.locator('form').nth(i)
-                    forms.append({'action':fm.get_attribute('action'),'method':fm.get_attribute('method'),'html':fm.evaluate("el=>el.outerHTML.slice(0,5000)")})
-                except Exception:pass
-            print(json.dumps({'debug':'reb_attachment_candidates','matches':att_html,'forms':forms},ensure_ascii=False))
-            anchors=[]
-            for i in range(min(page.locator('a').count(),120)):
-                a=page.locator('a').nth(i)
-                try:
-                    txt=a.inner_text().strip()
-                    href=a.get_attribute('href')
-                    onclick=a.get_attribute('onclick')
-                    if txt or href or onclick: anchors.append({'text':txt[:120],'href':href,'onclick':onclick})
-                except Exception: pass
-            print(json.dumps({'debug':'reb_detail_dom','url':page.url,'title':page.title(),
-                              'frames':[{'name':fr.name,'url':fr.url} for fr in page.frames],
-                              'anchors':anchors,
-                              'body':page.locator('body').inner_text()[:9000]},ensure_ascii=False))
-            raise RuntimeError('REB attachment frame not available')
-        files=frame.locator('#file_list > li')
-        if files.count()<1:
-            raise RuntimeError('REB attachment list empty')
-        chosen=None
-        file_names=[]
-        for i in range(files.count()):
-            li=files.nth(i)
-            txt=li.inner_text().strip()
-            file_names.append(txt)
-            low=txt.lower()
-            if '.xlsx' in low or '.xls' in low or '시계열' in txt:
-                chosen=li
-                if '.xlsx' in low:break
-        if chosen is None:
-            # Legacy uploader convention: the second attachment is the workbook.
-            chosen=files.nth(1 if files.count()>1 else 0)
-        # Clicking the file row/select control marks it for download.
-        try:
-            chosen.locator('ul li').nth(1).click()
-        except Exception:
-            chosen.click()
-        frame.locator('#button_download').wait_for(state='visible',timeout=10000)
-        try:
-            with page.expect_download(timeout=20000) as di:
-                frame.locator('#button_download').click()
-            dl=di.value
-        except PlaywrightTimeoutError:
-            raise RuntimeError('REB workbook download did not start; files='+json.dumps(file_names,ensure_ascii=False))
-        dl.save_as(str(dest))
+        if frame is not None:
+            files=frame.locator('#file_list > li')
+            if files.count()<1:raise RuntimeError('REB attachment list empty')
+            chosen=None;file_names=[]
+            for i in range(files.count()):
+                li=files.nth(i);txt=li.inner_text().strip();file_names.append(txt);low=txt.lower()
+                if '.xlsx' in low or '.xls' in low or '시계열' in txt:
+                    chosen=li
+                    if '.xlsx' in low:break
+            if chosen is None:chosen=files.nth(1 if files.count()>1 else 0)
+            try:chosen.locator('ul li').nth(1).click()
+            except Exception:chosen.click()
+            frame.locator('#button_download').wait_for(state='visible',timeout=10000)
+            try:
+                with page.expect_download(timeout=20000) as di:frame.locator('#button_download').click()
+                dl=di.value
+            except PlaywrightTimeoutError:
+                raise RuntimeError('REB workbook download did not start; files='+json.dumps(file_names,ensure_ascii=False))
+            raw_path=dest.with_suffix(pathlib.Path(dl.suggested_filename).suffix or '.bin')
+            dl.save_as(str(raw_path))
+        else:
+            att=page.locator('#notice-attach-sect a.atchFile')
+            if att.count()<1:
+                raise RuntimeError('REB current attachment link not found')
+            attachment_text=att.first.inner_text().strip()
+            try:
+                with page.expect_download(timeout=30000) as di:
+                    att.first.evaluate("el => el.click()")
+                dl=di.value
+            except PlaywrightTimeoutError:
+                raise RuntimeError('REB current attachment download did not start: '+attachment_text)
+            raw_path=dest.with_suffix(pathlib.Path(dl.suggested_filename).suffix or '.zip')
+            dl.save_as(str(raw_path))
+        if raw_path.suffix.lower()=='.zip':
+            with zipfile.ZipFile(raw_path) as z:
+                names=z.namelist()
+                books=[n for n in names if n.lower().endswith('.xlsx')]
+                if not books:
+                    raise RuntimeError('REB zip has no xlsx workbook: '+json.dumps(names,ensure_ascii=False))
+                preferred=next((n for n in books if '시계열' in n or '주간' in n),books[0])
+                dest.write_bytes(z.read(preferred))
+                print(json.dumps({'downloaded_zip':raw_path.name,'workbook_entry':preferred,'entries':names[:40]},ensure_ascii=False))
+        else:
+            if raw_path!=dest:dest.write_bytes(raw_path.read_bytes())
         browser.close()
 
 def sheet_for(wb,kind):
