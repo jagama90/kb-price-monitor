@@ -3553,3 +3553,26 @@ header{position:sticky!important;overflow:visible!important}
 .manual-factor-refresh-v197.success .manual-refresh-progress-v200>i>u{background:#4f8b68}
 .manual-factor-refresh-v197.error .manual-refresh-progress-v200>i>u{background:#ba6a5f}
 @media(max-width:800px){.buy-condition-line-v181{flex-wrap:wrap}.condition-delta-v200{font-size:10px;min-height:20px;padding:3px 6px}.condition-change-reason-v200{font-size:10px!important}.manual-refresh-timeline-v200{font-size:9px}.manual-refresh-progress-v200>b{font-size:9px}}
+
+
+/* v206 — refresh drawer shows actual changes only */
+.refresh-change-only-v206{margin-bottom:14px}
+.refresh-changed-list-v206{display:grid;gap:10px}
+.refresh-changed-card-v206{border:1px solid #dbe5ef;border-radius:18px;background:#f8fafc;padding:14px 16px}
+.refresh-changed-head-v206{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1px solid #e5ebf1}
+.refresh-changed-head-v206>span{display:grid;place-items:center;width:26px;height:26px;border-radius:999px;background:#e7f2fb;color:#1971b9;font-size:13px;font-weight:800}
+.refresh-changed-head-v206>b{min-width:0;font-size:17px;color:#172b3f}
+.refresh-changed-head-v206>small{font-size:12px;color:#6d7c8a;white-space:nowrap}
+.refresh-changed-body-v206{display:grid;gap:8px;padding-top:10px}
+.refresh-change-line-v206{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:12px;font-size:14px;line-height:1.45}
+.refresh-change-line-v206>span{color:#687888;overflow-wrap:anywhere}
+.refresh-change-line-v206>b{color:#1d344a;text-align:right;overflow-wrap:anywhere}
+.refresh-changed-empty-v206{display:grid;gap:4px;border:1px solid #e2e8ef;border-radius:16px;background:#f8fafc;padding:18px;color:#637383}
+.refresh-changed-empty-v206>b{font-size:16px;color:#283f54}.refresh-changed-empty-v206>small{font-size:13px}
+@media(max-width:640px){
+ .refresh-changed-card-v206{padding:13px 14px}
+ .refresh-changed-head-v206{grid-template-columns:26px minmax(0,1fr);gap:7px}
+ .refresh-changed-head-v206>small{grid-column:2;white-space:normal}
+ .refresh-change-line-v206{grid-template-columns:1fr;gap:2px}
+ .refresh-change-line-v206>b{text-align:left;font-size:15px}
+}
