@@ -83,18 +83,15 @@ def main():
     key=os.getenv('RONE_API_KEY','').strip()
     if not key:raise RuntimeError('RONE_API_KEY is required')
     today=datetime.datetime.now(ZoneInfo('Asia/Seoul')).date()
-    end_date=today.strftime('%Y%m%d')
-    start_date=(today-datetime.timedelta(days=7*110)).strftime('%Y%m%d')
     series={};contracts={}
     for kind,table in TABLES.items():
         cls_id,itm_id=KNOWN_PAIR
-        data=fetch_series(key,table,cls_id,itm_id,start_date,end_date)
-        probe_date=None
+        data=fetch_series(key,table,cls_id,itm_id)
         if not data:
-            pair=discover_pair(key,table,today)
+            pair=discover_pair(key,table)
             if not pair:raise RuntimeError(f'R-ONE weekly {kind}: Seoul index pair not found')
-            cls_id,itm_id,probe_date=pair
-            data=fetch_series(key,table,cls_id,itm_id,start_date,end_date)
+            cls_id,itm_id=pair
+            data=fetch_series(key,table,cls_id,itm_id)
         if len(data)<40:raise RuntimeError(f'R-ONE weekly {kind}: insufficient rows {len(data)}')
         data=[x for x in data if x.get('date') and x['date']>=(today-datetime.timedelta(days=7*110)).strftime('%Y%m%d')]
         series[kind]=enrich(data);contracts[kind]={'statbl_id':table,'dtacycle_cd':'WK','cls_id':cls_id,'itm_id':itm_id}
