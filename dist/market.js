@@ -282,36 +282,36 @@ function forecastAxisLabel(pos){
  const p=finiteNum(pos);if(p==null)return '데이터 확인 중';
  return ['하락','둔화','바닥','보합','상승','가속'][Math.max(0,Math.min(5,Math.round(p)))];
 }
-function renderForecastPathMap(horizons=[]){
- const host=document.getElementById('forecastPathRows'),summary=document.getElementById('forecastPathSummary');if(!host||!summary)return;
- const rows=(horizons||[]).map(h=>({h,pos:forecastMapPosition(h)})).filter(x=>finiteNum(x.pos)!=null);
- if(!rows.length){host.innerHTML='<div class="forecast-path-loading-v213">전망 데이터를 확인하고 있습니다.</div>';summary.textContent='전망 방향 확인 중';return}
- const current=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{}),currentPos=finiteNum(current.index);
- const posPct=v=>Math.max(2,Math.min(98,(Math.max(0,Math.min(5,v))/5)*100));
- const shortLabel=h=>String(h?.label||h?.period||'향후').replace('년 ',' · ');
- const cue=(from,to)=>{
-  const a=finiteNum(from),b=finiteNum(to);if(a==null||b==null)return '';
-  const d=b-a;if(Math.abs(d)<.12)return '→ 유지';
-  return d<0?'‹ 둔화 방향':'› 상방 방향';
- };
- host.innerHTML=rows.map((x,i)=>{
-  const prev=i===0?currentPos:rows[i-1].pos,label=forecastAxisLabel(x.pos),direction=cue(prev,x.pos);
-  return '<div class="forecast-path-row-v213"><div class="forecast-path-row-head-v213"><b>'+esc(shortLabel(x.h))+'</b><span>'+esc(label)+(direction?' · '+esc(direction):'')+'</span></div><div class="forecast-path-track-v213"><i></i><u style="left:'+posPct(x.pos)+'%"></u></div></div>';
- }).join('');
- const first=rows[0],last=rows[rows.length-1],firstLabel=forecastAxisLabel(first.pos),lastLabel=forecastAxisLabel(last.pos);
- const overall=cue(currentPos,first.pos);
- summary.textContent='단기 '+firstLabel+(overall?' · '+overall.replace('‹ ','').replace('› ',''):'')+(rows.length>1?' → '+lastLabel:'');
+function forecastMovement(from,to){
+ const a=finiteNum(from),b=finiteNum(to);if(a==null||b==null)return{tone:'unknown',title:'방향 확인 중',detail:'전망 입력을 확인하고 있습니다.'};
+ const d=b-a,target=forecastAxisLabel(b);
+ if(Math.abs(d)<.12)return{tone:'steady',title:target+'권 유지',detail:'직전 구간과 비슷한 흐름'};
+ if(d<0)return{tone:'cooling',title:target==='보합'?'보합권 접근':target+' 쪽으로 이동',detail:'상승 강도가 한 단계 약해지는 흐름'};
+ return{tone:'rising',title:target==='상승'?'상승 쪽 재강화':target+' 쪽으로 이동',detail:'직전 구간보다 상방 신호가 강해지는 흐름'};
 }
-
+function renderForecastJourney(horizons=[]){
+ const host=document.getElementById('forecastJourneySteps'),summary=document.getElementById('forecastJourneySummary');if(!host||!summary)return;
+ const rows=(horizons||[]).map(h=>({h,pos:forecastMapPosition(h)})).filter(x=>finiteNum(x.pos)!=null);
+ if(!rows.length){host.innerHTML='<div class="forecast-journey-loading-v216">전망 데이터를 확인하고 있습니다.</div>';summary.textContent='전망 방향 확인 중';return}
+ const current=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{}),currentPos=finiteNum(current.index);
+ const shortLabel=h=>String(h?.label||h?.period||'향후').replace('년 ',' ');
+ const items=rows.map((x,i)=>{
+  const prev=i===0?currentPos:rows[i-1].pos,m=forecastMovement(prev,x.pos),axis=forecastAxisLabel(x.pos);
+  return '<article class="forecast-journey-step-v216 tone-'+esc(m.tone)+'"><i class="forecast-journey-dot-v216"></i><div class="forecast-journey-copy-v216"><small>'+esc(shortLabel(x.h))+'</small><b>'+esc(m.title)+'</b><span>'+esc(m.detail)+' · '+esc(axis)+'권 신호</span></div></article>';
+ });
+ host.innerHTML=items.join('');
+ const firstMove=forecastMovement(currentPos,rows[0].pos),lastLabel=forecastAxisLabel(rows.at(-1).pos);
+ summary.textContent=firstMove.title+(rows.length>1?' → '+lastLabel+'권':'');
+}
 function renderForecastQuick(horizons=[]){
  const curEl=document.getElementById('forecastCurrentPosition'),dirEl=document.getElementById('forecastPrimaryDirection'),supEl=document.getElementById('forecastPrimarySupport');
  if(!curEl||!dirEl||!supEl)return;
  const current=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{}),h=(horizons||[])[0],pos=forecastMapPosition(h);
  if(!h||finiteNum(pos)==null){curEl.textContent=current?.label||'현재 위치 확인 중';dirEl.textContent='전망 데이터 확인 중';supEl.textContent='신호 확인 중';return}
  const c=finiteNum(h?.weights?.consolidation),r=finiteNum(h?.weights?.reacceleration),d=finiteNum(h?.weights?.downturn),weak=(c==null||d==null)?null:c+d;
- const target=forecastAxisLabel(pos),cp=finiteNum(current?.index),delta=cp==null?null:pos-cp;
- curEl.textContent=current?.label||'현재 위치 확인 중';
- dirEl.textContent=delta!=null&&delta<-.12?(target==='보합'?'보합권 쪽으로 둔화':target+' 쪽으로 둔화'):(delta!=null&&delta>.12?target+' 쪽으로 강화':target+'권 유지');
+ const cp=finiteNum(current?.index),move=forecastMovement(cp,pos),cooling=current?.label==='상승'&&cp!=null&&pos<cp-.12;
+ curEl.textContent=cooling?'상승 · 둔화 신호':(current?.label||'현재 위치 확인 중');
+ dirEl.textContent=move.title;
  supEl.textContent=weak==null?'신호 확인 중':'상승 지속보다 약해지는 쪽 신호 '+Math.round(weak)+'/100';
  supEl.title=(c==null||r==null||d==null)?'':'보합·쉬어가기 '+c.toFixed(1)+' · 재가속 '+r.toFixed(1)+' · 하방 '+d.toFixed(1)+' / 상대 지지도이며 실제 확률이 아닙니다.';
 }
@@ -484,7 +484,7 @@ async function renderRegimeForecast(){
   const hs=d.horizons||[],displays=hs.map(h=>h.display||fallbackDisplay(h.weights||{}));
   window.__forecastMapPosition=hs.length?forecastMapPosition(hs[0]):null;
   renderRegimeMap(window.__currentCycleStage,window.__forecastMapPosition);
-  renderForecastPathMap(hs);
+  renderForecastJourney(hs);
   renderForecastQuick(hs);
   const currentState=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{});
   if(currentState.label==='상승'&&finiteNum(window.__forecastMapPosition)!=null&&window.__forecastMapPosition<currentState.index-.12){
@@ -508,7 +508,7 @@ async function renderRegimeForecast(){
   if(meta){meta.hidden=true;meta.textContent='현재 판단에 사용한 연구 데이터 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' · 잠정':'')+' · 검증 완료 '+fmtMonth(d.latest_certified_backtest_month)+'까지';}
   const hb=document.getElementById('hubBacktestMeta');if(hb)hb.textContent='인증 '+fmtMonth(d.latest_certified_backtest_month)+' · 연구 '+fmtMonth(d.latest_research_month);
  }catch(e){
-  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';renderForecastPathMap([]);renderForecastQuick([]);if(drivers)drivers.textContent='전망 근거 데이터를 확인하고 있습니다.';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
+  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';renderForecastJourney([]);renderForecastQuick([]);if(drivers)drivers.textContent='전망 근거 데이터를 확인하고 있습니다.';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
  }
 }
 renderRegimeForecast();

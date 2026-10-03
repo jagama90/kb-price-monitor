@@ -75,19 +75,28 @@
   <div class="judgment-block-v1 judgment-forward-v1 forecast-compact-mobile forecast-engine-v181" id="regimeForecast">
     <div class="engine-kicker-v181">전망엔진 · 앞으로 어디로 갈까?</div>
 
-    <div class="forecast-quick-v214" aria-label="전망 핵심 요약">
-      <div><small>지금</small><b id="forecastCurrentPosition">현재 위치 계산 중</b></div>
-      <i aria-hidden="true">→</i>
-      <div><small>가까운 방향</small><b id="forecastPrimaryDirection">전망 방향 계산 중</b><span id="forecastPrimarySupport">신호 확인 중</span></div>
+    <div class="forecast-now-v216" aria-label="현재에서 가까운 전망 방향">
+      <div class="forecast-now-current-v216">
+        <small>현재</small>
+        <b id="forecastCurrentPosition">현재 위치 계산 중</b>
+      </div>
+      <div class="forecast-now-arrow-v216" aria-hidden="true"><i>↓</i></div>
+      <div class="forecast-now-next-v216">
+        <small>가까운 방향</small>
+        <b id="forecastPrimaryDirection">전망 방향 계산 중</b>
+        <span id="forecastPrimarySupport">신호 확인 중</span>
+      </div>
     </div>
 
-    <div id="forecastPathMap" class="forecast-path-map-v213" aria-label="향후 국면 방향 지도">
-      <div class="forecast-path-head-v213"><b>전망 흐름 지도</b><span id="forecastPathSummary">전망 방향 계산 중</span></div>
-      <div id="forecastPathRows" class="forecast-path-rows-v213">
-        <div class="forecast-path-loading-v213">향후 국면 흐름을 계산하고 있습니다.</div>
+    <div id="forecastJourney" class="forecast-journey-v216" aria-label="향후 시장 흐름">
+      <div class="forecast-journey-head-v216">
+        <div><small>향후 흐름</small><b id="forecastJourneySummary">전망 경로 계산 중</b></div>
+        <span>시간 순서</span>
       </div>
-      <div class="forecast-path-scale-v213"><span>하락</span><span>둔화</span><span>바닥</span><span>보합</span><span>상승</span><span>가속</span></div>
-      <small>신호 위치이며 실제 발생확률이 아닙니다.</small>
+      <div id="forecastJourneySteps" class="forecast-journey-steps-v216">
+        <div class="forecast-journey-loading-v216">향후 흐름을 계산하고 있습니다.</div>
+      </div>
+      <small class="forecast-journey-note-v216">현재 신호를 시간 순서로 정리한 경로이며 실제 발생확률이 아닙니다.</small>
     </div>
 
     <details class="engine-detail-drawer-v214 forecast-detail-drawer-v214">
