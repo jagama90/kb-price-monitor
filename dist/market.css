@@ -3779,3 +3779,81 @@ header{position:sticky!important;overflow:visible!important}
  .engine-detail-drawer-v214>summary{padding:12px}.engine-detail-drawer-v214>summary b{font-size:12px}.engine-detail-drawer-v214>summary span{font-size:9px}
  .engine-detail-drawer-v214 .current-regime-evidence-v209,.engine-detail-drawer-v214 .research-steps,.engine-detail-drawer-v214 .forecast-route-v181,.engine-detail-drawer-v214 .forecast-drivers-v209{margin:10px}
 }
+
+
+/* v215 mobile readability + generous nested panel spacing */
+.research-detail-drawer-v214,.forecast-detail-drawer-v214{margin-top:20px!important}
+.engine-detail-drawer-v214>summary{min-height:58px;padding:16px 18px!important}
+.engine-detail-drawer-v214>summary b{font-size:16px!important;line-height:1.3}
+.engine-detail-drawer-v214>summary span{font-size:12px!important;line-height:1.35;text-align:right}
+.engine-detail-drawer-v214[open]{padding-bottom:16px!important}
+.engine-detail-drawer-v214 .current-regime-evidence-v209,
+.engine-detail-drawer-v214 .research-steps,
+.engine-detail-drawer-v214 .forecast-route-v181,
+.engine-detail-drawer-v214 .forecast-drivers-v209{margin:18px!important}
+
+.current-regime-evidence-v209{gap:16px 0!important;padding-top:16px!important;margin-bottom:22px!important}
+.current-regime-evidence-v209>div{padding:2px 14px!important}
+.current-regime-evidence-v209 small{font-size:12px!important;line-height:1.3}
+.current-regime-evidence-v209 b{margin:6px 0 4px!important;font-size:22px!important}
+.current-regime-evidence-v209 span{font-size:11px!important;line-height:1.4}
+.reb-crosscheck-v210{margin:0 18px 22px!important;font-size:12px!important;line-height:1.55!important;overflow-wrap:anywhere;word-break:keep-all}
+.research-detail-drawer-v214 .research-steps{padding:4px 4px 8px!important}
+.research-detail-drawer-v214 .research-steps span{font-size:13px!important;min-height:44px!important;padding:11px 5px!important}
+
+.forecast-quick-v214{grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr)!important;align-items:stretch!important;gap:12px!important;margin:18px 0 22px!important;padding:18px!important}
+.forecast-quick-v214>div{display:flex;flex-direction:column;justify-content:center;min-height:78px}
+.forecast-quick-v214>i{display:flex;align-items:center;justify-content:center;font-size:22px}
+.forecast-quick-v214 small{font-size:12px!important}
+.forecast-quick-v214 b{margin-top:7px!important;font-size:20px!important;line-height:1.3!important}
+.forecast-quick-v214 span{margin-top:7px!important;font-size:12px!important;line-height:1.45!important}
+
+.forecast-path-map-v213{margin:0 0 22px!important;padding:18px!important;border-radius:18px!important;background:#f8fbfd!important}
+.forecast-path-head-v213{margin-bottom:16px!important}
+.forecast-path-head-v213>b{font-size:16px!important}
+.forecast-path-head-v213>span{font-size:11px!important;line-height:1.4!important}
+.forecast-path-row-v213{padding:13px 0!important}
+.forecast-path-row-v213>small{font-size:12px!important;line-height:1.35!important}
+.forecast-path-row-v213>b{font-size:12px!important;line-height:1.35!important}
+.forecast-path-track-v213{height:38px!important;margin-top:7px!important}
+.forecast-path-labels-v213 span{font-size:10px!important}
+.forecast-path-map-v213>small{margin-top:10px!important;font-size:10px!important;line-height:1.45!important}
+
+.forecast-detail-drawer-v214 .forecast-route-v181{margin:18px!important;gap:14px!important}
+.forecast-detail-drawer-v214 .forecast-route-node-v181{padding:16px!important;border-radius:14px!important}
+.forecast-detail-drawer-v214 .forecast-route-node-v181 small{font-size:12px!important}
+.forecast-detail-drawer-v214 .forecast-route-node-v181>b{font-size:17px!important;line-height:1.35!important}
+.forecast-support-v209>em{font-size:11px!important}
+.forecast-support-v209 span small{font-size:10px!important;line-height:1.3!important}
+.forecast-support-v209 span b{font-size:14px!important}
+.forecast-drivers-v209{padding-top:12px!important;font-size:11px!important;line-height:1.5!important}
+.forecast-drivers-v209>small{font-size:11px!important}
+
+@media(max-width:640px){
+ .engine-detail-drawer-v214>summary{padding:15px 14px!important;gap:8px}
+ .engine-detail-drawer-v214>summary b{font-size:15px!important}.engine-detail-drawer-v214>summary span{font-size:11px!important}
+ .engine-detail-drawer-v214 .current-regime-evidence-v209,
+ .engine-detail-drawer-v214 .research-steps,
+ .engine-detail-drawer-v214 .forecast-route-v181,
+ .engine-detail-drawer-v214 .forecast-drivers-v209{margin:14px!important}
+ .current-regime-evidence-v209>div{padding:2px 11px!important}
+ .current-regime-evidence-v209 small{font-size:11px!important}.current-regime-evidence-v209 b{font-size:21px!important}.current-regime-evidence-v209 span{font-size:10.5px!important}
+ .reb-crosscheck-v210{margin:2px 14px 24px!important;font-size:11px!important}
+ .research-detail-drawer-v214 .research-steps{margin-top:18px!important;margin-bottom:16px!important}
+ .research-detail-drawer-v214 .research-steps span{font-size:12px!important;min-height:42px!important}
+ .forecast-quick-v214{grid-template-columns:minmax(0,.8fr) 28px minmax(0,1.2fr)!important;gap:8px!important;padding:16px 14px!important}
+ .forecast-quick-v214>div{min-height:82px}.forecast-quick-v214 b{font-size:18px!important}.forecast-quick-v214 span{font-size:11px!important}
+ .forecast-path-map-v213{padding:16px 14px!important}
+ .forecast-path-head-v213>b{font-size:15px!important}.forecast-path-head-v213>span{font-size:10.5px!important}
+ .forecast-path-row-v213>small,.forecast-path-row-v213>b{font-size:11px!important}
+ .forecast-path-labels-v213 span{font-size:9.5px!important}
+ .forecast-detail-drawer-v214 .forecast-route-v181{margin:14px!important}
+ .forecast-detail-drawer-v214 .forecast-route-node-v181{padding:15px 14px!important}
+ .forecast-detail-drawer-v214 .forecast-route-node-v181>b{font-size:16px!important}
+}
+@media(max-width:390px){
+ .engine-detail-drawer-v214>summary b{font-size:14px!important}.engine-detail-drawer-v214>summary span{font-size:10px!important}
+ .current-regime-evidence-v209 b{font-size:20px!important}.current-regime-evidence-v209 span{font-size:10px!important}
+ .forecast-quick-v214{grid-template-columns:minmax(0,.78fr) 24px minmax(0,1.22fr)!important;padding:15px 12px!important}
+ .forecast-quick-v214 b{font-size:17px!important}.forecast-quick-v214 span{font-size:10.5px!important}
+}
