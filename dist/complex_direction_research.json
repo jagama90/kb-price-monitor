@@ -1,0 +1,1488 @@
+{
+  "status": "research_only",
+  "version": "complex_direction_v1",
+  "generated_from_commit": "8a75d6a7759e69a760fe51301b5869e4e18d475e",
+  "architecture": "Common market context -> complex feature layer -> horizon-specific direction research",
+  "scope": {
+    "complexes_with_history": 35,
+    "history_range": [
+      "200407",
+      "202609"
+    ]
+  },
+  "leakage_guard": {
+    "target_maturity_rule": "training row t is eligible only when t+h <= prediction month",
+    "leave_complex_out_validation": true,
+    "no_future_target_rows": true,
+    "vintage_revision_risk": "KB historical series are current snapshots, not archived publication vintages; revision risk remains"
+  },
+  "model": {
+    "type": "expanding walk-forward k-nearest historical analogs",
+    "neighbors": 35,
+    "features": [
+      "sale_mom_1m",
+      "sale_mom_3m",
+      "sale_mom_6m",
+      "3m_acceleration",
+      "rent_mom_3m",
+      "rent_ratio_change_3m",
+      "drawdown_12m",
+      "relative_mom_3m"
+    ],
+    "fixed_feature_weights": false
+  },
+  "horizon_policy": {
+    "3m": {
+      "status": "validated_candidate"
+    },
+    "6m": {
+      "status": "research_only"
+    },
+    "12m": {
+      "status": "rejected_for_production"
+    }
+  },
+  "validation_summary": {
+    "3m": {
+      "n": 6149,
+      "mae_pct": 2.606,
+      "sign_hit_pct": 93.6,
+      "balanced_sign_accuracy_pct": 77.9,
+      "down_recall_pct": 58.4,
+      "persistence_sign_pct": 89.5,
+      "direction3_hit_pct": 61.2,
+      "majority3_baseline_pct": 47.2,
+      "threshold_pct": 1
+    },
+    "6m": {
+      "n": 6046,
+      "mae_pct": 4.845,
+      "sign_hit_pct": 85.6,
+      "balanced_sign_accuracy_pct": 65.8,
+      "down_recall_pct": 38,
+      "persistence_sign_pct": 84.6,
+      "direction3_hit_pct": 61.8,
+      "majority3_baseline_pct": 53.2,
+      "threshold_pct": 2
+    },
+    "12m": {
+      "n": 5836,
+      "mae_pct": 9.369,
+      "sign_hit_pct": 77.4,
+      "balanced_sign_accuracy_pct": 57.4,
+      "down_recall_pct": 25,
+      "persistence_sign_pct": 81.4,
+      "direction3_hit_pct": 60.8,
+      "majority3_baseline_pct": 61.7,
+      "threshold_pct": 3
+    }
+  },
+  "market_overlay": {
+    "status": "context_only_not_blended",
+    "as_of": "2026-10-04",
+    "current_phase": "상승·보합",
+    "first_horizon_headline": "쉬어가기·하방 경계"
+  },
+  "items": [
+    {
+      "name": "가락금호",
+      "complex_id": 1960,
+      "area_id": 1847,
+      "type_label": "24A",
+      "as_of": "202609",
+      "kb_sale_manwon": 181500,
+      "kb_rent_manwon": 70000,
+      "rent_ratio_pct": 38.5,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 1.4,
+        "acceleration_pp": -1.4,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": 0,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.84,
+        "neighbor_iqr_pct": [
+          0,
+          6.61
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.84,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 6.32
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "올림픽훼밀리타운",
+      "complex_id": 1985,
+      "area_id": 51171,
+      "type_label": "31B",
+      "as_of": "202609",
+      "kb_sale_manwon": 257500,
+      "kb_rent_manwon": 90000,
+      "rent_ratio_pct": 34.9,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 5.1,
+        "mom_6m_pct": 1.98,
+        "acceleration_pp": 8.07,
+        "rent_3m_pct": 2.86,
+        "rent_ratio_3m_pp": -0.8,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 3.89
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          2.5
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0.52,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 3.08
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "문정동 건영아파트",
+      "complex_id": 1986,
+      "area_id": 51172,
+      "type_label": "31B",
+      "as_of": "202609",
+      "kb_sale_manwon": 177500,
+      "kb_rent_manwon": 56500,
+      "rent_ratio_pct": 31.8,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 2.9,
+        "acceleration_pp": -2.9,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": 0,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.67,
+        "neighbor_iqr_pct": [
+          0,
+          5.1
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.67,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 8.16
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파파인타운 2단지",
+      "complex_id": 15738,
+      "area_id": 15478,
+      "type_label": "34A2",
+      "as_of": "202609",
+      "kb_sale_manwon": 172500,
+      "kb_rent_manwon": 80000,
+      "rent_ratio_pct": 46.3,
+      "features": {
+        "mom_1m_pct": 1.77,
+        "mom_3m_pct": 2.99,
+        "mom_6m_pct": 7.81,
+        "acceleration_pp": -1.7,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -1.4,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 1.78
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 2.3,
+        "neighbor_iqr_pct": [
+          0.43,
+          5.24
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 2.3,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 5.24
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파파인타운 3단지",
+      "complex_id": 15663,
+      "area_id": 15406,
+      "type_label": "31A",
+      "as_of": "202609",
+      "kb_sale_manwon": 177500,
+      "kb_rent_manwon": 83500,
+      "rent_ratio_pct": 47,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 2.9,
+        "acceleration_pp": -2.9,
+        "rent_3m_pct": 7.74,
+        "rent_ratio_3m_pp": 3.4,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          0.8
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 0.52
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파파인타운 7단지",
+      "complex_id": 15308,
+      "area_id": 15059,
+      "type_label": "34A",
+      "as_of": "202609",
+      "kb_sale_manwon": 190000,
+      "kb_rent_manwon": 85000,
+      "rent_ratio_pct": 44.7,
+      "features": {
+        "mom_1m_pct": 2.7,
+        "mom_3m_pct": 4.11,
+        "mom_6m_pct": 12.43,
+        "acceleration_pp": -3.88,
+        "rent_3m_pct": 3.03,
+        "rent_ratio_3m_pp": -0.5,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 2.9
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 3.92,
+        "neighbor_iqr_pct": [
+          0.87,
+          9.17
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 3.21,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 8.51
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파파인타운 8단지",
+      "complex_id": 15813,
+      "area_id": 15550,
+      "type_label": "25T1",
+      "as_of": "202609",
+      "kb_sale_manwon": 172500,
+      "kb_rent_manwon": 73000,
+      "rent_ratio_pct": 42.3,
+      "features": {
+        "mom_1m_pct": 1.47,
+        "mom_3m_pct": 2.99,
+        "mom_6m_pct": 4.55,
+        "acceleration_pp": 1.47,
+        "rent_3m_pct": 2.1,
+        "rent_ratio_3m_pp": -0.3,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 1.78
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.35,
+        "neighbor_iqr_pct": [
+          0,
+          3.92
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.35,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 4.94
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파파인타운 9단지",
+      "complex_id": 15309,
+      "area_id": 15060,
+      "type_label": "25A",
+      "as_of": "202609",
+      "kb_sale_manwon": 172500,
+      "kb_rent_manwon": 73000,
+      "rent_ratio_pct": 42.3,
+      "features": {
+        "mom_1m_pct": 1.47,
+        "mom_3m_pct": 2.99,
+        "mom_6m_pct": 4.55,
+        "acceleration_pp": 1.47,
+        "rent_3m_pct": 2.1,
+        "rent_ratio_3m_pp": -0.3,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 1.78
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.35,
+        "neighbor_iqr_pct": [
+          0,
+          3.92
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.25,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 4.94
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파파인타운 10단지",
+      "complex_id": 15041,
+      "area_id": 103044,
+      "type_label": "25B",
+      "as_of": "202609",
+      "kb_sale_manwon": 167500,
+      "kb_rent_manwon": 72500,
+      "rent_ratio_pct": 43.2,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 1.52,
+        "mom_6m_pct": 11.67,
+        "acceleration_pp": -8.48,
+        "rent_3m_pct": 2.11,
+        "rent_ratio_3m_pp": 0.2,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 0.31
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.02,
+        "neighbor_iqr_pct": [
+          0,
+          6.57
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.02,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 4.59
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "삼환가락",
+      "complex_id": 1945,
+      "area_id": 1833,
+      "type_label": "28A1",
+      "as_of": "202609",
+      "kb_sale_manwon": 197500,
+      "kb_rent_manwon": 36500,
+      "rent_ratio_pct": 18.4,
+      "features": {
+        "mom_1m_pct": 1.28,
+        "mom_3m_pct": 6.76,
+        "mom_6m_pct": 6.76,
+        "acceleration_pp": 6.76,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -1.3,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 5.55
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 3.2,
+        "neighbor_iqr_pct": [
+          0,
+          5.73
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 3.17,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 6.45
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "미륭아파트",
+      "complex_id": 1944,
+      "area_id": 128774,
+      "type_label": "30",
+      "as_of": "202604",
+      "kb_sale_manwon": 186500,
+      "kb_rent_manwon": 41000,
+      "rent_ratio_pct": 21.9,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 1.36,
+        "mom_6m_pct": 23.1,
+        "acceleration_pp": -20.09,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -0.3,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -2.52
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 3.7,
+        "neighbor_iqr_pct": [
+          0,
+          6.62
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 3.7,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 6.88
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "가락쌍용1차",
+      "complex_id": 1947,
+      "area_id": 1835,
+      "type_label": "24",
+      "as_of": "202609",
+      "kb_sale_manwon": 189500,
+      "kb_rent_manwon": 74000,
+      "rent_ratio_pct": 39,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0.8,
+        "mom_6m_pct": 0.8,
+        "acceleration_pp": 0.8,
+        "rent_3m_pct": 2.07,
+        "rent_ratio_3m_pp": 0.5,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -0.41
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          1.03
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 0
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "잠실한솔",
+      "complex_id": 1984,
+      "area_id": 1870,
+      "type_label": "23A",
+      "as_of": "202609",
+      "kb_sale_manwon": 180000,
+      "kb_rent_manwon": 80000,
+      "rent_ratio_pct": 44.4,
+      "features": {
+        "mom_1m_pct": 2.86,
+        "mom_3m_pct": 20,
+        "mom_6m_pct": 22.45,
+        "acceleration_pp": 17.96,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -8.9,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 18.79
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 2.38,
+        "neighbor_iqr_pct": [
+          0,
+          5.16
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 2.38,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 4.64
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파더센트레",
+      "complex_id": 25766,
+      "area_id": 24694,
+      "type_label": "22A",
+      "as_of": "202609",
+      "kb_sale_manwon": 150000,
+      "kb_rent_manwon": 62500,
+      "rent_ratio_pct": 41.6,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 0,
+        "acceleration_pp": 0,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": 0,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 2.15,
+        "neighbor_iqr_pct": [
+          0,
+          6.92
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 2.15,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 5.33
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파꿈에그린위례24단지",
+      "complex_id": 25769,
+      "area_id": 177501,
+      "type_label": "24A",
+      "as_of": "202609",
+      "kb_sale_manwon": 184250,
+      "kb_rent_manwon": 75000,
+      "rent_ratio_pct": 40.7,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 3.22,
+        "mom_6m_pct": 5.29,
+        "acceleration_pp": 1.22,
+        "rent_3m_pct": 3.45,
+        "rent_ratio_3m_pp": 0.1,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 2.01
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0.64,
+        "neighbor_iqr_pct": [
+          0,
+          2.37
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0.64,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 1.91
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "송파시그니처롯데캐슬",
+      "complex_id": 46734,
+      "area_id": 125083,
+      "type_label": "25B",
+      "as_of": "202609",
+      "kb_sale_manwon": 181000,
+      "kb_rent_manwon": 84000,
+      "rent_ratio_pct": 46.4,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0.56,
+        "mom_6m_pct": 0.56,
+        "acceleration_pp": 0.56,
+        "rent_3m_pct": 9.09,
+        "rent_ratio_3m_pp": 3.7,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -0.65
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          0
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 0
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "E편한세상송파파크센트럴",
+      "complex_id": 40111,
+      "area_id": 147705,
+      "type_label": "25A",
+      "as_of": "202609",
+      "kb_sale_manwon": 172500,
+      "kb_rent_manwon": 82000,
+      "rent_ratio_pct": 47.5,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 0,
+        "acceleration_pp": 0,
+        "rent_3m_pct": 7.19,
+        "rent_ratio_3m_pp": 3.2,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          0.52
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 0
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "금호타운아파트 (마천역)",
+      "complex_id": 1896,
+      "area_id": 1786,
+      "type_label": "23",
+      "as_of": "202609",
+      "kb_sale_manwon": 116500,
+      "kb_rent_manwon": 47000,
+      "rent_ratio_pct": 40.3,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 1.3,
+        "mom_6m_pct": 24.6,
+        "acceleration_pp": -21.69,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -0.5,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 0.1
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 2.74,
+        "neighbor_iqr_pct": [
+          0,
+          5.66
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 2.5,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 6.25
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "풍납극동",
+      "complex_id": 1868,
+      "area_id": 1758,
+      "type_label": "24A",
+      "as_of": "202609",
+      "kb_sale_manwon": 145000,
+      "kb_rent_manwon": 49000,
+      "rent_ratio_pct": 33.7,
+      "features": {
+        "mom_1m_pct": 5.45,
+        "mom_3m_pct": 5.45,
+        "mom_6m_pct": 22.36,
+        "acceleration_pp": -10.58,
+        "rent_3m_pct": 2.08,
+        "rent_ratio_3m_pp": -1.2,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 4.25
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 3.85,
+        "neighbor_iqr_pct": [
+          0.91,
+          7.86
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 3.63,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 8.18
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "풍납현대",
+      "complex_id": 1873,
+      "area_id": 1763,
+      "type_label": "26",
+      "as_of": "202609",
+      "kb_sale_manwon": 149000,
+      "kb_rent_manwon": 57500,
+      "rent_ratio_pct": 38.5,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 6.43,
+        "acceleration_pp": -6.43,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": 0,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.45,
+        "neighbor_iqr_pct": [
+          0,
+          4.29
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.45,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 5.95
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "가락대림",
+      "complex_id": 1941,
+      "area_id": 171544,
+      "type_label": "30",
+      "as_of": "202609",
+      "kb_sale_manwon": 160000,
+      "kb_rent_manwon": 75000,
+      "rent_ratio_pct": 46.8,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 0,
+        "acceleration_pp": 0,
+        "rent_3m_pct": 7.14,
+        "rent_ratio_3m_pp": 3.1,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          0.52
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 0
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "현대프라임",
+      "complex_id": 716,
+      "area_id": 93862,
+      "type_label": "31",
+      "as_of": "202609",
+      "kb_sale_manwon": 215000,
+      "kb_rent_manwon": 87500,
+      "rent_ratio_pct": 40.6,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 2.38,
+        "acceleration_pp": -2.38,
+        "rent_3m_pct": 6.06,
+        "rent_ratio_3m_pp": 2.3,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          1.23
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 0
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "현대6단지",
+      "complex_id": 717,
+      "area_id": 93863,
+      "type_label": "31C",
+      "as_of": "202609",
+      "kb_sale_manwon": 192500,
+      "kb_rent_manwon": 83500,
+      "rent_ratio_pct": 43.3,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 8.45,
+        "mom_6m_pct": 10.63,
+        "acceleration_pp": 6.44,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -3.7,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 7.24
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 2.8,
+        "neighbor_iqr_pct": [
+          0,
+          5.73
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 2.8,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 6.12
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "행당한진타운",
+      "complex_id": 1758,
+      "area_id": 50959,
+      "type_label": "26",
+      "as_of": "202609",
+      "kb_sale_manwon": 162500,
+      "kb_rent_manwon": 61000,
+      "rent_ratio_pct": 37.5,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 1.56,
+        "acceleration_pp": -1.56,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": 0,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0.5,
+        "neighbor_iqr_pct": [
+          0,
+          4.52
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0.5,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 5.41
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "행당대림",
+      "complex_id": 1757,
+      "area_id": 50958,
+      "type_label": "25",
+      "as_of": "202609",
+      "kb_sale_manwon": 159250,
+      "kb_rent_manwon": 60000,
+      "rent_ratio_pct": 37.6,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 6.88,
+        "acceleration_pp": -6.88,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": 0,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.02,
+        "neighbor_iqr_pct": [
+          0,
+          4.96
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0.77,
+        "model_agreement": false
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 6.45
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "행당두산위브",
+      "complex_id": 16047,
+      "area_id": 63539,
+      "type_label": "24",
+      "as_of": "202609",
+      "kb_sale_manwon": 173000,
+      "kb_rent_manwon": 73500,
+      "rent_ratio_pct": 42.4,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 1.17,
+        "mom_6m_pct": 8.13,
+        "acceleration_pp": -5.71,
+        "rent_3m_pct": 3.52,
+        "rent_ratio_3m_pp": 0.9,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -0.04
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          2.53
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 1.63
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "왕십리금호어울림",
+      "complex_id": 12530,
+      "area_id": 101346,
+      "type_label": "32A",
+      "as_of": "202609",
+      "kb_sale_manwon": 155000,
+      "kb_rent_manwon": 78500,
+      "rent_ratio_pct": 50.6,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 1.64,
+        "mom_6m_pct": 7.64,
+        "acceleration_pp": -4.26,
+        "rent_3m_pct": 4.67,
+        "rent_ratio_3m_pp": 1.5,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 0.43
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          1.91
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 0.48
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "금호대우",
+      "complex_id": 1771,
+      "area_id": 50972,
+      "type_label": "24A",
+      "as_of": "202609",
+      "kb_sale_manwon": 167500,
+      "kb_rent_manwon": 66000,
+      "rent_ratio_pct": 39.4,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0.6,
+        "mom_6m_pct": 1.52,
+        "acceleration_pp": -0.31,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -0.2,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -0.61
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.32,
+        "neighbor_iqr_pct": [
+          0,
+          3.99
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.32,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 5.33
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "금호두산",
+      "complex_id": 1767,
+      "area_id": 1667,
+      "type_label": "24",
+      "as_of": "202609",
+      "kb_sale_manwon": 158000,
+      "kb_rent_manwon": 52500,
+      "rent_ratio_pct": 33.2,
+      "features": {
+        "mom_1m_pct": 0.64,
+        "mom_3m_pct": 2.27,
+        "mom_6m_pct": 4.64,
+        "acceleration_pp": -0.05,
+        "rent_3m_pct": 2.94,
+        "rent_ratio_3m_pp": 0.2,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 1.06
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.23,
+        "neighbor_iqr_pct": [
+          0,
+          2.97
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.18,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 2.73
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "금호동한신휴플러스",
+      "complex_id": 13487,
+      "area_id": 13270,
+      "type_label": "24",
+      "as_of": "202609",
+      "kb_sale_manwon": 153500,
+      "kb_rent_manwon": 59500,
+      "rent_ratio_pct": 38.7,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0,
+        "mom_6m_pct": 4.07,
+        "acceleration_pp": -4.07,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": 0,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -1.21
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.67,
+        "neighbor_iqr_pct": [
+          0,
+          5.86
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.32,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 7.26
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "서울숲행당푸르지오",
+      "complex_id": 16151,
+      "area_id": 63641,
+      "type_label": "24",
+      "as_of": "202609",
+      "kb_sale_manwon": 160500,
+      "kb_rent_manwon": 71000,
+      "rent_ratio_pct": 44.2,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 2.56,
+        "mom_6m_pct": 4.9,
+        "acceleration_pp": 0.27,
+        "rent_3m_pct": 9.23,
+        "rent_ratio_3m_pp": 2.7,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 1.35
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          1.37
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 1.16
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "서울숲한신더휴",
+      "complex_id": 1759,
+      "area_id": 50960,
+      "type_label": "24A",
+      "as_of": "202609",
+      "kb_sale_manwon": 169000,
+      "kb_rent_manwon": 66000,
+      "rent_ratio_pct": 39,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 0.9,
+        "mom_6m_pct": 5.62,
+        "acceleration_pp": -3.79,
+        "rent_3m_pct": 4.76,
+        "rent_ratio_3m_pp": 1.4,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -0.31
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "flat",
+        "analog_return_pct": 0,
+        "neighbor_iqr_pct": [
+          0,
+          2.53
+        ],
+        "leave_complex_out_direction": "flat",
+        "leave_complex_out_return_pct": 0,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "flat",
+        "analog_return_pct": 0
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "서울숲리버그린아파트",
+      "complex_id": 12024,
+      "area_id": 11833,
+      "type_label": "24",
+      "as_of": "202609",
+      "kb_sale_manwon": 162500,
+      "kb_rent_manwon": 61500,
+      "rent_ratio_pct": 37.8,
+      "features": {
+        "mom_1m_pct": 0,
+        "mom_3m_pct": 1.25,
+        "mom_6m_pct": 10.92,
+        "acceleration_pp": -8.31,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -0.5,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 0.04
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.54,
+        "neighbor_iqr_pct": [
+          0,
+          5.69
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.54,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 4.59
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "남산타운",
+      "complex_id": 2538,
+      "area_id": 51672,
+      "type_label": "25",
+      "as_of": "202609",
+      "kb_sale_manwon": 150000,
+      "kb_rent_manwon": 60000,
+      "rent_ratio_pct": 40,
+      "features": {
+        "mom_1m_pct": 0.33,
+        "mom_3m_pct": 0.67,
+        "mom_6m_pct": 3.45,
+        "acceleration_pp": -2.09,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -0.2,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": -0.54
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.1,
+        "neighbor_iqr_pct": [
+          0,
+          4.76
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.04,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 6.33
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    },
+    {
+      "name": "강남자곡아이파크",
+      "complex_id": 31944,
+      "area_id": 1068067,
+      "type_label": "24A",
+      "as_of": "202609",
+      "kb_sale_manwon": 185000,
+      "kb_rent_manwon": 73000,
+      "rent_ratio_pct": 39.4,
+      "features": {
+        "mom_1m_pct": 1.37,
+        "mom_3m_pct": 4.23,
+        "mom_6m_pct": 12.12,
+        "acceleration_pp": -3.35,
+        "rent_3m_pct": 0,
+        "rent_ratio_3m_pp": -1.7,
+        "drawdown_12m_pct": 0,
+        "relative_3m_pp": 3.02
+      },
+      "direction_3m": {
+        "status": "validated_candidate",
+        "direction": "up",
+        "analog_return_pct": 1.1,
+        "neighbor_iqr_pct": [
+          0,
+          2.73
+        ],
+        "leave_complex_out_direction": "up",
+        "leave_complex_out_return_pct": 1.1,
+        "model_agreement": true
+      },
+      "direction_6m": {
+        "status": "research_only",
+        "direction": "up",
+        "analog_return_pct": 2.75
+      },
+      "direction_12m": {
+        "status": "rejected_for_production"
+      }
+    }
+  ]
+}

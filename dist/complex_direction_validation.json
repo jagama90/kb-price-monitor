@@ -1,0 +1,58 @@
+{
+  "status": "research_validation",
+  "version": "complex_direction_v1",
+  "population": {
+    "feature_rows": 7621,
+    "complex_count": 35,
+    "history_start": "200407",
+    "history_end": "202609",
+    "validation_start": "201001"
+  },
+  "methodology": {
+    "walk_forward": true,
+    "leave_complex_out": true,
+    "target_maturity_rule": "train_ym + horizon <= test_ym",
+    "neighbors": 35
+  },
+  "horizons": {
+    "3m": {
+      "n": 6149,
+      "mae_pct": 2.606,
+      "sign_hit_pct": 93.6,
+      "balanced_sign_accuracy_pct": 77.9,
+      "down_recall_pct": 58.4,
+      "persistence_sign_pct": 89.5,
+      "direction3_hit_pct": 61.2,
+      "majority3_baseline_pct": 47.2,
+      "threshold_pct": 1
+    },
+    "6m": {
+      "n": 6046,
+      "mae_pct": 4.845,
+      "sign_hit_pct": 85.6,
+      "balanced_sign_accuracy_pct": 65.8,
+      "down_recall_pct": 38,
+      "persistence_sign_pct": 84.6,
+      "direction3_hit_pct": 61.8,
+      "majority3_baseline_pct": 53.2,
+      "threshold_pct": 2
+    },
+    "12m": {
+      "n": 5836,
+      "mae_pct": 9.369,
+      "sign_hit_pct": 77.4,
+      "balanced_sign_accuracy_pct": 57.4,
+      "down_recall_pct": 25,
+      "persistence_sign_pct": 81.4,
+      "direction3_hit_pct": 60.8,
+      "majority3_baseline_pct": 61.7,
+      "threshold_pct": 3
+    }
+  },
+  "decision": {
+    "production_candidate_horizon": "3m",
+    "research_only_horizon": "6m",
+    "rejected_horizon": "12m",
+    "certified": false
+  }
+}
