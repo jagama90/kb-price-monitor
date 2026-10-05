@@ -1859,8 +1859,8 @@
     },
     {
       "ym": "202608",
-      "mortgage_rate_pct": null,
-      "mom_bp": null,
+      "mortgage_rate_pct": 4.66,
+      "mom_bp": 18.0,
       "fwd_6m_pct": null
     }
   ],
@@ -1875,7 +1875,7 @@
     "opportunity_vs_fwd_12m_corr": 0.055,
     "opportunity_low_third_mean_fwd_6m_pct": 4.21,
     "opportunity_high_third_mean_fwd_6m_pct": 5.42,
-    "mortgage_rate_available_months": 47,
+    "mortgage_rate_available_months": 48,
     "mortgage_rate_level_vs_fwd_6m_corr": -0.618,
     "mortgage_rate_mom_bp_vs_fwd_6m_corr": 0.138
   },
@@ -1911,5 +1911,5 @@
       "corr_fwd_6m": 0.728
     }
   },
-  "generated_at": "2026-09-29T17:15:56.078563+00:00"
+  "generated_at": "2026-10-05T02:25:02.700965+00:00"
 }

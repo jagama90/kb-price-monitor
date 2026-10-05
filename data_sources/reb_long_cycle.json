@@ -15,7 +15,7 @@
   },
   "trade_discovery": {
     "statbl_id": "A_2024_00549",
-    "probe_month": "202608",
+    "probe_month": "202609",
     "seoul_candidates": []
   },
   "series": {
@@ -4965,6 +4965,16 @@
       {
         "ym": "202607",
         "value": 9465.0,
+        "statbl_id": "A_2024_00549",
+        "cls_id": 500002,
+        "cls_name": "서울",
+        "itm_id": 100001,
+        "itm_name": "동(호)수",
+        "unit": "동(호)수"
+      },
+      {
+        "ym": "202608",
+        "value": 6846.0,
         "statbl_id": "A_2024_00549",
         "cls_id": 500002,
         "cls_name": "서울",
@@ -9987,66 +9997,6 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "T245883135037859",
-            "STATBL_NM": "임대동향 수익률(분기)(2024년3분기~)_오피스",
-            "DTACYCLE_CD": "YY,QY",
-            "DTACYCLE_NM": "매년,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2024",
-            "DATA_END_YY": "2024",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 525016,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "T242083134887473",
-            "STATBL_NM": "임대동향 수익률(분기)(2024년3분기~)_중대형 상가",
-            "DTACYCLE_CD": "YY,QY",
-            "DTACYCLE_NM": "매년,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2024",
-            "DATA_END_YY": "2024",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 525017,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "T246253134913401",
-            "STATBL_NM": "임대동향 수익률(분기)(2024년3분기~)_소규모 상가",
-            "DTACYCLE_CD": "YY,QY",
-            "DTACYCLE_NM": "매년,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2024",
-            "DATA_END_YY": "2024",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 525018,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "T246393134978815",
-            "STATBL_NM": "임대동향 수익률(분기)(2024년3분기~)_집합 상가",
-            "DTACYCLE_CD": "YY,QY",
-            "DTACYCLE_NM": "매년,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2024",
-            "DATA_END_YY": "2024",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 525019,
-            "RPSTUI_NM": null
-          },
-          {
             "STATBL_ID": "A_2024_00021",
             "STATBL_NM": "(월) 월세통합가격지수_주택종합",
             "DTACYCLE_CD": "MM",
@@ -10107,63 +10057,63 @@
             "RPSTUI_NM": "기준시점 : 2026.06.=100.0"
           },
           {
-            "STATBL_ID": "A_2024_00366",
-            "STATBL_NM": "임대동향 수익률(분기)(2022년~)_오피스",
+            "STATBL_ID": "T245883135037859",
+            "STATBL_NM": "임대동향 수익률(분기)(2024년3분기~)_오피스",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2022",
+            "DATA_START_YY": "2024",
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 526022,
+            "V_ORDER": 526016,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00367",
-            "STATBL_NM": "임대동향 수익률(분기)(2022년~)_중대형 상가",
+            "STATBL_ID": "T242083134887473",
+            "STATBL_NM": "임대동향 수익률(분기)(2024년3분기~)_중대형 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2022",
+            "DATA_START_YY": "2024",
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 526023,
+            "V_ORDER": 526017,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00368",
-            "STATBL_NM": "임대동향 수익률(분기)(2022년~)_소규모 상가",
+            "STATBL_ID": "T246253134913401",
+            "STATBL_NM": "임대동향 수익률(분기)(2024년3분기~)_소규모 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2022",
+            "DATA_START_YY": "2024",
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 526024,
+            "V_ORDER": 526018,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00369",
-            "STATBL_NM": "임대동향 수익률(분기)(2022년~)_집합 상가",
+            "STATBL_ID": "T246393134978815",
+            "STATBL_NM": "임대동향 수익률(분기)(2024년3분기~)_집합 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2022",
+            "DATA_START_YY": "2024",
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 526025,
+            "V_ORDER": 526019,
             "RPSTUI_NM": null
           },
           {
@@ -10227,63 +10177,63 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00362",
-            "STATBL_NM": "임대동향 수익률(분기)(2021년)_오피스",
+            "STATBL_ID": "A_2024_00366",
+            "STATBL_NM": "임대동향 수익률(분기)(2022년~)_오피스",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2021",
-            "DATA_END_YY": "2021",
+            "DATA_START_YY": "2022",
+            "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 527026,
+            "V_ORDER": 527022,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00363",
-            "STATBL_NM": "임대동향 수익률(분기)(2021년)_중대형 상가",
+            "STATBL_ID": "A_2024_00367",
+            "STATBL_NM": "임대동향 수익률(분기)(2022년~)_중대형 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2021",
-            "DATA_END_YY": "2021",
+            "DATA_START_YY": "2022",
+            "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 527027,
+            "V_ORDER": 527023,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00364",
-            "STATBL_NM": "임대동향 수익률(분기)(2021년)_소규모 상가",
+            "STATBL_ID": "A_2024_00368",
+            "STATBL_NM": "임대동향 수익률(분기)(2022년~)_소규모 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2021",
-            "DATA_END_YY": "2021",
+            "DATA_START_YY": "2022",
+            "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 527028,
+            "V_ORDER": 527024,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00365",
-            "STATBL_NM": "임대동향 수익률(분기)(2021년)_집합 상가",
+            "STATBL_ID": "A_2024_00369",
+            "STATBL_NM": "임대동향 수익률(분기)(2022년~)_집합 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2021",
-            "DATA_END_YY": "2021",
+            "DATA_START_YY": "2022",
+            "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 527029,
+            "V_ORDER": 527025,
             "RPSTUI_NM": null
           },
           {
@@ -10347,63 +10297,63 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00358",
-            "STATBL_NM": "임대동향 수익률(분기)(2020년)_오피스",
+            "STATBL_ID": "A_2024_00362",
+            "STATBL_NM": "임대동향 수익률(분기)(2021년)_오피스",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2020",
-            "DATA_END_YY": "2020",
+            "DATA_START_YY": "2021",
+            "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 528030,
+            "V_ORDER": 528026,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00359",
-            "STATBL_NM": "임대동향 수익률(분기)(2020년)_중대형 상가",
+            "STATBL_ID": "A_2024_00363",
+            "STATBL_NM": "임대동향 수익률(분기)(2021년)_중대형 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2020",
-            "DATA_END_YY": "2020",
+            "DATA_START_YY": "2021",
+            "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 528031,
+            "V_ORDER": 528027,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00360",
-            "STATBL_NM": "임대동향 수익률(분기)(2020년)_소규모 상가",
+            "STATBL_ID": "A_2024_00364",
+            "STATBL_NM": "임대동향 수익률(분기)(2021년)_소규모 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2020",
-            "DATA_END_YY": "2020",
+            "DATA_START_YY": "2021",
+            "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 528032,
+            "V_ORDER": 528028,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00361",
-            "STATBL_NM": "임대동향 수익률(분기)(2020년)_집합 상가",
+            "STATBL_ID": "A_2024_00365",
+            "STATBL_NM": "임대동향 수익률(분기)(2021년)_집합 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2020",
-            "DATA_END_YY": "2020",
+            "DATA_START_YY": "2021",
+            "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 528033,
+            "V_ORDER": 528029,
             "RPSTUI_NM": null
           },
           {
@@ -10467,63 +10417,63 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00354",
-            "STATBL_NM": "임대동향 수익률(분기)(2019년)_오피스",
+            "STATBL_ID": "A_2024_00358",
+            "STATBL_NM": "임대동향 수익률(분기)(2020년)_오피스",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2019",
-            "DATA_END_YY": "2019",
+            "DATA_START_YY": "2020",
+            "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 529034,
+            "V_ORDER": 529030,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00355",
-            "STATBL_NM": "임대동향 수익률(분기)(2019년)_중대형 상가",
+            "STATBL_ID": "A_2024_00359",
+            "STATBL_NM": "임대동향 수익률(분기)(2020년)_중대형 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2019",
-            "DATA_END_YY": "2019",
+            "DATA_START_YY": "2020",
+            "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 529035,
+            "V_ORDER": 529031,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00356",
-            "STATBL_NM": "임대동향 수익률(분기)(2019년)_소규모 상가",
+            "STATBL_ID": "A_2024_00360",
+            "STATBL_NM": "임대동향 수익률(분기)(2020년)_소규모 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2019",
-            "DATA_END_YY": "2019",
+            "DATA_START_YY": "2020",
+            "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 529036,
+            "V_ORDER": 529032,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00357",
-            "STATBL_NM": "임대동향 수익률(분기)(2019년)_집합 상가",
+            "STATBL_ID": "A_2024_00361",
+            "STATBL_NM": "임대동향 수익률(분기)(2020년)_집합 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2019",
-            "DATA_END_YY": "2019",
+            "DATA_START_YY": "2020",
+            "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 529037,
+            "V_ORDER": 529033,
             "RPSTUI_NM": null
           },
           {
@@ -10557,63 +10507,63 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00350",
-            "STATBL_NM": "임대동향 수익률(분기)(2017년~2018년)_오피스",
+            "STATBL_ID": "A_2024_00354",
+            "STATBL_NM": "임대동향 수익률(분기)(2019년)_오피스",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2017",
-            "DATA_END_YY": "2018",
+            "DATA_START_YY": "2019",
+            "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 530038,
+            "V_ORDER": 530034,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00351",
-            "STATBL_NM": "임대동향 수익률(분기)(2017년~2018년)_중대형 상가",
+            "STATBL_ID": "A_2024_00355",
+            "STATBL_NM": "임대동향 수익률(분기)(2019년)_중대형 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2017",
-            "DATA_END_YY": "2018",
+            "DATA_START_YY": "2019",
+            "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 530039,
+            "V_ORDER": 530035,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00352",
-            "STATBL_NM": "임대동향 수익률(분기)(2017년~2018년)_소규모 상가",
+            "STATBL_ID": "A_2024_00356",
+            "STATBL_NM": "임대동향 수익률(분기)(2019년)_소규모 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2017",
-            "DATA_END_YY": "2018",
+            "DATA_START_YY": "2019",
+            "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 530040,
+            "V_ORDER": 530036,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00353",
-            "STATBL_NM": "임대동향 수익률(분기)(2017년~2018년)_집합 상가",
+            "STATBL_ID": "A_2024_00357",
+            "STATBL_NM": "임대동향 수익률(분기)(2019년)_집합 상가",
             "DTACYCLE_CD": "YY,QY",
             "DTACYCLE_NM": "매년,분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2017",
-            "DATA_END_YY": "2018",
+            "DATA_START_YY": "2019",
+            "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 530041,
+            "V_ORDER": 530037,
             "RPSTUI_NM": null
           },
           {
@@ -10644,6 +10594,66 @@
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 주택통계부(053-663-8505,515)",
             "V_ORDER": 531025,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00350",
+            "STATBL_NM": "임대동향 수익률(분기)(2017년~2018년)_오피스",
+            "DTACYCLE_CD": "YY,QY",
+            "DTACYCLE_NM": "매년,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2017",
+            "DATA_END_YY": "2018",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 531038,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00351",
+            "STATBL_NM": "임대동향 수익률(분기)(2017년~2018년)_중대형 상가",
+            "DTACYCLE_CD": "YY,QY",
+            "DTACYCLE_NM": "매년,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2017",
+            "DATA_END_YY": "2018",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 531039,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00352",
+            "STATBL_NM": "임대동향 수익률(분기)(2017년~2018년)_소규모 상가",
+            "DTACYCLE_CD": "YY,QY",
+            "DTACYCLE_NM": "매년,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2017",
+            "DATA_END_YY": "2018",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 531040,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00353",
+            "STATBL_NM": "임대동향 수익률(분기)(2017년~2018년)_집합 상가",
+            "DTACYCLE_CD": "YY,QY",
+            "DTACYCLE_NM": "매년,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2017",
+            "DATA_END_YY": "2018",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 531041,
             "RPSTUI_NM": null
           },
           {
@@ -10782,66 +10792,6 @@
             "RPSTUI_NM": "기준시점 : 2026.06.=100.0"
           },
           {
-            "STATBL_ID": "A_2024_00346",
-            "STATBL_NM": "임대동향 수익률(분기)(2013년~2016년)_오피스",
-            "DTACYCLE_CD": "YY,QY",
-            "DTACYCLE_NM": "매년,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2013",
-            "DATA_END_YY": "2016",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 537042,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00347",
-            "STATBL_NM": "임대동향 수익률(분기)(2013년~2016년)_중대형 상가",
-            "DTACYCLE_CD": "YY,QY",
-            "DTACYCLE_NM": "매년,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2013",
-            "DATA_END_YY": "2016",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 537043,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00348",
-            "STATBL_NM": "임대동향 수익률(분기)(2013년~2016년)_소규모 상가",
-            "DTACYCLE_CD": "YY,QY",
-            "DTACYCLE_NM": "매년,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2015",
-            "DATA_END_YY": "2016",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 537044,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00349",
-            "STATBL_NM": "임대동향 수익률(분기)(2013년~2016년)_집합 상가",
-            "DTACYCLE_CD": "YY,QY",
-            "DTACYCLE_NM": "매년,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2014",
-            "DATA_END_YY": "2016",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 537045,
-            "RPSTUI_NM": null
-          },
-          {
             "STATBL_ID": "A_2024_00085",
             "STATBL_NM": "(월) 전세가격지수_연립/다세대",
             "DTACYCLE_CD": "MM",
@@ -10899,6 +10849,66 @@
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 주택통계부(053-663-8505,515)",
             "V_ORDER": 537074,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00346",
+            "STATBL_NM": "임대동향 수익률(분기)(2013년~2016년)_오피스",
+            "DTACYCLE_CD": "YY,QY",
+            "DTACYCLE_NM": "매년,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2013",
+            "DATA_END_YY": "2016",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 538042,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00347",
+            "STATBL_NM": "임대동향 수익률(분기)(2013년~2016년)_중대형 상가",
+            "DTACYCLE_CD": "YY,QY",
+            "DTACYCLE_NM": "매년,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2013",
+            "DATA_END_YY": "2016",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 538043,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00348",
+            "STATBL_NM": "임대동향 수익률(분기)(2013년~2016년)_소규모 상가",
+            "DTACYCLE_CD": "YY,QY",
+            "DTACYCLE_NM": "매년,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2015",
+            "DATA_END_YY": "2016",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 538044,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00349",
+            "STATBL_NM": "임대동향 수익률(분기)(2013년~2016년)_집합 상가",
+            "DTACYCLE_CD": "YY,QY",
+            "DTACYCLE_NM": "매년,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2014",
+            "DATA_END_YY": "2016",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 538045,
             "RPSTUI_NM": null
           },
           {
@@ -11232,36 +11242,6 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00682",
-            "STATBL_NM": "임대동향 투자수익률(분기/연간)(2002년~2012년)_오피스",
-            "DTACYCLE_CD": "YY,HY,QY",
-            "DTACYCLE_NM": "매년,반기,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2002",
-            "DATA_END_YY": "2012",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 544046,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00683",
-            "STATBL_NM": "임대동향 투자수익률(분기/연간)(2002년~2012년)_중대형 상가",
-            "DTACYCLE_CD": "YY,HY,QY",
-            "DTACYCLE_NM": "매년,반기,분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2002",
-            "DATA_END_YY": "2012",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 544047,
-            "RPSTUI_NM": null
-          },
-          {
             "STATBL_ID": "A_2024_00111",
             "STATBL_NM": "(월) 매매수급동향_연립/다세대",
             "DTACYCLE_CD": "MM",
@@ -11307,6 +11287,36 @@
             "RPSTUI_NM": null
           },
           {
+            "STATBL_ID": "A_2024_00682",
+            "STATBL_NM": "임대동향 투자수익률(분기/연간)(2002년~2012년)_오피스",
+            "DTACYCLE_CD": "YY,HY,QY",
+            "DTACYCLE_NM": "매년,반기,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2002",
+            "DATA_END_YY": "2012",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 545046,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00683",
+            "STATBL_NM": "임대동향 투자수익률(분기/연간)(2002년~2012년)_중대형 상가",
+            "DTACYCLE_CD": "YY,HY,QY",
+            "DTACYCLE_NM": "매년,반기,분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2002",
+            "DATA_END_YY": "2012",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 545047,
+            "RPSTUI_NM": null
+          },
+          {
             "STATBL_ID": "TT242303134253883",
             "STATBL_NM": "임대동향 순영업소득(2024년~)_오피스",
             "DTACYCLE_CD": "QY",
@@ -11318,7 +11328,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 545048,
+            "V_ORDER": 546048,
             "RPSTUI_NM": null
           },
           {
@@ -11333,7 +11343,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 545049,
+            "V_ORDER": 546049,
             "RPSTUI_NM": null
           },
           {
@@ -11348,7 +11358,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 545050,
+            "V_ORDER": 546050,
             "RPSTUI_NM": null
           },
           {
@@ -11363,67 +11373,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 545051,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00438",
-            "STATBL_NM": "임대동향 순영업소득(2022년~)_오피스",
-            "DTACYCLE_CD": "QY",
-            "DTACYCLE_NM": "분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2022",
-            "DATA_END_YY": "2024",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 546052,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00439",
-            "STATBL_NM": "임대동향 순영업소득(2022년~)_중대형 상가",
-            "DTACYCLE_CD": "QY",
-            "DTACYCLE_NM": "분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2022",
-            "DATA_END_YY": "2024",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 546053,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00440",
-            "STATBL_NM": "임대동향 순영업소득(2022년~)_소규모 상가",
-            "DTACYCLE_CD": "QY",
-            "DTACYCLE_NM": "분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2022",
-            "DATA_END_YY": "2024",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 546054,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00441",
-            "STATBL_NM": "임대동향 순영업소득(2022년~)_집합 상가",
-            "DTACYCLE_CD": "QY",
-            "DTACYCLE_NM": "분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2022",
-            "DATA_END_YY": "2024",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 546055,
+            "V_ORDER": 546051,
             "RPSTUI_NM": null
           },
           {
@@ -11487,63 +11437,63 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00434",
-            "STATBL_NM": "임대동향 순영업소득(2021년)_오피스",
+            "STATBL_ID": "A_2024_00438",
+            "STATBL_NM": "임대동향 순영업소득(2022년~)_오피스",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2021",
-            "DATA_END_YY": "2021",
+            "DATA_START_YY": "2022",
+            "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 547056,
+            "V_ORDER": 547052,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00435",
-            "STATBL_NM": "임대동향 순영업소득(2021년)_중대형 상가",
+            "STATBL_ID": "A_2024_00439",
+            "STATBL_NM": "임대동향 순영업소득(2022년~)_중대형 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2021",
-            "DATA_END_YY": "2021",
+            "DATA_START_YY": "2022",
+            "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 547057,
+            "V_ORDER": 547053,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00436",
-            "STATBL_NM": "임대동향 순영업소득(2021년)_소규모 상가",
+            "STATBL_ID": "A_2024_00440",
+            "STATBL_NM": "임대동향 순영업소득(2022년~)_소규모 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2021",
-            "DATA_END_YY": "2021",
+            "DATA_START_YY": "2022",
+            "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 547058,
+            "V_ORDER": 547054,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00437",
-            "STATBL_NM": "임대동향 순영업소득(2021년)_집합 상가",
+            "STATBL_ID": "A_2024_00441",
+            "STATBL_NM": "임대동향 순영업소득(2022년~)_집합 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2021",
-            "DATA_END_YY": "2021",
+            "DATA_START_YY": "2022",
+            "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 547059,
+            "V_ORDER": 547055,
             "RPSTUI_NM": null
           },
           {
@@ -11562,63 +11512,63 @@
             "RPSTUI_NM": "기준시점 : 2026.06.=100.0"
           },
           {
-            "STATBL_ID": "A_2024_00430",
-            "STATBL_NM": "임대동향 순영업소득(2020년)_오피스",
+            "STATBL_ID": "A_2024_00434",
+            "STATBL_NM": "임대동향 순영업소득(2021년)_오피스",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2020",
-            "DATA_END_YY": "2020",
+            "DATA_START_YY": "2021",
+            "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 548060,
+            "V_ORDER": 548056,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00431",
-            "STATBL_NM": "임대동향 순영업소득(2020년)_중대형 상가",
+            "STATBL_ID": "A_2024_00435",
+            "STATBL_NM": "임대동향 순영업소득(2021년)_중대형 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2020",
-            "DATA_END_YY": "2020",
+            "DATA_START_YY": "2021",
+            "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 548061,
+            "V_ORDER": 548057,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00432",
-            "STATBL_NM": "임대동향 순영업소득(2020년)_소규모 상가",
+            "STATBL_ID": "A_2024_00436",
+            "STATBL_NM": "임대동향 순영업소득(2021년)_소규모 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2020",
-            "DATA_END_YY": "2020",
+            "DATA_START_YY": "2021",
+            "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 548062,
+            "V_ORDER": 548058,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00433",
-            "STATBL_NM": "임대동향 순영업소득(2020년)_집합 상가",
+            "STATBL_ID": "A_2024_00437",
+            "STATBL_NM": "임대동향 순영업소득(2021년)_집합 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2020",
-            "DATA_END_YY": "2020",
+            "DATA_START_YY": "2021",
+            "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 548063,
+            "V_ORDER": 548059,
             "RPSTUI_NM": null
           },
           {
@@ -11682,63 +11632,63 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00426",
-            "STATBL_NM": "임대동향 순영업소득(2019년)_오피스",
+            "STATBL_ID": "A_2024_00430",
+            "STATBL_NM": "임대동향 순영업소득(2020년)_오피스",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2019",
-            "DATA_END_YY": "2019",
+            "DATA_START_YY": "2020",
+            "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 549064,
+            "V_ORDER": 549060,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00427",
-            "STATBL_NM": "임대동향 순영업소득(2019년)_중대형 상가",
+            "STATBL_ID": "A_2024_00431",
+            "STATBL_NM": "임대동향 순영업소득(2020년)_중대형 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2019",
-            "DATA_END_YY": "2019",
+            "DATA_START_YY": "2020",
+            "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 549065,
+            "V_ORDER": 549061,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00428",
-            "STATBL_NM": "임대동향 순영업소득(2019년)_소규모 상가",
+            "STATBL_ID": "A_2024_00432",
+            "STATBL_NM": "임대동향 순영업소득(2020년)_소규모 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2019",
-            "DATA_END_YY": "2019",
+            "DATA_START_YY": "2020",
+            "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 549066,
+            "V_ORDER": 549062,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00429",
-            "STATBL_NM": "임대동향 순영업소득(2019년)_집합 상가",
+            "STATBL_ID": "A_2024_00433",
+            "STATBL_NM": "임대동향 순영업소득(2020년)_집합 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2019",
-            "DATA_END_YY": "2019",
+            "DATA_START_YY": "2020",
+            "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 549067,
+            "V_ORDER": 549063,
             "RPSTUI_NM": null
           },
           {
@@ -11817,63 +11767,63 @@
             "RPSTUI_NM": "기준시점 : 2026.06.=100.0"
           },
           {
-            "STATBL_ID": "A_2024_00422",
-            "STATBL_NM": "임대동향 순영업소득(2017년~2018년)_오피스",
+            "STATBL_ID": "A_2024_00426",
+            "STATBL_NM": "임대동향 순영업소득(2019년)_오피스",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2017",
-            "DATA_END_YY": "2018",
+            "DATA_START_YY": "2019",
+            "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 550068,
+            "V_ORDER": 550064,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00423",
-            "STATBL_NM": "임대동향 순영업소득(2017년~2018년)_중대형 상가",
+            "STATBL_ID": "A_2024_00427",
+            "STATBL_NM": "임대동향 순영업소득(2019년)_중대형 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2017",
-            "DATA_END_YY": "2018",
+            "DATA_START_YY": "2019",
+            "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 550069,
+            "V_ORDER": 550065,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00424",
-            "STATBL_NM": "임대동향 순영업소득(2017년~2018년)_소규모 상가",
+            "STATBL_ID": "A_2024_00428",
+            "STATBL_NM": "임대동향 순영업소득(2019년)_소규모 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2017",
-            "DATA_END_YY": "2018",
+            "DATA_START_YY": "2019",
+            "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 550070,
+            "V_ORDER": 550066,
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00425",
-            "STATBL_NM": "임대동향 순영업소득(2017년~2018년)_집합 상가",
+            "STATBL_ID": "A_2024_00429",
+            "STATBL_NM": "임대동향 순영업소득(2019년)_집합 상가",
             "DTACYCLE_CD": "QY",
             "DTACYCLE_NM": "분기",
             "STAT_ID": "S237220284",
             "TOP_ORG_NM": "한국부동산원",
             "OPEN_STATE": "Y",
-            "DATA_START_YY": "2017",
-            "DATA_END_YY": "2018",
+            "DATA_START_YY": "2019",
+            "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 550071,
+            "V_ORDER": 550067,
             "RPSTUI_NM": null
           },
           {
@@ -11934,6 +11884,66 @@
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 주택통계부(053-663-8505, 8515)\r\n※ 평균(중위)가격 이용시 유의사항\r\n· 주택가격동향조사의 보조지표인 평균가격은 표본의 가격분포에 민감하게 반응하므로 지수의 변동률과 다를 수 있으며, 정기표본보정, 표본확대(‘15.1월, ’15.7월, ‘16.9월, ’19.1월, ‘20.1월, '23.1월, '24.1월, '25.4월) 및 표본 전면 재설계(’17.2월, ‘21.7월)에 의한 표본구성 및 재고량 변화에 따른 가중치 조정, 평균·중위가격 상위단위 산정 방식 변경 등으로 변동이 발생되어 시계열 해석 시 유의하여야 함\r\n· 그러므로 평균가격은 지역 내 가격 변동률을 산정하는데 활용하는 것은 적절하지 않으며, 당월의 지역 간 가격 수준 비교를 위해 활용하는 것이 적절함\r\n-(표본 구성 변화로 변동하는 경우) 해당지역에 고가(저가) 신규주택 증가로 인한 표본 선정으로 전월 평균가격과 불연속이 나타나는 경우 ex) 경기 하남 미사지구 표본증가로 기존 평균가격 보다 높게 산정\r\n-(가중치 변경으로 변동하는 경우(’21년6월까지 적용)) 지역 내 대규모 주택 멸실 혹은 신축으로 인해 가중치가 과도하게 변경되어 불연속이 나타나는 경우 ex) 서울 동남권 재건축에 따른 멸실 증가로 가중치 비율 감소하며 서울 전체 평균가격에 영향\r\n-(평균·중위가격 상위단위 선정 방식 변경(‘21년7월부터 적용)) 상위 단위 내 표본을 기준으로 시군구 재고량 가중 없이 산정 ex) 서울 내 시군구(하위단위) 평균·중위가격에 재고량 가중을 하여 서울(상위단위)을 생산하는 것이 아닌, 서울 내 표본을 기준으로 재고량 가중 없이 단순 서울 평균·중위가격 생산",
             "V_ORDER": 550117,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00422",
+            "STATBL_NM": "임대동향 순영업소득(2017년~2018년)_오피스",
+            "DTACYCLE_CD": "QY",
+            "DTACYCLE_NM": "분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2017",
+            "DATA_END_YY": "2018",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 551068,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00423",
+            "STATBL_NM": "임대동향 순영업소득(2017년~2018년)_중대형 상가",
+            "DTACYCLE_CD": "QY",
+            "DTACYCLE_NM": "분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2017",
+            "DATA_END_YY": "2018",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 551069,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00424",
+            "STATBL_NM": "임대동향 순영업소득(2017년~2018년)_소규모 상가",
+            "DTACYCLE_CD": "QY",
+            "DTACYCLE_NM": "분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2017",
+            "DATA_END_YY": "2018",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 551070,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00425",
+            "STATBL_NM": "임대동향 순영업소득(2017년~2018년)_집합 상가",
+            "DTACYCLE_CD": "QY",
+            "DTACYCLE_NM": "분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2017",
+            "DATA_END_YY": "2018",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 551071,
             "RPSTUI_NM": null
           },
           {
@@ -12057,66 +12067,6 @@
             "RPSTUI_NM": null
           },
           {
-            "STATBL_ID": "A_2024_00418",
-            "STATBL_NM": "임대동향 순영업소득(2013년~2016년)_오피스",
-            "DTACYCLE_CD": "QY",
-            "DTACYCLE_NM": "분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2013",
-            "DATA_END_YY": "2016",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 552204,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00419",
-            "STATBL_NM": "임대동향 순영업소득(2013년~2016년)_중대형 상가",
-            "DTACYCLE_CD": "QY",
-            "DTACYCLE_NM": "분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2013",
-            "DATA_END_YY": "2016",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 552205,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00420",
-            "STATBL_NM": "임대동향 순영업소득(2013년~2016년)_소규모 상가",
-            "DTACYCLE_CD": "QY",
-            "DTACYCLE_NM": "분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2015",
-            "DATA_END_YY": "2016",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 552206,
-            "RPSTUI_NM": null
-          },
-          {
-            "STATBL_ID": "A_2024_00421",
-            "STATBL_NM": "임대동향 순영업소득(2013년~2016년)_집합 상가",
-            "DTACYCLE_CD": "QY",
-            "DTACYCLE_NM": "분기",
-            "STAT_ID": "S237220284",
-            "TOP_ORG_NM": "한국부동산원",
-            "OPEN_STATE": "Y",
-            "DATA_START_YY": "2014",
-            "DATA_END_YY": "2016",
-            "STATBL_IDTFR": null,
-            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 552207,
-            "RPSTUI_NM": null
-          },
-          {
             "STATBL_ID": "A_2024_00140",
             "STATBL_NM": "(월) 평균 매매가격 대비 전세가격_단독주택",
             "DTACYCLE_CD": "MM",
@@ -12144,6 +12094,66 @@
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "<매매가격 대비 전세가격 이용시 유의사항>\r\n- 평균 매매가격 대비 전세가격 : 각 표본별 전세가격/매매가격 값을 구한 뒤, 지역별로 평균 산출\r\n- 중위 매매가격 대비 전세가격 : 각 표본별 전세가격/매매가격 값을 구한 뒤, 지역별로 중위값 산출\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 주택통계부(053-663-8505,515)",
             "V_ORDER": 553127,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00418",
+            "STATBL_NM": "임대동향 순영업소득(2013년~2016년)_오피스",
+            "DTACYCLE_CD": "QY",
+            "DTACYCLE_NM": "분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2013",
+            "DATA_END_YY": "2016",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 553204,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00419",
+            "STATBL_NM": "임대동향 순영업소득(2013년~2016년)_중대형 상가",
+            "DTACYCLE_CD": "QY",
+            "DTACYCLE_NM": "분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2013",
+            "DATA_END_YY": "2016",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 553205,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00420",
+            "STATBL_NM": "임대동향 순영업소득(2013년~2016년)_소규모 상가",
+            "DTACYCLE_CD": "QY",
+            "DTACYCLE_NM": "분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2015",
+            "DATA_END_YY": "2016",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 553206,
+            "RPSTUI_NM": null
+          },
+          {
+            "STATBL_ID": "A_2024_00421",
+            "STATBL_NM": "임대동향 순영업소득(2013년~2016년)_집합 상가",
+            "DTACYCLE_CD": "QY",
+            "DTACYCLE_NM": "분기",
+            "STAT_ID": "S237220284",
+            "TOP_ORG_NM": "한국부동산원",
+            "OPEN_STATE": "Y",
+            "DATA_START_YY": "2014",
+            "DATA_END_YY": "2016",
+            "STATBL_IDTFR": null,
+            "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
+            "V_ORDER": 553207,
             "RPSTUI_NM": null
           },
           {
@@ -13073,7 +13083,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 581001,
+            "V_ORDER": 582001,
             "RPSTUI_NM": "기준시점 : 2024.2Q=100"
           },
           {
@@ -13088,7 +13098,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 581002,
+            "V_ORDER": 582002,
             "RPSTUI_NM": "기준시점 : 2024.2Q=100"
           },
           {
@@ -13103,7 +13113,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 581003,
+            "V_ORDER": 582003,
             "RPSTUI_NM": "기준시점 : 2024.2Q=100"
           },
           {
@@ -13118,7 +13128,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 581004,
+            "V_ORDER": 582004,
             "RPSTUI_NM": "기준시점 : 2024.2Q=100"
           },
           {
@@ -13133,7 +13143,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8536, 8538, 8535)",
-            "V_ORDER": 581005,
+            "V_ORDER": 582005,
             "RPSTUI_NM": "기준시점 : 2024.2Q=100"
           },
           {
@@ -13148,7 +13158,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 582006,
+            "V_ORDER": 583006,
             "RPSTUI_NM": "기준시점 : 2021.4Q=100"
           },
           {
@@ -13163,7 +13173,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 582007,
+            "V_ORDER": 583007,
             "RPSTUI_NM": "기준시점 : 2021.4Q=100"
           },
           {
@@ -13178,7 +13188,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 582008,
+            "V_ORDER": 583008,
             "RPSTUI_NM": "기준시점 : 2021.4Q=100"
           },
           {
@@ -13193,7 +13203,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 582009,
+            "V_ORDER": 583009,
             "RPSTUI_NM": "기준시점 : 2021.4Q=100"
           },
           {
@@ -13208,7 +13218,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 582010,
+            "V_ORDER": 583010,
             "RPSTUI_NM": "기준시점 : 2021.4Q=100"
           },
           {
@@ -13223,7 +13233,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 583011,
+            "V_ORDER": 584011,
             "RPSTUI_NM": "기준시점 : 2020.4Q=100"
           },
           {
@@ -13238,7 +13248,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 583012,
+            "V_ORDER": 584012,
             "RPSTUI_NM": "기준시점 : 2020.4Q=100"
           },
           {
@@ -13253,7 +13263,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 583013,
+            "V_ORDER": 584013,
             "RPSTUI_NM": "기준시점 : 2020.4Q=100"
           },
           {
@@ -13268,7 +13278,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 583014,
+            "V_ORDER": 584014,
             "RPSTUI_NM": "기준시점 : 2020.4Q=100"
           },
           {
@@ -13283,7 +13293,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 584015,
+            "V_ORDER": 585015,
             "RPSTUI_NM": "기준시점 : 2019.4Q=100"
           },
           {
@@ -13298,7 +13308,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 584016,
+            "V_ORDER": 585016,
             "RPSTUI_NM": "기준시점 : 2019.4Q=100"
           },
           {
@@ -13313,7 +13323,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 584017,
+            "V_ORDER": 585017,
             "RPSTUI_NM": "기준시점 : 2019.4Q=100"
           },
           {
@@ -13328,7 +13338,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 584018,
+            "V_ORDER": 585018,
             "RPSTUI_NM": "기준시점 : 2019.4Q=100"
           },
           {
@@ -13343,7 +13353,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 585019,
+            "V_ORDER": 586019,
             "RPSTUI_NM": "기준시점 : 2018.4Q=100"
           },
           {
@@ -13358,7 +13368,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 585020,
+            "V_ORDER": 586020,
             "RPSTUI_NM": "기준시점 : 2018.4Q=100"
           },
           {
@@ -13373,7 +13383,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 585021,
+            "V_ORDER": 586021,
             "RPSTUI_NM": "기준시점 : 2018.4Q=100"
           },
           {
@@ -13388,7 +13398,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 585022,
+            "V_ORDER": 586022,
             "RPSTUI_NM": "기준시점 : 2018.4Q=100"
           },
           {
@@ -13403,7 +13413,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 586023,
+            "V_ORDER": 587023,
             "RPSTUI_NM": "기준시점 : 2017.4Q=100"
           },
           {
@@ -13418,7 +13428,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 586024,
+            "V_ORDER": 587024,
             "RPSTUI_NM": "기준시점 : 2017.4Q=100"
           },
           {
@@ -13433,7 +13443,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 586025,
+            "V_ORDER": 587025,
             "RPSTUI_NM": "기준시점 : 2017.4Q=100"
           },
           {
@@ -13448,7 +13458,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 586026,
+            "V_ORDER": 587026,
             "RPSTUI_NM": "기준시점 : 2017.4Q=100"
           },
           {
@@ -13463,7 +13473,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률 및 임대료 통계는 상권 재구획 및 상권추가, 표본재설계('24년2분기)에 의한 표본 확대 및 표본 교체로 표본구성 변화 등에 따라 변동이 발생하여 통계의 시계열적인 해석시 유의가 필요 하오니, 활용시 참고하시기 바랍니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 590037,
+            "V_ORDER": 591037,
             "RPSTUI_NM": null
           },
           {
@@ -13478,7 +13488,7 @@
             "DATA_END_YY": null,
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률 및 임대료 통계는 상권 재구획 및 상권추가, 표본재설계('24년2분기)에 의한 표본 확대 및 표본 교체로 표본구성 변화 등에 따라 변동이 발생하여 통계의 시계열적인 해석시 유의가 필요 하오니, 활용시 참고하시기 바랍니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 590038,
+            "V_ORDER": 591038,
             "RPSTUI_NM": null
           },
           {
@@ -13493,7 +13503,7 @@
             "DATA_END_YY": null,
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률 및 임대료 통계는 상권 재구획 및 상권추가, 표본재설계('24년2분기)에 의한 표본 확대 및 표본 교체로 표본구성 변화 등에 따라 변동이 발생하여 통계의 시계열적인 해석시 유의가 필요 하오니, 활용시 참고하시기 바랍니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 590039,
+            "V_ORDER": 591039,
             "RPSTUI_NM": null
           },
           {
@@ -13508,7 +13518,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률 및 임대료 통계는 상권 재구획 및 상권추가, 표본재설계('24년2분기)에 의한 표본 확대 및 표본 교체로 표본구성 변화 등에 따라 변동이 발생하여 통계의 시계열적인 해석시 유의가 필요 하오니, 활용시 참고하시기 바랍니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 590040,
+            "V_ORDER": 591040,
             "RPSTUI_NM": null
           },
           {
@@ -13523,7 +13533,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 590041,
+            "V_ORDER": 591041,
             "RPSTUI_NM": null
           },
           {
@@ -13538,7 +13548,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 590042,
+            "V_ORDER": 591042,
             "RPSTUI_NM": null
           },
           {
@@ -13553,7 +13563,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률 및 임대료 통계는 상권 재구획 및 상권추가, 표본재설계('22년1분기)에 의한 표본 확대 및 표본 교체로 표본구성 변화 등에 따라 변동이 발생하여 통계의 시계열적인 해석시 유의가 필요 하오니, 활용시 참고하시기 바랍니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 591043,
+            "V_ORDER": 592043,
             "RPSTUI_NM": null
           },
           {
@@ -13568,7 +13578,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률 및 임대료 통계는 상권 재구획 및 상권추가, 표본재설계('22년1분기)에 의한 표본 확대 및 표본 교체로 표본구성 변화 등에 따라 변동이 발생하여 통계의 시계열적인 해석시 유의가 필요 하오니, 활용시 참고하시기 바랍니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 591046,
+            "V_ORDER": 592046,
             "RPSTUI_NM": null
           },
           {
@@ -13583,7 +13593,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률 및 임대료 통계는 상권 재구획 및 상권추가, 표본재설계('22년1분기)에 의한 표본 확대 및 표본 교체로 표본구성 변화 등에 따라 변동이 발생하여 통계의 시계열적인 해석시 유의가 필요 하오니, 활용시 참고하시기 바랍니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 591047,
+            "V_ORDER": 592047,
             "RPSTUI_NM": null
           },
           {
@@ -13598,7 +13608,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률 및 임대료 통계는 상권 재구획 및 상권추가, 표본재설계('22년1분기)에 의한 표본 확대 및 표본 교체로 표본구성 변화 등에 따라 변동이 발생하여 통계의 시계열적인 해석시 유의가 필요 하오니, 활용시 참고하시기 바랍니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 591048,
+            "V_ORDER": 592048,
             "RPSTUI_NM": null
           },
           {
@@ -13613,7 +13623,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률은 조사모집단(50%이상 임대가능 건물)기준 선정 조사표본의 공실 현황이며, 표본재설계를 통해 표본 구성의 변화가 반영된 수치입니다. 따라서 표본개편에 의한 표본 확대, 교체로 표본구성이 변경되는 경우 통계의 시계열적 해석에 유의할 필요가 있습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 592049,
+            "V_ORDER": 593049,
             "RPSTUI_NM": null
           },
           {
@@ -13628,7 +13638,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률은 조사모집단(50%이상 임대가능 건물)기준 선정 조사표본의 공실 현황이며, 표본재설계를 통해 표본 구성의 변화가 반영된 수치입니다. 따라서 표본개편에 의한 표본 확대, 교체로 표본구성이 변경되는 경우 통계의 시계열적 해석에 유의할 필요가 있습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 592050,
+            "V_ORDER": 593050,
             "RPSTUI_NM": null
           },
           {
@@ -13643,7 +13653,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률은 조사모집단(50%이상 임대가능 건물)기준 선정 조사표본의 공실 현황이며, 표본재설계를 통해 표본 구성의 변화가 반영된 수치입니다. 따라서 표본개편에 의한 표본 확대, 교체로 표본구성이 변경되는 경우 통계의 시계열적 해석에 유의할 필요가 있습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 592051,
+            "V_ORDER": 593051,
             "RPSTUI_NM": null
           },
           {
@@ -13658,7 +13668,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률은 조사모집단(50%이상 임대가능 건물)기준 선정 조사표본의 공실 현황이며, 신표본(2020년~)'19.4Q 공실률은 표본개편('20년)을 통해 확대 개편된 신표본 구성의 변화가 반영된 연초 추정치입니다. 따라서 표본 개편에 의한 표본확대, 교체로 표본구성이 변경되는 경우 통계의 시계열적 해석에 유의할 필요가 있습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 593052,
+            "V_ORDER": 594052,
             "RPSTUI_NM": null
           },
           {
@@ -13673,7 +13683,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률은 조사모집단(50%이상 임대가능 건물)기준 선정 조사표본의 공실 현황이며, 신표본(2020년~)'19.4Q 공실률은 표본개편('20년)을 통해 확대 개편된 신표본 구성의 변화가 반영된 연초 추정치입니다. 따라서 표본 개편에 의한 표본확대, 교체로 표본구성이 변경되는 경우 통계의 시계열적 해석에 유의할 필요가 있습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 593053,
+            "V_ORDER": 594053,
             "RPSTUI_NM": null
           },
           {
@@ -13688,7 +13698,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈공실률은 조사모집단(50%이상 임대가능 건물)기준 선정 조사표본의 공실 현황이며, 신표본(2020년~)'19.4Q 공실률은 표본개편('20년)을 통해 확대 개편된 신표본 구성의 변화가 반영된 연초 추정치입니다. 따라서 표본 개편에 의한 표본확대, 교체로 표본구성이 변경되는 경우 통계의 시계열적 해석에 유의할 필요가 있습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 593054,
+            "V_ORDER": 594054,
             "RPSTUI_NM": null
           },
           {
@@ -13703,7 +13713,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 594055,
+            "V_ORDER": 595055,
             "RPSTUI_NM": null
           },
           {
@@ -13718,7 +13728,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 594056,
+            "V_ORDER": 595056,
             "RPSTUI_NM": null
           },
           {
@@ -13733,7 +13743,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 594057,
+            "V_ORDER": 595057,
             "RPSTUI_NM": null
           },
           {
@@ -13748,7 +13758,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 598070,
+            "V_ORDER": 599070,
             "RPSTUI_NM": null
           },
           {
@@ -13763,7 +13773,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 598071,
+            "V_ORDER": 599071,
             "RPSTUI_NM": null
           },
           {
@@ -13778,7 +13788,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 598072,
+            "V_ORDER": 599072,
             "RPSTUI_NM": null
           },
           {
@@ -13793,7 +13803,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 598073,
+            "V_ORDER": 599073,
             "RPSTUI_NM": null
           },
           {
@@ -13808,7 +13818,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 599074,
+            "V_ORDER": 600074,
             "RPSTUI_NM": null
           },
           {
@@ -13823,7 +13833,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 599075,
+            "V_ORDER": 600075,
             "RPSTUI_NM": null
           },
           {
@@ -13838,7 +13848,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 599076,
+            "V_ORDER": 600076,
             "RPSTUI_NM": null
           },
           {
@@ -13853,7 +13863,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 599077,
+            "V_ORDER": 600077,
             "RPSTUI_NM": null
           },
           {
@@ -13868,7 +13878,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 600078,
+            "V_ORDER": 601078,
             "RPSTUI_NM": null
           },
           {
@@ -13883,7 +13893,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 600079,
+            "V_ORDER": 601079,
             "RPSTUI_NM": null
           },
           {
@@ -13898,7 +13908,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 600080,
+            "V_ORDER": 601080,
             "RPSTUI_NM": null
           },
           {
@@ -13913,7 +13923,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 600081,
+            "V_ORDER": 601081,
             "RPSTUI_NM": null
           },
           {
@@ -13928,7 +13938,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈'20.1분기부터 상권의 임대료 추세를 관찰하기 위하여 해당시점에서의 거래 가능한 임대료를 기준으로 통계산정을 변경하였습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 601082,
+            "V_ORDER": 602082,
             "RPSTUI_NM": null
           },
           {
@@ -13943,7 +13953,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈'20.1분기부터 상권의 임대료 추세를 관찰하기 위하여 해당시점에서의 거래 가능한 임대료를 기준으로 통계산정을 변경하였습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 601083,
+            "V_ORDER": 602083,
             "RPSTUI_NM": null
           },
           {
@@ -13958,7 +13968,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈'20.1분기부터 상권의 임대료 추세를 관찰하기 위하여 해당시점에서의 거래 가능한 임대료를 기준으로 통계산정을 변경하였습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 601084,
+            "V_ORDER": 602084,
             "RPSTUI_NM": null
           },
           {
@@ -13973,7 +13983,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "◈'20.1분기부터 상권의 임대료 추세를 관찰하기 위하여 해당시점에서의 거래 가능한 임대료를 기준으로 통계산정을 변경하였습니다.\r\n\r\n※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 601085,
+            "V_ORDER": 602085,
             "RPSTUI_NM": null
           },
           {
@@ -13988,7 +13998,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 602086,
+            "V_ORDER": 603086,
             "RPSTUI_NM": null
           },
           {
@@ -14003,7 +14013,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 602087,
+            "V_ORDER": 603087,
             "RPSTUI_NM": null
           },
           {
@@ -14018,7 +14028,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 602088,
+            "V_ORDER": 603088,
             "RPSTUI_NM": null
           },
           {
@@ -14033,7 +14043,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 602089,
+            "V_ORDER": 603089,
             "RPSTUI_NM": null
           },
           {
@@ -14048,7 +14058,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 605100,
+            "V_ORDER": 606100,
             "RPSTUI_NM": null
           },
           {
@@ -14063,7 +14073,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 605103,
+            "V_ORDER": 606103,
             "RPSTUI_NM": null
           },
           {
@@ -14078,7 +14088,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 605104,
+            "V_ORDER": 606104,
             "RPSTUI_NM": null
           },
           {
@@ -14093,7 +14103,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 605105,
+            "V_ORDER": 606105,
             "RPSTUI_NM": null
           },
           {
@@ -14108,7 +14118,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 606106,
+            "V_ORDER": 607106,
             "RPSTUI_NM": null
           },
           {
@@ -14123,7 +14133,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 606109,
+            "V_ORDER": 607109,
             "RPSTUI_NM": null
           },
           {
@@ -14138,7 +14148,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 606110,
+            "V_ORDER": 607110,
             "RPSTUI_NM": null
           },
           {
@@ -14153,7 +14163,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 606111,
+            "V_ORDER": 607111,
             "RPSTUI_NM": null
           },
           {
@@ -14168,7 +14178,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 607112,
+            "V_ORDER": 608112,
             "RPSTUI_NM": null
           },
           {
@@ -14183,7 +14193,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 607115,
+            "V_ORDER": 608115,
             "RPSTUI_NM": null
           },
           {
@@ -14198,7 +14208,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 607116,
+            "V_ORDER": 608116,
             "RPSTUI_NM": null
           },
           {
@@ -14213,7 +14223,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 607117,
+            "V_ORDER": 608117,
             "RPSTUI_NM": null
           },
           {
@@ -14228,7 +14238,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 608118,
+            "V_ORDER": 609118,
             "RPSTUI_NM": null
           },
           {
@@ -14243,7 +14253,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 608121,
+            "V_ORDER": 609121,
             "RPSTUI_NM": null
           },
           {
@@ -14258,7 +14268,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 608122,
+            "V_ORDER": 609122,
             "RPSTUI_NM": null
           },
           {
@@ -14273,7 +14283,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 608123,
+            "V_ORDER": 609123,
             "RPSTUI_NM": null
           },
           {
@@ -14288,7 +14298,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 609124,
+            "V_ORDER": 610124,
             "RPSTUI_NM": null
           },
           {
@@ -14303,7 +14313,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 609127,
+            "V_ORDER": 610127,
             "RPSTUI_NM": null
           },
           {
@@ -14318,7 +14328,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 609128,
+            "V_ORDER": 610128,
             "RPSTUI_NM": null
           },
           {
@@ -14333,7 +14343,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 609129,
+            "V_ORDER": 610129,
             "RPSTUI_NM": null
           },
           {
@@ -14348,7 +14358,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 610130,
+            "V_ORDER": 611130,
             "RPSTUI_NM": null
           },
           {
@@ -14363,7 +14373,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 610133,
+            "V_ORDER": 611133,
             "RPSTUI_NM": null
           },
           {
@@ -14378,7 +14388,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 610134,
+            "V_ORDER": 611134,
             "RPSTUI_NM": null
           },
           {
@@ -14393,7 +14403,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 610135,
+            "V_ORDER": 611135,
             "RPSTUI_NM": null
           },
           {
@@ -14408,7 +14418,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 611136,
+            "V_ORDER": 612136,
             "RPSTUI_NM": null
           },
           {
@@ -14423,7 +14433,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 611139,
+            "V_ORDER": 612139,
             "RPSTUI_NM": null
           },
           {
@@ -14438,7 +14448,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 611140,
+            "V_ORDER": 612140,
             "RPSTUI_NM": null
           },
           {
@@ -14453,7 +14463,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 611141,
+            "V_ORDER": 612141,
             "RPSTUI_NM": null
           },
           {
@@ -14468,7 +14478,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 614145,
+            "V_ORDER": 615145,
             "RPSTUI_NM": null
           },
           {
@@ -14483,7 +14493,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 614146,
+            "V_ORDER": 615146,
             "RPSTUI_NM": null
           },
           {
@@ -14498,7 +14508,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 614147,
+            "V_ORDER": 615147,
             "RPSTUI_NM": null
           },
           {
@@ -14513,7 +14523,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 614148,
+            "V_ORDER": 615148,
             "RPSTUI_NM": null
           },
           {
@@ -14528,7 +14538,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 615149,
+            "V_ORDER": 616149,
             "RPSTUI_NM": null
           },
           {
@@ -14543,7 +14553,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 615150,
+            "V_ORDER": 616150,
             "RPSTUI_NM": null
           },
           {
@@ -14558,7 +14568,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 615151,
+            "V_ORDER": 616151,
             "RPSTUI_NM": null
           },
           {
@@ -14573,7 +14583,7 @@
             "DATA_END_YY": "2024",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 615152,
+            "V_ORDER": 616152,
             "RPSTUI_NM": null
           },
           {
@@ -14588,7 +14598,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 616153,
+            "V_ORDER": 617153,
             "RPSTUI_NM": null
           },
           {
@@ -14603,7 +14613,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 616154,
+            "V_ORDER": 617154,
             "RPSTUI_NM": null
           },
           {
@@ -14618,7 +14628,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 616155,
+            "V_ORDER": 617155,
             "RPSTUI_NM": null
           },
           {
@@ -14633,7 +14643,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 616156,
+            "V_ORDER": 617156,
             "RPSTUI_NM": null
           },
           {
@@ -14648,7 +14658,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 617157,
+            "V_ORDER": 618157,
             "RPSTUI_NM": null
           },
           {
@@ -14663,7 +14673,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 617158,
+            "V_ORDER": 618158,
             "RPSTUI_NM": null
           },
           {
@@ -14678,7 +14688,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 617159,
+            "V_ORDER": 618159,
             "RPSTUI_NM": null
           },
           {
@@ -14693,7 +14703,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 617160,
+            "V_ORDER": 618160,
             "RPSTUI_NM": null
           },
           {
@@ -14708,7 +14718,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 618161,
+            "V_ORDER": 619161,
             "RPSTUI_NM": null
           },
           {
@@ -14723,7 +14733,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 618162,
+            "V_ORDER": 619162,
             "RPSTUI_NM": null
           },
           {
@@ -14738,7 +14748,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 618163,
+            "V_ORDER": 619163,
             "RPSTUI_NM": null
           },
           {
@@ -14753,7 +14763,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 618164,
+            "V_ORDER": 619164,
             "RPSTUI_NM": null
           },
           {
@@ -14768,7 +14778,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 619165,
+            "V_ORDER": 620165,
             "RPSTUI_NM": null
           },
           {
@@ -14783,7 +14793,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 619166,
+            "V_ORDER": 620166,
             "RPSTUI_NM": null
           },
           {
@@ -14798,7 +14808,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 619167,
+            "V_ORDER": 620167,
             "RPSTUI_NM": null
           },
           {
@@ -14813,7 +14823,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 619168,
+            "V_ORDER": 620168,
             "RPSTUI_NM": null
           },
           {
@@ -14828,7 +14838,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620058,
+            "V_ORDER": 621058,
             "RPSTUI_NM": null
           },
           {
@@ -14843,7 +14853,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620059,
+            "V_ORDER": 621059,
             "RPSTUI_NM": null
           },
           {
@@ -14858,7 +14868,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620060,
+            "V_ORDER": 621060,
             "RPSTUI_NM": null
           },
           {
@@ -14873,7 +14883,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620090,
+            "V_ORDER": 621090,
             "RPSTUI_NM": null
           },
           {
@@ -14888,7 +14898,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620091,
+            "V_ORDER": 621091,
             "RPSTUI_NM": null
           },
           {
@@ -14903,7 +14913,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620092,
+            "V_ORDER": 621092,
             "RPSTUI_NM": null
           },
           {
@@ -14918,7 +14928,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620093,
+            "V_ORDER": 621093,
             "RPSTUI_NM": null
           },
           {
@@ -14933,7 +14943,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620169,
+            "V_ORDER": 621169,
             "RPSTUI_NM": null
           },
           {
@@ -14948,7 +14958,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620170,
+            "V_ORDER": 621170,
             "RPSTUI_NM": null
           },
           {
@@ -14963,7 +14973,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620171,
+            "V_ORDER": 621171,
             "RPSTUI_NM": null
           },
           {
@@ -14978,7 +14988,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 620172,
+            "V_ORDER": 621172,
             "RPSTUI_NM": null
           },
           {
@@ -14993,7 +15003,7 @@
             "DATA_END_YY": "2023",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 631164,
+            "V_ORDER": 632164,
             "RPSTUI_NM": null
           },
           {
@@ -15008,7 +15018,7 @@
             "DATA_END_YY": "2023",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 631165,
+            "V_ORDER": 632165,
             "RPSTUI_NM": null
           },
           {
@@ -15023,7 +15033,7 @@
             "DATA_END_YY": "2023",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 631166,
+            "V_ORDER": 632166,
             "RPSTUI_NM": null
           },
           {
@@ -15038,7 +15048,7 @@
             "DATA_END_YY": "2023",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 631167,
+            "V_ORDER": 632167,
             "RPSTUI_NM": null
           },
           {
@@ -15053,7 +15063,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 632168,
+            "V_ORDER": 633168,
             "RPSTUI_NM": null
           },
           {
@@ -15068,7 +15078,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 632169,
+            "V_ORDER": 633169,
             "RPSTUI_NM": null
           },
           {
@@ -15083,7 +15093,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 632170,
+            "V_ORDER": 633170,
             "RPSTUI_NM": null
           },
           {
@@ -15098,7 +15108,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 632171,
+            "V_ORDER": 633171,
             "RPSTUI_NM": null
           },
           {
@@ -15113,7 +15123,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 633172,
+            "V_ORDER": 634172,
             "RPSTUI_NM": null
           },
           {
@@ -15128,7 +15138,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 633173,
+            "V_ORDER": 634173,
             "RPSTUI_NM": null
           },
           {
@@ -15143,7 +15153,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 633174,
+            "V_ORDER": 634174,
             "RPSTUI_NM": null
           },
           {
@@ -15158,7 +15168,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 633175,
+            "V_ORDER": 634175,
             "RPSTUI_NM": null
           },
           {
@@ -15173,7 +15183,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 634176,
+            "V_ORDER": 635176,
             "RPSTUI_NM": null
           },
           {
@@ -15188,7 +15198,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 634177,
+            "V_ORDER": 635177,
             "RPSTUI_NM": null
           },
           {
@@ -15203,7 +15213,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 634178,
+            "V_ORDER": 635178,
             "RPSTUI_NM": null
           },
           {
@@ -15218,7 +15228,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 634179,
+            "V_ORDER": 635179,
             "RPSTUI_NM": null
           },
           {
@@ -15233,7 +15243,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 635180,
+            "V_ORDER": 636180,
             "RPSTUI_NM": null
           },
           {
@@ -15248,7 +15258,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 635181,
+            "V_ORDER": 636181,
             "RPSTUI_NM": null
           },
           {
@@ -15263,7 +15273,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 635182,
+            "V_ORDER": 636182,
             "RPSTUI_NM": null
           },
           {
@@ -15278,7 +15288,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 635183,
+            "V_ORDER": 636183,
             "RPSTUI_NM": null
           },
           {
@@ -15293,7 +15303,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 636184,
+            "V_ORDER": 637184,
             "RPSTUI_NM": null
           },
           {
@@ -15308,7 +15318,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 636185,
+            "V_ORDER": 637185,
             "RPSTUI_NM": null
           },
           {
@@ -15323,7 +15333,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 636186,
+            "V_ORDER": 637186,
             "RPSTUI_NM": null
           },
           {
@@ -15338,7 +15348,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 636187,
+            "V_ORDER": 637187,
             "RPSTUI_NM": null
           },
           {
@@ -15353,7 +15363,7 @@
             "DATA_END_YY": "2023",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 638190,
+            "V_ORDER": 639190,
             "RPSTUI_NM": null
           },
           {
@@ -15368,7 +15378,7 @@
             "DATA_END_YY": "2023",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 638191,
+            "V_ORDER": 639191,
             "RPSTUI_NM": null
           },
           {
@@ -15383,7 +15393,7 @@
             "DATA_END_YY": "2023",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 638192,
+            "V_ORDER": 639192,
             "RPSTUI_NM": null
           },
           {
@@ -15398,7 +15408,7 @@
             "DATA_END_YY": "2023",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 638193,
+            "V_ORDER": 639193,
             "RPSTUI_NM": null
           },
           {
@@ -15413,7 +15423,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 639194,
+            "V_ORDER": 640194,
             "RPSTUI_NM": null
           },
           {
@@ -15428,7 +15438,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 639195,
+            "V_ORDER": 640195,
             "RPSTUI_NM": null
           },
           {
@@ -15443,7 +15453,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 639196,
+            "V_ORDER": 640196,
             "RPSTUI_NM": null
           },
           {
@@ -15458,7 +15468,7 @@
             "DATA_END_YY": "2021",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 639197,
+            "V_ORDER": 640197,
             "RPSTUI_NM": null
           },
           {
@@ -15473,7 +15483,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 640198,
+            "V_ORDER": 641198,
             "RPSTUI_NM": null
           },
           {
@@ -15488,7 +15498,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 640199,
+            "V_ORDER": 641199,
             "RPSTUI_NM": null
           },
           {
@@ -15503,7 +15513,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 640200,
+            "V_ORDER": 641200,
             "RPSTUI_NM": null
           },
           {
@@ -15518,7 +15528,7 @@
             "DATA_END_YY": "2020",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 640201,
+            "V_ORDER": 641201,
             "RPSTUI_NM": null
           },
           {
@@ -15533,7 +15543,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 641202,
+            "V_ORDER": 642202,
             "RPSTUI_NM": null
           },
           {
@@ -15548,7 +15558,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 641203,
+            "V_ORDER": 642203,
             "RPSTUI_NM": null
           },
           {
@@ -15563,7 +15573,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 641204,
+            "V_ORDER": 642204,
             "RPSTUI_NM": null
           },
           {
@@ -15578,7 +15588,7 @@
             "DATA_END_YY": "2019",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 641205,
+            "V_ORDER": 642205,
             "RPSTUI_NM": null
           },
           {
@@ -15593,7 +15603,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 642206,
+            "V_ORDER": 643206,
             "RPSTUI_NM": null
           },
           {
@@ -15608,7 +15618,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 642207,
+            "V_ORDER": 643207,
             "RPSTUI_NM": null
           },
           {
@@ -15623,7 +15633,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 642208,
+            "V_ORDER": 643208,
             "RPSTUI_NM": null
           },
           {
@@ -15638,7 +15648,7 @@
             "DATA_END_YY": "2018",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 642209,
+            "V_ORDER": 643209,
             "RPSTUI_NM": null
           },
           {
@@ -15653,7 +15663,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 643210,
+            "V_ORDER": 644210,
             "RPSTUI_NM": null
           },
           {
@@ -15668,7 +15678,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 643211,
+            "V_ORDER": 644211,
             "RPSTUI_NM": null
           },
           {
@@ -15683,7 +15693,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 643212,
+            "V_ORDER": 644212,
             "RPSTUI_NM": null
           },
           {
@@ -15698,7 +15708,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 643213,
+            "V_ORDER": 644213,
             "RPSTUI_NM": null
           },
           {
@@ -15713,7 +15723,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652027,
+            "V_ORDER": 653027,
             "RPSTUI_NM": "기준시점 : 2016.4Q=100"
           },
           {
@@ -15728,7 +15738,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652028,
+            "V_ORDER": 653028,
             "RPSTUI_NM": "기준시점 : 2016.4Q=100"
           },
           {
@@ -15743,7 +15753,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652029,
+            "V_ORDER": 653029,
             "RPSTUI_NM": "기준시점 : 2016.4Q=100"
           },
           {
@@ -15758,7 +15768,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652030,
+            "V_ORDER": 653030,
             "RPSTUI_NM": "기준시점 : 2016.4Q=100"
           },
           {
@@ -15773,7 +15783,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652061,
+            "V_ORDER": 653061,
             "RPSTUI_NM": null
           },
           {
@@ -15788,7 +15798,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652062,
+            "V_ORDER": 653062,
             "RPSTUI_NM": null
           },
           {
@@ -15803,7 +15813,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652063,
+            "V_ORDER": 653063,
             "RPSTUI_NM": null
           },
           {
@@ -15818,7 +15828,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652094,
+            "V_ORDER": 653094,
             "RPSTUI_NM": null
           },
           {
@@ -15833,7 +15843,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652095,
+            "V_ORDER": 653095,
             "RPSTUI_NM": null
           },
           {
@@ -15848,7 +15858,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652096,
+            "V_ORDER": 653096,
             "RPSTUI_NM": null
           },
           {
@@ -15863,7 +15873,7 @@
             "DATA_END_YY": "2016",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652097,
+            "V_ORDER": 653097,
             "RPSTUI_NM": null
           },
           {
@@ -15878,7 +15888,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652142,
+            "V_ORDER": 653142,
             "RPSTUI_NM": null
           },
           {
@@ -15893,7 +15903,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652143,
+            "V_ORDER": 653143,
             "RPSTUI_NM": null
           },
           {
@@ -15908,7 +15918,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652144,
+            "V_ORDER": 653144,
             "RPSTUI_NM": null
           },
           {
@@ -15923,7 +15933,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652173,
+            "V_ORDER": 653173,
             "RPSTUI_NM": null
           },
           {
@@ -15938,7 +15948,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 652174,
+            "V_ORDER": 653174,
             "RPSTUI_NM": null
           },
           {
@@ -15953,7 +15963,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 652188,
+            "V_ORDER": 653188,
             "RPSTUI_NM": null
           },
           {
@@ -15968,7 +15978,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 652189,
+            "V_ORDER": 653189,
             "RPSTUI_NM": null
           },
           {
@@ -15983,7 +15993,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 652214,
+            "V_ORDER": 653214,
             "RPSTUI_NM": null
           },
           {
@@ -15998,7 +16008,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※ 조사·통계 문의: 부동산통계처 상업자산통계부(053-663-8534, 8538, 8535)",
-            "V_ORDER": 652215,
+            "V_ORDER": 653215,
             "RPSTUI_NM": null
           },
           {
@@ -16013,7 +16023,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 676064,
+            "V_ORDER": 677064,
             "RPSTUI_NM": null
           },
           {
@@ -16028,7 +16038,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 676065,
+            "V_ORDER": 677065,
             "RPSTUI_NM": null
           },
           {
@@ -16043,7 +16053,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 677098,
+            "V_ORDER": 678098,
             "RPSTUI_NM": null
           },
           {
@@ -16058,7 +16068,7 @@
             "DATA_END_YY": "2012",
             "STATBL_IDTFR": null,
             "STATBL_CMMT": "※조사ㆍ통계문의 : 부동산통계처 상업자산통계부(053-663-8536,8538,8535)",
-            "V_ORDER": 677099,
+            "V_ORDER": 678099,
             "RPSTUI_NM": null
           }
         ]
@@ -16066,5 +16076,5 @@
     ]
   },
   "blockers": [],
-  "collected_at": "2026-09-28T04:00:54.441319+00:00"
+  "collected_at": "2026-10-05T02:27:37.688692+00:00"
 }

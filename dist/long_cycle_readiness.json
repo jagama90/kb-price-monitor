@@ -59,8 +59,8 @@
       "path": "data_sources/kb_sentiment.json",
       "exists": true,
       "rows": 2016,
-      "first": "20210927",
-      "last": "20260921"
+      "first": "20211004",
+      "last": "20260928"
     },
     "precision_demand": {
       "path": "dist/molit_historical_backtest.json",
@@ -76,5 +76,5 @@
     "encode documented policy actions rather than party/person as directional score",
     "production 2022+ model remains unchanged until validation passes"
   ],
-  "generated_at": "2026-09-28T04:00:54.520063+00:00"
+  "generated_at": "2026-10-05T02:27:37.748822+00:00"
 }
