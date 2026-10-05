@@ -45,7 +45,7 @@
         "m1_fit_r2": 0.479,
         "m3_fit_r2": 0.71,
         "validation_apply_recommended": true,
-        "validation_generated_at": "2026-09-29T17:16:19.581978+00:00"
+        "validation_generated_at": "2026-10-05T02:25:26.874037+00:00"
       }
     },
     "signals": {
@@ -397,5 +397,5 @@
       }
     }
   },
-  "generated_at": "2026-10-04T23:58:46.577016+00:00"
+  "generated_at": "2026-10-05T02:27:51.338504+00:00"
 }
