@@ -1,7 +1,7 @@
 {
   "status": "research_only",
-  "version": "complex_direction_v1",
-  "generated_from_commit": "8a75d6a7759e69a760fe51301b5869e4e18d475e",
+  "version": "complex_direction_v1_market_guardrail",
+  "generated_from_commit": "36ce4e91e683dbb22a41123afc061de4e975448e",
   "architecture": "Common market context -> complex feature layer -> horizon-specific direction research",
   "scope": {
     "complexes_with_history": 35,
@@ -78,10 +78,20 @@
     }
   },
   "market_overlay": {
-    "status": "context_only_not_blended",
-    "as_of": "2026-10-04",
-    "current_phase": "상승·보합",
-    "first_horizon_headline": "쉬어가기·하방 경계"
+    "status": "validated_research_guardrail_not_blended",
+    "source": "dist/complex_direction_market_overlay_validation.json",
+    "primary_direction_unchanged": true,
+    "guardrail_rule": "confirmed_downside iff complex-only 3m return < -1% and market-augmented 3m return < -1%",
+    "current_as_of": "2026-10-06",
+    "current_confirmed_downside_count": 0,
+    "current_note": "No current watchlist complex triggers the high-precision downside confirmation guardrail.",
+    "validation": {
+      "negative_precision_pct": 75,
+      "negative_recall_pct": 3.5,
+      "flagged_n": 4,
+      "negative_prevalence_pct": 6.7
+    },
+    "certification": "research_only"
   },
   "items": [
     {
@@ -122,6 +132,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -162,6 +178,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -202,6 +224,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -242,6 +270,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -282,6 +316,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -322,6 +362,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -362,6 +408,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -402,6 +454,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -442,6 +500,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -482,6 +546,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -522,6 +592,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -562,6 +638,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -602,6 +684,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -642,6 +730,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -682,6 +776,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -722,6 +822,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -762,6 +868,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -802,6 +914,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -842,6 +960,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -882,6 +1006,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -922,6 +1052,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -962,6 +1098,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1002,6 +1144,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1042,6 +1190,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1082,6 +1236,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1122,6 +1282,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1162,6 +1328,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1202,6 +1374,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1242,6 +1420,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1282,6 +1466,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1322,6 +1512,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1362,6 +1558,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1402,6 +1604,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1442,6 +1650,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     },
     {
@@ -1482,6 +1696,12 @@
       },
       "direction_12m": {
         "status": "rejected_for_production"
+      },
+      "market_guardrail_3m": {
+        "status": "research_only",
+        "signal": "none",
+        "primary_direction_overridden": false,
+        "note": "Current market overlay does not produce a validated confirmed-downside flag."
       }
     }
   ]

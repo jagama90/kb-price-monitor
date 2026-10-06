@@ -1,0 +1,86 @@
+{
+  "status": "research_validation",
+  "version": "complex_direction_market_guardrail_v1",
+  "source_commit": "36ce4e91e683dbb22a41123afc061de4e975448e",
+  "historical_market_source": "dist/final_backtest.json",
+  "current_market_source": "dist/market_judgment.json",
+  "methodology": {
+    "primary_direction_model": "complex_direction_v1 unchanged",
+    "market_augmented_model": "same 35-neighbor expanding walk-forward analog model with 9 vintage-safe market features added",
+    "guardrail_rule": "confirmed_downside only when complex-only 3m analog return < -1% AND market-augmented 3m analog return < -1%",
+    "no_primary_override": true,
+    "leave_complex_out": true,
+    "target_maturity_rule": "train_ym + 3 <= test_ym",
+    "market_features": [
+      "buy_score",
+      "finance",
+      "sentiment",
+      "demand",
+      "value",
+      "supply",
+      "finance_3m_delta",
+      "sentiment_3m_delta",
+      "demand_3m_delta"
+    ]
+  },
+  "comparison": {
+    "validation_n": 1273,
+    "negative_actual_n": 85,
+    "negative_prevalence_pct": 6.7,
+    "complex_only": {
+      "mae_pct": 3.432,
+      "sign_hit_pct": 93.2,
+      "balanced_sign_accuracy_pct": 84,
+      "down_recall_pct": 72.5,
+      "direction3_hit_pct": 59.6
+    },
+    "full_market_augmented": {
+      "mae_pct": 4.133,
+      "sign_hit_pct": 88,
+      "balanced_sign_accuracy_pct": 85.8,
+      "down_recall_pct": 82.9,
+      "direction3_hit_pct": 52
+    },
+    "decision": "do_not_blend_into_primary_direction"
+  },
+  "guardrail_validation": {
+    "confirmed_downside": {
+      "n": 4,
+      "flag_rate_pct": 0.3,
+      "negative_precision_pct": 75,
+      "negative_recall_pct": 3.5,
+      "mean_fwd3_pct": -2.03,
+      "decision": "retain_as_high_precision_research_guardrail"
+    },
+    "market_only_downside": {
+      "n": 104,
+      "flag_rate_pct": 8.2,
+      "negative_precision_pct": 19.2,
+      "negative_recall_pct": 23.5,
+      "mean_fwd3_pct": 0.11,
+      "decision": "reject_as_standalone_warning"
+    }
+  },
+  "current": {
+    "as_of": "2026-10-06",
+    "market_snapshot_id": "2026-10-06|KB20260928|R202608",
+    "market_vector": {
+      "buy_score": 33.9,
+      "finance": 35.5,
+      "sentiment": 21.2,
+      "demand": 36.4,
+      "value": 30.4,
+      "supply": 49.2,
+      "finance_3m_delta": -1.94,
+      "sentiment_3m_delta": -5.6,
+      "demand_3m_delta": -5.1
+    },
+    "confirmed_downside_count": 0,
+    "market_only_downside_count": 0,
+    "note": "No current watchlist complex meets the validated confirmed-downside guardrail."
+  },
+  "certification": {
+    "certified": false,
+    "reason": "high precision but rare-event sample is only n=4; keep research-only until more out-of-sample confirmations accumulate"
+  }
+}
