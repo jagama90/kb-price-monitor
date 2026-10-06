@@ -14,8 +14,8 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: reb-crosscheck-${{ github.ref }}
-  cancel-in-progress: true
+  group: reb-official-context-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   collect:
     runs-on: ubuntu-latest
@@ -50,6 +50,17 @@ jobs:
           PY
       - name: Rebuild dashboard adapter
         run: python3 scripts/build_market_snapshot.py
+      - name: Rebuild judgment and forecast from refreshed context
+        run: |
+          python3 scripts/build_market_judgment.py
+          python3 scripts/validate_market_judgment.py
+          python3 - <<'PY'
+          import json
+          v=json.load(open('dist/market_judgment_validation.json'))
+          assert v.get('apply_recommended') is True
+          assert v.get('no_future_leakage') is True
+          PY
+          python3 scripts/forecast_market_regime.py
       - name: Validate dashboard and pipeline
         run: |
           node --check dist/market.js
@@ -63,12 +74,20 @@ jobs:
           mkdir -p /tmp/reb-crosscheck
           cp data_sources/reb_crosscheck.json /tmp/reb-crosscheck/
           cp dist/market_indicators.json /tmp/reb-crosscheck/
+          cp dist/market_judgment_candidate.json /tmp/reb-crosscheck/
+          cp dist/market_judgment_validation.json /tmp/reb-crosscheck/
+          cp dist/market_judgment.json /tmp/reb-crosscheck/
+          cp dist/regime_forecast.json /tmp/reb-crosscheck/
           git reset --hard
           git clean -fd
           git pull --ff-only origin main
           cp /tmp/reb-crosscheck/reb_crosscheck.json data_sources/reb_crosscheck.json
           cp /tmp/reb-crosscheck/market_indicators.json dist/market_indicators.json
-          git add -f data_sources/reb_crosscheck.json dist/market_indicators.json
+          cp /tmp/reb-crosscheck/market_judgment_candidate.json dist/market_judgment_candidate.json
+          cp /tmp/reb-crosscheck/market_judgment_validation.json dist/market_judgment_validation.json
+          cp /tmp/reb-crosscheck/market_judgment.json dist/market_judgment.json
+          cp /tmp/reb-crosscheck/regime_forecast.json dist/regime_forecast.json
+          git add -f data_sources/reb_crosscheck.json dist/market_indicators.json dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh REB sale rent crosscheck'
           git push origin HEAD:main
