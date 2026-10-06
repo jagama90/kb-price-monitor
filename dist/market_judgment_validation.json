@@ -270,5 +270,5 @@
   "apply_recommended": true,
   "gate": "n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45",
   "no_future_leakage": true,
-  "generated_at": "2026-10-06T23:03:23.881198+00:00"
+  "generated_at": "2026-10-06T23:55:16.148947+00:00"
 }
