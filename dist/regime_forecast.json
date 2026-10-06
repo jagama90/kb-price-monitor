@@ -2,7 +2,7 @@
   "status": "research_only",
   "weights_are_not_calibrated_probabilities": true,
   "method": "unified market judgment engine; all live heads consume one common feature snapshot",
-  "as_of": "2026-10-06",
+  "as_of": "2026-10-07",
   "latest_research_month": "202608",
   "latest_research_provisional": true,
   "latest_certified_backtest_month": "202607",
@@ -139,7 +139,7 @@
       "trade_count_pct": -39.7,
       "m2_yoy_pct": 5.8,
       "mortgage_rate_pct": 4.66,
-      "snapshot_id": "2026-10-06|KB20260928|R202608"
+      "snapshot_id": "2026-10-07|KB20260928|R202608"
     }
   },
   "price_momentum_overlay": {
@@ -184,6 +184,6 @@
     },
     "sample_is_small": true
   },
-  "unified_snapshot_id": "2026-10-06|KB20260928|R202608",
-  "generated_at": "2026-10-06T01:46:49.754344+00:00"
+  "unified_snapshot_id": "2026-10-07|KB20260928|R202608",
+  "generated_at": "2026-10-06T23:03:23.927763+00:00"
 }

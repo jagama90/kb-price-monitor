@@ -3,7 +3,7 @@
   "rows_compared": 46,
   "baseline_forecast": {
     "n": 46,
-    "down_corr_negative_fwd3": 0.5048015218807245,
+    "down_corr_negative_fwd3": 0.5048015218807247,
     "down_auc_negative_fwd3": 0.9413919413919414,
     "reaccel_corr_fwd3": 0.5538165150712729,
     "reaccel_auc_positive_fwd3": 0.6989247311827957
@@ -113,7 +113,7 @@
     "no_future_leakage": true
   },
   "current_candidate": {
-    "snapshot_id": "2026-10-04|KB20260928|R202608",
+    "snapshot_id": "2026-10-07|KB20260928|R202608",
     "current_state": {
       "stage": 3,
       "label": "상승·보합",
@@ -270,5 +270,5 @@
   "apply_recommended": true,
   "gate": "n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45",
   "no_future_leakage": true,
-  "generated_at": "2026-10-04T04:39:32.474054+00:00"
+  "generated_at": "2026-10-06T23:03:23.881198+00:00"
 }
