@@ -6,7 +6,8 @@ a=json.loads((R/"dist/complex_direction_research.json").read_text())
 v=json.loads((R/"dist/complex_direction_validation.json").read_text())
 assert a["status"]=="research_only" and v["decision"]["certified"] is False
 assert a["leakage_guard"]["no_future_target_rows"] is True
-assert a["market_overlay"]["status"]=="context_only_not_blended"
+assert a["market_overlay"]["status"] in {"context_only_not_blended","validated_research_guardrail_not_blended"}
+assert a["market_overlay"].get("primary_direction_unchanged", True) is True
 assert v["decision"]["production_candidate_horizon"]=="3m"
 assert v["decision"]["rejected_horizon"]=="12m"
 assert len(a["items"])>=30
