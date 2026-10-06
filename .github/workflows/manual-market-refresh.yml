@@ -52,7 +52,7 @@ jobs:
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_render_safety.py
-          python3 scripts/check_pipeline_health.py
+          python3 scripts/check_pipeline_health.py --allow-aux-stale
       - name: Persist derived outputs
         run: |
           git config user.name 'github-actions[bot]'

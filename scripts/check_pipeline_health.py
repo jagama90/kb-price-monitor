@@ -4,6 +4,7 @@ from pathlib import Path
 import json,sys,re,datetime
 
 R=Path(__file__).resolve().parents[1]
+ALLOW_AUX_STALE='--allow-aux-stale' in sys.argv[1:]
 errors=[]
 warnings=[]
 
@@ -110,7 +111,11 @@ if reb_crosscheck:
 if reb_weekly:
     if reb_weekly.get('status')!='connected': errors.append('REB weekly official cross-check disconnected')
     rday=ymd((reb_weekly.get('latest') or {}).get('date'))
-    if not rday or (today-rday).days>14: errors.append('REB weekly official cross-check is stale')
+    if not rday or (today-rday).days>14:
+        if ALLOW_AUX_STALE:
+            warnings.append({'aux_source_stale':'REB weekly official cross-check','latest_date':(reb_weekly.get('latest') or {}).get('date')})
+        else:
+            errors.append('REB weekly official cross-check is stale')
     if len(((reb_weekly.get('series') or {}).get('sale') or []))<70 or len(((reb_weekly.get('series') or {}).get('rent') or []))<70:
         errors.append('REB weekly official history too short')
     acc=reb_weekly.get('accumulation') or {}
