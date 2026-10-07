@@ -49,10 +49,12 @@ Deno.serve(async (req: Request) => {
   if (!url || !key) return json({ ok: false, error: "server_config" }, 500);
   const db = createClient(url, key, { auth: { persistSession: false } });
 
-  const latest = async () => {
-    const { data, error } = await db
+  const latest = async (source?: string) => {
+    let q = db
       .from("manual_refresh_requests")
-      .select("id,requested_at,source,dispatched_at,dispatched_by,dispatch_attempts")
+      .select("id,requested_at,source,dispatched_at,dispatched_by,dispatch_attempts");
+    if (source) q = q.eq("source", source);
+    const { data, error } = await q
       .order("requested_at", { ascending: false })
       .limit(1)
       .maybeSingle();
@@ -92,7 +94,8 @@ Deno.serve(async (req: Request) => {
     const origin = req.headers.get("origin") || "";
     if (origin !== allowedOrigin) return json({ ok: false, error: "origin_not_allowed" }, 403);
     try {
-      const prev = await latest();
+      const requestedSource = body?.source === "dashboard_validation" ? "dashboard_validation" : "dashboard";
+      const prev = await latest(requestedSource);
       if (prev?.requested_at) {
         const age = Date.now() - new Date(prev.requested_at).getTime();
         if (Number.isFinite(age) && age < 5 * 60 * 1000) {
@@ -101,7 +104,7 @@ Deno.serve(async (req: Request) => {
       }
       const { data, error } = await db
         .from("manual_refresh_requests")
-        .insert({ source: "dashboard" })
+        .insert({ source: requestedSource })
         .select("id,requested_at,source,dispatched_at,dispatched_by,dispatch_attempts")
         .single();
       if (error) throw error;

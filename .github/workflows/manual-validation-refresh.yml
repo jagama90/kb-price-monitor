@@ -1,0 +1,116 @@
+name: Manual validation and raw-source refresh
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: manual-validation-raw-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh_validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Prepare orchestration
+        run: |
+          set -euo pipefail
+          gh --version
+          echo "Manual validation/raw refresh started."
+
+      - name: Refresh REB weekly official
+        run: |
+          set -euo pipefail
+          start="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          gh workflow run collect-reb-weekly.yml --ref main
+          for _ in $(seq 1 30); do
+            id="$(gh run list --workflow collect-reb-weekly.yml --event workflow_dispatch --limit 10 --json databaseId,createdAt --jq '.[] | select(.createdAt >= "'"$start"'") | .databaseId' | head -n1)"
+            [ -n "$id" ] && break
+            sleep 4
+          done
+          test -n "${id:-}"
+          gh run watch "$id" --exit-status
+
+      - name: Refresh REB monthly crosscheck
+        run: |
+          set -euo pipefail
+          start="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          gh workflow run collect-reb-crosscheck.yml --ref main
+          for _ in $(seq 1 30); do
+            id="$(gh run list --workflow collect-reb-crosscheck.yml --event workflow_dispatch --limit 10 --json databaseId,createdAt --jq '.[] | select(.createdAt >= "'"$start"'") | .databaseId' | head -n1)"
+            [ -n "$id" ] && break
+            sleep 4
+          done
+          test -n "${id:-}"
+          gh run watch "$id" --exit-status
+
+      - name: Refresh regional validation
+        run: |
+          set -euo pipefail
+          start="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          gh workflow run market-extensions.yml --ref main
+          for _ in $(seq 1 30); do
+            id="$(gh run list --workflow market-extensions.yml --event workflow_dispatch --limit 10 --json databaseId,createdAt --jq '.[] | select(.createdAt >= "'"$start"'") | .databaseId' | head -n1)"
+            [ -n "$id" ] && break
+            sleep 4
+          done
+          test -n "${id:-}"
+          gh run watch "$id" --exit-status
+
+      - name: Refresh certified backtest
+        run: |
+          set -euo pipefail
+          start="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          gh workflow run final-backtest.yml --ref main
+          for _ in $(seq 1 30); do
+            id="$(gh run list --workflow final-backtest.yml --event workflow_dispatch --limit 10 --json databaseId,createdAt --jq '.[] | select(.createdAt >= "'"$start"'") | .databaseId' | head -n1)"
+            [ -n "$id" ] && break
+            sleep 4
+          done
+          test -n "${id:-}"
+          gh run watch "$id" --exit-status
+          echo "BACKTEST_DONE_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+
+      - name: Wait for research engine
+        run: |
+          set -euo pipefail
+          start="${BACKTEST_DONE_AT}"
+          for _ in $(seq 1 90); do
+            id="$(gh run list --workflow research-turning-signal.yml --limit 20 --json databaseId,createdAt --jq '.[] | select(.createdAt >= "'"$start"'") | .databaseId' | head -n1)"
+            [ -n "$id" ] && break
+            sleep 10
+          done
+          test -n "${id:-}"
+          gh run watch "$id" --exit-status
+          echo "RESEARCH_DONE_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+
+      - name: Wait for forward forecast
+        run: |
+          set -euo pipefail
+          start="${RESEARCH_DONE_AT}"
+          for _ in $(seq 1 60); do
+            id="$(gh run list --workflow forecast-regime.yml --limit 20 --json databaseId,createdAt --jq '.[] | select(.createdAt >= "'"$start"'") | .databaseId' | head -n1)"
+            [ -n "$id" ] && break
+            sleep 10
+          done
+          test -n "${id:-}"
+          gh run watch "$id" --exit-status
+
+      - name: Final system health
+        run: |
+          set -euo pipefail
+          start="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          gh workflow run system-health.yml --ref main
+          for _ in $(seq 1 30); do
+            id="$(gh run list --workflow system-health.yml --event workflow_dispatch --limit 10 --json databaseId,createdAt --jq '.[] | select(.createdAt >= "'"$start"'") | .databaseId' | head -n1)"
+            [ -n "$id" ] && break
+            sleep 4
+          done
+          test -n "${id:-}"
+          gh run watch "$id" --exit-status

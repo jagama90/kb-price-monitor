@@ -4052,3 +4052,13 @@ header{position:sticky!important;overflow:visible!important}
     font-size:12px!important;
   }
 }
+
+/* v210 manual validation/raw-source refresh */
+.diagnostics-manual-refresh-v210{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;margin:0 0 12px;padding:14px 15px;border:1px solid #e2e9ef;border-radius:15px;background:#fbfcfd}
+.diagnostics-manual-refresh-v210>div{min-width:0}.diagnostics-manual-refresh-v210 small,.diagnostics-manual-refresh-v210 b,.diagnostics-manual-refresh-v210 span,.diagnostics-manual-refresh-v210 em{display:block}
+.diagnostics-manual-refresh-v210 small{font-size:8px;font-weight:900;color:#3386bd}.diagnostics-manual-refresh-v210 b{margin:3px 0;font-size:14px;color:#17354b}
+.diagnostics-manual-refresh-v210 span{font-size:9px;line-height:1.45;color:#7e8e9b}.diagnostics-manual-refresh-v210 em{margin-top:4px;font-size:8px;font-style:normal;color:#97a4ae}
+.diagnostics-manual-refresh-v210 button{min-width:94px;min-height:42px;padding:9px 12px;border:1px solid #b9c9d5;border-radius:13px;background:#fff;color:#286789;font-size:11px;font-weight:900;cursor:pointer}
+.diagnostics-manual-refresh-v210 button:disabled{opacity:.55;cursor:default}.diagnostics-manual-refresh-v210.running{background:#f5f9fd}.diagnostics-manual-refresh-v210.success{background:#f3faf6}.diagnostics-manual-refresh-v210.error{background:#fff7f5}
+.diagnostics-refresh-progress-v210{display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:8px;align-items:center;margin-top:9px}.diagnostics-refresh-progress-v210>i{display:block;height:6px;border-radius:999px;background:#e8eef3;overflow:hidden}.diagnostics-refresh-progress-v210>i>u{display:block;width:0;height:100%;border-radius:inherit;background:#5b829d;text-decoration:none;transition:width .3s}.diagnostics-refresh-progress-v210>strong{font-size:9px;color:#536b7c;text-align:right}
+@media(max-width:800px){.diagnostics-manual-refresh-v210{grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:12px}.diagnostics-manual-refresh-v210 b{font-size:13px}.diagnostics-manual-refresh-v210 span{font-size:8px}.diagnostics-manual-refresh-v210 button{min-width:82px;min-height:40px;padding:8px;font-size:10px}}

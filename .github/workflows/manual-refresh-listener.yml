@@ -22,6 +22,7 @@ jobs:
       REFRESH_QUEUE_URL: https://iefzffwydvqnleukmljj.supabase.co/functions/v1/manual-market-refresh
       LISTENER_WORKFLOW: manual-refresh-listener.yml
       REFRESH_WORKFLOW: manual-market-refresh.yml
+      VALIDATION_WORKFLOW: manual-validation-refresh.yml
     steps:
       - name: Avoid duplicate listeners
         env:
@@ -74,9 +75,14 @@ jobs:
 
               if [ "$claimed" = "true" ]; then
                 request_id="$(printf '%s' "$claim" | jq -r '.request.id // empty')"
-                echo "Claimed manual refresh request $request_id; dispatching data pipeline now."
+                request_source="$(printf '%s' "$claim" | jq -r '.request.source // "dashboard"')"
+                target_workflow="$REFRESH_WORKFLOW"
+                if [ "$request_source" = "dashboard_validation" ]; then
+                  target_workflow="$VALIDATION_WORKFLOW"
+                fi
+                echo "Claimed manual refresh request $request_id ($request_source); dispatching $target_workflow now."
 
-                http_code="$(curl -sS -o /tmp/manual-refresh-dispatch.out -w '%{http_code}' -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" -H 'Content-Type: application/json' "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/$REFRESH_WORKFLOW/dispatches" -d '{"ref":"main"}')"
+                http_code="$(curl -sS -o /tmp/manual-refresh-dispatch.out -w '%{http_code}' -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" -H 'Content-Type: application/json' "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/$target_workflow/dispatches" -d '{"ref":"main"}')"
 
                 if [ "$http_code" = "204" ]; then
                   echo "Refresh pipeline dispatched successfully for request $request_id."
