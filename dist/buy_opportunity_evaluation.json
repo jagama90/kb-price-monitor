@@ -337,6 +337,13 @@
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null
+    },
+    {
+      "ym": "202609",
+      "state": "observe",
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
     }
   ],
   "stats": {
@@ -365,7 +372,7 @@
       "fwd_12m_positive_rate_pct": 100.0
     },
     "observe": {
-      "months": 21,
+      "months": 22,
       "fwd_3m_mean_pct": 3.12,
       "fwd_3m_median_pct": 2.03,
       "fwd_3m_positive_rate_pct": 63.2,

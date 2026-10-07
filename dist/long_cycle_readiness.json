@@ -65,9 +65,9 @@
     "precision_demand": {
       "path": "dist/molit_historical_backtest.json",
       "exists": true,
-      "rows": 48,
+      "rows": 49,
       "first": "202209",
-      "last": "202608"
+      "last": "202609"
     }
   },
   "guardrails": [
@@ -76,5 +76,5 @@
     "encode documented policy actions rather than party/person as directional score",
     "production 2022+ model remains unchanged until validation passes"
   ],
-  "generated_at": "2026-10-05T02:27:37.748822+00:00"
+  "generated_at": "2026-10-07T01:28:36.103777+00:00"
 }

@@ -3,8 +3,8 @@
   "source": "dist/turning_signal_research.json + KB Seoul weekly sale index",
   "classification_rule": "same five-stage rule as renderCycleStage; retrospective representative examples only",
   "selection_rule": "exclude latest 9 months; prefer sequential decline→slowdown→bottom→consolidation→acceleration representatives; when a later-stage candidate is absent after the prior anchor, fall back to the strongest historical example of that same classified stage",
-  "latest_source_month": "202608",
-  "candidate_cutoff": "202511",
+  "latest_source_month": "202609",
+  "candidate_cutoff": "202512",
   "references": [
     {
       "stage": 0,
@@ -248,5 +248,5 @@
       ]
     }
   ],
-  "generated_at": "2026-10-05T02:25:12.320549+00:00"
+  "generated_at": "2026-10-07T01:25:02.958060+00:00"
 }

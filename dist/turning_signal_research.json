@@ -3,7 +3,7 @@
   "production_formula_unchanged": true,
   "no_future_leakage": true,
   "source_backtest_status": "certified_with_provisional_tail",
-  "certified_through": "202607",
+  "certified_through": "202608",
   "latest_source_provisional": true,
   "method": "setup = 55% cheapness + 45% sentiment distress; turn = 30% breadth + 35% price-decline-exhaustion + 35% early turn (sentiment persistence, demand recovery, price deceleration); opportunity = setup * turn / 100",
   "rows": [
@@ -1137,24 +1137,48 @@
     },
     {
       "ym": "202608",
-      "market_state": 41.4,
+      "market_state": 41.5,
       "setup": 51.3,
-      "turn": 30.5,
+      "turn": 30.7,
       "opportunity": 15.7,
       "cheapness": 30.4,
       "distress": 76.8,
       "price_turn": 65,
       "price_mom_pct": 0.0,
       "price_accel_pp": 0.0,
-      "early_turn": 15.1,
+      "early_turn": 15.5,
       "momentum_3m_pct": 0.0,
-      "breadth": 38.7,
-      "reaccel": 14.6,
+      "breadth": 38.8,
+      "reaccel": 15.2,
+      "bottom_zone": false,
+      "momentum_zone": false,
+      "target_price": 181500.0,
+      "source_provisional": false,
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null
+    },
+    {
+      "ym": "202609",
+      "market_state": 41.1,
+      "setup": 52.2,
+      "turn": 45.5,
+      "opportunity": 23.7,
+      "cheapness": 30.4,
+      "distress": 78.8,
+      "price_turn": 65,
+      "price_mom_pct": 0.0,
+      "price_accel_pp": 0.0,
+      "early_turn": 24.8,
+      "momentum_3m_pct": 0.0,
+      "breadth": 38.9,
+      "reaccel": 35,
       "bottom_zone": false,
       "momentum_zone": false,
       "target_price": 181500.0,
       "source_provisional": true,
-      "fwd_1m_pct": 0.0,
+      "fwd_1m_pct": null,
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null
@@ -1862,6 +1886,12 @@
       "mortgage_rate_pct": 4.66,
       "mom_bp": 18.0,
       "fwd_6m_pct": null
+    },
+    {
+      "ym": "202609",
+      "mortgage_rate_pct": null,
+      "mom_bp": null,
+      "fwd_6m_pct": null
     }
   ],
   "metrics": {
@@ -1883,7 +1913,7 @@
     "finance": {
       "min": 50.0,
       "max": 73.2,
-      "stdev": 4.9,
+      "stdev": 4.8,
       "corr_fwd_6m": -0.356
     },
     "sentiment": {
@@ -1895,7 +1925,7 @@
     "demand": {
       "min": 28.5,
       "max": 76.5,
-      "stdev": 11.3,
+      "stdev": 11.4,
       "corr_fwd_6m": 0.117
     },
     "value": {
@@ -1911,5 +1941,5 @@
       "corr_fwd_6m": 0.728
     }
   },
-  "generated_at": "2026-10-05T02:25:02.700965+00:00"
+  "generated_at": "2026-10-07T01:24:52.732996+00:00"
 }
