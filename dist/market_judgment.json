@@ -1,11 +1,11 @@
 {
   "status": "connected",
   "engine_version": "unified_market_judgment_v1",
-  "as_of": "2026-10-07",
+  "as_of": "2026-10-08",
   "architecture": "Common Feature Layer -> Current State / Buy Condition / Forward Scenario",
   "feature_layer": {
-    "snapshot_id": "2026-10-07|KB20260928|R202609",
-    "as_of": "2026-10-07",
+    "snapshot_id": "2026-10-08|KB20260928|R202609",
+    "as_of": "2026-10-08",
     "research_month": "202609",
     "research_provisional": true,
     "components": {
@@ -102,19 +102,19 @@
       "recent_peak_3m_momentum_pct": 17.1,
       "cooling_score_0_100": 75.1,
       "trade_signal_status": "mature_completed_month",
-      "trade_signal_as_of": "2026-10-07",
+      "trade_signal_as_of": "2026-10-08",
       "trade_signal_confidence": {
         "level": "high",
         "provisional": false,
         "basis": "statutory_reporting_window",
         "reporting_window_days": 30,
-        "as_of": "2026-10-07",
+        "as_of": "2026-10-08",
         "reason": "latest_full_month_reporting_window_elapsed",
         "signal_period": "2026-08",
         "previous_period": "2026-07",
         "reporting_window_elapsed_on": "2026-09-30"
       },
-      "raw_matched_as_of": "2026-10-07",
+      "raw_matched_as_of": "2026-10-08",
       "finance_model": "finance_v2_credit_cost",
       "finance_v1_score_0_100": 61.1,
       "finance_v2_gate_passed": true,
@@ -397,5 +397,5 @@
       }
     }
   },
-  "generated_at": "2026-10-07T01:28:48.902208+00:00"
+  "generated_at": "2026-10-07T15:00:54.753110+00:00"
 }
