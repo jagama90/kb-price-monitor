@@ -35,10 +35,22 @@ async function validateGitHubRun(token: string, runId: string) {
   });
   if (!r.ok) return false;
   const d = await r.json();
-  return String(d?.id) === runId &&
+  if (!(String(d?.id) === runId &&
     d?.repository?.full_name === repo &&
     d?.path === listenerPath &&
-    ["queued", "in_progress"].includes(String(d?.status || ""));
+    ["queued", "in_progress"].includes(String(d?.status || "")))) return false;
+
+  const branch = await fetch(`https://api.github.com/repos/${repo}/branches/main`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      "User-Agent": "kb-price-monitor-manual-refresh",
+    },
+  });
+  if (!branch.ok) return false;
+  const b = await branch.json();
+  return String(d?.head_sha || "") === String(b?.commit?.sha || "");
 }
 
 Deno.serve(async (req: Request) => {
