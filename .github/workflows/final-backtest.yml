@@ -29,7 +29,9 @@ jobs:
             echo "ECOS live refresh timed out; using committed historical M2 cache"
             test -s data_sources/ecos_m2.json
           }
-      - name: Backfill historical Seoul demand
+      - name: Validate historical demand collector contract
+        run: python3 scripts/test_historical_demand_collector.py
+      - name: Backfill historical market demand
         env:
           MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
         run: python3 scripts/collect_historical_demand.py

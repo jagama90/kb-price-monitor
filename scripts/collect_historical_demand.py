@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Backfill historical demand inputs used by the buy-condition index."""
-import json,os,pathlib,datetime,time
-from collect_molit_trades import SEOUL,fetch_all,summarize
+import json,os,pathlib,datetime
+from concurrent.futures import ThreadPoolExecutor,as_completed
+from collect_molit_trades import DISTRICT_CODES,MARKET_SCOPE,fetch_all,summarize
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'dist/molit_historical_backtest.json'
 CACHE=ROOT/'dist/molit_historical_month_cache.json'
 START='202208'
+HISTORY_TIMEOUT=max(10,float(os.getenv('MOLIT_HISTORY_TIMEOUT','30')))
+HISTORY_WORKERS=max(1,min(int(os.getenv('MOLIT_HISTORY_WORKERS','8')),12))
 # Collect through the previous calendar month, but certify only through t-2 so
 # the statutory transaction-reporting window has elapsed.
 today=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).date()
@@ -35,9 +38,15 @@ def main():
  for ym in all_months:
   if ym in summaries and summaries[ym].get('total') is not None and ym not in refresh:
    print(ym,summaries[ym]['total'],'cached'); continue
-  rows=[]
-  for code in SEOUL:
-   rows.extend(fetch_all(code,ym,key)); time.sleep(.03)
+  rows=[]; errors={}
+  with ThreadPoolExecutor(max_workers=min(HISTORY_WORKERS,len(DISTRICT_CODES))) as pool:
+   tasks={pool.submit(fetch_all,code,ym,key,HISTORY_TIMEOUT):code for code in DISTRICT_CODES}
+   for fut in as_completed(tasks):
+    code=tasks[fut]
+    try: rows.extend(fut.result())
+    except Exception as e: errors[code]=repr(e)
+  if errors:
+   raise RuntimeError(f'MOLIT historical demand failed {ym}: {errors}')
   summaries[ym]=summarize(rows)
   CACHE.parent.mkdir(exist_ok=True)
   CACHE.write_text(json.dumps({'summaries':summaries},ensure_ascii=False,indent=2))
@@ -51,6 +60,9 @@ def main():
     if cur['under15_share'] is not None and prev['under15_share'] is not None else None})
  payload={'status':'connected','source':'MOLIT apartment trade OpenAPI',
   'method':'completed_month_vs_previous_completed_month; same demand formula inputs as live dashboard',
+  'scope':{'market_scope_id':MARKET_SCOPE.get('market_scope_id'),'data_scope':MARKET_SCOPE.get('data_scope'),
+   'market_scope':MARKET_SCOPE.get('market_scope'),'region':MARKET_SCOPE.get('region'),
+   'district_codes':DISTRICT_CODES},
   'start':all_months[1],'end':END,'certified_through':CERTIFIED_THROUGH,'rows':out,
   'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  OUT.parent.mkdir(exist_ok=True); OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2))
