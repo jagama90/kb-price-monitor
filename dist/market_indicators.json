@@ -1814,7 +1814,7 @@
     "role": "crosscheck_context_only",
     "production_model_weight_changed": false,
     "weekly_exact_status": "not_connected_rone_weekly_tables_return_INFO-200",
-    "collected_at": "2026-10-07T00:10:21.871021+00:00"
+    "collected_at": "2026-10-07T00:21:48.698267+00:00"
   },
   "reb_weekly": {
     "status": "connected",
