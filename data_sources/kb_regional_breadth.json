@@ -1,7 +1,7 @@
 {
   "status": "connected",
   "source": "KB부동산 데이터허브 statusBoard weeklyAptPrcIndx",
-  "date": "20260928",
+  "date": "20261005",
   "districts": [
     {
       "region": "강남구",
@@ -212,5 +212,5 @@
     "index": 106.537648152,
     "change_pct": 0.05
   },
-  "generated_at": "2026-10-02T18:02:02.605387+00:00"
+  "generated_at": "2026-10-07T00:11:01.295000+00:00"
 }

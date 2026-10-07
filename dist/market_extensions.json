@@ -2,7 +2,7 @@
   "status": "research_only",
   "current": {
     "breadth": {
-      "date": "20260928",
+      "date": "20261005",
       "seoul_25": {
         "count": 25,
         "up": 23,
@@ -94,5 +94,5 @@
     "production_price_turn_formula_changed": false,
     "reason": "breadth improves holdout discrimination but hard filtering leaves too few entry signals; affordability timing effect is inconsistent; Songpa relative strength is local rather than Seoul-wide."
   },
-  "generated_at": "2026-10-02T18:02:03.495061+00:00"
+  "generated_at": "2026-10-07T00:11:02.215565+00:00"
 }
