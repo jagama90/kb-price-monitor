@@ -12,8 +12,8 @@
   "target": "KB Garak Geumho 24A monthly sale general price (validation target only; value component is Seoul-wide composite)",
   "checkpoint": "2022-10..2023-06",
   "period": "2022-09..latest completed month",
-  "certified_through": "202607",
-  "latest_available_month": "202608",
+  "certified_through": "202608",
+  "latest_available_month": "202609",
   "checkpoint_rows": [
     {
       "ym": "202210",
@@ -1139,13 +1139,13 @@
     },
     {
       "ym": "202608",
-      "score": 41.4,
+      "score": 41.5,
       "coverage_weight": 100,
       "missing": [],
       "components": {
         "finance": 64.57,
         "sentiment": 23.2,
-        "demand": 36.01,
+        "demand": 36.36,
         "value": 30.4,
         "supply": 49.0
       },
@@ -1155,16 +1155,36 @@
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null,
+      "provisional": false
+    },
+    {
+      "ym": "202609",
+      "score": 41.1,
+      "coverage_weight": 100,
+      "missing": [],
+      "components": {
+        "finance": 61.1,
+        "sentiment": 21.2,
+        "demand": 40.48,
+        "value": 30.4,
+        "supply": 49.2
+      },
+      "target_price": 181500.0,
+      "m2_vintage_period": "202607",
+      "fwd_1m_pct": null,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null,
       "provisional": true
     }
   ],
   "metrics": {
-    "score_vs_fwd_1m_corr": 0.284,
+    "score_vs_fwd_1m_corr": 0.285,
     "score_vs_fwd_3m_corr": 0.248,
     "score_vs_fwd_6m_corr": 0.386,
     "score_vs_fwd_12m_corr": 0.497,
-    "low_score_mean_fwd_6m_pct": 0.44,
-    "high_score_mean_fwd_6m_pct": 10.29
+    "low_score_mean_fwd_6m_pct": 0.73,
+    "high_score_mean_fwd_6m_pct": 10.17
   },
-  "generated_at": "2026-10-07T00:23:50.954385+00:00"
+  "generated_at": "2026-10-07T01:24:40.319548+00:00"
 }

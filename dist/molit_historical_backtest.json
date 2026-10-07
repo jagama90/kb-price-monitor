@@ -2,9 +2,45 @@
   "status": "connected",
   "source": "MOLIT apartment trade OpenAPI",
   "method": "completed_month_vs_previous_completed_month; same demand formula inputs as live dashboard",
+  "scope": {
+    "market_scope_id": "seoul_city",
+    "data_scope": "Seoul",
+    "market_scope": "city",
+    "region": {
+      "code": "1100000000",
+      "label": "서울"
+    },
+    "district_codes": [
+      "11110",
+      "11140",
+      "11170",
+      "11200",
+      "11215",
+      "11230",
+      "11260",
+      "11290",
+      "11305",
+      "11320",
+      "11350",
+      "11380",
+      "11410",
+      "11440",
+      "11470",
+      "11500",
+      "11530",
+      "11545",
+      "11560",
+      "11590",
+      "11620",
+      "11650",
+      "11680",
+      "11710",
+      "11740"
+    ]
+  },
   "start": "202209",
-  "end": "202608",
-  "certified_through": "202607",
+  "end": "202609",
+  "certified_through": "202608",
   "rows": [
     {
       "ym": "202209",
@@ -337,11 +373,18 @@
     },
     {
       "ym": "202608",
-      "total": 3546,
-      "under15_share": 79.6,
-      "trade_count_pct": -40.831,
-      "under15_share_pp": 0.2
+      "total": 3632,
+      "under15_share": 79.5,
+      "trade_count_pct": -39.396,
+      "under15_share_pp": 0.1
+    },
+    {
+      "ym": "202609",
+      "total": 2457,
+      "under15_share": 80.7,
+      "trade_count_pct": -32.3513,
+      "under15_share_pp": 1.2
     }
   ],
-  "generated_at": "2026-09-28T03:56:50.375472+00:00"
+  "generated_at": "2026-10-07T01:24:40.259587+00:00"
 }
