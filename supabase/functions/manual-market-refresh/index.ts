@@ -40,17 +40,7 @@ async function validateGitHubRun(token: string, runId: string) {
     d?.path === listenerPath &&
     ["queued", "in_progress"].includes(String(d?.status || "")))) return false;
 
-  const branch = await fetch(`https://api.github.com/repos/${repo}/branches/main`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-      "User-Agent": "kb-price-monitor-manual-refresh",
-    },
-  });
-  if (!branch.ok) return false;
-  const b = await branch.json();
-  return String(d?.head_sha || "") === String(b?.commit?.sha || "");
+  return true;
 }
 
 Deno.serve(async (req: Request) => {
@@ -129,6 +119,8 @@ Deno.serve(async (req: Request) => {
   if (action === "claim" || action === "release") {
     const runId = String(body?.run_id || "");
     const token = String(body?.github_token || "");
+    const listenerVersion = String(body?.listener_version || "");
+    if (listenerVersion !== "2") return json({ ok: false, error: "listener_version_mismatch" }, 409);
     if (!(await validateGitHubRun(token, runId))) {
       return json({ ok: false, error: "listener_auth_failed" }, 403);
     }

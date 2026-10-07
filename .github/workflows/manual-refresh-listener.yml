@@ -69,7 +69,7 @@ jobs:
             pending="$(printf '%s' "$queue" | jq -r '.pending_count // 0' 2>/dev/null || echo 0)"
 
             if [ "$pending" -gt 0 ]; then
-              claim_payload="$(jq -nc --arg run "$GITHUB_RUN_ID" --arg token "$GH_TOKEN" '{action:"claim",run_id:$run,github_token:$token}')"
+              claim_payload="$(jq -nc --arg run "$GITHUB_RUN_ID" --arg token "$GH_TOKEN" '{action:"claim",listener_version:"2",run_id:$run,github_token:$token}')"
               claim="$(curl -fsS --max-time 20 -X POST -H 'Content-Type: application/json' --data-binary "$claim_payload" "$REFRESH_QUEUE_URL" 2>/dev/null || true)"
               claimed="$(printf '%s' "$claim" | jq -r '.claimed // false' 2>/dev/null || echo false)"
 
@@ -88,7 +88,7 @@ jobs:
                   echo "Refresh pipeline dispatched successfully for request $request_id."
                 else
                   echo "::warning::Refresh dispatch failed with HTTP $http_code; releasing request $request_id."
-                  release_payload="$(jq -nc --arg run "$GITHUB_RUN_ID" --arg token "$GH_TOKEN" --argjson request_id "$request_id" '{action:"release",run_id:$run,github_token:$token,request_id:$request_id}')"
+                  release_payload="$(jq -nc --arg run "$GITHUB_RUN_ID" --arg token "$GH_TOKEN" --argjson request_id "$request_id" '{action:"release",listener_version:"2",run_id:$run,github_token:$token,request_id:$request_id}')"
                   curl -fsS --max-time 20 -X POST -H 'Content-Type: application/json' --data-binary "$release_payload" "$REFRESH_QUEUE_URL" >/dev/null || true
                 fi
               fi
