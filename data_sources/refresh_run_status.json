@@ -1,7 +1,7 @@
 {
-  "attempted_at": "2026-10-07T15:00:37.769580+00:00",
+  "attempted_at": "2026-10-07T23:36:21.567432+00:00",
   "sources": {
-    "molit": "connected",
+    "molit": "fallback_last_good",
     "ecos": "connected",
     "kb_sentiment": "connected",
     "watchlist_detail": "connected"
