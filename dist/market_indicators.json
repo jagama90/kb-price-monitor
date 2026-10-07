@@ -1819,7 +1819,7 @@
     "role": "crosscheck_context_only",
     "production_model_weight_changed": false,
     "weekly_exact_status": "not_connected_rone_weekly_tables_return_INFO-200",
-    "collected_at": "2026-10-07T00:21:48.698267+00:00"
+    "collected_at": "2026-10-07T15:02:12.906267+00:00"
   },
   "reb_weekly": {
     "status": "connected",
@@ -7857,6 +7857,6 @@
     "role": "crosscheck_context_only",
     "production_model_weight_changed": false,
     "collection_method": "public_reb_timeseries_workbook",
-    "collected_at": "2026-10-07T00:18:24.439291+00:00"
+    "collected_at": "2026-10-07T15:01:09.512430+00:00"
   }
 }
