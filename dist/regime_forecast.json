@@ -2,7 +2,7 @@
   "status": "research_only",
   "weights_are_not_calibrated_probabilities": true,
   "method": "unified market judgment engine; all live heads consume one common feature snapshot",
-  "as_of": "2026-10-08",
+  "as_of": "2026-10-09",
   "latest_research_month": "202609",
   "latest_research_provisional": true,
   "latest_certified_backtest_month": "202608",
@@ -128,7 +128,7 @@
     "current_check": {
       "finance": 35.5,
       "sentiment": 21.2,
-      "demand": 36.4,
+      "demand": 36.6,
       "value": 30.4,
       "supply": 49.2,
       "price_mom_pct": 1.74,
@@ -136,10 +136,10 @@
       "breadth": 38.9,
       "reaccel": 35.0,
       "turn": 45.5,
-      "trade_count_pct": -39.7,
+      "trade_count_pct": -39.2,
       "m2_yoy_pct": 5.8,
       "mortgage_rate_pct": 4.66,
-      "snapshot_id": "2026-10-08|KB20260928|R202609"
+      "snapshot_id": "2026-10-09|KB20260928|R202609"
     }
   },
   "price_momentum_overlay": {
@@ -184,6 +184,6 @@
     },
     "sample_is_small": true
   },
-  "unified_snapshot_id": "2026-10-08|KB20260928|R202609",
-  "generated_at": "2026-10-08T13:54:17.906434+00:00"
+  "unified_snapshot_id": "2026-10-09|KB20260928|R202609",
+  "generated_at": "2026-10-08T23:45:50.164356+00:00"
 }
