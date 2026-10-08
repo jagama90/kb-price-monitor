@@ -26,6 +26,7 @@ jobs:
           python3 scripts/test_market_judgment_engine.py
           python3 scripts/forecast_market_regime.py
           python3 scripts/build_market_interpretation.py
+          python3 scripts/test_market_interpretation.py
       - name: Validate forecast bundle contract
         run: |
           node --check dist/market.js

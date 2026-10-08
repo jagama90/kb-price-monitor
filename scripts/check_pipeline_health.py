@@ -335,12 +335,21 @@ expected_fetch_assets={
     'buy_watchlist_targets.json','market_indicators.json','final_backtest.json',
     'turning_signal_research.json','regime_forecast.json','garak_geumho_24a_history.json',
     'market_extensions.json','kb_watchlist_weekly_change.json','regime_reference_examples.json',
-    'market_judgment.json','common_feature_layer_v2.json'
+    'market_judgment.json','common_feature_layer_v2.json','market_interpretation.json'
 }
 if fetch_assets!=expected_fetch_assets:
     errors.append('dashboard fetch asset set changed without lineage review: '+str(sorted(fetch_assets^expected_fetch_assets)))
 for asset in expected_fetch_assets:
     if not (R/'dist'/asset).exists(): errors.append('dashboard fetch asset missing from dist: '+asset)
+try:
+    interp=json.loads((R/'dist/market_interpretation.json').read_text(encoding='utf-8'))
+    judgment_now=json.loads((R/'dist/market_judgment.json').read_text(encoding='utf-8'))
+    if interp.get('current',{}).get('snapshot_id') != judgment_now.get('feature_layer',{}).get('snapshot_id'):
+        errors.append('market interpretation snapshot mismatch')
+    if interp.get('production_formula_changed') is not False or interp.get('new_score_created') is not False:
+        errors.append('market interpretation must remain explanatory-only')
+except Exception as e:
+    errors.append('market interpretation contract unreadable: '+str(e))
 lineage=[
     ('kb_watchlist_history.json','weekly','scripts/collect_kb_watchlist_history.py'),
     ('buy_watchlist_market.json','parallel','dist/buy_watchlist_market.json'),
@@ -358,6 +367,7 @@ lineage=[
     ('regime_reference_examples.json','research','scripts/build_regime_reference_examples.py'),
     ('market_judgment.json','apply','dist/market_judgment.json'),
     ('market_judgment.json','forecast','dist/market_judgment.json'),
+    ('market_interpretation.json','forecast','dist/market_interpretation.json'),
     ('common_feature_layer_v2.json','common_v2','dist/common_feature_layer_v2.json'),
 ]
 for asset,owner,needle in lineage:

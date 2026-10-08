@@ -13,6 +13,8 @@ on:
       - 'dist/*.js'
       - 'dist/*.css'
       - 'scripts/test_market_judgment_engine.py'
+      - 'scripts/test_market_interpretation.py'
+      - 'scripts/build_market_interpretation.py'
       - 'scripts/check_dashboard_bundle.py'
       - 'scripts/check_pipeline_health.py'
       - 'scripts/check_render_safety.py'
@@ -45,6 +47,7 @@ jobs:
       - name: Validate dashboard and pipeline health
         run: |
           python3 scripts/test_market_judgment_engine.py
+          python3 scripts/test_market_interpretation.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_render_safety.py
