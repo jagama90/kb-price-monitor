@@ -86,4 +86,7 @@ jobs:
           git add -f data_sources/reb_weekly.json dist/market_indicators.json dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh exact REB weekly crosscheck'
-          git push origin HEAD:main
+          git push origin HEAD:main || {
+            git pull --rebase origin main
+            git push origin HEAD:main
+          }
