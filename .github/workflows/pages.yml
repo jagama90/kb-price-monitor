@@ -53,7 +53,13 @@ jobs:
           python3 scripts/check_render_safety.py
           python3 scripts/check_pipeline_health.py
       - name: Prepare deploy artifact with automatic cache version
-        run: python3 scripts/prepare_pages.py --source dist --output site --version "$GITHUB_SHA"
+        run: |
+          python3 scripts/prepare_pages.py --source dist --output site --version "$GITHUB_SHA"
+          v="$(printf '%s' "$GITHUB_SHA" | cut -c1-16)"
+          test -f "site/market.$v.html"
+          grep -q "market.$v.html" site/index.html
+          grep -q "market.$v.html" site/market.html
+          grep -q "id=\"rawIntegrated\"" "site/market.$v.html"
       - uses: actions/configure-pages@v6
         with:
           enablement: true
