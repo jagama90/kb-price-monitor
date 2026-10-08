@@ -4069,3 +4069,28 @@ header{position:sticky!important;overflow:visible!important}
 .market-meaning-grid-v211{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}.market-meaning-grid-v211>div{min-width:0;padding:12px;border:1px solid #e6edf2;border-radius:13px;background:#fff}.market-meaning-grid-v211 small{display:block;font-size:8px;color:#8796a1;font-weight:800}.market-meaning-grid-v211 b{display:block;margin-top:5px;font-size:13px;line-height:1.25;color:#17344a;word-break:keep-all}
 .market-meaning-v211>p{margin:12px 1px 0;font-size:10px;line-height:1.65;font-weight:700;color:#526a7b;word-break:keep-all}.market-meaning-why-v211{margin-top:10px;border-top:1px solid #e8eef2;padding-top:8px}.market-meaning-why-v211 summary{cursor:pointer;font-size:9px;font-weight:900;color:#577386}.market-meaning-why-v211>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px}.market-meaning-reason-v211{padding:9px 10px;border-radius:11px;background:#f7f9fb}.market-meaning-reason-v211 small,.market-meaning-reason-v211 b,.market-meaning-reason-v211 em{display:block}.market-meaning-reason-v211 small{font-size:7px;color:#8a99a3}.market-meaning-reason-v211 b{margin-top:2px;font-size:10px;color:#29485c}.market-meaning-reason-v211 em{margin-top:3px;font-size:7px;font-style:normal;color:#91a0aa}.market-meaning-why-v211>small{display:block;margin-top:8px;font-size:7px;line-height:1.45;color:#93a0a8}
 @media(max-width:420px){.market-meaning-v211{padding:13px}.market-meaning-grid-v211{gap:7px}.market-meaning-grid-v211>div{padding:10px}.market-meaning-grid-v211 b{font-size:12px}.market-meaning-v211>p{font-size:9px}.market-meaning-why-v211>div{grid-template-columns:1fr 1fr}}
+
+/* v212 integrated raw-source panel */
+.diagnostic-integrated-v212{margin:0 0 12px;border:1px solid #dfe7ed;border-radius:17px;background:#fff;overflow:hidden}
+.diagnostic-integrated-head-v212{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:14px 15px;border-bottom:1px solid #e9eef2;background:#fbfcfd}
+.diagnostic-integrated-head-v212 span{min-width:0}.diagnostic-integrated-head-v212 small,.diagnostic-integrated-head-v212 b,.diagnostic-integrated-head-v212 em{display:block}
+.diagnostic-integrated-head-v212 small{font-size:8px;font-weight:900;color:#7c919e}.diagnostic-integrated-head-v212 b{margin-top:2px;font-size:15px;color:#19384e}.diagnostic-integrated-head-v212 em{margin-top:4px;font-size:8px;line-height:1.45;font-style:normal;color:#93a0aa}
+.diagnostic-integrated-head-v212>strong{flex:0 0 auto;font-size:8px;color:#668294;font-weight:900;white-space:nowrap}
+.diagnostic-group-v212{padding:14px 15px}.diagnostic-group-v212+.diagnostic-group-v212{border-top:1px solid #edf1f4}
+.diagnostic-group-title-v212{margin-bottom:9px}.diagnostic-group-title-v212 small{font-size:9px;font-weight:900;color:#49687a}
+.diagnostic-integrated-v212 .evidence-strip,.diagnostic-integrated-v212 .validation-kpis,.diagnostic-integrated-v212 .validation-secondary,.diagnostic-integrated-v212 .audit-hero-v140,.diagnostic-integrated-v212 .audit-source-grid-v140{margin-left:0;margin-right:0}
+.diagnostic-integrated-v212 .evidence-strip{margin-bottom:9px}.diagnostic-integrated-v212 .validation-range{display:block;margin:8px 2px 10px}
+.diagnostic-integrated-v212 .audit-panel-v140{border:0;padding:0;background:transparent}.diagnostic-integrated-v212 .audit-explain-v140{margin-top:10px}
+.diagnostic-deep-v212{margin-top:10px}.diagnostic-deep-v212 summary{font-size:9px;font-weight:900;color:#5e7788}
+@media(max-width:800px){
+ .diagnostic-integrated-head-v212{padding:13px 12px}.diagnostic-group-v212{padding:12px}
+ .diagnostic-integrated-head-v212 b{font-size:14px}.diagnostic-integrated-head-v212 em{font-size:7px}
+ .diagnostic-integrated-v212 .validation-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .diagnostic-integrated-v212 .validation-secondary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .diagnostic-integrated-v212 .audit-source-grid-v140{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:390px){
+ .diagnostic-integrated-head-v212{gap:8px}.diagnostic-integrated-head-v212>strong{font-size:7px}
+ .diagnostic-integrated-v212 .validation-secondary{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .diagnostic-integrated-v212 .validation-secondary>div{padding-left:8px;padding-right:8px}
+}
