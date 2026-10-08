@@ -51,7 +51,7 @@
       "fwd_6m": {
         "n": 11,
         "mean_pct": 14.47,
-        "positive_pct": 100
+        "positive_pct": 100.0
       }
     },
     "weak_uptrend": {
@@ -69,5 +69,5 @@
     "certified_through": "202608",
     "note": "과거검증 참고값이며 실제 발생확률이 아님"
   },
-  "generated_at": "2026-10-08T12:40:00+00:00"
+  "generated_at": "2026-10-08T13:01:21.500527+00:00"
 }
