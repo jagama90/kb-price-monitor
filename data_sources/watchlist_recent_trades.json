@@ -1630,6 +1630,7 @@
       "name": "행당대림",
       "exclusive_m2": 59.96,
       "candidate_names": [
+        "신동아",
         "행당한진타운"
       ]
     },
@@ -1660,5 +1661,5 @@
   "fetch_errors": [],
   "matched_count": 85,
   "target_area_count": 101,
-  "collected_at": "2026-10-07T15:00:14.964421+00:00"
+  "collected_at": "2026-10-08T12:36:16.572170+00:00"
 }

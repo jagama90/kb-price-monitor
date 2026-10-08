@@ -935,11 +935,11 @@
       "error": "visible type tab not found: 25평"
     }
   ],
-  "kb_detail_collected_at": "2026-10-07T23:35:44+00:00",
+  "kb_detail_collected_at": "2026-10-08T12:36:15+00:00",
   "kb_detail_matched_rows": 38,
   "kb_detail_sanitized_at": "2026-09-25T20:22:28.487Z",
   "kb_detail_quality": "legacy cross-type fallback removed",
-  "molit_trade_collected_at": "2026-10-07T15:00:14.964421+00:00",
+  "molit_trade_collected_at": "2026-10-08T12:36:16.572170+00:00",
   "molit_trade_matched_rows": 34,
   "exact_kb_rows": 38,
   "supported_target_rows": 38,
