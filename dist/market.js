@@ -1012,3 +1012,30 @@ const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addE
  btn.addEventListener('click',request);
  try{const last=JSON.parse(localStorage.getItem(LAST_KEY)||'null');if(last)draw(last.requestedIso,last.actionIso,last.completedIso);const x=JSON.parse(sessionStorage.getItem(PENDING_KEY)||'null');if(x&&Date.now()-Number(x.requestedAt||0)<20*60*1000){btn.disabled=true;btn.textContent='↻ 갱신 중';setTimeout(()=>wait(x).catch(e=>{set(e?.message||'검증 반영 확인 중 오류가 발생했습니다.','error');btn.disabled=false;btn.textContent='↻ 다시 시도'}),500)}else if(x)sessionStorage.removeItem(PENDING_KEY)}catch{}
 })();
+
+/* v211 plain-language market interpretation */
+async function loadMarketInterpretation(){
+ const box=document.getElementById('marketMeaning');if(!box)return;
+ try{
+  const r=await fetch('market_interpretation.json?v='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw Error('market interpretation '+r.status);
+  const d=await r.json(),c=d.current||{},v=d.validation||{};
+  setText('meaningFlow',c.flow||'확인 중');
+  setText('meaningStrength',c.strength||'확인 중');
+  setText('meaningTurn',c.turn_sign||'확인 중');
+  setText('meaningVoice',c.data_voice||'확인 중');
+  setText('marketMeaningSummary',c.summary||'시장 해석을 확인하고 있습니다.');
+  setText('marketMeaningAsOf',c.as_of?sourcePeriodFmt(c.as_of):'날짜 미확인');
+  const reasons=document.getElementById('marketMeaningReasons');
+  if(reasons)reasons.innerHTML=(c.reasons||[]).map(x=>'<div class="market-meaning-reason-v211"><small>'+esc(x.label||'')+'</small><b>'+esc(x.value||'확인 중')+'</b><em>'+esc(x.detail||'')+'</em></div>').join('');
+  const strong=v.strong_uptrend?.fwd_3m,weak=v.weak_uptrend?.fwd_3m,ve=document.getElementById('marketMeaningValidation');
+  if(ve){
+   if(v.status==='historically_supported'&&strong?.mean_pct!=null&&weak?.mean_pct!=null)ve.textContent='과거검증 참고 · 힘이 강했던 상승 구간의 이후 3개월 평균 '+(strong.mean_pct>0?'+':'')+strong.mean_pct+'% · 힘이 약했던 상승 구간 '+(weak.mean_pct>0?'+':'')+weak.mean_pct+'% · 예측확률 아님';
+   else ve.textContent='과거검증 표본 확인 중 · 현재 판단의 새 점수로 사용하지 않음';
+  }
+ }catch(e){
+  console.error(e);
+  setText('marketMeaningSummary','시장 해석 데이터 확인 중');
+ }
+}
+loadMarketInterpretation();

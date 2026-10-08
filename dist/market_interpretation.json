@@ -1,0 +1,73 @@
+{
+  "status": "research_interpretation",
+  "version": "plain_market_interpretation_v1",
+  "production_formula_changed": false,
+  "new_score_created": false,
+  "current": {
+    "as_of": "2026-10-08",
+    "snapshot_id": "2026-10-08|KB20260928|R202609",
+    "flow": "상승 유지",
+    "strength": "약함",
+    "turn_sign": "둔화 쪽 조짐 있음",
+    "data_voice": "약화 쪽으로 모임",
+    "summary": "가격은 오르고 있지만 시장 전체로 퍼지는 힘은 약합니다. 금융·심리·거래가 3개월 전보다 함께 약해져, 지금은 추가 상승보다 상승 둔화 여부를 먼저 확인할 구간입니다.",
+    "reasons": [
+      {
+        "label": "가격",
+        "value": "상승",
+        "detail": "1개월 +1.74% · 3개월 +7.57%"
+      },
+      {
+        "label": "시장 확산",
+        "value": "부족",
+        "detail": "breadth 38.9"
+      },
+      {
+        "label": "재가속",
+        "value": "미확인",
+        "detail": "reaccel 35.0"
+      },
+      {
+        "label": "금융·심리·거래",
+        "value": "약화 쪽으로 모임",
+        "detail": "금융 -3.6 / 심리 -3.6 / 거래 -21.9"
+      }
+    ],
+    "source_labels": {
+      "strength": "기존 현재국면 확인 기준(breadth ≥ 45, reaccel ≥ 50)을 쉬운 말로 표시",
+      "turn_sign": "현재 흐름의 힘·3개월 금융/심리/거래 변화·전망 문구를 함께 해석",
+      "data_voice": "금융·심리·거래의 3개월 변화 방향을 비교"
+    }
+  },
+  "validation": {
+    "status": "historically_supported",
+    "rule": "상승 중 breadth>=45 AND reaccel>=50이면 힘 강함; 상승 중 두 조건을 모두 확인하지 못하면 힘 약함",
+    "strong_uptrend": {
+      "fwd_3m": {
+        "n": 12,
+        "mean_pct": 7.69,
+        "positive_pct": 91.7
+      },
+      "fwd_6m": {
+        "n": 11,
+        "mean_pct": 14.47,
+        "positive_pct": 100
+      }
+    },
+    "weak_uptrend": {
+      "fwd_3m": {
+        "n": 19,
+        "mean_pct": 3.33,
+        "positive_pct": 68.4
+      },
+      "fwd_6m": {
+        "n": 17,
+        "mean_pct": 8.46,
+        "positive_pct": 94.1
+      }
+    },
+    "certified_through": "202608",
+    "note": "과거검증 참고값이며 실제 발생확률이 아님"
+  },
+  "generated_at": "2026-10-08T12:40:00+00:00"
+}

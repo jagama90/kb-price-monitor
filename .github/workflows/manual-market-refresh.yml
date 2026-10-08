@@ -47,6 +47,8 @@ jobs:
           assert v.get('no_future_leakage') is True, 'future-leakage guard failed'
           PY
           python3 scripts/forecast_market_regime.py
+          python3 scripts/build_market_interpretation.py
+          python3 scripts/test_market_interpretation.py
           cp data/buy_watchlist_master.json dist/buy_watchlist_master.json
           cp data/buy_watchlist_targets.json dist/buy_watchlist_targets.json
           node --check dist/market.js
@@ -57,7 +59,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json
+          git add -f dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json dist/market_interpretation.json
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh judgment after manual market update'
             git push origin HEAD:main
