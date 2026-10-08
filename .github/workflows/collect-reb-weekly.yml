@@ -57,6 +57,8 @@ jobs:
           assert v.get('no_future_leakage') is True
           PY
           python3 scripts/forecast_market_regime.py
+          python3 scripts/build_market_interpretation.py
+          python3 scripts/test_market_interpretation.py
       - name: Validate dashboard and pipeline
         run: |
           node --check dist/market.js
@@ -74,6 +76,7 @@ jobs:
           cp dist/market_judgment_validation.json /tmp/reb-weekly/
           cp dist/market_judgment.json /tmp/reb-weekly/
           cp dist/regime_forecast.json /tmp/reb-weekly/
+          cp dist/market_interpretation.json /tmp/reb-weekly/
           git reset --hard
           git clean -fd
           git pull --ff-only origin main
@@ -83,7 +86,8 @@ jobs:
           cp /tmp/reb-weekly/market_judgment_validation.json dist/market_judgment_validation.json
           cp /tmp/reb-weekly/market_judgment.json dist/market_judgment.json
           cp /tmp/reb-weekly/regime_forecast.json dist/regime_forecast.json
-          git add -f data_sources/reb_weekly.json dist/market_indicators.json dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json
+          cp /tmp/reb-weekly/market_interpretation.json dist/market_interpretation.json
+          git add -f data_sources/reb_weekly.json dist/market_indicators.json dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json dist/market_interpretation.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh exact REB weekly crosscheck'
           git push origin HEAD:main || {
