@@ -18,11 +18,6 @@ on:
       - 'data/buy_watchlist_targets.json'
       - '.github/workflows/parallel-market-refresh.yml'
       - '.github/workflows/weekly-refresh.yml'
-      - '.github/workflows/market-extensions.yml'
-      - '.github/workflows/forecast-regime.yml'
-      - '.github/workflows/system-health.yml'
-      - '.github/workflows/research-turning-signal.yml'
-      - '.github/workflows/final-backtest.yml'
       - '.github/workflows/market-sample.yml'
 
 permissions:

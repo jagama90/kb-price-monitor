@@ -1,0 +1,48 @@
+name: Workflow contract
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workflow-contract-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Validate workflow syntax and trigger isolation
+        run: |
+          python3 -c "import yaml" 2>/dev/null || pip install pyyaml
+          python3 - <<'PY'
+          from pathlib import Path
+          import yaml
+          files=sorted(Path('.github/workflows').glob('*.yml'))
+          for p in files:
+              yaml.compose(p.read_text(encoding='utf-8'))
+          heavy=['parallel-market-refresh.yml','weekly-refresh.yml','market-extensions.yml','forecast-regime.yml','system-health.yml','research-turning-signal.yml','final-backtest.yml']
+          for name in heavy:
+              d=yaml.load((Path('.github/workflows')/name).read_text(encoding='utf-8'),Loader=yaml.BaseLoader)
+              assert 'push' not in (d.get('on') or {}), f'heavy workflow must not run on push: {name}'
+          for name in ('collect-reb-weekly.yml','collect-reb-crosscheck.yml'):
+              d=yaml.load((Path('.github/workflows')/name).read_text(encoding='utf-8'),Loader=yaml.BaseLoader)
+              paths=((((d.get('on') or {}).get('push') or {}).get('paths')) or [])
+              forbidden={'scripts/check_pipeline_health.py','.github/workflows/system-health.yml','scripts/build_market_snapshot.py'}
+              assert not (set(paths)&forbidden), f'REB collector has unrelated push triggers: {name}'
+          sample=yaml.load(Path('.github/workflows/market-sample.yml').read_text(encoding='utf-8'),Loader=yaml.BaseLoader)
+          spaths=set(((((sample.get('on') or {}).get('push') or {}).get('paths')) or []))
+          forbidden={'.github/workflows/forecast-regime.yml','.github/workflows/system-health.yml','.github/workflows/research-turning-signal.yml','.github/workflows/final-backtest.yml','.github/workflows/market-extensions.yml'}
+          assert not (spaths&forbidden), 'live sample must not run for research/forecast/health-only workflow edits'
+          print({'status':'ok','workflow_files':len(files)})
+          PY

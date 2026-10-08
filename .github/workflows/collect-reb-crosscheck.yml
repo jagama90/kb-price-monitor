@@ -7,10 +7,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect_reb_crosscheck.py'
-      - 'scripts/build_market_snapshot.py'
-      - 'scripts/check_pipeline_health.py'
       - '.github/workflows/collect-reb-crosscheck.yml'
-      - '.github/workflows/system-health.yml'
 permissions:
   contents: write
 concurrency:
