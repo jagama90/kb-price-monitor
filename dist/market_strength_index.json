@@ -1,8 +1,8 @@
 {
-  "status": "validated_research_index",
-  "version": "market_strength_index_v1",
-  "production_formula_changed": false,
-  "index_role": "explanatory_support_index",
+  "status": "validated_engine_feature",
+  "version": "market_strength_index_v2",
+  "production_formula_changed": true,
+  "index_role": "current_state_quality_and_short_horizon_forecast_support",
   "as_of": "2026-10-09",
   "snapshot_id": "2026-10-09|KB20260928|R202609",
   "current": {
@@ -10,8 +10,8 @@
     "display_score": 38,
     "label": "약함",
     "historical_percentile": 13.0,
-    "low_cut": 43.7,
-    "high_cut": 49.6,
+    "low_cut": 43.0,
+    "high_cut": 48.4,
     "strongest": {
       "key": "price_momentum",
       "label": "가격 흐름",
@@ -111,7 +111,43 @@
       }
     },
     "monotonic": true,
+    "forecast_overlay": {
+      "apply_recommended": true,
+      "selected_weight": 0.25,
+      "scope": "short_horizon_only",
+      "validation": {
+        "baseline": {
+          "n": 46,
+          "down_auc": 0.938,
+          "down_corr_negative_fwd3": 0.502,
+          "reaccel_auc_positive": 0.705,
+          "reaccel_corr_fwd3": 0.551
+        },
+        "selected": {
+          "weight": 0.25,
+          "metrics": {
+            "n": 46,
+            "down_auc": 0.945,
+            "down_corr_negative_fwd3": 0.46,
+            "reaccel_auc_positive": 0.731,
+            "reaccel_corr_fwd3": 0.544
+          },
+          "passed": true
+        }
+      },
+      "applied": true,
+      "baseline_short_horizon": {
+        "consolidation": 34.3,
+        "reacceleration": 30.0,
+        "downturn": 35.7
+      },
+      "applied_short_horizon": {
+        "consolidation": 31.6,
+        "reacceleration": 29.4,
+        "downturn": 39.0
+      }
+    },
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
   },
-  "generated_at": "2026-10-09T12:30:46.117572+00:00"
+  "generated_at": "2026-10-09T14:48:32.251087+00:00"
 }

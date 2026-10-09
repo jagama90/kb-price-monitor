@@ -127,7 +127,8 @@
       "certified_backtest": "dist/final_backtest.json",
       "price_scale_validation": "dist/forecast_kb_momentum_validation.json",
       "common_feature_candidates": "dist/common_feature_layer_v2.json",
-      "finance_v2_validation": "dist/market_judgment_validation.json"
+      "finance_v2_validation": "dist/market_judgment_validation.json",
+      "engine_feature_research": "dist/engine_feature_research.json"
     },
     "scope": {
       "dimensions": [
@@ -177,15 +178,118 @@
           "production_applied": false
         }
       }
+    },
+    "engine_features": {
+      "status": "validated_features_attached",
+      "source": "dist/engine_feature_research.json",
+      "market_strength": {
+        "score_0_100": 37.6,
+        "label": "약함",
+        "low_cut": 43.0,
+        "high_cut": 48.4,
+        "momentum_percentile": 85.7,
+        "components": {
+          "price_momentum": {
+            "value": 85.7,
+            "used_in_index": false
+          },
+          "breadth": {
+            "value": 38.9,
+            "used_in_index": true
+          },
+          "reaccel": {
+            "value": 35.0,
+            "used_in_index": true
+          },
+          "finance": {
+            "value": 35.5,
+            "used_in_index": true
+          },
+          "sentiment": {
+            "value": 21.2,
+            "used_in_index": false
+          },
+          "demand": {
+            "value": 36.6,
+            "used_in_index": true
+          },
+          "value": {
+            "value": 30.4,
+            "used_in_index": true
+          },
+          "supply": {
+            "value": 49.2,
+            "used_in_index": true
+          }
+        },
+        "strongest": {
+          "key": "price_momentum",
+          "value": 85.7
+        },
+        "weakest": {
+          "key": "sentiment",
+          "value": 21.2
+        },
+        "forecast_overlay": {
+          "apply_recommended": true,
+          "selected_weight": 0.25,
+          "scope": "short_horizon_only",
+          "validation": {
+            "baseline": {
+              "n": 46,
+              "down_auc": 0.938,
+              "down_corr_negative_fwd3": 0.502,
+              "reaccel_auc_positive": 0.705,
+              "reaccel_corr_fwd3": 0.551
+            },
+            "selected": {
+              "weight": 0.25,
+              "metrics": {
+                "n": 46,
+                "down_auc": 0.945,
+                "down_corr_negative_fwd3": 0.46,
+                "reaccel_auc_positive": 0.731,
+                "reaccel_corr_fwd3": 0.544
+              },
+              "passed": true
+            }
+          },
+          "applied": true,
+          "baseline_short_horizon": {
+            "consolidation": 34.3,
+            "reacceleration": 30.0,
+            "downturn": 35.7
+          },
+          "applied_short_horizon": {
+            "consolidation": 31.6,
+            "reacceleration": 29.4,
+            "downturn": 39.0
+          }
+        }
+      },
+      "rejected_features": [
+        "improving_breadth_3m",
+        "strength_delta_1m",
+        "strength_delta_3m",
+        "price_strength_gap",
+        "deteriorating_breadth_3m",
+        "change_balance_3m"
+      ]
     }
   },
   "heads": {
     "current_state": {
       "stage": 3,
       "label": "상승·보합",
-      "summary": "가격 상승 모멘텀은 유지되지만 시장 확산·재가속 확인은 약해 상승·보합 내 확인 전 구간으로 봅니다.",
+      "substate": "상승·보합 · 힘 약함",
+      "summary": "가격 상승은 유지되지만 시장 확산·재가속과 시장 힘(37.6/100)이 약해 상승 내부의 둔화 가능성을 함께 봅니다.",
       "was_rising": false,
       "next_gate": "시장 확산 45 이상 · 재가속 50 이상",
+      "market_strength": {
+        "score_0_100": 37.6,
+        "label": "약함",
+        "role": "current_state_quality"
+      },
       "confirmation": {
         "status": "weak",
         "rule": "breadth >= 45 AND reaccel >= 50",
@@ -199,6 +303,7 @@
         "m3_pct": 7.57,
         "breadth": 38.9,
         "reaccel": 35.0,
+        "market_strength": 37.6,
         "turn": 45.5,
         "bottom_zone": false,
         "momentum_zone": false
@@ -294,9 +399,9 @@
           "period": "2027H1",
           "label": "2027년 상반기",
           "weights": {
-            "consolidation": 34.3,
-            "reacceleration": 30.0,
-            "downturn": 35.7
+            "consolidation": 31.6,
+            "reacceleration": 29.4,
+            "downturn": 39.0
           },
           "base_case": "consolidation",
           "display": {
@@ -304,8 +409,8 @@
             "headline": "쉬어가기·하방 경계",
             "risk_range": "35~44%",
             "tone": "watch",
-            "downturn_weight": 35.7,
-            "reacceleration_weight": 30.0,
+            "downturn_weight": 39.0,
+            "reacceleration_weight": 29.4,
             "secondary": "하방 위험 주의",
             "easing_hysteresis_pp": 2.0
           }
@@ -353,10 +458,46 @@
       ],
       "headline": "쉬어가기·하방 경계 → 혼조·방향 탐색 → 혼조·방향 탐색",
       "risk_path": [
-        36,
+        39,
         32,
         30
       ],
+      "validated_feature_overlay": {
+        "apply_recommended": true,
+        "selected_weight": 0.25,
+        "scope": "short_horizon_only",
+        "validation": {
+          "baseline": {
+            "n": 46,
+            "down_auc": 0.938,
+            "down_corr_negative_fwd3": 0.502,
+            "reaccel_auc_positive": 0.705,
+            "reaccel_corr_fwd3": 0.551
+          },
+          "selected": {
+            "weight": 0.25,
+            "metrics": {
+              "n": 46,
+              "down_auc": 0.945,
+              "down_corr_negative_fwd3": 0.46,
+              "reaccel_auc_positive": 0.731,
+              "reaccel_corr_fwd3": 0.544
+            },
+            "passed": true
+          }
+        },
+        "applied": true,
+        "baseline_short_horizon": {
+          "consolidation": 34.3,
+          "reacceleration": 30.0,
+          "downturn": 35.7
+        },
+        "applied_short_horizon": {
+          "consolidation": 31.6,
+          "reacceleration": 29.4,
+          "downturn": 39.0
+        }
+      },
       "weights_are_not_calibrated_probabilities": true,
       "display_rules": {
         "primary": "downturn scenario weight, rounded to visible whole percent",
@@ -397,5 +538,5 @@
       }
     }
   },
-  "generated_at": "2026-10-09T12:30:46.052972+00:00"
+  "generated_at": "2026-10-09T14:48:32.166626+00:00"
 }
