@@ -15,6 +15,8 @@ on:
       - 'scripts/test_market_judgment_engine.py'
       - 'scripts/test_market_interpretation.py'
       - 'scripts/build_market_interpretation.py'
+      - 'scripts/build_market_strength_index.py'
+      - 'scripts/test_market_strength_index.py'
       - 'scripts/check_dashboard_bundle.py'
       - 'scripts/check_pipeline_health.py'
       - 'scripts/check_render_safety.py'
@@ -48,6 +50,7 @@ jobs:
         run: |
           python3 scripts/test_market_judgment_engine.py
           python3 scripts/test_market_interpretation.py
+          python3 scripts/test_market_strength_index.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_render_safety.py

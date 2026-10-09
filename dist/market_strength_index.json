@@ -1,0 +1,116 @@
+{
+  "status": "validated_research_index",
+  "version": "market_strength_index_v1",
+  "production_formula_changed": false,
+  "index_role": "explanatory_support_index",
+  "as_of": "2026-10-09",
+  "snapshot_id": "2026-10-09|KB20260928|R202609",
+  "current": {
+    "score_0_100": 37.6,
+    "display_score": 38,
+    "label": "약함",
+    "historical_percentile": 13,
+    "low_cut": 43.7,
+    "high_cut": 49.6,
+    "strongest": {
+      "key": "price_momentum",
+      "label": "가격 흐름",
+      "value": 84.8,
+      "excluded_from_trim": true
+    },
+    "weakest": {
+      "key": "sentiment",
+      "label": "심리",
+      "value": 21.2,
+      "excluded_from_trim": true
+    },
+    "components": {
+      "price_momentum": {
+        "label": "가격 흐름",
+        "value": 84.8,
+        "used_in_index": false
+      },
+      "breadth": {
+        "label": "시장 확산",
+        "value": 38.9,
+        "used_in_index": true
+      },
+      "reaccel": {
+        "label": "재가속",
+        "value": 35,
+        "used_in_index": true
+      },
+      "finance": {
+        "label": "금융",
+        "value": 35.5,
+        "used_in_index": true
+      },
+      "sentiment": {
+        "label": "심리",
+        "value": 21.2,
+        "used_in_index": false
+      },
+      "demand": {
+        "label": "거래",
+        "value": 36.6,
+        "used_in_index": true
+      },
+      "value": {
+        "label": "가격·밸류",
+        "value": 30.4,
+        "used_in_index": true
+      },
+      "supply": {
+        "label": "전세·공급",
+        "value": 49.2,
+        "used_in_index": true
+      }
+    },
+    "summary": "가격 흐름은 강하지만 거래·금융·심리·시장 확산이 충분히 받쳐주지 못해, 현재 상승의 내부 힘은 약한 편입니다."
+  },
+  "method": {
+    "formula": "8개 0~100 신호를 동일 취급하고 최고·최저 1개를 제외한 가운데 6개 평균",
+    "hand_tuned_weights": false,
+    "signals": [
+      "price_momentum_percentile",
+      "breadth",
+      "reaccel",
+      "finance",
+      "sentiment",
+      "demand",
+      "value",
+      "supply"
+    ],
+    "threshold_source": "certified historical terciles",
+    "future_leakage_guard": "historical momentum percentile uses observations available through each month only"
+  },
+  "validation": {
+    "period": [
+      "202209",
+      "202606"
+    ],
+    "n": 46,
+    "groups": {
+      "low": {
+        "n": 15,
+        "index_avg": 38.7,
+        "fwd3_avg_pct": -1.54,
+        "fwd3_positive_pct": 40
+      },
+      "mid": {
+        "n": 15,
+        "index_avg": 46.1,
+        "fwd3_avg_pct": 2.79,
+        "fwd3_positive_pct": 66.7
+      },
+      "high": {
+        "n": 16,
+        "index_avg": 54.7,
+        "fwd3_avg_pct": 6.21,
+        "fwd3_positive_pct": 93.8
+      }
+    },
+    "monotonic": true,
+    "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
+  }
+}

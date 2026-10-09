@@ -100,7 +100,9 @@ jobs:
           python3 scripts/validate_market_judgment.py
           python3 scripts/forecast_market_regime.py
           python3 scripts/build_market_interpretation.py
+          python3 scripts/build_market_strength_index.py
           python3 scripts/test_market_interpretation.py
+          python3 scripts/test_market_strength_index.py
 
       - name: Validate dashboard and pipeline
         run: |
@@ -136,13 +138,15 @@ jobs:
           python3 scripts/validate_market_judgment.py
           python3 scripts/forecast_market_regime.py
           python3 scripts/build_market_interpretation.py
+          python3 scripts/build_market_strength_index.py
           python3 scripts/test_market_interpretation.py
+          python3 scripts/test_market_strength_index.py
           node --check dist/market.js
           python3 scripts/test_market_judgment_engine.py
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_render_safety.py
           python3 scripts/check_pipeline_health.py
-          files="data_sources/reb_weekly.json data_sources/reb_crosscheck.json data_sources/kb_regional_breadth.json dist/market_indicators.json dist/affordability_engine.json dist/regional_temperature_history.json dist/market_extension_validation.json dist/market_extensions.json dist/final_backtest.json dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json dist/market_interpretation.json"
+          files="data_sources/reb_weekly.json data_sources/reb_crosscheck.json data_sources/kb_regional_breadth.json dist/market_indicators.json dist/affordability_engine.json dist/regional_temperature_history.json dist/market_extension_validation.json dist/market_extensions.json dist/final_backtest.json dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/market_judgment.json dist/regime_forecast.json dist/market_interpretation.json dist/market_strength_index.json"
           git add -f $files
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"

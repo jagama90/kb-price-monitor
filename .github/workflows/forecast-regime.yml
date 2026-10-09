@@ -26,7 +26,9 @@ jobs:
           python3 scripts/test_market_judgment_engine.py
           python3 scripts/forecast_market_regime.py
           python3 scripts/build_market_interpretation.py
+          python3 scripts/build_market_strength_index.py
           python3 scripts/test_market_interpretation.py
+          python3 scripts/test_market_strength_index.py
       - name: Validate forecast bundle contract
         run: |
           node --check dist/market.js
@@ -61,6 +63,10 @@ jobs:
           # newest market/research inputs rather than the workflow-start snapshot.
           python3 scripts/test_market_judgment_engine.py
           python3 scripts/forecast_market_regime.py
+          python3 scripts/build_market_interpretation.py
+          python3 scripts/test_market_interpretation.py
+          python3 scripts/build_market_strength_index.py
+          python3 scripts/test_market_strength_index.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 - <<'PY'
@@ -79,7 +85,7 @@ jobs:
           if v.get('apply_recommended') and km.get('mom_4w_pct') is not None and km.get('mom_13w_pct') is not None:
               assert (f.get('price_momentum_overlay') or {}).get('applied') is True, 'validated KB overlay missing after pull'
           PY
-          git add -f dist/regime_forecast.json dist/market_judgment.json dist/market_interpretation.json
+          git add -f dist/regime_forecast.json dist/market_judgment.json dist/market_interpretation.json dist/market_strength_index.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh forward regime forecast'
           git push origin HEAD:main

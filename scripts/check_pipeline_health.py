@@ -335,7 +335,7 @@ expected_fetch_assets={
     'buy_watchlist_targets.json','market_indicators.json','final_backtest.json',
     'turning_signal_research.json','regime_forecast.json','garak_geumho_24a_history.json',
     'market_extensions.json','kb_watchlist_weekly_change.json','regime_reference_examples.json',
-    'market_judgment.json','common_feature_layer_v2.json','market_interpretation.json'
+    'market_judgment.json','common_feature_layer_v2.json','market_interpretation.json','market_strength_index.json'
 }
 if fetch_assets!=expected_fetch_assets:
     errors.append('dashboard fetch asset set changed without lineage review: '+str(sorted(fetch_assets^expected_fetch_assets)))
@@ -350,6 +350,18 @@ try:
         errors.append('market interpretation must remain explanatory-only')
 except Exception as e:
     errors.append('market interpretation contract unreadable: '+str(e))
+try:
+    strength=json.loads((R/'dist/market_strength_index.json').read_text(encoding='utf-8'))
+    if strength.get('snapshot_id') != judgment_now.get('feature_layer',{}).get('snapshot_id'):
+        errors.append('market strength index snapshot mismatch')
+    if strength.get('production_formula_changed') is not False:
+        errors.append('market strength index must not change production formula')
+    if strength.get('method',{}).get('hand_tuned_weights') is not False:
+        errors.append('market strength index must not use hand-tuned weights')
+    if strength.get('validation',{}).get('monotonic') is not True:
+        errors.append('market strength historical separation failed')
+except Exception as e:
+    errors.append('market strength index contract unreadable: '+str(e))
 lineage=[
     ('kb_watchlist_history.json','weekly','scripts/collect_kb_watchlist_history.py'),
     ('buy_watchlist_market.json','parallel','dist/buy_watchlist_market.json'),
@@ -368,6 +380,7 @@ lineage=[
     ('market_judgment.json','apply','dist/market_judgment.json'),
     ('market_judgment.json','forecast','dist/market_judgment.json'),
     ('market_interpretation.json','forecast','dist/market_interpretation.json'),
+    ('market_strength_index.json','forecast','dist/market_strength_index.json'),
     ('common_feature_layer_v2.json','common_v2','dist/common_feature_layer_v2.json'),
 ]
 for asset,owner,needle in lineage:
