@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-10-03",
-  "source_kb_collected_at": "2026-10-02T17:56:50+00:00",
+  "as_of": "2026-10-10",
+  "source_kb_collected_at": "2026-10-09T18:26:04+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -518,42 +518,42 @@
       "area_id": 222684,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35B",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 215000.0
     },
     {
       "complex_id": 25769,
       "area_id": 224333,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35C",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 215000.0
     },
     {
       "complex_id": 25769,
       "area_id": 220363,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35A",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 215000.0
     },
     {
       "complex_id": 25769,
       "area_id": 223570,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35B1",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 215000.0
     },
     {
       "complex_id": 25769,
       "area_id": 224985,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35AN",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 215000.0
     },
     {
       "complex_id": 25769,
       "area_id": 221618,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35A1",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 215000.0
     },
     {
       "complex_id": 46734,
@@ -700,14 +700,14 @@
       "area_id": 219350,
       "name": "E편한세상송파파크센트럴",
       "type_label": "41B",
-      "general_price_manwon": 204000.0
+      "general_price_manwon": 211500.0
     },
     {
       "complex_id": 40111,
       "area_id": 220795,
       "name": "E편한세상송파파크센트럴",
       "type_label": "42A",
-      "general_price_manwon": 204000.0
+      "general_price_manwon": 211500.0
     },
     {
       "complex_id": 1896,
