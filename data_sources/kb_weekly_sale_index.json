@@ -4,13 +4,13 @@
   "region": "서울",
   "frequency": "weekly",
   "latest": {
-    "date": "20260928",
-    "value": 109.699319469,
-    "display_value": "109.7",
-    "change_pct": 0.16
+    "date": "20261005",
+    "value": 109.8627844058,
+    "display_value": "109.9",
+    "change_pct": 0.15
   },
   "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-  "collected_at": "2026-10-08T23:45:08.303298+00:00",
+  "collected_at": "2026-10-09T23:17:01.269508+00:00",
   "history": [
     {
       "date": "20260622",
@@ -101,17 +101,23 @@
       "value": 109.699319469,
       "display_value": "109.7",
       "change_pct": 0.16
+    },
+    {
+      "date": "20261005",
+      "value": 109.8627844058,
+      "display_value": "109.9",
+      "change_pct": 0.15
     }
   ],
   "momentum": {
-    "as_of": "20260928",
-    "index": 109.699319469,
-    "four_week_base_date": "20260831",
-    "four_week_base_index": 108.894829759,
-    "mom_4w_pct": 0.74,
-    "thirteen_week_base_date": "20260629",
-    "thirteen_week_base_index": 106.3195282846,
-    "mom_13w_pct": 3.18,
+    "as_of": "20261005",
+    "index": 109.8627844058,
+    "four_week_base_date": "20260907",
+    "four_week_base_index": 109.1331461407,
+    "mom_4w_pct": 0.67,
+    "thirteen_week_base_date": "20260706",
+    "thirteen_week_base_index": 106.5481334883,
+    "mom_13w_pct": 3.11,
     "definition": "KB 서울 주간 매매가격지수 최신값 대비 4주/13주 전 변화율"
   },
   "momentum_source": "KB 서울 주간 아파트 매매가격지수"

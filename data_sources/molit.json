@@ -1,14 +1,14 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-10-09T08:45:20.525911+09:00",
+  "collected_at": "2026-10-10T08:17:04.928278+09:00",
   "refresh_meta": {
-    "mode": "weekly_correction_sweep",
-    "queried_pairs": 60,
-    "reused_watchlist_pairs": 25,
+    "mode": "daily_current_month_only",
+    "queried_pairs": 20,
+    "reused_watchlist_pairs": 10,
     "reused_previous_matched_vintage": false,
     "retried_pairs": [],
     "cache_fallback_pairs": [],
-    "elapsed_sec": 9.5
+    "elapsed_sec": 2.2
   },
   "pair_cache": {
     "11215:202609": [
@@ -155,6 +155,10 @@
     ],
     "11200:202609": [
       [
+        15,
+        233500
+      ],
+      [
         30,
         142500
       ],
@@ -165,6 +169,10 @@
       [
         23,
         216000
+      ],
+      [
+        23,
+        195000
       ],
       [
         13,
@@ -26401,12 +26409,20 @@
     ],
     "11740:202610": [
       [
+        3,
+        152500
+      ],
+      [
         2,
         151500
       ],
       [
         1,
         80500
+      ],
+      [
+        3,
+        85000
       ],
       [
         2,
@@ -26469,7 +26485,7 @@
     ],
     [
       "2026-10",
-      186,
+      188,
       true
     ]
   ],
@@ -26594,86 +26610,86 @@
       },
       {
         "period": "2026-10",
-        "total": 186,
+        "total": 188,
         "counts": {
-          "<=9eok": 110,
+          "<=9eok": 111,
           "9-15eok": 50,
-          "15-25eok": 20,
+          "15-25eok": 21,
           "25eok+": 6
         },
         "buckets3": {
-          "<=15eok": 160,
-          "15-25eok": 20,
+          "<=15eok": 161,
+          "15-25eok": 21,
           "25eok+": 6
         },
         "boundary_counts": {
           "13-15eok": 13,
-          "15-17eok": 7,
+          "15-17eok": 8,
           "23-25eok": 2,
           "25-27eok": 0
         },
-        "under15_share": 86.0
+        "under15_share": 85.6
       }
     ]
   },
   "matched_period": {
-    "as_of": "2026-10-09",
-    "cutoff_day": 9,
+    "as_of": "2026-10-10",
+    "cutoff_day": 10,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-10",
-      "range": "1~9일",
-      "total": 186,
+      "range": "1~10일",
+      "total": 188,
       "counts": {
-        "<=9eok": 110,
+        "<=9eok": 111,
         "9-15eok": 50,
-        "15-25eok": 20,
+        "15-25eok": 21,
         "25eok+": 6
       },
       "buckets3": {
-        "<=15eok": 160,
-        "15-25eok": 20,
+        "<=15eok": 161,
+        "15-25eok": 21,
         "25eok+": 6
       },
       "boundary_counts": {
         "13-15eok": 13,
-        "15-17eok": 7,
+        "15-17eok": 8,
         "23-25eok": 2,
         "25-27eok": 0
       },
-      "under15_share": 86.0
+      "under15_share": 85.6
     },
     "previous": {
       "period": "2026-09",
-      "range": "1~9일",
-      "total": 1028,
+      "range": "1~10일",
+      "total": 1144,
       "counts": {
-        "<=9eok": 615,
-        "9-15eok": 217,
-        "15-25eok": 139,
-        "25eok+": 57
+        "<=9eok": 678,
+        "9-15eok": 244,
+        "15-25eok": 157,
+        "25eok+": 65
       },
       "buckets3": {
-        "<=15eok": 832,
-        "15-25eok": 139,
-        "25eok+": 57
+        "<=15eok": 922,
+        "15-25eok": 157,
+        "25eok+": 65
       },
       "boundary_counts": {
-        "13-15eok": 39,
-        "15-17eok": 49,
-        "23-25eok": 14,
+        "13-15eok": 49,
+        "15-17eok": 54,
+        "23-25eok": 18,
         "25-27eok": 11
       },
-      "under15_share": 80.9
+      "under15_share": 80.6
     },
     "changes": {
-      "trade_count_pct": -81.9,
-      "under15_share_pp": 5.1
+      "trade_count_pct": -83.6,
+      "under15_share_pp": 5.0
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
   "signal_matched_period": {
-    "as_of": "2026-10-09",
+    "as_of": "2026-10-10",
     "basis": "completed_month_after_statutory_reporting_window",
     "reporting_window_days": 30,
     "current": {
@@ -26731,7 +26747,7 @@
     "provisional": false,
     "basis": "statutory_reporting_window",
     "reporting_window_days": 30,
-    "as_of": "2026-10-09",
+    "as_of": "2026-10-10",
     "reason": "latest_full_month_reporting_window_elapsed",
     "signal_period": "2026-08",
     "previous_period": "2026-07",
