@@ -10,7 +10,7 @@
   },
   "unified_forecast": {
     "n": 46,
-    "down_corr_negative_fwd3": 0.5015389690808468,
+    "down_corr_negative_fwd3": 0.5015389690808466,
     "down_auc_negative_fwd3": 0.9377289377289377,
     "reaccel_corr_fwd3": 0.5506366263168125,
     "reaccel_auc_positive_fwd3": 0.7032258064516129
@@ -27,18 +27,18 @@
     "apply_recommended": true,
     "forecast": {
       "n": 46,
-      "down_corr_negative_fwd3": 0.5732432815005756,
+      "down_corr_negative_fwd3": 0.5732432815005754,
       "down_auc_negative_fwd3": 0.9652014652014652,
-      "reaccel_corr_fwd3": 0.5992525458870283,
+      "reaccel_corr_fwd3": 0.599252545887028,
       "reaccel_auc_positive_fwd3": 0.7365591397849462
     },
     "buy_condition": {
       "n": 46,
-      "corr_fwd_1m": 0.5039741619532249,
+      "corr_fwd_1m": 0.503974161953225,
       "n_fwd_1m": 46,
       "corr_fwd_3m": 0.5289253907908888,
       "n_fwd_3m": 46,
-      "corr_fwd_6m": 0.6628157588394474,
+      "corr_fwd_6m": 0.6628157588394475,
       "n_fwd_6m": 43,
       "corr_fwd_12m": 0.8063887580501935,
       "n_fwd_12m": 37
@@ -57,7 +57,7 @@
   },
   "rejected_live_recompute": {
     "n": 46,
-    "down_corr_negative_fwd3": 0.49528895173358406,
+    "down_corr_negative_fwd3": 0.49528895173358395,
     "down_auc_negative_fwd3": 0.9194139194139194,
     "reaccel_corr_fwd3": 0.5300625749286596,
     "reaccel_auc_positive_fwd3": 0.613978494623656
@@ -88,7 +88,7 @@
       }
     },
     "demotion_candidate": {
-      "corr_fwd3": 0.5172122331364043,
+      "corr_fwd3": 0.5172122331364044,
       "auc_positive_fwd3": 0.667741935483871,
       "stage3plus": {
         "n": 12,
@@ -378,5 +378,5 @@
   "apply_recommended": true,
   "gate": "baseline unified gate plus validated engine-feature overlay gate; buy score weights unchanged",
   "no_future_leakage": true,
-  "generated_at": "2026-10-09T14:50:09.189889+00:00"
+  "generated_at": "2026-10-09T14:50:21.228992+00:00"
 }
