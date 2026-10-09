@@ -10,7 +10,7 @@
   },
   "unified_forecast": {
     "n": 46,
-    "down_corr_negative_fwd3": 0.5015389690808466,
+    "down_corr_negative_fwd3": 0.5015389690808468,
     "down_auc_negative_fwd3": 0.9377289377289377,
     "reaccel_corr_fwd3": 0.5506366263168125,
     "reaccel_auc_positive_fwd3": 0.7032258064516129
@@ -27,18 +27,18 @@
     "apply_recommended": true,
     "forecast": {
       "n": 46,
-      "down_corr_negative_fwd3": 0.5732432815005754,
+      "down_corr_negative_fwd3": 0.5732432815005756,
       "down_auc_negative_fwd3": 0.9652014652014652,
-      "reaccel_corr_fwd3": 0.599252545887028,
+      "reaccel_corr_fwd3": 0.5992525458870283,
       "reaccel_auc_positive_fwd3": 0.7365591397849462
     },
     "buy_condition": {
       "n": 46,
-      "corr_fwd_1m": 0.503974161953225,
+      "corr_fwd_1m": 0.5039741619532249,
       "n_fwd_1m": 46,
       "corr_fwd_3m": 0.5289253907908888,
       "n_fwd_3m": 46,
-      "corr_fwd_6m": 0.6628157588394475,
+      "corr_fwd_6m": 0.6628157588394474,
       "n_fwd_6m": 43,
       "corr_fwd_12m": 0.8063887580501935,
       "n_fwd_12m": 37
@@ -57,7 +57,7 @@
   },
   "rejected_live_recompute": {
     "n": 46,
-    "down_corr_negative_fwd3": 0.49528895173358395,
+    "down_corr_negative_fwd3": 0.49528895173358406,
     "down_auc_negative_fwd3": 0.9194139194139194,
     "reaccel_corr_fwd3": 0.5300625749286596,
     "reaccel_auc_positive_fwd3": 0.613978494623656
@@ -88,7 +88,7 @@
       }
     },
     "demotion_candidate": {
-      "corr_fwd3": 0.5172122331364044,
+      "corr_fwd3": 0.5172122331364043,
       "auc_positive_fwd3": 0.667741935483871,
       "stage3plus": {
         "n": 12,
@@ -112,14 +112,85 @@
     "decision": "retain_stage3_add_confirmation_substate",
     "no_future_leakage": true
   },
+  "engine_feature_research": {
+    "apply_recommended": true,
+    "selected_features": [
+      "market_strength"
+    ],
+    "rejected_features": [
+      "improving_breadth_3m",
+      "strength_delta_1m",
+      "strength_delta_3m",
+      "price_strength_gap",
+      "deteriorating_breadth_3m",
+      "change_balance_3m"
+    ],
+    "forecast_overlay": {
+      "baseline": {
+        "n": 46,
+        "down_auc": 0.938,
+        "down_corr_negative_fwd3": 0.502,
+        "reaccel_auc_positive": 0.705,
+        "reaccel_corr_fwd3": 0.551
+      },
+      "candidates": [
+        {
+          "weight": 0.25,
+          "metrics": {
+            "n": 46,
+            "down_auc": 0.945,
+            "down_corr_negative_fwd3": 0.46,
+            "reaccel_auc_positive": 0.731,
+            "reaccel_corr_fwd3": 0.544
+          },
+          "passed": true
+        },
+        {
+          "weight": 0.3333,
+          "metrics": {
+            "n": 46,
+            "down_auc": 0.945,
+            "down_corr_negative_fwd3": 0.447,
+            "reaccel_auc_positive": 0.735,
+            "reaccel_corr_fwd3": 0.539
+          },
+          "passed": false
+        },
+        {
+          "weight": 0.5,
+          "metrics": {
+            "n": 46,
+            "down_auc": 0.945,
+            "down_corr_negative_fwd3": 0.421,
+            "reaccel_auc_positive": 0.746,
+            "reaccel_corr_fwd3": 0.523
+          },
+          "passed": false
+        }
+      ],
+      "selected_weight": 0.25,
+      "apply_recommended": true,
+      "gate": "down AUC +0.005; reaccel AUC +0.015; down corr no worse than -0.05; reaccel corr no worse than -0.02",
+      "scope": "short_horizon_only",
+      "longer_horizons": "unchanged_until_separately_validated"
+    },
+    "gate": "validated market-strength overlay must improve both 3m AUCs and keep both correlations within tolerance",
+    "no_future_leakage": true
+  },
   "current_candidate": {
     "snapshot_id": "2026-10-09|KB20260928|R202609",
     "current_state": {
       "stage": 3,
       "label": "상승·보합",
-      "summary": "가격 상승 모멘텀은 유지되지만 시장 확산·재가속 확인은 약해 상승·보합 내 확인 전 구간으로 봅니다.",
+      "substate": "상승·보합 · 힘 약함",
+      "summary": "가격 상승은 유지되지만 시장 확산·재가속과 시장 힘(37.6/100)이 약해 상승 내부의 둔화 가능성을 함께 봅니다.",
       "was_rising": false,
       "next_gate": "시장 확산 45 이상 · 재가속 50 이상",
+      "market_strength": {
+        "score_0_100": 37.6,
+        "label": "약함",
+        "role": "current_state_quality"
+      },
       "confirmation": {
         "status": "weak",
         "rule": "breadth >= 45 AND reaccel >= 50",
@@ -133,6 +204,7 @@
         "m3_pct": 7.57,
         "breadth": 38.9,
         "reaccel": 35.0,
+        "market_strength": 37.6,
         "turn": 45.5,
         "bottom_zone": false,
         "momentum_zone": false
@@ -164,9 +236,9 @@
           "period": "2027H1",
           "label": "2027년 상반기",
           "weights": {
-            "consolidation": 34.3,
-            "reacceleration": 30.0,
-            "downturn": 35.7
+            "consolidation": 31.6,
+            "reacceleration": 29.4,
+            "downturn": 39.0
           },
           "base_case": "consolidation",
           "display": {
@@ -174,8 +246,8 @@
             "headline": "쉬어가기·하방 경계",
             "risk_range": "35~44%",
             "tone": "watch",
-            "downturn_weight": 35.7,
-            "reacceleration_weight": 30.0,
+            "downturn_weight": 39.0,
+            "reacceleration_weight": 29.4,
             "secondary": "하방 위험 주의",
             "easing_hysteresis_pp": 2.0
           }
@@ -223,10 +295,46 @@
       ],
       "headline": "쉬어가기·하방 경계 → 혼조·방향 탐색 → 혼조·방향 탐색",
       "risk_path": [
-        36,
+        39,
         32,
         30
       ],
+      "validated_feature_overlay": {
+        "apply_recommended": true,
+        "selected_weight": 0.25,
+        "scope": "short_horizon_only",
+        "validation": {
+          "baseline": {
+            "n": 46,
+            "down_auc": 0.938,
+            "down_corr_negative_fwd3": 0.502,
+            "reaccel_auc_positive": 0.705,
+            "reaccel_corr_fwd3": 0.551
+          },
+          "selected": {
+            "weight": 0.25,
+            "metrics": {
+              "n": 46,
+              "down_auc": 0.945,
+              "down_corr_negative_fwd3": 0.46,
+              "reaccel_auc_positive": 0.731,
+              "reaccel_corr_fwd3": 0.544
+            },
+            "passed": true
+          }
+        },
+        "applied": true,
+        "baseline_short_horizon": {
+          "consolidation": 34.3,
+          "reacceleration": 30.0,
+          "downturn": 35.7
+        },
+        "applied_short_horizon": {
+          "consolidation": 31.6,
+          "reacceleration": 29.4,
+          "downturn": 39.0
+        }
+      },
       "weights_are_not_calibrated_probabilities": true,
       "display_rules": {
         "primary": "downturn scenario weight, rounded to visible whole percent",
@@ -268,7 +376,7 @@
     }
   },
   "apply_recommended": true,
-  "gate": "n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45",
+  "gate": "baseline unified gate plus validated engine-feature overlay gate; buy score weights unchanged",
   "no_future_leakage": true,
-  "generated_at": "2026-10-09T12:30:45.996574+00:00"
+  "generated_at": "2026-10-09T14:48:18.010579+00:00"
 }
