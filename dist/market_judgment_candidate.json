@@ -1,24 +1,24 @@
 {
   "status": "connected",
   "engine_version": "unified_market_judgment_v1",
-  "as_of": "2026-10-08",
+  "as_of": "2026-10-09",
   "architecture": "Common Feature Layer -> Current State / Buy Condition / Forward Scenario",
   "feature_layer": {
-    "snapshot_id": "2026-10-08|KB20260928|R202609",
-    "as_of": "2026-10-08",
+    "snapshot_id": "2026-10-09|KB20260928|R202609",
+    "as_of": "2026-10-09",
     "research_month": "202609",
     "research_provisional": true,
     "components": {
       "finance": 35.5,
       "sentiment": 21.2,
-      "demand": 36.4,
+      "demand": 36.6,
       "value": 30.4,
       "supply": 49.2
     },
     "component_deltas_vs_research_month": {
       "finance": null,
       "sentiment": 0.0,
-      "demand": -4.1,
+      "demand": -3.9,
       "value": 0.0,
       "supply": 0.0
     },
@@ -68,53 +68,53 @@
       "reason": "live recomputation is diagnostic only until it passes forecast discrimination validation",
       "live_recomputed_candidate": {
         "setup": 52.2,
-        "turn": 44.7,
-        "opportunity": 23.3,
+        "turn": 45.4,
+        "opportunity": 23.7,
         "cheapness": 30.4,
         "distress": 78.8,
         "price_turn": 84.7,
         "price_accel_pp": 1.74,
-        "early_turn": 24.1,
+        "early_turn": 24.3,
         "breadth": 37.3,
-        "reaccel": 77.0,
+        "reaccel": 77.3,
         "bottom_zone": false,
         "momentum_zone": false,
-        "turn_rank": 22.0,
+        "turn_rank": 24.0,
         "deltas": {
           "finance_1m": -0.0,
           "sentiment_1m": 0.0,
-          "demand_1m": -4.07,
+          "demand_1m": -3.9,
           "finance_3m": -3.62,
           "sentiment_3m": -3.6,
-          "demand_3m": -21.91
+          "demand_3m": -21.73
         }
       }
     },
     "context": {
-      "trade_count_pct": -39.7,
+      "trade_count_pct": -39.2,
       "under15_share_pp": 0.2,
       "m2_mom_pct": 0.3,
       "m2_yoy_pct": 5.8,
       "mortgage_rate_pct": 4.66,
       "liquidity_support_0_100": 45.5,
-      "trade_pressure_0_100": 59.6,
+      "trade_pressure_0_100": 58.8,
       "rate_pressure_0_100": 46.5,
       "recent_peak_3m_momentum_pct": 17.1,
       "cooling_score_0_100": 75.1,
       "trade_signal_status": "mature_completed_month",
-      "trade_signal_as_of": "2026-10-08",
+      "trade_signal_as_of": "2026-10-09",
       "trade_signal_confidence": {
         "level": "high",
         "provisional": false,
         "basis": "statutory_reporting_window",
         "reporting_window_days": 30,
-        "as_of": "2026-10-08",
+        "as_of": "2026-10-09",
         "reason": "latest_full_month_reporting_window_elapsed",
         "signal_period": "2026-08",
         "previous_period": "2026-07",
         "reporting_window_elapsed_on": "2026-09-30"
       },
-      "raw_matched_as_of": "2026-10-08",
+      "raw_matched_as_of": "2026-10-09",
       "finance_model": "finance_v2_credit_cost",
       "finance_v1_score_0_100": 61.1,
       "finance_v2_gate_passed": true,
@@ -219,7 +219,7 @@
       "components": {
         "finance": 35.5,
         "sentiment": 21.2,
-        "demand": 36.4,
+        "demand": 36.6,
         "value": 30.4,
         "supply": 49.2
       }
@@ -333,5 +333,5 @@
       }
     }
   },
-  "generated_at": "2026-10-08T13:54:17.819480+00:00"
+  "generated_at": "2026-10-09T12:29:28.465422+00:00"
 }

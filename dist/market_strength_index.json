@@ -9,7 +9,7 @@
     "score_0_100": 37.6,
     "display_score": 38,
     "label": "약함",
-    "historical_percentile": 13,
+    "historical_percentile": 13.0,
     "low_cut": 43.7,
     "high_cut": 49.6,
     "strongest": {
@@ -37,7 +37,7 @@
       },
       "reaccel": {
         "label": "재가속",
-        "value": 35,
+        "value": 35.0,
         "used_in_index": true
       },
       "finance": {
@@ -95,7 +95,7 @@
         "n": 15,
         "index_avg": 38.7,
         "fwd3_avg_pct": -1.54,
-        "fwd3_positive_pct": 40
+        "fwd3_positive_pct": 40.0
       },
       "mid": {
         "n": 15,
@@ -112,5 +112,6 @@
     },
     "monotonic": true,
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
-  }
+  },
+  "generated_at": "2026-10-09T12:29:28.620872+00:00"
 }
