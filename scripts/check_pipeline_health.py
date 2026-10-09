@@ -15,6 +15,7 @@ def load(p):
 
 fb=load('dist/final_backtest.json')
 tr=load('dist/turning_signal_research.json')
+engine_research=load('dist/engine_feature_research.json')
 fc=load('dist/regime_forecast.json')
 mi=load('dist/market_indicators.json')
 master=load('data/buy_watchlist_master.json')
@@ -354,14 +355,25 @@ try:
     strength=json.loads((R/'dist/market_strength_index.json').read_text(encoding='utf-8'))
     if strength.get('snapshot_id') != judgment_now.get('feature_layer',{}).get('snapshot_id'):
         errors.append('market strength index snapshot mismatch')
-    if strength.get('production_formula_changed') is not False:
-        errors.append('market strength index must not change production formula')
+    ef=((judgment_now.get('feature_layer') or {}).get('engine_features') or {}).get('market_strength') or {}
+    overlay_applied=bool((ef.get('forecast_overlay') or {}).get('applied'))
+    if bool(strength.get('production_formula_changed')) != overlay_applied:
+        errors.append('market strength production-role mismatch')
     if strength.get('method',{}).get('hand_tuned_weights') is not False:
         errors.append('market strength index must not use hand-tuned weights')
     if strength.get('validation',{}).get('monotonic') is not True:
         errors.append('market strength historical separation failed')
+    if ef.get('score_0_100') is not None and abs(float(ef.get('score_0_100'))-float(strength.get('current',{}).get('score_0_100')))>.2:
+        errors.append('market strength display/engine mismatch')
 except Exception as e:
     errors.append('market strength index contract unreadable: '+str(e))
+if engine_research:
+    if engine_research.get('no_future_leakage') is not True: errors.append('engine feature research future-leakage guard missing')
+    if engine_research.get('apply_recommended') is not True: errors.append('engine feature research validation gate failed')
+    if (engine_research.get('decisions',{}).get('market_strength') or {}).get('decision')!='selected_production_support':
+        errors.append('market strength not selected by engine feature research')
+    if abs(float((engine_research.get('forecast_overlay') or {}).get('selected_weight') or 0)-.25)>.001:
+        errors.append('unexpected market strength forecast overlay weight')
 lineage=[
     ('kb_watchlist_history.json','weekly','scripts/collect_kb_watchlist_history.py'),
     ('buy_watchlist_market.json','parallel','dist/buy_watchlist_market.json'),
@@ -371,6 +383,7 @@ lineage=[
     ('market_indicators.json','parallel','dist/market_indicators.json'),
     ('final_backtest.json','final','dist/final_backtest.json'),
     ('turning_signal_research.json','research','dist/turning_signal_research.json'),
+    ('engine_feature_research.json','research','dist/engine_feature_research.json'),
     ('regime_forecast.json','forecast','dist/regime_forecast.json'),
     ('garak_geumho_24a_history.json','parallel','dist/garak_geumho_24a_history.json'),
     ('garak_geumho_24a_history.json','weekly','dist/garak_geumho_24a_history.json'),

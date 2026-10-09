@@ -29,10 +29,16 @@ def main():
  ordered=sorted(comps.items(),key=lambda z:z[1]); core=ordered[1:-1]; score=sum(v for _,v in core)/6
  lo,hi=q(1/3),q(2/3); label='약함' if score<lo else '보통' if score<hi else '강함'; rank=100*sum(v<=score for v in ss)/len(ss)
  summary='가격 흐름은 강하지만 거래·금융·심리·시장 확산이 충분히 받쳐주지 못해, 현재 상승의 내부 힘은 약한 편입니다.' if label=='약함' else ('가격 흐름과 내부 신호가 일부 엇갈려 시장 힘은 중간 수준입니다.' if label=='보통' else '가격 흐름과 거래·금융·시장 확산이 함께 받쳐 시장 힘이 강한 편입니다.')
- out={'status':'validated_research_index','version':'market_strength_index_v1','production_formula_changed':False,'index_role':'explanatory_support_index','as_of':j.get('as_of'),'snapshot_id':fl.get('snapshot_id'),
+ engine=((fl.get('engine_features') or {}).get('market_strength') or {})
+ applied=bool((engine.get('forecast_overlay') or {}).get('applied'))
+ if engine.get('score_0_100') is not None:
+  score=float(engine['score_0_100']);label=str(engine.get('label') or label);lo=float(engine.get('low_cut') or lo);hi=float(engine.get('high_cut') or hi)
+ out={'status':'validated_engine_feature' if applied else 'validated_research_index','version':'market_strength_index_v2','production_formula_changed':applied,
+ 'index_role':'current_state_quality_and_short_horizon_forecast_support' if applied else 'explanatory_support_index','as_of':j.get('as_of'),'snapshot_id':fl.get('snapshot_id'),
  'current':{'score_0_100':round(score,1),'display_score':round(score),'label':label,'historical_percentile':round(rank,1),'low_cut':round(lo,1),'high_cut':round(hi,1),'strongest':{'key':ordered[-1][0],'label':names[ordered[-1][0]],'value':round(ordered[-1][1],1),'excluded_from_trim':True},'weakest':{'key':ordered[0][0],'label':names[ordered[0][0]],'value':round(ordered[0][1],1),'excluded_from_trim':True},'components':{k:{'label':names[k],'value':round(v,1),'used_in_index':k in dict(core)} for k,v in comps.items()},'summary':summary},
  'method':{'formula':'8개 0~100 신호를 동일 취급하고 최고·최저 1개를 제외한 가운데 6개 평균','hand_tuned_weights':False,'signals':['price_momentum_percentile','breadth','reaccel','finance','sentiment','demand','value','supply'],'threshold_source':'certified historical terciles','future_leakage_guard':'historical momentum percentile uses observations available through each month only'},
- 'validation':{'period':[rows[0]['ym'],rows[-1]['ym']],'n':len(rows),'groups':groups,'monotonic':groups['low']['fwd3_avg_pct']<groups['mid']['fwd3_avg_pct']<groups['high']['fwd3_avg_pct'],'note':'과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음'},
+ 'validation':{'period':[rows[0]['ym'],rows[-1]['ym']],'n':len(rows),'groups':groups,'monotonic':groups['low']['fwd3_avg_pct']<groups['mid']['fwd3_avg_pct']<groups['high']['fwd3_avg_pct'],
+ 'forecast_overlay':engine.get('forecast_overlay') or {},'note':'과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음'},
  'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
  (R/'dist/market_strength_index.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
 if __name__=='__main__': main()

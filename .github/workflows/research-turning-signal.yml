@@ -32,6 +32,12 @@ jobs:
           python3 scripts/build_regime_reference_examples.py
       - name: Revalidate KB forecast momentum scale
         run: python3 scripts/validate_forecast_kb_momentum.py
+      - name: Generate and screen engine feature candidates
+        run: |
+          python3 scripts/research_engine_feature_candidates.py
+          python3 scripts/test_engine_feature_research.py
+          python3 scripts/build_market_judgment.py
+          python3 scripts/validate_market_judgment.py
       - name: Collect R-ONE long-cycle inputs
         continue-on-error: true
         run: python3 scripts/collect_reb_long_cycle.py
@@ -53,7 +59,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          files="data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/regime_reference_examples.json dist/forecast_kb_momentum_validation.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json dist/long_cycle_model_validation.json dist/long_cycle_score_validation.json dist/long_cycle_event_validation.json dist/false_bottom_validation.json dist/final_long_cycle_validation.json dist/integrated_model_validation.json dist/state_machine_validation.json"
+          files="data_sources/reb_long_cycle.json data_sources/reb_price_debug.json data_sources/reb_trade_debug.json dist/turning_signal_research.json dist/regime_reference_examples.json dist/forecast_kb_momentum_validation.json dist/engine_feature_research.json dist/market_judgment_candidate.json dist/market_judgment_validation.json dist/long_cycle_readiness.json dist/long_cycle_validation.json dist/long_cycle_master.json dist/long_cycle_regime_backtest.json dist/buy_opportunity_evaluation.json dist/long_cycle_model_validation.json dist/long_cycle_score_validation.json dist/long_cycle_event_validation.json dist/false_bottom_validation.json dist/final_long_cycle_validation.json dist/integrated_model_validation.json dist/state_machine_validation.json"
           mkdir -p /tmp/research-refresh
           tar -cf /tmp/research-refresh/output.tar $files
           git reset --hard

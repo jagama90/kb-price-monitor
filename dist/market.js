@@ -326,7 +326,8 @@ function renderCurrentRegimeEvidence(metrics={}){
   item(kb?'4주 가격':'1개월 가격',signedPct(metrics.price_mom_1m_pct),kb?'KB 가격지수 변화':'연구 가격 모멘텀'),
   item(kb?'13주 가격':'3개월 가격',signedPct(metrics.price_mom_3m_pct),kb?'KB 가격지수 변화':'연구 가격 모멘텀'),
   item('시장 확산',score(metrics.breadth_0_100),'가속 확인 45+'),
-  item('재가속',score(metrics.reaccel_0_100),'가속 확인 50+')
+  item('재가속',score(metrics.reaccel_0_100),'가속 확인 50+'),
+  item('시장 힘',score(metrics.market_strength_0_100),metrics.market_strength_label?('내부 체력 · '+metrics.market_strength_label):'검증된 합성지수')
  ].join('');
 }
 async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot first; research fallback only
@@ -344,13 +345,15 @@ async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot
     price_mom_1m_pct:raw1,price_mom_3m_pct:raw3,
     research_price_mom_1m_pct:mapped1,research_price_mom_3m_pct:mapped3,
     price_source:kbComparable?'kb_seoul_weekly':'research',
-    breadth_0_100:finiteNum(sig.breadth),reaccel_0_100:finiteNum(sig.reaccel)
+    breadth_0_100:finiteNum(sig.breadth),reaccel_0_100:finiteNum(sig.reaccel),
+    market_strength_0_100:finiteNum(feature.engine_features?.market_strength?.score_0_100),
+    market_strength_label:feature.engine_features?.market_strength?.label||null
    };
    renderCurrentRegimeEvidence(window.__currentRegimeMetrics);
    renderRegimeMap(stage,window.__forecastMapPosition);
    const displayState=currentPhaseState(stage,window.__currentRegimeMetrics);
    setText('judgmentCurrentLabel',displayState.label);
-   setText('cycleStageText',displayState.summary);
+   setText('cycleStageText',head.summary||displayState.summary);
    document.querySelectorAll('#cycleSteps span').forEach(el=>{const on=Number(el.dataset.displayStage)===displayState.index;el.classList.toggle('active',on);el.setAttribute('aria-current',on?'step':'false')});
    const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
    return;
@@ -499,6 +502,7 @@ async function renderRegimeForecast(){
     ['13주 가격',signedPct(ov.kb_13w_pct,2)],
     ['시장 확산',score(check.breadth)],
     ['재가속',score(check.reaccel)],
+    ['시장 힘',score(check.market_strength)],
     ['거래량',signedPct(check.trade_count_pct,1)],
     ['M2 전년비',signedPct(check.m2_yoy_pct,1)],
     ['주담대',plainPct(check.mortgage_rate_pct,2)]

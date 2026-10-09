@@ -2,7 +2,7 @@ name: Forward regime forecast
 # Fast derived step: runs only after fresh market/research data, never on ordinary code pushes.
 on:
   workflow_run:
-    workflows: ['Research turning signal', 'Parallel market data refresh', 'Repair dashboard data']
+    workflows: ['Research turning signal', 'Engine feature validation', 'Parallel market data refresh', 'Repair dashboard data']
     types: [completed]
   workflow_dispatch:
 
@@ -23,6 +23,7 @@ jobs:
           python-version: '3.11'
       - name: Build forward regime forecast
         run: |
+          python3 scripts/test_engine_feature_research.py
           python3 scripts/test_market_judgment_engine.py
           python3 scripts/forecast_market_regime.py
           python3 scripts/build_market_interpretation.py
@@ -41,6 +42,9 @@ jobs:
           assert f.get('as_of')==m.get('updated_at'), 'forecast as_of mismatch'
           assert j.get('as_of')==m.get('updated_at'), 'judgment as_of mismatch'
           assert f.get('unified_snapshot_id')==j.get('feature_layer',{}).get('snapshot_id'), 'forecast/judgment snapshot mismatch'
+          ef=(j.get('feature_layer',{}).get('engine_features') or {})
+          assert ef.get('status')=='validated_features_attached', 'validated engine features missing'
+          assert ((ef.get('market_strength') or {}).get('forecast_overlay') or {}).get('applied') is True, 'market-strength forecast overlay missing'
           assert f.get('latest_research_month'), 'forecast research lineage missing'
           try:
               v=json.load(open('dist/forecast_kb_momentum_validation.json'))
@@ -77,6 +81,9 @@ jobs:
           assert f.get('as_of')==m.get('updated_at'), 'forecast as_of mismatch after pull'
           assert j.get('as_of')==m.get('updated_at'), 'judgment as_of mismatch after pull'
           assert f.get('unified_snapshot_id')==j.get('feature_layer',{}).get('snapshot_id'), 'snapshot mismatch after pull'
+          ef=(j.get('feature_layer',{}).get('engine_features') or {})
+          assert ef.get('status')=='validated_features_attached', 'validated engine features missing after pull'
+          assert ((ef.get('market_strength') or {}).get('forecast_overlay') or {}).get('applied') is True, 'market-strength forecast overlay missing after pull'
           try:
               v=json.load(open('dist/forecast_kb_momentum_validation.json'))
           except FileNotFoundError:

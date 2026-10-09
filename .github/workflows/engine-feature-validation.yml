@@ -1,0 +1,62 @@
+name: Engine feature validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/research_engine_feature_candidates.py'
+      - 'scripts/test_engine_feature_research.py'
+      - 'scripts/market_judgment_engine.py'
+      - 'scripts/validate_market_judgment.py'
+      - 'scripts/test_market_judgment_engine.py'
+      - '.github/workflows/engine-feature-validation.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: engine-feature-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Screen candidate features against certified history
+        run: |
+          python3 scripts/research_engine_feature_candidates.py
+          python3 scripts/test_engine_feature_research.py
+      - name: Compare candidate engine with certified baseline
+        run: |
+          python3 scripts/test_market_judgment_engine.py
+          python3 scripts/build_market_judgment.py
+          python3 scripts/validate_market_judgment.py
+          python3 - <<'PY'
+          import json
+          v=json.load(open('dist/market_judgment_validation.json'))
+          assert v.get('apply_recommended') is True
+          e=v.get('engine_feature_research') or {}
+          assert e.get('apply_recommended') is True
+          assert e.get('no_future_leakage') is True
+          PY
+      - name: Persist only validated research outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p /tmp/engine-feature-validation
+          cp dist/engine_feature_research.json /tmp/engine-feature-validation/
+          cp dist/market_judgment_candidate.json /tmp/engine-feature-validation/
+          cp dist/market_judgment_validation.json /tmp/engine-feature-validation/
+          git reset --hard
+          git pull --ff-only origin main
+          cp /tmp/engine-feature-validation/*.json dist/
+          git add -f dist/engine_feature_research.json dist/market_judgment_candidate.json dist/market_judgment_validation.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh validated engine feature research'
+          git push origin HEAD:main

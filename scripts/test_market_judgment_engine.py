@@ -90,6 +90,13 @@ class UnifiedEngineTests(unittest.TestCase):
         self.assertEqual(b['coverage_weight'],100)
         self.assertEqual(len(q['horizons']),3)
         self.assertTrue(f['snapshot_id'])
+        ef=f.get('engine_features') or {}
+        self.assertEqual(ef.get('status'),'validated_features_attached')
+        ms=ef.get('market_strength') or {}
+        self.assertTrue(0 <= ms.get('score_0_100') <= 100)
+        self.assertEqual(ms.get('forecast_overlay',{}).get('selected_weight'),0.25)
+        self.assertEqual(c.get('market_strength',{}).get('score_0_100'),ms.get('score_0_100'))
+        self.assertTrue(q.get('validated_feature_overlay',{}).get('applied'))
         if f['price_momentum']['overlay'].get('applied'):
             self.assertNotEqual(f['price_momentum']['m3_pct'],f['price_momentum']['overlay'].get('research_m3_pct'))
 

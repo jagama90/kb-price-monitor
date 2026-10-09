@@ -1,0 +1,192 @@
+{
+  "status": "research_validation",
+  "version": "engine_feature_research_v1",
+  "source_certified_through": "202608",
+  "no_future_leakage": true,
+  "feature_formation": "expanding momentum rank; lagged 3m change breadth; forward returns evaluation-only",
+  "candidate_metrics": {
+    "market_strength": {
+      "1": {
+        "n": 48,
+        "corr": 0.529,
+        "auc_positive": 0.769,
+        "auc_downside": 0.944
+      },
+      "3": {
+        "n": 46,
+        "corr": 0.427,
+        "auc_positive": 0.783,
+        "auc_downside": 0.956,
+        "terciles": [
+          {
+            "n": 15,
+            "mean_pct": -1.54,
+            "positive_pct": 40
+          },
+          {
+            "n": 15,
+            "mean_pct": 2.79,
+            "positive_pct": 66.7
+          },
+          {
+            "n": 16,
+            "mean_pct": 6.21,
+            "positive_pct": 93.8
+          }
+        ]
+      },
+      "6": {
+        "n": 43,
+        "corr": 0.493,
+        "auc_positive": 0.842,
+        "auc_downside": 0.926
+      },
+      "12": {
+        "n": 37,
+        "corr": 0.589,
+        "auc_positive": 0.925,
+        "auc_downside": 0.925
+      }
+    },
+    "improving_breadth_3m": {
+      "1": {
+        "n": 45,
+        "corr": 0.282,
+        "auc_positive": 0.706
+      },
+      "3": {
+        "n": 43,
+        "corr": 0.296,
+        "auc_positive": 0.787
+      },
+      "6": {
+        "n": 40,
+        "corr": 0.422,
+        "auc_positive": 0.872
+      },
+      "12": {
+        "n": 34,
+        "corr": 0.215,
+        "auc_positive": 0.931
+      }
+    }
+  },
+  "decisions": {
+    "market_strength": {
+      "decision": "selected_production_support",
+      "roles": [
+        "current_state_quality",
+        "short_horizon_forecast"
+      ]
+    },
+    "improving_breadth_3m": {
+      "decision": "selected_research_support",
+      "roles": [
+        "research_transition_context"
+      ]
+    },
+    "strength_delta_1m": {
+      "decision": "rejected",
+      "roles": [],
+      "reason": "failed multi-horizon robustness/monotonicity gate"
+    },
+    "strength_delta_3m": {
+      "decision": "rejected",
+      "roles": [],
+      "reason": "failed multi-horizon robustness/monotonicity gate"
+    },
+    "price_strength_gap": {
+      "decision": "rejected",
+      "roles": [],
+      "reason": "failed multi-horizon robustness/monotonicity gate"
+    },
+    "deteriorating_breadth_3m": {
+      "decision": "rejected",
+      "roles": [],
+      "reason": "failed multi-horizon robustness/monotonicity gate"
+    },
+    "change_balance_3m": {
+      "decision": "rejected",
+      "roles": [],
+      "reason": "failed multi-horizon robustness/monotonicity gate"
+    }
+  },
+  "selected_features": [
+    "market_strength",
+    "improving_breadth_3m"
+  ],
+  "rejected_features": [
+    "strength_delta_1m",
+    "strength_delta_3m",
+    "price_strength_gap",
+    "deteriorating_breadth_3m",
+    "change_balance_3m"
+  ],
+  "market_strength": {
+    "apply_recommended": true,
+    "low_cut": 43.7,
+    "high_cut": 49.6,
+    "latest_certified": {
+      "ym": "202608",
+      "score_0_100": 42.017
+    },
+    "formula": "trimmed mean of 8 equally-treated 0-100 signals; highest/lowest removed",
+    "hand_tuned_weights": false
+  },
+  "forecast_overlay": {
+    "baseline": {
+      "n": 46,
+      "down_auc": 0.938,
+      "down_corr_negative_fwd3": 0.502,
+      "reaccel_auc_positive": 0.705,
+      "reaccel_corr_fwd3": 0.551
+    },
+    "candidates": [
+      {
+        "weight": 0.25,
+        "metrics": {
+          "n": 46,
+          "down_auc": 0.945,
+          "down_corr_negative_fwd3": 0.46,
+          "reaccel_auc_positive": 0.731,
+          "reaccel_corr_fwd3": 0.544
+        },
+        "passed": true
+      },
+      {
+        "weight": 0.3333,
+        "metrics": {
+          "n": 46,
+          "down_auc": 0.945,
+          "down_corr_negative_fwd3": 0.447,
+          "reaccel_auc_positive": 0.735,
+          "reaccel_corr_fwd3": 0.539
+        },
+        "passed": false
+      },
+      {
+        "weight": 0.5,
+        "metrics": {
+          "n": 46,
+          "down_auc": 0.945,
+          "down_corr_negative_fwd3": 0.421,
+          "reaccel_auc_positive": 0.746,
+          "reaccel_corr_fwd3": 0.523
+        },
+        "passed": false
+      }
+    ],
+    "selected_weight": 0.25,
+    "apply_recommended": true,
+    "gate": "down AUC +0.005; reaccel AUC +0.015; down corr no worse than -0.05; reaccel corr no worse than -0.02",
+    "scope": "short_horizon_only",
+    "longer_horizons": "unchanged_until_separately_validated"
+  },
+  "improving_breadth_3m": {
+    "apply_recommended_for_research": true,
+    "production_forecast_applied": false,
+    "reason": "standalone predictive relationship survives, but adding it to the short-horizon production blend degraded downside discrimination"
+  },
+  "apply_recommended": true,
+  "generated_at": "2026-10-09T14:00:00+00:00"
+}

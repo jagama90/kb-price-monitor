@@ -54,14 +54,18 @@ def current_payload(j):
     else:
         flow=label or '확인 중'
 
-    cstatus=str(confirmation.get('status') or '')
-    if cstatus=='strong':
-        strength='강함'
-    elif cstatus=='weak':
-        strength='약함'
+    engine_strength=(state.get('market_strength') or {}).get('label')
+    if engine_strength in ('강함','보통','약함'):
+        strength=engine_strength
     else:
-        bp=confirmation.get('breadth_pass'); rp=confirmation.get('reaccel_pass')
-        strength='보통' if bp is not None or rp is not None else '확인 중'
+        cstatus=str(confirmation.get('status') or '')
+        if cstatus=='strong':
+            strength='강함'
+        elif cstatus=='weak':
+            strength='약함'
+        else:
+            bp=confirmation.get('breadth_pass'); rp=confirmation.get('reaccel_pass')
+            strength='보통' if bp is not None or rp is not None else '확인 중'
 
     horizons=forecast.get('horizons') or []
     h0=horizons[0] if horizons else {}
@@ -109,7 +113,7 @@ def current_payload(j):
       'summary':summary,
       'reasons':reasons,
       'source_labels':{
-        'strength':'기존 현재국면 확인 기준(breadth ≥ 45, reaccel ≥ 50)을 쉬운 말로 표시',
+        'strength':'검증된 시장 힘 합성지수를 쉬운 말로 표시; 미연결 시 기존 breadth/reaccel 확인 기준 사용',
         'turn_sign':'현재 흐름의 힘·3개월 금융/심리/거래 변화·전망 문구를 함께 해석',
         'data_voice':'금융·심리·거래의 3개월 변화 방향을 비교'
       }

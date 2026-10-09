@@ -4,7 +4,7 @@ import json,pathlib,math,datetime
 from market_judgment_engine import clamp,n,norm
 R=pathlib.Path(__file__).resolve().parents[1]
 CAND=R/'dist/market_judgment_candidate.json';FINAL=R/'dist/final_backtest.json';TURN=R/'dist/turning_signal_research.json';KBV=R/'dist/forecast_kb_momentum_validation.json'
-OUT=R/'dist/market_judgment_validation.json';COMMONV=R/'dist/common_feature_layer_v2_validation.json'
+OUT=R/'dist/market_judgment_validation.json';COMMONV=R/'dist/common_feature_layer_v2_validation.json';ENGINEV=R/'dist/engine_feature_research.json'
 def corr(a,b):
     z=[(float(x),float(y)) for x,y in zip(a,b) if x is not None and y is not None]
     if len(z)<3:return None
@@ -112,6 +112,7 @@ def weights(c,breadth,reaccel,m1,m3,mmrow,mortrow,liquidity_override=None):
 def main():
     cand=json.loads(CAND.read_text());final=json.loads(FINAL.read_text());turn=json.loads(TURN.read_text());kv=json.loads(KBV.read_text())
     commonv=json.loads(COMMONV.read_text()) if COMMONV.exists() else {};finmap={x.get('ym'):x for x in (((commonv.get('research_rows') or {}).get('finance')) or [])}
+    enginev=json.loads(ENGINEV.read_text()) if ENGINEV.exists() else {}
     rows=final.get('rows') or [];samples={x['ym']:x for x in kv.get('sample',[])}
     tmap={x['ym']:x for x in (turn.get('rows') or [])}
     mm,mr=aux();evals=[];live_recomputed=[];finance_v2_evals=[];finance_v2_buy=[]
@@ -182,12 +183,25 @@ def main():
       'gate':'n>=30; forecast downside/reaccel AUC no worse >0.02; buy corr6/corr12 no worse >0.02; at least one material improvement',
       'no_future_leakage':True,'credit_vintage_lag_months':2,'mortgage_rate_vintage_lag_months':1}
     regime_validation=current_state_revalidation(rows,tmap,samples)
+    eo=enginev.get('forecast_overlay') or {}; eb=eo.get('baseline') or {}
+    selected=next((x for x in eo.get('candidates',[]) if x.get('passed') and abs(n(x.get('weight'))-n(eo.get('selected_weight')))<1e-4),None)
+    em=(selected or {}).get('metrics') or {}
+    engine_gate=bool(enginev.get('apply_recommended') and enginev.get('no_future_leakage') and
+      eo.get('apply_recommended') and selected and
+      n(em.get('down_auc'),-9)>=n(eb.get('down_auc'),9)+.005 and
+      n(em.get('reaccel_auc_positive'),-9)>=n(eb.get('reaccel_auc_positive'),9)+.015 and
+      n(em.get('down_corr_negative_fwd3'),-9)>=n(eb.get('down_corr_negative_fwd3'),9)-.05 and
+      n(em.get('reaccel_corr_fwd3'),-9)>=n(eb.get('reaccel_corr_fwd3'),9)-.02)
     out={'status':'research_validation','rows_compared':len(evals),'baseline_forecast':baseline,'unified_forecast':unified,
          'buy_condition_certified_metrics':buy_metrics,'finance_v2_integrated':finance_v2_integrated,'rejected_live_recompute':rejected,
          'current_state_revalidation':regime_validation,
+         'engine_feature_research':{'apply_recommended':engine_gate,'selected_features':enginev.get('selected_features') or [],
+           'rejected_features':enginev.get('rejected_features') or [],'forecast_overlay':eo,
+           'gate':'validated market-strength overlay must improve both 3m AUCs and keep both correlations within tolerance',
+           'no_future_leakage':bool(enginev.get('no_future_leakage'))},
          'current_candidate':{'snapshot_id':cand['feature_layer']['snapshot_id'],'current_state':cand['heads']['current_state'],
          'buy_condition':cand['heads']['buy_condition'],'forward':cand['heads']['forward_scenario']},
-         'apply_recommended':gate,'gate':'n>=30; downside AUC no worse >0.02; reacceleration positive AUC no worse >0.02; certified buy score corr6>=0.30 and corr12>=0.45',
+         'apply_recommended':bool(gate and engine_gate),'gate':'baseline unified gate plus validated engine-feature overlay gate; buy score weights unchanged',
          'no_future_leakage':True,'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({k:out[k] for k in ('rows_compared','baseline_forecast','unified_forecast','finance_v2_integrated','current_state_revalidation','buy_condition_certified_metrics','current_candidate','apply_recommended')},ensure_ascii=False,indent=2))

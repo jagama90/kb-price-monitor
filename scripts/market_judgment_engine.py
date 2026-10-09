@@ -220,6 +220,59 @@ def build_feature_layer(market,research,final,kbval):
                  'certified_backtest':'dist/final_backtest.json','price_scale_validation':'dist/forecast_kb_momentum_validation.json'}
     }
 
+def attach_engine_research_features(feature,research_rows,engine_research):
+    """Attach only features that survived historical research gates."""
+    if not engine_research or not engine_research.get('apply_recommended'):
+        feature['engine_features']={'status':'research_not_applied','reason':'validated engine feature artifact missing or gate failed'}
+        return
+    c=feature.get('components') or {};sig=feature.get('signals') or {}
+    m3=n((feature.get('price_momentum') or {}).get('m3_pct'))
+    hist=[n(r.get('momentum_3m_pct')) for r in research_rows if r.get('momentum_3m_pct') is not None and not r.get('source_provisional')]
+    mom_rank=pct_rank(hist+[m3],m3)
+    values={
+      'price_momentum':mom_rank,'breadth':sig.get('breadth'),'reaccel':sig.get('reaccel'),
+      'finance':c.get('finance'),'sentiment':c.get('sentiment'),'demand':c.get('demand'),
+      'value':c.get('value'),'supply':c.get('supply')
+    }
+    if any(v is None for v in values.values()):
+        feature['engine_features']={'status':'data_check','market_strength':{'score_0_100':None,'label':'데이터 확인 중'}}
+        return
+    ordered=sorted((k,n(v)) for k,v in values.items(),key=lambda x:x[1])
+    core=ordered[1:-1];strength=sum(v for _,v in core)/len(core)
+    cfg=engine_research.get('market_strength') or {}
+    lo=n(cfg.get('low_cut'),40);hi=n(cfg.get('high_cut'),55)
+    label='약함' if strength<lo else '보통' if strength<hi else '강함'
+    overlay_cfg=engine_research.get('forecast_overlay') or {}
+    weight=n(overlay_cfg.get('selected_weight')) if overlay_cfg.get('apply_recommended') else 0
+    latest_rows=engine_research.get('rows') or []
+    latest_imp=next((r for r in reversed(latest_rows) if r.get('improving_breadth_3m') is not None),None)
+    feature['engine_features']={
+      'status':'validated_features_attached',
+      'source':'dist/engine_feature_research.json',
+      'market_strength':{
+        'score_0_100':round(strength,1),'label':label,'low_cut':round(lo,1),'high_cut':round(hi,1),
+        'momentum_percentile':round(mom_rank,1),
+        'components':{k:{'value':round(n(v),1),'used_in_index':k in {x[0] for x in core}} for k,v in values.items()},
+        'strongest':{'key':ordered[-1][0],'value':round(ordered[-1][1],1)},
+        'weakest':{'key':ordered[0][0],'value':round(ordered[0][1],1)},
+        'forecast_overlay':{
+          'apply_recommended':bool(overlay_cfg.get('apply_recommended') and weight>0),
+          'selected_weight':round(weight,4) if weight else None,
+          'scope':overlay_cfg.get('scope'),'validation':{
+             'baseline':overlay_cfg.get('baseline'),
+             'selected':next((x for x in overlay_cfg.get('candidates',[]) if abs(n(x.get('weight'))-weight)<1e-4),None)
+          }
+        }
+      },
+      'improving_breadth_3m':{
+        'role':'research_transition_context','production_forecast_applied':False,
+        'latest_certified':({'ym':latest_imp.get('ym'),'value_0_100':latest_imp.get('improving_breadth_3m')} if latest_imp else None),
+        'reason':(engine_research.get('improving_breadth_3m') or {}).get('reason')
+      },
+      'rejected_features':engine_research.get('rejected_features') or []
+    }
+    feature.setdefault('lineage',{})['engine_feature_research']='dist/engine_feature_research.json'
+
 def current_state_head(feature,research_rows):
     m1=n(feature['price_momentum']['m1_pct']);m3=n(feature['price_momentum']['m3_pct']);sig=feature['signals']
     recent=(research_rows or [])[-3:];was_rising=any(n(r.get('momentum_3m_pct'))>0 for r in recent)
@@ -233,13 +286,19 @@ def current_state_head(feature,research_rows):
     if sig.get('momentum_zone'):stage=4
     label=STAGE_LABELS[stage]
     divergence=bool(stage==3 and m3>0 and not internals_confirmed)
+    strength=((feature.get('engine_features') or {}).get('market_strength') or {})
+    strength_score=strength.get('score_0_100');strength_label=strength.get('label')
     confirmation_status='confirmed' if stage>=3 and internals_confirmed else ('weak' if stage>=3 else 'not_applicable')
     if stage==0:summary='1개월·3개월 가격 모멘텀이 약세여서 하락 국면으로 봅니다.'
     elif stage==1:summary='가격 부담과 심리 위축은 남아 있지만 하락 둔화·반전 신호가 강해지고 있습니다.'
     elif stage==2:summary='가격 하락이 멈추는 신호가 나타나 바닥 여부를 확인하는 구간입니다.'
     elif divergence:
-        summary='가격 상승 모멘텀은 유지되지만 시장 확산·재가속 확인은 약해 상승·보합 내 확인 전 구간으로 봅니다.'
-    elif stage==3:summary='가격 상승과 시장 내부확산이 함께 확인됐지만 가속 국면 조건은 아직 완전히 충족되지 않았습니다.'
+        if strength_label=='약함' and strength_score is not None:
+            summary=f'가격 상승은 유지되지만 시장 확산·재가속과 시장 힘({strength_score:.1f}/100)이 약해 상승 내부의 둔화 가능성을 함께 봅니다.'
+        else:
+            summary='가격 상승 모멘텀은 유지되지만 시장 확산·재가속 확인은 약해 상승·보합 내 확인 전 구간으로 봅니다.'
+    elif stage==3:
+        summary='가격 상승과 시장 내부확산이 함께 확인됐지만 가속 국면 조건은 아직 완전히 충족되지 않았습니다.'
     else:summary='가격 모멘텀과 시장 확산·재가속 신호가 함께 강해 가속 국면으로 봅니다.'
     next_gate=None
     if stage==3:
@@ -247,12 +306,14 @@ def current_state_head(feature,research_rows):
         if not breadth_pass:misses.append('시장 확산 45 이상')
         if not reaccel_pass:misses.append('재가속 50 이상')
         next_gate=' · '.join(misses) if misses else '가속 조건 충족 확인'
-    return {'stage':stage,'label':label,'summary':summary,'was_rising':was_rising,'next_gate':next_gate,
+    substate=(label+' · 힘 '+strength_label) if strength_label in ('약함','보통','강함') else label
+    return {'stage':stage,'label':label,'substate':substate,'summary':summary,'was_rising':was_rising,'next_gate':next_gate,
+            'market_strength':{'score_0_100':strength_score,'label':strength_label,'role':'current_state_quality'},
             'confirmation':{'status':confirmation_status,'rule':'breadth >= 45 AND reaccel >= 50',
                             'breadth_pass':breadth_pass,'reaccel_pass':reaccel_pass,'divergence':divergence,
                             'validation':'current_state_revalidation'},
             'evidence':{'m1_pct':m1,'m3_pct':m3,'breadth':sig.get('breadth'),'reaccel':sig.get('reaccel'),
-                        'turn':sig.get('turn'),'bottom_zone':sig.get('bottom_zone'),'momentum_zone':sig.get('momentum_zone')}}
+                        'market_strength':strength_score,'turn':sig.get('turn'),'bottom_zone':sig.get('bottom_zone'),'momentum_zone':sig.get('momentum_zone')}}
 
 def buy_condition_head(feature):
     c=feature['components'];available=[k for k in WEIGHTS if c.get(k) is not None]
@@ -276,6 +337,17 @@ def forward_weights(feature):
       'reacceleration':18+.34*reaccel+.22*breadth+.12*finance+.10*liquidity+max(0,m3)*2,
       'downturn':22+.24*(100-breadth)+.18*(100-demand)+.14*(100-sent)+.12*trade_pressure+.10*rate_pressure+.10*(100-value)-max(0,m1)*2
     })
+    strength=((feature.get('engine_features') or {}).get('market_strength') or {})
+    overlay=strength.get('forecast_overlay') or {}
+    if overlay.get('apply_recommended') and strength.get('score_0_100') is not None:
+        w=n(overlay.get('selected_weight'))
+        if 0<w<1:
+            baseline={k:round(v,3) for k,v in q4.items()};s=n(strength.get('score_0_100'))
+            q4=norm({'consolidation':q4['consolidation'],
+                     'reacceleration':(1-w)*q4['reacceleration']+w*s,
+                     'downturn':(1-w)*q4['downturn']+w*(100-s)})
+            overlay['applied']=True;overlay['baseline_short_horizon']=baseline
+            overlay['applied_short_horizon']={k:round(v,3) for k,v in q4.items()}
     h1=norm({
       'consolidation':55+.16*finance+.14*supply+.16*clamp(100-cooling)+.08*liquidity,
       'reacceleration':28+.20*finance+.18*liquidity+.18*breadth+.14*reaccel+.10*sent,
@@ -296,6 +368,7 @@ def forward_scenario_head(feature,previous=None):
                                  'display':display_for(w,previous_display.get(p))})
     return {'horizons':arr,'headline':' → '.join(x['display']['headline'] for x in arr),
             'risk_path':[round(n(x['display']['downturn_weight'])) for x in arr],
+            'validated_feature_overlay':(((feature.get('engine_features') or {}).get('market_strength') or {}).get('forecast_overlay') or {}),
             'weights_are_not_calibrated_probabilities':True,
             'display_rules':{'primary':'downturn scenario weight, rounded to visible whole percent',
               'bands':[{'min':0,'max':19,'headline':'상승 우위'},{'min':20,'max':29,'headline':'재상승 가능성 확대'},
@@ -347,6 +420,12 @@ def build_judgment(root,previous_forecast=None):
             feature['lineage']['finance_v2_validation']='dist/market_judgment_validation.json'
         except Exception as e:
             feature['candidate_research']={'status':'load_error','reason':str(e)[:160]}
+    engine_path=root/'dist/engine_feature_research.json'
+    engine_research={}
+    if engine_path.exists():
+        try:engine_research=json.loads(engine_path.read_text(encoding='utf-8'))
+        except Exception as e:engine_research={'status':'load_error','reason':str(e)[:160]}
+    attach_engine_research_features(feature,research.get('rows') or [],engine_research)
     current=current_state_head(feature,research.get('rows') or [])
     buy=buy_condition_head(feature)
     forward=forward_scenario_head(feature,previous_forecast or {})
@@ -378,8 +457,11 @@ def legacy_forecast_payload(judgment,root):
                   'downturn_confirmation':['월간 가격모멘텀 < 0','3개월 가격모멘텀 < 0','거래 위축 지속','M2/금융여건 동반 둔화'],
                   'current_check':{**feature['components'],'price_mom_pct':feature['price_momentum']['m1_pct'],'momentum_3m_pct':feature['price_momentum']['m3_pct'],
                                    'breadth':feature['signals']['breadth'],'reaccel':feature['signals']['reaccel'],'turn':feature['signals']['turn'],
+                                   'market_strength':(((feature.get('engine_features') or {}).get('market_strength') or {}).get('score_0_100')),
+                                   'market_strength_label':(((feature.get('engine_features') or {}).get('market_strength') or {}).get('label')),
                                    'trade_count_pct':feature['context']['trade_count_pct'],'m2_yoy_pct':feature['context']['m2_yoy_pct'],'mortgage_rate_pct':feature['context']['mortgage_rate_pct'],
                                    'snapshot_id':feature['snapshot_id']}},
-      'price_momentum_overlay':feature['price_momentum']['overlay'],'historical_analogs':analog,'analog_warning':'small sample; analogs are diagnostic only',
+      'price_momentum_overlay':feature['price_momentum']['overlay'],'engine_features':feature.get('engine_features') or {},
+      'historical_analogs':analog,'analog_warning':'small sample; analogs are diagnostic only',
       'long_cycle_guardrail':{'selected_pre2018_only':selected,'sample_is_small':True},
       'unified_snapshot_id':feature['snapshot_id'],'generated_at':judgment.get('generated_at')}
