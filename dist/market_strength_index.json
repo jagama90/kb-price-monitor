@@ -3,8 +3,8 @@
   "version": "market_strength_index_v2",
   "production_formula_changed": true,
   "index_role": "current_state_quality_and_short_horizon_forecast_support",
-  "as_of": "2026-10-09",
-  "snapshot_id": "2026-10-09|KB20260928|R202609",
+  "as_of": "2026-10-10",
+  "snapshot_id": "2026-10-10|KB20261005|R202609",
   "current": {
     "score_0_100": 37.6,
     "display_score": 38,
@@ -21,7 +21,7 @@
     "weakest": {
       "key": "sentiment",
       "label": "심리",
-      "value": 21.2,
+      "value": 21.9,
       "excluded_from_trim": true
     },
     "components": {
@@ -47,7 +47,7 @@
       },
       "sentiment": {
         "label": "심리",
-        "value": 21.2,
+        "value": 21.9,
         "used_in_index": false
       },
       "demand": {
@@ -137,17 +137,17 @@
       },
       "applied": true,
       "baseline_short_horizon": {
-        "consolidation": 34.3,
-        "reacceleration": 30.0,
+        "consolidation": 34.5,
+        "reacceleration": 29.8,
         "downturn": 35.7
       },
       "applied_short_horizon": {
-        "consolidation": 31.6,
-        "reacceleration": 29.4,
+        "consolidation": 31.8,
+        "reacceleration": 29.2,
         "downturn": 39.0
       }
     },
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
   },
-  "generated_at": "2026-10-09T14:50:23.641186+00:00"
+  "generated_at": "2026-10-09T23:17:33.571084+00:00"
 }
