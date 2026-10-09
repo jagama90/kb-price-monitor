@@ -378,5 +378,5 @@
   "apply_recommended": true,
   "gate": "baseline unified gate plus validated engine-feature overlay gate; buy score weights unchanged",
   "no_future_leakage": true,
-  "generated_at": "2026-10-09T14:48:18.010579+00:00"
+  "generated_at": "2026-10-09T14:50:09.189889+00:00"
 }
