@@ -1,13 +1,13 @@
 name: Validate unified market judgment
 on:
+  workflow_run:
+    workflows: ['Engine feature validation']
+    types: [completed]
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
       - '.github/run-validate-market-judgment'
-      - 'scripts/market_judgment_engine.py'
-      - 'scripts/build_market_judgment.py'
-      - 'scripts/validate_market_judgment.py'
-      - 'scripts/test_market_judgment_engine.py'
 permissions:
   contents: write
 concurrency:
@@ -15,14 +15,17 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - name: Unit-test unified engine
-        run: python3 scripts/test_market_judgment_engine.py
+      - name: Unit-test validated unified engine
+        run: |
+          python3 scripts/test_engine_feature_research.py
+          python3 scripts/test_market_judgment_engine.py
       - name: Build unified candidate
         run: python3 scripts/build_market_judgment.py
       - name: Validate candidate

@@ -8,6 +8,7 @@ on:
       - 'scripts/research_engine_feature_candidates.py'
       - 'scripts/test_engine_feature_research.py'
       - 'scripts/market_judgment_engine.py'
+      - 'scripts/build_market_judgment.py'
       - 'scripts/validate_market_judgment.py'
       - 'scripts/test_market_judgment_engine.py'
       - '.github/workflows/engine-feature-validation.yml'
