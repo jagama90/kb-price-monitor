@@ -237,15 +237,13 @@ def attach_engine_research_features(feature,research_rows,engine_research):
     if any(v is None for v in values.values()):
         feature['engine_features']={'status':'data_check','market_strength':{'score_0_100':None,'label':'데이터 확인 중'}}
         return
-    ordered=sorted((k,n(v)) for k,v in values.items(),key=lambda x:x[1])
+    ordered=sorted(((k,n(v)) for k,v in values.items()),key=lambda x:x[1])
     core=ordered[1:-1];strength=sum(v for _,v in core)/len(core)
     cfg=engine_research.get('market_strength') or {}
     lo=n(cfg.get('low_cut'),40);hi=n(cfg.get('high_cut'),55)
     label='약함' if strength<lo else '보통' if strength<hi else '강함'
     overlay_cfg=engine_research.get('forecast_overlay') or {}
     weight=n(overlay_cfg.get('selected_weight')) if overlay_cfg.get('apply_recommended') else 0
-    latest_rows=engine_research.get('rows') or []
-    latest_imp=next((r for r in reversed(latest_rows) if r.get('improving_breadth_3m') is not None),None)
     feature['engine_features']={
       'status':'validated_features_attached',
       'source':'dist/engine_feature_research.json',
@@ -263,11 +261,6 @@ def attach_engine_research_features(feature,research_rows,engine_research):
              'selected':next((x for x in overlay_cfg.get('candidates',[]) if abs(n(x.get('weight'))-weight)<1e-4),None)
           }
         }
-      },
-      'improving_breadth_3m':{
-        'role':'research_transition_context','production_forecast_applied':False,
-        'latest_certified':({'ym':latest_imp.get('ym'),'value_0_100':latest_imp.get('improving_breadth_3m')} if latest_imp else None),
-        'reason':(engine_research.get('improving_breadth_3m') or {}).get('reason')
       },
       'rejected_features':engine_research.get('rejected_features') or []
     }

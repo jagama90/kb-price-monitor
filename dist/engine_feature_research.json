@@ -80,10 +80,9 @@
       ]
     },
     "improving_breadth_3m": {
-      "decision": "selected_research_support",
-      "roles": [
-        "research_transition_context"
-      ]
+      "decision": "rejected",
+      "roles": [],
+      "reason": "failed canonical multi-horizon screening gate"
     },
     "strength_delta_1m": {
       "decision": "rejected",
@@ -112,10 +111,10 @@
     }
   },
   "selected_features": [
-    "market_strength",
-    "improving_breadth_3m"
+    "market_strength"
   ],
   "rejected_features": [
+    "improving_breadth_3m",
     "strength_delta_1m",
     "strength_delta_3m",
     "price_strength_gap",
@@ -124,11 +123,11 @@
   ],
   "market_strength": {
     "apply_recommended": true,
-    "low_cut": 43.7,
-    "high_cut": 49.6,
+    "low_cut": 43.01,
+    "high_cut": 48.37,
     "latest_certified": {
       "ym": "202608",
-      "score_0_100": 42.017
+      "score_0_100": 35.529
     },
     "formula": "trimmed mean of 8 equally-treated 0-100 signals; highest/lowest removed",
     "hand_tuned_weights": false
@@ -183,10 +182,10 @@
     "longer_horizons": "unchanged_until_separately_validated"
   },
   "improving_breadth_3m": {
-    "apply_recommended_for_research": true,
+    "apply_recommended_for_research": false,
     "production_forecast_applied": false,
-    "reason": "standalone predictive relationship survives, but adding it to the short-horizon production blend degraded downside discrimination"
+    "reason": "rejected by canonical multi-horizon screening; retained only in audit metrics"
   },
   "apply_recommended": true,
-  "generated_at": "2026-10-09T14:00:00+00:00"
+  "generated_at": "2026-10-09T14:44:30+00:00"
 }
