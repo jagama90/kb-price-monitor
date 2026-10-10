@@ -1215,6 +1215,87 @@
         },
         "under15_share": 85.6
       }
+    },
+    {
+      "as_of": "2026-10-11",
+      "matched_period": {
+        "as_of": "2026-10-11",
+        "cutoff_day": 11,
+        "basis": "contract_date_equal_calendar_days",
+        "current": {
+          "period": "2026-10",
+          "range": "1~11일",
+          "total": 193,
+          "counts": {
+            "<=9eok": 113,
+            "9-15eok": 53,
+            "15-25eok": 21,
+            "25eok+": 6
+          },
+          "buckets3": {
+            "<=15eok": 166,
+            "15-25eok": 21,
+            "25eok+": 6
+          },
+          "boundary_counts": {
+            "13-15eok": 13,
+            "15-17eok": 8,
+            "23-25eok": 2,
+            "25-27eok": 0
+          },
+          "under15_share": 86.0
+        },
+        "previous": {
+          "period": "2026-09",
+          "range": "1~11일",
+          "total": 1268,
+          "counts": {
+            "<=9eok": 743,
+            "9-15eok": 271,
+            "15-25eok": 176,
+            "25eok+": 78
+          },
+          "buckets3": {
+            "<=15eok": 1014,
+            "15-25eok": 176,
+            "25eok+": 78
+          },
+          "boundary_counts": {
+            "13-15eok": 53,
+            "15-17eok": 57,
+            "23-25eok": 19,
+            "25-27eok": 11
+          },
+          "under15_share": 80.0
+        },
+        "changes": {
+          "trade_count_pct": -84.8,
+          "under15_share_pp": 6.0
+        },
+        "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+      },
+      "current_month": {
+        "period": "2026-10",
+        "total": 193,
+        "counts": {
+          "<=9eok": 113,
+          "9-15eok": 53,
+          "15-25eok": 21,
+          "25eok+": 6
+        },
+        "buckets3": {
+          "<=15eok": 166,
+          "15-25eok": 21,
+          "25eok+": 6
+        },
+        "boundary_counts": {
+          "13-15eok": 13,
+          "15-17eok": 8,
+          "23-25eok": 2,
+          "25-27eok": 0
+        },
+        "under15_share": 86.0
+      }
     }
   ]
 }
