@@ -41,7 +41,7 @@
       <small>● 현재 · ○ 향후 신호 방향 · 미래 확정 위치가 아닙니다</small>
     </div>
     <details class="engine-detail-drawer-v214 research-detail-drawer-v214">
-      <summary><b>수치 · 과거사례 보기</b><span>판단 근거를 펼쳐봅니다</span></summary>
+      <summary><b>판단 근거 보기</b><span>내부 신호와 과거사례</span></summary>
       <div id="currentRegimeEvidence" class="current-regime-evidence-v209" aria-label="현재 국면 수치 근거">
         <div><small>단기 가격</small><b>—</b><span>데이터 확인 중</span></div>
         <div><small>중기 가격</small><b>—</b><span>데이터 확인 중</span></div>
@@ -100,7 +100,7 @@
     </div>
 
     <details class="engine-detail-drawer-v214 forecast-detail-drawer-v214">
-      <summary><b>세부 전망 수치 보기</b><span>시나리오 지지도 · 현재 입력</span></summary>
+      <summary><b>전망 근거 보기</b><span>시나리오 지지도 · 현재 입력</span></summary>
       <div class="forecast-flow forecast-route-v181" id="forecastGrid" aria-label="향후 국면 흐름">
         <div class="forecast-route-node-v181 skeleton"><small>단기</small><b>산출 중</b></div>
         <i>→</i>
@@ -114,13 +114,13 @@
     <div class="buy-condition-strip-v181">
       <div class="buy-condition-line-v181">
         <span>현재 매수환경</span>
-        <b id="conditionScore">산출 준비</b>
-        <i id="conditionDelta" class="condition-delta-v200" hidden></i>
+        <b id="conditionScore" class="condition-score-internal-v218">산출 준비</b>
+        <i id="conditionDelta" class="condition-delta-v200 condition-score-internal-v218" hidden></i>
         <em id="conditionTier" class="score-tier-v140">범주 판독 중</em>
       </div>
-      <div class="condition-meter"><i id="heroMeterFill"></i></div>
+      <div class="condition-meter condition-score-internal-v218"><i id="heroMeterFill"></i></div>
       <p id="heroVerdict" class="condition-verdict">금융·심리·거래·가격·전세 신호를 함께 확인합니다.</p>
-      <p id="conditionChangeReason" class="condition-change-reason-v200" hidden></p>
+      <p id="conditionChangeReason" class="condition-change-reason-v200 condition-score-internal-v218" hidden></p>
       <div class="condition-coverage-v140 condition-health-v181" hidden><span>데이터 연결</span><b id="confidenceScore" class="coverage-badge-v140">확인 중</b></div>
     </div>
 
@@ -240,6 +240,7 @@
     <strong>＋</strong>
   </summary>
   <div class="diagnostics-body-v184">
+    <details class="engine-internal-drawer-v218"><summary>엔진 내부 지표 보기</summary>
     <section class="market-strength-v217" id="marketStrength">
       <div class="market-strength-head-v217"><span><small>원자료를 하나의 값으로 읽으면</small><b>시장 힘 지수</b></span><em id="marketStrengthAsOf">계산 중</em></div>
       <div class="market-strength-hero-v217"><div><strong id="marketStrengthScore">—</strong><small>/100</small></div><span id="marketStrengthLabel">확인 중</span></div>
@@ -248,6 +249,7 @@
       <div class="market-strength-facts-v217"><div><small>과거 위치</small><b id="marketStrengthPercentile">—</b></div><div><small>가장 강한 신호</small><b id="marketStrengthStrongest">—</b></div><div><small>가장 약한 신호</small><b id="marketStrengthWeakest">—</b></div></div>
       <details class="market-strength-detail-v217"><summary>지수 구성 · 과거검증 보기</summary><div id="marketStrengthComponents" class="market-strength-components-v217"></div><p id="marketStrengthValidation">과거검증 확인 중</p></details>
     </section>
+    </details>
     <section class="market-meaning-v211" id="marketMeaning">
       <div class="market-meaning-head-v211">
         <span><small>원자료를 한 번 더 해석하면</small><b>지금 시장이 하는 말</b></span>

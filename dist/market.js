@@ -312,22 +312,23 @@ function renderForecastQuick(horizons=[]){
  const cp=finiteNum(current?.index),move=forecastMovement(cp,pos),cooling=current?.label==='상승'&&cp!=null&&pos<cp-.12;
  curEl.textContent=cooling?'상승 · 둔화 신호':(current?.label||'현재 위치 확인 중');
  dirEl.textContent=move.title;
- supEl.textContent=weak==null?'신호 확인 중':'상승 지속보다 약해지는 쪽 신호 '+Math.round(weak)+'/100';
- supEl.title=(c==null||r==null||d==null)?'':'보합·쉬어가기 '+c.toFixed(1)+' · 재가속 '+r.toFixed(1)+' · 하방 '+d.toFixed(1)+' / 상대 지지도이며 실제 확률이 아닙니다.';
+ const display=h?.display||{};
+ supEl.textContent=display.secondary||'현재 신호를 종합해 가까운 방향을 판단합니다.';
+ supEl.title=(c==null||r==null||d==null)?'':'내부 지지도 · 보합·쉬어가기 '+c.toFixed(1)+' · 재가속 '+r.toFixed(1)+' · 하방 '+d.toFixed(1)+' / 실제 확률이 아닙니다.';
 }
 
 function renderCurrentRegimeEvidence(metrics={}){
  const host=document.getElementById('currentRegimeEvidence');if(!host)return;
- const signedPct=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'};
- const score=v=>{const n=finiteNum(v);return n==null?'—':n.toFixed(1)+'/100'};
- const kb=metrics.price_source==='kb_seoul_weekly';
- const item=(label,value,note)=>'<div><small>'+label+'</small><b>'+value+'</b><span>'+note+'</span></div>';
+ const direction=v=>{const n=finiteNum(v);return n==null?'확인 중':n>.05?'상승':n<-.05?'하락':'보합'};
+ const breadth=finiteNum(metrics.breadth_0_100),reaccel=finiteNum(metrics.reaccel_0_100);
+ const item=(label,value,note,title='')=>'<div'+(title?' title="'+esc(title)+'"':'')+'><small>'+label+'</small><b>'+value+'</b><span>'+note+'</span></div>';
+ const p1=finiteNum(metrics.price_mom_1m_pct),p3=finiteNum(metrics.price_mom_3m_pct);
  host.innerHTML=[
-  item(kb?'4주 가격':'1개월 가격',signedPct(metrics.price_mom_1m_pct),kb?'KB 가격지수 변화':'연구 가격 모멘텀'),
-  item(kb?'13주 가격':'3개월 가격',signedPct(metrics.price_mom_3m_pct),kb?'KB 가격지수 변화':'연구 가격 모멘텀'),
-  item('시장 확산',score(metrics.breadth_0_100),'가속 확인 45+'),
-  item('재가속',score(metrics.reaccel_0_100),'가속 확인 50+'),
-  item('시장 힘',score(metrics.market_strength_0_100),metrics.market_strength_label?('내부 체력 · '+metrics.market_strength_label):'검증된 합성지수')
+  item('단기 가격',direction(p1),'최근 가격 흐름',p1==null?'':((p1>0?'+':'')+p1.toFixed(2)+'%')),
+  item('중기 가격',direction(p3),'누적 가격 흐름',p3==null?'':((p3>0?'+':'')+p3.toFixed(2)+'%')),
+  item('시장 확산',breadth==null?'확인 중':breadth>=45?'확산 확인':'확산 약함','여러 지역 동반 여부',breadth==null?'':breadth.toFixed(1)+'/100'),
+  item('재가속',reaccel==null?'확인 중':reaccel>=50?'재가속 확인':'재가속 약함','상승 속도 재확대 여부',reaccel==null?'':reaccel.toFixed(1)+'/100'),
+  item('시장 힘',metrics.market_strength_label||'확인 중','가격을 내부 신호가 받치는 정도',finiteNum(metrics.market_strength_0_100)==null?'':finiteNum(metrics.market_strength_0_100).toFixed(1)+'/100')
  ].join('');
 }
 async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot first; research fallback only
@@ -352,7 +353,7 @@ async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot
    renderCurrentRegimeEvidence(window.__currentRegimeMetrics);
    renderRegimeMap(stage,window.__forecastMapPosition);
    const displayState=currentPhaseState(stage,window.__currentRegimeMetrics);
-   setText('judgmentCurrentLabel',displayState.label);
+   setText('judgmentCurrentLabel',head.substate||displayState.label);
    setText('cycleStageText',head.summary||displayState.summary);
    document.querySelectorAll('#cycleSteps span').forEach(el=>{const on=Number(el.dataset.displayStage)===displayState.index;el.classList.toggle('active',on);el.setAttribute('aria-current',on?'step':'false')});
    const refBox=document.getElementById('regimeReference');if(refBox&&!refBox.hidden&&window.__selectedRegimeRefStage===stage&&window.__regimeReferences){window.__regimeCompare=true;renderRegimeReference(stage)}
