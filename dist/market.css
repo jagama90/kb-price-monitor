@@ -4118,3 +4118,12 @@ header{position:sticky!important;overflow:visible!important}
 
 /* v219 market-strength is engine-internal only; no standalone score UI */
 .market-strength-v217,.engine-internal-drawer-v218{display:none!important}
+
+/* v220 duplicate-content cleanup */
+.forecast-support-row-v220{display:grid;grid-template-columns:minmax(72px,.7fr) minmax(0,2.3fr);align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #edf1f4}
+.forecast-support-row-v220:last-child{border-bottom:0}
+.forecast-support-row-v220>small{font-size:8px;font-weight:900;color:#718795}
+.forecast-support-row-v220 .forecast-support-v209{margin:0}
+@media(max-width:420px){
+ .forecast-support-row-v220{grid-template-columns:1fr;gap:5px;padding:8px 0}
+}

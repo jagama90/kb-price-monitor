@@ -303,20 +303,6 @@ function renderForecastJourney(horizons=[]){
  const firstMove=forecastMovement(currentPos,rows[0].pos),lastLabel=forecastAxisLabel(rows.at(-1).pos);
  summary.textContent=firstMove.title+(rows.length>1?' → '+lastLabel+'권':'');
 }
-function renderForecastQuick(horizons=[]){
- const curEl=document.getElementById('forecastCurrentPosition'),dirEl=document.getElementById('forecastPrimaryDirection'),supEl=document.getElementById('forecastPrimarySupport');
- if(!curEl||!dirEl||!supEl)return;
- const current=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{}),h=(horizons||[])[0],pos=forecastMapPosition(h);
- if(!h||finiteNum(pos)==null){curEl.textContent=current?.label||'현재 위치 확인 중';dirEl.textContent='전망 데이터 확인 중';supEl.textContent='신호 확인 중';return}
- const c=finiteNum(h?.weights?.consolidation),r=finiteNum(h?.weights?.reacceleration),d=finiteNum(h?.weights?.downturn),weak=(c==null||d==null)?null:c+d;
- const cp=finiteNum(current?.index),move=forecastMovement(cp,pos),cooling=current?.label==='상승'&&cp!=null&&pos<cp-.12;
- curEl.textContent=cooling?'상승 · 둔화 신호':(current?.label||'현재 위치 확인 중');
- dirEl.textContent=move.title;
- const display=h?.display||{};
- supEl.textContent=display.secondary||'현재 신호를 종합해 가까운 방향을 판단합니다.';
- supEl.title=(c==null||r==null||d==null)?'':'내부 지지도 · 보합·쉬어가기 '+c.toFixed(1)+' · 재가속 '+r.toFixed(1)+' · 하방 '+d.toFixed(1)+' / 실제 확률이 아닙니다.';
-}
-
 function renderCurrentRegimeEvidence(metrics={}){
  const host=document.getElementById('currentRegimeEvidence');if(!host)return;
  const direction=v=>{const n=finiteNum(v);return n==null?'확인 중':n>.05?'상승':n<-.05?'하락':'보합'};
@@ -488,13 +474,7 @@ async function renderRegimeForecast(){
   window.__forecastMapPosition=hs.length?forecastMapPosition(hs[0]):null;
   renderRegimeMap(window.__currentCycleStage,window.__forecastMapPosition);
   renderForecastJourney(hs);
-  renderForecastQuick(hs);
-  const currentState=currentPhaseState(window.__currentCycleStage,window.__currentRegimeMetrics||{});
-  if(currentState.label==='상승'&&finiteNum(window.__forecastMapPosition)!=null&&window.__forecastMapPosition<currentState.index-.12){
-   setText('judgmentCurrentLabel','상승 · 둔화 신호');
-  }
-  const nodes=hs.map((h,i)=>({label:h.label||h.period,headline:displays[i]?.headline||'방향 확인 중',tone:displays[i]?.tone||'mixed',support:supportPanel(h.weights||{})}));
-  host.innerHTML=nodes.map((n,i)=>'<div class="forecast-route-node-v181 tone-'+esc(n.tone)+'"><small>'+esc(n.label)+'</small><b>'+esc(n.headline)+'</b>'+n.support+'</div>'+(i<nodes.length-1?'<i class="forecast-route-arrow-v181">→</i>':'')).join('');
+  host.innerHTML=hs.map((h,i)=>'<div class="forecast-support-row-v220"><small>'+esc(h.label||h.period||('구간 '+(i+1)))+'</small>'+supportPanel(h.weights||{})+'</div>').join('');
   if(drivers){
    const check=d.triggers?.current_check||{},ov=d.price_momentum_overlay||{};
    const items=[
@@ -511,7 +491,7 @@ async function renderRegimeForecast(){
   if(meta){meta.hidden=true;meta.textContent='현재 판단에 사용한 연구 데이터 '+fmtMonth(d.latest_research_month)+(d.latest_research_provisional?' · 잠정':'')+' · 검증 완료 '+fmtMonth(d.latest_certified_backtest_month)+'까지';}
   const hb=document.getElementById('hubBacktestMeta');if(hb)hb.textContent='인증 '+fmtMonth(d.latest_certified_backtest_month)+' · 연구 '+fmtMonth(d.latest_research_month);
  }catch(e){
-  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';renderForecastJourney([]);renderForecastQuick([]);if(drivers)drivers.textContent='전망 근거 데이터를 확인하고 있습니다.';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
+  console.warn('forecast render',e);host.innerHTML='<div class="forecast-route-node-v181"><small>전망엔진</small><b>데이터 확인 중</b></div>';renderForecastJourney([]);if(drivers)drivers.textContent='전망 근거 데이터를 확인하고 있습니다.';if(meta){meta.hidden=false;meta.textContent='전망 데이터를 확인하고 있습니다.';}
  }
 }
 renderRegimeForecast();
@@ -1016,31 +996,6 @@ const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addE
  try{const last=JSON.parse(localStorage.getItem(LAST_KEY)||'null');if(last)draw(last.requestedIso,last.actionIso,last.completedIso);const x=JSON.parse(sessionStorage.getItem(PENDING_KEY)||'null');if(x&&Date.now()-Number(x.requestedAt||0)<20*60*1000){btn.disabled=true;btn.textContent='↻ 갱신 중';setTimeout(()=>wait(x).catch(e=>{set(e?.message||'검증 반영 확인 중 오류가 발생했습니다.','error');btn.disabled=false;btn.textContent='↻ 다시 시도'}),500)}else if(x)sessionStorage.removeItem(PENDING_KEY)}catch{}
 })();
 
-/* v211 plain-language market interpretation */
-async function loadMarketInterpretation(){
- const box=document.getElementById('marketMeaning');if(!box)return;
- try{
-  const r=await fetch('market_interpretation.json?v='+Date.now(),{cache:'no-store'});
-  if(!r.ok)throw Error('market interpretation '+r.status);
-  const d=await r.json(),c=d.current||{},v=d.validation||{};
-  setText('meaningFlow',c.flow||'확인 중');
-  setText('meaningStrength',c.strength||'확인 중');
-  setText('meaningTurn',c.turn_sign||'확인 중');
-  setText('meaningVoice',c.data_voice||'확인 중');
-  setText('marketMeaningSummary',c.summary||'시장 해석을 확인하고 있습니다.');
-  setText('marketMeaningAsOf',c.as_of?sourcePeriodFmt(c.as_of):'날짜 미확인');
-  const reasons=document.getElementById('marketMeaningReasons');
-  if(reasons)reasons.innerHTML=(c.reasons||[]).map(x=>'<div class="market-meaning-reason-v211"><small>'+esc(x.label||'')+'</small><b>'+esc(x.value||'확인 중')+'</b><em>'+esc(x.detail||'')+'</em></div>').join('');
-  const strong=v.strong_uptrend?.fwd_3m,weak=v.weak_uptrend?.fwd_3m,ve=document.getElementById('marketMeaningValidation');
-  if(ve){
-   if(v.status==='historically_supported'&&strong?.mean_pct!=null&&weak?.mean_pct!=null)ve.textContent='과거검증 참고 · 힘이 강했던 상승 구간의 이후 3개월 평균 '+(strong.mean_pct>0?'+':'')+strong.mean_pct+'% · 힘이 약했던 상승 구간 '+(weak.mean_pct>0?'+':'')+weak.mean_pct+'% · 예측확률 아님';
-   else ve.textContent='과거검증 표본 확인 중 · 현재 판단의 새 점수로 사용하지 않음';
-  }
- }catch(e){
-  console.error(e);
-  setText('marketMeaningSummary','시장 해석 데이터 확인 중');
- }
-}
-loadMarketInterpretation();
+
 
 
