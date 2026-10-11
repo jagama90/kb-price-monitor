@@ -25,7 +25,9 @@ required=['conditionScore','scoreFinance','scoreSentiment','scoreDemand','scoreV
           'backtestScope','backtestCertified','backtestCorr',
           'sourceMolitStatus','sourceKbStatus','sourceEcosStatus','sourceWatchStatus',
           'conditionTier','confidenceScore','validationUnsold','validationUnsoldPeriod',
-          'b15all','b15to25','b25p','currentRegimeEvidence','forecastDrivers','rebCrosscheck',\n          'probabilityResearch','probabilityForecast','upProbCurrent','upProbHistory','upProbForecastPath',\n          'upProbCurrentSummary','upProbForecastSummary','upProbInputs','upProbAlternatives','upProbValidation','upProbForecastValidation']
+          'b15all','b15to25','b25p','currentRegimeEvidence','forecastDrivers','rebCrosscheck',
+          'probabilityResearch','probabilityForecast','upProbCurrent','upProbHistory','upProbForecastPath',
+          'upProbCurrentSummary','upProbForecastSummary','upProbInputs','upProbAlternatives','upProbValidation','upProbForecastValidation']
 for x in required:
     if ids.count(x)!=1: errors.append(f'required id {x}: expected 1, got {ids.count(x)}')
 
@@ -46,7 +48,8 @@ block=js[a:b] if a>=0 and b>a else ''
 for forbidden in ['.onclick=','.onkeydown=','.after(panel)','appendChild(panel)']:
     if forbidden in block: errors.append('legacy score handler still present: '+forbidden)
 
-if not (R/'dist/regime_forecast.json').exists(): errors.append('regime_forecast.json missing')\nif not (R/'dist/upside_probability_engine.json').exists(): errors.append('upside_probability_engine.json missing')
+if not (R/'dist/regime_forecast.json').exists(): errors.append('regime_forecast.json missing')
+if not (R/'dist/upside_probability_engine.json').exists(): errors.append('upside_probability_engine.json missing')
 # The former standalone Garak long-term chart was intentionally removed; the
 # watchlist-wide KB history remains the canonical history source.
 if '가락금호 24A · KB 장기 추이' in html:
@@ -312,6 +315,7 @@ if '.legacy-engine-v221{display:none!important}' not in _css:
     errors.append('legacy engine blocks are not hidden')
 if '12개월' not in html or '검증 중' not in html:
     errors.append('unvalidated 12m horizon must be explicit in probability UI')
-\npayload={'status':'ok' if not errors else 'failed','checks':'all-dashboard-contracts','errors':errors}
+
+payload={'status':'ok' if not errors else 'failed','checks':'all-dashboard-contracts','errors':errors}
 print(json.dumps(payload,ensure_ascii=False))
 if errors: sys.exit(1)

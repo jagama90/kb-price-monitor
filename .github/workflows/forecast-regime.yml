@@ -29,7 +29,9 @@ jobs:
           python3 scripts/build_market_interpretation.py
           python3 scripts/build_market_strength_index.py
           python3 scripts/test_market_interpretation.py
-          python3 scripts/test_market_strength_index.py\n          python3 scripts/build_upside_probability_engine.py\n          python3 scripts/test_upside_probability_engine.py
+          python3 scripts/test_market_strength_index.py
+          python3 scripts/build_upside_probability_engine.py
+          python3 scripts/test_upside_probability_engine.py
       - name: Validate forecast bundle contract
         run: |
           node --check dist/market.js
@@ -70,7 +72,9 @@ jobs:
           python3 scripts/build_market_interpretation.py
           python3 scripts/test_market_interpretation.py
           python3 scripts/build_market_strength_index.py
-          python3 scripts/test_market_strength_index.py\n          python3 scripts/build_upside_probability_engine.py\n          python3 scripts/test_upside_probability_engine.py
+          python3 scripts/test_market_strength_index.py
+          python3 scripts/build_upside_probability_engine.py
+          python3 scripts/test_upside_probability_engine.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 - <<'PY'
