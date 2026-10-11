@@ -336,7 +336,7 @@ expected_fetch_assets={
     'buy_watchlist_targets.json','market_indicators.json','final_backtest.json',
     'turning_signal_research.json','regime_forecast.json','garak_geumho_24a_history.json',
     'market_extensions.json','kb_watchlist_weekly_change.json','regime_reference_examples.json',
-    'market_judgment.json','common_feature_layer_v2.json','market_interpretation.json','market_strength_index.json'
+    'market_judgment.json','common_feature_layer_v2.json','market_interpretation.json'
 }
 if fetch_assets!=expected_fetch_assets:
     errors.append('dashboard fetch asset set changed without lineage review: '+str(sorted(fetch_assets^expected_fetch_assets)))
