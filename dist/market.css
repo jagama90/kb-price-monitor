@@ -4115,3 +4115,6 @@ header{position:sticky!important;overflow:visible!important}
  .buy-condition-line-v181 #conditionTier{font-size:10px}
  .current-regime-evidence-v209{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* v219 market-strength is engine-internal only; no standalone score UI */
+.market-strength-v217,.engine-internal-drawer-v218{display:none!important}

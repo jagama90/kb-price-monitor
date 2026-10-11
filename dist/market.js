@@ -327,8 +327,7 @@ function renderCurrentRegimeEvidence(metrics={}){
   item('단기 가격',direction(p1),'최근 가격 흐름',p1==null?'':((p1>0?'+':'')+p1.toFixed(2)+'%')),
   item('중기 가격',direction(p3),'누적 가격 흐름',p3==null?'':((p3>0?'+':'')+p3.toFixed(2)+'%')),
   item('시장 확산',breadth==null?'확인 중':breadth>=45?'확산 확인':'확산 약함','여러 지역 동반 여부',breadth==null?'':breadth.toFixed(1)+'/100'),
-  item('재가속',reaccel==null?'확인 중':reaccel>=50?'재가속 확인':'재가속 약함','상승 속도 재확대 여부',reaccel==null?'':reaccel.toFixed(1)+'/100'),
-  item('시장 힘',metrics.market_strength_label||'확인 중','가격을 내부 신호가 받치는 정도',finiteNum(metrics.market_strength_0_100)==null?'':finiteNum(metrics.market_strength_0_100).toFixed(1)+'/100')
+  item('재가속',reaccel==null?'확인 중':reaccel>=50?'재가속 확인':'재가속 약함','상승 속도 재확대 여부',reaccel==null?'':reaccel.toFixed(1)+'/100')
  ].join('');
 }
 async function renderCycleStage(jg=window.__marketJudgment){ // unified snapshot first; research fallback only
@@ -503,7 +502,6 @@ async function renderRegimeForecast(){
     ['13주 가격',signedPct(ov.kb_13w_pct,2)],
     ['시장 확산',score(check.breadth)],
     ['재가속',score(check.reaccel)],
-    ['시장 힘',score(check.market_strength)],
     ['거래량',signedPct(check.trade_count_pct,1)],
     ['M2 전년비',signedPct(check.m2_yoy_pct,1)],
     ['주담대',plainPct(check.mortgage_rate_pct,2)]
@@ -1045,4 +1043,4 @@ async function loadMarketInterpretation(){
 }
 loadMarketInterpretation();
 
-async function loadMarketStrengthIndex(){const box=document.getElementById('marketStrength');if(!box)return;try{const r=await fetch('market_strength_index.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('market strength '+r.status);const d=await r.json(),c=d.current||{},v=d.validation||{};setText('marketStrengthScore',c.display_score??'—');setText('marketStrengthLabel',c.label||'확인 중');setText('marketStrengthAsOf',d.as_of?sourcePeriodFmt(d.as_of):'날짜 미확인');setText('marketStrengthSummary',c.summary||'시장 힘을 확인하고 있습니다.');setText('marketStrengthPercentile',c.historical_percentile!=null?'과거 하위 '+Math.round(c.historical_percentile)+'% 수준':'—');setText('marketStrengthStrongest',c.strongest?.label?c.strongest.label+' '+Math.round(c.strongest.value):'—');setText('marketStrengthWeakest',c.weakest?.label?c.weakest.label+' '+Math.round(c.weakest.value):'—');const fill=document.getElementById('marketStrengthFill');if(fill)fill.style.width=Math.max(0,Math.min(100,Number(c.score_0_100)||0))+'%';const el=document.getElementById('marketStrengthComponents');if(el)el.innerHTML=Object.values(c.components||{}).map(x=>'<div><small>'+esc(x.label||'')+'</small><b>'+esc(String(x.value??'—'))+'</b><em>'+(x.used_in_index?'지수에 반영':'극단값 제외')+'</em></div>').join('');const g=v.groups||{},lo=g.low||{},mi=g.mid||{},hi=g.high||{};setText('marketStrengthValidation',v.monotonic?'과거 '+v.n+'개월 · 낮은 구간 이후 3개월 평균 '+lo.fwd3_avg_pct+'% / 중간 '+mi.fwd3_avg_pct+'% / 높은 구간 '+hi.fwd3_avg_pct+'% · 예측확률 아님':'과거검증 확인 중')}catch(e){console.error(e);setText('marketStrengthSummary','시장 힘 지수 데이터 확인 중')}}loadMarketStrengthIndex();
+

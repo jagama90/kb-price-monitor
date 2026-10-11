@@ -287,7 +287,7 @@ def current_state_head(feature,research_rows):
     elif stage==2:summary='가격 하락이 멈추는 신호가 나타나 바닥 여부를 확인하는 구간입니다.'
     elif divergence:
         if strength_label=='약함' and strength_score is not None:
-            summary=f'가격 상승은 유지되지만 시장 확산·재가속과 시장 힘({strength_score:.1f}/100)이 약해 상승 내부의 둔화 가능성을 함께 봅니다.'
+            summary='가격 상승은 유지되지만 시장 확산·재가속과 내부 지지력이 약해 상승 내부의 둔화 가능성을 함께 봅니다.'
         else:
             summary='가격 상승 모멘텀은 유지되지만 시장 확산·재가속 확인은 약해 상승·보합 내 확인 전 구간으로 봅니다.'
     elif stage==3:
