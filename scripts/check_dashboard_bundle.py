@@ -60,7 +60,8 @@ for rid in ('nextSignals','hubWatchMeta','hubBacktestMeta','diagnostics','market
 for rid in ('storyHeadline','storySummary','hubDriversMeta','hubValidationMeta','driverLive','forecastHeadline','forecastTrend'):
     if ids.count(rid)!=0: errors.append(f'retired presentation id returned: {rid}')
 if len(re.findall(r'class="[^"]*\bscore-component\b[^"]*"',html))!=5: errors.append('reason drawer must contain five factor rows')
-if 'forecast-route-v181' not in html or 'forecast-route-node-v181' not in js: errors.append('research-to-forecast route renderer missing')
+if 'forecastJourney' not in html or 'renderForecastJourney' not in js: errors.append('research-to-forecast journey renderer missing')
+if 'forecast-support-row-v220' not in js: errors.append('forecast detail must add support data instead of repeating journey headlines')
 if 'impactFinance' not in html or 'impactSentiment' not in html or 'impactDemand' not in html or 'impactValue' not in html or 'impactSupply' not in html:
     errors.append('meaning-first factor impacts missing')
 if html.count('class="card user-market-v184"')!=1: errors.append('personal market layer missing or duplicated')
@@ -240,8 +241,10 @@ if "s===window.__currentCycleStage" not in js: errors.append('current phase must
 
 # v181 forecast-language contract
 if 'forecast-guide-v181' not in html: errors.append('forecast reading guide missing')
-if "const nodes=hs.map" not in js: errors.append('forecast route must contain future horizons only')
-if "nodes=[{label:'현재'" in js: errors.append('forecast route must not duplicate the research-engine current phase')
+if 'forecastCurrentPosition' in html or 'renderForecastQuick' in js:
+    errors.append('forecast must not duplicate the research-engine current phase')
+if "setText('judgmentCurrentLabel','상승 · 둔화 신호')" in js:
+    errors.append('forecast must not overwrite the research-engine current label')
 if "실제 발생확률" not in html or "상대 지지점수" not in html: errors.append('forecast score explanation must be user-readable')
 if 'current-regime-evidence-v209' not in html or 'renderCurrentRegimeEvidence' not in js:
     errors.append('current regime numeric evidence missing')
@@ -267,8 +270,8 @@ for _id in ('forecastJourney','forecastJourneySteps','forecastJourneySummary'):
     if f'id="{_id}"' not in html: errors.append(f'forecast journey element missing: {_id}')
 if 'renderForecastJourney' not in js or 'forecastMovement' not in js or 'forecastAxisLabel' not in js:
     errors.append('forecast narrative path renderer missing')
-if "상승 · 둔화 신호" not in js:
-    errors.append('current rising phase must expose forecast slowdown signal when applicable')
+if '상승 강도가 한 단계 약해지는 흐름' not in js:
+    errors.append('forecast journey must expose slowdown direction when applicable')
 
 # v155 comparable-current momentum + brand refresh
 if 'id="brandHome"' not in html: errors.append('header brand refresh control missing')
