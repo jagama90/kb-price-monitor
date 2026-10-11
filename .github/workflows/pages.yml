@@ -33,7 +33,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  # A skipped workflow_run must not cancel an in-progress static UI deployment.
+  group: pages-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
