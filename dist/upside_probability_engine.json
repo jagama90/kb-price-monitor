@@ -1,0 +1,368 @@
+{
+  "status": "validated_probability_engine",
+  "version": "upside_probability_v1",
+  "no_future_leakage": true,
+  "scope": {
+    "market_scope_id": "seoul_city",
+    "data_scope": "Seoul",
+    "market_scope": "city",
+    "region": {
+      "code": "1100000000",
+      "label": "서울"
+    },
+    "district_focus": {
+      "code": "1171000000",
+      "label": "송파"
+    },
+    "complex_focus": {
+      "label": "관심단지"
+    },
+    "display_path": [
+      "서울",
+      "송파",
+      "관심단지"
+    ],
+    "dimensions": [
+      "region",
+      "market_scope",
+      "district",
+      "complex",
+      "price_tier"
+    ]
+  },
+  "definition": {
+    "question": "현재/향후 해당 기간의 시장가격이 통계적 보합 범위를 넘어 상승할 가능성",
+    "classes": [
+      "up",
+      "flat",
+      "down"
+    ],
+    "flat_band_method": "25th percentile of absolute forward price changes, frozen using observations before 2012 only",
+    "flat_band_pct": {
+      "1": 0.18,
+      "3": 0.457,
+      "6": 1.089,
+      "12": 1.658
+    },
+    "probability_type": "expanding historical-analog empirical probability with Dirichlet(1,1,1) smoothing"
+  },
+  "model": {
+    "features": [
+      "price_momentum_1m",
+      "price_momentum_3m"
+    ],
+    "current_feature_mapping": {
+      "price_momentum_1m": "REB weekly sale 4w momentum",
+      "price_momentum_3m": "REB weekly sale 13w momentum"
+    },
+    "selection_period": "2012-01..2017-12",
+    "holdout_period": "2018-01+",
+    "selected_k": {
+      "1": 10,
+      "3": 25,
+      "6": 25,
+      "12": 25
+    },
+    "target_maturity_rule": "historical row enters training only after t+h is available"
+  },
+  "validation": {
+    "1": {
+      "status": "validated",
+      "selected_k": 10,
+      "selection": {
+        "n": 72,
+        "multiclass_brier": 0.406,
+        "base_brier": 0.634,
+        "up_auc": 0.854
+      },
+      "holdout": {
+        "n": 102,
+        "multiclass_brier": 0.263,
+        "base_brier": 0.571,
+        "up_auc": 0.958,
+        "up_ece": 0.152
+      }
+    },
+    "3": {
+      "status": "validated",
+      "selected_k": 25,
+      "selection": {
+        "n": 72,
+        "multiclass_brier": 0.494,
+        "base_brier": 0.573,
+        "up_auc": 0.803
+      },
+      "holdout": {
+        "n": 100,
+        "multiclass_brier": 0.381,
+        "base_brier": 0.542,
+        "up_auc": 0.869,
+        "up_ece": 0.072
+      }
+    },
+    "6": {
+      "status": "validated",
+      "selected_k": 25,
+      "selection": {
+        "n": 72,
+        "multiclass_brier": 0.518,
+        "base_brier": 0.567,
+        "up_auc": 0.829
+      },
+      "holdout": {
+        "n": 97,
+        "multiclass_brier": 0.458,
+        "base_brier": 0.496,
+        "up_auc": 0.723,
+        "up_ece": 0.124
+      }
+    },
+    "12": {
+      "status": "rejected",
+      "selected_k": 25,
+      "selection": {
+        "n": 72,
+        "multiclass_brier": 0.477,
+        "base_brier": 0.422,
+        "up_auc": 0.893
+      },
+      "holdout": {
+        "n": 91,
+        "multiclass_brier": 0.487,
+        "base_brier": 0.473,
+        "up_auc": 0.627
+      },
+      "reason": "frozen selection and holdout Brier both fail baseline"
+    }
+  },
+  "candidate_screen": {
+    "1": {
+      "price_momentum": {
+        "selected_k": 10,
+        "holdout_brier": 0.263,
+        "holdout_up_auc": 0.958,
+        "decision": "selected"
+      },
+      "price_plus_trade": {
+        "selected_k": 15,
+        "holdout_brier": 0.325,
+        "holdout_up_auc": 0.918,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      },
+      "price_plus_m2": {
+        "selected_k": 15,
+        "holdout_brier": 0.356,
+        "holdout_up_auc": 0.899,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      },
+      "price_trade_m2": {
+        "selected_k": 20,
+        "holdout_brier": 0.382,
+        "holdout_up_auc": 0.886,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      }
+    },
+    "3": {
+      "price_momentum": {
+        "selected_k": 25,
+        "holdout_brier": 0.381,
+        "holdout_up_auc": 0.869,
+        "decision": "selected"
+      },
+      "price_plus_trade": {
+        "selected_k": 25,
+        "holdout_brier": 0.415,
+        "holdout_up_auc": 0.818,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      },
+      "price_plus_m2": {
+        "selected_k": 25,
+        "holdout_brier": 0.449,
+        "holdout_up_auc": 0.796,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      },
+      "price_trade_m2": {
+        "selected_k": 15,
+        "holdout_brier": 0.492,
+        "holdout_up_auc": 0.727,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      }
+    },
+    "6": {
+      "price_momentum": {
+        "selected_k": 25,
+        "holdout_brier": 0.458,
+        "holdout_up_auc": 0.723,
+        "decision": "selected"
+      },
+      "price_plus_trade": {
+        "selected_k": 15,
+        "holdout_brier": 0.461,
+        "holdout_up_auc": 0.709,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      },
+      "price_plus_m2": {
+        "selected_k": 25,
+        "holdout_brier": 0.51,
+        "holdout_up_auc": 0.7,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      },
+      "price_trade_m2": {
+        "selected_k": 10,
+        "holdout_brier": 0.537,
+        "holdout_up_auc": 0.612,
+        "decision": "rejected",
+        "reason": "did not beat price-momentum model on frozen validation protocol"
+      }
+    }
+  },
+  "rejected_inputs": [
+    {
+      "feature": "trade",
+      "reason": "price+trade failed to improve frozen holdout probability metrics"
+    },
+    {
+      "feature": "M2",
+      "reason": "price+M2 failed to improve frozen holdout probability metrics"
+    },
+    {
+      "feature": "market_strength",
+      "reason": "recent validation showed probability Brier deterioration; retained only inside legacy engine context"
+    }
+  ],
+  "current": {
+    "status": "ok",
+    "as_of": "20260928",
+    "horizon_months": 1,
+    "source": "REB weekly sale index",
+    "probabilities": {
+      "up": 69.2,
+      "flat": 23.1,
+      "down": 7.7
+    },
+    "inputs": {
+      "price_momentum_4w_pct": 0.58,
+      "price_momentum_13w_pct": 2.93
+    },
+    "training_observations": 243,
+    "k": 10,
+    "nearest_analogs": [
+      "202508",
+      "201810",
+      "202602",
+      "202410",
+      "202111",
+      "202511"
+    ]
+  },
+  "history": [
+    {
+      "label": "1년 전",
+      "ym": "202509",
+      "probabilities": {
+        "up": 76.9,
+        "flat": 15.4,
+        "down": 7.7
+      },
+      "inputs": {
+        "price_momentum_1m_pct": 0.58,
+        "price_momentum_3m_pct": 2.17
+      }
+    },
+    {
+      "label": "6개월 전",
+      "ym": "202603",
+      "probabilities": {
+        "up": 46.2,
+        "flat": 46.2,
+        "down": 7.7
+      },
+      "inputs": {
+        "price_momentum_1m_pct": 0.34,
+        "price_momentum_3m_pct": 2.17
+      }
+    },
+    {
+      "label": "3개월 전",
+      "ym": "202606",
+      "probabilities": {
+        "up": 84.6,
+        "flat": 7.7,
+        "down": 7.7
+      },
+      "inputs": {
+        "price_momentum_1m_pct": 1.21,
+        "price_momentum_3m_pct": 2.84
+      }
+    },
+    {
+      "label": "현재",
+      "ym": "202609",
+      "probabilities": {
+        "up": 69.2,
+        "flat": 23.1,
+        "down": 7.7
+      },
+      "inputs": {
+        "price_momentum_4w_pct": 0.58,
+        "price_momentum_13w_pct": 2.93
+      }
+    }
+  ],
+  "forecast": {
+    "3": {
+      "status": "validated",
+      "probabilities": {
+        "up": 75,
+        "flat": 17.9,
+        "down": 7.1
+      },
+      "training_observations": 241,
+      "k": 25,
+      "nearest_analogs": [
+        "202508",
+        "201810",
+        "202602",
+        "202410",
+        "202111",
+        "202511"
+      ]
+    },
+    "6": {
+      "status": "validated",
+      "probabilities": {
+        "up": 71.4,
+        "flat": 14.3,
+        "down": 14.3
+      },
+      "training_observations": 238,
+      "k": 25,
+      "nearest_analogs": [
+        "202508",
+        "201810",
+        "202410",
+        "202111",
+        "202001",
+        "202511"
+      ]
+    },
+    "12": {
+      "status": "not_validated",
+      "probabilities": null,
+      "reason": "12m model failed frozen selection/holdout Brier gate"
+    }
+  },
+  "lineage": {
+    "long_history": "dist/long_cycle_master.json",
+    "current_market": "dist/market_indicators.json"
+  },
+  "generated_at": "2026-10-11T09:30:00+00:00"
+}

@@ -22,7 +22,55 @@
 <nav><a href="#overview">시장 판단</a><a href="#marketContext">내가 보는 시장</a><a href="#diagnostics">검증·원자료</a></nav>
 </header><main>
 <section id="overview" class="card market-judgment-v1 market-judgment-v181">
-  <div class="judgment-block-v1 judgment-current-v1 research-engine-v181">
+  <section class="probability-engine-v221 probability-research-v221" id="probabilityResearch">
+    <div class="probability-head-v221">
+      <div><small>연구엔진 · 현재</small><h2>상승 확률</h2></div>
+      <em id="upProbAsOf">기준일 확인 중</em>
+    </div>
+    <div class="probability-hero-v221">
+      <div class="probability-number-v221"><strong id="upProbCurrent">—</strong><span>%</span></div>
+      <div class="probability-copy-v221">
+        <b id="upProbCurrentTrend">현재 상승 가능성을 계산하고 있습니다.</b>
+        <p id="upProbCurrentSummary">과거 같은 시장 흐름에서 상승이 얼마나 자주 이어졌는지 확인합니다.</p>
+      </div>
+    </div>
+    <small class="probability-definition-v221">현재 시점에서 향후 1개월 시장가격이 통계적 보합 범위를 넘어 상승할 모델 확률</small>
+    <div class="probability-history-v221" id="upProbHistory" aria-label="과거 상승 확률 변화">
+      <div><small>1년 전</small><b>—</b></div><i>→</i>
+      <div><small>6개월 전</small><b>—</b></div><i>→</i>
+      <div><small>3개월 전</small><b>—</b></div><i>→</i>
+      <div class="current"><small>현재</small><b>—</b></div>
+    </div>
+    <details class="probability-detail-v221">
+      <summary><b>왜 이 확률인가?</b><span>입력 · 보합/하락 · 과거검증</span></summary>
+      <div class="probability-reasons-v221">
+        <article><small>현재 가격 흐름</small><b id="upProbInputs">데이터 확인 중</b><span>검증에서 살아남은 핵심 입력</span></article>
+        <article><small>현재 다른 가능성</small><b id="upProbAlternatives">—</b><span>상승·보합·하락 합계 100%</span></article>
+        <article><small>검증 결과</small><b id="upProbValidation">확인 중</b><span id="upProbValidationMeta">walk-forward 검증</span></article>
+      </div>
+      <p id="upProbRejected">후보 입력 성능을 비교하고 있습니다.</p>
+    </details>
+  </section>
+
+  <section class="probability-engine-v221 probability-forecast-v221" id="probabilityForecast">
+    <div class="probability-head-v221">
+      <div><small>전망엔진 · 앞으로</small><h2>상승 확률 전망</h2></div>
+      <em>현재 정보 기준</em>
+    </div>
+    <div class="probability-forecast-path-v221" id="upProbForecastPath">
+      <div class="anchor"><small>현재</small><b>—</b></div><i>→</i>
+      <div><small>3개월</small><b>—</b></div><i>→</i>
+      <div><small>6개월</small><b>—</b></div><i>→</i>
+      <div class="unverified"><small>12개월</small><b>검증 중</b></div>
+    </div>
+    <p class="probability-forecast-summary-v221" id="upProbForecastSummary">향후 상승 확률 경로를 계산하고 있습니다.</p>
+    <details class="probability-detail-v221">
+      <summary><b>확률 검증 보기</b><span>기간별 성능 · 상승/보합/하락</span></summary>
+      <div id="upProbForecastValidation" class="probability-validation-grid-v221"></div>
+      <p class="probability-note-v221">확률은 당시 이용 가능했던 데이터만 사용한 과거 유사국면 빈도로 검증합니다. 12개월처럼 기준을 통과하지 못한 기간은 숫자를 표시하지 않습니다.</p>
+    </details>
+  </section>
+  <div class="judgment-block-v1 judgment-current-v1 research-engine-v181 legacy-engine-v221" aria-hidden="true">
     <div class="engine-kicker-v181">연구엔진 · 지금 어디인가?</div>
     <div class="current-phase-v181">
       <small>현재 국면</small>
@@ -72,7 +120,7 @@
     </div>
   </div>
 
-  <div class="judgment-block-v1 judgment-forward-v1 forecast-compact-mobile forecast-engine-v181" id="regimeForecast">
+  <div class="judgment-block-v1 judgment-forward-v1 forecast-compact-mobile forecast-engine-v181 legacy-engine-v221" id="regimeForecast" aria-hidden="true">
     <div class="engine-kicker-v181">전망엔진 · 앞으로 어디로 갈까?</div>
 
     <div id="forecastJourney" class="forecast-journey-v216" aria-label="향후 시장 흐름">

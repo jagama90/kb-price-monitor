@@ -999,3 +999,72 @@ const brandHome=document.getElementById('brandHome');if(brandHome)brandHome.addE
 
 
 
+
+/* v221 probability-first research/forecast engines */
+async function loadUpsideProbabilityEngine(){
+ const research=document.getElementById('probabilityResearch'),forecast=document.getElementById('probabilityForecast');
+ if(!research||!forecast)return;
+ const pct=v=>{const n=finiteNum(v);return n==null?'—':Math.round(n)+'%'};
+ const signed=v=>{const n=finiteNum(v);return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'};
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+ const deltaText=(now,prev)=>{
+   const a=finiteNum(now),b=finiteNum(prev);if(a==null||b==null)return'비교 기준 확인 중';
+   const d=a-b;if(Math.abs(d)<.5)return'3개월 전과 비슷한 수준입니다.';
+   return '3개월 전보다 '+Math.abs(d).toFixed(0)+'%p '+(d>0?'높아졌습니다.':'낮아졌습니다.');
+ };
+ try{
+   const d=await fetch('upside_probability_engine.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('probability '+r.status);return r.json()});
+   const cur=d.current||{},cp=cur.probabilities||{},history=d.history||[],byLabel=Object.fromEntries(history.map(x=>[x.label,x]));
+   set('upProbCurrent',cp.up==null?'—':Math.round(cp.up));
+   set('upProbAsOf',cur.as_of?String(cur.as_of).replace(/^(\d{4})(\d{2})(\d{2})$/,'$1.$2.$3'):'날짜 미확인');
+   const p3ago=byLabel['3개월 전']?.probabilities?.up,p6ago=byLabel['6개월 전']?.probabilities?.up;
+   set('upProbCurrentTrend',deltaText(cp.up,p3ago));
+   if(cp.up!=null&&p6ago!=null){
+     const d6=cp.up-p6ago;
+     set('upProbCurrentSummary','현재 상승 확률은 3개월 전 '+pct(p3ago)+'에서 '+pct(cp.up)+'로 낮아졌고, 6개월 전 '+pct(p6ago)+'보다는 '+(d6>=0?'높습니다.':'낮습니다.'));
+   }else set('upProbCurrentSummary','현재 상승 확률의 과거 변화를 확인하고 있습니다.');
+   const hist=document.getElementById('upProbHistory');
+   if(hist){
+     const order=['1년 전','6개월 전','3개월 전','현재'];
+     hist.innerHTML=order.map((label,i)=>{
+       const x=byLabel[label]||{},v=x.probabilities?.up,ym=String(x.ym||'');
+       const period=ym.length===6?ym.slice(0,4)+'.'+ym.slice(4):'';
+       return '<div class="'+(label==='현재'?'current':'')+'"><small>'+esc(label)+(period?' · '+esc(period):'')+'</small><b>'+pct(v)+'</b></div>'+(i<order.length-1?'<i>→</i>':'');
+     }).join('');
+   }
+   const inp=cur.inputs||{};
+   set('upProbInputs','4주 '+signed(inp.price_momentum_4w_pct)+' · 13주 '+signed(inp.price_momentum_13w_pct));
+   set('upProbAlternatives','보합 '+pct(cp.flat)+' · 하락 '+pct(cp.down));
+   const v1=d.validation?.['1']||{},h1=v1.holdout||{};
+   set('upProbValidation',h1.up_auc==null?'검증 확인 중':'AUC '+Number(h1.up_auc).toFixed(3)+' · Brier '+Number(h1.multiclass_brier).toFixed(3));
+   set('upProbValidationMeta',h1.n?'2018+ 독립검증 '+h1.n+'개월 · ECE '+(h1.up_ece==null?'—':Number(h1.up_ece).toFixed(3)):'walk-forward 검증');
+   const rejected=(d.rejected_inputs||[]).map(x=>x.feature).join(' · ');
+   set('upProbRejected',rejected?'거래·유동성 등도 후보로 검증했지만 확률 성능을 개선하지 못해 제외했습니다: '+rejected:'추가 후보 입력 검증 결과를 확인 중입니다.');
+
+   const f3=d.forecast?.['3']||{},f6=d.forecast?.['6']||{},f12=d.forecast?.['12']||{},path=document.getElementById('upProbForecastPath');
+   if(path){
+     const node=(label,value,cls='')=>'<div class="'+cls+'"><small>'+label+'</small><b>'+value+'</b></div>';
+     path.innerHTML=node('현재',pct(cp.up),'anchor')+'<i>→</i>'+node('3개월',f3.probabilities?pct(f3.probabilities.up):'확인 중')+'<i>→</i>'+node('6개월',f6.probabilities?pct(f6.probabilities.up):'확인 중')+'<i>→</i>'+node('12개월',f12.status==='not_validated'?'검증 부족':(f12.probabilities?pct(f12.probabilities.up):'확인 중'),'unverified');
+   }
+   const p3=finiteNum(f3.probabilities?.up),p6=finiteNum(f6.probabilities?.up),pc=finiteNum(cp.up);
+   if(pc!=null&&p3!=null&&p6!=null){
+     let msg=p3>pc+.5?'3개월 구간에서는 현재보다 상승 가능성이 높아집니다.':p3<pc-.5?'3개월 구간에서는 현재보다 상승 가능성이 낮아집니다.':'3개월 구간은 현재와 비슷한 수준입니다.';
+     msg+=' 6개월은 '+pct(p6)+'로 '+(p6<p3-.5?'3개월 전망보다 다소 낮아집니다.':p6>p3+.5?'3개월 전망보다 높아집니다.':'3개월 전망과 비슷합니다.');
+     set('upProbForecastSummary',msg);
+   }else set('upProbForecastSummary','향후 상승 확률 입력을 확인하고 있습니다.');
+
+   const valHost=document.getElementById('upProbForecastValidation');
+   if(valHost){
+     valHost.innerHTML=['1','3','6','12'].map(h=>{
+       const v=d.validation?.[h]||{},hold=v.holdout||{},label=h==='1'?'현재·1개월':h+'개월';
+       if(v.status!=='validated')return '<article class="not-validated"><small>'+label+'</small><b>검증 부족</b><span>확률 미표시</span></article>';
+       return '<article><small>'+label+'</small><b>AUC '+esc(String(hold.up_auc??'—'))+'</b><span>Brier '+esc(String(hold.multiclass_brier??'—'))+' · 기준 '+esc(String(hold.base_brier??'—'))+'</span></article>';
+     }).join('');
+   }
+ }catch(e){
+   console.error('upside probability engine',e);
+   set('upProbCurrent','—');set('upProbCurrentTrend','확률 데이터 확인 중');set('upProbCurrentSummary','상승 확률 엔진 데이터를 확인하고 있습니다.');
+   set('upProbForecastSummary','상승 확률 전망 데이터를 확인하고 있습니다.');
+ }
+}
+loadUpsideProbabilityEngine();

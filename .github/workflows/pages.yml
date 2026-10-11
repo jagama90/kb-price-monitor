@@ -17,7 +17,7 @@ on:
       - 'scripts/test_market_interpretation.py'
       - 'scripts/build_market_interpretation.py'
       - 'scripts/build_market_strength_index.py'
-      - 'scripts/test_market_strength_index.py'
+      - 'scripts/test_market_strength_index.py'\n      - 'scripts/build_upside_probability_engine.py'\n      - 'scripts/test_upside_probability_engine.py'
       - 'scripts/check_dashboard_bundle.py'
       - 'scripts/check_pipeline_health.py'
       - 'scripts/check_render_safety.py'
@@ -52,7 +52,7 @@ jobs:
           python3 scripts/test_engine_feature_research.py
           python3 scripts/test_market_judgment_engine.py
           python3 scripts/test_market_interpretation.py
-          python3 scripts/test_market_strength_index.py
+          python3 scripts/test_market_strength_index.py\n          python3 scripts/build_upside_probability_engine.py\n          python3 scripts/test_upside_probability_engine.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_render_safety.py
@@ -64,7 +64,7 @@ jobs:
           test -f "site/market.$v.html"
           grep -q "market.$v.html" site/index.html
           grep -q "market.$v.html" site/market.html
-          grep -q "id=\"rawIntegrated\"" "site/market.$v.html"
+          grep -q "id=\"rawIntegrated\"" "site/market.$v.html"\n          grep -q "id=\"probabilityResearch\"" "site/market.$v.html"\n          grep -q "id=\"probabilityForecast\"" "site/market.$v.html"
       - uses: actions/configure-pages@v6
         with:
           enablement: true

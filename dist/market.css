@@ -4127,3 +4127,63 @@ header{position:sticky!important;overflow:visible!important}
 @media(max-width:420px){
  .forecast-support-row-v220{grid-template-columns:1fr;gap:5px;padding:8px 0}
 }
+
+/* v221 probability-first research / forecast presentation */
+.legacy-engine-v221{display:none!important}
+.probability-engine-v221{padding:22px 0}
+.probability-engine-v221+.probability-engine-v221{border-top:1px solid #e6edf2}
+.probability-head-v221{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}
+.probability-head-v221 small{display:block;color:#718697;font-size:12px;font-weight:900}
+.probability-head-v221 h2{margin:4px 0 0;color:#12344c;font-size:22px;letter-spacing:-.035em}
+.probability-head-v221 em{font-size:9px;font-style:normal;color:#93a1ab;white-space:nowrap}
+.probability-hero-v221{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;padding:18px;border:1px solid #dfe8ee;border-radius:20px;background:#fbfdfe}
+.probability-number-v221{display:flex;align-items:baseline;gap:4px;min-width:122px}
+.probability-number-v221 strong{font-size:52px;line-height:1;color:#12344c;letter-spacing:-.055em}
+.probability-number-v221 span{font-size:17px;color:#657b8a;font-weight:800}
+.probability-copy-v221 b{display:block;color:#29485c;font-size:15px;line-height:1.4}
+.probability-copy-v221 p{margin:7px 0 0;color:#667c8b;font-size:11px;line-height:1.65;word-break:keep-all}
+.probability-definition-v221{display:block;margin:8px 2px 0;color:#8a99a4;font-size:8px;line-height:1.45}
+.probability-history-v221{display:grid;grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr) 18px minmax(0,1fr) 18px minmax(0,1fr);gap:5px;align-items:center;margin-top:16px}
+.probability-history-v221>div{min-width:0;padding:12px 10px;border-radius:14px;background:#f6f9fb;text-align:center}
+.probability-history-v221>div.current{background:#eef6fa;border:1px solid #d3e5ee}
+.probability-history-v221 small,.probability-history-v221 b{display:block}
+.probability-history-v221 small{font-size:7px;color:#81929d;white-space:nowrap}
+.probability-history-v221 b{margin-top:4px;font-size:18px;color:#24465c}
+.probability-history-v221>i{font-style:normal;text-align:center;color:#9aabb5;font-size:12px}
+.probability-detail-v221{margin-top:14px;border-top:1px solid #e7edf1;padding-top:10px}
+.probability-detail-v221>summary{cursor:pointer;font-size:10px;font-weight:900;color:#547386}
+.probability-detail-v221>summary span{margin-left:7px;font-size:8px;font-weight:700;color:#91a0aa}
+.probability-reasons-v221,.probability-validation-grid-v221{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.probability-reasons-v221 article,.probability-validation-grid-v221 article{padding:11px;border-radius:13px;background:#f7f9fb;min-width:0}
+.probability-reasons-v221 small,.probability-reasons-v221 b,.probability-reasons-v221 span,.probability-validation-grid-v221 small,.probability-validation-grid-v221 b,.probability-validation-grid-v221 span{display:block}
+.probability-reasons-v221 small,.probability-validation-grid-v221 small{font-size:7px;color:#8a99a3}
+.probability-reasons-v221 b,.probability-validation-grid-v221 b{margin-top:4px;font-size:11px;line-height:1.35;color:#29495d;word-break:keep-all}
+.probability-reasons-v221 span,.probability-validation-grid-v221 span{margin-top:4px;font-size:7px;line-height:1.45;color:#96a3ac}
+.probability-detail-v221>p{margin:9px 1px 0;font-size:8px;line-height:1.55;color:#81929e;word-break:keep-all}
+.probability-forecast-path-v221{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr) 20px minmax(0,1fr) 20px minmax(0,1fr);gap:6px;align-items:center;padding:16px;border:1px solid #dfe8ee;border-radius:20px;background:#fff}
+.probability-forecast-path-v221>div{padding:13px 8px;border-radius:14px;background:#f6f9fb;text-align:center}
+.probability-forecast-path-v221>div.anchor{background:#eef6fa}.probability-forecast-path-v221>div.unverified{background:#fafafa}
+.probability-forecast-path-v221 small,.probability-forecast-path-v221 b{display:block}.probability-forecast-path-v221 small{font-size:8px;color:#80919c}.probability-forecast-path-v221 b{margin-top:4px;font-size:19px;color:#24465c}.probability-forecast-path-v221 .unverified b{font-size:12px;color:#8b98a1}
+.probability-forecast-path-v221>i{font-style:normal;text-align:center;color:#8ea3af}
+.probability-forecast-summary-v221{margin:12px 2px 0;color:#3e5a6d;font-size:12px;font-weight:800;line-height:1.65;word-break:keep-all}
+.probability-validation-grid-v221{grid-template-columns:repeat(4,minmax(0,1fr))}
+.probability-validation-grid-v221 article.not-validated{opacity:.72}
+.probability-note-v221{color:#8b9aa4!important}
+@media(max-width:520px){
+ .probability-engine-v221{padding:18px 0}
+ .probability-head-v221 h2{font-size:20px}
+ .probability-hero-v221{grid-template-columns:1fr;gap:10px;padding:15px}
+ .probability-number-v221{min-width:0}
+ .probability-number-v221 strong{font-size:48px}
+ .probability-history-v221{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+ .probability-history-v221>i{display:none}
+ .probability-history-v221>div{padding:10px 5px}
+ .probability-history-v221 small{font-size:6.5px}
+ .probability-history-v221 b{font-size:16px}
+ .probability-forecast-path-v221{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:12px}
+ .probability-forecast-path-v221>i{display:none}
+ .probability-forecast-path-v221>div{padding:11px 4px}
+ .probability-forecast-path-v221 b{font-size:17px}
+ .probability-reasons-v221{grid-template-columns:1fr}
+ .probability-validation-grid-v221{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

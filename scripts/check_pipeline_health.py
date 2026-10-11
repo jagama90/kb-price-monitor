@@ -336,7 +336,7 @@ expected_fetch_assets={
     'buy_watchlist_targets.json','market_indicators.json','final_backtest.json',
     'turning_signal_research.json','regime_forecast.json','garak_geumho_24a_history.json',
     'market_extensions.json','kb_watchlist_weekly_change.json','regime_reference_examples.json',
-    'market_judgment.json','common_feature_layer_v2.json'
+    'market_judgment.json','common_feature_layer_v2.json','upside_probability_engine.json'
 }
 if fetch_assets!=expected_fetch_assets:
     errors.append('dashboard fetch asset set changed without lineage review: '+str(sorted(fetch_assets^expected_fetch_assets)))
@@ -384,7 +384,7 @@ lineage=[
     ('final_backtest.json','final','dist/final_backtest.json'),
     ('turning_signal_research.json','research','dist/turning_signal_research.json'),
     ('engine_feature_research.json','research','dist/engine_feature_research.json'),
-    ('regime_forecast.json','forecast','dist/regime_forecast.json'),
+    ('regime_forecast.json','forecast','dist/regime_forecast.json'),\n    ('upside_probability_engine.json','forecast','dist/upside_probability_engine.json'),
     ('garak_geumho_24a_history.json','parallel','dist/garak_geumho_24a_history.json'),
     ('garak_geumho_24a_history.json','weekly','dist/garak_geumho_24a_history.json'),
     ('market_extensions.json','extensions','dist/market_extensions.json'),
