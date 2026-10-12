@@ -214,11 +214,10 @@ def main():
             if not areas: continue
         else:
             areas=target_types(x,target_for(x,targets))
-            # Use the exact same representative-area rule as the live watchlist
-            # and monthly history: largest household count within the user's target group.
-            # This prevents ask/listing fields from being merged onto a different type.
+            # Within the explicitly selected pyeong group, prefer A, then B, then C.
+            # Exact area_ids, when supplied, remain authoritative; never mix area prices.
             if areas:
-                areas=[max(areas,key=lambda z:(int(z.get('type_households') or 0),-int(z.get('area_id') or 0)))]
+                areas=[min(areas,key=lambda z:(re.sub(r'^\d+(?:\.\d+)?', '', str(z.get('type_label') or '')).upper() or 'ZZ',-int(z.get('type_households') or 0),int(z.get('area_id') or 0)))]
         try:
             page.goto(f'https://kbland.kr/se/c/{cid}',wait_until='domcontentloaded',timeout=20000); page.wait_for_timeout(1200)
             for z in areas:
