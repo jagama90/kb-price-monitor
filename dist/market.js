@@ -542,7 +542,7 @@ async function loadMarketExtensions(){
   set('breadthHeadline',regionLabel+' '+count(s25.up)+'/'+count(s25.count)+'개 권역 상승');
   set('breadthGangnam','강남3구 '+count(g3.up)+'/'+count(g3.count)+'↑');
   set('breadthNonGangnam','비강남 '+count(ng.up)+'/'+count(ng.count)+'↑');
-  set('breadthSongpa',districtLabel+' '+pct(songpa.change_pct));set('breadthAsOf','기준 '+(d.current?.breadth?.as_of||d.current?.as_of||'날짜 미확인')+' · 원천 갱신 시 반영');
+  set('breadthSongpa',districtLabel+' '+pct(songpa.change_pct));set('breadthAsOf','기준 '+(d.current?.breadth?.date?sourcePeriodFmt(d.current.breadth.date):'날짜 미확인')+' · 원천 갱신 시 반영');
   const fill=document.getElementById('breadthFill');if(fill)fill.style.width=(up==null?0:Math.max(0,Math.min(100,up)))+'%';
   set('contextBreadthBadge',up==null?'데이터 확인 중':up>=75?'확산 강함':up>=45?'확산 혼조':'확산 약함');
 
