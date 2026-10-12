@@ -99,11 +99,24 @@ jobs:
             scripts/collect_types.py \
             scripts/collect_seoul.py \
             scripts/build_buy_watchlist_master.py
-      - name: Validate two live KB market samples
+      - name: Verify three exact KB listing-average API samples
         run: |
           pip install playwright
           playwright install chromium
           python3 scripts/collect_public_market.py --sample
+          python3 - <<'PY'
+          import json
+          d=json.load(open('data/market_sample_validation.json',encoding='utf-8'))
+          expected={(1960,1847),(1947,1835),(1082473,1703286)}
+          rows={(int(x['complex_id']),int(x['area_id'])):x for x in d.get('items',[])}
+          if d.get('validation_status')!='pass':
+              raise SystemExit('KB listing API sample not verified: '+str(d.get('validation_status')))
+          for key in expected:
+              row=rows.get(key)
+              if not row or row.get('avg_ask_manwon') is None or row.get('listing_source_status')!='api_verified':
+                  raise SystemExit(f'KB API exact-area source missing for {key}')
+          print('KB BasePrcInfoNew source contract: 3 exact areas verified')
+          PY
       - name: Validate exact-area lightweight collector
         env:
           KB_AUTH_TOKEN: ${{ secrets.KB_AUTH_TOKEN }}
