@@ -214,12 +214,21 @@ def kb_listing_average(payload):
     visit(payload)
     return values[0] if values and len(set(values)) == 1 else None
 
-def kb_api_matches(url,complex_id,area_id):
-    """Match exact ID values from KB's encoded BasePrcInfoNew query."""
-    from urllib.parse import urlsplit,parse_qsl
-    if '/land-price/price/BasePrcInfoNew' not in url:return False
-    tokens={piece for _,val in parse_qsl(urlsplit(url).query) for piece in re.findall(r'\d+',val)}
-    return str(complex_id) in tokens and str(area_id) in tokens
+def fetch_exact_kb_average(page,complex_id,area_id):
+    """Call the KB endpoint observed in browser DevTools for the exact selected type."""
+    url='https://api.kbland.kr/land-price/price/BasePrcInfoNew'
+    params={'부동산기본일련번호':int(complex_id),'면적일련번호':int(area_id)}
+    response=page.context.request.get(
+        url,params=params,
+        headers={'Origin':'https://kbland.kr','Referer':'https://kbland.kr/'},
+        timeout=15000)
+    if not response.ok:
+        raise RuntimeError(f'KB BasePrcInfoNew HTTP {response.status}')
+    result=response.json()
+    value=kb_listing_average(result)
+    if value is None:
+        raise RuntimeError('KB BasePrcInfoNew sale average missing or ambiguous')
+    return value
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--sample',action='store_true'); args=ap.parse_args()
@@ -231,8 +240,6 @@ def main():
     items=[]; errors=[]; validated=0
     sample_pairs={(1960,1847),(1947,1835),(1082473,1703286)}
     pw=sync_playwright().start(); browser=pw.chromium.launch(headless=True); page=browser.new_page(locale='ko-KR',viewport={'width':5000,'height':1800}); page.set_default_timeout(5000)
-    kb_responses=[]
-    page.on('response',lambda r: kb_responses.append(r) if '/land-price/price/BasePrcInfoNew' in r.url and r.status==200 else None)
     for x in d['items']:
         cid=x.get('complex_id')
         if not cid: continue
@@ -246,39 +253,23 @@ def main():
             if areas:
                 areas=[min(areas,key=lambda z:(re.sub(r'^\d+(?:\.\d+)?', '', str(z.get('type_label') or '')).upper() or 'ZZ',-int(z.get('type_households') or 0),int(z.get('area_id') or 0)))]
         try:
-            kb_responses.clear()
             page.goto(f'https://kbland.kr/se/c/{cid}',wait_until='domcontentloaded',timeout=20000); page.wait_for_timeout(1200)
             for z in areas:
                 try:
                     select_type(page,z.get('type_label'),z); v=parse_selected(page,cid,x.get('user_name') or x.get('kb_name'),z)
-                    page.wait_for_timeout(300)
-                    exact=[r for r in kb_responses if kb_api_matches(r.url,cid,z.get('area_id'))]
-                    api_values=[]
-                    for response in exact:
-                        try:
-                            n=kb_listing_average(response.json())
-                            if n is not None:api_values.append(n)
-                        except Exception:pass
-                    if (int(cid),int(z.get('area_id') or 0)) in sample_pairs:
-                        from urllib.parse import urlsplit,parse_qsl
-                        captures=[]
-                        for resp in kb_responses:
-                            q=urlsplit(resp.url)
-                            numeric_values=[v for _,v in parse_qsl(q.query) if v.isdigit()]
-                            captures.append({'path':q.path,'numeric_query_values':numeric_values[-4:]})
-                        print(json.dumps({'reference_complex':cid,'reference_area':z.get('area_id'),
-                            'response_count':len(kb_responses),'matching_responses':len(exact),
-                            'api_candidates':api_values,'dom_average':v.get('avg_ask_manwon'),
-                            'api_requests':captures[-3:]},ensure_ascii=False),flush=True)
-                    if api_values:
-                        api_value=api_values[-1]
+                    try:
+                        api_value=fetch_exact_kb_average(page,cid,z.get('area_id'))
                         if v.get('avg_ask_manwon') is not None:
                             v['kb_api_dom_gap_manwon']=api_value-int(v['avg_ask_manwon'])
                         v['avg_ask_manwon']=api_value
                         v['listing_metric_source']='KB BasePrcInfoNew / 매물매매평균가'
-                    else:
+                        v['listing_source_status']='api_verified'
+                    except Exception as source_error:
                         v['avg_ask_manwon']=None
-                        v['listing_metric_source']='KB BasePrcInfoNew unavailable (unverified)'
+                        v['listing_metric_source']='KB BasePrcInfoNew (unverified)'
+                        if (int(cid),int(z.get('area_id') or 0)) in sample_pairs:
+                            print(json.dumps({'reference_complex':cid,'reference_area':z.get('area_id'),
+                                'api_error':str(source_error)},ensure_ascii=False),flush=True)
                     prev=old.get((str(cid),str(z.get('area_id'))),{})
                     if prev and v['avg_ask_manwon'] is not None and prev.get('avg_ask_manwon') is not None: v['avg_ask_week_delta_manwon']=v['avg_ask_manwon']-prev['avg_ask_manwon']
                     if prev and v['sale_listing_count'] is not None and prev.get('sale_listing_count') is not None: v['sale_listing_week_delta']=v['sale_listing_count']-prev['sale_listing_count']
