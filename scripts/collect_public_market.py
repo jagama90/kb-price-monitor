@@ -259,6 +259,17 @@ def main():
                             n=kb_listing_average(response.json())
                             if n is not None:api_values.append(n)
                         except Exception:pass
+                    if (int(cid),int(z.get('area_id') or 0)) in sample_pairs:
+                        from urllib.parse import urlsplit,parse_qsl
+                        captures=[]
+                        for resp in kb_responses:
+                            q=urlsplit(resp.url)
+                            numeric_values=[v for _,v in parse_qsl(q.query) if v.isdigit()]
+                            captures.append({'path':q.path,'numeric_query_values':numeric_values[-4:]})
+                        print(json.dumps({'reference_complex':cid,'reference_area':z.get('area_id'),
+                            'response_count':len(kb_responses),'matching_responses':len(exact),
+                            'api_candidates':api_values,'dom_average':v.get('avg_ask_manwon'),
+                            'api_requests':captures[-3:]},ensure_ascii=False),flush=True)
                     if api_values:
                         api_value=api_values[-1]
                         if v.get('avg_ask_manwon') is not None:
