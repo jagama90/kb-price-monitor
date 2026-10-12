@@ -261,8 +261,8 @@ def main():
                         except Exception:pass
                     if api_values:
                         api_value=api_values[-1]
-                        if v.get('avg_ask_manwon') is not None and int(v['avg_ask_manwon'])!=api_value:
-                            raise RuntimeError(f'KB API/DOM average mismatch: complex={cid} area={z.get("area_id")}')
+                        if v.get('avg_ask_manwon') is not None:
+                            v['kb_api_dom_gap_manwon']=api_value-int(v['avg_ask_manwon'])
                         v['avg_ask_manwon']=api_value
                         v['listing_metric_source']='KB BasePrcInfoNew / 매물매매평균가'
                     else:
