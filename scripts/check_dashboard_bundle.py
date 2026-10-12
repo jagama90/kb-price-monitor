@@ -69,7 +69,7 @@ if 'impactFinance' not in html or 'impactSentiment' not in html or 'impactDemand
     errors.append('meaning-first factor impacts missing')
 if html.count('class="card user-market-v184"')!=1: errors.append('personal market layer missing or duplicated')
 if html.count('class="card diagnostics-v184"')!=1: errors.append('diagnostics layer missing or duplicated')
-if html.count('class="market-context-card-v184"')!=3: errors.append('market context must be exactly three compact summaries')
+if html.count('class="market-context-card-v184"')!=1: errors.append('market context must have exactly one compact breadth summary')
 if 'class="decision-brief decision-brief-v2"' in html: errors.append('retired weekly brief panel returned')
 if 'class="deep-v4"' in html or 'class="deep-row-v4"' in html or 'class="deep-summary-v4"' in html:
     errors.append('retired deep-analysis hierarchy returned')
@@ -151,9 +151,8 @@ cssv=re.search(r'market\.css\?v=([^"]+)',html)
 if not jsv or not cssv: errors.append('asset cache versions missing')
 
 # market context extension contract
-for rid in ('marketContext','contextRegionBreadthLabel','contextDistrictStrengthLabel','contextBreadthBadge','breadthHeadline','breadthFill','breadthGangnam','breadthNonGangnam','breadthSongpa',
-            'temperatureHeadline','tempSeoul','tempSongpa','tempGap','affordHeadline','affordRate','affordPayment','affordChange',
-            'affordBenchmark','contextValidation','rawTradeLabel','validationUnsoldLabel'):
+for rid in ('marketContext','contextRegionBreadthLabel','contextBreadthBadge','breadthHeadline','breadthFill','breadthGangnam','breadthNonGangnam','breadthSongpa',
+            'breadthAsOf','contextValidation','rawTradeLabel','validationUnsoldLabel'):
     if ids.count(rid)!=1: errors.append(f'market context id {rid}: expected 1, got {ids.count(rid)}')
 if 'market_extensions.json' not in js or 'loadMarketExtensions()' not in js:
     errors.append('market extension loader missing')
