@@ -25,6 +25,7 @@ on:
       - 'scripts/check_render_safety.py'
       - 'scripts/prepare_pages.py'
       - '.github/workflows/pages.yml'
+      - '.github/workflows/upside-prospective-evaluation.yml'
   workflow_dispatch:
 
 permissions:

@@ -38,3 +38,6 @@ August price momentum: 1 month +1.0519%, 3 months +3.5702%.
 - .github/workflows/upside-prospective-evaluation.yml : lightweight source-update hook, no external collection or heavy data pipelines.
 
 Scope is metadata from the REB source, not a geographic formula constant. The R-ONE monthly source collection itself must keep running for new data to arrive.
+
+## Future source receipt automation (2026-10-12 addition)
+Scheduled R-ONE refresh runs monthly on the 22nd at 06:30 KST through the existing production-secret RONE_API_KEY, and persists data_sources/reb_long_cycle.json **only when underlying price/trade observations changed**. The workflow confirms full source status and non-regression of month coverage. When collection is delayed or fails, it does not write fabricated data or advance the journal. Existing-source push events also run the shadow evaluation independently, with no collector in the push case. A Git blob SHA fingerprints source contents in each newly captured snapshot. This is monthly collection only and does not execute heavy dashboard refreshes.

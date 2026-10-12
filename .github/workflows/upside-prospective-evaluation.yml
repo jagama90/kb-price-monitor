@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'data_sources/reb_long_cycle.json'
+  schedule:
+    - cron: '30 21 21 * *' # 22nd, 06:30 KST; after monthly index release window
   workflow_dispatch:
 
 permissions:
@@ -17,22 +19,48 @@ concurrency:
 jobs:
   shadow:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Verify frozen protocol and point-in-time rules
+      - name: Sync latest main before optional source collection
+        run: git pull --ff-only origin main
+      - name: Collect R-ONE monthly source only on scheduled runs
+        if: github.event_name == 'schedule'
+        env:
+          RONE_API_KEY: ${{ secrets.RONE_API_KEY }}
+        run: |
+          test -n "$RONE_API_KEY" || { echo 'RONE_API_KEY is missing'; exit 1; }
+          python3 scripts/collect_reb_long_cycle.py
+          python3 - <<'PY'
+          import json,pathlib,subprocess
+          path=pathlib.Path('data_sources/reb_long_cycle.json')
+          old_bytes=subprocess.check_output(['git','show','HEAD:data_sources/reb_long_cycle.json'])
+          old=json.loads(old_bytes)
+          new=json.loads(path.read_text(encoding='utf-8'))
+          assert new.get('status')=='full', 'new R-ONE collection not full; keep last-good'
+          prior=(old.get('series') or {}).get('price') or []
+          current=(new.get('series') or {}).get('price') or []
+          assert prior and current and len(current)>=len(prior), 'R-ONE price coverage regressed'
+          assert current[-1]['ym']>=prior[-1]['ym'], 'R-ONE latest price month regressed'
+          if all((old.get('series') or {}).get(key)==(new.get('series') or {}).get(key)
+                 for key in ('price','trade')):
+              path.write_bytes(old_bytes)
+              print('No new monthly price/trade observations: preserve prior source and timestamp')
+          else:
+              print('New R-ONE source observations or corrections received')
+          PY
+      - name: Verify frozen protocol and no-future-label rules
         run: python3 scripts/test_upside_prospective_evaluation.py
-      - name: Append only newly matured actuals and live shadow forecasts
+      - name: Append only genuinely matured outcomes and unfutured predictions
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git pull --ff-only origin main
-          python3 scripts/evaluate_upside_prospective.py --update --source-commit "$(git rev-parse HEAD)"
+          python3 scripts/evaluate_upside_prospective.py --update --source-commit "$(git hash-object data_sources/reb_long_cycle.json)"
           python3 scripts/test_upside_prospective_evaluation.py
-          git add -f research/upside_prospective_journal.json research/upside_prospective_report.json
+          git add -f data_sources/reb_long_cycle.json research/upside_prospective_journal.json research/upside_prospective_report.json
           git diff --cached --quiet && exit 0
-          git commit -m 'Append prospective upside shadow evidence'
+          git commit -m 'Append monthly R-ONE prospective upside evidence'
           git push origin HEAD:main
