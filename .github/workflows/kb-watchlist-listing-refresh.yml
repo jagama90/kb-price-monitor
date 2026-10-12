@@ -1,0 +1,80 @@
+name: KB watchlist listing refresh
+# Lightweight watchlist-only KB source collection; does not rerun macro collectors.
+on:
+  schedule:
+    - cron: '10 23 * * *' # Every day 08:10 KST
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_public_market.py'
+      - 'scripts/merge_weekly_listing_snapshot.py'
+      - '.github/workflows/kb-watchlist-listing-refresh.yml'
+permissions:
+  contents: write
+concurrency:
+  group: kb-watchlist-listing-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  listing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare KB public page collector
+        run: |
+          pip install playwright
+          playwright install chromium
+      - name: Collect live KB average asking prices
+        shell: bash
+        run: |
+          set +e
+          python3 scripts/collect_public_market.py
+          code=$?
+          set -e
+          echo "collector_exit=$code"
+          if [ -f data/buy_watchlist_market.json ]; then
+            cp data/buy_watchlist_market.json /tmp/kb-listing-candidate.json
+          fi
+          # The collector uses a provisional output. Merge only the verified
+          # sale averages onto the newest main snapshot below.
+          git restore data/buy_watchlist_market.json dist/buy_watchlist_market.json
+      - name: Merge only successful source rows
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git pull --ff-only origin main
+          if [ -f /tmp/kb-listing-candidate.json ]; then
+            python3 - <<'PY'
+          import json
+          d=json.load(open('/tmp/kb-listing-candidate.json',encoding='utf-8'))
+          rows={(int(x['complex_id']),int(x['area_id'])):x for x in d.get('items',[]) if x.get('complex_id') and x.get('area_id')}
+          targets={(1947,1835):'24',(1960,1847):'24A',(1082473,1703286):'25A'}
+          matched=[]
+          for key,label in targets.items():
+              row=rows.get(key)
+              if row and row.get('type_label')==label and row.get('avg_ask_manwon') is not None:
+                  matched.append({'complex_id':key[0],'area_id':key[1],'type':label,'avg_ask_manwon':row['avg_ask_manwon']})
+          print(json.dumps({'matched_reference_areas':matched,'matched_count':len(matched),'collector_rows':len(rows),'errors':len(d.get('errors') or [])},ensure_ascii=False))
+          if not matched:
+              raise SystemExit('No live source data for any of the three reference areas')
+          PY
+            python3 scripts/merge_weekly_listing_snapshot.py --source /tmp/kb-listing-candidate.json
+          else
+            python3 scripts/merge_weekly_listing_snapshot.py --mark-failed
+          fi
+          python3 scripts/check_render_safety.py
+          python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_pipeline_health.py
+          git add data/buy_watchlist_market.json dist/buy_watchlist_market.json
+          if git diff --cached --quiet; then
+            echo 'No listing snapshot change'
+            exit 0
+          fi
+          git commit -m 'Refresh daily KB watchlist listing averages'
+          git push origin HEAD:main

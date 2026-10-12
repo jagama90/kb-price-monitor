@@ -194,7 +194,7 @@ def parse_selected(page,cid,name,a):
     expected=a.get('general_price_manwon')
     if expected is not None and kb is not None and int(expected)!=int(kb):
         raise RuntimeError(f'KB price/type validation failed area={a.get("area_id")} label={a.get("type_label")} expected={expected} got={kb}')
-    return {'complex_id':cid,'area_id':a.get('area_id'),'type_label':a.get('type_label'),'name':name,'sale_listing_count':cnt,'avg_ask_manwon':avg,'recent_trade_manwon':recent,'recent_trade_date':date,'kb_general_check_manwon':kb,'market_scope':'target_area_id'}
+    return {'complex_id':cid,'area_id':a.get('area_id'),'type_label':a.get('type_label'),'name':name,'sale_listing_count':cnt,'avg_ask_manwon':avg,'recent_trade_manwon':recent,'recent_trade_date':date,'kb_general_check_manwon':kb,'market_scope':'target_area_id','listing_metric_source':'KB public complex page / 매매 / 매물평균가'}
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--sample',action='store_true'); args=ap.parse_args()
@@ -204,7 +204,7 @@ def main():
         try: old={(str(x['complex_id']),str(x.get('area_id'))):x for x in json.loads(OUT.read_text()).get('items',[])}
         except Exception: pass
     items=[]; errors=[]; validated=0
-    sample_pairs={(1960,1847),(1947,1835)}
+    sample_pairs={(1960,1847),(1947,1835),(1082473,1703286)}
     pw=sync_playwright().start(); browser=pw.chromium.launch(headless=True); page=browser.new_page(locale='ko-KR',viewport={'width':5000,'height':1800}); page.set_default_timeout(5000)
     for x in d['items']:
         cid=x.get('complex_id')
@@ -245,7 +245,12 @@ def main():
             # Dynamic contract only: parse_selected already verifies the live KB
             # general price against the current master row. Asking price and trade
             # values are market data and must never be hard-coded in a sample test.
-            if x.get('kb_general_check_manwon') is None:
+            if x.get('avg_ask_manwon') is None:
+                bad.append(f'{key} live KB sale listing average unavailable')
+            # KB can legitimately report '시세없음' for new complexes.
+            # Require a general price only when the master has a published one.
+            master_row=next((a for z in d['items'] if int(z.get('complex_id') or 0)==key[0] for a in z.get('types',[]) if int(a.get('area_id') or 0)==key[1]),None)
+            if master_row and master_row.get('general_price_manwon') is not None and x.get('kb_general_check_manwon') is None:
                 bad.append(f'{key} live KB general price unavailable')
         print(json.dumps({'sample_values':items,'sample_errors':errors},ensure_ascii=False))
         fatal=[e for e in errors if 'mismatch' in str(e.get('error') or '').lower()]
