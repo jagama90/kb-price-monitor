@@ -31,13 +31,16 @@ jobs:
       - name: Collect live KB average asking prices
         shell: bash
         run: |
+          cp data/buy_watchlist_market.json /tmp/kb-listing-before.json
           set +e
           python3 scripts/collect_public_market.py
           code=$?
           set -e
           echo "collector_exit=$code"
-          if [ -f data/buy_watchlist_market.json ]; then
+          if ! cmp -s /tmp/kb-listing-before.json data/buy_watchlist_market.json; then
             cp data/buy_watchlist_market.json /tmp/kb-listing-candidate.json
+          else
+            echo 'Collector produced no new source snapshot; preserve last-good values'
           fi
           # The collector uses a provisional output. Merge only the verified
           # sale averages onto the newest main snapshot below.
@@ -61,9 +64,11 @@ jobs:
               if row and row.get('type_label')==label and row.get('avg_ask_manwon') is not None:
                   matched.append({'complex_id':key[0],'area_id':key[1],'type':label,'avg_ask_manwon':row['avg_ask_manwon']})
           print(json.dumps({'matched_reference_areas':matched,'matched_count':len(matched),'collector_rows':len(rows),'errors':len(d.get('errors') or [])},ensure_ascii=False))
-          if not matched:
-              raise SystemExit('No live source data for any of the three reference areas')
+          if matched:
+              open('/tmp/kb-listing-usable','w').write('valid')
           PY
+          fi
+          if [ -f /tmp/kb-listing-usable ]; then
             python3 scripts/merge_weekly_listing_snapshot.py --source /tmp/kb-listing-candidate.json
           else
             python3 scripts/merge_weekly_listing_snapshot.py --mark-failed

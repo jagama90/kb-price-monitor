@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Merge only weekly listing-owned fields into the newest watchlist market snapshot."""
+"""Merge only listing-owned fields into the newest watchlist market snapshot."""
 import argparse, datetime as dt, json
 from pathlib import Path
 
@@ -66,7 +66,7 @@ def main():
         latest['listing_refresh_attempted_at']=attempted
         latest['listing_refresh_matched_rows']=0
         latest['listing_refresh_status']='fallback_last_good'
-        latest['listing_refresh_error']='weekly KB public-market source unavailable; preserved last-good listing fields'
+        latest['listing_refresh_error']='KB public-market source unavailable; preserved last-good listing fields'
         save(latest)
         print(json.dumps({'status':'fallback_last_good','rows':len(rows)},ensure_ascii=False))
         return
