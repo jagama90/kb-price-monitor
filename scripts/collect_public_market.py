@@ -196,6 +196,31 @@ def parse_selected(page,cid,name,a):
         raise RuntimeError(f'KB price/type validation failed area={a.get("area_id")} label={a.get("type_label")} expected={expected} got={kb}')
     return {'complex_id':cid,'area_id':a.get('area_id'),'type_label':a.get('type_label'),'name':name,'sale_listing_count':cnt,'avg_ask_manwon':avg,'recent_trade_manwon':recent,'recent_trade_date':date,'kb_general_check_manwon':kb,'market_scope':'target_area_id','listing_metric_source':'KB public complex page / 매매 / 매물평균가'}
 
+
+def kb_listing_average(payload):
+    """Get the sale listing average from a single-type KB BasePrcInfoNew result."""
+    values=[]
+    def visit(value):
+        if isinstance(value,dict):
+            for key,child in value.items():
+                if key == '매물매매평균가' and child is not None:
+                    try:
+                        n=int(str(child).replace(',',''))
+                        if n>0: values.append(n)
+                    except (TypeError,ValueError): pass
+                if isinstance(child,(dict,list)): visit(child)
+        elif isinstance(value,list):
+            for child in value: visit(child)
+    visit(payload)
+    return values[0] if values and len(set(values)) == 1 else None
+
+def kb_api_matches(url,complex_id,area_id):
+    """Match exact ID values from KB's encoded BasePrcInfoNew query."""
+    from urllib.parse import urlsplit,parse_qsl
+    if '/land-price/price/BasePrcInfoNew' not in url:return False
+    tokens={piece for _,val in parse_qsl(urlsplit(url).query) for piece in re.findall(r'\d+',val)}
+    return str(complex_id) in tokens and str(area_id) in tokens
+
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--sample',action='store_true'); args=ap.parse_args()
     d=json.loads(MASTER.read_text()); targets=json.loads(TARGETS.read_text()).get('items',[])
@@ -206,6 +231,8 @@ def main():
     items=[]; errors=[]; validated=0
     sample_pairs={(1960,1847),(1947,1835),(1082473,1703286)}
     pw=sync_playwright().start(); browser=pw.chromium.launch(headless=True); page=browser.new_page(locale='ko-KR',viewport={'width':5000,'height':1800}); page.set_default_timeout(5000)
+    kb_responses=[]
+    page.on('response',lambda r: kb_responses.append(r) if '/land-price/price/BasePrcInfoNew' in r.url and r.status==200 else None)
     for x in d['items']:
         cid=x.get('complex_id')
         if not cid: continue
@@ -219,10 +246,28 @@ def main():
             if areas:
                 areas=[min(areas,key=lambda z:(re.sub(r'^\d+(?:\.\d+)?', '', str(z.get('type_label') or '')).upper() or 'ZZ',-int(z.get('type_households') or 0),int(z.get('area_id') or 0)))]
         try:
+            kb_responses.clear()
             page.goto(f'https://kbland.kr/se/c/{cid}',wait_until='domcontentloaded',timeout=20000); page.wait_for_timeout(1200)
             for z in areas:
                 try:
                     select_type(page,z.get('type_label'),z); v=parse_selected(page,cid,x.get('user_name') or x.get('kb_name'),z)
+                    page.wait_for_timeout(300)
+                    exact=[r for r in kb_responses if kb_api_matches(r.url,cid,z.get('area_id'))]
+                    api_values=[]
+                    for response in exact:
+                        try:
+                            n=kb_listing_average(response.json())
+                            if n is not None:api_values.append(n)
+                        except Exception:pass
+                    if api_values:
+                        api_value=api_values[-1]
+                        if v.get('avg_ask_manwon') is not None and int(v['avg_ask_manwon'])!=api_value:
+                            raise RuntimeError(f'KB API/DOM average mismatch: complex={cid} area={z.get("area_id")}')
+                        v['avg_ask_manwon']=api_value
+                        v['listing_metric_source']='KB BasePrcInfoNew / 매물매매평균가'
+                    else:
+                        v['avg_ask_manwon']=None
+                        v['listing_metric_source']='KB BasePrcInfoNew unavailable (unverified)'
                     prev=old.get((str(cid),str(z.get('area_id'))),{})
                     if prev and v['avg_ask_manwon'] is not None and prev.get('avg_ask_manwon') is not None: v['avg_ask_week_delta_manwon']=v['avg_ask_manwon']-prev['avg_ask_manwon']
                     if prev and v['sale_listing_count'] is not None and prev.get('sale_listing_count') is not None: v['sale_listing_week_delta']=v['sale_listing_count']-prev['sale_listing_count']
