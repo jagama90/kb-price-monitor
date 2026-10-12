@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json,pathlib
+import json,pathlib,subprocess,sys
 R=pathlib.Path(__file__).resolve().parents[1]
 d=json.loads((R/'dist/upside_probability_engine.json').read_text(encoding='utf-8'))
 m=json.loads((R/'dist/market_indicators.json').read_text(encoding='utf-8'))
@@ -23,4 +23,5 @@ assert len(d['history'])==4 and d['history'][-1]['label']=='현재'
 assert d['current']['as_of']==str((m.get('reb_weekly') or {}).get('latest',{}).get('date'))
 assert {x['feature'] for x in d['rejected_inputs']}=={'trade','M2','market_strength'}
 assert all(x['decision']=='rejected' for h in ('1','3','6') for k,x in d['candidate_screen'][h].items() if k!='price_momentum')
-print('upside probability engine contract: ok')
+subprocess.run([sys.executable, str(R/'scripts/audit_upside_probability_stability.py'), '--check'], check=True)
+print('upside probability engine contract + monthly sensitivity audit: ok')
