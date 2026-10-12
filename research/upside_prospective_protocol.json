@@ -1,0 +1,41 @@
+{
+  "status": "frozen_prospective_protocol",
+  "version": 1,
+  "locked_on": "2026-10-12",
+  "locked_from_main": "3b472f3ac942e077d3390fec88c8f7ebb0cdfa2f",
+  "production_applied": false,
+  "start_ym": "202608",
+  "horizon_months": 1,
+  "source_scope": {
+    "market_scope_id": "seoul_city",
+    "region_label": "서울",
+    "region_code": "500008",
+    "source_statbl_id": "A_2024_00045",
+    "source_itm_id": "100001"
+  },
+  "training_features": [
+    "price_momentum_1m",
+    "price_momentum_3m"
+  ],
+  "frozen_flat_band_pct": 0.18047908945416913,
+  "baseline": "uniform_10",
+  "models": {
+    "uniform_10": {
+      "k": 10,
+      "weight": "uniform"
+    },
+    "inverse_10": {
+      "k": 10,
+      "weight": "inverse"
+    },
+    "inverse_15": {
+      "k": 15,
+      "weight": "inverse"
+    }
+  },
+  "minimum_matured_months": 24,
+  "min_up": 6,
+  "min_non_up": 6,
+  "candidate_selection_note": "Models fixed from 2026-10-12 completed retrospective audit; no tuning on post-2026-08 labels.",
+  "promotion_policy": "Never auto-promote. After minimum sample/class gates, compare paired Brier, calibration, discrimination, jumps and turn detection; separately certify."
+}

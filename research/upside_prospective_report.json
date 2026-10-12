@@ -1,0 +1,32 @@
+{
+  "report_type": "independent_prospective_upside_shadow",
+  "status": "insufficient_independent_outcomes",
+  "production_applied": false,
+  "no_future_label_leakage": true,
+  "source": "data_sources/reb_long_cycle.json",
+  "scope": {
+    "market_scope_id": "seoul_city",
+    "region_label": "서울",
+    "region_code": "500008",
+    "source_statbl_id": "A_2024_00045",
+    "source_itm_id": "100001"
+  },
+  "start_ym": "202608",
+  "latest_source_price_ym": "202608",
+  "last_forecast_ym": "202608",
+  "matured_months": 0,
+  "required_matured_months": 24,
+  "class_counts": {
+    "up": 0,
+    "flat": 0,
+    "down": 0
+  },
+  "missing_pre_outcome_snapshots": [],
+  "metrics": {
+    "uniform_10": null,
+    "inverse_10": null,
+    "inverse_15": null
+  },
+  "eligible_for_review": false,
+  "policy": "No automatic production promotion; compare all frozen candidates using the predeclared protocol."
+}

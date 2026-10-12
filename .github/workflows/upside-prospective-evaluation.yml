@@ -1,0 +1,38 @@
+name: Independent upside probability shadow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data_sources/reb_long_cycle.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: upside-prospective-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify frozen protocol and point-in-time rules
+        run: python3 scripts/test_upside_prospective_evaluation.py
+      - name: Append only newly matured actuals and live shadow forecasts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git pull --ff-only origin main
+          python3 scripts/evaluate_upside_prospective.py --update --source-commit "$(git rev-parse HEAD)"
+          python3 scripts/test_upside_prospective_evaluation.py
+          git add -f research/upside_prospective_journal.json research/upside_prospective_report.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Append prospective upside shadow evidence'
+          git push origin HEAD:main

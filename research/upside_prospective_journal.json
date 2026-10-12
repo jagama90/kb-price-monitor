@@ -1,0 +1,35 @@
+{
+  "protocol_version": 1,
+  "start_ym": "202608",
+  "snapshots": [
+    {
+      "ym": "202608",
+      "inputs": {
+        "price_momentum_1m_pct": 1.0518974933821479,
+        "price_momentum_3m_pct": 3.570187663460178
+      },
+      "training_observations": 244,
+      "models": {
+        "uniform_10": {
+          "up": 0.8461538461538461,
+          "flat": 0.07692307692307693,
+          "down": 0.07692307692307693
+        },
+        "inverse_10": {
+          "up": 0.846153846153846,
+          "flat": 0.07692307692307693,
+          "down": 0.07692307692307693
+        },
+        "inverse_15": {
+          "up": 0.8888888888888888,
+          "flat": 0.05555555555555555,
+          "down": 0.05555555555555555
+        }
+      },
+      "reference_price_index": 102.331049252088,
+      "source_collected_at": "2026-10-07T01:28:36.045733+00:00",
+      "source_commit": "3b472f3ac942e077d3390fec88c8f7ebb0cdfa2f"
+    }
+  ],
+  "outcomes": []
+}
