@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12",
+  "updated_at": "2026-10-13",
   "sources": [
     {
       "name": "서울특별시/국토교통부 실거래가",
@@ -223,7 +223,7 @@
     "kb_weekly_sale_index": "connected",
     "kb_weekly_rent_index": "connected",
     "ecos_base_rate": "connected",
-    "molit_refresh": "connected",
+    "molit_refresh": "fallback_last_good",
     "ecos_refresh": "connected",
     "kb_sentiment_refresh": "connected",
     "watchlist_detail_refresh": "connected",
@@ -292,7 +292,7 @@
     "jeonse_score_change": 0.0,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-10-11T22:56:09.452926+00:00"
+    "generated_at": "2026-10-13T01:23:10.761002+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -331,7 +331,7 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-10-11T22:56:09.388155+00:00"
+    "generated_at": "2026-10-13T01:23:10.713355+00:00"
   },
   "matched_period": {
     "as_of": "2026-10-12",
@@ -429,7 +429,7 @@
       "change_pct": 0.15
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-10-11T22:55:52.282040+00:00",
+    "collected_at": "2026-10-13T01:22:36.496735+00:00",
     "history": [
       {
         "date": "20260629",
@@ -547,7 +547,7 @@
       "change_pct": 0.14
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-10-11T22:55:52.897982+00:00"
+    "collected_at": "2026-10-13T01:22:37.115260+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -683,12 +683,12 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-10-11T22:55:55.265897+00:00"
+    "collected_at": "2026-10-13T01:22:39.784060+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-10-11T22:56:09.254659+00:00",
+    "attempted_at": "2026-10-13T01:23:10.588513+00:00",
     "sources": {
-      "molit": "connected",
+      "molit": "fallback_last_good",
       "ecos": "connected",
       "kb_sentiment": "connected",
       "watchlist_detail": "connected"
