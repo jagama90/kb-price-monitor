@@ -298,7 +298,12 @@ paths={
 wf={k:(R/p).read_text(encoding='utf-8') for k,p in paths.items()}
 for bad in ["'dist/market.html'","'dist/market.js'","'dist/index.html'"]:
     if bad in wf['parallel']: errors.append('parallel refresh still triggered by UI file '+bad)
-if 'cancel-in-progress: true' not in wf['parallel']: errors.append('parallel refresh should cancel superseded runs')
+# Scheduled 08:00 and 09:00 runs must queue instead of canceling in-flight collections.
+# Interactive/smoke supersede semantics remain unchanged.
+if "cancel-in-progress: ${{ github.event_name != 'schedule' }}" not in wf['parallel']:
+    errors.append('parallel schedule must preserve active 08:00 collection')
+if "cron: '0 23 * * *'" not in wf['parallel'] or "cron: '0 0 * * *'" not in wf['parallel']:
+    errors.append('daily 08:00 KST and 09:00 backup schedule missing')
 if 'artifact_ready' not in wf['parallel'] or "needs.molit.outputs.artifact_ready == 'true'" not in wf['parallel']:
     errors.append('MOLIT degraded-mode artifact guard missing')
 if 'refresh_run_status.json' not in wf['parallel']: errors.append('parallel workflow does not persist per-run source refresh outcomes')
