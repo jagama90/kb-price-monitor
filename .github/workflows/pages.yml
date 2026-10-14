@@ -37,9 +37,10 @@ permissions:
   id-token: write
 
 concurrency:
-  # A skipped workflow_run must not cancel an in-progress static UI deployment.
-  group: pages-${{ github.event_name }}
-  cancel-in-progress: true
+  # Pages and manual dashboard finalization publish the same environment.
+  # Serialize their deploys; never cancel a running publication.
+  group: pages-publication-${{ github.repository }}
+  cancel-in-progress: false
 
 jobs:
   deploy:

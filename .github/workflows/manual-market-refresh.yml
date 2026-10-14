@@ -23,6 +23,10 @@ jobs:
 
   finalize:
     needs: refresh
+    # Share the Pages publish lock to avoid concurrent deployment 400 errors.
+    concurrency:
+      group: pages-publication-${{ github.repository }}
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:
