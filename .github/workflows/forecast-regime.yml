@@ -75,6 +75,8 @@ jobs:
           python3 scripts/test_market_strength_index.py
           python3 scripts/build_upside_probability_engine.py
           python3 scripts/test_upside_probability_engine.py
+          python3 scripts/record_upside_probability_history.py
+          python3 scripts/test_upside_probability_history.py
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 - <<'PY'
@@ -96,7 +98,7 @@ jobs:
           if v.get('apply_recommended') and km.get('mom_4w_pct') is not None and km.get('mom_13w_pct') is not None:
               assert (f.get('price_momentum_overlay') or {}).get('applied') is True, 'validated KB overlay missing after pull'
           PY
-          git add -f dist/regime_forecast.json dist/market_judgment.json dist/market_interpretation.json dist/market_strength_index.json dist/upside_probability_engine.json
+          git add -f dist/regime_forecast.json dist/market_judgment.json dist/market_interpretation.json dist/market_strength_index.json dist/upside_probability_engine.json dist/upside_probability_history.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh forward regime forecast'
           git push origin HEAD:main

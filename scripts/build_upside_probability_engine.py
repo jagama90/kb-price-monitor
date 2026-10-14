@@ -235,6 +235,54 @@ def current_predict(rows,current_ym,h,band,k,m1,m3):
       'training_observations':len(train),'k':k,'nearest_analogs':z['neighbors'][:6],
     }
 
+
+def weekly_one_month_reference(rows,weekly,as_of,band,k):
+    """Reconstruct a comparable weekly-input score at an earlier observation.
+
+    This is *not* an archived real-time probability or a new certified model.
+    Historical index revisions may affect the reconstructed probability.
+    """
+    import calendar
+    try:
+        today=dt.datetime.strptime(str(as_of),'%Y%m%d').date()
+    except (TypeError,ValueError):
+        return {'status':'data_check'}
+    prev_ym=shift_ym(today.strftime('%Y%m'),-1)
+    year,month=int(prev_ym[:4]),int(prev_ym[4:])
+    target=dt.date(year,month,min(today.day,calendar.monthrange(year,month)[1]))
+    source=(weekly.get('series') or {}).get('sale') or []
+    points=[]
+    for x in source:
+        try:
+            date=dt.datetime.strptime(str(x.get('date')),'%Y%m%d').date()
+        except (TypeError,ValueError):
+            continue
+        value=finite(x.get('value'))
+        if value is not None and value>0 and date<=today:
+            points.append((date,value))
+    points.sort(key=lambda x:x[0])
+    chosen=[i for i,(date,_) in enumerate(points) if date<=target]
+    if not chosen:
+        return {'status':'comparison_unavailable'}
+    idx=chosen[-1]
+    obs_day,value=points[idx]
+    if (target-obs_day).days>8 or idx<13:
+        return {'status':'comparison_unavailable'}
+    m1=pct(value,points[idx-4][1])
+    m3=pct(value,points[idx-13][1])
+    if m1 is None or m3 is None:
+        return {'status':'comparison_unavailable'}
+    result=current_predict(rows,obs_day.strftime('%Y%m'),1,band,k,round(m1,2),round(m3,2))
+    if not result:
+        return {'status':'comparison_unavailable'}
+    return {'status':'reconstructed_from_weekly_history',
+            'as_of':obs_day.strftime('%Y%m%d'),
+            'probabilities':result['probabilities'],
+            'inputs':{'price_momentum_4w_pct':round(m1,2),
+                      'price_momentum_13w_pct':round(m3,2)},
+            'method':'same certified KNN method, retrospective weekly index values',
+            'historical_vintage_confirmed':False}
+
 def main():
     long_payload=json.loads(LONG.read_text(encoding='utf-8'))
     market=json.loads(MARKET.read_text(encoding='utf-8'))
@@ -338,6 +386,7 @@ def main():
       ],
       'current':{'status':current_status,**(current or {})},
       'history':history,
+      'comparison_1m':weekly_one_month_reference(rows,reb,asof,bands[1],selected['1']['k']) if current else {'status':'data_check'},
       'forecast':forecast,
       'lineage':{'long_history':'dist/long_cycle_master.json','current_market':'dist/market_indicators.json'},
       'generated_at':dt.datetime.now(dt.timezone.utc).isoformat(),

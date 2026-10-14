@@ -63,7 +63,26 @@ def main() -> None:
         raise SystemExit("market.html missing from deploy artifact")
     versioned_name = f"market.{version}.html"
     versioned = output / versioned_name
-    versioned.write_text(market.read_text(encoding="utf-8"), encoding="utf-8")
+    dashboard_html = market.read_text(encoding="utf-8")
+    # Keep the large legacy dashboard untouched: inject independently tested
+    # probability tracking assets into the versioned deployment artifact.
+    tracking_js = output / "probability-tracker.js"
+    tracking_css = output / "probability-tracker.css"
+    if not tracking_js.exists() or not tracking_css.exists():
+        raise SystemExit("probability tracking assets missing from Pages artifact")
+    if "</head>" not in dashboard_html or "</body>" not in dashboard_html:
+        raise SystemExit("dashboard insertion boundaries missing")
+    dashboard_html = dashboard_html.replace(
+        "</head>",
+        f'<link rel="stylesheet" href="probability-tracker.css?v={version}">\n</head>',
+        1,
+    )
+    dashboard_html = dashboard_html.replace(
+        "</body>",
+        f'<script src="probability-tracker.js?v={version}"></script>\n</body>',
+        1,
+    )
+    versioned.write_text(dashboard_html, encoding="utf-8")
 
     # Stable dashboard URL must never serve a potentially cached old body.
     market.write_text(redirect_html(f"./{versioned_name}"), encoding="utf-8")

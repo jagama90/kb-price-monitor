@@ -20,6 +20,9 @@ on:
       - 'scripts/test_market_strength_index.py'
       - 'scripts/build_upside_probability_engine.py'
       - 'scripts/test_upside_probability_engine.py'
+      - 'scripts/test_upside_probability_history.py'
+      - 'scripts/record_upside_probability_history.py'
+      - 'scripts/test_probability_tracking_bundle.py'
       - 'scripts/check_dashboard_bundle.py'
       - 'scripts/check_pipeline_health.py'
       - 'scripts/check_render_safety.py'
@@ -60,6 +63,9 @@ jobs:
           python3 scripts/build_upside_probability_engine.py
           python3 scripts/test_upside_probability_engine.py
           python3 scripts/test_upside_prospective_evaluation.py
+          python3 scripts/test_upside_probability_history.py
+          python3 scripts/test_probability_tracking_bundle.py
+          node --check dist/probability-tracker.js
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_render_safety.py
@@ -74,6 +80,8 @@ jobs:
           grep -q "id=\"rawIntegrated\"" "site/market.$v.html"
           grep -q "id=\"probabilityResearch\"" "site/market.$v.html"
           grep -q "id=\"probabilityForecast\"" "site/market.$v.html"
+          grep -q "probability-tracker.js?v=$v" "site/market.$v.html"
+          grep -q "probability-tracker.css?v=$v" "site/market.$v.html"
       - uses: actions/configure-pages@v6
         with:
           enablement: true

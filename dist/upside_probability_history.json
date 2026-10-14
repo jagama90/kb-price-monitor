@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "scope": "seoul_city",
+  "events": [
+    {
+      "source_as_of": "20260928",
+      "recorded_at": "2026-10-13T23:17:57.025941+00:00",
+      "generated_at": "2026-10-13T23:17:57.025941+00:00",
+      "probabilities": {
+        "up": 69.2,
+        "flat": 23.1,
+        "down": 7.7
+      },
+      "source": "REB weekly sale index",
+      "model_version": "upside_probability_v1",
+      "origin": "archived_git_commit",
+      "commit_sha": "e6b7f39810aaa6f9891a886bb555b0fc7bc9289a"
+    },
+    {
+      "source_as_of": "20261005",
+      "recorded_at": "2026-10-14T00:33:09.839999+00:00",
+      "generated_at": "2026-10-14T00:33:09.839999+00:00",
+      "probabilities": {
+        "up": 61.5,
+        "flat": 30.8,
+        "down": 7.7
+      },
+      "source": "REB weekly sale index",
+      "model_version": "upside_probability_v1",
+      "origin": "archived_git_commit",
+      "commit_sha": "8c784423d4811baaf15de7cc062f7df78adb1cc7"
+    }
+  ],
+  "daily": [
+    {
+      "date": "2026-10-14",
+      "checked_at": "2026-10-14T00:33:09.839999+00:00",
+      "status": "new_source_or_signal",
+      "source_as_of": "20261005",
+      "probabilities": {
+        "up": 61.5,
+        "flat": 30.8,
+        "down": 7.7
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+/* Saved-source probability trail: compact on 360/390/412px. */
+.probability-track-v222{margin-top:14px;padding:15px;border:1px solid #e0e9ee;border-radius:18px;background:#fff;min-width:0;max-width:100%;box-sizing:border-box;overflow:hidden;display:grid;gap:10px}
+.probability-month-v222{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;border-radius:12px;padding:11px 13px;background:#f2f7fa;min-width:0}
+.probability-month-v222>span{font-size:12px;line-height:1.4;color:#526e80;font-weight:800;word-break:keep-all}
+.probability-month-v222>b{font-size:15px;color:#1d5269;white-space:normal;text-align:right}
+.probability-month-v222>small{font-size:10px;color:#7a8d99;grid-column:1/-1;line-height:1.45;word-break:keep-all}
+.probability-latest-v222{font-size:15px;line-height:1.45;font-weight:900;color:#176b79;word-break:keep-all}
+.probability-latest-v222.is-down{color:#ad593c}
+.probability-track-head-v222{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;min-width:0}
+.probability-track-head-v222>b{font-size:15px;color:#1d4259}
+.probability-track-buttons-v222{display:flex;align-items:center;gap:4px;padding:3px;background:#f4f7f9;border:1px solid #dfebf0;border-radius:12px;min-width:0}
+.probability-track-buttons-v222 button{background:transparent;border:0;padding:8px 11px;border-radius:9px;font-size:12px;line-height:1.4;color:#5e7481;font-weight:800;cursor:pointer;min-height:38px;white-space:nowrap}
+.probability-track-buttons-v222 button.is-active{background:#fff;box-shadow:0 1px 5px #20405b20;color:#145e74}
+.probability-track-status-v222{font-size:11px;color:#758b99;margin:0;line-height:1.5}
+.probability-track-svg-v222{display:block;max-width:100%;width:100%;height:auto;overflow:visible;touch-action:pan-y}
+.probability-track-picked-v222{font-size:12px;min-height:20px;text-align:center;font-weight:800;color:#345f76;margin:0;line-height:1.5}
+.probability-track-note-v222{font-size:11px;margin:0;line-height:1.55;color:#788b98;word-break:keep-all}
+@media(max-width:520px){.probability-track-v222{padding:11px;gap:9px}.probability-month-v222{grid-template-columns:1fr;gap:3px;padding:10px}.probability-month-v222>b{text-align:left;font-size:15px}.probability-month-v222>small{grid-column:auto}.probability-track-head-v222>b{font-size:14px}.probability-track-buttons-v222 button{min-height:40px;padding:9px 10px;font-size:11px}}
