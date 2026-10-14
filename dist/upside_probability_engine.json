@@ -528,82 +528,82 @@
   "current": {
     "status": "ok",
     "probabilities": {
-      "up": 69.2,
-      "flat": 23.1,
+      "up": 61.5,
+      "flat": 30.8,
       "down": 7.7
     },
     "training_observations": 243,
     "k": 10,
     "nearest_analogs": [
-      "202508",
-      "201810",
-      "202602",
       "202410",
+      "202508",
+      "202001",
+      "201804",
       "202111",
-      "202511"
+      "200607"
     ],
-    "as_of": "20260928",
+    "as_of": "20261005",
     "horizon_months": 1,
     "source": "REB weekly sale index",
     "inputs": {
-      "price_momentum_4w_pct": 0.58,
-      "price_momentum_13w_pct": 2.93
+      "price_momentum_4w_pct": 0.5,
+      "price_momentum_13w_pct": 2.74
     }
   },
   "history": [
     {
-      "ym": "202509",
-      "probabilities": {
-        "up": 76.9,
-        "flat": 15.4,
-        "down": 7.7
-      },
-      "inputs": {
-        "price_momentum_1m_pct": 0.58,
-        "price_momentum_3m_pct": 2.17
-      },
-      "training_observations": 233,
-      "label": "1년 전"
-    },
-    {
-      "ym": "202603",
-      "probabilities": {
-        "up": 46.2,
-        "flat": 46.2,
-        "down": 7.7
-      },
-      "inputs": {
-        "price_momentum_1m_pct": 0.34,
-        "price_momentum_3m_pct": 2.17
-      },
-      "training_observations": 239,
-      "label": "6개월 전"
-    },
-    {
-      "ym": "202606",
+      "ym": "202510",
       "probabilities": {
         "up": 84.6,
         "flat": 7.7,
         "down": 7.7
       },
       "inputs": {
-        "price_momentum_1m_pct": 1.21,
-        "price_momentum_3m_pct": 2.84
+        "price_momentum_1m_pct": 1.43,
+        "price_momentum_3m_pct": 2.52
       },
-      "training_observations": 242,
+      "training_observations": 234,
+      "label": "1년 전"
+    },
+    {
+      "ym": "202604",
+      "probabilities": {
+        "up": 76.9,
+        "flat": 15.4,
+        "down": 7.7
+      },
+      "inputs": {
+        "price_momentum_1m_pct": 0.55,
+        "price_momentum_3m_pct": 1.64
+      },
+      "training_observations": 240,
+      "label": "6개월 전"
+    },
+    {
+      "ym": "202607",
+      "probabilities": {
+        "up": 84.6,
+        "flat": 7.7,
+        "down": 7.7
+      },
+      "inputs": {
+        "price_momentum_1m_pct": 1.27,
+        "price_momentum_3m_pct": 3.58
+      },
+      "training_observations": 243,
       "label": "3개월 전"
     },
     {
       "label": "현재",
-      "ym": "202609",
+      "ym": "202610",
       "probabilities": {
-        "up": 69.2,
-        "flat": 23.1,
+        "up": 61.5,
+        "flat": 30.8,
         "down": 7.7
       },
       "inputs": {
-        "price_momentum_4w_pct": 0.58,
-        "price_momentum_13w_pct": 2.93
+        "price_momentum_4w_pct": 0.5,
+        "price_momentum_13w_pct": 2.74
       },
       "training_observations": 243
     }
@@ -612,37 +612,37 @@
     "3": {
       "status": "validated",
       "probabilities": {
-        "up": 75.0,
+        "up": 71.4,
         "flat": 17.9,
-        "down": 7.1
+        "down": 10.7
       },
       "training_observations": 241,
       "k": 25,
       "nearest_analogs": [
-        "202508",
-        "201810",
-        "202602",
         "202410",
+        "202508",
+        "202001",
+        "201804",
         "202111",
-        "202511"
+        "200607"
       ]
     },
     "6": {
       "status": "validated",
       "probabilities": {
         "up": 71.4,
-        "flat": 14.3,
-        "down": 14.3
+        "flat": 17.9,
+        "down": 10.7
       },
       "training_observations": 238,
       "k": 25,
       "nearest_analogs": [
-        "202508",
-        "201810",
         "202410",
+        "202508",
+        "202001",
+        "201804",
         "202111",
-        "202511",
-        "202001"
+        "200607"
       ]
     },
     "12": {
@@ -655,5 +655,5 @@
     "long_history": "dist/long_cycle_master.json",
     "current_market": "dist/market_indicators.json"
   },
-  "generated_at": "2026-10-14T00:20:46.452880+00:00"
+  "generated_at": "2026-10-14T00:33:09.839999+00:00"
 }

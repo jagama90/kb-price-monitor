@@ -178,7 +178,7 @@
     "no_future_leakage": true
   },
   "current_candidate": {
-    "snapshot_id": "2026-10-11|KB20261005|R202609",
+    "snapshot_id": "2026-10-14|KB20261005|R202609",
     "current_state": {
       "stage": 3,
       "label": "상승·보합",
@@ -378,5 +378,5 @@
   "apply_recommended": true,
   "gate": "baseline unified gate plus validated engine-feature overlay gate; buy score weights unchanged",
   "no_future_leakage": true,
-  "generated_at": "2026-10-11T09:51:07.892908+00:00"
+  "generated_at": "2026-10-14T00:32:57.531872+00:00"
 }
