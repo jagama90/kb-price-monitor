@@ -2,6 +2,7 @@ name: Collect REB weekly official
 on:
   schedule:
     - cron: '30 6 * * 4' # Thu 15:30 KST after weekly publication
+    - cron: '10 22 * * *' # Every day 07:10 KST: recover only when stale
   workflow_dispatch:
   push:
     branches: [main]
@@ -14,7 +15,42 @@ concurrency:
   group: reb-official-context-${{ github.ref }}
   cancel-in-progress: false
 jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    outputs:
+      collect: ${{ steps.gate.outputs.collect }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check whether weekly REB repair is necessary
+        id: gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE_SLOT: ${{ github.event.schedule }}
+        run: |
+          python3 - <<'PY'
+          import datetime,json,os
+          from pathlib import Path
+          # Keep the original weekly publication check and manual invocation.
+          repair=os.getenv('EVENT_NAME')=='schedule' and os.getenv('SCHEDULE_SLOT')=='10 22 * * *'
+          run=True
+          reason='regular weekly/manual check'
+          if repair:
+              try:
+                  src=json.loads(Path('data_sources/reb_weekly.json').read_text(encoding='utf-8'))
+                  stamp=datetime.datetime.strptime(str((src.get('latest') or {}).get('date')),'%Y%m%d').date()
+                  days=(datetime.datetime.now(datetime.timezone.utc).date()-stamp).days
+                  run=src.get('status')!='connected' or days>10
+                  reason=f'latest weekly price observation {days} days ago'
+              except (OSError,ValueError,TypeError,KeyError) as e:
+                  run=True
+                  reason=f'weekly freshness unknown: {e}'
+          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
+              out.write(f"collect={'true' if run else 'false'}\n")
+          print({'collect':run,'reason':reason})
+          PY
   collect:
+    needs: freshness
+    if: needs.freshness.outputs.collect == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:

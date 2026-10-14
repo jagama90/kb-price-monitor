@@ -5,10 +5,11 @@ name: Parallel market data refresh
 # FAST PATH: daily source refresh only. Code changes are validated by the sample path.
 on:
   schedule:
-    # GitHub scheduled workflows can be delayed substantially. Start early and
-    # keep a backup slot; the preflight freshness gate suppresses duplicate work.
-    - cron: '17 19 * * *' # 04:17 KST primary
-    - cron: '17 21 * * *' # 06:17 KST backup
+    # Start the daily refresh at 08:00 KST (previous-day 23:00 UTC).
+    # GitHub schedule may be delayed; 09:00 KST is a recovery slot.
+    # Preflight skips the backup after a recently completed refresh.
+    - cron: '0 23 * * *' # 08:00 KST daily
+    - cron: '0 0 * * *'  # 09:00 KST missed-run backup
   workflow_dispatch:
     inputs:
       dry_run:
@@ -34,11 +35,11 @@ on:
 permissions:
   contents: write
 concurrency:
-  # Production runs keep ref-level supersede/cancel behavior.
-  # Reusable dry-run smoke calls get a unique inner group; the caller owns
-  # smoke supersede/cancel behavior. This avoids nested-concurrency races.
+  # Do not cancel an 08:00 collection when the 09:00 recovery slot arrives.
+  # Queued backup checks the freshness gate after the primary run finishes.
+  # Reusable dry-run smoke calls retain their independent group.
   group: market-data-v5-${{ inputs.dry_run == true && github.run_id || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name != 'schedule' }}
 jobs:
   preflight:
     if: inputs.skip_preflight != true
@@ -67,12 +68,18 @@ jobs:
                       last=datetime.datetime.fromisoformat(ts)
                       if last.tzinfo is None:
                           last=last.replace(tzinfo=datetime.timezone.utc)
-                      age=(datetime.datetime.now(datetime.timezone.utc)-last).total_seconds()/3600
-                      if 0 <= age < 3.5:
+                      # The 08:00 KST run must not be skipped by a 07:xx
+                      # manual refresh. Only a post-08:00 attempt suppresses
+                      # the 09:00 recovery slot (without restarting all sources).
+                      kst=datetime.timezone(datetime.timedelta(hours=9))
+                      now=datetime.datetime.now(datetime.timezone.utc).astimezone(kst)
+                      checkpoint=now.replace(hour=8,minute=0,second=0,microsecond=0)
+                      previous=last.astimezone(kst)
+                      if now >= checkpoint and previous >= checkpoint and previous.date()==now.date():
                           should=False
-                          reason=f'last successful refresh is only {age:.2f}h old'
+                          reason=f'already attempted after 08:00 KST today ({previous.isoformat()})'
                       else:
-                          reason=f'last refresh age {age:.2f}h'
+                          reason='no refresh attempt since 08:00 KST today'
                   except Exception as e:
                       reason=f'freshness parse failed: {e!r}'
               else:

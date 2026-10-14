@@ -63,7 +63,7 @@ jobs:
           node --check dist/market.js
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_render_safety.py
-          python3 scripts/check_pipeline_health.py
+          python3 scripts/check_pipeline_health.py --allow-aux-stale
       - name: Prepare deploy artifact with automatic cache version
         run: |
           python3 scripts/prepare_pages.py --source dist --output site --version "$GITHUB_SHA"

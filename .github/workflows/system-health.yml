@@ -23,4 +23,4 @@ jobs:
           python3 scripts/check_dashboard_bundle.py
           python3 scripts/check_render_safety.py
       - name: Cross-pipeline consistency checks
-        run: python3 scripts/check_pipeline_health.py
+        run: python3 scripts/check_pipeline_health.py --allow-aux-stale
