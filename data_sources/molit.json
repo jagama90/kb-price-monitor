@@ -1,6 +1,6 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-10-14T08:17:00.615322+09:00",
+  "collected_at": "2026-10-15T01:23:55.273252+09:00",
   "refresh_meta": {
     "mode": "daily_current_month_only",
     "queried_pairs": 20,
@@ -8,7 +8,7 @@
     "reused_previous_matched_vintage": false,
     "retried_pairs": [],
     "cache_fallback_pairs": [],
-    "elapsed_sec": 2.9
+    "elapsed_sec": 3.6
   },
   "pair_cache": {
     "11215:202609": [
@@ -27626,12 +27626,12 @@
     ]
   },
   "matched_period": {
-    "as_of": "2026-10-14",
-    "cutoff_day": 14,
+    "as_of": "2026-10-15",
+    "cutoff_day": 15,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-10",
-      "range": "1~14일",
+      "range": "1~15일",
       "total": 390,
       "counts": {
         "<=9eok": 222,
@@ -27654,35 +27654,35 @@
     },
     "previous": {
       "period": "2026-09",
-      "range": "1~14일",
-      "total": 1564,
+      "range": "1~15일",
+      "total": 1663,
       "counts": {
-        "<=9eok": 881,
-        "9-15eok": 360,
-        "15-25eok": 227,
-        "25eok+": 96
+        "<=9eok": 935,
+        "9-15eok": 375,
+        "15-25eok": 252,
+        "25eok+": 101
       },
       "buckets3": {
-        "<=15eok": 1241,
-        "15-25eok": 227,
-        "25eok+": 96
+        "<=15eok": 1310,
+        "15-25eok": 252,
+        "25eok+": 101
       },
       "boundary_counts": {
-        "13-15eok": 70,
-        "15-17eok": 75,
-        "23-25eok": 21,
-        "25-27eok": 15
+        "13-15eok": 73,
+        "15-17eok": 80,
+        "23-25eok": 27,
+        "25-27eok": 16
       },
-      "under15_share": 79.3
+      "under15_share": 78.8
     },
     "changes": {
-      "trade_count_pct": -75.1,
-      "under15_share_pp": 5.8
+      "trade_count_pct": -76.5,
+      "under15_share_pp": 6.3
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
   "signal_matched_period": {
-    "as_of": "2026-10-14",
+    "as_of": "2026-10-15",
     "basis": "completed_month_after_statutory_reporting_window",
     "reporting_window_days": 30,
     "current": {
@@ -27740,7 +27740,7 @@
     "provisional": false,
     "basis": "statutory_reporting_window",
     "reporting_window_days": 30,
-    "as_of": "2026-10-14",
+    "as_of": "2026-10-15",
     "reason": "latest_full_month_reporting_window_elapsed",
     "signal_period": "2026-08",
     "previous_period": "2026-07",
