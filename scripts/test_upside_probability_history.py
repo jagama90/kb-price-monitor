@@ -45,6 +45,19 @@ class TestDailyProbabilityHistory(unittest.TestCase):
         different['scope']['market_scope_id']='other_market'
         with self.assertRaises(ValueError):
             history.update(a,different,self.day+dt.timedelta(days=1))
+    def test_persisted_source_scope_and_daily_completeness(self):
+        import json
+        current=json.loads((history.ROOT/'dist/upside_probability_engine.json').read_text(encoding='utf-8'))
+        journal=json.loads(history.HISTORY.read_text(encoding='utf-8'))
+        self.assertEqual(journal['scope'],current['scope']['market_scope_id'])
+        self.assertTrue(journal['events'] and journal['daily'])
+        self.assertEqual(len({e['source_as_of'] for e in journal['events']}),len(journal['events']))
+        self.assertEqual(len({d['date'] for d in journal['daily']}),len(journal['daily']))
+        for d in journal['daily']:
+            self.assertIn(d['status'],('new_source_or_signal','source_unchanged','data_check'))
+            self.assertEqual(d['probabilities'] is None,d['status']=='data_check')
+            if d['probabilities'] is not None:
+                self.assertAlmostEqual(sum(d['probabilities'].values()),100,delta=.25)
     def test_bad_numbers_not_normalized(self):
         for x in [None,'',float('nan'),float('inf')]:
             bad=engine('20261005',61.5)
