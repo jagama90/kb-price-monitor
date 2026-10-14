@@ -608,6 +608,21 @@
       "training_observations": 243
     }
   ],
+  "comparison_1m": {
+    "status": "reconstructed_from_weekly_history",
+    "as_of": "20260831",
+    "probabilities": {
+      "up": 84.6,
+      "flat": 7.7,
+      "down": 7.7
+    },
+    "inputs": {
+      "price_momentum_4w_pct": 0.94,
+      "price_momentum_13w_pct": 3.49
+    },
+    "method": "same certified KNN method, retrospective weekly index values",
+    "historical_vintage_confirmed": false
+  },
   "forecast": {
     "3": {
       "status": "validated",
@@ -655,5 +670,5 @@
     "long_history": "dist/long_cycle_master.json",
     "current_market": "dist/market_indicators.json"
   },
-  "generated_at": "2026-10-14T00:33:09.839999+00:00"
+  "generated_at": "2026-10-14T16:25:42.101396+00:00"
 }
