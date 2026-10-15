@@ -1468,25 +1468,25 @@
         "current": {
           "period": "2026-10",
           "range": "1~15일",
-          "total": 390,
+          "total": 479,
           "counts": {
-            "<=9eok": 222,
-            "9-15eok": 110,
-            "15-25eok": 45,
-            "25eok+": 13
+            "<=9eok": 274,
+            "9-15eok": 132,
+            "15-25eok": 55,
+            "25eok+": 18
           },
           "buckets3": {
-            "<=15eok": 332,
-            "15-25eok": 45,
-            "25eok+": 13
+            "<=15eok": 406,
+            "15-25eok": 55,
+            "25eok+": 18
           },
           "boundary_counts": {
-            "13-15eok": 27,
-            "15-17eok": 14,
-            "23-25eok": 2,
+            "13-15eok": 33,
+            "15-17eok": 18,
+            "23-25eok": 3,
             "25-27eok": 2
           },
-          "under15_share": 85.1
+          "under15_share": 84.8
         },
         "previous": {
           "period": "2026-09",
@@ -1495,11 +1495,6 @@
           "counts": {
             "<=9eok": 935,
             "9-15eok": 375,
-            "15-25eok": 252,
-            "25eok+": 101
-          },
-          "buckets3": {
-            "<=15eok": 1310,
             "15-25eok": 252,
             "25eok+": 101
           },
@@ -1512,32 +1507,32 @@
           "under15_share": 78.8
         },
         "changes": {
-          "trade_count_pct": -76.5,
-          "under15_share_pp": 6.3
+          "trade_count_pct": -71.2,
+          "under15_share_pp": 6.0
         },
         "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
       },
       "current_month": {
         "period": "2026-10",
-        "total": 390,
+        "total": 479,
         "counts": {
-          "<=9eok": 222,
-          "9-15eok": 110,
-          "15-25eok": 45,
-          "25eok+": 13
+          "<=9eok": 274,
+          "9-15eok": 132,
+          "15-25eok": 55,
+          "25eok+": 18
         },
         "buckets3": {
-          "<=15eok": 332,
-          "15-25eok": 45,
-          "25eok+": 13
+          "<=15eok": 406,
+          "15-25eok": 55,
+          "25eok+": 18
         },
         "boundary_counts": {
-          "13-15eok": 27,
-          "15-17eok": 14,
-          "23-25eok": 2,
+          "13-15eok": 33,
+          "15-17eok": 18,
+          "23-25eok": 3,
           "25-27eok": 2
         },
-        "under15_share": 85.1
+        "under15_share": 84.8
       }
     }
   ]
