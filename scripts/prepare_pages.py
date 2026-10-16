@@ -82,6 +82,20 @@ def main() -> None:
         f'<script src="probability-tracker.js?v={version}"></script>\n</body>',
         1,
     )
+    daily_js = output / "upside-daily-signals.js"
+    daily_css = output / "upside-daily-signals.css"
+    if not daily_js.exists() or not daily_css.exists():
+        raise SystemExit("daily multi-signal assets missing from Pages artifact")
+    dashboard_html = dashboard_html.replace(
+        "</head>",
+        f'<link rel="stylesheet" href="upside-daily-signals.css?v={version}">\n</head>',
+        1,
+    )
+    dashboard_html = dashboard_html.replace(
+        "</body>",
+        f'<script src="upside-daily-signals.js?v={version}"></script>\n</body>',
+        1,
+    )
     versioned.write_text(dashboard_html, encoding="utf-8")
 
     # Stable dashboard URL must never serve a potentially cached old body.

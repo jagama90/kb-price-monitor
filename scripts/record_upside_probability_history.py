@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 ENGINE=ROOT/'dist/upside_probability_engine.json'
 HISTORY=ROOT/'dist/upside_probability_history.json'
+SHADOW=ROOT/'dist/upside_daily_candidate.json'
 CLASSES=('up','flat','down')
 
 def valid_probability(current):
@@ -30,7 +31,7 @@ def valid_probability(current):
         return None
     return {k:round(v,1) for k,v in result.items()}
 
-def update(history, engine, now):
+def update(history, engine, now, shadow=None):
     if now.tzinfo is None:
         raise ValueError('UTC-aware time required')
     local=now.astimezone(dt.timezone(dt.timedelta(hours=9)))
@@ -79,13 +80,39 @@ def update(history, engine, now):
         daily_items[-1]=daily
     else:
         daily_items.append(daily)
+    if shadow is not None:
+        ss=(shadow.get('scope') or {}).get('market_scope_id')
+        if ss!=scope:
+            raise ValueError('cross-market shadow record refused')
+        if shadow.get('production_applied') is not False:
+            raise ValueError('uncertified shadow must not be a production model')
+        item=shadow.get('current') or {}
+        sp=valid_probability(item)
+        research={
+            'date':date,'checked_at':stamp,
+            'status':'research_only_not_certified' if sp is not None and shadow.get('status')=='research_only_not_certified' else 'data_check',
+            'probabilities':sp if shadow.get('status')=='research_only_not_certified' else None,
+            'source_price_as_of':item.get('source_price_as_of'),
+            'components':item.get('components') if sp is not None else None,
+            'source_vintages':item.get('vintages') if sp is not None else None,
+            'source_status':item.get('source_status') if sp is not None else None,
+            'reference_probability_up_pct':item.get('reference_probability_up_pct') if sp is not None else None,
+            'candidate_version':shadow.get('version')
+        }
+        result.setdefault('research_daily',[])
+        rs=result['research_daily']
+        if rs and date<rs[-1]['date']:
+            raise ValueError('research date regressed')
+        if rs and rs[-1]['date']==date:rs[-1]=research
+        else:rs.append(research)
     return result
 
 def main():
     now=dt.datetime.now(dt.timezone.utc)
     old=json.loads(HISTORY.read_text(encoding='utf-8')) if HISTORY.exists() else {'version':1,'events':[],'daily':[]}
     engine=json.loads(ENGINE.read_text(encoding='utf-8'))
-    new=update(old,engine,now)
+    shadow=json.loads(SHADOW.read_text(encoding='utf-8')) if SHADOW.exists() else None
+    new=update(old,engine,now,shadow)
     if new!=old:
         HISTORY.write_text(json.dumps(new,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'status':'recorded','daily_checkpoints':len(new['daily']),
