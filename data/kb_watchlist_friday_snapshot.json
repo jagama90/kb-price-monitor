@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-10-10",
-  "source_kb_collected_at": "2026-10-09T18:26:04+00:00",
+  "as_of": "2026-10-17",
+  "source_kb_collected_at": "2026-10-16T16:39:59+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -84,7 +84,7 @@
       "area_id": 1872,
       "name": "문정동 건영아파트",
       "type_label": "28",
-      "general_price_manwon": 155000.0
+      "general_price_manwon": 164250.0
     },
     {
       "complex_id": 1986,
@@ -126,35 +126,35 @@
       "area_id": 15478,
       "name": "송파파인타운 2단지",
       "type_label": "34A2",
-      "general_price_manwon": 172500.0
+      "general_price_manwon": 175000.0
     },
     {
       "complex_id": 15738,
       "area_id": 63253,
       "name": "송파파인타운 2단지",
       "type_label": "34D",
-      "general_price_manwon": 171500.0
+      "general_price_manwon": 174000.0
     },
     {
       "complex_id": 15663,
       "area_id": 63187,
       "name": "송파파인타운 3단지",
       "type_label": "31T1",
-      "general_price_manwon": 177500.0
+      "general_price_manwon": 180000.0
     },
     {
       "complex_id": 15663,
       "area_id": 15406,
       "name": "송파파인타운 3단지",
       "type_label": "31A",
-      "general_price_manwon": 177500.0
+      "general_price_manwon": 180000.0
     },
     {
       "complex_id": 15663,
       "area_id": 103493,
       "name": "송파파인타운 3단지",
       "type_label": "31T2",
-      "general_price_manwon": 177500.0
+      "general_price_manwon": 180000.0
     },
     {
       "complex_id": 15308,
@@ -700,14 +700,14 @@
       "area_id": 219350,
       "name": "E편한세상송파파크센트럴",
       "type_label": "41B",
-      "general_price_manwon": 211500.0
+      "general_price_manwon": 218500.0
     },
     {
       "complex_id": 40111,
       "area_id": 220795,
       "name": "E편한세상송파파크센트럴",
       "type_label": "42A",
-      "general_price_manwon": 211500.0
+      "general_price_manwon": 218500.0
     },
     {
       "complex_id": 1896,

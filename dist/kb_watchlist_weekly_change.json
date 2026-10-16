@@ -1,10 +1,10 @@
 {
   "status": "connected",
   "basis": "last completed Friday KB general price vs prior Friday",
-  "latest_friday_as_of": "2026-10-10",
-  "current_kb_collected_at": "2026-10-09T18:26:04+00:00",
-  "previous_friday_as_of": "2026-10-03",
-  "previous_friday_kb_collected_at": "2026-10-02T17:56:50+00:00",
+  "latest_friday_as_of": "2026-10-17",
+  "current_kb_collected_at": "2026-10-16T16:39:59+00:00",
+  "previous_friday_as_of": "2026-10-10",
+  "previous_friday_kb_collected_at": "2026-10-09T18:26:04+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -132,11 +132,11 @@
       "area_id": 1872,
       "name": "문정동 건영아파트",
       "type_label": "28",
-      "general_price_manwon": 155000.0,
-      "current_manwon": 155000.0,
+      "general_price_manwon": 164250.0,
+      "current_manwon": 164250.0,
       "previous_friday_manwon": 155000.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 9250.0,
+      "delta_pct": 5.97
     },
     {
       "complex_id": 1986,
@@ -198,55 +198,55 @@
       "area_id": 15478,
       "name": "송파파인타운 2단지",
       "type_label": "34A2",
-      "general_price_manwon": 172500.0,
-      "current_manwon": 172500.0,
+      "general_price_manwon": 175000.0,
+      "current_manwon": 175000.0,
       "previous_friday_manwon": 172500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 1.45
     },
     {
       "complex_id": 15738,
       "area_id": 63253,
       "name": "송파파인타운 2단지",
       "type_label": "34D",
-      "general_price_manwon": 171500.0,
-      "current_manwon": 171500.0,
+      "general_price_manwon": 174000.0,
+      "current_manwon": 174000.0,
       "previous_friday_manwon": 171500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 1.46
     },
     {
       "complex_id": 15663,
       "area_id": 63187,
       "name": "송파파인타운 3단지",
       "type_label": "31T1",
-      "general_price_manwon": 177500.0,
-      "current_manwon": 177500.0,
+      "general_price_manwon": 180000.0,
+      "current_manwon": 180000.0,
       "previous_friday_manwon": 177500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 1.41
     },
     {
       "complex_id": 15663,
       "area_id": 15406,
       "name": "송파파인타운 3단지",
       "type_label": "31A",
-      "general_price_manwon": 177500.0,
-      "current_manwon": 177500.0,
+      "general_price_manwon": 180000.0,
+      "current_manwon": 180000.0,
       "previous_friday_manwon": 177500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 1.41
     },
     {
       "complex_id": 15663,
       "area_id": 103493,
       "name": "송파파인타운 3단지",
       "type_label": "31T2",
-      "general_price_manwon": 177500.0,
-      "current_manwon": 177500.0,
+      "general_price_manwon": 180000.0,
+      "current_manwon": 180000.0,
       "previous_friday_manwon": 177500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 1.41
     },
     {
       "complex_id": 15308,
@@ -816,9 +816,9 @@
       "type_label": "35B",
       "general_price_manwon": 215000.0,
       "current_manwon": 215000.0,
-      "previous_friday_manwon": 212500.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.18
+      "previous_friday_manwon": 215000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 25769,
@@ -827,9 +827,9 @@
       "type_label": "35C",
       "general_price_manwon": 215000.0,
       "current_manwon": 215000.0,
-      "previous_friday_manwon": 212500.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.18
+      "previous_friday_manwon": 215000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 25769,
@@ -838,9 +838,9 @@
       "type_label": "35A",
       "general_price_manwon": 215000.0,
       "current_manwon": 215000.0,
-      "previous_friday_manwon": 212500.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.18
+      "previous_friday_manwon": 215000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 25769,
@@ -849,9 +849,9 @@
       "type_label": "35B1",
       "general_price_manwon": 215000.0,
       "current_manwon": 215000.0,
-      "previous_friday_manwon": 212500.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.18
+      "previous_friday_manwon": 215000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 25769,
@@ -860,9 +860,9 @@
       "type_label": "35AN",
       "general_price_manwon": 215000.0,
       "current_manwon": 215000.0,
-      "previous_friday_manwon": 212500.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.18
+      "previous_friday_manwon": 215000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 25769,
@@ -871,9 +871,9 @@
       "type_label": "35A1",
       "general_price_manwon": 215000.0,
       "current_manwon": 215000.0,
-      "previous_friday_manwon": 212500.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.18
+      "previous_friday_manwon": 215000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 46734,
@@ -1100,22 +1100,22 @@
       "area_id": 219350,
       "name": "E편한세상송파파크센트럴",
       "type_label": "41B",
-      "general_price_manwon": 211500.0,
-      "current_manwon": 211500.0,
-      "previous_friday_manwon": 204000.0,
-      "delta_manwon": 7500.0,
-      "delta_pct": 3.68
+      "general_price_manwon": 218500.0,
+      "current_manwon": 218500.0,
+      "previous_friday_manwon": 211500.0,
+      "delta_manwon": 7000.0,
+      "delta_pct": 3.31
     },
     {
       "complex_id": 40111,
       "area_id": 220795,
       "name": "E편한세상송파파크센트럴",
       "type_label": "42A",
-      "general_price_manwon": 211500.0,
-      "current_manwon": 211500.0,
-      "previous_friday_manwon": 204000.0,
-      "delta_manwon": 7500.0,
-      "delta_pct": 3.68
+      "general_price_manwon": 218500.0,
+      "current_manwon": 218500.0,
+      "previous_friday_manwon": 211500.0,
+      "delta_manwon": 7000.0,
+      "delta_pct": 3.31
     },
     {
       "complex_id": 1896,
