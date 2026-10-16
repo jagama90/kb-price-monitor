@@ -53,6 +53,17 @@
         "flat": 30.8,
         "down": 7.7
       }
+    },
+    {
+      "date": "2026-10-16",
+      "checked_at": "2026-10-16T00:54:41.162460+00:00",
+      "status": "source_unchanged",
+      "source_as_of": "20261005",
+      "probabilities": {
+        "up": 61.5,
+        "flat": 30.8,
+        "down": 7.7
+      }
     }
   ]
 }
