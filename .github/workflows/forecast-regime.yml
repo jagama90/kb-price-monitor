@@ -4,10 +4,6 @@ on:
   workflow_run:
     workflows: ['Research turning signal', 'Engine feature validation', 'Parallel market data refresh', 'Repair dashboard data']
     types: [completed]
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/build_upside_daily_candidate.py'
   workflow_dispatch:
 
 permissions:
