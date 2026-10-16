@@ -1564,12 +1564,18 @@
     },
     {
       "period": "202607",
-      "value": 4225608.6,
-      "mom_pct": 0.3,
-      "yoy_pct": 5.8
+      "value": 4227637.3,
+      "mom_pct": 0.35,
+      "yoy_pct": 5.85
+    },
+    {
+      "period": "202608",
+      "value": 4266777.2,
+      "mom_pct": 0.93,
+      "yoy_pct": 5.65
     }
   ],
   "candidate_item_count": 2,
-  "raw_row_count": 2849,
-  "collected_at": "2026-10-15T01:04:40.152575+00:00"
+  "raw_row_count": 2860,
+  "collected_at": "2026-10-16T00:53:29.021100+00:00"
 }

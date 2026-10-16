@@ -1800,13 +1800,17 @@
       {
         "period": "202609",
         "rent_to_sale_pct": 50.3337593741
+      },
+      {
+        "period": "202610",
+        "rent_to_sale_pct": 50.2856307673
       }
     ],
     "latest": {
-      "period": "202609",
-      "rent_to_sale_pct": 50.3337593741
+      "period": "202610",
+      "rent_to_sale_pct": 50.2856307673
     },
-    "updated_at": "20260914",
+    "updated_at": "20261012",
     "definition": "아파트 매매가격 대비 전세가격 비율",
     "endpoint": "https://data-api.kbland.kr/bfmstat/weekMnthlyHuseTrnd/dealCntstTnantRato"
   },
@@ -2679,5 +2683,5 @@
     "definition": "KB 서울 아파트 평균 매매가격",
     "endpoint": "https://data-api.kbland.kr/bfmstat/weekMnthlyHuseTrnd/avgPrc"
   },
-  "collected_at": "2026-10-15T01:04:45.350391+00:00"
+  "collected_at": "2026-10-16T00:53:32.720199+00:00"
 }
