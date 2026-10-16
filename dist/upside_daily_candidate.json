@@ -1,0 +1,176 @@
+{
+  "status": "research_only_not_certified",
+  "version": "daily_multisignal_research_v1",
+  "production_applied": false,
+  "scope": {
+    "market_scope_id": "seoul_city",
+    "data_scope": "Seoul",
+    "market_scope": "city",
+    "region": {
+      "code": "1100000000",
+      "label": "서울"
+    },
+    "district_focus": {
+      "code": "1171000000",
+      "label": "송파"
+    },
+    "complex_focus": {
+      "label": "관심단지"
+    },
+    "display_path": [
+      "서울",
+      "송파",
+      "관심단지"
+    ],
+    "district_codes": [
+      "11110",
+      "11140",
+      "11170",
+      "11200",
+      "11215",
+      "11230",
+      "11260",
+      "11290",
+      "11305",
+      "11320",
+      "11350",
+      "11380",
+      "11410",
+      "11440",
+      "11470",
+      "11500",
+      "11530",
+      "11545",
+      "11560",
+      "11590",
+      "11620",
+      "11650",
+      "11680",
+      "11710",
+      "11740"
+    ],
+    "dimensions": [
+      "region",
+      "market_scope",
+      "district",
+      "complex",
+      "price_tier"
+    ]
+  },
+  "inputs": [
+    "finance",
+    "sentiment",
+    "demand"
+  ],
+  "training": {
+    "selection_from": "202209",
+    "selection_through": "202412",
+    "holdout_from": "202501",
+    "label": "certified forward 1m REB monthly price direction",
+    "target_maturity_rule": "t+1 <= historical source end; training parameters estimated on selection only",
+    "model": "ridge logistic correction over unchanged certified KNN prior",
+    "ridge_lambda": 10.0,
+    "selection_n": 28,
+    "holdout_n": 18,
+    "historical_vintage_confirmed": false,
+    "minimum_certification_selection_n": 36,
+    "minimum_certification_holdout_n": 24
+  },
+  "metrics": {
+    "selection": {
+      "baseline": {
+        "n": 28,
+        "multiclass_brier": 0.2347,
+        "up_auc": 0.9599,
+        "up_ece": 0.154
+      },
+      "candidate": {
+        "n": 28,
+        "multiclass_brier": 0.2334,
+        "up_auc": 0.9679,
+        "up_ece": 0.1528
+      }
+    },
+    "holdout": {
+      "baseline": {
+        "n": 18,
+        "multiclass_brier": 0.1796,
+        "up_auc": null,
+        "up_ece": 0.2737
+      },
+      "candidate": {
+        "n": 18,
+        "multiclass_brier": 0.1753,
+        "up_auc": null,
+        "up_ece": 0.2683
+      }
+    }
+  },
+  "coefficients": {
+    "finance": -0.00285,
+    "sentiment": 0.05232,
+    "demand": 0.01898
+  },
+  "selection_feature_means": {
+    "finance": 59.3711,
+    "sentiment": 11.4893,
+    "demand": 52.6904
+  },
+  "certification": {
+    "eligible": false,
+    "blocking_reasons": [
+      "selection below 36 point-in-time observations",
+      "holdout below 24 observations",
+      "historical finance/sentiment/trade feature vintages not verified",
+      "independent prospective three-signal evaluation not yet certified"
+    ],
+    "policy": "existing certified probability remains primary until true point-in-time plus independent prospective certification"
+  },
+  "current": {
+    "status": "ok",
+    "values": [
+      35.5,
+      20.6,
+      36.6
+    ],
+    "components": {
+      "finance": 35.5,
+      "sentiment": 20.6,
+      "demand": 36.6
+    },
+    "vintages": {
+      "finance_mortgage_month": "202608",
+      "finance_base_rate_day": "20261008",
+      "sentiment_week": "20261012",
+      "trade_completed_month": "2026-08"
+    },
+    "source_status": {
+      "finance": "connected",
+      "sentiment": "connected",
+      "trade": "fallback_last_good"
+    },
+    "as_of": "2026-10-16",
+    "probabilities": {
+      "up": 61.8,
+      "flat": 30.6,
+      "down": 7.6
+    },
+    "reference_probability_up_pct": 61.5,
+    "difference_pp": 0.3,
+    "log_odds_contributions": {
+      "finance": 0.0034,
+      "sentiment": 0.0238,
+      "demand": -0.0153
+    },
+    "meaning": "research-only probability candidate; not certified observed event frequency",
+    "source_price_as_of": "20261005"
+  },
+  "generated_at": "2026-10-16T03:13:19.608257+00:00",
+  "lineage": {
+    "certified_model": "dist/upside_probability_engine.json",
+    "monthly_history": "dist/long_cycle_master.json",
+    "revised_research_features": "dist/engine_feature_research.json",
+    "daily_market": "dist/market_indicators.json",
+    "daily_common_feature_layer": "dist/market_judgment.json"
+  }
+}
