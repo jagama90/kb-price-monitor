@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16",
+  "updated_at": "2026-10-17",
   "sources": [
     {
       "name": "서울특별시/국토교통부 실거래가",
@@ -7866,6 +7866,6 @@
     "role": "crosscheck_context_only",
     "production_model_weight_changed": false,
     "collection_method": "public_reb_timeseries_workbook",
-    "collected_at": "2026-10-16T00:18:10.314839+00:00"
+    "collected_at": "2026-10-17T00:20:17.243576+00:00"
   }
 }
