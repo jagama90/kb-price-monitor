@@ -102,19 +102,19 @@
       "recent_peak_3m_momentum_pct": 17.1,
       "cooling_score_0_100": 78.7,
       "trade_signal_status": "mature_completed_month",
-      "trade_signal_as_of": "2026-10-15",
+      "trade_signal_as_of": "2026-10-17",
       "trade_signal_confidence": {
         "level": "high",
         "provisional": false,
         "basis": "statutory_reporting_window",
         "reporting_window_days": 30,
-        "as_of": "2026-10-15",
+        "as_of": "2026-10-17",
         "reason": "latest_full_month_reporting_window_elapsed",
         "signal_period": "2026-08",
         "previous_period": "2026-07",
         "reporting_window_elapsed_on": "2026-09-30"
       },
-      "raw_matched_as_of": "2026-10-15",
+      "raw_matched_as_of": "2026-10-17",
       "finance_model": "finance_v2_credit_cost",
       "finance_v1_score_0_100": 65.9,
       "finance_v2_gate_passed": true,
@@ -538,5 +538,5 @@
       }
     }
   },
-  "generated_at": "2026-10-17T00:20:17.795137+00:00"
+  "generated_at": "2026-10-17T00:54:52.690134+00:00"
 }
