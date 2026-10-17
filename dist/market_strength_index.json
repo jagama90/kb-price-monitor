@@ -3,8 +3,8 @@
   "version": "market_strength_index_v2",
   "production_formula_changed": true,
   "index_role": "current_state_quality_and_short_horizon_forecast_support",
-  "as_of": "2026-10-17",
-  "snapshot_id": "2026-10-17|KB20261012|R202609",
+  "as_of": "2026-10-18",
+  "snapshot_id": "2026-10-18|KB20261012|R202609",
   "current": {
     "score_0_100": 37.6,
     "display_score": 38,
@@ -149,5 +149,5 @@
     },
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
   },
-  "generated_at": "2026-10-17T02:06:12.451969+00:00"
+  "generated_at": "2026-10-17T23:58:13.552368+00:00"
 }
