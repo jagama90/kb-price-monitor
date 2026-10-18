@@ -149,7 +149,7 @@
       "sentiment": "connected",
       "trade": "connected"
     },
-    "as_of": "2026-10-17",
+    "as_of": "2026-10-18",
     "probabilities": {
       "up": 61.8,
       "flat": 30.6,
@@ -165,7 +165,7 @@
     "meaning": "research-only probability candidate; not certified observed event frequency",
     "source_price_as_of": "20261005"
   },
-  "generated_at": "2026-10-17T02:06:21.154441+00:00",
+  "generated_at": "2026-10-18T00:30:19.732238+00:00",
   "lineage": {
     "certified_model": "dist/upside_probability_engine.json",
     "monthly_history": "dist/long_cycle_master.json",
