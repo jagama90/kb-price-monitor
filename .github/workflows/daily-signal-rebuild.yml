@@ -1,0 +1,56 @@
+name: Daily probability shadow rebuild
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_upside_daily_candidate.py'
+      - 'scripts/record_upside_probability_history.py'
+      - 'scripts/test_upside_daily_candidate.py'
+      - 'dist/upside-daily-signals.js'
+      - '.github/workflows/daily-signal-rebuild.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-signal-rebuild-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Rebuild and validate daily shadow
+        run: |
+          python3 scripts/build_upside_daily_candidate.py
+          python3 scripts/test_upside_daily_candidate.py
+          python3 scripts/record_upside_probability_history.py
+          python3 scripts/test_upside_probability_history.py
+          node --check dist/upside-daily-signals.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_render_safety.py
+          python3 scripts/check_pipeline_health.py --allow-aux-stale
+      - name: Rebase, rebuild and persist daily shadow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git reset --hard
+          git pull --ff-only origin main
+          python3 scripts/build_upside_daily_candidate.py
+          python3 scripts/test_upside_daily_candidate.py
+          python3 scripts/record_upside_probability_history.py
+          python3 scripts/test_upside_probability_history.py
+          node --check dist/upside-daily-signals.js
+          python3 scripts/check_dashboard_bundle.py
+          python3 scripts/check_render_safety.py
+          python3 scripts/check_pipeline_health.py --allow-aux-stale
+          git add -f dist/upside_daily_candidate.json dist/upside_probability_history.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh daily probability shadow'
+          git push origin HEAD:main
