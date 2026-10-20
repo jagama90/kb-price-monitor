@@ -97,6 +97,17 @@
         "flat": 30.8,
         "down": 7.7
       }
+    },
+    {
+      "date": "2026-10-20",
+      "checked_at": "2026-10-20T01:21:59.241623+00:00",
+      "status": "source_unchanged",
+      "source_as_of": "20261005",
+      "probabilities": {
+        "up": 61.5,
+        "flat": 30.8,
+        "down": 7.7
+      }
     }
   ],
   "research_daily": [
@@ -205,6 +216,35 @@
       "source_vintages": {
         "finance_mortgage_month": "202608",
         "finance_base_rate_day": "20261008",
+        "sentiment_week": "20261012",
+        "trade_completed_month": "2026-08"
+      },
+      "source_status": {
+        "finance": "connected",
+        "sentiment": "connected",
+        "trade": "connected"
+      },
+      "reference_probability_up_pct": 61.5,
+      "candidate_version": "daily_multisignal_research_v1"
+    },
+    {
+      "date": "2026-10-20",
+      "checked_at": "2026-10-20T01:21:59.241623+00:00",
+      "status": "research_only_not_certified",
+      "probabilities": {
+        "up": 61.8,
+        "flat": 30.6,
+        "down": 7.6
+      },
+      "source_price_as_of": "20261005",
+      "components": {
+        "finance": 35.5,
+        "sentiment": 20.6,
+        "demand": 36.6
+      },
+      "source_vintages": {
+        "finance_mortgage_month": "202608",
+        "finance_base_rate_day": "20261019",
         "sentiment_week": "20261012",
         "trade_completed_month": "2026-08"
       },

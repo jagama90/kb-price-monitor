@@ -140,7 +140,7 @@
     },
     "vintages": {
       "finance_mortgage_month": "202608",
-      "finance_base_rate_day": "20261008",
+      "finance_base_rate_day": "20261019",
       "sentiment_week": "20261012",
       "trade_completed_month": "2026-08"
     },
@@ -149,7 +149,7 @@
       "sentiment": "connected",
       "trade": "connected"
     },
-    "as_of": "2026-10-19",
+    "as_of": "2026-10-20",
     "probabilities": {
       "up": 61.8,
       "flat": 30.6,
@@ -165,7 +165,7 @@
     "meaning": "research-only probability candidate; not certified observed event frequency",
     "source_price_as_of": "20261005"
   },
-  "generated_at": "2026-10-19T02:22:27.160003+00:00",
+  "generated_at": "2026-10-20T01:21:59.155063+00:00",
   "lineage": {
     "certified_model": "dist/upside_probability_engine.json",
     "monthly_history": "dist/long_cycle_master.json",
