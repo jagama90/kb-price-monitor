@@ -30,15 +30,19 @@ const stamp=s=>{const a=String(s||'').replace(/[^0-9]/g,'');return a.length===8?
 const svg=(tag,props,label)=>{const el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(props))el.setAttribute(k,String(v));if(label!=null)el.textContent=label;chart.appendChild(el);return el;};
 function draw(items){
  while(chart.firstChild)chart.removeChild(chart.firstChild);
- for(const v of [0,25,50,75,100]){
-   const y=12+(100-v)*1.12;
-   svg('line',{x1:38,y1:y,x2:430,y2:y,stroke:'#e1e9ed','stroke-dasharray':'3 3'});
-   svg('text',{x:31,y:y+4,'text-anchor':'end','font-size':10,fill:'#8999a3'},v);
- }
  const valid=items.filter(x=>num(x.certified)!==null||num(x.candidate)!==null);
  if(!valid.length){svg('text',{x:235,y:71,'text-anchor':'middle',fill:'#8996a2','font-size':13},'일별 검증 기록 누적 대기');return;}
+ const values=valid.flatMap(r=>[num(r.certified),num(r.candidate)]).filter(v=>v!==null);
+ let lo=Math.max(0,Math.floor((Math.min(...values)-0.6)*2)/2);
+ let hi=Math.min(100,Math.ceil((Math.max(...values)+0.6)*2)/2);
+ if(hi-lo<2){const mid=(hi+lo)/2;lo=Math.max(0,mid-1);hi=Math.min(100,mid+1);}
  const x=i=>valid.length===1?230:44+i*376/(valid.length-1);
- const y=n=>12+(100-n)*1.12;
+ const y=n=>12+(hi-n)*112/(hi-lo);
+ for(let i=0;i<=4;i++){
+   const v=lo+(hi-lo)*i/4,yy=y(v);
+   svg('line',{x1:38,y1:yy,x2:430,y2:yy,stroke:'#e1e9ed','stroke-dasharray':'3 3'});
+   svg('text',{x:31,y:yy+4,'text-anchor':'end','font-size':10,fill:'#8999a3'},v.toFixed(1));
+ }
  for(const [key,color] of [['certified','#587b8d'],['candidate','#ba7741']]){
    let segment=[];
    const finish=()=>{if(segment.length>1)svg('polyline',{points:segment.join(' '),fill:'none',stroke:color,'stroke-width':2.5,'stroke-linecap':'round','stroke-linejoin':'round'});segment=[];};
@@ -49,7 +53,7 @@ function draw(items){
    for(const [key,color] of [['certified','#587b8d'],['candidate','#ba7741']]){
      const v=num(r[key]);if(v===null)continue;
      const point=svg('circle',{cx:x(i),cy:y(v),r:4.2,fill:color,stroke:'white','stroke-width':1.5,tabindex:0,role:'button','aria-label':r.date+' '+key+' '+pct(v)});
-     const choose=()=>{selected.textContent=r.date+' · 인증 '+pct(r.certified)+' / 연구 후보 '+pct(r.candidate);};
+     const choose=()=>{const delta=num(r.delta);selected.textContent=r.date+' · 인증 '+pct(r.certified)+' / 연구 후보 '+pct(r.candidate)+(delta===null?'':' · 전일 대비 '+(delta>0?'+':'')+delta.toFixed(1)+'%p');};
      point.addEventListener('click',choose);
      point.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose();}});
    }
@@ -57,7 +61,7 @@ function draw(items){
  const short=s=>String(s||'').slice(5);
  svg('text',{x:44,y:151,'font-size':11,fill:'#8c9ba4'},short(valid[0].date));
  if(valid.length>1)svg('text',{x:425,y:151,'text-anchor':'end','font-size':11,fill:'#8c9ba4'},short(valid.at(-1).date));
- const latest=valid.at(-1);selected.textContent=latest.date+' · 인증 '+pct(latest.certified)+' / 연구 후보 '+pct(latest.candidate);
+ const latest=valid.at(-1),latestDelta=num(latest.delta);selected.textContent=latest.date+' · 인증 '+pct(latest.certified)+' / 연구 후보 '+pct(latest.candidate)+(latestDelta===null?'':' · 전일 대비 '+(latestDelta>0?'+':'')+latestDelta.toFixed(1)+'%p');
 }
 async function init(){
  try{
@@ -78,28 +82,30 @@ async function init(){
   const labels={finance:'금융',sentiment:'심리',demand:'거래'};
   const vintages={finance:'대출 '+stamp(c.vintages?.finance_mortgage_month)+' · 기준금리 '+stamp(c.vintages?.finance_base_rate_day),
                   sentiment:'KB '+stamp(c.vintages?.sentiment_week),
-                  demand:'완성 월 '+stamp(c.vintages?.trade_completed_month)};
+                  demand:c.daily_signal?.as_of?'MOLIT '+stamp(c.daily_signal.as_of)+' · '+String(c.daily_signal.range||'동일일자'):'완성 월 '+stamp(c.vintages?.trade_completed_month)};
   for(const key of ['finance','sentiment','demand']){
     const card=make('div','daily-signal-feature-v1',null,indicators);
     make('span','',labels[key],card);
     make('b','',ok&&num(c.components?.[key])!==null?Number(c.components[key]).toFixed(1)+'점':'—',card);
-    let state=key==='demand'&&c.source_status?.trade==='fallback_last_good'?' · 마지막 정상값':'';
+    let state=key==='demand'&&c.daily_signal?.status==='provisional_reporting_window'?' · 신고 진행 조기신호':key==='demand'&&c.source_status?.trade==='fallback_last_good'?' · 마지막 정상값':'';
     make('small','',ok?vintages[key]+state:'원천 확인 중',card);
   }
-  sourceLabel.textContent=ok?'입력 기준 '+String(c.as_of||'미확인')+' · 금융·심리·거래의 서로 다른 발표 주기를 유지':'일별 후보에 필요한 원천을 확인 중입니다.';
+  const ds=c.daily_signal||{};
+  sourceLabel.textContent=ok?'입력 기준 '+String(c.as_of||'미확인')+' · 거래 '+(ds.current_total??'—')+'건 vs 전월 동일기간 '+(ds.previous_total??'—')+'건 ('+(num(ds.trade_count_pct)===null?'—':(ds.trade_count_pct>0?'+':'')+Number(ds.trade_count_pct).toFixed(1)+'%')+') · 당월 신고 진행 조기신호':'일별 후보에 필요한 원천을 확인 중입니다.';
   const jd=Array.isArray(history.daily)?history.daily:[];
   const rd=Array.isArray(history.research_daily)?history.research_daily:[];
   const certMap=new Map(jd.map(x=>[x.date,num(x.probabilities?.up)]));
   const dates=[...new Set([...jd.map(x=>x.date),...rd.map(x=>x.date)])].sort();
   const shadowMap=new Map(rd.map(x=>[x.date,num(x.probabilities?.up)]));
-  let items=dates.map(date=>({date,certified:certMap.get(date)??null,candidate:shadowMap.get(date)??null}));
+  const deltaMap=new Map(rd.map(x=>[x.date,num(x.changes_vs_previous?.probability_up_pp)]));
+  let items=dates.map(date=>({date,certified:certMap.get(date)??null,candidate:shadowMap.get(date)??null,delta:deltaMap.get(date)??null}));
   if(ok&&cp!==null&&!rd.some(x=>x.date===String(c.as_of||''))&&dates.length){
     // Do not invent a historical series: one current display point is
     // allowed only for the explicitly dated, actually computed live snapshot.
     const today=String(c.as_of||'');
     if(/^\d{4}-\d{2}-\d{2}$/.test(today)){
        items=items.filter(x=>x.date!==today);
-       items.push({date:today,certified:official,candidate:cp});
+       items.push({date:today,certified:official,candidate:cp,delta:null});
        items.sort((a,b)=>a.date.localeCompare(b.date));
     }
   }

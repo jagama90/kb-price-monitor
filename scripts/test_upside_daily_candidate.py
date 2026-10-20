@@ -39,7 +39,14 @@ class ShadowContract(unittest.TestCase):
             self.assertNotEqual(current['vintages']['finance_mortgage_month'],self.judgment['as_of'])
             self.assertEqual(current['vintages']['trade_completed_month'],
                              self.market['signal_matched_period']['current']['period'])
-            self.assertIn(current['source_status']['trade'],('connected','fallback_last_good'))
+            self.assertEqual(current['vintages']['trade_daily_as_of'],self.market['matched_period']['as_of'])
+            self.assertEqual(current['vintages']['trade_daily_period'],self.market['matched_period']['current']['period'])
+            self.assertEqual(current['source_status']['trade'],'connected')
+            ch=self.market['matched_period']['changes']
+            expected=max(0.0,min(100.0,50+float(ch['trade_count_pct'])*.35+float(ch['under15_share_pp'])*1.5))
+            self.assertAlmostEqual(current['components']['demand'],expected,places=1)
+            self.assertEqual(current['daily_signal']['status'],'provisional_reporting_window')
+            self.assertTrue(current['daily_signal']['warning'])
             self.assertAlmostEqual(sum(current['probabilities'].values()),100,delta=.2)
             self.assertEqual(current['reference_probability_up_pct'],self.cert['current']['probabilities']['up'])
     def test_input_change_affects_candidate_but_not_certified(self):
@@ -64,6 +71,10 @@ class ShadowContract(unittest.TestCase):
         result=shadow.live_inputs(market,self.judgment,self.cert)
         self.assertEqual(result['status'],'data_check')
         self.assertNotIn('probabilities',result)
+        market=json.loads(json.dumps(self.market))
+        market['matched_period']['changes']['trade_count_pct']=None
+        result=shadow.live_inputs(market,self.judgment,self.cert)
+        self.assertEqual(result['status'],'data_check')
     def test_daily_recording_is_append_only_and_does_not_modify_certified(self):
         h={'version':1,'scope':self.cert['scope']['market_scope_id'],'events':[],'daily':[]}
         now=dt.datetime(2026,10,16,3,tzinfo=dt.timezone.utc)
@@ -74,6 +85,8 @@ class ShadowContract(unittest.TestCase):
         again=record.update(current,self.cert,now+dt.timedelta(days=1),self.data)
         self.assertEqual(len(again['events']),len(current['events']))
         self.assertEqual(len(again['research_daily']),2)
+        self.assertIn('daily_signal',again['research_daily'][-1])
+        self.assertIn('changes_vs_previous',again['research_daily'][-1])
         bad=json.loads(json.dumps(self.data));bad['production_applied']=True
         with self.assertRaises(ValueError):record.update(h,self.cert,now,bad)
 

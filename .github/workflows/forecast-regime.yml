@@ -1,6 +1,16 @@
 name: Forward regime forecast
-# Fast derived step: runs only after fresh market/research data, never on ordinary code pushes.
+# Fast derived step: runs after fresh market/research data and when the daily
+# probability implementation itself changes. Generated JSON commits do not
+# match these push paths, so this cannot recurse.
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_upside_daily_candidate.py'
+      - 'scripts/record_upside_probability_history.py'
+      - 'scripts/test_upside_daily_candidate.py'
+      - 'dist/upside-daily-signals.js'
+      - '.github/workflows/forecast-regime.yml'
   workflow_run:
     workflows: ['Research turning signal', 'Engine feature validation', 'Parallel market data refresh', 'Repair dashboard data']
     types: [completed]

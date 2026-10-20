@@ -111,28 +111,49 @@ def live_inputs(market,judgment,engine):
     if scope and jscope and scope!=jscope:
         raise ValueError('probability/feature-layer market scope mismatch')
     comps=(judgment.get('feature_layer') or {}).get('components') or {}
-    v=vector(comps)
-    if v is None:return {'status':'data_check','reason':'finance/sentiment/trade feature unavailable'}
     kb=market.get('kb_sentiment') or {}
     rr=(market.get('refresh_run') or {}).get('sources') or {}
-    signal=market.get('signal_matched_period') or {}
-    tradeperiod=(signal.get('current') or {}).get('period')
+    mature=market.get('signal_matched_period') or {}
+    raw=market.get('matched_period') or {}
+    tradeperiod=(mature.get('current') or {}).get('period')
+    raw_changes=raw.get('changes') or {}
+    raw_trade=base.finite(raw_changes.get('trade_count_pct'))
+    raw_under=base.finite(raw_changes.get('under15_share_pp'))
+    raw_current=(raw.get('current') or {})
+    raw_previous=(raw.get('previous') or {})
+    raw_as_of=raw.get('as_of')
+    raw_period=raw_current.get('period')
+    if raw_trade is None or raw_under is None or not raw_as_of or not raw_period:
+        return {'status':'data_check','reason':'daily MOLIT matched-period signal unavailable'}
+    # Reuse the already-established demand score formula, but feed it the
+    # actually observed same-calendar-day MOLIT snapshot. This is deliberately
+    # provisional: 신고 추가 can revise the raw month, so it stays shadow-only.
+    daily_demand=max(0.0,min(100.0,50+raw_trade*.35+raw_under*1.5))
+    live_components=dict(comps)
+    live_components['demand']=daily_demand
+    v=vector(live_components)
+    if v is None:return {'status':'data_check','reason':'finance/sentiment/daily-trade feature unavailable'}
     sentiment_date=((kb.get('latest') or {}).get('매수우위') or {}).get('date')
     mortgage_period=(market.get('mortgage_rate_official') or {}).get('period')
     base_day=((market.get('base_rate_official') or {}).get('latest') or {}).get('date')
     if kb.get('status')!='connected' or not sentiment_date or not mortgage_period or not tradeperiod:
         return {'status':'data_check','reason':'required source observation date unavailable'}
-    # MOLIT "fallback_last_good" is allowed for a research-only comparison,
-    # but must NOT be presented as fresh or as a new trading observation.
     trade_state=rr.get('molit') or 'unknown'
-    if trade_state not in ('connected','fallback_last_good'):
-        return {'status':'data_check','reason':'MOLIT trade source status unavailable'}
+    if trade_state!='connected':
+        return {'status':'data_check','reason':'daily MOLIT trade source is not freshly connected'}
     if base_day is None:return {'status':'data_check','reason':'finance base-rate date unavailable'}
     return {'status':'ok','values':v,'components':{k:round(v[j],2) for j,k in enumerate(NAMES)},
             'vintages':{'finance_mortgage_month':mortgage_period,'finance_base_rate_day':base_day,
-                        'sentiment_week':sentiment_date,'trade_completed_month':tradeperiod},
+                        'sentiment_week':sentiment_date,'trade_completed_month':tradeperiod,
+                        'trade_daily_as_of':raw_as_of,'trade_daily_period':raw_period},
             'source_status':{'finance':rr.get('ecos'),'sentiment':rr.get('kb_sentiment'),
                              'trade':trade_state},
+            'daily_signal':{'status':'provisional_reporting_window','as_of':raw_as_of,
+                            'period':raw_period,'range':raw_current.get('range'),
+                            'trade_count_pct':round(raw_trade,1),'under15_share_pp':round(raw_under,1),
+                            'current_total':raw_current.get('total'),'previous_total':raw_previous.get('total'),
+                            'warning':raw.get('warning')},
+            'mature_reference':{'period':tradeperiod,'demand_score_0_100':base.finite(comps.get('demand'))},
             'as_of':judgment.get('as_of')}
 
 def main():
@@ -192,10 +213,10 @@ def main():
         else:live={'status':'data_check','reason':'certified class probabilities invalid'}
     else:
         live={'status':'data_check','reason':live.get('reason') or 'candidate training unavailable'}
-    payload={'status':'research_only_not_certified','version':'daily_multisignal_research_v1',
+    payload={'status':'research_only_not_certified','version':'daily_multisignal_research_v2',
              'production_applied':False,
              'scope':certified.get('scope'),
-             'inputs':['finance','sentiment','demand'],
+             'inputs':['finance','sentiment','demand_daily_provisional'],
              'training':{'selection_from':'202209','selection_through':SELECT_END,
                          'holdout_from':HOLD_START,'label':'certified forward 1m REB monthly price direction',
                          'target_maturity_rule':'t+1 <= historical source end; training parameters estimated on selection only',
@@ -215,7 +236,8 @@ def main():
                         'monthly_history':str(LONG.relative_to(ROOT)),
                         'revised_research_features':str(FEATURES.relative_to(ROOT)),
                         'daily_market':str(MARKET.relative_to(ROOT)),
-                        'daily_common_feature_layer':str(JUDGMENT.relative_to(ROOT))}}
+                        'daily_common_feature_layer':str(JUDGMENT.relative_to(ROOT)),
+                        'daily_trade_history':'data_sources/molit_daily_history.json'}}
     OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'status':payload['status'],'production_applied':False,
                       'selection_n':len(selection),'holdout_n':len(holdout),

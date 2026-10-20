@@ -96,6 +96,8 @@ def update(history, engine, now, shadow=None):
             'components':item.get('components') if sp is not None else None,
             'source_vintages':item.get('vintages') if sp is not None else None,
             'source_status':item.get('source_status') if sp is not None else None,
+            'daily_signal':item.get('daily_signal') if sp is not None else None,
+            'mature_reference':item.get('mature_reference') if sp is not None else None,
             'reference_probability_up_pct':item.get('reference_probability_up_pct') if sp is not None else None,
             'candidate_version':shadow.get('version')
         }
@@ -103,6 +105,21 @@ def update(history, engine, now, shadow=None):
         rs=result['research_daily']
         if rs and date<rs[-1]['date']:
             raise ValueError('research date regressed')
+        previous=next((x for x in reversed(rs) if x.get('date')<date and isinstance(x.get('probabilities'),dict)),None)
+        if sp is not None and previous is not None:
+            prevp=(previous.get('probabilities') or {}).get('up')
+            prevc=previous.get('components') or {}
+            changes={}
+            for key in ('finance','sentiment','demand'):
+                a=item.get('components',{}).get(key);b=prevc.get(key)
+                changes[key]=None if a is None or b is None else round(float(a)-float(b),2)
+            research['changes_vs_previous']={
+                'probability_up_pp':None if prevp is None else round(float(sp['up'])-float(prevp),1),
+                'components':changes,
+                'input_changed':any(v not in (None,0,0.0) for v in changes.values())
+            }
+        else:
+            research['changes_vs_previous']=None
         if rs and rs[-1]['date']==date:rs[-1]=research
         else:rs.append(research)
     return result
