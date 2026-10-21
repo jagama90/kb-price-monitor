@@ -7,24 +7,24 @@
   },
   "frequency": "weekly",
   "latest": {
-    "date": "20261005",
-    "sale_index": 102.744045796114,
-    "rent_index": 102.779539335163
+    "date": "20261012",
+    "sale_index": 102.910287113882,
+    "rent_index": 102.96961781137
   },
   "momentum": {
-    "sale_4w_pct": 0.5,
-    "sale_13w_pct": 2.74,
-    "rent_4w_pct": 0.69,
-    "rent_13w_pct": 2.78
+    "sale_4w_pct": 0.51,
+    "sale_13w_pct": 2.6,
+    "rent_4w_pct": 0.71,
+    "rent_13w_pct": 2.68
   },
   "accumulation": {
     "requested_start_date": "20250203",
     "start_date": "20250203",
-    "end_date": "20261005",
-    "interval_weeks": 87.0,
-    "sale_pct": 17.72,
-    "rent_pct": 12.35,
-    "sale_minus_rent_pp": 5.37
+    "end_date": "20261012",
+    "interval_weeks": 88.0,
+    "sale_pct": 17.91,
+    "rent_pct": 12.55,
+    "sale_minus_rent_pp": 5.36
   },
   "series": {
     "sale": [
@@ -3027,6 +3027,10 @@
       {
         "date": "20261005",
         "value": 102.744045796114
+      },
+      {
+        "date": "20261012",
+        "value": 102.910287113882
       }
     ],
     "rent": [
@@ -6029,6 +6033,10 @@
       {
         "date": "20261005",
         "value": 102.779539335163
+      },
+      {
+        "date": "20261012",
+        "value": 102.96961781137
       }
     ]
   },
@@ -6042,5 +6050,5 @@
   "role": "crosscheck_context_only",
   "production_model_weight_changed": false,
   "collection_method": "public_reb_timeseries_workbook",
-  "collected_at": "2026-10-17T23:58:12.934609+00:00"
+  "collected_at": "2026-10-21T00:33:10.058233+00:00"
 }

@@ -528,26 +528,26 @@
   "current": {
     "status": "ok",
     "probabilities": {
-      "up": 61.5,
-      "flat": 30.8,
+      "up": 69.2,
+      "flat": 23.1,
       "down": 7.7
     },
     "training_observations": 243,
     "k": 10,
     "nearest_analogs": [
       "202410",
-      "202508",
       "202001",
-      "201804",
       "202111",
-      "200607"
+      "201804",
+      "202508",
+      "202509"
     ],
-    "as_of": "20261005",
+    "as_of": "20261012",
     "horizon_months": 1,
     "source": "REB weekly sale index",
     "inputs": {
-      "price_momentum_4w_pct": 0.5,
-      "price_momentum_13w_pct": 2.74
+      "price_momentum_4w_pct": 0.51,
+      "price_momentum_13w_pct": 2.6
     }
   },
   "history": [
@@ -597,28 +597,28 @@
       "label": "현재",
       "ym": "202610",
       "probabilities": {
-        "up": 61.5,
-        "flat": 30.8,
+        "up": 69.2,
+        "flat": 23.1,
         "down": 7.7
       },
       "inputs": {
-        "price_momentum_4w_pct": 0.5,
-        "price_momentum_13w_pct": 2.74
+        "price_momentum_4w_pct": 0.51,
+        "price_momentum_13w_pct": 2.6
       },
       "training_observations": 243
     }
   ],
   "comparison_1m": {
     "status": "reconstructed_from_weekly_history",
-    "as_of": "20260831",
+    "as_of": "20260907",
     "probabilities": {
       "up": 84.6,
       "flat": 7.7,
       "down": 7.7
     },
     "inputs": {
-      "price_momentum_4w_pct": 0.94,
-      "price_momentum_13w_pct": 3.49
+      "price_momentum_4w_pct": 0.93,
+      "price_momentum_13w_pct": 3.41
     },
     "method": "same certified KNN method, retrospective weekly index values",
     "historical_vintage_confirmed": false
@@ -635,29 +635,29 @@
       "k": 25,
       "nearest_analogs": [
         "202410",
-        "202508",
         "202001",
-        "201804",
         "202111",
-        "200607"
+        "201804",
+        "202508",
+        "202509"
       ]
     },
     "6": {
       "status": "validated",
       "probabilities": {
-        "up": 71.4,
-        "flat": 17.9,
+        "up": 67.9,
+        "flat": 21.4,
         "down": 10.7
       },
       "training_observations": 238,
       "k": 25,
       "nearest_analogs": [
         "202410",
-        "202508",
         "202001",
-        "201804",
         "202111",
-        "200607"
+        "201804",
+        "202508",
+        "202509"
       ]
     },
     "12": {
@@ -670,5 +670,5 @@
     "long_history": "dist/long_cycle_master.json",
     "current_market": "dist/market_indicators.json"
   },
-  "generated_at": "2026-10-20T14:52:55.459696+00:00"
+  "generated_at": "2026-10-21T00:33:22.861259+00:00"
 }
