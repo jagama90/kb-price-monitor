@@ -4,8 +4,8 @@
   "production_formula_changed": false,
   "new_score_created": false,
   "current": {
-    "as_of": "2026-10-22",
-    "snapshot_id": "2026-10-22|KB20261012|R202609",
+    "as_of": "2026-10-24",
+    "snapshot_id": "2026-10-24|KB20261019|R202609",
     "flow": "상승 유지",
     "strength": "약함",
     "turn_sign": "둔화 쪽 조짐 있음",
@@ -15,7 +15,7 @@
       {
         "label": "가격",
         "value": "상승",
-        "detail": "1개월 +1.45% · 3개월 +6.97%"
+        "detail": "1개월 +1.50% · 3개월 +6.59%"
       },
       {
         "label": "시장 확산",
@@ -30,7 +30,7 @@
       {
         "label": "금융·심리·거래",
         "value": "서로 엇갈림",
-        "detail": "금융 +1.2 / 심리 -4.2 / 거래 -21.7"
+        "detail": "금융 +1.2 / 심리 -4.7 / 거래 -21.7"
       }
     ],
     "source_labels": {
@@ -69,5 +69,5 @@
     "certified_through": "202608",
     "note": "과거검증 참고값이며 실제 발생확률이 아님"
   },
-  "generated_at": "2026-10-22T12:16:59.660665+00:00"
+  "generated_at": "2026-10-24T03:28:57.533484+00:00"
 }

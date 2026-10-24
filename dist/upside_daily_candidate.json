@@ -130,20 +130,20 @@
     "status": "ok",
     "values": [
       35.5,
-      20.6,
-      35.02
+      20.1,
+      46.47
     ],
     "components": {
       "finance": 35.5,
-      "sentiment": 20.6,
-      "demand": 35.02
+      "sentiment": 20.1,
+      "demand": 46.47
     },
     "vintages": {
       "finance_mortgage_month": "202608",
-      "finance_base_rate_day": "20261019",
-      "sentiment_week": "20261012",
+      "finance_base_rate_day": "20261022",
+      "sentiment_week": "20261019",
       "trade_completed_month": "2026-08",
-      "trade_daily_as_of": "2026-10-20",
+      "trade_daily_as_of": "2026-10-24",
       "trade_daily_period": "2026-10"
     },
     "source_status": {
@@ -153,36 +153,36 @@
     },
     "daily_signal": {
       "status": "provisional_reporting_window",
-      "as_of": "2026-10-20",
+      "as_of": "2026-10-24",
       "period": "2026-10",
-      "range": "1~20일",
-      "trade_count_pct": -63.8,
-      "under15_share_pp": 4.9,
-      "current_total": 847,
-      "previous_total": 2341,
+      "range": "1~24일",
+      "trade_count_pct": -38.8,
+      "under15_share_pp": 6.7,
+      "current_total": 1617,
+      "previous_total": 2643,
       "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
     },
     "mature_reference": {
       "period": "2026-08",
       "demand_score_0_100": 36.6
     },
-    "as_of": "2026-10-20",
+    "as_of": "2026-10-24",
     "probabilities": {
-      "up": 61.7,
-      "flat": 30.6,
-      "down": 7.7
+      "up": 69.6,
+      "flat": 22.8,
+      "down": 7.6
     },
-    "reference_probability_up_pct": 61.5,
-    "difference_pp": 0.2,
+    "reference_probability_up_pct": 69.2,
+    "difference_pp": 0.4,
     "log_odds_contributions": {
       "finance": 0.0034,
-      "sentiment": 0.0238,
-      "demand": -0.0168
+      "sentiment": 0.0225,
+      "demand": -0.0059
     },
     "meaning": "research-only probability candidate; not certified observed event frequency",
-    "source_price_as_of": "20261005"
+    "source_price_as_of": "20261012"
   },
-  "generated_at": "2026-10-20T14:53:53.373616+00:00",
+  "generated_at": "2026-10-24T03:29:09.350551+00:00",
   "lineage": {
     "certified_model": "dist/upside_probability_engine.json",
     "monthly_history": "dist/long_cycle_master.json",

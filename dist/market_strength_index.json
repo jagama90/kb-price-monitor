@@ -3,8 +3,8 @@
   "version": "market_strength_index_v2",
   "production_formula_changed": true,
   "index_role": "current_state_quality_and_short_horizon_forecast_support",
-  "as_of": "2026-10-22",
-  "snapshot_id": "2026-10-22|KB20261012|R202609",
+  "as_of": "2026-10-24",
+  "snapshot_id": "2026-10-24|KB20261019|R202609",
   "current": {
     "score_0_100": 37.6,
     "display_score": 38,
@@ -15,19 +15,19 @@
     "strongest": {
       "key": "price_momentum",
       "label": "가격 흐름",
-      "value": 82.6,
+      "value": 78.3,
       "excluded_from_trim": true
     },
     "weakest": {
       "key": "sentiment",
       "label": "심리",
-      "value": 20.6,
+      "value": 20.1,
       "excluded_from_trim": true
     },
     "components": {
       "price_momentum": {
         "label": "가격 흐름",
-        "value": 82.6,
+        "value": 78.3,
         "used_in_index": false
       },
       "breadth": {
@@ -47,7 +47,7 @@
       },
       "sentiment": {
         "label": "심리",
-        "value": 20.6,
+        "value": 20.1,
         "used_in_index": false
       },
       "demand": {
@@ -62,7 +62,7 @@
       },
       "supply": {
         "label": "전세·공급",
-        "value": 48.9,
+        "value": 49.4,
         "used_in_index": true
       }
     },
@@ -137,17 +137,17 @@
       },
       "applied": true,
       "baseline_short_horizon": {
-        "consolidation": 34.9,
-        "reacceleration": 29.3,
-        "downturn": 35.8
+        "consolidation": 35.4,
+        "reacceleration": 28.9,
+        "downturn": 35.7
       },
       "applied_short_horizon": {
-        "consolidation": 32.1,
-        "reacceleration": 28.9,
+        "consolidation": 32.5,
+        "reacceleration": 28.5,
         "downturn": 39.0
       }
     },
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
   },
-  "generated_at": "2026-10-22T12:16:59.686402+00:00"
+  "generated_at": "2026-10-24T03:28:57.585789+00:00"
 }
