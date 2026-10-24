@@ -15,8 +15,8 @@
       "dong": "가락동",
       "exclusive_m2": 59.66,
       "type_label": "24C",
-      "recent_trade_manwon": 177000,
-      "recent_trade_date": "20260919",
+      "recent_trade_manwon": 185000,
+      "recent_trade_date": "20261002",
       "molit_apt_name": "가락금호아파트",
       "matched_exclusive_m2": 59.91,
       "name_similarity": 1.0,
@@ -33,8 +33,8 @@
       "dong": "가락동",
       "exclusive_m2": 59.91,
       "type_label": "24A",
-      "recent_trade_manwon": 177000,
-      "recent_trade_date": "20260919",
+      "recent_trade_manwon": 185000,
+      "recent_trade_date": "20261002",
       "molit_apt_name": "가락금호아파트",
       "matched_exclusive_m2": 59.91,
       "name_similarity": 1.0,
@@ -51,8 +51,8 @@
       "dong": "가락동",
       "exclusive_m2": 59.91,
       "type_label": "24B",
-      "recent_trade_manwon": 177000,
-      "recent_trade_date": "20260919",
+      "recent_trade_manwon": 185000,
+      "recent_trade_date": "20261002",
       "molit_apt_name": "가락금호아파트",
       "matched_exclusive_m2": 59.91,
       "name_similarity": 1.0,
@@ -1275,8 +1275,8 @@
       "dong": "행당동",
       "exclusive_m2": 59.96,
       "type_label": "26",
-      "recent_trade_manwon": 168500,
-      "recent_trade_date": "20260923",
+      "recent_trade_manwon": 160500,
+      "recent_trade_date": "20261019",
       "molit_apt_name": "행당한진타운",
       "matched_exclusive_m2": 59.96,
       "name_similarity": 1.0,
@@ -1632,6 +1632,7 @@
       "name": "행당대림",
       "exclusive_m2": 59.96,
       "candidate_names": [
+        "서울숲리버뷰자이",
         "신동아",
         "행당한진타운"
       ]
@@ -1663,5 +1664,5 @@
   "fetch_errors": [],
   "matched_count": 85,
   "target_area_count": 101,
-  "collected_at": "2026-10-20T01:21:00.473078+00:00"
+  "collected_at": "2026-10-24T03:26:26.758349+00:00"
 }

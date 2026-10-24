@@ -4,11 +4,11 @@
   "region": "서울",
   "frequency": "weekly",
   "latest": {
-    "date": "20261012",
-    "value": 108.7005157652,
-    "display_value": "108.7",
-    "change_pct": 0.13
+    "date": "20261019",
+    "value": 108.9003416914,
+    "display_value": "108.9",
+    "change_pct": 0.18
   },
   "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-  "collected_at": "2026-10-20T01:21:01.204855+00:00"
+  "collected_at": "2026-10-24T03:26:28.702845+00:00"
 }
