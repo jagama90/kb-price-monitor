@@ -19,45 +19,85 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Verify daily data and publication
+      - name: Complete daily data to Pages chain
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
           today="$(TZ=Asia/Seoul date +%F)"
-          data_date="$(python3 - <<'PY'
-          import json
-          from pathlib import Path
-          p=Path('dist/market_indicators.json')
-          print((json.loads(p.read_text()) if p.exists() else {}).get('updated_at') or '')
-          PY
-          )"
-          refresh_date="$(python3 - <<'PY'
+
+          sync_main() {
+            git fetch origin main
+            git reset --hard origin/main
+          }
+
+          run_and_wait() {
+            local wf="$1"; shift
+            echo "Dispatching $wf $*"
+            gh workflow run "$wf" "$@"
+            sleep 4
+            local run_id
+            run_id="$(gh run list --workflow "$wf" --event workflow_dispatch --limit 1 --json databaseId --jq '.[0].databaseId')"
+            test -n "$run_id"
+            echo "Waiting for $wf run $run_id"
+            gh run watch "$run_id" --exit-status
+          }
+
+          dates() {
+            python3 - <<'PY'
           import datetime,json
           from pathlib import Path
-          p=Path('data_sources/refresh_run_status.json')
-          if not p.exists():
-              print(''); raise SystemExit
-          s=(json.loads(p.read_text()).get('attempted_at') or '').replace('Z','+00:00')
+          def load(path):
+              p=Path(path)
+              return json.loads(p.read_text()) if p.exists() else {}
+          m=load('dist/market_indicators.json')
+          r=load('data_sources/refresh_run_status.json')
+          f=load('dist/regime_forecast.json')
+          c=load('dist/upside_daily_candidate.json')
+          h=load('dist/upside_probability_history.json')
+          s=str(r.get('attempted_at') or '').replace('Z','+00:00')
+          refresh=''
           try:
               d=datetime.datetime.fromisoformat(s)
               if d.tzinfo is None:d=d.replace(tzinfo=datetime.timezone.utc)
-              print(d.astimezone(datetime.timezone(datetime.timedelta(hours=9))).date().isoformat())
-          except Exception: print('')
+              refresh=d.astimezone(datetime.timezone(datetime.timedelta(hours=9))).date().isoformat()
+          except Exception: pass
+          research=(h.get('research_daily') or [])
+          print('|'.join([
+              str(m.get('updated_at') or ''),
+              refresh,
+              str(f.get('as_of') or ''),
+              str((c.get('current') or {}).get('as_of') or ''),
+              str((research[-1] if research else {}).get('date') or '')
+          ]))
           PY
-          )"
-          echo "today=$today data_date=$data_date refresh_date=$refresh_date"
+          }
+
+          sync_main
+          IFS='|' read -r data_date refresh_date forecast_date candidate_date history_date <<<"$(dates)"
+          echo "today=$today data=$data_date refresh=$refresh_date forecast=$forecast_date candidate=$candidate_date history=$history_date"
+
           if [ "$data_date" != "$today" ] || [ "$refresh_date" != "$today" ]; then
-            echo "Daily production data is incomplete; dispatching recovery refresh."
-            gh workflow run parallel-market-refresh.yml -f skip_preflight=true
-            exit 0
+            run_and_wait parallel-market-refresh.yml -f skip_preflight=true
+            sync_main
           fi
-          head="$(git rev-parse HEAD)"
-          pages_ok="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/pages.yml/runs?status=success&per_page=10" --jq --arg head "$head" '[.workflow_runs[] | select(.head_sha==$head)] | length')"
-          if [ "$pages_ok" = "0" ]; then
-            echo "Data is current but current main has not been published; dispatching Pages."
-            gh workflow run pages.yml
-          else
-            echo "Daily refresh is complete: production data and Pages are current."
+
+          IFS='|' read -r data_date refresh_date forecast_date candidate_date history_date <<<"$(dates)"
+          if [ "$forecast_date" != "$today" ] || [ "$candidate_date" != "$today" ] || [ "$history_date" != "$today" ]; then
+            run_and_wait forecast-regime.yml
+            sync_main
           fi
+
+          run_and_wait system-health.yml
+          sync_main
+          run_and_wait pages.yml
+          sync_main
+
+          IFS='|' read -r data_date refresh_date forecast_date candidate_date history_date <<<"$(dates)"
+          test "$data_date" = "$today"
+          test "$refresh_date" = "$today"
+          test "$forecast_date" = "$today"
+          test "$candidate_date" = "$today"
+          test "$history_date" = "$today"
+          echo "Daily refresh complete end-to-end: data -> forecast -> health -> Pages."
