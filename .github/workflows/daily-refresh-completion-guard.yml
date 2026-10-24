@@ -1,0 +1,63 @@
+name: Daily refresh completion guard
+
+on:
+  schedule:
+    - cron: '20 0 * * *' # 09:20 KST
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/daily-refresh-completion-guard.yml'
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify daily data and publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          today="$(TZ=Asia/Seoul date +%F)"
+          data_date="$(python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('dist/market_indicators.json')
+          print((json.loads(p.read_text()) if p.exists() else {}).get('updated_at') or '')
+          PY
+          )"
+          refresh_date="$(python3 - <<'PY'
+          import datetime,json
+          from pathlib import Path
+          p=Path('data_sources/refresh_run_status.json')
+          if not p.exists():
+              print(''); raise SystemExit
+          s=(json.loads(p.read_text()).get('attempted_at') or '').replace('Z','+00:00')
+          try:
+              d=datetime.datetime.fromisoformat(s)
+              if d.tzinfo is None:d=d.replace(tzinfo=datetime.timezone.utc)
+              print(d.astimezone(datetime.timezone(datetime.timedelta(hours=9))).date().isoformat())
+          except Exception: print('')
+          PY
+          )"
+          echo "today=$today data_date=$data_date refresh_date=$refresh_date"
+          if [ "$data_date" != "$today" ] || [ "$refresh_date" != "$today" ]; then
+            echo "Daily production data is incomplete; dispatching recovery refresh."
+            gh workflow run parallel-market-refresh.yml -f skip_preflight=true
+            exit 0
+          fi
+          head="$(git rev-parse HEAD)"
+          pages_ok="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/pages.yml/runs?status=success&per_page=10" --jq --arg head "$head" '[.workflow_runs[] | select(.head_sha==$head)] | length')"
+          if [ "$pages_ok" = "0" ]; then
+            echo "Data is current but current main has not been published; dispatching Pages."
+            gh workflow run pages.yml
+          else
+            echo "Daily refresh is complete: production data and Pages are current."
+          fi
