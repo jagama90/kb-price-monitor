@@ -1,6 +1,6 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-10-24T12:26:29.540091+09:00",
+  "collected_at": "2026-10-25T09:39:57.832874+09:00",
   "refresh_meta": {
     "mode": "daily_current_month_only",
     "queried_pairs": 20,
@@ -8,7 +8,7 @@
     "reused_previous_matched_vintage": false,
     "retried_pairs": [],
     "cache_fallback_pairs": [],
-    "elapsed_sec": 2.7
+    "elapsed_sec": 3.8
   },
   "pair_cache": {
     "11215:202609": [
@@ -29961,6 +29961,10 @@
         40000
       ],
       [
+        16,
+        71000
+      ],
+      [
         17,
         42000
       ],
@@ -31692,10 +31696,6 @@
       ],
       [
         16,
-        16200
-      ],
-      [
-        16,
         200100
       ],
       [
@@ -32787,12 +32787,12 @@
     ]
   },
   "matched_period": {
-    "as_of": "2026-10-24",
-    "cutoff_day": 24,
+    "as_of": "2026-10-25",
+    "cutoff_day": 25,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-10",
-      "range": "1~24일",
+      "range": "1~25일",
       "total": 1617,
       "counts": {
         "<=9eok": 1003,
@@ -32815,7 +32815,7 @@
     },
     "previous": {
       "period": "2026-09",
-      "range": "1~24일",
+      "range": "1~25일",
       "total": 2643,
       "counts": {
         "<=9eok": 1485,
@@ -32843,7 +32843,7 @@
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
   "signal_matched_period": {
-    "as_of": "2026-10-24",
+    "as_of": "2026-10-25",
     "basis": "completed_month_after_statutory_reporting_window",
     "reporting_window_days": 30,
     "current": {
@@ -32901,7 +32901,7 @@
     "provisional": false,
     "basis": "statutory_reporting_window",
     "reporting_window_days": 30,
-    "as_of": "2026-10-24",
+    "as_of": "2026-10-25",
     "reason": "latest_full_month_reporting_window_elapsed",
     "signal_period": "2026-08",
     "previous_period": "2026-07",
