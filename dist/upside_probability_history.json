@@ -135,7 +135,7 @@
     },
     {
       "date": "2026-10-25",
-      "checked_at": "2026-10-25T00:40:57.084954+00:00",
+      "checked_at": "2026-10-25T02:16:47.413768+00:00",
       "status": "source_unchanged",
       "source_as_of": "20261012",
       "probabilities": {
@@ -374,7 +374,7 @@
     },
     {
       "date": "2026-10-25",
-      "checked_at": "2026-10-25T00:40:57.084954+00:00",
+      "checked_at": "2026-10-25T02:16:47.413768+00:00",
       "status": "research_only_not_certified",
       "probabilities": {
         "up": 69.6,

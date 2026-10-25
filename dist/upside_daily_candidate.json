@@ -182,7 +182,7 @@
     "meaning": "research-only probability candidate; not certified observed event frequency",
     "source_price_as_of": "20261012"
   },
-  "generated_at": "2026-10-25T00:40:57.002224+00:00",
+  "generated_at": "2026-10-25T02:16:47.354731+00:00",
   "lineage": {
     "certified_model": "dist/upside_probability_engine.json",
     "monthly_history": "dist/long_cycle_master.json",
