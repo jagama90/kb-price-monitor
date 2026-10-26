@@ -6,7 +6,7 @@
   "as_of": "2026-10-26",
   "snapshot_id": "2026-10-26|KB20261019|R202609",
   "current": {
-    "score_0_100": 37.6,
+    "score_0_100": 37.7,
     "display_score": 38,
     "label": "약함",
     "historical_percentile": 13.0,
@@ -57,7 +57,7 @@
       },
       "value": {
         "label": "가격·밸류",
-        "value": 30.4,
+        "value": 30.7,
         "used_in_index": true
       },
       "supply": {
@@ -143,11 +143,11 @@
       },
       "applied_short_horizon": {
         "consolidation": 32.5,
-        "reacceleration": 28.5,
-        "downturn": 39.0
+        "reacceleration": 28.6,
+        "downturn": 38.9
       }
     },
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
   },
-  "generated_at": "2026-10-26T00:08:36.770680+00:00"
+  "generated_at": "2026-10-26T00:51:32.638692+00:00"
 }

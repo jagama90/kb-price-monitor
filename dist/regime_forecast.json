@@ -12,8 +12,8 @@
       "label": "2027년 상반기",
       "weights": {
         "consolidation": 32.5,
-        "reacceleration": 28.5,
-        "downturn": 39.0
+        "reacceleration": 28.6,
+        "downturn": 38.9
       },
       "base_case": "consolidation",
       "display": {
@@ -21,8 +21,8 @@
         "headline": "쉬어가기·하방 경계",
         "risk_range": "35~44%",
         "tone": "watch",
-        "downturn_weight": 39.0,
-        "reacceleration_weight": 28.5,
+        "downturn_weight": 38.9,
+        "reacceleration_weight": 28.6,
         "secondary": "하방 위험 주의",
         "easing_hysteresis_pp": 2.0
       }
@@ -129,14 +129,14 @@
       "finance": 35.5,
       "sentiment": 20.1,
       "demand": 36.6,
-      "value": 30.4,
+      "value": 30.7,
       "supply": 49.4,
       "price_mom_pct": 1.5,
       "momentum_3m_pct": 6.59,
       "breadth": 38.9,
       "reaccel": 35.0,
       "turn": 45.5,
-      "market_strength": 37.6,
+      "market_strength": 37.7,
       "market_strength_label": "약함",
       "trade_count_pct": -39.2,
       "m2_yoy_pct": 5.65,
@@ -163,7 +163,7 @@
     "status": "validated_features_attached",
     "source": "dist/engine_feature_research.json",
     "market_strength": {
-      "score_0_100": 37.6,
+      "score_0_100": 37.7,
       "label": "약함",
       "low_cut": 43.0,
       "high_cut": 48.4,
@@ -194,7 +194,7 @@
           "used_in_index": true
         },
         "value": {
-          "value": 30.4,
+          "value": 30.7,
           "used_in_index": true
         },
         "supply": {
@@ -242,8 +242,8 @@
         },
         "applied_short_horizon": {
           "consolidation": 32.5,
-          "reacceleration": 28.5,
-          "downturn": 39.0
+          "reacceleration": 28.6,
+          "downturn": 38.9
         }
       }
     },
@@ -284,5 +284,5 @@
     "sample_is_small": true
   },
   "unified_snapshot_id": "2026-10-26|KB20261019|R202609",
-  "generated_at": "2026-10-26T00:08:36.718388+00:00"
+  "generated_at": "2026-10-26T00:51:32.568524+00:00"
 }
