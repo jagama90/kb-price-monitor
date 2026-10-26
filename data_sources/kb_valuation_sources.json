@@ -2673,15 +2673,19 @@
       {
         "period": "202609",
         "avg_sale_price_manwon": 162469.45105927
+      },
+      {
+        "period": "202610",
+        "avg_sale_price_manwon": 163546.14512538
       }
     ],
     "latest": {
-      "period": "202609",
-      "avg_sale_price_manwon": 162469.45105927
+      "period": "202610",
+      "avg_sale_price_manwon": 163546.14512538
     },
-    "updated_at": "20260914",
+    "updated_at": "20261012",
     "definition": "KB 서울 아파트 평균 매매가격",
     "endpoint": "https://data-api.kbland.kr/bfmstat/weekMnthlyHuseTrnd/avgPrc"
   },
-  "collected_at": "2026-10-25T00:40:03.325992+00:00"
+  "collected_at": "2026-10-26T00:50:52.454760+00:00"
 }

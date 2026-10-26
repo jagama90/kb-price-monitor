@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-25",
+  "as_of": "2026-10-26",
   "weights": {
     "finance": 25,
     "sentiment": 20,
@@ -11,14 +11,14 @@
     "finance": 65.91499999999999,
     "sentiment": 20.1,
     "demand": 36.58,
-    "value": 30.4,
+    "value": 30.7,
     "supply": 49.4
   },
   "contribution_vs_neutral": {
     "finance": 3.98,
     "sentiment": -5.98,
     "demand": -2.68,
-    "value": -3.92,
+    "value": -3.86,
     "supply": -0.09
   },
   "coverage_weight": 100,
