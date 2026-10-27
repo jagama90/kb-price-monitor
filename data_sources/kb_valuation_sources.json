@@ -2687,5 +2687,5 @@
     "definition": "KB 서울 아파트 평균 매매가격",
     "endpoint": "https://data-api.kbland.kr/bfmstat/weekMnthlyHuseTrnd/avgPrc"
   },
-  "collected_at": "2026-10-26T00:50:52.454760+00:00"
+  "collected_at": "2026-10-27T01:42:25.454119+00:00"
 }
