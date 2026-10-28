@@ -519,13 +519,13 @@
       "dong": "가락동",
       "exclusive_m2": 72.7,
       "type_label": "28A1",
-      "recent_trade_manwon": 204000,
-      "recent_trade_date": "20260720",
+      "recent_trade_manwon": 202000,
+      "recent_trade_date": "20261010",
       "molit_apt_name": "삼환",
-      "matched_exclusive_m2": 72.88,
+      "matched_exclusive_m2": 72.7,
       "name_similarity": 0.92,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -537,13 +537,13 @@
       "dong": "가락동",
       "exclusive_m2": 72.88,
       "type_label": "28A2",
-      "recent_trade_manwon": 204000,
-      "recent_trade_date": "20260720",
+      "recent_trade_manwon": 202000,
+      "recent_trade_date": "20261010",
       "molit_apt_name": "삼환",
-      "matched_exclusive_m2": 72.88,
+      "matched_exclusive_m2": 72.7,
       "name_similarity": 0.92,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -627,8 +627,8 @@
       "dong": "가락동",
       "exclusive_m2": 59.92,
       "type_label": "24",
-      "recent_trade_manwon": 193500,
-      "recent_trade_date": "20261006",
+      "recent_trade_manwon": 195000,
+      "recent_trade_date": "20261023",
       "molit_apt_name": "가락(1차)쌍용아파트",
       "matched_exclusive_m2": 59.92,
       "name_similarity": 1.0,
@@ -1664,5 +1664,5 @@
   "fetch_errors": [],
   "matched_count": 85,
   "target_area_count": 101,
-  "collected_at": "2026-10-27T01:42:18.002812+00:00"
+  "collected_at": "2026-10-28T01:54:53.358640+00:00"
 }
