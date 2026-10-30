@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-29",
+  "as_of": "2026-10-30",
   "weights": {
     "finance": 25,
     "sentiment": 20,
@@ -9,17 +9,17 @@
   },
   "components": {
     "finance": 65.91499999999999,
-    "sentiment": 20.1,
-    "demand": 36.58,
+    "sentiment": 19.0,
+    "demand": 46.805,
     "value": 30.7,
-    "supply": 49.4
+    "supply": 49.5
   },
   "contribution_vs_neutral": {
     "finance": 3.98,
-    "sentiment": -5.98,
-    "demand": -2.68,
+    "sentiment": -6.2,
+    "demand": -0.64,
     "value": -3.86,
-    "supply": -0.09
+    "supply": -0.07
   },
   "coverage_weight": 100,
   "freshness_score": 100,
