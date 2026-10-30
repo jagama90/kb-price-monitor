@@ -3,11 +3,11 @@
   "version": "market_strength_index_v2",
   "production_formula_changed": true,
   "index_role": "current_state_quality_and_short_horizon_forecast_support",
-  "as_of": "2026-10-29",
-  "snapshot_id": "2026-10-29|KB20261019|R202609",
+  "as_of": "2026-10-30",
+  "snapshot_id": "2026-10-30|KB20261026|R202609",
   "current": {
-    "score_0_100": 37.7,
-    "display_score": 38,
+    "score_0_100": 39.4,
+    "display_score": 39,
     "label": "약함",
     "historical_percentile": 13.0,
     "low_cut": 43.0,
@@ -15,19 +15,19 @@
     "strongest": {
       "key": "price_momentum",
       "label": "가격 흐름",
-      "value": 78.3,
+      "value": 73.9,
       "excluded_from_trim": true
     },
     "weakest": {
       "key": "sentiment",
       "label": "심리",
-      "value": 20.1,
+      "value": 19.0,
       "excluded_from_trim": true
     },
     "components": {
       "price_momentum": {
         "label": "가격 흐름",
-        "value": 78.3,
+        "value": 73.9,
         "used_in_index": false
       },
       "breadth": {
@@ -47,12 +47,12 @@
       },
       "sentiment": {
         "label": "심리",
-        "value": 20.1,
+        "value": 19.0,
         "used_in_index": false
       },
       "demand": {
         "label": "거래",
-        "value": 36.6,
+        "value": 46.8,
         "used_in_index": true
       },
       "value": {
@@ -62,7 +62,7 @@
       },
       "supply": {
         "label": "전세·공급",
-        "value": 49.4,
+        "value": 49.5,
         "used_in_index": true
       }
     },
@@ -137,17 +137,17 @@
       },
       "applied": true,
       "baseline_short_horizon": {
-        "consolidation": 35.4,
-        "reacceleration": 28.9,
-        "downturn": 35.7
+        "consolidation": 38.5,
+        "reacceleration": 28.8,
+        "downturn": 32.7
       },
       "applied_short_horizon": {
-        "consolidation": 32.5,
-        "reacceleration": 28.6,
-        "downturn": 38.9
+        "consolidation": 35.1,
+        "reacceleration": 28.7,
+        "downturn": 36.2
       }
     },
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
   },
-  "generated_at": "2026-10-29T03:28:04.442815+00:00"
+  "generated_at": "2026-10-30T02:16:56.631560+00:00"
 }
