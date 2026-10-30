@@ -216,8 +216,8 @@
         },
         "low": {
           "n": 21,
-          "mean": 1.687,
-          "median": 1.515,
+          "mean": 1.691,
+          "median": 1.546,
           "positive_pct": 61.9
         }
       },
@@ -240,7 +240,7 @@
         "cut_from_train": -0.092,
         "high": {
           "n": 75,
-          "mean": 11.394,
+          "mean": 11.402,
           "median": 11.34,
           "positive_pct": 82.7
         },
@@ -5088,7 +5088,7 @@
       "songpa_gap": 9.983,
       "songpa_fwd_3m": 6.897,
       "songpa_fwd_6m": 14.035,
-      "songpa_fwd_12m": 17.544,
+      "songpa_fwd_12m": 18.151,
       "fwd_3m": 2.7754126562469006,
       "fwd_6m": 4.456536439521619,
       "fwd_12m": null,
@@ -5266,7 +5266,7 @@
       "breadth": 82.9,
       "songpa_breadth": 71.4,
       "songpa_gap": -2.063,
-      "songpa_fwd_3m": 1.515,
+      "songpa_fwd_3m": 1.583,
       "songpa_fwd_6m": null,
       "songpa_fwd_12m": null,
       "fwd_3m": null,
@@ -5298,5 +5298,5 @@
       "enhanced_both": false
     }
   ],
-  "generated_at": "2026-10-16T16:44:42.712846+00:00"
+  "generated_at": "2026-10-30T18:08:19.544579+00:00"
 }
