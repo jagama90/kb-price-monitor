@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-10-17",
-  "source_kb_collected_at": "2026-10-16T16:39:59+00:00",
+  "as_of": "2026-10-31",
+  "source_kb_collected_at": "2026-10-30T18:05:13+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -42,14 +42,14 @@
       "area_id": 51171,
       "name": "올림픽훼밀리타운",
       "type_label": "31B",
-      "general_price_manwon": 257500.0
+      "general_price_manwon": 256500.0
     },
     {
       "complex_id": 1985,
       "area_id": 1871,
       "name": "올림픽훼밀리타운",
       "type_label": "31A",
-      "general_price_manwon": 262500.0
+      "general_price_manwon": 260000.0
     },
     {
       "complex_id": 1985,
@@ -84,42 +84,42 @@
       "area_id": 1872,
       "name": "문정동 건영아파트",
       "type_label": "28",
-      "general_price_manwon": 164250.0
+      "general_price_manwon": 167500.0
     },
     {
       "complex_id": 1986,
       "area_id": 1173322,
       "name": "문정동 건영아파트",
       "type_label": "31A",
-      "general_price_manwon": 177500.0
+      "general_price_manwon": 178000.0
     },
     {
       "complex_id": 1986,
       "area_id": 51172,
       "name": "문정동 건영아파트",
       "type_label": "31B",
-      "general_price_manwon": 177500.0
+      "general_price_manwon": 178000.0
     },
     {
       "complex_id": 1986,
       "area_id": 1173323,
       "name": "문정동 건영아파트",
       "type_label": "31C",
-      "general_price_manwon": 177500.0
+      "general_price_manwon": 178000.0
     },
     {
       "complex_id": 1986,
       "area_id": 1173324,
       "name": "문정동 건영아파트",
       "type_label": "31D",
-      "general_price_manwon": 177500.0
+      "general_price_manwon": 178000.0
     },
     {
       "complex_id": 1986,
       "area_id": 1173325,
       "name": "문정동 건영아파트",
       "type_label": "31",
-      "general_price_manwon": 177500.0
+      "general_price_manwon": 178000.0
     },
     {
       "complex_id": 15738,
@@ -518,42 +518,42 @@
       "area_id": 222684,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35B",
-      "general_price_manwon": 215000.0
+      "general_price_manwon": 218500.0
     },
     {
       "complex_id": 25769,
       "area_id": 224333,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35C",
-      "general_price_manwon": 215000.0
+      "general_price_manwon": 218500.0
     },
     {
       "complex_id": 25769,
       "area_id": 220363,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35A",
-      "general_price_manwon": 215000.0
+      "general_price_manwon": 218500.0
     },
     {
       "complex_id": 25769,
       "area_id": 223570,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35B1",
-      "general_price_manwon": 215000.0
+      "general_price_manwon": 218500.0
     },
     {
       "complex_id": 25769,
       "area_id": 224985,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35AN",
-      "general_price_manwon": 215000.0
+      "general_price_manwon": 218500.0
     },
     {
       "complex_id": 25769,
       "area_id": 221618,
       "name": "송파꿈에그린위례24단지",
       "type_label": "35A1",
-      "general_price_manwon": 215000.0
+      "general_price_manwon": 218500.0
     },
     {
       "complex_id": 46734,
@@ -763,21 +763,21 @@
       "area_id": 1763,
       "name": "풍납현대",
       "type_label": "26",
-      "general_price_manwon": 149000.0
+      "general_price_manwon": 157500.0
     },
     {
       "complex_id": 1873,
       "area_id": 51068,
       "name": "풍납현대",
       "type_label": "30N",
-      "general_price_manwon": 182500.0
+      "general_price_manwon": 185000.0
     },
     {
       "complex_id": 1873,
       "area_id": 94715,
       "name": "풍납현대",
       "type_label": "31S",
-      "general_price_manwon": 183500.0
+      "general_price_manwon": 186000.0
     },
     {
       "complex_id": 1941,
@@ -1001,14 +1001,14 @@
       "area_id": 132922,
       "name": "왕십리금호어울림",
       "type_label": "32B",
-      "general_price_manwon": 155000.0
+      "general_price_manwon": 156500.0
     },
     {
       "complex_id": 12530,
       "area_id": 101346,
       "name": "왕십리금호어울림",
       "type_label": "32A",
-      "general_price_manwon": 155000.0
+      "general_price_manwon": 156500.0
     },
     {
       "complex_id": 12530,
@@ -1253,7 +1253,7 @@
       "area_id": 51672,
       "name": "남산타운",
       "type_label": "25",
-      "general_price_manwon": 150000.0
+      "general_price_manwon": 152000.0
     },
     {
       "complex_id": 2538,
@@ -1274,63 +1274,63 @@
       "area_id": 1068067,
       "name": "강남자곡아이파크",
       "type_label": "24A",
-      "general_price_manwon": 185000.0
+      "general_price_manwon": 187500.0
     },
     {
       "complex_id": 31944,
       "area_id": 1107548,
       "name": "강남자곡아이파크",
       "type_label": "30B",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 216000.0
     },
     {
       "complex_id": 31944,
       "area_id": 1133016,
       "name": "강남자곡아이파크",
       "type_label": "30B-1",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 216000.0
     },
     {
       "complex_id": 31944,
       "area_id": 1047800,
       "name": "강남자곡아이파크",
       "type_label": "30A-1",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 216000.0
     },
     {
       "complex_id": 31944,
       "area_id": 1068068,
       "name": "강남자곡아이파크",
       "type_label": "30A",
-      "general_price_manwon": 212500.0
+      "general_price_manwon": 216000.0
     },
     {
       "complex_id": 31944,
       "area_id": 1133017,
       "name": "강남자곡아이파크",
       "type_label": "34B",
-      "general_price_manwon": 227500.0
+      "general_price_manwon": 228500.0
     },
     {
       "complex_id": 31944,
       "area_id": 179535,
       "name": "강남자곡아이파크",
       "type_label": "34A",
-      "general_price_manwon": 227500.0
+      "general_price_manwon": 228500.0
     },
     {
       "complex_id": 31944,
       "area_id": 1068070,
       "name": "강남자곡아이파크",
       "type_label": "34A-1",
-      "general_price_manwon": 227500.0
+      "general_price_manwon": 228500.0
     },
     {
       "complex_id": 31944,
       "area_id": 1107550,
       "name": "강남자곡아이파크",
       "type_label": "34C",
-      "general_price_manwon": 227500.0
+      "general_price_manwon": 228500.0
     }
   ]
 }
