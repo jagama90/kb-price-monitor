@@ -43,7 +43,7 @@
     ],
     [
       "2026-10",
-      2267,
+      2426,
       true
     ]
   ],
@@ -190,25 +190,25 @@
       },
       {
         "period": "2026-10",
-        "total": 2267,
+        "total": 2426,
         "counts": {
-          "<=9eok": 1324,
-          "9-15eok": 575,
-          "15-25eok": 276,
-          "25eok+": 92
+          "<=9eok": 1397,
+          "9-15eok": 626,
+          "15-25eok": 299,
+          "25eok+": 104
         },
         "buckets3": {
-          "<=15eok": 1899,
-          "15-25eok": 276,
-          "25eok+": 92
+          "<=15eok": 2023,
+          "15-25eok": 299,
+          "25eok+": 104
         },
         "boundary_counts": {
-          "13-15eok": 140,
-          "15-17eok": 108,
-          "23-25eok": 20,
-          "25-27eok": 12
+          "13-15eok": 155,
+          "15-17eok": 112,
+          "23-25eok": 25,
+          "25-27eok": 15
         },
-        "under15_share": 83.8
+        "under15_share": 83.4
       }
     ]
   },
@@ -292,7 +292,7 @@
     "jeonse_score_change": 0.1,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-10-30T02:16:26.633385+00:00"
+    "generated_at": "2026-10-31T01:55:33.290998+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -331,34 +331,34 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-10-30T02:16:26.594271+00:00"
+    "generated_at": "2026-10-31T01:55:33.239019+00:00"
   },
   "matched_period": {
-    "as_of": "2026-10-30",
+    "as_of": "2026-10-31",
     "cutoff_day": 30,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-10",
       "range": "1~30일",
-      "total": 2267,
+      "total": 2426,
       "counts": {
-        "<=9eok": 1324,
-        "9-15eok": 575,
-        "15-25eok": 276,
-        "25eok+": 92
+        "<=9eok": 1397,
+        "9-15eok": 626,
+        "15-25eok": 299,
+        "25eok+": 104
       },
       "buckets3": {
-        "<=15eok": 1899,
-        "15-25eok": 276,
-        "25eok+": 92
+        "<=15eok": 2023,
+        "15-25eok": 299,
+        "25eok+": 104
       },
       "boundary_counts": {
-        "13-15eok": 140,
-        "15-17eok": 108,
-        "23-25eok": 20,
-        "25-27eok": 12
+        "13-15eok": 155,
+        "15-17eok": 112,
+        "23-25eok": 25,
+        "25-27eok": 15
       },
-      "under15_share": 83.8
+      "under15_share": 83.4
     },
     "previous": {
       "period": "2026-09",
@@ -367,11 +367,6 @@
       "counts": {
         "<=9eok": 1925,
         "9-15eok": 826,
-        "15-25eok": 513,
-        "25eok+": 230
-      },
-      "buckets3": {
-        "<=15eok": 2751,
         "15-25eok": 513,
         "25eok+": 230
       },
@@ -384,8 +379,8 @@
       "under15_share": 78.7
     },
     "changes": {
-      "trade_count_pct": -35.1,
-      "under15_share_pp": 5.1
+      "trade_count_pct": -30.6,
+      "under15_share_pp": 4.7
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
@@ -429,7 +424,7 @@
       "change_pct": 0.17
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-10-30T02:15:59.347317+00:00",
+    "collected_at": "2026-10-31T01:55:13.481107+00:00",
     "history": [
       {
         "date": "20260713",
@@ -553,7 +548,7 @@
       "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-10-30T02:15:59.867731+00:00"
+    "collected_at": "2026-10-31T01:55:14.092702+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -562,11 +557,11 @@
     "item_code": "0101000",
     "frequency": "daily",
     "latest": {
-      "date": "20261027",
+      "date": "20261028",
       "rate_pct": 3.0,
       "item": "한국은행 기준금리"
     },
-    "latest_observation_date": "20261027",
+    "latest_observation_date": "20261028",
     "series": [
       {
         "date": "20160101",
@@ -689,10 +684,10 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-10-30T02:16:00.996362+00:00"
+    "collected_at": "2026-10-31T01:55:14.941363+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-10-30T02:16:26.299649+00:00",
+    "attempted_at": "2026-10-31T01:55:32.959046+00:00",
     "sources": {
       "molit": "connected",
       "ecos": "connected",
@@ -724,7 +719,7 @@
     "note": "국토교통부 2026년 7월 주택통계 공표값"
   },
   "signal_matched_period": {
-    "as_of": "2026-10-30",
+    "as_of": "2026-10-31",
     "basis": "completed_month_after_statutory_reporting_window",
     "reporting_window_days": 30,
     "current": {
@@ -786,7 +781,7 @@
     "provisional": false,
     "basis": "statutory_reporting_window",
     "reporting_window_days": 30,
-    "as_of": "2026-10-30",
+    "as_of": "2026-10-31",
     "reason": "latest_full_month_reporting_window_elapsed",
     "signal_period": "2026-09",
     "previous_period": "2026-08",
@@ -968,7 +963,7 @@
     ],
     [
       "2026-10",
-      2267,
+      2426,
       true
     ]
   ],
