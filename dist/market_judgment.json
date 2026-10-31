@@ -1,11 +1,11 @@
 {
   "status": "connected",
   "engine_version": "unified_market_judgment_v1",
-  "as_of": "2026-10-30",
+  "as_of": "2026-10-31",
   "architecture": "Common Feature Layer -> Current State / Buy Condition / Forward Scenario",
   "feature_layer": {
-    "snapshot_id": "2026-10-30|KB20261026|R202609",
-    "as_of": "2026-10-30",
+    "snapshot_id": "2026-10-31|KB20261026|R202609",
+    "as_of": "2026-10-31",
     "research_month": "202609",
     "research_provisional": true,
     "components": {
@@ -538,5 +538,5 @@
       }
     }
   },
-  "generated_at": "2026-10-30T03:29:55.031356+00:00"
+  "generated_at": "2026-10-31T01:30:57.943083+00:00"
 }
