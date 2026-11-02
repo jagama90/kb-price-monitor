@@ -1,6 +1,6 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-11-01T10:38:14.226107+09:00",
+  "collected_at": "2026-11-02T10:58:12.355204+09:00",
   "refresh_meta": {
     "mode": "daily_current_month_only",
     "queried_pairs": 20,
@@ -8,7 +8,7 @@
     "reused_previous_matched_vintage": false,
     "retried_pairs": [],
     "cache_fallback_pairs": [],
-    "elapsed_sec": 2.4
+    "elapsed_sec": 3.5
   },
   "pair_cache": {
     "11215:202609": [
@@ -23994,12 +23994,12 @@
     ]
   },
   "matched_period": {
-    "as_of": "2026-11-01",
-    "cutoff_day": 1,
+    "as_of": "2026-11-02",
+    "cutoff_day": 2,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-11",
-      "range": "1~1일",
+      "range": "1~2일",
       "total": 0,
       "counts": {
         "<=9eok": 0,
@@ -24022,26 +24022,26 @@
     },
     "previous": {
       "period": "2026-10",
-      "range": "1~1일",
-      "total": 147,
+      "range": "1~2일",
+      "total": 317,
       "counts": {
-        "<=9eok": 78,
-        "9-15eok": 31,
-        "15-25eok": 25,
-        "25eok+": 13
+        "<=9eok": 157,
+        "9-15eok": 83,
+        "15-25eok": 50,
+        "25eok+": 27
       },
       "buckets3": {
-        "<=15eok": 109,
-        "15-25eok": 25,
-        "25eok+": 13
+        "<=15eok": 240,
+        "15-25eok": 50,
+        "25eok+": 27
       },
       "boundary_counts": {
-        "13-15eok": 10,
-        "15-17eok": 10,
-        "23-25eok": 0,
-        "25-27eok": 1
+        "13-15eok": 27,
+        "15-17eok": 16,
+        "23-25eok": 4,
+        "25-27eok": 4
       },
-      "under15_share": 74.1
+      "under15_share": 75.7
     },
     "changes": {
       "trade_count_pct": -100.0,
@@ -24050,7 +24050,7 @@
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
   "signal_matched_period": {
-    "as_of": "2026-11-01",
+    "as_of": "2026-11-02",
     "basis": "completed_month_after_statutory_reporting_window",
     "reporting_window_days": 30,
     "current": {
@@ -24112,7 +24112,7 @@
     "provisional": false,
     "basis": "statutory_reporting_window",
     "reporting_window_days": 30,
-    "as_of": "2026-11-01",
+    "as_of": "2026-11-02",
     "reason": "latest_full_month_reporting_window_elapsed",
     "signal_period": "2026-09",
     "previous_period": "2026-08",

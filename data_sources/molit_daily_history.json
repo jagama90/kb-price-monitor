@@ -2582,6 +2582,87 @@
         },
         "under15_share": null
       }
+    },
+    {
+      "as_of": "2026-11-02",
+      "matched_period": {
+        "as_of": "2026-11-02",
+        "cutoff_day": 2,
+        "basis": "contract_date_equal_calendar_days",
+        "current": {
+          "period": "2026-11",
+          "range": "1~2일",
+          "total": 0,
+          "counts": {
+            "<=9eok": 0,
+            "9-15eok": 0,
+            "15-25eok": 0,
+            "25eok+": 0
+          },
+          "buckets3": {
+            "<=15eok": 0,
+            "15-25eok": 0,
+            "25eok+": 0
+          },
+          "boundary_counts": {
+            "13-15eok": 0,
+            "15-17eok": 0,
+            "23-25eok": 0,
+            "25-27eok": 0
+          },
+          "under15_share": null
+        },
+        "previous": {
+          "period": "2026-10",
+          "range": "1~2일",
+          "total": 317,
+          "counts": {
+            "<=9eok": 157,
+            "9-15eok": 83,
+            "15-25eok": 50,
+            "25eok+": 27
+          },
+          "buckets3": {
+            "<=15eok": 240,
+            "15-25eok": 50,
+            "25eok+": 27
+          },
+          "boundary_counts": {
+            "13-15eok": 27,
+            "15-17eok": 16,
+            "23-25eok": 4,
+            "25-27eok": 4
+          },
+          "under15_share": 75.7
+        },
+        "changes": {
+          "trade_count_pct": -100.0,
+          "under15_share_pp": null
+        },
+        "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+      },
+      "current_month": {
+        "period": "2026-11",
+        "total": 0,
+        "counts": {
+          "<=9eok": 0,
+          "9-15eok": 0,
+          "15-25eok": 0,
+          "25eok+": 0
+        },
+        "buckets3": {
+          "<=15eok": 0,
+          "15-25eok": 0,
+          "25eok+": 0
+        },
+        "boundary_counts": {
+          "13-15eok": 0,
+          "15-17eok": 0,
+          "23-25eok": 0,
+          "25-27eok": 0
+        },
+        "under15_share": null
+      }
     }
   ]
 }
