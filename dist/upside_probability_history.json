@@ -233,6 +233,17 @@
         "flat": 23.1,
         "down": 7.7
       }
+    },
+    {
+      "date": "2026-11-02",
+      "checked_at": "2026-11-02T01:59:08.150828+00:00",
+      "status": "source_unchanged",
+      "source_as_of": "20261019",
+      "probabilities": {
+        "up": 69.2,
+        "flat": 23.1,
+        "down": 7.7
+      }
     }
   ],
   "research_daily": [
@@ -850,6 +861,21 @@
     {
       "date": "2026-11-01",
       "checked_at": "2026-11-01T06:26:11.452383+00:00",
+      "status": "data_check",
+      "probabilities": null,
+      "source_price_as_of": null,
+      "components": null,
+      "source_vintages": null,
+      "source_status": null,
+      "daily_signal": null,
+      "mature_reference": null,
+      "reference_probability_up_pct": null,
+      "candidate_version": "daily_multisignal_research_v2",
+      "changes_vs_previous": null
+    },
+    {
+      "date": "2026-11-02",
+      "checked_at": "2026-11-02T01:59:08.150828+00:00",
       "status": "data_check",
       "probabilities": null,
       "source_price_as_of": null,
