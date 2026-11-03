@@ -1,11 +1,11 @@
 {
   "status": "connected",
   "engine_version": "unified_market_judgment_v1",
-  "as_of": "2026-11-02",
+  "as_of": "2026-11-03",
   "architecture": "Common Feature Layer -> Current State / Buy Condition / Forward Scenario",
   "feature_layer": {
-    "snapshot_id": "2026-11-02|KB20261026|R202609",
-    "as_of": "2026-11-02",
+    "snapshot_id": "2026-11-03|KB20261026|R202609",
+    "as_of": "2026-11-03",
     "research_month": "202609",
     "research_provisional": true,
     "components": {
@@ -18,7 +18,7 @@
     "component_deltas_vs_research_month": {
       "finance": null,
       "sentiment": -2.2,
-      "demand": 6.3,
+      "demand": -0.6,
       "value": 0.3,
       "supply": 0.3
     },
@@ -68,22 +68,22 @@
       "reason": "live recomputation is diagnostic only until it passes forecast discrimination validation",
       "live_recomputed_candidate": {
         "setup": 53.3,
-        "turn": 49.3,
-        "opportunity": 26.3,
+        "turn": 47.5,
+        "opportunity": 25.3,
         "cheapness": 30.7,
         "distress": 81.0,
         "price_turn": 80.3,
         "price_accel_pp": 1.52,
         "early_turn": 17.7,
         "breadth": 41.9,
-        "reaccel": 84.7,
+        "reaccel": 74.3,
         "bottom_zone": false,
         "momentum_zone": false,
-        "turn_rank": 50.0,
+        "turn_rank": 44.0,
         "deltas": {
-          "finance_1m": 4.81,
+          "finance_1m": 4.34,
           "sentiment_1m": -2.2,
-          "demand_1m": 6.33,
+          "demand_1m": -0.65,
           "finance_3m": 1.19,
           "sentiment_3m": -5.8,
           "demand_3m": -11.51
@@ -102,19 +102,19 @@
       "recent_peak_3m_momentum_pct": 17.1,
       "cooling_score_0_100": 83.0,
       "trade_signal_status": "mature_completed_month",
-      "trade_signal_as_of": "2026-11-02",
+      "trade_signal_as_of": "2026-11-03",
       "trade_signal_confidence": {
         "level": "high",
         "provisional": false,
         "basis": "statutory_reporting_window",
         "reporting_window_days": 30,
-        "as_of": "2026-11-02",
+        "as_of": "2026-11-03",
         "reason": "latest_full_month_reporting_window_elapsed",
         "signal_period": "2026-09",
         "previous_period": "2026-08",
         "reporting_window_elapsed_on": "2026-10-30"
       },
-      "raw_matched_as_of": "2026-11-02",
+      "raw_matched_as_of": "2026-11-03",
       "finance_model": "finance_v2_credit_cost",
       "finance_v1_score_0_100": 65.9,
       "finance_v2_gate_passed": true,
@@ -538,5 +538,5 @@
       }
     }
   },
-  "generated_at": "2026-11-02T06:26:55.103438+00:00"
+  "generated_at": "2026-11-03T03:47:41.977735+00:00"
 }
