@@ -12,8 +12,8 @@
   "target": "KB Garak Geumho 24A monthly sale general price (validation target only; value component is Seoul-wide composite)",
   "checkpoint": "2022-10..2023-06",
   "period": "2022-09..latest completed month",
-  "certified_through": "202608",
-  "latest_available_month": "202609",
+  "certified_through": "202609",
+  "latest_available_month": "202610",
   "checkpoint_rows": [
     {
       "ym": "202210",
@@ -954,7 +954,7 @@
       "fwd_1m_pct": 0.69,
       "fwd_3m_pct": 6.9,
       "fwd_6m_pct": 25.17,
-      "fwd_12m_pct": null,
+      "fwd_12m_pct": 25.17,
       "provisional": false
     },
     {
@@ -1073,7 +1073,7 @@
       "m2_vintage_period": "202602",
       "fwd_1m_pct": 0.0,
       "fwd_3m_pct": 0.0,
-      "fwd_6m_pct": null,
+      "fwd_6m_pct": 0.0,
       "fwd_12m_pct": null,
       "provisional": false
     },
@@ -1132,7 +1132,7 @@
       "target_price": 181500.0,
       "m2_vintage_period": "202605",
       "fwd_1m_pct": 0.0,
-      "fwd_3m_pct": null,
+      "fwd_3m_pct": 0.0,
       "fwd_6m_pct": null,
       "fwd_12m_pct": null,
       "provisional": false
@@ -1159,18 +1159,40 @@
     },
     {
       "ym": "202609",
-      "score": 41.1,
+      "score": 42.6,
       "coverage_weight": 100,
       "missing": [],
       "components": {
-        "finance": 61.1,
+        "finance": 61.57,
         "sentiment": 21.2,
-        "demand": 40.48,
+        "demand": 47.45,
         "value": 30.4,
         "supply": 49.2
       },
       "target_price": 181500.0,
       "m2_vintage_period": "202607",
+      "fwd_1m_pct": 0.0,
+      "fwd_3m_pct": null,
+      "fwd_6m_pct": null,
+      "fwd_12m_pct": null,
+      "provisional": false
+    },
+    {
+      "ym": "202610",
+      "score": null,
+      "coverage_weight": 80,
+      "missing": [
+        "value"
+      ],
+      "components": {
+        "finance": 65.91,
+        "sentiment": 19.0,
+        "demand": 46.83,
+        "value": null,
+        "supply": 49.5
+      },
+      "target_price": 181500.0,
+      "m2_vintage_period": "202608",
       "fwd_1m_pct": null,
       "fwd_3m_pct": null,
       "fwd_6m_pct": null,
@@ -1180,11 +1202,11 @@
   ],
   "metrics": {
     "score_vs_fwd_1m_corr": 0.285,
-    "score_vs_fwd_3m_corr": 0.248,
-    "score_vs_fwd_6m_corr": 0.386,
-    "score_vs_fwd_12m_corr": 0.497,
+    "score_vs_fwd_3m_corr": 0.236,
+    "score_vs_fwd_6m_corr": 0.381,
+    "score_vs_fwd_12m_corr": 0.498,
     "low_score_mean_fwd_6m_pct": 0.73,
     "high_score_mean_fwd_6m_pct": 10.17
   },
-  "generated_at": "2026-10-08T00:22:58.447121+00:00"
+  "generated_at": "2026-11-03T03:34:48.786277+00:00"
 }

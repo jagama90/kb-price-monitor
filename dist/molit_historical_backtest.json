@@ -39,8 +39,8 @@
     ]
   },
   "start": "202209",
-  "end": "202609",
-  "certified_through": "202608",
+  "end": "202610",
+  "certified_through": "202609",
   "rows": [
     {
       "ym": "202209",
@@ -380,11 +380,18 @@
     },
     {
       "ym": "202609",
-      "total": 2457,
-      "under15_share": 80.7,
-      "trade_count_pct": -32.3513,
-      "under15_share_pp": 1.2
+      "total": 3507,
+      "under15_share": 78.6,
+      "trade_count_pct": -3.4416,
+      "under15_share_pp": -0.9
+    },
+    {
+      "ym": "202610",
+      "total": 2633,
+      "under15_share": 82.3,
+      "trade_count_pct": -24.9216,
+      "under15_share_pp": 3.7
     }
   ],
-  "generated_at": "2026-10-07T01:24:40.259587+00:00"
+  "generated_at": "2026-11-03T03:34:48.730436+00:00"
 }
