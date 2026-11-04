@@ -357,13 +357,13 @@
       "dong": "장지동",
       "exclusive_m2": 59.97,
       "type_label": "25T1",
-      "recent_trade_manwon": 171500,
-      "recent_trade_date": "20260523",
+      "recent_trade_manwon": 175000,
+      "recent_trade_date": "20261102",
       "molit_apt_name": "송파파인타운8단지",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -375,13 +375,13 @@
       "dong": "장지동",
       "exclusive_m2": 59.97,
       "type_label": "25T2",
-      "recent_trade_manwon": 171500,
-      "recent_trade_date": "20260523",
+      "recent_trade_manwon": 175000,
+      "recent_trade_date": "20261102",
       "molit_apt_name": "송파파인타운8단지",
       "matched_exclusive_m2": 59.97,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     },
     {
@@ -1599,13 +1599,13 @@
       "dong": "자곡동",
       "exclusive_m2": 59.96,
       "type_label": "24A",
-      "recent_trade_manwon": 194800,
-      "recent_trade_date": "20260928",
+      "recent_trade_manwon": 196000,
+      "recent_trade_date": "20261005",
       "molit_apt_name": "강남자곡아이파크",
       "matched_exclusive_m2": 59.96,
       "name_similarity": 1.0,
-      "match_method": "last_good_no_newer_trade",
-      "trade_refresh_status": "connected_no_newer_trade",
+      "match_method": "name_area",
+      "trade_refresh_status": "connected",
       "source": "MOLIT apartment trade OpenAPI"
     }
   ],
@@ -1704,5 +1704,5 @@
   "fetch_errors": [],
   "matched_count": 89,
   "target_area_count": 101,
-  "collected_at": "2026-11-03T03:46:54.788159+00:00"
+  "collected_at": "2026-11-04T02:49:44.487169+00:00"
 }
