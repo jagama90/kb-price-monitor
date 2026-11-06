@@ -130,20 +130,20 @@
     "status": "ok",
     "values": [
       35.5,
-      19.0,
-      35.815
+      17.7,
+      36.33
     ],
     "components": {
       "finance": 35.5,
-      "sentiment": 19.0,
-      "demand": 35.81
+      "sentiment": 17.7,
+      "demand": 36.33
     },
     "vintages": {
       "finance_mortgage_month": "202609",
-      "finance_base_rate_day": "20261102",
-      "sentiment_week": "20261026",
+      "finance_base_rate_day": "20261103",
+      "sentiment_week": "20261102",
       "trade_completed_month": "2026-09",
-      "trade_daily_as_of": "2026-11-05",
+      "trade_daily_as_of": "2026-11-06",
       "trade_daily_period": "2026-11"
     },
     "source_status": {
@@ -153,20 +153,20 @@
     },
     "daily_signal": {
       "status": "provisional_reporting_window",
-      "as_of": "2026-11-05",
+      "as_of": "2026-11-06",
       "period": "2026-11",
-      "range": "1~5일",
-      "trade_count_pct": -88.1,
-      "under15_share_pp": 11.1,
-      "current_total": 67,
-      "previous_total": 563,
+      "range": "1~6일",
+      "trade_count_pct": -86.2,
+      "under15_share_pp": 11.0,
+      "current_total": 97,
+      "previous_total": 701,
       "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
     },
     "mature_reference": {
       "period": "2026-09",
-      "demand_score_0_100": 46.8
+      "demand_score_0_100": 46.9
     },
-    "as_of": "2026-11-05",
+    "as_of": "2026-11-06",
     "probabilities": {
       "up": 69.3,
       "flat": 23.0,
@@ -176,13 +176,13 @@
     "difference_pp": 0.1,
     "log_odds_contributions": {
       "finance": 0.0034,
-      "sentiment": 0.0196,
-      "demand": -0.016
+      "sentiment": 0.0162,
+      "demand": -0.0155
     },
     "meaning": "research-only probability candidate; not certified observed event frequency",
     "source_price_as_of": "20261019"
   },
-  "generated_at": "2026-11-05T04:13:10.700351+00:00",
+  "generated_at": "2026-11-06T02:58:21.570536+00:00",
   "lineage": {
     "certified_model": "dist/upside_probability_engine.json",
     "monthly_history": "dist/long_cycle_master.json",
