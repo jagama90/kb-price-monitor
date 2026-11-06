@@ -2,22 +2,22 @@
   "status": "research_only",
   "current": {
     "breadth": {
-      "date": "20261026",
+      "date": "20261102",
       "seoul_25": {
         "count": 25,
-        "up": 24,
+        "up": 23,
         "flat": 0,
-        "down": 1,
-        "up_share_pct": 96.0,
-        "median_change_pct": 0.12
+        "down": 2,
+        "up_share_pct": 92.0,
+        "median_change_pct": 0.14
       },
       "gangnam3": {
         "count": 3,
-        "up": 2,
+        "up": 1,
         "flat": 0,
-        "down": 1,
-        "up_share_pct": 66.7,
-        "median_change_pct": 0.01
+        "down": 2,
+        "up_share_pct": 33.3,
+        "median_change_pct": -0.11
       },
       "non_gangnam3": {
         "count": 22,
@@ -25,14 +25,14 @@
         "flat": 0,
         "down": 0,
         "up_share_pct": 100.0,
-        "median_change_pct": 0.155
+        "median_change_pct": 0.145
       },
       "songpa": {
         "region": "송파구",
         "code": "1171000000",
-        "date": "20261026",
-        "index": 106.6575593824,
-        "change_pct": 0.03
+        "date": "20261102",
+        "index": 106.6833002431,
+        "change_pct": 0.02
       }
     },
     "affordability": {
@@ -67,19 +67,19 @@
       "songpa_n": 21,
       "songpa_m3_median_pct": 1.515,
       "songpa_breadth_up_pct": 76.2,
-      "songpa_fwd_3m_median_pct": null,
+      "songpa_fwd_3m_median_pct": 0.0,
       "songpa_fwd_6m_median_pct": null,
       "songpa_fwd_12m_median_pct": null,
       "non_songpa_n": 14,
       "non_songpa_m3_median_pct": 2.0,
       "non_songpa_breadth_up_pct": 85.7,
-      "non_songpa_fwd_3m_median_pct": null,
+      "non_songpa_fwd_3m_median_pct": 0.0,
       "non_songpa_fwd_6m_median_pct": null,
       "non_songpa_fwd_12m_median_pct": null,
       "all_interest_n": 35,
       "all_interest_m3_median_pct": 1.618,
       "all_interest_breadth_up_pct": 80.0,
-      "all_interest_fwd_3m_median_pct": null,
+      "all_interest_fwd_3m_median_pct": 0.0,
       "all_interest_fwd_6m_median_pct": null,
       "all_interest_fwd_12m_median_pct": null,
       "songpa_vs_seoul_gap_pp": -2.055,
@@ -94,5 +94,5 @@
     "production_price_turn_formula_changed": false,
     "reason": "breadth improves holdout discrimination but hard filtering leaves too few entry signals; affordability timing effect is inconsistent; Songpa relative strength is local rather than Seoul-wide."
   },
-  "generated_at": "2026-10-30T18:08:19.586981+00:00"
+  "generated_at": "2026-11-06T19:27:32.870323+00:00"
 }
