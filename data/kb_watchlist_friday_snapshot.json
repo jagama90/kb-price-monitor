@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-10-31",
-  "source_kb_collected_at": "2026-10-30T18:05:13+00:00",
+  "as_of": "2026-11-07",
+  "source_kb_collected_at": "2026-11-06T19:24:53+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -42,35 +42,35 @@
       "area_id": 51171,
       "name": "올림픽훼밀리타운",
       "type_label": "31B",
-      "general_price_manwon": 256500.0
+      "general_price_manwon": 256000.0
     },
     {
       "complex_id": 1985,
       "area_id": 1871,
       "name": "올림픽훼밀리타운",
       "type_label": "31A",
-      "general_price_manwon": 260000.0
+      "general_price_manwon": 259500.0
     },
     {
       "complex_id": 1985,
       "area_id": 94789,
       "name": "올림픽훼밀리타운",
       "type_label": "41",
-      "general_price_manwon": 277500.0
+      "general_price_manwon": 275000.0
     },
     {
       "complex_id": 1985,
       "area_id": 128799,
       "name": "올림픽훼밀리타운",
       "type_label": "48",
-      "general_price_manwon": 300000.0
+      "general_price_manwon": 297500.0
     },
     {
       "complex_id": 1985,
       "area_id": 153774,
       "name": "올림픽훼밀리타운",
       "type_label": "55",
-      "general_price_manwon": 327500.0
+      "general_price_manwon": 325000.0
     },
     {
       "complex_id": 1985,
@@ -231,14 +231,14 @@
       "area_id": 1833,
       "name": "삼환가락",
       "type_label": "28A1",
-      "general_price_manwon": 197500.0
+      "general_price_manwon": 202000.0
     },
     {
       "complex_id": 1945,
       "area_id": 51136,
       "name": "삼환가락",
       "type_label": "28A2",
-      "general_price_manwon": 197500.0
+      "general_price_manwon": 202000.0
     },
     {
       "complex_id": 1945,
@@ -259,7 +259,7 @@
       "area_id": 153758,
       "name": "삼환가락",
       "type_label": "43C",
-      "general_price_manwon": 227500.0
+      "general_price_manwon": 230000.0
     },
     {
       "complex_id": 1944,
@@ -322,21 +322,21 @@
       "area_id": 128798,
       "name": "잠실한솔",
       "type_label": "33E",
-      "general_price_manwon": 195000.0
+      "general_price_manwon": 200000.0
     },
     {
       "complex_id": 1984,
       "area_id": 51170,
       "name": "잠실한솔",
       "type_label": "33",
-      "general_price_manwon": 195000.0
+      "general_price_manwon": 200000.0
     },
     {
       "complex_id": 1984,
       "area_id": 153773,
       "name": "잠실한솔",
       "type_label": "33N",
-      "general_price_manwon": 195000.0
+      "general_price_manwon": 200000.0
     },
     {
       "complex_id": 25766,
@@ -910,7 +910,7 @@
       "area_id": 50959,
       "name": "행당한진타운",
       "type_label": "26",
-      "general_price_manwon": 162500.0
+      "general_price_manwon": 162000.0
     },
     {
       "complex_id": 1758,
@@ -1001,14 +1001,14 @@
       "area_id": 132922,
       "name": "왕십리금호어울림",
       "type_label": "32B",
-      "general_price_manwon": 156500.0
+      "general_price_manwon": 157500.0
     },
     {
       "complex_id": 12530,
       "area_id": 101346,
       "name": "왕십리금호어울림",
       "type_label": "32A",
-      "general_price_manwon": 156500.0
+      "general_price_manwon": 157500.0
     },
     {
       "complex_id": 12530,
