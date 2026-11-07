@@ -4,8 +4,8 @@
   "production_formula_changed": false,
   "new_score_created": false,
   "current": {
-    "as_of": "2026-11-06",
-    "snapshot_id": "2026-11-06|KB20261102|R202609",
+    "as_of": "2026-11-07",
+    "snapshot_id": "2026-11-07|KB20261102|R202609",
     "flow": "상승 유지",
     "strength": "약함",
     "turn_sign": "둔화 쪽 조짐 있음",
@@ -69,5 +69,5 @@
     "certified_through": "202608",
     "note": "과거검증 참고값이며 실제 발생확률이 아님"
   },
-  "generated_at": "2026-11-06T04:10:02.287817+00:00"
+  "generated_at": "2026-11-07T02:27:59.715698+00:00"
 }
