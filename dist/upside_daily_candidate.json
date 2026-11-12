@@ -131,19 +131,19 @@
     "values": [
       35.5,
       17.7,
-      26.78
+      29.035
     ],
     "components": {
       "finance": 35.5,
       "sentiment": 17.7,
-      "demand": 26.78
+      "demand": 29.04
     },
     "vintages": {
       "finance_mortgage_month": "202609",
-      "finance_base_rate_day": "20261108",
+      "finance_base_rate_day": "20261109",
       "sentiment_week": "20261102",
       "trade_completed_month": "2026-09",
-      "trade_daily_as_of": "2026-11-11",
+      "trade_daily_as_of": "2026-11-12",
       "trade_daily_period": "2026-11"
     },
     "source_status": {
@@ -153,23 +153,23 @@
     },
     "daily_signal": {
       "status": "provisional_reporting_window",
-      "as_of": "2026-11-11",
+      "as_of": "2026-11-12",
       "period": "2026-11",
-      "range": "1~11일",
-      "trade_count_pct": -82.2,
-      "under15_share_pp": 3.7,
-      "current_total": 276,
-      "previous_total": 1551,
+      "range": "1~12일",
+      "trade_count_pct": -77.9,
+      "under15_share_pp": 4.2,
+      "current_total": 371,
+      "previous_total": 1677,
       "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
     },
     "mature_reference": {
       "period": "2026-09",
       "demand_score_0_100": 46.9
     },
-    "as_of": "2026-11-11",
+    "as_of": "2026-11-12",
     "probabilities": {
       "up": 69.1,
-      "flat": 23.2,
+      "flat": 23.1,
       "down": 7.7
     },
     "reference_probability_up_pct": 69.2,
@@ -177,12 +177,12 @@
     "log_odds_contributions": {
       "finance": 0.0034,
       "sentiment": 0.0162,
-      "demand": -0.0246
+      "demand": -0.0225
     },
     "meaning": "research-only probability candidate; not certified observed event frequency",
     "source_price_as_of": "20261019"
   },
-  "generated_at": "2026-11-11T03:44:26.654288+00:00",
+  "generated_at": "2026-11-12T03:29:57.316171+00:00",
   "lineage": {
     "certified_model": "dist/upside_probability_engine.json",
     "monthly_history": "dist/long_cycle_master.json",
