@@ -37,7 +37,11 @@ latest=fb.get('latest_available_month')
 cert=fb.get('certified_through')
 if fbrows and latest and fbrows[-1].get('ym')!=latest: errors.append('final_backtest latest_available_month != last row')
 if fbrows and cert and latest and latest>cert and not fbrows[-1].get('provisional'): errors.append('latest backtest row should be provisional')
-if trrows and latest and trrows[-1].get('ym')!=latest: errors.append('turning research is not aligned to latest backtest month')
+if trrows and latest and trrows[-1].get('ym')!=latest:
+    if ALLOW_AUX_STALE:
+        warnings.append({'aux_research_stale':'turning research','latest_research_month':trrows[-1].get('ym'),'latest_backtest_month':latest})
+    else:
+        errors.append('turning research is not aligned to latest backtest month')
 if trrows and tr.get('latest_source_provisional') is not None:
     if bool(trrows[-1].get('source_provisional')) != bool(tr.get('latest_source_provisional')):
         errors.append('turning research provisional flag mismatch')
@@ -102,7 +106,11 @@ for key in ('kb_weekly_sale_index','kb_weekly_rent_index'):
 if reb_crosscheck:
     if reb_crosscheck.get('status')!='connected': errors.append('REB sale/rent cross-check disconnected')
     age=ym_age((reb_crosscheck.get('latest') or {}).get('ym'))
-    if age is None or age>2: errors.append('REB sale/rent cross-check is stale')
+    if age is None or age>2:
+        if ALLOW_AUX_STALE:
+            warnings.append({'aux_source_stale':'REB sale/rent cross-check','latest_ym':(reb_crosscheck.get('latest') or {}).get('ym')})
+        else:
+            errors.append('REB sale/rent cross-check is stale')
     if len(((reb_crosscheck.get('series') or {}).get('sale') or []))<24 or len(((reb_crosscheck.get('series') or {}).get('rent') or []))<24:
         errors.append('REB sale/rent cross-check history too short')
     acc=reb_crosscheck.get('accumulation') or {}
@@ -133,7 +141,11 @@ if market_ext:
     aff=cur.get('affordability') or {}; age=ym_age(aff.get('ym'))
     if age is None or age>3: errors.append('market extension affordability input is stale')
     temp=cur.get('temperature') or {}; tage=ym_age(temp.get('ym'))
-    if tage is None or tage>2: errors.append('market extension local temperature is stale')
+    if tage is None or tage>2:
+        if ALLOW_AUX_STALE:
+            warnings.append({'aux_source_stale':'market extension local temperature','latest_ym':temp.get('ym')})
+        else:
+            errors.append('market extension local temperature is stale')
     val=market_ext.get('validation') or {}
     if val.get('production_price_turn_formula_changed') is not False: errors.append('market extension unexpectedly changed production price-turn formula')
     if val.get('breadth_role')!='confidence_context': warnings.append({'market_extension_breadth_role':val.get('breadth_role')})
