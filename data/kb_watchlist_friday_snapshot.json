@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-11-07",
-  "source_kb_collected_at": "2026-11-06T19:24:53+00:00",
+  "as_of": "2026-11-14",
+  "source_kb_collected_at": "2026-11-13T19:41:30+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -42,28 +42,28 @@
       "area_id": 51171,
       "name": "올림픽훼밀리타운",
       "type_label": "31B",
-      "general_price_manwon": 256000.0
+      "general_price_manwon": 253500.0
     },
     {
       "complex_id": 1985,
       "area_id": 1871,
       "name": "올림픽훼밀리타운",
       "type_label": "31A",
-      "general_price_manwon": 259500.0
+      "general_price_manwon": 257000.0
     },
     {
       "complex_id": 1985,
       "area_id": 94789,
       "name": "올림픽훼밀리타운",
       "type_label": "41",
-      "general_price_manwon": 275000.0
+      "general_price_manwon": 272500.0
     },
     {
       "complex_id": 1985,
       "area_id": 128799,
       "name": "올림픽훼밀리타운",
       "type_label": "48",
-      "general_price_manwon": 297500.0
+      "general_price_manwon": 294000.0
     },
     {
       "complex_id": 1985,
@@ -245,21 +245,21 @@
       "area_id": 94763,
       "name": "삼환가락",
       "type_label": "32B1",
-      "general_price_manwon": 213500.0
+      "general_price_manwon": 216000.0
     },
     {
       "complex_id": 1945,
       "area_id": 128775,
       "name": "삼환가락",
       "type_label": "32B2",
-      "general_price_manwon": 213500.0
+      "general_price_manwon": 216000.0
     },
     {
       "complex_id": 1945,
       "area_id": 153758,
       "name": "삼환가락",
       "type_label": "43C",
-      "general_price_manwon": 230000.0
+      "general_price_manwon": 232500.0
     },
     {
       "complex_id": 1944,
@@ -273,7 +273,7 @@
       "area_id": 51135,
       "name": "미륭아파트",
       "type_label": "24",
-      "general_price_manwon": 177000.0
+      "general_price_manwon": 179750.0
     },
     {
       "complex_id": 1944,
@@ -791,35 +791,35 @@
       "area_id": 51132,
       "name": "가락대림",
       "type_label": "26",
-      "general_price_manwon": 150000.0
+      "general_price_manwon": 153000.0
     },
     {
       "complex_id": 1941,
       "area_id": 94760,
       "name": "가락대림",
       "type_label": "27",
-      "general_price_manwon": 150000.0
+      "general_price_manwon": 153000.0
     },
     {
       "complex_id": 1941,
       "area_id": 128772,
       "name": "가락대림",
       "type_label": "28",
-      "general_price_manwon": 155000.0
+      "general_price_manwon": 158000.0
     },
     {
       "complex_id": 1941,
       "area_id": 153757,
       "name": "가락대림",
       "type_label": "30",
-      "general_price_manwon": 160000.0
+      "general_price_manwon": 165000.0
     },
     {
       "complex_id": 1941,
       "area_id": 171544,
       "name": "가락대림",
       "type_label": "30",
-      "general_price_manwon": 160000.0
+      "general_price_manwon": 165000.0
     },
     {
       "complex_id": 1941,
@@ -847,21 +847,21 @@
       "area_id": 691,
       "name": "현대프라임",
       "type_label": "24",
-      "general_price_manwon": 175000.0
+      "general_price_manwon": 177500.0
     },
     {
       "complex_id": 716,
       "area_id": 50021,
       "name": "현대프라임",
       "type_label": "25",
-      "general_price_manwon": 175000.0
+      "general_price_manwon": 177500.0
     },
     {
       "complex_id": 716,
       "area_id": 93862,
       "name": "현대프라임",
       "type_label": "31",
-      "general_price_manwon": 215000.0
+      "general_price_manwon": 217500.0
     },
     {
       "complex_id": 716,
