@@ -12,14 +12,14 @@
       "source_updated_at": "2026-09-23"
     },
     {
-      "date": "2026-11-12",
+      "date": "2026-11-13",
       "coverage_weight": 45,
       "score": null,
       "components": {
-        "finance": 65.91499999999999,
-        "demand": 46.945
+        "finance": 61.480000000000004,
+        "demand": 47.12
       },
-      "source_updated_at": "2026-11-12"
+      "source_updated_at": "2026-11-13"
     }
   ]
 }
