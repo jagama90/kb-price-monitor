@@ -216,9 +216,9 @@
         },
         "low": {
           "n": 22,
-          "mean": 1.614,
+          "mean": 1.627,
           "median": 1.53,
-          "positive_pct": 59.1
+          "positive_pct": 63.6
         }
       },
       "6m": {
@@ -240,7 +240,7 @@
         "cut_from_train": -0.092,
         "high": {
           "n": 76,
-          "mean": 11.456,
+          "mean": 11.46,
           "median": 11.999,
           "positive_pct": 82.9
         },
@@ -5108,7 +5108,7 @@
       "songpa_gap": 9.467,
       "songpa_fwd_3m": 6.667,
       "songpa_fwd_6m": 11.667,
-      "songpa_fwd_12m": 15.517,
+      "songpa_fwd_12m": 15.789,
       "fwd_3m": 2.701673351220335,
       "fwd_6m": 4.7134095716571345,
       "fwd_12m": null,
@@ -5286,7 +5286,7 @@
       "breadth": 80.0,
       "songpa_breadth": 76.2,
       "songpa_gap": -2.055,
-      "songpa_fwd_3m": 0.0,
+      "songpa_fwd_3m": 0.282,
       "songpa_fwd_6m": null,
       "songpa_fwd_12m": null,
       "fwd_3m": null,
@@ -5298,5 +5298,5 @@
       "enhanced_both": false
     }
   ],
-  "generated_at": "2026-11-06T19:27:32.828530+00:00"
+  "generated_at": "2026-11-13T19:44:17.298318+00:00"
 }
