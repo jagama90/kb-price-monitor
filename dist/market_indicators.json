@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-15",
+  "updated_at": "2026-11-16",
   "sources": [
     {
       "name": "서울특별시/국토교통부 실거래가",
@@ -227,7 +227,7 @@
     "kb_weekly_sale_index": "connected",
     "kb_weekly_rent_index": "connected",
     "ecos_base_rate": "connected",
-    "molit_refresh": "connected",
+    "molit_refresh": "fallback_last_good",
     "ecos_refresh": "connected",
     "kb_sentiment_refresh": "connected",
     "watchlist_detail_refresh": "connected",
@@ -296,7 +296,7 @@
     "jeonse_score_change": -0.2,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-11-15T02:16:48.638732+00:00"
+    "generated_at": "2026-11-16T02:29:41.642365+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -335,7 +335,7 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-11-15T02:16:48.590573+00:00"
+    "generated_at": "2026-11-16T02:29:41.604445+00:00"
   },
   "matched_period": {
     "as_of": "2026-11-15",
@@ -433,14 +433,8 @@
       "change_pct": 0.1
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-11-15T02:16:26.794723+00:00",
+    "collected_at": "2026-11-16T02:29:03.160468+00:00",
     "history": [
-      {
-        "date": "20260727",
-        "value": 107.6160325643,
-        "display_value": "107.6",
-        "change_pct": 0.32
-      },
       {
         "date": "20260803",
         "value": 107.8604915655,
@@ -557,7 +551,7 @@
       "change_pct": 0.13
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-11-15T02:16:27.523579+00:00"
+    "collected_at": "2026-11-16T02:29:03.888273+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -693,12 +687,12 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-11-15T02:16:27.870114+00:00"
+    "collected_at": "2026-11-16T02:29:13.704876+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-11-15T02:16:48.485580+00:00",
+    "attempted_at": "2026-11-16T02:29:41.365135+00:00",
     "sources": {
-      "molit": "connected",
+      "molit": "fallback_last_good",
       "ecos": "connected",
       "kb_sentiment": "connected",
       "watchlist_detail": "connected"
