@@ -130,7 +130,7 @@
     "status": "data_check",
     "reason": "daily MOLIT trade source is not freshly connected"
   },
-  "generated_at": "2026-11-16T02:30:19.990951+00:00",
+  "generated_at": "2026-11-16T03:47:56.180605+00:00",
   "lineage": {
     "certified_model": "dist/upside_probability_engine.json",
     "monthly_history": "dist/long_cycle_master.json",
