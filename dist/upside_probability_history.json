@@ -398,6 +398,17 @@
         "flat": 23.1,
         "down": 7.7
       }
+    },
+    {
+      "date": "2026-11-17",
+      "checked_at": "2026-11-17T04:52:43.088062+00:00",
+      "status": "source_unchanged",
+      "source_as_of": "20261019",
+      "probabilities": {
+        "up": 69.2,
+        "flat": 23.1,
+        "down": 7.7
+      }
     }
   ],
   "research_daily": [
@@ -1771,6 +1782,61 @@
       "reference_probability_up_pct": null,
       "candidate_version": "daily_multisignal_research_v2",
       "changes_vs_previous": null
+    },
+    {
+      "date": "2026-11-17",
+      "checked_at": "2026-11-17T04:52:43.088062+00:00",
+      "status": "research_only_not_certified",
+      "probabilities": {
+        "up": 69.1,
+        "flat": 23.2,
+        "down": 7.7
+      },
+      "source_price_as_of": "20261019",
+      "components": {
+        "finance": 35.5,
+        "sentiment": 16.0,
+        "demand": 30.15
+      },
+      "source_vintages": {
+        "finance_mortgage_month": "202609",
+        "finance_base_rate_day": "20261114",
+        "sentiment_week": "20261109",
+        "trade_completed_month": "2026-09",
+        "trade_daily_as_of": "2026-11-17",
+        "trade_daily_period": "2026-11"
+      },
+      "source_status": {
+        "finance": "connected",
+        "sentiment": "connected",
+        "trade": "connected"
+      },
+      "daily_signal": {
+        "status": "provisional_reporting_window",
+        "as_of": "2026-11-17",
+        "period": "2026-11",
+        "range": "1~17일",
+        "trade_count_pct": -73.0,
+        "under15_share_pp": 3.8,
+        "current_total": 656,
+        "previous_total": 2428,
+        "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
+      },
+      "mature_reference": {
+        "period": "2026-09",
+        "demand_score_0_100": 47.1
+      },
+      "reference_probability_up_pct": 69.2,
+      "candidate_version": "daily_multisignal_research_v2",
+      "changes_vs_previous": {
+        "probability_up_pp": 0.1,
+        "components": {
+          "finance": 0.0,
+          "sentiment": 0.0,
+          "demand": 1.35
+        },
+        "input_changed": true
+      }
     }
   ]
 }
