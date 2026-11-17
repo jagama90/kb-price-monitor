@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-16",
+  "updated_at": "2026-11-17",
   "sources": [
     {
       "name": "서울특별시/국토교통부 실거래가",
@@ -43,7 +43,7 @@
     ],
     [
       "2026-11",
-      532,
+      656,
       true
     ]
   ],
@@ -194,25 +194,25 @@
       },
       {
         "period": "2026-11",
-        "total": 532,
+        "total": 656,
         "counts": {
-          "<=9eok": 305,
-          "9-15eok": 151,
-          "15-25eok": 60,
-          "25eok+": 16
+          "<=9eok": 362,
+          "9-15eok": 198,
+          "15-25eok": 79,
+          "25eok+": 17
         },
         "buckets3": {
-          "<=15eok": 456,
-          "15-25eok": 60,
-          "25eok+": 16
+          "<=15eok": 560,
+          "15-25eok": 79,
+          "25eok+": 17
         },
         "boundary_counts": {
-          "13-15eok": 32,
-          "15-17eok": 21,
-          "23-25eok": 8,
+          "13-15eok": 42,
+          "15-17eok": 27,
+          "23-25eok": 10,
           "25-27eok": 4
         },
-        "under15_share": 85.7
+        "under15_share": 85.4
       }
     ]
   },
@@ -227,7 +227,7 @@
     "kb_weekly_sale_index": "connected",
     "kb_weekly_rent_index": "connected",
     "ecos_base_rate": "connected",
-    "molit_refresh": "fallback_last_good",
+    "molit_refresh": "connected",
     "ecos_refresh": "connected",
     "kb_sentiment_refresh": "connected",
     "watchlist_detail_refresh": "connected",
@@ -296,7 +296,7 @@
     "jeonse_score_change": -0.2,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-11-16T02:29:41.642365+00:00"
+    "generated_at": "2026-11-17T04:52:14.796099+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -335,61 +335,61 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-11-16T02:29:41.604445+00:00"
+    "generated_at": "2026-11-17T04:52:14.742251+00:00"
   },
   "matched_period": {
-    "as_of": "2026-11-15",
-    "cutoff_day": 15,
+    "as_of": "2026-11-17",
+    "cutoff_day": 17,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-11",
-      "range": "1~15일",
-      "total": 532,
+      "range": "1~17일",
+      "total": 656,
       "counts": {
-        "<=9eok": 305,
-        "9-15eok": 151,
-        "15-25eok": 60,
-        "25eok+": 16
+        "<=9eok": 362,
+        "9-15eok": 198,
+        "15-25eok": 79,
+        "25eok+": 17
       },
       "buckets3": {
-        "<=15eok": 456,
-        "15-25eok": 60,
-        "25eok+": 16
+        "<=15eok": 560,
+        "15-25eok": 79,
+        "25eok+": 17
       },
       "boundary_counts": {
-        "13-15eok": 32,
-        "15-17eok": 21,
-        "23-25eok": 8,
+        "13-15eok": 42,
+        "15-17eok": 27,
+        "23-25eok": 10,
         "25-27eok": 4
       },
-      "under15_share": 85.7
+      "under15_share": 85.4
     },
     "previous": {
       "period": "2026-10",
-      "range": "1~15일",
-      "total": 2101,
+      "range": "1~17일",
+      "total": 2428,
       "counts": {
-        "<=9eok": 1194,
-        "9-15eok": 538,
-        "15-25eok": 261,
-        "25eok+": 108
+        "<=9eok": 1346,
+        "9-15eok": 636,
+        "15-25eok": 321,
+        "25eok+": 125
       },
       "buckets3": {
-        "<=15eok": 1732,
-        "15-25eok": 261,
-        "25eok+": 108
+        "<=15eok": 1982,
+        "15-25eok": 321,
+        "25eok+": 125
       },
       "boundary_counts": {
-        "13-15eok": 136,
-        "15-17eok": 95,
-        "23-25eok": 23,
-        "25-27eok": 19
+        "13-15eok": 160,
+        "15-17eok": 111,
+        "23-25eok": 30,
+        "25-27eok": 20
       },
-      "under15_share": 82.4
+      "under15_share": 81.6
     },
     "changes": {
-      "trade_count_pct": -74.7,
-      "under15_share_pp": 3.3
+      "trade_count_pct": -73.0,
+      "under15_share_pp": 3.8
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
@@ -433,7 +433,7 @@
       "change_pct": 0.1
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-11-16T02:29:03.160468+00:00",
+    "collected_at": "2026-11-17T04:51:52.711503+00:00",
     "history": [
       {
         "date": "20260803",
@@ -551,7 +551,7 @@
       "change_pct": 0.13
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-11-16T02:29:03.888273+00:00"
+    "collected_at": "2026-11-17T04:51:53.343850+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -560,11 +560,11 @@
     "item_code": "0101000",
     "frequency": "daily",
     "latest": {
-      "date": "20261113",
+      "date": "20261114",
       "rate_pct": 3.0,
       "item": "한국은행 기준금리"
     },
-    "latest_observation_date": "20261113",
+    "latest_observation_date": "20261114",
     "series": [
       {
         "date": "20160101",
@@ -687,12 +687,12 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-11-16T02:29:13.704876+00:00"
+    "collected_at": "2026-11-17T04:51:57.003520+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-11-16T02:29:41.365135+00:00",
+    "attempted_at": "2026-11-17T04:52:14.641953+00:00",
     "sources": {
-      "molit": "fallback_last_good",
+      "molit": "connected",
       "ecos": "connected",
       "kb_sentiment": "connected",
       "watchlist_detail": "connected"
@@ -722,7 +722,7 @@
     "note": "국토교통부 2026년 7월 주택통계 공표값"
   },
   "signal_matched_period": {
-    "as_of": "2026-11-15",
+    "as_of": "2026-11-17",
     "basis": "completed_month_after_statutory_reporting_window",
     "reporting_window_days": 30,
     "current": {
@@ -784,7 +784,7 @@
     "provisional": false,
     "basis": "statutory_reporting_window",
     "reporting_window_days": 30,
-    "as_of": "2026-11-15",
+    "as_of": "2026-11-17",
     "reason": "latest_full_month_reporting_window_elapsed",
     "signal_period": "2026-09",
     "previous_period": "2026-08",
@@ -966,7 +966,7 @@
     ],
     [
       "2026-11",
-      532,
+      656,
       true
     ]
   ],
