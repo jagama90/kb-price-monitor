@@ -3,10 +3,10 @@
   "version": "market_strength_index_v2",
   "production_formula_changed": true,
   "index_role": "current_state_quality_and_short_horizon_forecast_support",
-  "as_of": "2026-11-19",
-  "snapshot_id": "2026-11-19|KB20261109|R202609",
+  "as_of": "2026-11-20",
+  "snapshot_id": "2026-11-20|KB20261116|R202609",
   "current": {
-    "score_0_100": 39.3,
+    "score_0_100": 39.2,
     "display_score": 39,
     "label": "약함",
     "historical_percentile": 12.8,
@@ -21,7 +21,7 @@
     "weakest": {
       "key": "sentiment",
       "label": "심리",
-      "value": 16.0,
+      "value": 15.8,
       "excluded_from_trim": true
     },
     "components": {
@@ -47,12 +47,12 @@
       },
       "sentiment": {
         "label": "심리",
-        "value": 16.0,
+        "value": 15.8,
         "used_in_index": false
       },
       "demand": {
         "label": "거래",
-        "value": 47.1,
+        "value": 47.2,
         "used_in_index": true
       },
       "value": {
@@ -62,7 +62,7 @@
       },
       "supply": {
         "label": "전세·공급",
-        "value": 48.4,
+        "value": 47.8,
         "used_in_index": true
       }
     },
@@ -137,17 +137,17 @@
       },
       "applied": true,
       "baseline_short_horizon": {
-        "consolidation": 39.1,
-        "reacceleration": 28.1,
+        "consolidation": 39.4,
+        "reacceleration": 27.8,
         "downturn": 32.8
       },
       "applied_short_horizon": {
-        "consolidation": 35.6,
-        "reacceleration": 28.1,
-        "downturn": 36.3
+        "consolidation": 35.9,
+        "reacceleration": 27.9,
+        "downturn": 36.2
       }
     },
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
   },
-  "generated_at": "2026-11-19T04:59:53.602405+00:00"
+  "generated_at": "2026-11-20T03:48:11.295409+00:00"
 }
