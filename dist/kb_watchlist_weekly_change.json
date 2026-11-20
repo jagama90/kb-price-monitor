@@ -1,10 +1,10 @@
 {
   "status": "connected",
   "basis": "last completed Friday KB general price vs prior Friday",
-  "latest_friday_as_of": "2026-11-14",
-  "current_kb_collected_at": "2026-11-13T19:41:30+00:00",
-  "previous_friday_as_of": "2026-11-07",
-  "previous_friday_kb_collected_at": "2026-11-06T19:24:53+00:00",
+  "latest_friday_as_of": "2026-11-21",
+  "current_kb_collected_at": "2026-11-20T20:07:37+00:00",
+  "previous_friday_as_of": "2026-11-14",
+  "previous_friday_kb_collected_at": "2026-11-13T19:41:30+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -68,9 +68,9 @@
       "type_label": "31B",
       "general_price_manwon": 253500.0,
       "current_manwon": 253500.0,
-      "previous_friday_manwon": 256000.0,
-      "delta_manwon": -2500.0,
-      "delta_pct": -0.98
+      "previous_friday_manwon": 253500.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1985,
@@ -79,9 +79,9 @@
       "type_label": "31A",
       "general_price_manwon": 257000.0,
       "current_manwon": 257000.0,
-      "previous_friday_manwon": 259500.0,
-      "delta_manwon": -2500.0,
-      "delta_pct": -0.96
+      "previous_friday_manwon": 257000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1985,
@@ -90,20 +90,20 @@
       "type_label": "41",
       "general_price_manwon": 272500.0,
       "current_manwon": 272500.0,
-      "previous_friday_manwon": 275000.0,
-      "delta_manwon": -2500.0,
-      "delta_pct": -0.91
+      "previous_friday_manwon": 272500.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1985,
       "area_id": 128799,
       "name": "올림픽훼밀리타운",
       "type_label": "48",
-      "general_price_manwon": 294000.0,
-      "current_manwon": 294000.0,
-      "previous_friday_manwon": 297500.0,
-      "delta_manwon": -3500.0,
-      "delta_pct": -1.18
+      "general_price_manwon": 291500.0,
+      "current_manwon": 291500.0,
+      "previous_friday_manwon": 294000.0,
+      "delta_manwon": -2500.0,
+      "delta_pct": -0.85
     },
     {
       "complex_id": 1985,
@@ -387,9 +387,9 @@
       "type_label": "32B1",
       "general_price_manwon": 216000.0,
       "current_manwon": 216000.0,
-      "previous_friday_manwon": 213500.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.17
+      "previous_friday_manwon": 216000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1945,
@@ -398,9 +398,9 @@
       "type_label": "32B2",
       "general_price_manwon": 216000.0,
       "current_manwon": 216000.0,
-      "previous_friday_manwon": 213500.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.17
+      "previous_friday_manwon": 216000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1945,
@@ -409,9 +409,9 @@
       "type_label": "43C",
       "general_price_manwon": 232500.0,
       "current_manwon": 232500.0,
-      "previous_friday_manwon": 230000.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.09
+      "previous_friday_manwon": 232500.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1944,
@@ -431,9 +431,9 @@
       "type_label": "24",
       "general_price_manwon": 179750.0,
       "current_manwon": 179750.0,
-      "previous_friday_manwon": 177000.0,
-      "delta_manwon": 2750.0,
-      "delta_pct": 1.55
+      "previous_friday_manwon": 179750.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1944,
@@ -1133,55 +1133,55 @@
       "area_id": 153743,
       "name": "금호타운아파트 (마천역)",
       "type_label": "29",
-      "general_price_manwon": 121500.0,
-      "current_manwon": 121500.0,
+      "general_price_manwon": 124000.0,
+      "current_manwon": 124000.0,
       "previous_friday_manwon": 121500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 2.06
     },
     {
       "complex_id": 1896,
       "area_id": 51090,
       "name": "금호타운아파트 (마천역)",
       "type_label": "33A",
-      "general_price_manwon": 126500.0,
-      "current_manwon": 126500.0,
+      "general_price_manwon": 129000.0,
+      "current_manwon": 129000.0,
       "previous_friday_manwon": 126500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 1.98
     },
     {
       "complex_id": 1896,
       "area_id": 94730,
       "name": "금호타운아파트 (마천역)",
       "type_label": "33B",
-      "general_price_manwon": 126500.0,
-      "current_manwon": 126500.0,
+      "general_price_manwon": 129000.0,
+      "current_manwon": 129000.0,
       "previous_friday_manwon": 126500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 1.98
     },
     {
       "complex_id": 1868,
       "area_id": 1758,
       "name": "풍납극동",
       "type_label": "24A",
-      "general_price_manwon": 145000.0,
-      "current_manwon": 145000.0,
+      "general_price_manwon": 150000.0,
+      "current_manwon": 150000.0,
       "previous_friday_manwon": 145000.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 5000.0,
+      "delta_pct": 3.45
     },
     {
       "complex_id": 1868,
       "area_id": 94711,
       "name": "풍납극동",
       "type_label": "24B",
-      "general_price_manwon": 145000.0,
-      "current_manwon": 145000.0,
+      "general_price_manwon": 150000.0,
+      "current_manwon": 150000.0,
       "previous_friday_manwon": 145000.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 5000.0,
+      "delta_pct": 3.45
     },
     {
       "complex_id": 1868,
@@ -1245,9 +1245,9 @@
       "type_label": "26",
       "general_price_manwon": 153000.0,
       "current_manwon": 153000.0,
-      "previous_friday_manwon": 150000.0,
-      "delta_manwon": 3000.0,
-      "delta_pct": 2.0
+      "previous_friday_manwon": 153000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1941,
@@ -1256,9 +1256,9 @@
       "type_label": "27",
       "general_price_manwon": 153000.0,
       "current_manwon": 153000.0,
-      "previous_friday_manwon": 150000.0,
-      "delta_manwon": 3000.0,
-      "delta_pct": 2.0
+      "previous_friday_manwon": 153000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1941,
@@ -1267,9 +1267,9 @@
       "type_label": "28",
       "general_price_manwon": 158000.0,
       "current_manwon": 158000.0,
-      "previous_friday_manwon": 155000.0,
-      "delta_manwon": 3000.0,
-      "delta_pct": 1.94
+      "previous_friday_manwon": 158000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1941,
@@ -1278,9 +1278,9 @@
       "type_label": "30",
       "general_price_manwon": 165000.0,
       "current_manwon": 165000.0,
-      "previous_friday_manwon": 160000.0,
-      "delta_manwon": 5000.0,
-      "delta_pct": 3.12
+      "previous_friday_manwon": 165000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1941,
@@ -1289,9 +1289,9 @@
       "type_label": "30",
       "general_price_manwon": 165000.0,
       "current_manwon": 165000.0,
-      "previous_friday_manwon": 160000.0,
-      "delta_manwon": 5000.0,
-      "delta_pct": 3.12
+      "previous_friday_manwon": 165000.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 1941,
@@ -1333,9 +1333,9 @@
       "type_label": "24",
       "general_price_manwon": 177500.0,
       "current_manwon": 177500.0,
-      "previous_friday_manwon": 175000.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.43
+      "previous_friday_manwon": 177500.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 716,
@@ -1344,9 +1344,9 @@
       "type_label": "25",
       "general_price_manwon": 177500.0,
       "current_manwon": 177500.0,
-      "previous_friday_manwon": 175000.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.43
+      "previous_friday_manwon": 177500.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 716,
@@ -1355,9 +1355,9 @@
       "type_label": "31",
       "general_price_manwon": 217500.0,
       "current_manwon": 217500.0,
-      "previous_friday_manwon": 215000.0,
-      "delta_manwon": 2500.0,
-      "delta_pct": 1.16
+      "previous_friday_manwon": 217500.0,
+      "delta_manwon": 0.0,
+      "delta_pct": 0.0
     },
     {
       "complex_id": 716,
@@ -1430,22 +1430,22 @@
       "area_id": 50959,
       "name": "행당한진타운",
       "type_label": "26",
-      "general_price_manwon": 162000.0,
-      "current_manwon": 162000.0,
+      "general_price_manwon": 161000.0,
+      "current_manwon": 161000.0,
       "previous_friday_manwon": 162000.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": -1000.0,
+      "delta_pct": -0.62
     },
     {
       "complex_id": 1758,
       "area_id": 94627,
       "name": "행당한진타운",
       "type_label": "32",
-      "general_price_manwon": 186500.0,
-      "current_manwon": 186500.0,
+      "general_price_manwon": 185500.0,
+      "current_manwon": 185500.0,
       "previous_friday_manwon": 186500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": -1000.0,
+      "delta_pct": -0.54
     },
     {
       "complex_id": 1758,
@@ -2002,11 +2002,11 @@
       "area_id": 1068067,
       "name": "강남자곡아이파크",
       "type_label": "24A",
-      "general_price_manwon": 187500.0,
-      "current_manwon": 187500.0,
+      "general_price_manwon": 190000.0,
+      "current_manwon": 190000.0,
       "previous_friday_manwon": 187500.0,
-      "delta_manwon": 0.0,
-      "delta_pct": 0.0
+      "delta_manwon": 2500.0,
+      "delta_pct": 1.33
     },
     {
       "complex_id": 31944,

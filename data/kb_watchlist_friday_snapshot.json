@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-11-14",
-  "source_kb_collected_at": "2026-11-13T19:41:30+00:00",
+  "as_of": "2026-11-21",
+  "source_kb_collected_at": "2026-11-20T20:07:37+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -63,7 +63,7 @@
       "area_id": 128799,
       "name": "올림픽훼밀리타운",
       "type_label": "48",
-      "general_price_manwon": 294000.0
+      "general_price_manwon": 291500.0
     },
     {
       "complex_id": 1985,
@@ -721,35 +721,35 @@
       "area_id": 153743,
       "name": "금호타운아파트 (마천역)",
       "type_label": "29",
-      "general_price_manwon": 121500.0
+      "general_price_manwon": 124000.0
     },
     {
       "complex_id": 1896,
       "area_id": 51090,
       "name": "금호타운아파트 (마천역)",
       "type_label": "33A",
-      "general_price_manwon": 126500.0
+      "general_price_manwon": 129000.0
     },
     {
       "complex_id": 1896,
       "area_id": 94730,
       "name": "금호타운아파트 (마천역)",
       "type_label": "33B",
-      "general_price_manwon": 126500.0
+      "general_price_manwon": 129000.0
     },
     {
       "complex_id": 1868,
       "area_id": 1758,
       "name": "풍납극동",
       "type_label": "24A",
-      "general_price_manwon": 145000.0
+      "general_price_manwon": 150000.0
     },
     {
       "complex_id": 1868,
       "area_id": 94711,
       "name": "풍납극동",
       "type_label": "24B",
-      "general_price_manwon": 145000.0
+      "general_price_manwon": 150000.0
     },
     {
       "complex_id": 1868,
@@ -910,14 +910,14 @@
       "area_id": 50959,
       "name": "행당한진타운",
       "type_label": "26",
-      "general_price_manwon": 162000.0
+      "general_price_manwon": 161000.0
     },
     {
       "complex_id": 1758,
       "area_id": 94627,
       "name": "행당한진타운",
       "type_label": "32",
-      "general_price_manwon": 186500.0
+      "general_price_manwon": 185500.0
     },
     {
       "complex_id": 1758,
@@ -1274,7 +1274,7 @@
       "area_id": 1068067,
       "name": "강남자곡아이파크",
       "type_label": "24A",
-      "general_price_manwon": 187500.0
+      "general_price_manwon": 190000.0
     },
     {
       "complex_id": 31944,
