@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-19",
+  "as_of": "2026-11-20",
   "weights": {
     "finance": 25,
     "sentiment": 20,
@@ -9,17 +9,17 @@
   },
   "components": {
     "finance": 61.480000000000004,
-    "sentiment": 16.0,
-    "demand": 47.12,
+    "sentiment": 15.8,
+    "demand": 47.224999999999994,
     "value": 30.7,
-    "supply": 48.4
+    "supply": 47.8
   },
   "contribution_vs_neutral": {
     "finance": 2.87,
-    "sentiment": -6.8,
-    "demand": -0.58,
+    "sentiment": -6.84,
+    "demand": -0.56,
     "value": -3.86,
-    "supply": -0.24
+    "supply": -0.33
   },
   "coverage_weight": 100,
   "freshness_score": 100,
