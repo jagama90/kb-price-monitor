@@ -2,14 +2,14 @@
   "status": "research_only",
   "current": {
     "breadth": {
-      "date": "20261109",
+      "date": "20261116",
       "seoul_25": {
         "count": 25,
-        "up": 22,
+        "up": 21,
         "flat": 0,
-        "down": 3,
-        "up_share_pct": 88.0,
-        "median_change_pct": 0.13
+        "down": 4,
+        "up_share_pct": 84.0,
+        "median_change_pct": 0.12
       },
       "gangnam3": {
         "count": 3,
@@ -17,22 +17,22 @@
         "flat": 0,
         "down": 3,
         "up_share_pct": 0.0,
-        "median_change_pct": -0.19
+        "median_change_pct": -0.15
       },
       "non_gangnam3": {
         "count": 22,
-        "up": 22,
+        "up": 21,
         "flat": 0,
-        "down": 0,
-        "up_share_pct": 100.0,
-        "median_change_pct": 0.165
+        "down": 1,
+        "up_share_pct": 95.5,
+        "median_change_pct": 0.15
       },
       "songpa": {
         "region": "송파구",
         "code": "1171000000",
-        "date": "20261109",
-        "index": 106.4761289646,
-        "change_pct": -0.19
+        "date": "20261116",
+        "index": 106.2458134047,
+        "change_pct": -0.22
       }
     },
     "affordability": {
@@ -94,5 +94,5 @@
     "production_price_turn_formula_changed": false,
     "reason": "breadth improves holdout discrimination but hard filtering leaves too few entry signals; affordability timing effect is inconsistent; Songpa relative strength is local rather than Seoul-wide."
   },
-  "generated_at": "2026-11-13T19:44:17.323963+00:00"
+  "generated_at": "2026-11-20T20:09:57.653920+00:00"
 }
