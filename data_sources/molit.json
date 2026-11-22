@@ -1,6 +1,6 @@
 {
   "source": "MOLIT apartment trade OpenAPI",
-  "collected_at": "2026-11-21T12:37:48.926561+09:00",
+  "collected_at": "2026-11-22T11:44:05.293993+09:00",
   "refresh_meta": {
     "mode": "daily_current_month_only",
     "queried_pairs": 20,
@@ -8,7 +8,7 @@
     "reused_previous_matched_vintage": false,
     "retried_pairs": [],
     "cache_fallback_pairs": [],
-    "elapsed_sec": 3.3
+    "elapsed_sec": 2.5
   },
   "pair_cache": {
     "11215:202609": [
@@ -35335,6 +35335,10 @@
         95000
       ],
       [
+        20,
+        107300
+      ],
+      [
         19,
         59000
       ],
@@ -35393,6 +35397,10 @@
       [
         12,
         74800
+      ],
+      [
+        11,
+        187000
       ],
       [
         11,
@@ -35995,7 +36003,7 @@
     ],
     [
       "2026-11",
-      1183,
+      1185,
       true
     ]
   ],
@@ -36124,16 +36132,16 @@
       },
       {
         "period": "2026-11",
-        "total": 1183,
+        "total": 1185,
         "counts": {
           "<=9eok": 611,
-          "9-15eok": 356,
-          "15-25eok": 164,
+          "9-15eok": 357,
+          "15-25eok": 165,
           "25eok+": 52
         },
         "buckets3": {
-          "<=15eok": 967,
-          "15-25eok": 164,
+          "<=15eok": 968,
+          "15-25eok": 165,
           "25eok+": 52
         },
         "boundary_counts": {
@@ -36147,22 +36155,22 @@
     ]
   },
   "matched_period": {
-    "as_of": "2026-11-21",
-    "cutoff_day": 21,
+    "as_of": "2026-11-22",
+    "cutoff_day": 22,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-11",
-      "range": "1~21일",
-      "total": 1183,
+      "range": "1~22일",
+      "total": 1185,
       "counts": {
         "<=9eok": 611,
-        "9-15eok": 356,
-        "15-25eok": 164,
+        "9-15eok": 357,
+        "15-25eok": 165,
         "25eok+": 52
       },
       "buckets3": {
-        "<=15eok": 967,
-        "15-25eok": 164,
+        "<=15eok": 968,
+        "15-25eok": 165,
         "25eok+": 52
       },
       "boundary_counts": {
@@ -36175,35 +36183,35 @@
     },
     "previous": {
       "period": "2026-10",
-      "range": "1~21일",
-      "total": 2892,
+      "range": "1~22일",
+      "total": 3022,
       "counts": {
-        "<=9eok": 1560,
-        "9-15eok": 762,
-        "15-25eok": 399,
-        "25eok+": 171
+        "<=9eok": 1615,
+        "9-15eok": 805,
+        "15-25eok": 416,
+        "25eok+": 186
       },
       "buckets3": {
-        "<=15eok": 2322,
-        "15-25eok": 399,
-        "25eok+": 171
+        "<=15eok": 2420,
+        "15-25eok": 416,
+        "25eok+": 186
       },
       "boundary_counts": {
-        "13-15eok": 199,
-        "15-17eok": 138,
-        "23-25eok": 36,
+        "13-15eok": 209,
+        "15-17eok": 146,
+        "23-25eok": 40,
         "25-27eok": 25
       },
-      "under15_share": 80.3
+      "under15_share": 80.1
     },
     "changes": {
-      "trade_count_pct": -59.1,
-      "under15_share_pp": 1.4
+      "trade_count_pct": -60.8,
+      "under15_share_pp": 1.6
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
   "signal_matched_period": {
-    "as_of": "2026-11-21",
+    "as_of": "2026-11-22",
     "basis": "completed_month_after_statutory_reporting_window",
     "reporting_window_days": 30,
     "current": {
@@ -36265,7 +36273,7 @@
     "provisional": false,
     "basis": "statutory_reporting_window",
     "reporting_window_days": 30,
-    "as_of": "2026-11-21",
+    "as_of": "2026-11-22",
     "reason": "latest_full_month_reporting_window_elapsed",
     "signal_period": "2026-09",
     "previous_period": "2026-08",
