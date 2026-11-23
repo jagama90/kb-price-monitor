@@ -6,7 +6,7 @@
   },
   "targets": {
     "sale": {
-      "date": "20261116",
+      "date": "20261123",
       "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
       "numeric_fields": 5,
       "payload": {
@@ -42,12 +42,6 @@
         }
       },
       "history": [
-        {
-          "date": "20260803",
-          "value": 107.8604915655,
-          "display_value": "107.9",
-          "change_pct": 0.23
-        },
         {
           "date": "20260810",
           "value": 108.1337214513,
@@ -141,7 +135,7 @@
       ]
     },
     "rent": {
-      "date": "20261116",
+      "date": "20261123",
       "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
       "numeric_fields": 5,
       "payload": {
@@ -178,12 +172,6 @@
       },
       "history": [
         {
-          "date": "20261102",
-          "value": 109.2295176781,
-          "display_value": "109.2",
-          "change_pct": 0.14
-        },
-        {
           "date": "20261109",
           "value": 109.3688403956,
           "display_value": "109.4",
@@ -198,5 +186,5 @@
       ]
     }
   },
-  "collected_at": "2026-11-22T02:44:03.970055+00:00"
+  "collected_at": "2026-11-23T03:21:25.799818+00:00"
 }
