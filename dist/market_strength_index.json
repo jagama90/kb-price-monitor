@@ -3,8 +3,8 @@
   "version": "market_strength_index_v2",
   "production_formula_changed": true,
   "index_role": "current_state_quality_and_short_horizon_forecast_support",
-  "as_of": "2026-11-24",
-  "snapshot_id": "2026-11-24|KB20261116|R202609",
+  "as_of": "2026-11-25",
+  "snapshot_id": "2026-11-25|KB20261116|R202609",
   "current": {
     "score_0_100": 39.2,
     "display_score": 39,
@@ -137,17 +137,17 @@
       },
       "applied": true,
       "baseline_short_horizon": {
-        "consolidation": 39.4,
+        "consolidation": 39.3,
         "reacceleration": 27.8,
-        "downturn": 32.8
+        "downturn": 32.9
       },
       "applied_short_horizon": {
-        "consolidation": 35.9,
+        "consolidation": 35.8,
         "reacceleration": 27.9,
-        "downturn": 36.2
+        "downturn": 36.3
       }
     },
     "note": "과거 구간의 평균 관계이며 미래 수익률이나 확률을 보장하지 않음"
   },
-  "generated_at": "2026-11-24T07:34:22.897167+00:00"
+  "generated_at": "2026-11-25T05:09:19.381576+00:00"
 }
