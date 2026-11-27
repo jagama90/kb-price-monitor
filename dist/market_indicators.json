@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26",
+  "updated_at": "2026-11-27",
   "sources": [
     {
       "name": "서울특별시/국토교통부 실거래가",
@@ -33,17 +33,17 @@
     ],
     [
       "2026-09",
-      3538,
+      3543,
       false
     ],
     [
       "2026-10",
-      4219,
+      4449,
       false
     ],
     [
       "2026-11",
-      1638,
+      1777,
       true
     ]
   ],
@@ -150,69 +150,69 @@
       },
       {
         "period": "2026-09",
-        "total": 3538,
+        "total": 3543,
         "counts": {
-          "<=9eok": 1945,
+          "<=9eok": 1947,
           "9-15eok": 840,
-          "15-25eok": 519,
-          "25eok+": 234
+          "15-25eok": 521,
+          "25eok+": 235
         },
         "buckets3": {
-          "<=15eok": 2785,
-          "15-25eok": 519,
-          "25eok+": 234
+          "<=15eok": 2787,
+          "15-25eok": 521,
+          "25eok+": 235
         },
         "boundary_counts": {
-          "13-15eok": 207,
+          "13-15eok": 208,
           "15-17eok": 168,
-          "23-25eok": 57,
+          "23-25eok": 58,
           "25-27eok": 34
         },
         "under15_share": 78.7
       },
       {
         "period": "2026-10",
-        "total": 4219,
+        "total": 4449,
         "counts": {
-          "<=9eok": 2162,
-          "9-15eok": 1165,
-          "15-25eok": 614,
-          "25eok+": 278
+          "<=9eok": 2230,
+          "9-15eok": 1246,
+          "15-25eok": 664,
+          "25eok+": 309
         },
         "buckets3": {
-          "<=15eok": 3327,
-          "15-25eok": 614,
-          "25eok+": 278
+          "<=15eok": 3476,
+          "15-25eok": 664,
+          "25eok+": 309
         },
         "boundary_counts": {
-          "13-15eok": 304,
-          "15-17eok": 216,
-          "23-25eok": 65,
-          "25-27eok": 43
+          "13-15eok": 325,
+          "15-17eok": 232,
+          "23-25eok": 71,
+          "25-27eok": 46
         },
-        "under15_share": 78.9
+        "under15_share": 78.1
       },
       {
         "period": "2026-11",
-        "total": 1638,
+        "total": 1777,
         "counts": {
-          "<=9eok": 810,
-          "9-15eok": 499,
-          "15-25eok": 242,
-          "25eok+": 87
+          "<=9eok": 871,
+          "9-15eok": 544,
+          "15-25eok": 265,
+          "25eok+": 97
         },
         "buckets3": {
-          "<=15eok": 1309,
-          "15-25eok": 242,
-          "25eok+": 87
+          "<=15eok": 1415,
+          "15-25eok": 265,
+          "25eok+": 97
         },
         "boundary_counts": {
-          "13-15eok": 118,
-          "15-17eok": 87,
-          "23-25eok": 30,
-          "25-27eok": 10
+          "13-15eok": 128,
+          "15-17eok": 93,
+          "23-25eok": 32,
+          "25-27eok": 11
         },
-        "under15_share": 79.9
+        "under15_share": 79.6
       }
     ]
   },
@@ -240,6 +240,28 @@
     "region": "서울",
     "latest": {
       "매수우위": {
+        "date": "20261123",
+        "value": 51.13611829,
+        "field": "매수우위지수"
+      },
+      "매매거래활발": {
+        "date": "20261123",
+        "value": 7.66609175,
+        "field": "매매거래지수"
+      },
+      "전세수급": {
+        "date": "20261123",
+        "value": 173.1860814,
+        "field": "전세수급지수"
+      },
+      "전세거래활발": {
+        "date": "20261123",
+        "value": 19.75729219,
+        "field": "전세거래지수"
+      }
+    },
+    "previous": {
+      "매수우위": {
         "date": "20261116",
         "value": 55.10773777,
         "field": "매수우위지수"
@@ -260,43 +282,21 @@
         "field": "전세거래지수"
       }
     },
-    "previous": {
-      "매수우위": {
-        "date": "20261109",
-        "value": 54.88228516,
-        "field": "매수우위지수"
-      },
-      "매매거래활발": {
-        "date": "20261109",
-        "value": 9.08410485,
-        "field": "매매거래지수"
-      },
-      "전세수급": {
-        "date": "20261109",
-        "value": 174.55197053,
-        "field": "전세수급지수"
-      },
-      "전세거래활발": {
-        "date": "20261109",
-        "value": 18.98490143,
-        "field": "전세거래지수"
-      }
-    },
     "changes": {
-      "매수우위": 0.23,
-      "매매거래활발": -1.07,
-      "전세수급": -1.7,
-      "전세거래활발": -0.77
+      "매수우위": -3.97,
+      "매매거래활발": -0.34,
+      "전세수급": 0.33,
+      "전세거래활발": 1.54
     },
-    "score_0_100": 15.8,
-    "previous_score_0_100": 16.0,
-    "score_change": -0.2,
-    "jeonse_score_0_100": 47.8,
-    "previous_jeonse_score_0_100": 48.4,
-    "jeonse_score_change": -0.6,
+    "score_0_100": 14.7,
+    "previous_score_0_100": 15.8,
+    "score_change": -1.1,
+    "jeonse_score_0_100": 48.2,
+    "previous_jeonse_score_0_100": 47.8,
+    "jeonse_score_change": 0.4,
     "method": "mean(KB buyer superiority, transaction activity) / 2",
     "source": "KB부동산 데이터허브",
-    "generated_at": "2026-11-26T04:35:34.552251+00:00"
+    "generated_at": "2026-11-27T04:39:48.190725+00:00"
   },
   "kb_value": {
     "status": "connected",
@@ -335,61 +335,61 @@
       "rows_compared": 47,
       "generated_at": "2026-09-29T17:15:55.829488+00:00"
     },
-    "generated_at": "2026-11-26T04:35:34.501315+00:00"
+    "generated_at": "2026-11-27T04:39:48.151745+00:00"
   },
   "matched_period": {
-    "as_of": "2026-11-26",
-    "cutoff_day": 26,
+    "as_of": "2026-11-27",
+    "cutoff_day": 27,
     "basis": "contract_date_equal_calendar_days",
     "current": {
       "period": "2026-11",
-      "range": "1~26일",
-      "total": 1638,
+      "range": "1~27일",
+      "total": 1777,
       "counts": {
-        "<=9eok": 810,
-        "9-15eok": 499,
-        "15-25eok": 242,
-        "25eok+": 87
+        "<=9eok": 871,
+        "9-15eok": 544,
+        "15-25eok": 265,
+        "25eok+": 97
       },
       "buckets3": {
-        "<=15eok": 1309,
-        "15-25eok": 242,
-        "25eok+": 87
+        "<=15eok": 1415,
+        "15-25eok": 265,
+        "25eok+": 97
       },
       "boundary_counts": {
-        "13-15eok": 118,
-        "15-17eok": 87,
-        "23-25eok": 30,
-        "25-27eok": 10
+        "13-15eok": 128,
+        "15-17eok": 93,
+        "23-25eok": 32,
+        "25-27eok": 11
       },
-      "under15_share": 79.9
+      "under15_share": 79.6
     },
     "previous": {
       "period": "2026-10",
-      "range": "1~26일",
-      "total": 3546,
+      "range": "1~27일",
+      "total": 3753,
       "counts": {
-        "<=9eok": 1841,
-        "9-15eok": 970,
-        "15-25eok": 507,
-        "25eok+": 228
+        "<=9eok": 1921,
+        "9-15eok": 1041,
+        "15-25eok": 547,
+        "25eok+": 244
       },
       "buckets3": {
-        "<=15eok": 2811,
-        "15-25eok": 507,
-        "25eok+": 228
+        "<=15eok": 2962,
+        "15-25eok": 547,
+        "25eok+": 244
       },
       "boundary_counts": {
-        "13-15eok": 249,
-        "15-17eok": 174,
-        "23-25eok": 51,
-        "25-27eok": 36
+        "13-15eok": 265,
+        "15-17eok": 189,
+        "23-25eok": 54,
+        "25-27eok": 39
       },
-      "under15_share": 79.3
+      "under15_share": 78.9
     },
     "changes": {
-      "trade_count_pct": -53.8,
-      "under15_share_pp": 0.6
+      "trade_count_pct": -52.7,
+      "under15_share_pp": 0.7
     },
     "warning": "당월은 계약 후 신고가 추가될 수 있어 조기신호로 사용"
   },
@@ -427,13 +427,13 @@
     "region": "서울",
     "frequency": "weekly",
     "latest": {
-      "date": "20261116",
-      "value": 110.7703143225,
-      "display_value": "110.8",
-      "change_pct": 0.1
+      "date": "20261123",
+      "value": 110.8894042971,
+      "display_value": "110.9",
+      "change_pct": 0.11
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptPrcIndx",
-    "collected_at": "2026-11-26T04:35:11.957621+00:00",
+    "collected_at": "2026-11-27T04:39:02.745297+00:00",
     "history": [
       {
         "date": "20260810",
@@ -524,17 +524,23 @@
         "value": 110.7703143225,
         "display_value": "110.8",
         "change_pct": 0.1
+      },
+      {
+        "date": "20261123",
+        "value": 110.8894042971,
+        "display_value": "110.9",
+        "change_pct": 0.11
       }
     ],
     "momentum": {
-      "as_of": "20261116",
-      "index": 110.7703143225,
-      "four_week_base_date": "20261019",
-      "four_week_base_index": 110.2129540592,
-      "mom_4w_pct": 0.51,
-      "thirteen_week_base_date": "20260817",
-      "thirteen_week_base_index": 108.3763656274,
-      "mom_13w_pct": 2.21,
+      "as_of": "20261123",
+      "index": 110.8894042971,
+      "four_week_base_date": "20261026",
+      "four_week_base_index": 110.4023518335,
+      "mom_4w_pct": 0.44,
+      "thirteen_week_base_date": "20260824",
+      "thirteen_week_base_index": 108.649640611,
+      "mom_13w_pct": 2.06,
       "definition": "KB 서울 주간 매매가격지수 최신값 대비 4주/13주 전 변화율"
     },
     "momentum_source": "KB 서울 주간 아파트 매매가격지수"
@@ -545,13 +551,13 @@
     "region": "서울",
     "frequency": "weekly",
     "latest": {
-      "date": "20261116",
-      "value": 109.5357001726,
-      "display_value": "109.5",
-      "change_pct": 0.15
+      "date": "20261123",
+      "value": 109.7096798339,
+      "display_value": "109.7",
+      "change_pct": 0.16
     },
     "endpoint": "https://data-api.kbland.kr/bfmstat/statusBoard/weeklyAptYrpayPrcIndx",
-    "collected_at": "2026-11-26T04:35:12.469884+00:00"
+    "collected_at": "2026-11-27T04:39:03.362320+00:00"
   },
   "base_rate_official": {
     "status": "connected",
@@ -692,10 +698,10 @@
         "item": "한국은행 기준금리"
       }
     ],
-    "collected_at": "2026-11-26T04:35:13.039962+00:00"
+    "collected_at": "2026-11-27T04:39:07.525150+00:00"
   },
   "refresh_run": {
-    "attempted_at": "2026-11-26T04:35:34.403754+00:00",
+    "attempted_at": "2026-11-27T04:39:47.714284+00:00",
     "sources": {
       "molit": "connected",
       "ecos": "connected",
@@ -727,27 +733,27 @@
     "note": "국토교통부 2026년 7월 주택통계 공표값"
   },
   "signal_matched_period": {
-    "as_of": "2026-11-26",
+    "as_of": "2026-11-27",
     "basis": "completed_month_after_statutory_reporting_window",
     "reporting_window_days": 30,
     "current": {
       "period": "2026-09",
-      "total": 3538,
+      "total": 3543,
       "counts": {
-        "<=9eok": 1945,
+        "<=9eok": 1947,
         "9-15eok": 840,
-        "15-25eok": 519,
-        "25eok+": 234
+        "15-25eok": 521,
+        "25eok+": 235
       },
       "buckets3": {
-        "<=15eok": 2785,
-        "15-25eok": 519,
-        "25eok+": 234
+        "<=15eok": 2787,
+        "15-25eok": 521,
+        "25eok+": 235
       },
       "boundary_counts": {
-        "13-15eok": 207,
+        "13-15eok": 208,
         "15-17eok": 168,
-        "23-25eok": 57,
+        "23-25eok": 58,
         "25-27eok": 34
       },
       "under15_share": 78.7,
@@ -778,7 +784,7 @@
       "range": "full month"
     },
     "changes": {
-      "trade_count_pct": -4.5,
+      "trade_count_pct": -4.3,
       "under15_share_pp": -0.8
     },
     "warning": "당월·직전월 조기신고는 진단용이며 엔진 거래 신호는 신고기한이 경과한 최근 완성 월을 사용"
@@ -789,7 +795,7 @@
     "provisional": false,
     "basis": "statutory_reporting_window",
     "reporting_window_days": 30,
-    "as_of": "2026-11-26",
+    "as_of": "2026-11-27",
     "reason": "latest_full_month_reporting_window_elapsed",
     "signal_period": "2026-09",
     "previous_period": "2026-08",
@@ -961,17 +967,17 @@
     ],
     [
       "2026-09",
-      3538,
+      3543,
       false
     ],
     [
       "2026-10",
-      4219,
+      4449,
       false
     ],
     [
       "2026-11",
-      1638,
+      1777,
       true
     ]
   ],
