@@ -1,182 +1,182 @@
 {
   "status": "connected",
   "source": "KB부동산 데이터허브 statusBoard weeklyAptPrcIndx",
-  "date": "20261116",
+  "date": "20261123",
   "districts": [
     {
       "region": "강남구",
       "code": "1168000000",
-      "date": "20261116",
-      "index": 99.1461964552,
-      "change_pct": -0.15
+      "date": "20261123",
+      "index": 99.0058488808,
+      "change_pct": -0.14
     },
     {
       "region": "강동구",
       "code": "1174000000",
-      "date": "20261116",
-      "index": 110.6642898248,
+      "date": "20261123",
+      "index": 110.7668948401,
       "change_pct": 0.09
     },
     {
       "region": "강북구",
       "code": "1130500000",
-      "date": "20261116",
-      "index": 115.9324502957,
-      "change_pct": 0.47
+      "date": "20261123",
+      "index": 116.1306380821,
+      "change_pct": 0.17
     },
     {
       "region": "강서구",
       "code": "1150000000",
-      "date": "20261116",
-      "index": 117.4263264176,
-      "change_pct": 0.15
+      "date": "20261123",
+      "index": 117.6889735642,
+      "change_pct": 0.22
     },
     {
       "region": "관악구",
       "code": "1162000000",
-      "date": "20261116",
-      "index": 114.2837825099,
-      "change_pct": 0.18
+      "date": "20261123",
+      "index": 114.4029638162,
+      "change_pct": 0.1
     },
     {
       "region": "광진구",
       "code": "1121500000",
-      "date": "20261116",
-      "index": 110.0374769351,
-      "change_pct": 0.06
+      "date": "20261123",
+      "index": 110.1110107416,
+      "change_pct": 0.07
     },
     {
       "region": "구로구",
       "code": "1153000000",
-      "date": "20261116",
-      "index": 114.9114565662,
-      "change_pct": 0.25
+      "date": "20261123",
+      "index": 115.0508352949,
+      "change_pct": 0.12
     },
     {
       "region": "금천구",
       "code": "1154500000",
-      "date": "20261116",
-      "index": 107.3140719804,
-      "change_pct": 0.15
+      "date": "20261123",
+      "index": 107.3669833398,
+      "change_pct": 0.05
     },
     {
       "region": "노원구",
       "code": "1135000000",
-      "date": "20261116",
-      "index": 116.261673336,
-      "change_pct": 0.37
+      "date": "20261123",
+      "index": 116.5364716946,
+      "change_pct": 0.24
     },
     {
       "region": "도봉구",
       "code": "1132000000",
-      "date": "20261116",
-      "index": 110.2043787921,
-      "change_pct": 0.2
+      "date": "20261123",
+      "index": 110.5044632911,
+      "change_pct": 0.27
     },
     {
       "region": "동대문구",
       "code": "1123000000",
-      "date": "20261116",
-      "index": 117.4376587786,
-      "change_pct": 0.15
+      "date": "20261123",
+      "index": 117.5809014365,
+      "change_pct": 0.12
     },
     {
       "region": "동작구",
       "code": "1159000000",
-      "date": "20261116",
-      "index": 112.4621471413,
-      "change_pct": 0.18
+      "date": "20261123",
+      "index": 112.5209881797,
+      "change_pct": 0.05
     },
     {
       "region": "마포구",
       "code": "1144000000",
-      "date": "20261116",
-      "index": 108.9319852011,
-      "change_pct": 0.01
+      "date": "20261123",
+      "index": 108.9882837999,
+      "change_pct": 0.05
     },
     {
       "region": "서대문구",
       "code": "1141000000",
-      "date": "20261116",
-      "index": 114.4112435276,
-      "change_pct": 0.12
+      "date": "20261123",
+      "index": 114.7261159339,
+      "change_pct": 0.28
     },
     {
       "region": "서초구",
       "code": "1165000000",
-      "date": "20261116",
-      "index": 102.723166161,
-      "change_pct": -0.02
+      "date": "20261123",
+      "index": 102.7178673563,
+      "change_pct": -0.01
     },
     {
       "region": "성동구",
       "code": "1120000000",
-      "date": "20261116",
-      "index": 109.5094081073,
-      "change_pct": 0.01
+      "date": "20261123",
+      "index": 109.5585746104,
+      "change_pct": 0.04
     },
     {
       "region": "성북구",
       "code": "1129000000",
-      "date": "20261116",
-      "index": 119.4274821982,
-      "change_pct": 0.19
+      "date": "20261123",
+      "index": 119.7228231046,
+      "change_pct": 0.25
     },
     {
       "region": "송파구",
       "code": "1171000000",
-      "date": "20261116",
-      "index": 106.2458134047,
-      "change_pct": -0.22
+      "date": "20261123",
+      "index": 106.0619314156,
+      "change_pct": -0.17
     },
     {
       "region": "양천구",
       "code": "1147000000",
-      "date": "20261116",
-      "index": 106.8562294136,
-      "change_pct": 0.07
+      "date": "20261123",
+      "index": 106.9881072596,
+      "change_pct": 0.12
     },
     {
       "region": "영등포구",
       "code": "1156000000",
-      "date": "20261116",
-      "index": 112.783072323,
-      "change_pct": 0.05
+      "date": "20261123",
+      "index": 113.0802909559,
+      "change_pct": 0.26
     },
     {
       "region": "용산구",
       "code": "1117000000",
-      "date": "20261116",
-      "index": 104.9316388432,
+      "date": "20261123",
+      "index": 104.9231774113,
       "change_pct": -0.01
     },
     {
       "region": "은평구",
       "code": "1138000000",
-      "date": "20261116",
-      "index": 110.0917714152,
-      "change_pct": 0.15
+      "date": "20261123",
+      "index": 110.2262700078,
+      "change_pct": 0.12
     },
     {
       "region": "종로구",
       "code": "1111000000",
-      "date": "20261116",
-      "index": 111.637586342,
-      "change_pct": 0.11
+      "date": "20261123",
+      "index": 111.6949833399,
+      "change_pct": 0.05
     },
     {
       "region": "중구",
       "code": "1114000000",
-      "date": "20261116",
-      "index": 110.0376672902,
-      "change_pct": 0.01
+      "date": "20261123",
+      "index": 110.281899793,
+      "change_pct": 0.22
     },
     {
       "region": "중랑구",
       "code": "1126000000",
-      "date": "20261116",
-      "index": 115.0562507371,
-      "change_pct": 0.39
+      "date": "20261123",
+      "index": 115.5245238677,
+      "change_pct": 0.41
     }
   ],
   "groups": {
@@ -194,7 +194,7 @@
       "flat": 0,
       "down": 3,
       "up_share_pct": 0.0,
-      "median_change_pct": -0.15
+      "median_change_pct": -0.14
     },
     "non_gangnam3": {
       "count": 22,
@@ -202,15 +202,15 @@
       "flat": 0,
       "down": 1,
       "up_share_pct": 95.5,
-      "median_change_pct": 0.15
+      "median_change_pct": 0.12
     }
   },
   "songpa": {
     "region": "송파구",
     "code": "1171000000",
-    "date": "20261116",
-    "index": 106.2458134047,
-    "change_pct": -0.22
+    "date": "20261123",
+    "index": 106.0619314156,
+    "change_pct": -0.17
   },
-  "generated_at": "2026-11-20T20:09:56.774766+00:00"
+  "generated_at": "2026-11-27T21:16:13.667899+00:00"
 }
