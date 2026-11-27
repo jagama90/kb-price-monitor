@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-11-21",
-  "source_kb_collected_at": "2026-11-20T20:07:37+00:00",
+  "as_of": "2026-11-28",
+  "source_kb_collected_at": "2026-11-27T21:13:21+00:00",
   "items": [
     {
       "complex_id": 1960,
@@ -42,35 +42,35 @@
       "area_id": 51171,
       "name": "올림픽훼밀리타운",
       "type_label": "31B",
-      "general_price_manwon": 253500.0
+      "general_price_manwon": 250000.0
     },
     {
       "complex_id": 1985,
       "area_id": 1871,
       "name": "올림픽훼밀리타운",
       "type_label": "31A",
-      "general_price_manwon": 257000.0
+      "general_price_manwon": 253500.0
     },
     {
       "complex_id": 1985,
       "area_id": 94789,
       "name": "올림픽훼밀리타운",
       "type_label": "41",
-      "general_price_manwon": 272500.0
+      "general_price_manwon": 270000.0
     },
     {
       "complex_id": 1985,
       "area_id": 128799,
       "name": "올림픽훼밀리타운",
       "type_label": "48",
-      "general_price_manwon": 291500.0
+      "general_price_manwon": 288500.0
     },
     {
       "complex_id": 1985,
       "area_id": 153774,
       "name": "올림픽훼밀리타운",
       "type_label": "55",
-      "general_price_manwon": 325000.0
+      "general_price_manwon": 322500.0
     },
     {
       "complex_id": 1985,
@@ -91,35 +91,35 @@
       "area_id": 1173322,
       "name": "문정동 건영아파트",
       "type_label": "31A",
-      "general_price_manwon": 178000.0
+      "general_price_manwon": 178500.0
     },
     {
       "complex_id": 1986,
       "area_id": 51172,
       "name": "문정동 건영아파트",
       "type_label": "31B",
-      "general_price_manwon": 178000.0
+      "general_price_manwon": 178500.0
     },
     {
       "complex_id": 1986,
       "area_id": 1173323,
       "name": "문정동 건영아파트",
       "type_label": "31C",
-      "general_price_manwon": 178000.0
+      "general_price_manwon": 178500.0
     },
     {
       "complex_id": 1986,
       "area_id": 1173324,
       "name": "문정동 건영아파트",
       "type_label": "31D",
-      "general_price_manwon": 178000.0
+      "general_price_manwon": 178500.0
     },
     {
       "complex_id": 1986,
       "area_id": 1173325,
       "name": "문정동 건영아파트",
       "type_label": "31",
-      "general_price_manwon": 178000.0
+      "general_price_manwon": 178500.0
     },
     {
       "complex_id": 15738,
@@ -161,21 +161,21 @@
       "area_id": 15059,
       "name": "송파파인타운 7단지",
       "type_label": "34A",
-      "general_price_manwon": 190000.0
+      "general_price_manwon": 195000.0
     },
     {
       "complex_id": 15308,
       "area_id": 62880,
       "name": "송파파인타운 7단지",
       "type_label": "34TC",
-      "general_price_manwon": 190000.0
+      "general_price_manwon": 195000.0
     },
     {
       "complex_id": 15308,
       "area_id": 103241,
       "name": "송파파인타운 7단지",
       "type_label": "34TD",
-      "general_price_manwon": 185000.0
+      "general_price_manwon": 187500.0
     },
     {
       "complex_id": 15813,
@@ -217,14 +217,14 @@
       "area_id": 62634,
       "name": "송파파인타운 10단지",
       "type_label": "24A",
-      "general_price_manwon": 167500.0
+      "general_price_manwon": 170000.0
     },
     {
       "complex_id": 15041,
       "area_id": 103044,
       "name": "송파파인타운 10단지",
       "type_label": "25B",
-      "general_price_manwon": 167500.0
+      "general_price_manwon": 170000.0
     },
     {
       "complex_id": 1945,
@@ -560,21 +560,21 @@
       "area_id": 89945,
       "name": "송파시그니처롯데캐슬",
       "type_label": "25A",
-      "general_price_manwon": 181000.0
+      "general_price_manwon": 181500.0
     },
     {
       "complex_id": 46734,
       "area_id": 45465,
       "name": "송파시그니처롯데캐슬",
       "type_label": "25C",
-      "general_price_manwon": 181000.0
+      "general_price_manwon": 181500.0
     },
     {
       "complex_id": 46734,
       "area_id": 125083,
       "name": "송파시그니처롯데캐슬",
       "type_label": "25B",
-      "general_price_manwon": 181000.0
+      "general_price_manwon": 181500.0
     },
     {
       "complex_id": 46734,
@@ -910,21 +910,21 @@
       "area_id": 50959,
       "name": "행당한진타운",
       "type_label": "26",
-      "general_price_manwon": 161000.0
+      "general_price_manwon": 162500.0
     },
     {
       "complex_id": 1758,
       "area_id": 94627,
       "name": "행당한진타운",
       "type_label": "32",
-      "general_price_manwon": 185500.0
+      "general_price_manwon": 188000.0
     },
     {
       "complex_id": 1758,
       "area_id": 128675,
       "name": "행당한진타운",
       "type_label": "43",
-      "general_price_manwon": 191500.0
+      "general_price_manwon": 194000.0
     },
     {
       "complex_id": 1757,
@@ -1274,7 +1274,7 @@
       "area_id": 1068067,
       "name": "강남자곡아이파크",
       "type_label": "24A",
-      "general_price_manwon": 190000.0
+      "general_price_manwon": 192500.0
     },
     {
       "complex_id": 31944,

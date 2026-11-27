@@ -63,6 +63,7 @@
     "/land-complex/mpriInvtg/newDmndStusInfo",
     "/land-complex/mpriInvtg/newDmndOferDstic",
     "/land-price/price/pastPriceExcelDownloadCheck",
+    ");case 6:if(c=u.getBounds(),f=s||n.mapZoomLevel,l=c.getSW(),h=c.getNE(),d=c.getCenter(),n.mapParams.startLat=n.mapInterestParams.startLat=n.mapSchoolParams.startLat=n.mapPriceRegionParams[",
     "]=l.y,n.mapParams.startLng=n.mapInterestParams.startLng=n.mapSchoolParams.startLng=n.mapPriceRegionParams[",
     "]=l.x,n.mapParams.endLat=n.mapInterestParams.endLat=n.mapSchoolParams.endLat=n.mapPriceRegionParams[",
     "]=h.y,n.mapParams.endLng=n.mapInterestParams.endLng=n.mapSchoolParams.endLng=n.mapPriceRegionParams[",
@@ -100,5 +101,5 @@
     "/images/img_menu_villaprice.png",
     "/land-lots/lots/nghbMvihsHscmCmprInq"
   ],
-  "collected_at": "2026-11-20T20:09:21.781124+00:00"
+  "collected_at": "2026-11-27T21:15:38.933257+00:00"
 }
