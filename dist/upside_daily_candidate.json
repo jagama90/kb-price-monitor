@@ -130,7 +130,7 @@
     "status": "data_check",
     "reason": "daily MOLIT matched-period signal unavailable"
   },
-  "generated_at": "2026-11-28T04:24:52.558885+00:00",
+  "generated_at": "2026-11-28T05:29:49.009582+00:00",
   "lineage": {
     "certified_model": "dist/upside_probability_engine.json",
     "monthly_history": "dist/long_cycle_master.json",
