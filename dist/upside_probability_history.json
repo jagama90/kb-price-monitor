@@ -522,7 +522,7 @@
     },
     {
       "date": "2026-11-28",
-      "checked_at": "2026-11-28T05:29:49.086533+00:00",
+      "checked_at": "2026-11-28T08:05:31.101099+00:00",
       "status": "source_unchanged",
       "source_as_of": "20261019",
       "probabilities": {
@@ -2511,7 +2511,7 @@
     },
     {
       "date": "2026-11-28",
-      "checked_at": "2026-11-28T05:29:49.086533+00:00",
+      "checked_at": "2026-11-28T08:05:31.101099+00:00",
       "status": "data_check",
       "probabilities": null,
       "source_price_as_of": null,
